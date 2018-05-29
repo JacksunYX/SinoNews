@@ -42,7 +42,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(ScreenW * 9 / 16)
+    .heightIs(ScreenW * 9 / 16 + 10)
     ;
     [headView updateLayout];
     
@@ -54,8 +54,10 @@
     [headView setupUIWithImageUrls:imgs];
     
     headView.selectBlock = ^(NSInteger index) {
-        
+        NSLog(@"选择了下标为%ld的轮播图",index);
     };
+    
+    
 }
 
 

@@ -9,11 +9,14 @@
 
 #import <UIKit/UIKit.h>
 
+
 typedef void(^clickHandleBlock)(NSInteger index);
 
 @interface HeadBannerView : UIView
+
 @property (nonatomic,copy) clickHandleBlock selectBlock;
 
 -(void)setupUIWithImageUrls:(NSArray *)imgs;
+
 
 @end

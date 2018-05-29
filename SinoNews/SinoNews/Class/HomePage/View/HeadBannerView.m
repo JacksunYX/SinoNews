@@ -9,14 +9,16 @@
 #import "HeadBannerView.h"
 #import "NewPagedFlowView.h"
 #import "PGCustomBannerView.h"
+#import "LWDPageControl.h"
 
 @interface HeadBannerView ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource>
+//轮播图
+@property (nonatomic, strong) NewPagedFlowView *pageFlowView;
 
 //图片数组
 @property (nonatomic, strong) NSMutableArray *imageArray;
 
-//轮播图
-@property (nonatomic, strong) NewPagedFlowView *pageFlowView;
+@property (nonatomic, strong) LWDPageControl * pageControl;
 
 @end
 
@@ -25,7 +27,7 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self == [super initWithFrame:frame]) {
-        self.backgroundColor = RedColor;
+        self.backgroundColor = WhiteColor;
     }
     return self;
 }
@@ -50,14 +52,15 @@
     pageFlowView.topBottomMargin = 0;
     
     pageFlowView.orginPageCount = self.imageArray.count;
-    
-    
-    //初始化pageControl
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, pageFlowView.frame.size.height - 24, Width, 8)];
-    pageFlowView.pageControl = pageControl;
-    [pageFlowView addSubview:pageControl];
+
     [pageFlowView reloadData];
     [self addSubview:pageFlowView];
+    
+    //初始化pageControl
+    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 10, Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
+    _pageControl.numberOfPages = self.imageArray.count;
+    
+    [self addSubview:_pageControl];
     
     self.pageFlowView = pageFlowView;
     
@@ -67,12 +70,14 @@
 - (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
     
 //    NSLog(@"点击了第%ld张图",(long)subIndex + 1);
+    if (self.selectBlock) {
+        self.selectBlock(subIndex);
+    }
     
 }
 
 - (void)didScrollToPage:(NSInteger)pageNumber inFlowView:(NewPagedFlowView *)flowView {
-    
-//    NSLog(@"CustomViewController 滚动到了第%ld页",pageNumber);
+    _pageControl.currentPage = pageNumber;
 }
 
 //左右中间页显示大小为 Width - 50, (Width - 50) * 9 / 16

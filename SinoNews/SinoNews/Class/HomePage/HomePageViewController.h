@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  HomePageViewController.h
 //  SinoNews
 //
 //  Created by Michael on 2018/5/29.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface HomePageViewController : UIViewController
 
 @end
-

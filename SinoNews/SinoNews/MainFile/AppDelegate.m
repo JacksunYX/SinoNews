@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
+#import "MainTabbarVC.h"
 
 @interface AppDelegate ()
 
@@ -19,13 +19,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:[ViewController new]];
-    self.window.rootViewController = navi;
-    [self.window makeKeyAndVisible];
+    [self setMainVC];
     
     return YES;
 }
+
+//设置主界面内容
+-(void)setMainVC
+{
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    MainTabbarVC *mainVC = [MainTabbarVC new];
+    
+    self.window.rootViewController = mainVC;
+    
+    [self.window makeKeyAndVisible];
+}
+
+
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

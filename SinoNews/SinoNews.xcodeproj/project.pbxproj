@@ -8,13 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA020BCD893003EC4FC /* AppDelegate.m */; };
-		4C3F8FA420BCD893003EC4FC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA320BCD893003EC4FC /* ViewController.m */; };
 		4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA520BCD893003EC4FC /* Main.storyboard */; };
 		4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA820BCD894003EC4FC /* Assets.xcassets */; };
 		4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FAA20BCD894003EC4FC /* LaunchScreen.storyboard */; };
 		4C3F8FAF20BCD894003EC4FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FAE20BCD894003EC4FC /* main.m */; };
 		4C3F8FB920BCD895003EC4FC /* SinoNewsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FB820BCD895003EC4FC /* SinoNewsTests.m */; };
 		4C3F8FC420BCD895003EC4FC /* SinoNewsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FC320BCD895003EC4FC /* SinoNewsUITests.m */; };
+		4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FEC20BCEF09003EC4FC /* HomePageViewController.m */; };
+		4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FEF20BCEF1A003EC4FC /* AttentionViewController.m */; };
+		4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FF220BCEF27003EC4FC /* RankViewController.m */; };
+		4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FF520BCEF3C003EC4FC /* IntegralViewController.m */; };
+		4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FF820BCEF45003EC4FC /* MineViewController.m */; };
+		4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */; };
+		4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900020BCF7EB003EC4FC /* BaseViewController.m */; };
+		4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900320BCF802003EC4FC /* BaseTableView.m */; };
+		4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900820BCFA84003EC4FC /* UIColor+Hex.m */; };
+		4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900C20BCFC3F003EC4FC /* UIBarButtonItem+integration.m */; };
+		4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900F20BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m */; };
+		4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F901220BCFE8A003EC4FC /* UIButton+countDown.m */; };
+		4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F901A20BD006C003EC4FC /* UIImage+Util.m */; };
+		4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F901D20BD0190003EC4FC /* MainTabbarVC.m */; };
+		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
+		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
+		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,11 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.release.xcconfig"; sourceTree = "<group>"; };
+		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4C3F8FA220BCD893003EC4FC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4C3F8FA320BCD893003EC4FC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4C3F8FA620BCD893003EC4FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C3F8FA820BCD894003EC4FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C3F8FAB20BCD894003EC4FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +74,42 @@
 		4C3F8FE720BCE648003EC4FC /* RankingListNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingListNet.h; sourceTree = "<group>"; };
 		4C3F8FE820BCE65A003EC4FC /* IntegralNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegralNet.h; sourceTree = "<group>"; };
 		4C3F8FE920BCE664003EC4FC /* MineNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineNet.h; sourceTree = "<group>"; };
+		4C3F8FEB20BCEF09003EC4FC /* HomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
+		4C3F8FEC20BCEF09003EC4FC /* HomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
+		4C3F8FEE20BCEF1A003EC4FC /* AttentionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionViewController.h; sourceTree = "<group>"; };
+		4C3F8FEF20BCEF1A003EC4FC /* AttentionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionViewController.m; sourceTree = "<group>"; };
+		4C3F8FF120BCEF27003EC4FC /* RankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankViewController.h; sourceTree = "<group>"; };
+		4C3F8FF220BCEF27003EC4FC /* RankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankViewController.m; sourceTree = "<group>"; };
+		4C3F8FF420BCEF3C003EC4FC /* IntegralViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegralViewController.h; sourceTree = "<group>"; };
+		4C3F8FF520BCEF3C003EC4FC /* IntegralViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegralViewController.m; sourceTree = "<group>"; };
+		4C3F8FF720BCEF45003EC4FC /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		4C3F8FF820BCEF45003EC4FC /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		4C3F8FFC20BCF7D8003EC4FC /* BaseNavigationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationVC.h; sourceTree = "<group>"; };
+		4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationVC.m; sourceTree = "<group>"; };
+		4C3F8FFF20BCF7EB003EC4FC /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		4C3F900020BCF7EB003EC4FC /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		4C3F900220BCF802003EC4FC /* BaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
+		4C3F900320BCF802003EC4FC /* BaseTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
+		4C3F900720BCFA84003EC4FC /* UIColor+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		4C3F900820BCFA84003EC4FC /* UIColor+Hex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		4C3F900B20BCFC3F003EC4FC /* UIBarButtonItem+integration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+integration.h"; sourceTree = "<group>"; };
+		4C3F900C20BCFC3F003EC4FC /* UIBarButtonItem+integration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+integration.m"; sourceTree = "<group>"; };
+		4C3F900E20BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+ImageTitleSpacing.h"; sourceTree = "<group>"; };
+		4C3F900F20BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ImageTitleSpacing.m"; sourceTree = "<group>"; };
+		4C3F901120BCFE8A003EC4FC /* UIButton+countDown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
+		4C3F901220BCFE8A003EC4FC /* UIButton+countDown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
+		4C3F901720BCFF01003EC4FC /* ToolsHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolsHeader.h; sourceTree = "<group>"; };
+		4C3F901920BD006C003EC4FC /* UIImage+Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Util.h"; sourceTree = "<group>"; };
+		4C3F901A20BD006C003EC4FC /* UIImage+Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Util.m"; sourceTree = "<group>"; };
+		4C3F901C20BD0190003EC4FC /* MainTabbarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabbarVC.h; sourceTree = "<group>"; };
+		4C3F901D20BD0190003EC4FC /* MainTabbarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabbarVC.m; sourceTree = "<group>"; };
+		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
+		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
+		D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3E31EC7E2B3BA1E8939B8FC /* Pods-SinoNewsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNews.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +147,8 @@
 				4C3F8FB720BCD895003EC4FC /* SinoNewsTests */,
 				4C3F8FC220BCD895003EC4FC /* SinoNewsUITests */,
 				4C3F8F9D20BCD893003EC4FC /* Products */,
+				AD2679BAFEEEFCD841C6B2C5 /* Pods */,
+				D713DEE0ADA588400E4230AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,12 +165,10 @@
 		4C3F8F9E20BCD893003EC4FC /* SinoNews */ = {
 			isa = PBXGroup;
 			children = (
-				4C3F8FA220BCD893003EC4FC /* ViewController.h */,
-				4C3F8FA320BCD893003EC4FC /* ViewController.m */,
 				4C3F8FD520BCDC13003EC4FC /* ThirdFramwork */,
 				4C3F8FD420BCDC0C003EC4FC /* Class */,
 				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
-				4C3F8FD620BCDCAB003EC4FC /* OtherFile */,
+				4C3F8FD620BCDCAB003EC4FC /* DefinedFile */,
 				4C3F8FD120BCD9FB003EC4FC /* MainFile */,
 			);
 			path = SinoNews;
@@ -153,6 +208,7 @@
 		4C3F8FD420BCDC0C003EC4FC /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FFA20BCF792003EC4FC /* BaseClass */,
 				4C3F8FD820BCDDFE003EC4FC /* HomePage */,
 				4C3F8FD920BCDF5C003EC4FC /* Attention */,
 				4C3F8FDA20BCDF79003EC4FC /* RankingList */,
@@ -165,11 +221,12 @@
 		4C3F8FD520BCDC13003EC4FC /* ThirdFramwork */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F900620BCFA5D003EC4FC /* tools */,
 			);
 			path = ThirdFramwork;
 			sourceTree = "<group>";
 		};
-		4C3F8FD620BCDCAB003EC4FC /* OtherFile */ = {
+		4C3F8FD620BCDCAB003EC4FC /* DefinedFile */ = {
 			isa = PBXGroup;
 			children = (
 				4C3F8FD720BCDCE8003EC4FC /* BaseConfiguration.pch */,
@@ -180,12 +237,14 @@
 				4C3F8FE820BCE65A003EC4FC /* IntegralNet.h */,
 				4C3F8FE920BCE664003EC4FC /* MineNet.h */,
 			);
-			path = OtherFile;
+			path = DefinedFile;
 			sourceTree = "<group>";
 		};
 		4C3F8FD820BCDDFE003EC4FC /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FEB20BCEF09003EC4FC /* HomePageViewController.h */,
+				4C3F8FEC20BCEF09003EC4FC /* HomePageViewController.m */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -193,6 +252,8 @@
 		4C3F8FD920BCDF5C003EC4FC /* Attention */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FEE20BCEF1A003EC4FC /* AttentionViewController.h */,
+				4C3F8FEF20BCEF1A003EC4FC /* AttentionViewController.m */,
 			);
 			path = Attention;
 			sourceTree = "<group>";
@@ -200,6 +261,8 @@
 		4C3F8FDA20BCDF79003EC4FC /* RankingList */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FF120BCEF27003EC4FC /* RankViewController.h */,
+				4C3F8FF220BCEF27003EC4FC /* RankViewController.m */,
 			);
 			path = RankingList;
 			sourceTree = "<group>";
@@ -207,6 +270,8 @@
 		4C3F8FDB20BCDF99003EC4FC /* Integral */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FF420BCEF3C003EC4FC /* IntegralViewController.h */,
+				4C3F8FF520BCEF3C003EC4FC /* IntegralViewController.m */,
 			);
 			path = Integral;
 			sourceTree = "<group>";
@@ -214,8 +279,114 @@
 		4C3F8FDC20BCDFB5003EC4FC /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FF720BCEF45003EC4FC /* MineViewController.h */,
+				4C3F8FF820BCEF45003EC4FC /* MineViewController.m */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		4C3F8FFA20BCF792003EC4FC /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F900520BCF807003EC4FC /* BaseView */,
+				4C3F8FFB20BCF7AB003EC4FC /* BaseVC */,
+			);
+			path = BaseClass;
+			sourceTree = "<group>";
+		};
+		4C3F8FFB20BCF7AB003EC4FC /* BaseVC */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F8FFC20BCF7D8003EC4FC /* BaseNavigationVC.h */,
+				4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */,
+				4C3F8FFF20BCF7EB003EC4FC /* BaseViewController.h */,
+				4C3F900020BCF7EB003EC4FC /* BaseViewController.m */,
+				4C3F901C20BD0190003EC4FC /* MainTabbarVC.h */,
+				4C3F901D20BD0190003EC4FC /* MainTabbarVC.m */,
+			);
+			path = BaseVC;
+			sourceTree = "<group>";
+		};
+		4C3F900520BCF807003EC4FC /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F900220BCF802003EC4FC /* BaseTableView.h */,
+				4C3F900320BCF802003EC4FC /* BaseTableView.m */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
+		4C3F900620BCFA5D003EC4FC /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
+				4C3F901820BD0048003EC4FC /* UIImage */,
+				4C3F901620BCFEE3003EC4FC /* UIBarButton */,
+				4C3F901520BCFED1003EC4FC /* UIColor */,
+				4C3F901420BCFEC3003EC4FC /* UIButton */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
+		4C3F901420BCFEC3003EC4FC /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F900E20BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.h */,
+				4C3F900F20BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m */,
+				4C3F901120BCFE8A003EC4FC /* UIButton+countDown.h */,
+				4C3F901220BCFE8A003EC4FC /* UIButton+countDown.m */,
+			);
+			path = UIButton;
+			sourceTree = "<group>";
+		};
+		4C3F901520BCFED1003EC4FC /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F900720BCFA84003EC4FC /* UIColor+Hex.h */,
+				4C3F900820BCFA84003EC4FC /* UIColor+Hex.m */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		4C3F901620BCFEE3003EC4FC /* UIBarButton */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F900B20BCFC3F003EC4FC /* UIBarButtonItem+integration.h */,
+				4C3F900C20BCFC3F003EC4FC /* UIBarButtonItem+integration.m */,
+			);
+			path = UIBarButton;
+			sourceTree = "<group>";
+		};
+		4C3F901820BD0048003EC4FC /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F901920BD006C003EC4FC /* UIImage+Util.h */,
+				4C3F901A20BD006C003EC4FC /* UIImage+Util.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */,
+				1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */,
+				E3E31EC7E2B3BA1E8939B8FC /* Pods-SinoNewsTests.debug.xcconfig */,
+				C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */,
+				77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */,
+				F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D713DEE0ADA588400E4230AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */,
+				4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */,
+				D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,9 +396,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C3F8FC820BCD895003EC4FC /* Build configuration list for PBXNativeTarget "SinoNews" */;
 			buildPhases = (
+				4E72CAB11E2387F5786FF82B /* [CP] Check Pods Manifest.lock */,
 				4C3F8F9820BCD893003EC4FC /* Sources */,
 				4C3F8F9920BCD893003EC4FC /* Frameworks */,
 				4C3F8F9A20BCD893003EC4FC /* Resources */,
+				E1134CE6230C2E832CFD1362 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -242,6 +415,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C3F8FCB20BCD895003EC4FC /* Build configuration list for PBXNativeTarget "SinoNewsTests" */;
 			buildPhases = (
+				F8AD8C33F9EF23C5DF9CA1BC /* [CP] Check Pods Manifest.lock */,
 				4C3F8FB020BCD895003EC4FC /* Sources */,
 				4C3F8FB120BCD895003EC4FC /* Frameworks */,
 				4C3F8FB220BCD895003EC4FC /* Resources */,
@@ -260,6 +434,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C3F8FCE20BCD895003EC4FC /* Build configuration list for PBXNativeTarget "SinoNewsUITests" */;
 			buildPhases = (
+				3D0D944D6540DDB60107BD9F /* [CP] Check Pods Manifest.lock */,
 				4C3F8FBB20BCD895003EC4FC /* Sources */,
 				4C3F8FBC20BCD895003EC4FC /* Frameworks */,
 				4C3F8FBD20BCD895003EC4FC /* Resources */,
@@ -343,14 +518,102 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D0D944D6540DDB60107BD9F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SinoNewsUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E72CAB11E2387F5786FF82B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SinoNews-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1134CE6230C2E832CFD1362 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8AD8C33F9EF23C5DF9CA1BC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SinoNewsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4C3F8F9820BCD893003EC4FC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C3F8FA420BCD893003EC4FC /* ViewController.m in Sources */,
+				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
+				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
+				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
+				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
+				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
+				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
+				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
+				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
+				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
+				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
+				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
+				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
+				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
+				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,12 +780,13 @@
 		};
 		4C3F8FC920BCD895003EC4FC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/OtherFile/BaseConfiguration.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -537,12 +801,13 @@
 		};
 		4C3F8FCA20BCD895003EC4FC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/OtherFile/BaseConfiguration.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -557,6 +822,7 @@
 		};
 		4C3F8FCC20BCD895003EC4FC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3E31EC7E2B3BA1E8939B8FC /* Pods-SinoNewsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -575,6 +841,7 @@
 		};
 		4C3F8FCD20BCD895003EC4FC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -593,6 +860,7 @@
 		};
 		4C3F8FCF20BCD895003EC4FC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsUITests/Info.plist;
@@ -610,6 +878,7 @@
 		};
 		4C3F8FD020BCD895003EC4FC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsUITests/Info.plist;

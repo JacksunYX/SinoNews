@@ -53,14 +53,15 @@
 //背景色
 #define BACKGROUND_COLOR [UIColor colorWithRed:242.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]
 
-//清除背景色
-#define CLEARCOLOR [UIColor clearColor]
-
 //16进制颜色
 #define HexColor(hexstring) [UIColor colorWithHexString:@#hexstring]
 
 //随机色
 #define Arc4randomColor RGB(arc4random_uniform(256),arc4random_uniform(256),arc4random_uniform(256))
+
+#define kWhite(x) [UIColor colorWithWhite:x alpha:1.0f]
+
+
 
 //从网络plist文件中查找相对应的字段请求地址
 #define NetRequestUrl(key) [[[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"NetRequestUrl" ofType:@"plist"]] objectForKey:@#key]
@@ -212,9 +213,8 @@
 #define IMAGE(A) [UIImage imageWithContentsOfFile:［NSBundle mainBundle] pathForResource:A ofType:nil］
 
 //定义UIImage对象
-#define ImageNamed(_pointer) [UIImage imageNamed:[UIUtil imageName:_pointer］
-
 #define UIImageNamed(imageName) [UIImage imageNamed:imageName]
+
 //建议使用前两种宏定义,性能高于后者
 //----------------------图片----------------------------
 
@@ -436,7 +436,11 @@ kWindow.userInteractionEnabled = YES;\
 
 
 //文件引入
+//接口
 #import "NetQuestList.h"
+
+//工具类
+#import "ToolsHeader.h"
 
 
 

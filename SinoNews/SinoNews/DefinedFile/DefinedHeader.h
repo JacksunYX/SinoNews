@@ -101,7 +101,7 @@
 
 #define LRWeakSelf(type)  __weak typeof(type) weak##type = type;
 #define LRStrongSelf(type)  __strong typeof(type) type = weak##type;
-
+#define WeakSelf __weak typeof(self) weakSelf = self;
 
 //-------------------弱引用/强引用-------------------------
 
@@ -229,6 +229,7 @@
 
 #define Font(F) [UIFont systemFontOfSize:F]
 
+#define BoldFont(F) [UIFont boldSystemFontOfSize:F]
 
 //定义一个API
 #define APIURL @"http://xxxxx/"

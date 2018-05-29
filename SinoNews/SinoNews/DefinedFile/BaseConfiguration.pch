@@ -11,6 +11,9 @@
 #ifndef BaseConfiguration_pch
 #define BaseConfiguration_pch
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 //通用宏
 #import "DefinedHeader.h"
 

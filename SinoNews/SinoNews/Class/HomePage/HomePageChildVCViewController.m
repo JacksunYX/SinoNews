@@ -8,6 +8,8 @@
 
 #import "HomePageChildVCViewController.h"
 
+#import "HeadBannerView.h"
+
 @interface HomePageChildVCViewController ()
 
 @end
@@ -16,22 +18,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self testBanner];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//测试轮播图
+-(void)testBanner
+{
+    if (self.index != 0) {
+        return;
+    }
+    
+    HeadBannerView *headView = [HeadBannerView new];
+    
+    [self.view addSubview:headView];
+    
+    headView.sd_layout
+    .topEqualToView(self.view)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .heightIs(ScreenW * 9 / 16)
+    ;
+    [headView updateLayout];
+    
+    NSMutableArray *imgs = [NSMutableArray new];
+    for (int i = 0; i < 4; i ++) {
+        NSString *imgStr = [NSString stringWithFormat:@"banner%d",i];
+        [imgs addObject:imgStr];
+    }
+    [headView setupUIWithImageUrls:imgs];
+    
+    headView.selectBlock = ^(NSInteger index) {
+        
+    };
 }
-*/
+
+
 
 @end

@@ -13,6 +13,7 @@
 #import "UIButton+ImageTitleSpacing.h"
 #import "UIBarButtonItem+integration.h"
 #import "UIImage+Util.h"
+#import "YXHeader.h"
 
 
 #endif /* ToolsHeader_h */

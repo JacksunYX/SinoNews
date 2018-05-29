@@ -109,7 +109,7 @@
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
     
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame)) vcOrViews:[self vcArr:self.titleList.count]];
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self vcArr:self.titleList.count]];
     
     WEAK(weakself, self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{

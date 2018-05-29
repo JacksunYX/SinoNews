@@ -34,6 +34,12 @@
 		4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F902420BD1CD6003EC4FC /* MLMSegmentScroll.m */; };
 		4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F902520BD1CD6003EC4FC /* UIView+EasyFrame.m */; };
 		4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F903320BD1EB7003EC4FC /* HomePageChildVCViewController.m */; };
+		4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F903620BD2D10003EC4FC /* YXHeader.m */; };
+		4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F903A20BD2EDF003EC4FC /* HttpRequest.m */; };
+		4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F903D20BD40BA003EC4FC /* PGCustomBannerView.m */; };
+		4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904120BD40D7003EC4FC /* PGIndexBannerSubiew.m */; };
+		4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904220BD40D7003EC4FC /* NewPagedFlowView.m */; };
+		4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904820BD4177003EC4FC /* HeadBannerView.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -123,6 +129,18 @@
 		4C3F903120BD1D23003EC4FC /* DefinedHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefinedHeader.h; sourceTree = "<group>"; };
 		4C3F903220BD1EB7003EC4FC /* HomePageChildVCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageChildVCViewController.h; sourceTree = "<group>"; };
 		4C3F903320BD1EB7003EC4FC /* HomePageChildVCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageChildVCViewController.m; sourceTree = "<group>"; };
+		4C3F903520BD2D10003EC4FC /* YXHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXHeader.h; sourceTree = "<group>"; };
+		4C3F903620BD2D10003EC4FC /* YXHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXHeader.m; sourceTree = "<group>"; };
+		4C3F903920BD2EDF003EC4FC /* HttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpRequest.h; sourceTree = "<group>"; };
+		4C3F903A20BD2EDF003EC4FC /* HttpRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpRequest.m; sourceTree = "<group>"; };
+		4C3F903D20BD40BA003EC4FC /* PGCustomBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCustomBannerView.m; sourceTree = "<group>"; };
+		4C3F903E20BD40BA003EC4FC /* PGCustomBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCustomBannerView.h; sourceTree = "<group>"; };
+		4C3F904120BD40D7003EC4FC /* PGIndexBannerSubiew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGIndexBannerSubiew.m; sourceTree = "<group>"; };
+		4C3F904220BD40D7003EC4FC /* NewPagedFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPagedFlowView.m; sourceTree = "<group>"; };
+		4C3F904320BD40D7003EC4FC /* PGIndexBannerSubiew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGIndexBannerSubiew.h; sourceTree = "<group>"; };
+		4C3F904420BD40D7003EC4FC /* NewPagedFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPagedFlowView.h; sourceTree = "<group>"; };
+		4C3F904720BD4177003EC4FC /* HeadBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadBannerView.h; sourceTree = "<group>"; };
+		4C3F904820BD4177003EC4FC /* HeadBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadBannerView.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -185,9 +203,10 @@
 		4C3F8F9E20BCD893003EC4FC /* SinoNews */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
+				4C3F903820BD2EBF003EC4FC /* NetworkRequest */,
 				4C3F8FD520BCDC13003EC4FC /* ThirdFramwork */,
 				4C3F8FD420BCDC0C003EC4FC /* Class */,
-				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
 				4C3F8FD620BCDCAB003EC4FC /* DefinedFile */,
 				4C3F8FD120BCD9FB003EC4FC /* MainFile */,
 			);
@@ -269,6 +288,7 @@
 				4C3F8FEC20BCEF09003EC4FC /* HomePageViewController.m */,
 				4C3F903220BD1EB7003EC4FC /* HomePageChildVCViewController.h */,
 				4C3F903320BD1EB7003EC4FC /* HomePageChildVCViewController.m */,
+				4C3F903C20BD4092003EC4FC /* View */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -344,6 +364,8 @@
 			isa = PBXGroup;
 			children = (
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
+				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
+				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
 				4C3F901820BD0048003EC4FC /* UIImage */,
 				4C3F901620BCFEE3003EC4FC /* UIBarButton */,
 				4C3F901520BCFED1003EC4FC /* UIColor */,
@@ -393,6 +415,7 @@
 		4C3F901F20BD1C5D003EC4FC /* otherframework */ = {
 			isa = PBXGroup;
 			children = (
+				4C3F904020BD40D7003EC4FC /* NewPagedFlowView */,
 				4C3F902020BD1CD6003EC4FC /* MLMSegmentPageView */,
 			);
 			path = otherframework;
@@ -414,6 +437,37 @@
 				4C3F902B20BD1CD6003EC4FC /* MLMSegmentScroll.h */,
 			);
 			path = MLMSegmentPageView;
+			sourceTree = "<group>";
+		};
+		4C3F903820BD2EBF003EC4FC /* NetworkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F903920BD2EDF003EC4FC /* HttpRequest.h */,
+				4C3F903A20BD2EDF003EC4FC /* HttpRequest.m */,
+			);
+			path = NetworkRequest;
+			sourceTree = "<group>";
+		};
+		4C3F903C20BD4092003EC4FC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F904720BD4177003EC4FC /* HeadBannerView.h */,
+				4C3F904820BD4177003EC4FC /* HeadBannerView.m */,
+				4C3F903E20BD40BA003EC4FC /* PGCustomBannerView.h */,
+				4C3F903D20BD40BA003EC4FC /* PGCustomBannerView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4C3F904020BD40D7003EC4FC /* NewPagedFlowView */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F904120BD40D7003EC4FC /* PGIndexBannerSubiew.m */,
+				4C3F904320BD40D7003EC4FC /* PGIndexBannerSubiew.h */,
+				4C3F904420BD40D7003EC4FC /* NewPagedFlowView.h */,
+				4C3F904220BD40D7003EC4FC /* NewPagedFlowView.m */,
+			);
+			path = NewPagedFlowView;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -649,11 +703,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
+				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
+				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
+				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
+				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
@@ -661,6 +719,7 @@
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
+				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
@@ -669,6 +728,7 @@
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
+				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

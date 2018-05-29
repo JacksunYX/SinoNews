@@ -129,6 +129,10 @@
 
 //根据屏幕宽度比例计算当前宽度，或根据宽高比计算实际高度
 #define kScaelW(x) (ScreenW * x/375)
+//宽度比例
+#define ScaleW (ScreenW/375.0)
+//根据屏幕宽度调整字体比例
+#define FontScale(f) Font(ScaleW * f)
 
 //-------------------获取设备大小-------------------------
 

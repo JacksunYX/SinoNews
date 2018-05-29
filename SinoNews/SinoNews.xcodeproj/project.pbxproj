@@ -41,6 +41,10 @@
 		4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904220BD40D7003EC4FC /* NewPagedFlowView.m */; };
 		4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904820BD4177003EC4FC /* HeadBannerView.m */; };
 		4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904B20BD58C8003EC4FC /* LWDPageControl.m */; };
+		4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F904E20BD7048003EC4FC /* HomePageFirstKindCell.m */; };
+		4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */; };
+		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
+		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -144,6 +148,14 @@
 		4C3F904820BD4177003EC4FC /* HeadBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadBannerView.m; sourceTree = "<group>"; };
 		4C3F904A20BD58C8003EC4FC /* LWDPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWDPageControl.h; sourceTree = "<group>"; };
 		4C3F904B20BD58C8003EC4FC /* LWDPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWDPageControl.m; sourceTree = "<group>"; };
+		4C3F904D20BD7048003EC4FC /* HomePageFirstKindCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFirstKindCell.h; sourceTree = "<group>"; };
+		4C3F904E20BD7048003EC4FC /* HomePageFirstKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFirstKindCell.m; sourceTree = "<group>"; };
+		4C3F905020BD7075003EC4FC /* HomePageSecondKindCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageSecondKindCell.h; sourceTree = "<group>"; };
+		4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageSecondKindCell.m; sourceTree = "<group>"; };
+		4C3F905320BD7082003EC4FC /* HomePageThirdKindCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageThirdKindCell.h; sourceTree = "<group>"; };
+		4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageThirdKindCell.m; sourceTree = "<group>"; };
+		4C3F905720BD7102003EC4FC /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
+		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -291,6 +303,7 @@
 				4C3F8FEC20BCEF09003EC4FC /* HomePageViewController.m */,
 				4C3F903220BD1EB7003EC4FC /* HomePageChildVCViewController.h */,
 				4C3F903320BD1EB7003EC4FC /* HomePageChildVCViewController.m */,
+				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
 			path = HomePage;
@@ -458,6 +471,12 @@
 				4C3F904820BD4177003EC4FC /* HeadBannerView.m */,
 				4C3F903E20BD40BA003EC4FC /* PGCustomBannerView.h */,
 				4C3F903D20BD40BA003EC4FC /* PGCustomBannerView.m */,
+				4C3F904D20BD7048003EC4FC /* HomePageFirstKindCell.h */,
+				4C3F904E20BD7048003EC4FC /* HomePageFirstKindCell.m */,
+				4C3F905020BD7075003EC4FC /* HomePageSecondKindCell.h */,
+				4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */,
+				4C3F905320BD7082003EC4FC /* HomePageThirdKindCell.h */,
+				4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -473,6 +492,15 @@
 				4C3F904B20BD58C8003EC4FC /* LWDPageControl.m */,
 			);
 			path = NewPagedFlowView;
+			sourceTree = "<group>";
+		};
+		4C3F905620BD70E8003EC4FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C3F905720BD7102003EC4FC /* HomePageModel.h */,
+				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -708,6 +736,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
+				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
@@ -723,6 +752,7 @@
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
+				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
@@ -731,6 +761,8 @@
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
+				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
+				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,

@@ -8,11 +8,36 @@
 
 #import "HomePageViewController.h"
 
+#import "HomePageChildVCViewController.h"
+
 @interface HomePageViewController ()
+
+@property (nonatomic, strong) MLMSegmentHead *segHead;
+@property (nonatomic, strong) MLMSegmentScroll *segScroll;
+
+@property (nonatomic, strong) NSMutableArray *titleList;
 
 @end
 
 @implementation HomePageViewController
+
+-(NSMutableArray *)titleList
+{
+    if (!_titleList) {
+        _titleList = [NSMutableArray arrayWithObjects:
+                      @"最新",
+                      @"视频",
+                      @"游戏",
+                      @"娱乐",
+                      @"测试测试测试",
+                      @"体育",
+                      @"电子",
+                      
+                      nil];
+        
+    }
+    return _titleList;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -20,8 +45,108 @@
     self.navigationItem.title = @"首页";
     
     self.view.backgroundColor = WhiteColor;
+    
+    [self addNavigationView];
+    
+    [self setSegmentAndChildVC];
+    
 }
 
+//修改导航栏显示
+-(void)addNavigationView
+{
+    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 34)];
+
+    searchBar.placeholder = @"热门搜索";
+    
+    for (UIView *view in searchBar.subviews.lastObject.subviews) {
+        if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+            UITextField *textField = (UITextField *)view;
+            //设置输入框的背景颜色
+            textField.clipsToBounds = YES;
+            textField.backgroundColor = HexColor(#EEEEEE);
+            //设置输入框边框的圆角以及颜色
+            textField.layer.cornerRadius = 17.0f;
+            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
+            textField.layer.borderWidth = 1;
+            //设置输入字体颜色
+            textField.textColor = BlueColor;
+            //设置默认文字颜色
+            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{NSForegroundColorAttributeName:HexColor(#AEAEAE)}];
+        }
+        if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
+//            UIButton *cancel = (UIButton *)view;
+//            [cancel setTitle:@"取消" forState:UIControlStateNormal];
+           
+        }
+    }
+    
+    self.navigationItem.titleView = searchBar;
+    
+    UIButton *userIcon = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 34, 34)];
+    userIcon.backgroundColor = GrayColor;
+    LRViewBorderRadius(userIcon, 17, 0, HexColor(#B5B5B5));
+    [userIcon addTarget:self action:@selector(userIconTouch:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:userIcon];
+}
+
+-(void)userIconTouch:(UIButton *)btn
+{
+    NSLog(@"头像被点击了");
+}
+
+//设置下方分页联动
+-(void)setSegmentAndChildVC
+{
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:self.titleList headStyle:1 layoutStyle:2];
+//    _segHead.fontScale = .85;
+    _segHead.lineScale = 0.8;
+    _segHead.fontSize = 16;
+    _segHead.lineHeight = 3;
+    _segHead.lineColor = HexColor(#1282EE);
+    _segHead.selectColor = HexColor(#1282EE);
+    _segHead.deSelectColor = HexColor(#7B7B7B);
+    _segHead.maxTitles = 7;
+    _segHead.bottomLineHeight = 0;
+    
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame)) vcOrViews:[self vcArr:self.titleList.count]];
+    
+    WEAK(weakself, self);
+    [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
+        [weakself.view addSubview:weakself.segHead];
+        [weakself.view addSubview:weakself.segScroll];
+    }];
+    
+    //添加更多按钮
+    UIButton *moreBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+    
+    [moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:moreBtn];
+    
+    [moreBtn activateConstraints:^{
+        moreBtn.right_attr = weakself.view.right_attr_safe;
+        moreBtn.top_attr = weakself.view.top_attr_safe;
+        moreBtn.width_attr.constant = 40;
+        moreBtn.height_attr.constant = 40;
+    }];
+    [moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
+}
+
+-(void)more:(UIButton *)btn
+{
+    NSLog(@"点击了更多按钮");
+}
+
+- (NSArray *)vcArr:(NSInteger)count {
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSInteger i = 0; i < count; i ++) {
+        HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
+        vc.index = i;
+        [arr addObject:vc];
+    }
+    return arr;
+}
 
 
 - (void)didReceiveMemoryWarning {

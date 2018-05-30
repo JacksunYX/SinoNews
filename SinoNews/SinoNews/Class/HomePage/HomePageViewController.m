@@ -7,8 +7,9 @@
 //
 
 #import "HomePageViewController.h"
-#import "XLChannelControl.h"
+#import "XLChannelControl.h"        //频道管理页面
 #import "HomePageChildVCViewController.h"
+#import "SearchViewController.h"    //搜索页面
 
 @interface HomePageViewController ()
 
@@ -58,10 +59,6 @@
     [self addNavigationView];
     
     [self reloadChildVCWithTitles:self.titleList];
-
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-    tap.numberOfTapsRequired = 1;
-    [self.view addGestureRecognizer:tap];
     
 }
 
@@ -86,6 +83,10 @@
             textField.textColor = BlueColor;
             //设置默认文字颜色
             textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{NSForegroundColorAttributeName:HexColor(#AEAEAE)}];
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+            tap.numberOfTapsRequired = 1;
+            [textField addGestureRecognizer:tap];
         }
         if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
             //            UIButton *cancel = (UIButton *)view;
@@ -93,6 +94,8 @@
             
         }
     }
+    
+    
     
     self.navigationItem.titleView = self.searchBar;
     
@@ -184,7 +187,10 @@
 -(void)tap:(UITapGestureRecognizer *)gesture
 {
     [self.searchBar resignFirstResponder];
+    SearchViewController *sVC = [SearchViewController new];
+    [self.navigationController pushViewController:sVC animated:NO];
 }
+
 
 
 - (void)didReceiveMemoryWarning {

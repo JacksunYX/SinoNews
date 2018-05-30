@@ -52,6 +52,9 @@
 		4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8735F220BE8CC700B6A8B5 /* delete@2x.png */; };
 		4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8735F320BE8CC700B6A8B5 /* delete@3x.png */; };
 		4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */; };
+		4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */; };
+		4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */; };
+		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -175,6 +178,12 @@
 		4C8735F320BE8CC700B6A8B5 /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
 		4C8735FB20BE92BD00B6A8B5 /* NSArray+compare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+compare.h"; sourceTree = "<group>"; };
 		4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+compare.m"; sourceTree = "<group>"; };
+		4C8735FE20BE9F4600B6A8B5 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		4C87360120BEAB4F00B6A8B5 /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
+		4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
+		4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHeadReusableView.h; sourceTree = "<group>"; };
+		4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHeadReusableView.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -322,6 +331,8 @@
 				4C3F8FEC20BCEF09003EC4FC /* HomePageViewController.m */,
 				4C3F903220BD1EB7003EC4FC /* HomePageChildVCViewController.h */,
 				4C3F903320BD1EB7003EC4FC /* HomePageChildVCViewController.m */,
+				4C8735FE20BE9F4600B6A8B5 /* SearchViewController.h */,
+				4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */,
 				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
@@ -498,6 +509,10 @@
 				4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */,
 				4C3F905320BD7082003EC4FC /* HomePageThirdKindCell.h */,
 				4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */,
+				4C87360120BEAB4F00B6A8B5 /* SearchCollectionViewCell.h */,
+				4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */,
+				4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */,
+				4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -787,6 +802,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
+				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
+				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
@@ -800,6 +817,7 @@
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
+				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,

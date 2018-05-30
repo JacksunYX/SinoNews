@@ -45,6 +45,13 @@
 		4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */; };
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
+		4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */; };
+		4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735EE20BE8CC700B6A8B5 /* XLChannelHeader.m */; };
+		4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735EF20BE8CC700B6A8B5 /* XLChannelView.m */; };
+		4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735F120BE8CC700B6A8B5 /* XLChannelItem.m */; };
+		4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8735F220BE8CC700B6A8B5 /* delete@2x.png */; };
+		4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C8735F320BE8CC700B6A8B5 /* delete@3x.png */; };
+		4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -156,6 +163,18 @@
 		4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageThirdKindCell.m; sourceTree = "<group>"; };
 		4C3F905720BD7102003EC4FC /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
+		4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChannelControl.m; sourceTree = "<group>"; };
+		4C8735EB20BE8CC700B6A8B5 /* XLChannelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelView.h; sourceTree = "<group>"; };
+		4C8735EC20BE8CC700B6A8B5 /* XLChannelHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelHeader.h; sourceTree = "<group>"; };
+		4C8735ED20BE8CC700B6A8B5 /* XLChannelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelItem.h; sourceTree = "<group>"; };
+		4C8735EE20BE8CC700B6A8B5 /* XLChannelHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChannelHeader.m; sourceTree = "<group>"; };
+		4C8735EF20BE8CC700B6A8B5 /* XLChannelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChannelView.m; sourceTree = "<group>"; };
+		4C8735F020BE8CC700B6A8B5 /* XLChannelControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelControl.h; sourceTree = "<group>"; };
+		4C8735F120BE8CC700B6A8B5 /* XLChannelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChannelItem.m; sourceTree = "<group>"; };
+		4C8735F220BE8CC700B6A8B5 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
+		4C8735F320BE8CC700B6A8B5 /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
+		4C8735FB20BE92BD00B6A8B5 /* NSArray+compare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+compare.h"; sourceTree = "<group>"; };
+		4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+compare.m"; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -382,6 +401,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4C8735FA20BE927B00B6A8B5 /* NSArray */,
 				4C3F901820BD0048003EC4FC /* UIImage */,
 				4C3F901620BCFEE3003EC4FC /* UIBarButton */,
 				4C3F901520BCFED1003EC4FC /* UIColor */,
@@ -431,6 +451,7 @@
 		4C3F901F20BD1C5D003EC4FC /* otherframework */ = {
 			isa = PBXGroup;
 			children = (
+				4C8735E920BE8CC700B6A8B5 /* XLChannelControl */,
 				4C3F904020BD40D7003EC4FC /* NewPagedFlowView */,
 				4C3F902020BD1CD6003EC4FC /* MLMSegmentPageView */,
 			);
@@ -501,6 +522,32 @@
 				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4C8735E920BE8CC700B6A8B5 /* XLChannelControl */ = {
+			isa = PBXGroup;
+			children = (
+				4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */,
+				4C8735EB20BE8CC700B6A8B5 /* XLChannelView.h */,
+				4C8735EC20BE8CC700B6A8B5 /* XLChannelHeader.h */,
+				4C8735ED20BE8CC700B6A8B5 /* XLChannelItem.h */,
+				4C8735EE20BE8CC700B6A8B5 /* XLChannelHeader.m */,
+				4C8735EF20BE8CC700B6A8B5 /* XLChannelView.m */,
+				4C8735F020BE8CC700B6A8B5 /* XLChannelControl.h */,
+				4C8735F120BE8CC700B6A8B5 /* XLChannelItem.m */,
+				4C8735F220BE8CC700B6A8B5 /* delete@2x.png */,
+				4C8735F320BE8CC700B6A8B5 /* delete@3x.png */,
+			);
+			path = XLChannelControl;
+			sourceTree = "<group>";
+		};
+		4C8735FA20BE927B00B6A8B5 /* NSArray */ = {
+			isa = PBXGroup;
+			children = (
+				4C8735FB20BE92BD00B6A8B5 /* NSArray+compare.h */,
+				4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */,
+			);
+			path = NSArray;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -634,6 +681,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
+				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
+				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
 			);
@@ -738,6 +787,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
+				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
+				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
@@ -746,9 +797,11 @@
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
+				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
+				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
@@ -767,6 +820,7 @@
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
+				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,

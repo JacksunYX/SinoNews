@@ -13,6 +13,7 @@
 #import "UIButton+ImageTitleSpacing.h"
 #import "UIBarButtonItem+integration.h"
 #import "UIImage+Util.h"
+#import "NSArray+compare.h"
 #import "YXHeader.h"
 
 

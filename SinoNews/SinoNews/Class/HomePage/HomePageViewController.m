@@ -7,7 +7,7 @@
 //
 
 #import "HomePageViewController.h"
-
+#import "XLChannelControl.h"
 #import "HomePageChildVCViewController.h"
 
 @interface HomePageViewController ()
@@ -16,6 +16,7 @@
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *titleList;
+@property (nonatomic, strong) NSMutableArray *leaveTitleList;
 
 @end
 
@@ -29,7 +30,7 @@
                       @"视频",
                       @"游戏",
                       @"娱乐",
-                      @"测试测试测试",
+                      @"测试一下",
                       @"体育",
                       @"电子",
                       
@@ -37,6 +38,14 @@
         
     }
     return _titleList;
+}
+
+-(NSMutableArray *)leaveTitleList
+{
+    if (!_leaveTitleList) {
+        _leaveTitleList = [NSMutableArray new];
+    }
+    return _leaveTitleList;
 }
 
 - (void)viewDidLoad {
@@ -48,7 +57,7 @@
     
     [self addNavigationView];
     
-    [self setSegmentAndChildVC];
+    [self reloadChildVCWithTitles:self.titleList];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
     tap.numberOfTapsRequired = 1;
@@ -100,8 +109,9 @@
 }
 
 //设置下方分页联动
--(void)setSegmentAndChildVC
+-(void)reloadChildVCWithTitles:(NSArray *)titles
 {
+    self.titleList = [titles mutableCopy];
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:self.titleList headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.8;
@@ -137,9 +147,28 @@
     [moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
 }
 
+//全部频道
 -(void)more:(UIButton *)btn
 {
-    NSLog(@"点击了更多按钮");
+    WeakSelf
+    [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
+        NSLog(@"返回标题数组");
+        //看是否并没有改变数组
+        if ([NSArray compareArr:inUseTitles another:self.titleList]) {
+            
+        }else{
+//            [weakSelf reloadChildVCWithTitles:inUseTitles];
+            weakSelf.titleList = [inUseTitles mutableCopy];
+            [weakSelf.segHead changeTitle:inUseTitles];
+            weakSelf.leaveTitleList = [unUseTitles mutableCopy];
+        }
+
+    } click:^(NSString *title) {
+        NSLog(@"返回单个点击");
+        NSInteger index = [weakSelf.titleList indexOfObject:title];
+        [weakSelf.segHead setSelectIndex:index];
+        
+    }];
 }
 
 - (NSArray *)vcArr:(NSInteger)count {

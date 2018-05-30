@@ -9,7 +9,14 @@
 #import "HomePageSecondKindCell.h"
 
 @interface HomePageSecondKindCell ()
-
+{
+    UILabel *title;
+    UIImageView *imgL;
+    UIImageView *imgC;
+    UIImageView *imgR;
+    UILabel *bottomLabel;
+    UILabel *typeLabel;
+}
 @end
 
 @implementation HomePageSecondKindCell
@@ -36,6 +43,104 @@
 
 -(void)setupUI
 {
+    CGFloat lrMargin = 10;  //左右间距
+    CGFloat imgMargin = 5;  //图片间距
+    CGFloat tbMargin = 10;  //上下间距
+    
+    title = [UILabel new];
+    title.font = FontScale(16);
+    title.textColor = HexColor(#323232);
+    
+    imgL = [UIImageView new];
+    imgL.userInteractionEnabled = YES;
+    imgL.backgroundColor = Arc4randomColor;
+    imgC = [UIImageView new];
+    imgC.userInteractionEnabled = YES;
+    imgC.backgroundColor = Arc4randomColor;
+    imgR = [UIImageView new];
+    imgR.userInteractionEnabled = YES;
+    imgR.backgroundColor = Arc4randomColor;
+    
+    
+    bottomLabel = [UILabel new];
+    bottomLabel.font = FontScale(11);
+    bottomLabel.textColor = HexColor(#989898);
+    
+    typeLabel = [UILabel new];
+    typeLabel.font = FontScale(11);
+    typeLabel.backgroundColor = HexColor(#071C2F);
+    typeLabel.textColor = WhiteColor;
+    typeLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [self.contentView sd_addSubviews:@[
+                                       title,
+                                       imgL,
+                                       imgC,
+                                       imgR,
+                                       bottomLabel,
+                                       typeLabel,
+                                       
+                                       ]];
+    title.sd_layout
+    .leftSpaceToView(self.contentView, lrMargin)
+    .topSpaceToView(self.contentView, tbMargin)
+    .rightSpaceToView(self.contentView, lrMargin)
+    .autoHeightRatio(0)
+    ;
+    [title setMaxNumberOfLinesToShow:2];
+    title.text = [@"        " stringByAppendingString:@"发改委 ：多个经济体货币纷纷倒在美元魔掌以 后，美元屠刀或正在伸向欧元区"];
+    
+    //图片宽度
+    CGFloat imgW = (ScreenW - lrMargin*2 - imgMargin*2)/3;
+    CGFloat imgH = imgW * 90.0 / 117;
+    imgL.sd_layout
+    .topSpaceToView(title, tbMargin)
+    .leftSpaceToView(self.contentView, lrMargin)
+    .widthIs(imgW)
+    .heightIs(imgH)
+    ;
+    [imgL  setSd_cornerRadius:@4];
+    
+    imgC.sd_layout
+    .topEqualToView(imgL)
+    .leftSpaceToView(imgL, imgMargin)
+    .widthIs(imgW)
+    .heightIs(imgH)
+    ;
+    [imgC  setSd_cornerRadius:@4];
+    
+    imgR.sd_layout
+    .topEqualToView(imgC)
+    .leftSpaceToView(imgC, imgMargin)
+    .widthIs(imgW)
+    .heightIs(imgH)
+    ;
+    [imgR  setSd_cornerRadius:@4];
+    
+    bottomLabel.sd_layout
+    .leftSpaceToView(self.contentView, lrMargin)
+    .rightSpaceToView(self.contentView, lrMargin)
+    .topSpaceToView(imgL, tbMargin)
+    .autoHeightRatio(0)
+    ;
+    [bottomLabel setMaxNumberOfLinesToShow:1];
+    NSString *str1 = [@"" stringByAppendingString:@""];
+    NSString *str2 = [@"环球国际时报" stringByAppendingString:@"  "];
+    NSString *str3 = [@"12321" stringByAppendingString:@" 阅"];
+    NSString *str4 = [@"" stringByAppendingString:@""];
+    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
+    bottomLabel.text = totalStr;
+    
+    typeLabel.sd_layout
+    .leftEqualToView(title)
+    .topEqualToView(title)
+    .heightIs(ScaleW * 16)
+    .widthIs(ScaleW * 16 + 10)
+    ;
+    [typeLabel setSd_cornerRadius:@2];
+    typeLabel.text = @"专题";
+    
+    [self setupAutoHeightWithBottomView:bottomLabel bottomMargin:10];
     
 }
 

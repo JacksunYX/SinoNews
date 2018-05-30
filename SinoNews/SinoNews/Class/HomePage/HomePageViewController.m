@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
-
+@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *titleList;
 
 @end
@@ -49,17 +49,21 @@
     [self addNavigationView];
     
     [self setSegmentAndChildVC];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+    tap.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tap];
     
 }
 
 //修改导航栏显示
 -(void)addNavigationView
 {
-    UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 34)];
-
-    searchBar.placeholder = @"热门搜索";
+    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 34)];
     
-    for (UIView *view in searchBar.subviews.lastObject.subviews) {
+    self.searchBar.placeholder = @"热门搜索";
+    
+    for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
             //设置输入框的背景颜色
@@ -75,13 +79,13 @@
             textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{NSForegroundColorAttributeName:HexColor(#AEAEAE)}];
         }
         if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
-//            UIButton *cancel = (UIButton *)view;
-//            [cancel setTitle:@"取消" forState:UIControlStateNormal];
-           
+            //            UIButton *cancel = (UIButton *)view;
+            //            [cancel setTitle:@"取消" forState:UIControlStateNormal];
+            
         }
     }
     
-    self.navigationItem.titleView = searchBar;
+    self.navigationItem.titleView = self.searchBar;
     
     UIButton *userIcon = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 34, 34)];
     userIcon.backgroundColor = GrayColor;
@@ -99,7 +103,7 @@
 -(void)setSegmentAndChildVC
 {
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:self.titleList headStyle:1 layoutStyle:2];
-//    _segHead.fontScale = .85;
+    //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.8;
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
@@ -148,13 +152,16 @@
     return arr;
 }
 
+-(void)tap:(UITapGestureRecognizer *)gesture
+{
+    [self.searchBar resignFirstResponder];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 }
-
-
 
 
 

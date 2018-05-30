@@ -81,16 +81,16 @@
     title.sd_layout
     .leftSpaceToView(self.contentView, 10)
     .topSpaceToView(self.contentView, 10)
-    .rightSpaceToView(rightImg, 40)
+    .rightSpaceToView(rightImg, 20)
     .autoHeightRatio(0)
     ;
     [title setMaxNumberOfLinesToShow:2];
-    title.text = [@"        " stringByAppendingString:@"发改委：严格防范外 债严格防范外债asdasdasa"];
+    title.text = [@"        " stringByAppendingString:@"发改委：严格防范外 债严格防范外债"];
     
     bottomLabel.sd_layout
     .leftSpaceToView(self.contentView, 10)
-    .rightEqualToView(title)
-    .bottomEqualToView(self.contentView)
+    .rightSpaceToView(rightImg, 10)
+    .bottomEqualToView(rightImg)
     .autoHeightRatio(0)
     ;
     [bottomLabel setMaxNumberOfLinesToShow:1];
@@ -98,11 +98,12 @@
     NSString *str1 = [@"问答" stringByAppendingString:@"  "];
     NSString *str2 = [@"环球国际时报" stringByAppendingString:@"  "];
     NSString *str3 = [@"12321" stringByAppendingString:@" 阅  "];
-    NSString *str4 = [@"812" stringByAppendingString:@" 评"];
+    NSString *str4 = [@"23812" stringByAppendingString:@" 评"];
     NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
     NSDictionary *dic1 = @{
                            NSForegroundColorAttributeName:HexColor(#1282EE),
+                           NSFontAttributeName:FontScale(11),
                            };
     [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
     bottomLabel.attributedText = attString;

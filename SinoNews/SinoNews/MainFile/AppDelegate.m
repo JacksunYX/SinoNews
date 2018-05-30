@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "MainTabbarVC.h"
+#import <IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -19,7 +20,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [IQKeyboardManager sharedManager].enable = YES;
+    
     [self setMainVC];
+    
     
     return YES;
 }

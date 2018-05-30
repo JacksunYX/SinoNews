@@ -14,7 +14,7 @@
 #import "HomePageSecondKindCell.h"
 #import "HomePageThirdKindCell.h"
 
-#define HeadViewHeight (ScreenW * 9 / 16 + 10)
+#define HeadViewHeight (ScreenW * 9 / 16 + 15)
 
 @interface HomePageChildVCViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -99,21 +99,41 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomePageFirstKindCell *cell = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+    UITableViewCell *cell;
+    if (indexPath.row == 0) {
+        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+        cell = (UITableViewCell *)cell1;
+    }
+    
+    if (indexPath.row == 1) {
+        HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+        cell = (UITableViewCell *)cell2;
+    }
+    
+    if (indexPath.row == 2) {
+        HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+        cell = (UITableViewCell *)cell3;
+    }
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return HomePageFirstKindCellH;
-//    return HomePageSecondKindCellH;
-//    return HomePageThirdKindCellH;
+    if (indexPath.row == 0) {
+        return HomePageFirstKindCellH;
+    }
+    
+    if (indexPath.row == 1 || indexPath.row == 2) {
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+    }
+    
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

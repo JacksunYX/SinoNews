@@ -57,7 +57,7 @@
     [self addSubview:pageFlowView];
     
     //初始化pageControl
-    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 10, Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
+    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(pageFlowView.frame), Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
     _pageControl.numberOfPages = self.imageArray.count;
     
     [self addSubview:_pageControl];

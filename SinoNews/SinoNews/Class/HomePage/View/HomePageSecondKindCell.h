@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #define HomePageSecondKindCellID @"HomePageSecondKindCellID"
-#define HomePageSecondKindCellH 185
+
 
 @interface HomePageSecondKindCell : UITableViewCell
 

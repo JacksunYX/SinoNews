@@ -8,27 +8,116 @@
 
 #import "SearchViewController.h"
 #import "SearchHeadReusableView.h"
+#import "BaseTableView.h"
+#import "HomePageFirstKindCell.h"
+#import "HomePageSecondKindCell.h"
+#import "HomePageThirdKindCell.h"
 
-@interface SearchViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate>
+@interface SearchViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+{
+    BOOL showNewsList;      //展示相关咨询列表
+    BOOL showRecommand;     //展示推荐关键词列表
+    BOOL showRelatedSearch; //展示相关搜索关键词列表
+}
+
 @property (nonatomic, strong) UISearchBar *searchBar;
+//资讯展示tableview
+@property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic,strong) NSMutableArray *newsArr;    //资讯数组
+//推荐关键词视图
 @property (nonatomic,strong) UICollectionView *collectionView;
+@property (nonatomic,strong) NSMutableArray *recommandArr;    //推荐关键词数组
+//搜索关键词列表
+@property (nonatomic,strong) BaseTableView *keyTableView;
+@property (nonatomic,strong) NSMutableArray *keyArr;    //关键词数组
+
 //最热和精选
 @property (nonatomic,strong) NSMutableArray *hotNews;
 @property (nonatomic,strong) NSMutableArray *choicenessNews;
+
+
 @end
 
 @implementation SearchViewController
-
+#pragma mark --- 懒加载
 -(UICollectionView *)collectionView
 {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-        _collectionView.backgroundColor = WhiteColor;
+        
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
+        
+        [self.view addSubview:_collectionView];
+        _collectionView.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+        ;
+        
+//        [_collectionView activateConstraints:^{
+//            self.collectionView.top_attr = self.view.top_attr_safe;
+//            self.collectionView.left_attr = self.view.left_attr_safe;
+//            self.collectionView.right_attr = self.view.right_attr_safe;
+//            self.collectionView.bottom_attr = self.view.bottom_attr_safe;
+//        }];
+        //注册
+        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+        [_collectionView registerClass:[SearchHeadReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeadView"];
+        
+        _collectionView.hidden = YES;
     }
     return _collectionView;
+}
+
+-(BaseTableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        [self.view addSubview:_tableView];
+        _tableView.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+        ;
+        
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        //注册
+        [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+        [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
+        [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+        
+        _tableView.hidden = YES;
+
+    }
+    return _tableView;
+}
+
+-(BaseTableView *)keyTableView
+{
+    if (!_keyTableView) {
+        _keyTableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        [self.view addSubview:_keyTableView];
+        _keyTableView.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+        ;
+        
+        _keyTableView.dataSource = self;
+        _keyTableView.delegate = self;
+        //注册
+        [_keyTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"KeyCellID"];
+        
+        _keyTableView.hidden = YES;
+        
+    }
+    return _keyTableView;
 }
 
 -(NSMutableArray *)hotNews
@@ -69,11 +158,21 @@
     
     [self addNavigationView];
     
-    [self addCollectionView];
+    self.collectionView.backgroundColor = WhiteColor;
+    self.tableView.backgroundColor = WhiteColor;
+    self.keyTableView.backgroundColor = WhiteColor;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-    tap.numberOfTapsRequired = 1;
-    [self.view addGestureRecognizer:tap];
+    [self showWithStatus:3];
+    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+//    tap.numberOfTapsRequired = 1;
+//    [self.view addGestureRecognizer:tap];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -128,19 +227,35 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
--(void)addCollectionView
+//1.只显示资讯列表 2.只显示搜索的相关关键词 3.只显示推荐关键词
+-(void)showWithStatus:(NSInteger)status
 {
-    [self.view addSubview:self.collectionView];
-    [self.collectionView activateConstraints:^{
-        self.collectionView.top_attr = self.view.top_attr_safe;
-        self.collectionView.left_attr = self.view.left_attr_safe;
-        self.collectionView.right_attr = self.view.right_attr_safe;
-        self.collectionView.bottom_attr = self.view.bottom_attr_safe;
-    }];
-    //注册
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
-    [self.collectionView registerClass:[SearchHeadReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeadView"];
-    
+    switch (status) {
+        case 1:
+        {
+            self.tableView.hidden = NO;
+            self.collectionView.hidden = YES;
+            self.keyTableView.hidden = YES;
+        }
+            break;
+        case 2:
+        {
+            self.tableView.hidden = YES;
+            self.collectionView.hidden = YES;
+            self.keyTableView.hidden = NO;
+        }
+            break;
+        case 3:
+        {
+            self.tableView.hidden = YES;
+            self.collectionView.hidden = NO;
+            self.keyTableView.hidden = YES;
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark ---- UICollectionViewDataSource \ UICollectionViewDelegateFlowLayout
@@ -277,6 +392,13 @@
 {
     NSLog(@"点击了第%ld条",indexPath.row);
     [self.searchBar resignFirstResponder];
+    if (indexPath.section == 0) {
+        self.searchBar.text = self.hotNews[indexPath.row];
+    }else{
+        self.searchBar.text = self.choicenessNews[indexPath.row];
+    }
+    
+    [self showWithStatus:1];
 }
 
 -(void)tap:(UITapGestureRecognizer *)gesture
@@ -287,8 +409,98 @@
 #pragma mark ---- UISearchBarDelegate
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    NSLog(@"开始获取后台搜索关键词");
+    NSLog(@"开始获取后台搜索关键词:%@",searchText);
+    if ([GetSaveString(searchText) isEqualToString:@""]) {
+        [self showWithStatus:3];
+    }else{
+        //相关关键词
+        [self showWithStatus:2];
+    }
 }
 
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+    //搜索关键词
+    [self showWithStatus:1];
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [self showWithStatus:3];
+}
+
+#pragma mark ----- UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (tableView == self.tableView) {
+        return 5;
+    }
+    if (tableView == self.keyTableView) {
+        return 10;
+    }
+    return 0;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    if (tableView == self.tableView) {
+        if (indexPath.row == 0) {
+            HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+            cell = (UITableViewCell *)cell1;
+        }else if (indexPath.row == 1) {
+            HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+            cell = (UITableViewCell *)cell2;
+        }else{
+            HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+            cell = (UITableViewCell *)cell3;
+        }
+    }else if (tableView == self.keyTableView){
+        cell = [tableView dequeueReusableCellWithIdentifier:@"KeyCellID"];
+        cell.textLabel.text = [NSString stringWithFormat:@"第%ld条相关关键词",indexPath.row];
+    }
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.tableView) {
+        if (indexPath.row == 0) {
+            return HomePageFirstKindCellH;
+        }
+        
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+        
+    }else if (tableView == self.keyTableView){
+        return 34;
+    }
+    
+    return 0;
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.searchBar resignFirstResponder];
+    [self showWithStatus:1];
+}
 
 @end

@@ -24,28 +24,6 @@
 
 @implementation HomePageChildVCViewController
 
--(BaseTableView *)tableView
-{
-    if (!_tableView) {
-        _tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 100) style:UITableViewStyleGrouped];
-        [self.view addSubview:_tableView];
-        _tableView.sd_layout
-        .topEqualToView(self.view)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomEqualToView(self.view)
-        ;
-        
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        //注册
-        [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
-        [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
-        [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
-    }
-    return _tableView;
-}
-
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -58,19 +36,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-}
-
--(void)testView
-{
-    UILabel *testLabel = [UILabel new];
-    [self.view addSubview:testLabel];
-    testLabel.sd_layout
-    .centerXEqualToView(self.view)
-    .topSpaceToView(self.view, 100)
-    .autoHeightRatio(0)
-    ;
-    [testLabel setSingleLineAutoResizeWithMaxWidth:200];
-    testLabel.text = @"测试一下";
 }
 
 //测试轮播图

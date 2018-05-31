@@ -41,7 +41,7 @@
 - (void)setupUI {
     
     CGFloat Width = self.frame.size.width;
-    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, Width, Width * 9 / 16)];
+    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, Width,self.frame.size.height - 15)];
     pageFlowView.backgroundColor = [UIColor whiteColor];
     pageFlowView.delegate = self;
     pageFlowView.dataSource = self;
@@ -57,7 +57,7 @@
     [self addSubview:pageFlowView];
     
     //初始化pageControl
-    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(pageFlowView.frame), Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
+    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(pageFlowView.frame) + 3, Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
     _pageControl.numberOfPages = self.imageArray.count;
     
     [self addSubview:_pageControl];
@@ -83,7 +83,10 @@
 //左右中间页显示大小为 Width - 50, (Width - 50) * 9 / 16
 - (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
     CGFloat Width = self.frame.size.width;
-    return CGSizeMake(Width - 30, (Width - 30) * 9 / 16);
+    if (self.type == NormalType) {
+        return CGSizeMake(Width, self.frame.size.height - 15 - 10);
+    }
+    return CGSizeMake(Width - 30, self.frame.size.height - 15 - 10);
 }
 
 #pragma mark --NewPagedFlowView Datasource

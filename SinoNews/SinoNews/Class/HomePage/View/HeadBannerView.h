@@ -9,13 +9,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    LeftRightMarginType,
+    NormalType,
+} BannerType;
 
 typedef void(^clickHandleBlock)(NSInteger index);
 
 @interface HeadBannerView : UIView
 
 @property (nonatomic,copy) clickHandleBlock selectBlock;
-
+@property (nonatomic,assign) BannerType type;
 -(void)setupUIWithImageUrls:(NSArray *)imgs;
 
 

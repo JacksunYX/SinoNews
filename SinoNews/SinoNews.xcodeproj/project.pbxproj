@@ -45,6 +45,11 @@
 		4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */; };
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
+		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
+		4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */; };
+		4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */; };
+		4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64D20BFFB3100C99AAB /* YXGifHeader.m */; };
+		4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E65020BFFB9C00C99AAB /* YXAutoNormalFooter.m */; };
 		4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */; };
 		4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735EE20BE8CC700B6A8B5 /* XLChannelHeader.m */; };
 		4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735EF20BE8CC700B6A8B5 /* XLChannelView.m */; };
@@ -166,6 +171,17 @@
 		4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageThirdKindCell.m; sourceTree = "<group>"; };
 		4C3F905720BD7102003EC4FC /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
+		4C83E64120BFE32C00C99AAB /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
+		4C83E64220BFE32C00C99AAB /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
+		4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCollectionViewCell.h; sourceTree = "<group>"; };
+		4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineCollectionViewCell.m; sourceTree = "<group>"; };
+		4C83E64920BFFA6C00C99AAB /* YXNormalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXNormalHeader.h; sourceTree = "<group>"; };
+		4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXNormalHeader.m; sourceTree = "<group>"; };
+		4C83E64C20BFFB3100C99AAB /* YXGifHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXGifHeader.h; sourceTree = "<group>"; };
+		4C83E64D20BFFB3100C99AAB /* YXGifHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXGifHeader.m; sourceTree = "<group>"; };
+		4C83E64F20BFFB9C00C99AAB /* YXAutoNormalFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXAutoNormalFooter.h; sourceTree = "<group>"; };
+		4C83E65020BFFB9C00C99AAB /* YXAutoNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXAutoNormalFooter.m; sourceTree = "<group>"; };
+		4C83E65220BFFD4E00C99AAB /* CustomRefreshHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRefreshHead.h; sourceTree = "<group>"; };
 		4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLChannelControl.m; sourceTree = "<group>"; };
 		4C8735EB20BE8CC700B6A8B5 /* XLChannelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelView.h; sourceTree = "<group>"; };
 		4C8735EC20BE8CC700B6A8B5 /* XLChannelHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLChannelHeader.h; sourceTree = "<group>"; };
@@ -353,6 +369,7 @@
 			children = (
 				4C3F8FF120BCEF27003EC4FC /* RankViewController.h */,
 				4C3F8FF220BCEF27003EC4FC /* RankViewController.m */,
+				4C83E64020BFE30200C99AAB /* View */,
 			);
 			path = RankingList;
 			sourceTree = "<group>";
@@ -412,6 +429,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4C83E64820BFFA2B00C99AAB /* CustomRefresh */,
 				4C8735FA20BE927B00B6A8B5 /* NSArray */,
 				4C3F901820BD0048003EC4FC /* UIImage */,
 				4C3F901620BCFEE3003EC4FC /* UIBarButton */,
@@ -537,6 +555,31 @@
 				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4C83E64020BFE30200C99AAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */,
+				4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */,
+				4C83E64120BFE32C00C99AAB /* LineLayout.h */,
+				4C83E64220BFE32C00C99AAB /* LineLayout.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4C83E64820BFFA2B00C99AAB /* CustomRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				4C83E65220BFFD4E00C99AAB /* CustomRefreshHead.h */,
+				4C83E64920BFFA6C00C99AAB /* YXNormalHeader.h */,
+				4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */,
+				4C83E64C20BFFB3100C99AAB /* YXGifHeader.h */,
+				4C83E64D20BFFB3100C99AAB /* YXGifHeader.m */,
+				4C83E64F20BFFB9C00C99AAB /* YXAutoNormalFooter.h */,
+				4C83E65020BFFB9C00C99AAB /* YXAutoNormalFooter.m */,
+			);
+			path = CustomRefresh;
 			sourceTree = "<group>";
 		};
 		4C8735E920BE8CC700B6A8B5 /* XLChannelControl */ = {
@@ -801,6 +844,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
 				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
@@ -822,7 +866,9 @@
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
+				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
+				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
@@ -831,6 +877,7 @@
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
+				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
@@ -841,6 +888,7 @@
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
+				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

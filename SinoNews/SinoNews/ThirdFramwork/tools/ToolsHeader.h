@@ -15,6 +15,7 @@
 #import "UIImage+Util.h"
 #import "NSArray+compare.h"
 #import "YXHeader.h"
+#import "CustomRefreshHead.h"
 
 
 #endif /* ToolsHeader_h */

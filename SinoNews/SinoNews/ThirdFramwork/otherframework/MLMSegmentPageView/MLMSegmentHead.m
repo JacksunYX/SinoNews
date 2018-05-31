@@ -139,7 +139,7 @@ static CGFloat animation_time = .3;
     _maxTitles = _maxTitles>titlesArray.count?titlesArray.count:_maxTitles;
 
     //这里一定要清除原来的数据，原作者忘记了，导致后面点击title越界
-    [buttonArray removeAllObjects];
+//    [buttonArray removeAllObjects];
     
     [self titlesWidth];
 
@@ -448,7 +448,7 @@ static CGFloat animation_time = .3;
 //        self.selectedIndex(currentIndex);
 //    }
     
-    [self changeIndex:index completion:YES];
+    [self changeIndex:index completion:NO];
 }
 
 - (void)changeIndex:(NSInteger)index completion:(BOOL)completion {

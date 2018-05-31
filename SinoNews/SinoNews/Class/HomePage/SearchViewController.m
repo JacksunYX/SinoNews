@@ -282,7 +282,6 @@
 -(void)tap:(UITapGestureRecognizer *)gesture
 {
     [self.searchBar resignFirstResponder];
-    
 }
 
 #pragma mark ---- UISearchBarDelegate

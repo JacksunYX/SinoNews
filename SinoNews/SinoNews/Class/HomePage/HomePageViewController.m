@@ -115,6 +115,9 @@
 -(void)reloadChildVCWithTitles:(NSArray *)titles
 {
     self.titleList = [titles mutableCopy];
+    if (_segHead) {
+        [_segHead removeFromSuperview];
+    }
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:self.titleList headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.8;
@@ -126,7 +129,11 @@
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
     
+    if (_segScroll) {
+        [_segScroll removeFromSuperview];
+    }
     _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self vcArr:self.titleList.count]];
+    _segScroll.countLimit = 0;
     
     WEAK(weakself, self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
@@ -160,16 +167,15 @@
         if ([NSArray compareArr:inUseTitles another:self.titleList]) {
             
         }else{
-//            [weakSelf reloadChildVCWithTitles:inUseTitles];
             weakSelf.titleList = [inUseTitles mutableCopy];
-            [weakSelf.segHead changeTitle:inUseTitles];
+            [weakSelf reloadChildVCWithTitles:inUseTitles];
             weakSelf.leaveTitleList = [unUseTitles mutableCopy];
         }
 
     } click:^(NSString *title) {
         NSLog(@"返回单个点击");
         NSInteger index = [weakSelf.titleList indexOfObject:title];
-        [weakSelf.segHead setSelectIndex:index];
+        [weakSelf.segHead changeIndex:index completion:YES];
         
     }];
 }

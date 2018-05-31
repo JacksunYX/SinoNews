@@ -24,12 +24,35 @@
 
 @implementation HomePageChildVCViewController
 
+-(BaseTableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        [self.view addSubview:_tableView];
+        _tableView.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomEqualToView(self.view)
+        ;
+        
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        //注册
+        [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+        [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
+        [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+    }
+    return _tableView;
+}
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
-    [self testTableView];
+    self.tableView.backgroundColor = BACKGROUND_COLOR;
     
-    [self testBanner];
+//    [self testBanner];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,26 +93,6 @@
     self.tableView.tableHeaderView = headView;
 }
 
-//测试其他内容
--(void)testTableView
-{
-    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    [self.view addSubview:self.tableView];
-    self.tableView.sd_layout
-    .topEqualToView(self.view)
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomEqualToView(self.view)
-    ;
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    //注册
-    [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
-    [self.tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
-    [self.tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
-}
 
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

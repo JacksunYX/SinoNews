@@ -20,9 +20,8 @@
     //统一设置navigationBar的样式
     self.navigationBar.barTintColor = [UIColor whiteColor];
     
-    
     //设置导航栏半透明
-//    [UINavigationBar appearance].translucent = NO;
+    [UINavigationBar appearance].translucent = NO;
     
     [self hideNavigationDownLine];
     

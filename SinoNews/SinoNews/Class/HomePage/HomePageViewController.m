@@ -184,7 +184,7 @@
     NSMutableArray *arr = [NSMutableArray array];
     for (NSInteger i = 0; i < count; i ++) {
         HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
-        vc.index = i;
+//        vc.index = i;
         [arr addObject:vc];
     }
     return arr;

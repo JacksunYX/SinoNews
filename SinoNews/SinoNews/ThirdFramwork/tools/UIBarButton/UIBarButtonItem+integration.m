@@ -27,7 +27,7 @@
         //设置尺寸
         btn.frame = CGRectMake(0, 0, btn.currentBackgroundImage.size.width, btn.currentBackgroundImage.size.height);
         
-        NSLog(@"w:%lf  h:%lf  ",btn.frame.size.width,btn.frame.size.height);
+//        NSLog(@"w:%lf  h:%lf  ",btn.frame.size.width,btn.frame.size.height);
         return  [[UIBarButtonItem alloc]initWithCustomView:btn];
         
         

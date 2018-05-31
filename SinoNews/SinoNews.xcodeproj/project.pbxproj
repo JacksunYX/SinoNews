@@ -60,6 +60,8 @@
 		4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */; };
 		4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */; };
 		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
+		4CE121CF20C00A6400A44782 /* RankDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankDetailViewController.m */; };
+		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -200,6 +202,11 @@
 		4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
 		4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHeadReusableView.h; sourceTree = "<group>"; };
 		4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHeadReusableView.m; sourceTree = "<group>"; };
+		4CE121CD20C00A6400A44782 /* RankDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankDetailViewController.h; sourceTree = "<group>"; };
+		4CE121CE20C00A6400A44782 /* RankDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankDetailViewController.m; sourceTree = "<group>"; };
+		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
+		4CE121D220C0148700A44782 /* NSObject+DLClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DLClass.m"; sourceTree = "<group>"; };
+		4CE121D320C0148700A44782 /* DLogGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLogGlobal.h; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -369,6 +376,8 @@
 			children = (
 				4C3F8FF120BCEF27003EC4FC /* RankViewController.h */,
 				4C3F8FF220BCEF27003EC4FC /* RankViewController.m */,
+				4CE121CD20C00A6400A44782 /* RankDetailViewController.h */,
+				4CE121CE20C00A6400A44782 /* RankDetailViewController.m */,
 				4C83E64020BFE30200C99AAB /* View */,
 			);
 			path = RankingList;
@@ -429,6 +438,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4CE121D020C0148700A44782 /* DLogName_Line */,
 				4C83E64820BFFA2B00C99AAB /* CustomRefresh */,
 				4C8735FA20BE927B00B6A8B5 /* NSArray */,
 				4C3F901820BD0048003EC4FC /* UIImage */,
@@ -606,6 +616,16 @@
 				4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */,
 			);
 			path = NSArray;
+			sourceTree = "<group>";
+		};
+		4CE121D020C0148700A44782 /* DLogName_Line */ = {
+			isa = PBXGroup;
+			children = (
+				4CE121D120C0148700A44782 /* NSObject+DLClass.h */,
+				4CE121D220C0148700A44782 /* NSObject+DLClass.m */,
+				4CE121D320C0148700A44782 /* DLogGlobal.h */,
+			);
+			path = DLogName_Line;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -858,6 +878,7 @@
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
+				4CE121CF20C00A6400A44782 /* RankDetailViewController.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
@@ -881,6 +902,7 @@
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
+				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,

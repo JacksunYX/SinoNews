@@ -16,6 +16,6 @@
 #import "NSArray+compare.h"
 #import "YXHeader.h"
 #import "CustomRefreshHead.h"
-
+#import "DLogGlobal.h"
 
 #endif /* ToolsHeader_h */

@@ -73,7 +73,7 @@
         viewController.hidesBottomBarWhenPushed = YES;
         
         //设置左边按钮
-        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"" hightimage:@"" andTitle:@""];
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left" hightimage:@"return_left" andTitle:@""];
         
         //设置右边按钮
         

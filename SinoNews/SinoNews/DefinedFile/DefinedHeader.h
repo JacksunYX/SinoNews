@@ -395,12 +395,6 @@ kWindow.userInteractionEnabled = YES;\
 
 
 
-//----------------------提示框----------------------------
-
-
-
-
-
 //----------------------字符串是否为空----------------------------
 
 #define kStringIsEmpty(str) ([str isKindOfClass:[NSNull class]] || str == nil || [str length] < 1 ? YES : NO || [str isEqualToString:@"(null)"] ? YES : NO || [str isEqualToString:@"null"] ? YES : NO || [str isEqualToString:@"<null>"] ? YES : NO)

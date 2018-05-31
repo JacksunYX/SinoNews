@@ -7,9 +7,12 @@
 //
 
 #import "RankViewController.h"
+#import "RankDetailViewController.h"
+
 #import "HeadBannerView.h"
 #import "LineCollectionViewCell.h"
 #import "LineLayout.h"
+
 
 @interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 //上方的滚动视图
@@ -123,7 +126,7 @@
     [self.headView setupUIWithImageUrls:imgs];
     
     self.headView.selectBlock = ^(NSInteger index) {
-        NSLog(@"选择了下标为%ld的轮播图",index);
+        DLog(@"选择了下标为%ld的轮播图",index);
     };
 }
 
@@ -225,7 +228,10 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击了第%ld个cell",indexPath.row);
+    if (collectionView == self.lineCollectionView) {
+        RankDetailViewController *rankVC = [RankDetailViewController new];
+        [self.navigationController pushViewController:rankVC animated:YES];
+    }
 }
 
 

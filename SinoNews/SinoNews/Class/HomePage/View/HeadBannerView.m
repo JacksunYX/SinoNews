@@ -84,7 +84,7 @@
 - (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
     CGFloat Width = self.frame.size.width;
     if (self.type == NormalType) {
-        return CGSizeMake(Width, self.frame.size.height - 15 - 10);
+        return CGSizeMake(Width, self.frame.size.height - 15);
     }
     return CGSizeMake(Width - 30, self.frame.size.height - 15 - 10);
 }

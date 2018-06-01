@@ -58,22 +58,22 @@
     userIcon = [UIImageView new];
     
     score = [UILabel new];
-    score.font = Font(15);
+    score.font = FontScale(15);
     
     title = [UILabel new];
-    title.font = Font(15);
+    title.font = FontScale(15);
     
     subTitle = [UILabel new];
-    subTitle.font = Font(14);
+    subTitle.font = FontScale(14);
     
     toPlayBtn = [UIButton new];
-    toPlayBtn.titleLabel.font = Font(15);
+    toPlayBtn.titleLabel.font = FontScale(15);
     [toPlayBtn setTitleColor:RGBA(238, 174, 38, 1) forState:UIControlStateNormal];
     toPlayBtn.layer.borderWidth = 1;
     toPlayBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
     
     detailBtn = [UIButton new];
-    detailBtn.titleLabel.font = Font(15);
+    detailBtn.titleLabel.font = FontScale(15);
     [detailBtn setTitleColor:RGBA(78, 152, 223, 1) forState:UIControlStateNormal];
     detailBtn.layer.borderWidth = 1;
     detailBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
@@ -182,7 +182,7 @@
     [userIcon setSd_cornerRadius:@27];
     
     score.sd_layout
-    .leftSpaceToView(userIcon, 30)
+    .leftSpaceToView(userIcon, 30 * ScaleW)
     .centerYEqualToView(self.contentView)
     .autoHeightRatio(0)
     ;
@@ -195,7 +195,7 @@
     .autoHeightRatio(0)
     ;
     [title setMaxNumberOfLinesToShow:1];
-    [title setSingleLineAutoResizeWithMaxWidth:100];
+    [title setSingleLineAutoResizeWithMaxWidth:100 * ScaleW];
     
     subTitle.sd_layout
     .leftEqualToView(score)
@@ -203,11 +203,11 @@
     .autoHeightRatio(0)
     ;
     [subTitle setMaxNumberOfLinesToShow:1];
-    [subTitle setSingleLineAutoResizeWithMaxWidth:100];
+    [subTitle setSingleLineAutoResizeWithMaxWidth:100 * ScaleW];
     
     if (self.tag < 4) {
         toPlayBtn.sd_layout
-        .widthIs(55)
+        .widthIs(55 * ScaleW)
         .heightIs(21)
         .rightSpaceToView(self.contentView, 5)
         .bottomSpaceToView(self.contentView, 10)
@@ -215,7 +215,7 @@
         
         detailBtn.hidden = NO;
         detailBtn.sd_layout
-        .widthIs(55)
+        .widthIs(55 * ScaleW)
         .heightIs(21)
         .rightSpaceToView(self.contentView, 5)
         .bottomSpaceToView(toPlayBtn, 8)
@@ -223,7 +223,7 @@
     }else{
         detailBtn.hidden = YES;
         toPlayBtn.sd_layout
-        .widthIs(55)
+        .widthIs(55 * ScaleW)
         .heightIs(21)
         .rightSpaceToView(self.contentView, 5)
         .centerYEqualToView(self.contentView)
@@ -235,8 +235,9 @@
     [toPlayBtn setTitle:@"去玩" forState:UIControlStateNormal];
     
     upOrDown.sd_layout
-    .rightSpaceToView(toPlayBtn, 50)
-    .topSpaceToView(self.contentView, 20)
+    .rightSpaceToView(toPlayBtn, 30 * ScaleW)
+//    .topSpaceToView(self.contentView, 20)
+    .centerYEqualToView(self.contentView)
     .widthIs(11)
     .heightIs(14)
     ;

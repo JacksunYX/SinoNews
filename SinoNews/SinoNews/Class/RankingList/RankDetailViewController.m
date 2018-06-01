@@ -29,6 +29,8 @@
         [_dataSource addObject:[self addSection1Data]];
         
         [_dataSource addObject:[self addSection2Data]];
+        
+        [_dataSource addObject:[self addSection3Data]];
     }
     return _dataSource;
 }
@@ -113,6 +115,17 @@
     return section2;
 }
 
+-(NSArray *)addSection3Data
+{
+    NSDictionary *dic = @{
+                          @"img"    :   @"webImg",
+                          
+                          };
+    
+    NSArray *section3 = @[dic];
+    return section3;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"启示录";
@@ -161,6 +174,9 @@
     if (section == 2) {
         return 1;
     }
+    if (section == 3) {
+        return 1;
+    }
     
     return 0;
 }
@@ -168,7 +184,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2) {
+    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UIView *fatherView = cell.contentView;
@@ -190,6 +206,8 @@
             [self setSection0OtherRowWithData:data[indexPath.row] onView:cell];
         }else if (indexPath.section == 2){
             [self setSection2OtherRowWithDatas:data onView:cell];
+        }else if (indexPath.section == 3){
+            [self setSection3RowWithData:data[indexPath.row] onView:cell];
         }
         
     }
@@ -212,6 +230,10 @@
     
     if (indexPath.section == 2) {
         return 147;
+    }
+    
+    if (indexPath.section == 3) {
+        return ((ScreenW - 20)*130/355 + 15 + 45);
     }
     
     return 0;
@@ -388,6 +410,7 @@
     [cell setupAutoHeightWithBottomView:descrip bottomMargin:10];
 }
 
+//2区
 -(void)setSection2OtherRowWithDatas:(NSArray *)modelArr onView:(UITableViewCell *)cell
 {
     CGFloat x = 0;
@@ -429,6 +452,73 @@
             y += CGRectGetHeight(title.frame);
         }
     }
+}
+
+//3区
+-(void)setSection3RowWithData:(NSDictionary *)model onView:(UITableViewCell *)cell
+{
+    UIImageView *img = [UIImageView new];
+    [cell.contentView addSubview:img];
+    img.sd_layout
+    .leftSpaceToView(cell.contentView, 10)
+    .rightSpaceToView(cell.contentView, 10)
+    .topEqualToView(cell.contentView)
+    .heightIs((ScreenW - 20)*130/355)
+    ;
+    
+    img.image = UIImageNamed(GetSaveString(model[@"img"]));
+    
+    UIButton *sendCommentBtn = [UIButton new];
+    sendCommentBtn.titleLabel.font = Font(15);
+    [sendCommentBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    
+    UIButton *collectBtn = [UIButton new];
+    collectBtn.titleLabel.font = Font(15);
+    [collectBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    
+    UIButton *webserveBtn = [UIButton new];
+    webserveBtn.titleLabel.font = Font(15);
+    [webserveBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    
+    [cell.contentView sd_addSubviews:@[
+                                       sendCommentBtn,
+                                       collectBtn,
+                                       webserveBtn,
+                                       ]];
+    sendCommentBtn.sd_layout
+    .topSpaceToView(img, 15)
+    .centerXEqualToView(cell.contentView)
+    .widthIs(110 * ScaleW)
+    .heightIs(30)
+    ;
+    [sendCommentBtn setSd_cornerRadius:@3];
+    sendCommentBtn.layer.borderWidth = 1;
+    sendCommentBtn.layer.borderColor = RGBA(255, 196, 31, 1).CGColor;
+    [sendCommentBtn setTitle:@"发评论" forState:UIControlStateNormal];
+    
+    collectBtn.sd_layout
+    .rightSpaceToView(sendCommentBtn, 12)
+    .centerYEqualToView(sendCommentBtn)
+    .widthIs(110 * ScaleW)
+    .heightIs(30)
+    ;
+    [collectBtn setSd_cornerRadius:@3];
+    collectBtn.layer.borderWidth = 1;
+    collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
+    [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+    collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+    [collectBtn setImage:UIImageNamed(@"game_collected") forState:UIControlStateNormal];
+    
+    webserveBtn.sd_layout
+    .leftSpaceToView(sendCommentBtn, 12)
+    .centerYEqualToView(sendCommentBtn)
+    .widthIs(110 * ScaleW)
+    .heightIs(30)
+    ;
+    [webserveBtn setSd_cornerRadius:@3];
+    webserveBtn.layer.borderWidth = 1;
+    webserveBtn.layer.borderColor = RGBA(236, 105, 65, 1).CGColor;
+    [webserveBtn setTitle:@"官网" forState:UIControlStateNormal];
 }
 
 //跳转到网页

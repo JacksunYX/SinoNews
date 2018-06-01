@@ -62,6 +62,8 @@
 		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
 		4CE121CF20C00A6400A44782 /* RankDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankDetailViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
+		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
+		4CE121DB20C0E14100A44782 /* RankDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DA20C0E14100A44782 /* RankDetailTableViewCell.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -207,6 +209,10 @@
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
 		4CE121D220C0148700A44782 /* NSObject+DLClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DLClass.m"; sourceTree = "<group>"; };
 		4CE121D320C0148700A44782 /* DLogGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLogGlobal.h; sourceTree = "<group>"; };
+		4CE121D620C0D16000A44782 /* GroupShadowTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupShadowTableView.h; sourceTree = "<group>"; };
+		4CE121D720C0D16000A44782 /* GroupShadowTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupShadowTableView.m; sourceTree = "<group>"; };
+		4CE121D920C0E14100A44782 /* RankDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankDetailTableViewCell.h; sourceTree = "<group>"; };
+		4CE121DA20C0E14100A44782 /* RankDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankDetailTableViewCell.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -490,6 +496,7 @@
 		4C3F901F20BD1C5D003EC4FC /* otherframework */ = {
 			isa = PBXGroup;
 			children = (
+				4CE121D520C0D16000A44782 /* GroupShadowTableView */,
 				4C8735E920BE8CC700B6A8B5 /* XLChannelControl */,
 				4C3F904020BD40D7003EC4FC /* NewPagedFlowView */,
 				4C3F902020BD1CD6003EC4FC /* MLMSegmentPageView */,
@@ -574,6 +581,8 @@
 				4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */,
 				4C83E64120BFE32C00C99AAB /* LineLayout.h */,
 				4C83E64220BFE32C00C99AAB /* LineLayout.m */,
+				4CE121D920C0E14100A44782 /* RankDetailTableViewCell.h */,
+				4CE121DA20C0E14100A44782 /* RankDetailTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -626,6 +635,15 @@
 				4CE121D320C0148700A44782 /* DLogGlobal.h */,
 			);
 			path = DLogName_Line;
+			sourceTree = "<group>";
+		};
+		4CE121D520C0D16000A44782 /* GroupShadowTableView */ = {
+			isa = PBXGroup;
+			children = (
+				4CE121D620C0D16000A44782 /* GroupShadowTableView.h */,
+				4CE121D720C0D16000A44782 /* GroupShadowTableView.m */,
+			);
+			path = GroupShadowTableView;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -864,6 +882,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
 				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
@@ -875,6 +894,7 @@
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
+				4CE121DB20C0E14100A44782 /* RankDetailTableViewCell.m in Sources */,
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,

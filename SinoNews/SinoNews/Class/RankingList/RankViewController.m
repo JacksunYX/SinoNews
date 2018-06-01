@@ -7,7 +7,7 @@
 //
 
 #import "RankViewController.h"
-#import "RankDetailViewController.h"
+#import "RankListViewController.h"
 
 #import "HeadBannerView.h"
 #import "LineCollectionViewCell.h"
@@ -229,8 +229,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (collectionView == self.lineCollectionView) {
-        RankDetailViewController *rankVC = [RankDetailViewController new];
-        [self.navigationController pushViewController:rankVC animated:YES];
+        RankListViewController *rlVC = [RankListViewController new];
+        [self.navigationController pushViewController:rlVC animated:YES];
     }
 }
 

@@ -6,9 +6,9 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "RankDetailTableViewCell.h"
+#import "RankListTableViewCell.h"
 
-@interface RankDetailTableViewCell ()
+@interface RankListTableViewCell ()
 {
     //左
     UIImageView *crown;
@@ -25,7 +25,7 @@
 }
 @end
 
-@implementation RankDetailTableViewCell
+@implementation RankListTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

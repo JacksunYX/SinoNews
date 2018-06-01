@@ -9,9 +9,9 @@
 
 #import <UIKit/UIKit.h>
 
-#define RankDetailTableViewCellID @"RankDetailTableViewCellID"
+#define RankListTableViewCellID @"RankListTableViewCellID"
 
-@interface RankDetailTableViewCell : UITableViewCell
+@interface RankListTableViewCell : UITableViewCell
 
 @property (nonatomic,strong) NSDictionary *model;
 

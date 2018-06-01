@@ -2,18 +2,18 @@
 //  RankDetailViewController.m
 //  SinoNews
 //
-//  Created by Michael on 2018/5/31.
+//  Created by Michael on 2018/6/1.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
+#import "BaseTableView.h"
+
 #import "RankDetailViewController.h"
-#import "GroupShadowTableView.h"
-#import "RankDetailTableViewCell.h"
 
-@interface RankDetailViewController ()<GroupShadowTableViewDelegate,GroupShadowTableViewDataSource>
-@property (strong, nonatomic) GroupShadowTableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataSource;
+@interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong) BaseTableView *tableView;
 
+@property (nonatomic,strong) NSMutableArray *dataSource;
 @end
 
 @implementation RankDetailViewController
@@ -22,86 +22,63 @@
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
-        NSArray *userIcon = @[
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              ];
-        NSArray *title = @[
-                           @"儿童娱乐场",
-                           @"成人娱乐场",
-                           @"测试娱乐场",
-                           @"竞技娱乐场",
-                           @"贪玩娱乐场",
-                           @"中老年娱乐场",
-                           @"猛男娱乐场",
-                           @"淑女娱乐场",
-                           @"混搭娱乐场",
-                           @"血战娱乐场",
-                           ];
-        NSArray *score = @[
-                           @"99.9 分",
-                           @"99.5 分",
-                           @"99.1 分",
-                           @"97.0 分",
-                           @"96.5 分",
-                           @"94.5 分",
-                           @"90.0 分",
-                           @"88.5 分",
-                           @"85.5 分",
-                           @"82.5 分",
-                           ];
         
-        NSArray *subTitle = @[
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              ];
-        NSArray *upOrDown = @[
-                              @1,
-                              @1,
-                              @1,
-                              @0,
-                              @0,
-                              @0,
-                              @1,
-                              @0,
-                              @1,
-                              @0,
-                              ];
-        for (int i = 0; i < userIcon.count; i ++) {
-            NSMutableDictionary *dic = [NSMutableDictionary new];
-            dic[@"userIcon"] = userIcon[i];
-            dic[@"title"] = title[i];
-            dic[@"score"] = score[i];
-            dic[@"subTitle"] = subTitle[i];
-            dic[@"upOrDown"] = upOrDown[i];
-            [_dataSource addObject:dic];
-        }
+        [_dataSource addObject:[self addSection0Data]];
+        
+        [_dataSource addObject:[self addSection1Data]];
     }
     return _dataSource;
 }
 
+-(NSArray *)addSection0Data
+{
+    NSDictionary *dic0_0 = @{
+                             @"title"         :   @"猜大小娱乐场",
+                             @"icon"          :   @"user_icon",
+                             @"webserveUrl"   :   @"www.baidu.com",
+                             @"collectType"   :   @"1",
+                             };
+    NSDictionary *dic0_1 = @{
+                             @"icon"          :   @"game_discount",
+                             @"title"         :   @"优惠：首冲100送50",
+                             };
+    NSDictionary *dic0_2 = @{
+                             @"icon"          :   @"game_setup",
+                             @"title"         :   @"成立：2018年",
+                             };
+    NSArray *section0 = @[dic0_0,dic0_1,dic0_2];
+    return section0;
+}
+
+-(NSArray *)addSection1Data
+{
+    NSDictionary *dic1_0 = @{
+                             @"icon"          :   @"game_type",
+                             @"title"         :   @"游戏：体育/真人/老虎机/捕鱼/电竞/金融",
+                             };
+    NSDictionary *dic1_1 = @{
+                             @"icon"          :   @"game_operation",
+                             @"title"         :   @"運营：中国/泰国/美国",
+                             };
+    NSDictionary *dic1_2 = @{
+                             @"icon"          :   @"game_reserve",
+                             @"title"         :   @"备用：网址1  网址2",
+                             };
+    NSDictionary *dic1_3 = @{
+                             @"icon"          :   @"game_introduce",
+                             @"title"         :   @"简介：猜大小娱乐场是当今比较流行的游戏，方 便人们的操作，娱乐与赚钱于一体.",
+                             };
+    
+    NSArray *section1 = @[dic1_0,dic1_1,dic1_2,dic1_3];
+    return section1;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"启示录";
     self.view.backgroundColor = WhiteColor;
-    self.navigationItem.title = @"xxx排行榜";
     
-    [self addBaseViews];
+    [self addTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,66 +86,216 @@
     
 }
 
--(void)addBaseViews
+-(void)addTableView
 {
-    self.tableView = [[GroupShadowTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.tableView.groupShadowDelegate = self;
-    self.tableView.groupShadowDataSource = self;
-    self.tableView.showSeparator = YES;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.view addSubview:self.tableView];
+    _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self.view addSubview:_tableView];
+    [self.tableView activateConstraints:^{
+        self.tableView.top_attr = self.view.top_attr_safe;
+        self.tableView.left_attr = self.view.left_attr_safe;
+        self.tableView.right_attr = self.view.right_attr_safe;
+        self.tableView.bottom_attr = self.view.bottom_attr_safe;
+    }];
+    _tableView.backgroundColor = BACKGROUND_COLOR;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    //注册
 
-    self.tableView.sd_layout
-    .leftEqualToView(self.view)
-    .topEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-    ;
-    [self.tableView updateLayout];
-    
-    [self.tableView registerClass:[RankDetailTableViewCell class] forCellReuseIdentifier:RankDetailTableViewCellID];
-    
 }
 
-//MARK: - GroupShadowTableViewDataSource
-- (NSInteger)numberOfSectionsInGroupShadowTableView:(GroupShadowTableView *)tableView {
-    return 4;
+#pragma mark ----- UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.dataSource.count;
 }
 
-- (NSInteger)groupShadowTableView:(GroupShadowTableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section != 3) {
-        return 1;
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 3;
     }
-    return 7;
+    if (section == 1) {
+        return 4;
+    }
+    
+    return 0;
 }
 
-- (UITableViewCell *)groupShadowTableView:(GroupShadowTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RankDetailTableViewCell *cell = (RankDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RankDetailTableViewCellID];
-    NSInteger num = 0;
-    if (indexPath.section < 3) {
-        num = indexPath.section;
-    }else{
-        num = indexPath.row + 3;
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    if (indexPath.section == 0 || indexPath.section == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        UIView *fatherView = cell.contentView;
+        if (fatherView.subviews.count) {
+            for (UIView *subview in fatherView.subviews) {
+                [subview removeFromSuperview];
+            }
+        }
+        
+        NSArray *data = self.dataSource[indexPath.section];
+        
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                [self setSection0Row0WithData:data[indexPath.row] onView:cell];
+            }else{
+                [self setSection0OtherRowWithData:data[indexPath.row] onView:cell];
+            }
+        }else if (indexPath.section == 1){
+            [self setSection0OtherRowWithData:data[indexPath.row] onView:cell];
+        }
+        
     }
-    cell.tag = num + 1;
-    cell.model = self.dataSource[num];
+
     return cell;
-    
 }
 
-//MARK: - GroupShadowTableViewDelegate
-- (CGFloat)groupShadowTableView:(GroupShadowTableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section != 3) {
-        return 84;
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 70;
+        }else{
+            return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+        }
     }
-    return 72;
+    if (indexPath.section == 1) {
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+    }
+    
+    return 0;
 }
 
-- (void)groupShadowTableView:(GroupShadowTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+//设置0区0行内容
+-(void)setSection0Row0WithData:(NSDictionary *)model onView:(UITableViewCell *)cell
+{
+    UIView *fatherView = cell.contentView;
+    UIImageView *star = [UIImageView new];
+    UIImageView *icon = [UIImageView new];
+    
+    UILabel *title = [UILabel new];
+    title.font = FontScale(16);
+    
+    UIButton *collectBtn = [UIButton new];
+    collectBtn.titleLabel.font = FontScale(15);
+    [collectBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
+    
+    UIButton *websiteBtn = [UIButton new];
+    websiteBtn.titleLabel.font = FontScale(15);
+    [websiteBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
+    
+    [fatherView sd_addSubviews:@[
+                                 star,
+                                 icon,
+                                 title,
+                                 websiteBtn,
+                                 collectBtn,
+                                 ]];
+    //布局
+    star.sd_layout
+    .leftSpaceToView(fatherView, 10)
+    .centerYEqualToView(fatherView)
+    .widthIs(54)
+    .heightIs(61)
+    ;
+    star.image = UIImageNamed(@"game_sixStar");
+    
+    icon.sd_layout
+    .centerYEqualToView(star)
+    .centerXEqualToView(star)
+    .widthIs(50)
+    .heightEqualToWidth()
+    ;
+    icon.image = UIImageNamed(GetSaveString(model[@"icon"]));
+    
+    title.sd_layout
+    .centerYEqualToView(fatherView)
+    .leftSpaceToView(star, 7)
+    .autoHeightRatio(0)
+    ;
+    [title setMaxNumberOfLinesToShow:1];
+    [title setSingleLineAutoResizeWithMaxWidth:100];
+    title.text = GetSaveString(model[@"title"]);
+    
+    collectBtn.sd_layout
+    .rightSpaceToView(fatherView, 10)
+    .centerYEqualToView(fatherView)
+    .widthIs(50 * ScaleW)
+    .heightIs(23)
+    ;
+    [collectBtn setTitle:@"官网" forState:UIControlStateNormal];
+    [collectBtn setSd_cornerRadius:@5];
+    collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
+    collectBtn.layer.borderWidth = 1;
+    
+    websiteBtn.sd_layout
+    .rightSpaceToView(collectBtn, 10)
+    .centerYEqualToView(fatherView)
+    .widthIs(32 * ScaleW)
+    .heightIs(23)
+    ;
+    UIImage *img;
+    if ([model[@"collectType"] integerValue]) {
+        img = UIImageNamed(@"game_collected");
+    }else{
+        img = UIImageNamed(@"game_unCollect");
+    }
+    [websiteBtn setImage:img forState:UIControlStateNormal];
+    [websiteBtn setSd_cornerRadius:@5];
+    websiteBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
+    websiteBtn.layer.borderWidth = 1;
+}
+
+//0区其他行
+-(void)setSection0OtherRowWithData:(NSDictionary *)model onView:(UITableViewCell *)cell
+{
+    UIView *fatherView = cell.contentView;
+    
+    UIImageView *leftIcon = [UIImageView new];
+    UILabel *descrip = [UILabel new];
+    descrip.font = FontScale(15);
+    
+    [fatherView sd_addSubviews:@[
+                                 leftIcon,
+                                 descrip,
+                                 
+                                 ]];
+    leftIcon.sd_layout
+    .leftSpaceToView(fatherView, 10)
+    .topSpaceToView(fatherView, 10)
+    .widthIs(20)
+    .heightEqualToWidth()
+    ;
+    leftIcon.image = UIImageNamed(GetSaveString(model[@"icon"]));
+    
+    descrip.sd_layout
+    .leftSpaceToView(leftIcon, 10)
+    .rightSpaceToView(fatherView, 10)
+    .topEqualToView(leftIcon)
+    .autoHeightRatio(0)
+    ;
+    descrip.text = GetSaveString(model[@"title"]);
+    [cell setupAutoHeightWithBottomView:descrip bottomMargin:10];
+}
+
+//跳转到网页
+-(void)openUrlWithString:(NSString *)str
+{
+    NSURL *url = [NSURL URLWithString:str];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+
 
 
 @end

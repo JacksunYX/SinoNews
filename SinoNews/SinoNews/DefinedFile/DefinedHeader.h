@@ -213,7 +213,7 @@
 #define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:［NSBundle mainBundle]pathForResource:file ofType:ext］
 
 //定义UIImage对象
-#define IMAGE(A) [UIImage imageWithContentsOfFile:［NSBundle mainBundle] pathForResource:A ofType:nil］
+#define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
 
 //定义UIImage对象
 #define UIImageNamed(imageName) [UIImage imageNamed:imageName]

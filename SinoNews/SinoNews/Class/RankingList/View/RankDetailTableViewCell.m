@@ -10,13 +10,17 @@
 
 @interface RankDetailTableViewCell ()
 {
+    //左
     UIImageView *crown;
     UIImageView *userIcon;
     UIButton *num;   //排名
-    
+    //中
     UILabel *title; //标题
     UILabel *score; //分数
     UILabel *subTitle;
+    //中
+    UIButton *detailBtn;
+    UIButton *toPlayBtn;
     UIImageView *upOrDown;
 }
 @end
@@ -62,14 +66,32 @@
     subTitle = [UILabel new];
     subTitle.font = Font(14);
     
+    toPlayBtn = [UIButton new];
+    toPlayBtn.titleLabel.font = Font(15);
+    [toPlayBtn setTitleColor:RGBA(238, 174, 38, 1) forState:UIControlStateNormal];
+    toPlayBtn.layer.borderWidth = 1;
+    toPlayBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+    
+    detailBtn = [UIButton new];
+    detailBtn.titleLabel.font = Font(15);
+    [detailBtn setTitleColor:RGBA(78, 152, 223, 1) forState:UIControlStateNormal];
+    detailBtn.layer.borderWidth = 1;
+    detailBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+    
+    upOrDown = [UIImageView new];
+    
     [self.contentView sd_addSubviews:@[
                                        num,
                                        crown,
                                        userIcon,
+                                       
                                        score,
                                        title,
                                        subTitle,
                                        
+                                       toPlayBtn,
+                                       detailBtn,
+                                       upOrDown,
                                        ]];
 }
 
@@ -182,6 +204,48 @@
     ;
     [subTitle setMaxNumberOfLinesToShow:1];
     [subTitle setSingleLineAutoResizeWithMaxWidth:100];
+    
+    if (self.tag < 4) {
+        toPlayBtn.sd_layout
+        .widthIs(55)
+        .heightIs(21)
+        .rightSpaceToView(self.contentView, 5)
+        .bottomSpaceToView(self.contentView, 10)
+        ;
+        
+        detailBtn.hidden = NO;
+        detailBtn.sd_layout
+        .widthIs(55)
+        .heightIs(21)
+        .rightSpaceToView(self.contentView, 5)
+        .bottomSpaceToView(toPlayBtn, 8)
+        ;
+    }else{
+        detailBtn.hidden = YES;
+        toPlayBtn.sd_layout
+        .widthIs(55)
+        .heightIs(21)
+        .rightSpaceToView(self.contentView, 5)
+        .centerYEqualToView(self.contentView)
+        ;
+    }
+    [toPlayBtn setSd_cornerRadius:@4];
+    [detailBtn setSd_cornerRadius:@4];
+    [detailBtn setTitle:@"详情" forState:UIControlStateNormal];
+    [toPlayBtn setTitle:@"去玩" forState:UIControlStateNormal];
+    
+    upOrDown.sd_layout
+    .rightSpaceToView(toPlayBtn, 50)
+    .topSpaceToView(self.contentView, 20)
+    .widthIs(11)
+    .heightIs(14)
+    ;
+    
+    if ([self.model[@"upOrDown"] integerValue]) {
+        upOrDown.image = UIImageNamed(@"up_icon");
+    }else{
+        upOrDown.image = UIImageNamed(@"down_icon");
+    }
 }
 
 

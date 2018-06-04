@@ -451,7 +451,8 @@
         [cell.contentView addSubview:progress];
         [cell.contentView addSubview:score];
         x = CGRectGetMaxX(progress.frame);
-        if (i%2) {
+
+        if ((i + 1)%2 == 0) {
             y += CGRectGetHeight(title.frame);
         }
     }

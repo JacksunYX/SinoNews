@@ -349,19 +349,19 @@
     [title setSingleLineAutoResizeWithMaxWidth:100];
     title.text = GetSaveString(model[@"title"]);
     
-    collectBtn.sd_layout
+    websiteBtn.sd_layout
     .rightSpaceToView(fatherView, 10)
     .centerYEqualToView(fatherView)
     .widthIs(50 * ScaleW)
     .heightIs(23)
     ;
-    [collectBtn setTitle:@"官网" forState:UIControlStateNormal];
-    [collectBtn setSd_cornerRadius:@5];
-    collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
-    collectBtn.layer.borderWidth = 1;
+    [websiteBtn setTitle:@"官网" forState:UIControlStateNormal];
+    [websiteBtn setSd_cornerRadius:@5];
+    websiteBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
+    websiteBtn.layer.borderWidth = 1;
     
-    websiteBtn.sd_layout
-    .rightSpaceToView(collectBtn, 10)
+    collectBtn.sd_layout
+    .rightSpaceToView(websiteBtn, 10)
     .centerYEqualToView(fatherView)
     .widthIs(32 * ScaleW)
     .heightIs(23)
@@ -372,10 +372,13 @@
     }else{
         img = UIImageNamed(@"game_unCollect");
     }
-    [websiteBtn setImage:img forState:UIControlStateNormal];
-    [websiteBtn setSd_cornerRadius:@5];
-    websiteBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
-    websiteBtn.layer.borderWidth = 1;
+    [collectBtn setImage:img forState:UIControlStateNormal];
+    [collectBtn setSd_cornerRadius:@5];
+    collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
+    collectBtn.layer.borderWidth = 1;
+    
+    [websiteBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
+    [collectBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //0区其他行
@@ -519,6 +522,10 @@
     webserveBtn.layer.borderWidth = 1;
     webserveBtn.layer.borderColor = RGBA(236, 105, 65, 1).CGColor;
     [webserveBtn setTitle:@"官网" forState:UIControlStateNormal];
+    
+    [sendCommentBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
+    [collectBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
+    [webserveBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //跳转到网页
@@ -528,7 +535,18 @@
     [[UIApplication sharedApplication] openURL:url];
 }
 
-
-
+//按钮事件集合
+-(void)touchActions:(UIButton *)btn
+{
+    NSString *btnTitle = btn.titleLabel.text;
+    if ([btnTitle isEqualToString:@"官网"]) {
+//        [self openUrlWithString:@"www.baidu.com"];
+        LRToast(@"点击了官网");
+    }else if ([btnTitle isEqualToString:@"发评论"]){
+        LRToast(@"发送了一个评论~");
+    }else if ([btnTitle isEqualToString:@"收藏"]){
+        LRToast(@"点击了收藏~");
+    }
+}
 
 @end

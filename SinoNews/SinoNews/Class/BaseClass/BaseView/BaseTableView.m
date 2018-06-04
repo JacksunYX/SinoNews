@@ -22,6 +22,7 @@
         self.estimatedSectionHeaderHeight = 0;
         self.dataSource = self;
         self.delegate = self;
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.backgroundColor = [UIColor lightGrayColor];
         [self registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }

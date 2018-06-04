@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412620C4C7B400AA6D57 /* StoreViewController.m */; };
+		4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412920C4C7E300AA6D57 /* GameViewController.m */; };
+		4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412C20C4C80400AA6D57 /* RechargeViewController.m */; };
+		4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412F20C4C83200AA6D57 /* ManagerViewController.m */; };
+		4C17413320C4D1C600AA6D57 /* StoreChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17413220C4D1C600AA6D57 /* StoreChildViewController.m */; };
+		4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17413620C4D94700AA6D57 /* StoreChildCell.m */; };
 		4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA020BCD893003EC4FC /* AppDelegate.m */; };
 		4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA520BCD893003EC4FC /* Main.storyboard */; };
 		4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA820BCD894003EC4FC /* Assets.xcassets */; };
@@ -91,6 +97,18 @@
 /* Begin PBXFileReference section */
 		1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.release.xcconfig"; sourceTree = "<group>"; };
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C17412520C4C7B400AA6D57 /* StoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
+		4C17412620C4C7B400AA6D57 /* StoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
+		4C17412820C4C7E300AA6D57 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		4C17412920C4C7E300AA6D57 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		4C17412B20C4C80400AA6D57 /* RechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
+		4C17412C20C4C80400AA6D57 /* RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
+		4C17412E20C4C83200AA6D57 /* ManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerViewController.h; sourceTree = "<group>"; };
+		4C17412F20C4C83200AA6D57 /* ManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerViewController.m; sourceTree = "<group>"; };
+		4C17413120C4D1C600AA6D57 /* StoreChildViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreChildViewController.h; sourceTree = "<group>"; };
+		4C17413220C4D1C600AA6D57 /* StoreChildViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreChildViewController.m; sourceTree = "<group>"; };
+		4C17413520C4D94700AA6D57 /* StoreChildCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreChildCell.h; sourceTree = "<group>"; };
+		4C17413620C4D94700AA6D57 /* StoreChildCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreChildCell.m; sourceTree = "<group>"; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -256,6 +274,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C17413420C4D92500AA6D57 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C17413520C4D94700AA6D57 /* StoreChildCell.h */,
+				4C17413620C4D94700AA6D57 /* StoreChildCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4C3F8F9320BCD893003EC4FC = {
 			isa = PBXGroup;
 			children = (
@@ -402,6 +429,17 @@
 			children = (
 				4C3F8FF420BCEF3C003EC4FC /* IntegralViewController.h */,
 				4C3F8FF520BCEF3C003EC4FC /* IntegralViewController.m */,
+				4C17412520C4C7B400AA6D57 /* StoreViewController.h */,
+				4C17412620C4C7B400AA6D57 /* StoreViewController.m */,
+				4C17413120C4D1C600AA6D57 /* StoreChildViewController.h */,
+				4C17413220C4D1C600AA6D57 /* StoreChildViewController.m */,
+				4C17412820C4C7E300AA6D57 /* GameViewController.h */,
+				4C17412920C4C7E300AA6D57 /* GameViewController.m */,
+				4C17412B20C4C80400AA6D57 /* RechargeViewController.h */,
+				4C17412C20C4C80400AA6D57 /* RechargeViewController.m */,
+				4C17412E20C4C83200AA6D57 /* ManagerViewController.h */,
+				4C17412F20C4C83200AA6D57 /* ManagerViewController.m */,
+				4C17413420C4D92500AA6D57 /* View */,
 			);
 			path = Integral;
 			sourceTree = "<group>";
@@ -900,10 +938,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C17413320C4D1C600AA6D57 /* StoreChildViewController.m in Sources */,
 				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
 				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
+				4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */,
+				4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
@@ -916,7 +957,9 @@
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
 				4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */,
+				4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
+				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
@@ -951,6 +994,7 @@
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
+				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,6 +18,7 @@
 		4C17414620C5168600AA6D57 /* TXMatchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414120C5168600AA6D57 /* TXMatchConst.m */; };
 		4C17414720C5168600AA6D57 /* TXLimitedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414220C5168600AA6D57 /* TXLimitedTextField.m */; };
 		4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414320C5168600AA6D57 /* TXLimitedTextView.m */; };
+		4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */; };
 		4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA020BCD893003EC4FC /* AppDelegate.m */; };
 		4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA520BCD893003EC4FC /* Main.storyboard */; };
 		4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA820BCD894003EC4FC /* Assets.xcassets */; };
@@ -125,6 +126,8 @@
 		4C17414120C5168600AA6D57 /* TXMatchConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXMatchConst.m; sourceTree = "<group>"; };
 		4C17414220C5168600AA6D57 /* TXLimitedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXLimitedTextField.m; sourceTree = "<group>"; };
 		4C17414320C5168600AA6D57 /* TXLimitedTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXLimitedTextView.m; sourceTree = "<group>"; };
+		4C17414A20C52F7B00AA6D57 /* LXSegmentBtnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXSegmentBtnView.h; sourceTree = "<group>"; };
+		4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSegmentBtnView.m; sourceTree = "<group>"; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -315,6 +318,15 @@
 				4C17414320C5168600AA6D57 /* TXLimitedTextView.m */,
 			);
 			path = InputKit;
+			sourceTree = "<group>";
+		};
+		4C17414920C52F7B00AA6D57 /* LXSegmentBtn */ = {
+			isa = PBXGroup;
+			children = (
+				4C17414A20C52F7B00AA6D57 /* LXSegmentBtnView.h */,
+				4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */,
+			);
+			path = LXSegmentBtn;
 			sourceTree = "<group>";
 		};
 		4C3F8F9320BCD893003EC4FC = {
@@ -576,6 +588,7 @@
 		4C3F901F20BD1C5D003EC4FC /* otherframework */ = {
 			isa = PBXGroup;
 			children = (
+				4C17414920C52F7B00AA6D57 /* LXSegmentBtn */,
 				4C17413820C5168600AA6D57 /* InputKit */,
 				4CE121DF20C13BC800A44782 /* YSProgress */,
 				4CE121D520C0D16000A44782 /* GroupShadowTableView */,
@@ -1008,6 +1021,7 @@
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
+				4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */,
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,

@@ -17,7 +17,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     //请求队列的最大并发数
-//    manager.operationQueue.maxConcurrentOperationCount = 5;
+    //    manager.operationQueue.maxConcurrentOperationCount = 5;
     
     //设置请求超时时长
     manager.requestSerializer.timeoutInterval = 10;
@@ -76,7 +76,7 @@
     
     //判断显示loding
     if (isshowhud == YES) {
-
+        
         ShowHudOnly;
         
     }
@@ -153,7 +153,7 @@
     [parameters setValue:user_id forKey:@"user_id"];
     
     //判断显示loding
-    if (isshowhud==YES) {
+    if (isshowhud == YES) {
         
         ShowHudOnly;
         
@@ -187,17 +187,18 @@
             }
             // 判断登录
             if ([resultdic[@"code"] integerValue] == 10) {
-
+                
                 LRToast(resultdic[@"msg"]);
                 
                 [USER_DEFAULT setObject:@"" forKey:@"token"];
                 [USER_DEFAULT setObject:@"" forKey:@"user_id"];
-//                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//                delegate.isLogin = NO;
+                [USER_DEFAULT synchronize];
+                //                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                //                delegate.isLogin = NO;
                 GCDAfterTime(1, ^{
-//                    [[self getCurrentVC] presentViewController:[[YYFNavigationController alloc] initWithRootViewController:[[enterNavigationController alloc]init]] animated:YES completion:nil];
+                    //                    [[self getCurrentVC] presentViewController:[[YYFNavigationController alloc] initWithRootViewController:[[enterNavigationController alloc]init]] animated:YES completion:nil];
                 });
-
+                
             } else {
                 
                 //成功返回服务器数据
@@ -214,7 +215,7 @@
         
         HiddenHudOnly;
         LRToast(@"网络故障，请重试");
-
+        
         if (failure) {
             
             //失败返回错误原因

@@ -26,6 +26,7 @@
     
     [self setMainVC];
     
+    GGLog(@"UUID-----%@-----",[[UIDevice currentDevice] uuid]);
     
     return YES;
 }

@@ -61,8 +61,7 @@
 #define kWhite(x) [UIColor colorWithWhite:x alpha:1.0f]
 
 
-
-//从网络plist文件中查找相对应的字段请求地址
+//从plist文件中查找相对应的字段请求地址
 #define NetRequestUrl(key) [[[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"NetRequestUrl" ofType:@"plist"]] objectForKey:@#key]
 
 //拼接图片的宏

@@ -28,7 +28,7 @@ pod 'SDAutoLayout', '~> 2.1.3'
 pod 'FMDB'
 pod 'IQKeyboardManager'
 pod 'GHConsole'
-
+pod 'FCUUID'
 
 
 end

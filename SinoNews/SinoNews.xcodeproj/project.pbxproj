@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96420C67263009115C1 /* CZHAddressPickerView.m */; };
+		4C13E96D20C67263009115C1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C13E96920C67263009115C1 /* city.plist */; };
+		4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */; };
+		4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */; };
 		4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412620C4C7B400AA6D57 /* StoreViewController.m */; };
 		4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412920C4C7E300AA6D57 /* GameViewController.m */; };
 		4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412C20C4C80400AA6D57 /* RechargeViewController.m */; };
@@ -104,6 +108,15 @@
 /* Begin PBXFileReference section */
 		1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.release.xcconfig"; sourceTree = "<group>"; };
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C13E96420C67263009115C1 /* CZHAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHAddressPickerView.m; sourceTree = "<group>"; };
+		4C13E96520C67263009115C1 /* AddressPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerHeader.h; sourceTree = "<group>"; };
+		4C13E96620C67263009115C1 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
+		4C13E96720C67263009115C1 /* UIButton+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CZHExtension.h"; sourceTree = "<group>"; };
+		4C13E96820C67263009115C1 /* CZHAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHAddressPickerView.h; sourceTree = "<group>"; };
+		4C13E96920C67263009115C1 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
+		4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CZHExtension.m"; sourceTree = "<group>"; };
+		4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CZHExtension.m"; sourceTree = "<group>"; };
+		4C13E97020C67360009115C1 /* OtherFrameworksHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherFrameworksHead.h; sourceTree = "<group>"; };
 		4C17412520C4C7B400AA6D57 /* StoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
 		4C17412620C4C7B400AA6D57 /* StoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		4C17412820C4C7E300AA6D57 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
@@ -296,6 +309,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C13E96320C67263009115C1 /* AddressPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				4C13E96420C67263009115C1 /* CZHAddressPickerView.m */,
+				4C13E96520C67263009115C1 /* AddressPickerHeader.h */,
+				4C13E96620C67263009115C1 /* UIView+CZHExtension.h */,
+				4C13E96720C67263009115C1 /* UIButton+CZHExtension.h */,
+				4C13E96820C67263009115C1 /* CZHAddressPickerView.h */,
+				4C13E96920C67263009115C1 /* city.plist */,
+				4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */,
+				4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */,
+			);
+			path = AddressPickerView;
+			sourceTree = "<group>";
+		};
 		4C17413420C4D92500AA6D57 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +621,8 @@
 		4C3F901F20BD1C5D003EC4FC /* otherframework */ = {
 			isa = PBXGroup;
 			children = (
+				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
+				4C13E96320C67263009115C1 /* AddressPickerView */,
 				4C17414920C52F7B00AA6D57 /* LXSegmentBtn */,
 				4C17413820C5168600AA6D57 /* InputKit */,
 				4CE121DF20C13BC800A44782 /* YSProgress */,
@@ -888,6 +918,7 @@
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
+				4C13E96D20C67263009115C1 /* city.plist in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
 			);
@@ -1004,6 +1035,7 @@
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
+				4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */,
 				4C17414620C5168600AA6D57 /* TXMatchConst.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
@@ -1021,6 +1053,7 @@
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
+				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
@@ -1044,6 +1077,7 @@
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
+				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,

@@ -20,11 +20,13 @@
 //接口
 #import "NetQuestList.h"
 
+//其他库
+#import "OtherFrameworksHead.h"
+
 //工具类
 #import "ToolsHeader.h"
 
-//分页联动
-#import "MLMSegmentManager.h"
+
 
 //部分第三方库
 #import <MBProgressHUD.h>

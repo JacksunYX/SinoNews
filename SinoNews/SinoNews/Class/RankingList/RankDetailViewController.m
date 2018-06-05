@@ -9,7 +9,7 @@
 #import "BaseTableView.h"
 
 #import "RankDetailViewController.h"
-#import "YSProgressView.h"
+
 
 @interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;

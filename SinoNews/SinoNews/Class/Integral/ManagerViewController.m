@@ -7,7 +7,7 @@
 //
 
 #import "ManagerViewController.h"
-#import "LXSegmentBtnView.h"
+
 #import "BaseTableView.h"
 #import "ManagerRecordCell.h"
 

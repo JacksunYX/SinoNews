@@ -41,7 +41,7 @@
         //直接把返回的参数进行解析然后返回
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        NSLog(@"%@",resultdic);
+        GGLog(@"%@",resultdic);
         
         if (success) {
             success(resultdic);
@@ -72,7 +72,7 @@
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
     
-    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     //判断显示loding
     if (isshowhud == YES) {
@@ -105,7 +105,7 @@
                 
             }
             
-            NSLog(@"resultdic-----%@",resultdic);
+            GGLog(@"resultdic-----%@",resultdic);
             
             //成功返回服务器数据
             success(resultdic);
@@ -159,14 +159,14 @@
         
     }
     
-    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     [manager POST:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
         //把网络请求返回数据转换成json数据
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        NSLog(@"resultdic-----%@",resultdic);
+        GGLog(@"resultdic-----%@",resultdic);
         
         //取出返回数据
         if (success) {
@@ -209,7 +209,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         
-        NSLog(@"error:%@",error);
+        GGLog(@"error:%@",error);
         //隐藏loding
         
         HiddenHudOnly;

@@ -19,6 +19,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //全局调试
+    [[GHConsole sharedConsole]startPrintLog];
     
     [IQKeyboardManager sharedManager].enable = YES;
     

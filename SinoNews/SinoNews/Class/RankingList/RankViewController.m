@@ -126,7 +126,7 @@
     [self.headView setupUIWithImageUrls:imgs];
     
     self.headView.selectBlock = ^(NSInteger index) {
-        DLog(@"选择了下标为%ld的轮播图",index);
+        GGLog(@"选择了下标为%ld的轮播图",index);
     };
 }
 

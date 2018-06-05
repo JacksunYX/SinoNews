@@ -339,7 +339,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击了第%ld个",indexPath.row);
+    GGLog(@"点击了第%ld个",indexPath.row);
 }
 
 

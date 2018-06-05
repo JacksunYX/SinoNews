@@ -13,7 +13,7 @@
 //接口域名
 #define DefaultDomainName DebugDomain
 //测试环境
-#define DebugDomain @"http://testweb.kuaiyishare.com/"
+#define DebugDomain @"http://192.168.2.144:8083/"
 //正式环境
 #define FormalDomain @"https://www.kuaiyishare.com/"
 

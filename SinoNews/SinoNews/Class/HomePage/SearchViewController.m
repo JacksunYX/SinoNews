@@ -390,7 +390,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DLog(@"点击了第%ld条",indexPath.row);
+    GGLog(@"点击了第%ld条",indexPath.row);
     [self.searchBar resignFirstResponder];
     if (indexPath.section == 0) {
         self.searchBar.text = self.hotNews[indexPath.row];
@@ -409,7 +409,7 @@
 #pragma mark ---- UISearchBarDelegate
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    DLog(@"开始获取后台搜索关键词:%@",searchText);
+    GGLog(@"开始获取后台搜索关键词:%@",searchText);
     if ([GetSaveString(searchText) isEqualToString:@""]) {
         [self showWithStatus:3];
     }else{

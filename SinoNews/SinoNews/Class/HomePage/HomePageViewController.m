@@ -108,7 +108,7 @@
 
 -(void)userIconTouch:(UIButton *)btn
 {
-    DLog(@"头像被点击了");
+    GGLog(@"头像被点击了");
 }
 
 //设置下方分页联动
@@ -162,7 +162,7 @@
 {
     WeakSelf
     [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
-        DLog(@"返回标题数组");
+        GGLog(@"返回标题数组");
         //看是否并没有改变数组
         if ([NSArray compareArr:inUseTitles another:self.titleList]) {
             
@@ -173,7 +173,7 @@
         }
         
     } click:^(NSString *title) {
-        DLog(@"返回单个点击");
+        GGLog(@"返回单个点击");
         NSInteger index = [weakSelf.titleList indexOfObject:title];
         [weakSelf.segHead changeIndex:index completion:YES];
         

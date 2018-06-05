@@ -75,7 +75,7 @@
     [self.headView setupUIWithImageUrls:imgs];
     
     self.headView.selectBlock = ^(NSInteger index) {
-        DLog(@"选择了下标为%ld的轮播图",index);
+        GGLog(@"选择了下标为%ld的轮播图",index);
     };
 }
 
@@ -138,7 +138,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击了第%ld个",indexPath.row);
+    GGLog(@"点击了第%ld个",indexPath.row);
 }
 
 //设置0区0行内容

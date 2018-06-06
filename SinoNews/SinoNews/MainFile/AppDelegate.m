@@ -10,6 +10,7 @@
 
 #import "MainTabbarVC.h"
 #import <IQKeyboardManager.h>
+#import <MGSocialShareKit/MGSocialShareKit.h>
 
 @interface AppDelegate ()
 
@@ -25,6 +26,8 @@
     [[GHConsole sharedConsole] startPrintLog];
     //键盘监听
     [IQKeyboardManager sharedManager].enable = YES;
+    //集成友盟分享
+    [self initThirdShare];
     //设置主页
     [self setMainVC];
     
@@ -55,7 +58,30 @@
     [statTracker startWithAppId:@"565a224155"];
 }
 
-
+//集成友盟分享
+-(void)initThirdShare
+{
+    //初始化
+    [MGSocialShareHelper configWithUMAppKey:@"5b17b13df29d98533d00009e" umSocialAppSecret:@"" openLog:YES usingHttpsWhenShareContent:NO];
+    //配置分享平台
+    [MGSocialShareHelper configSharePlateform:MGShareToWechatSession withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    [MGSocialShareHelper configSharePlateform:MGShareToWechatTimeline withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    [MGSocialShareHelper configSharePlateform:MGShareToQQ withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    [MGSocialShareHelper configSharePlateform:MGShareToSina withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    
+    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]) {
+        GGLog(@"可以分享到微信朋友圈");
+    }
+    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
+        GGLog(@"可以分享到微信好友");
+    }
+    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]) {
+        GGLog(@"可以分享到QQ好友");
+    }
+    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
+        GGLog(@"可以分享到新浪微博");
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

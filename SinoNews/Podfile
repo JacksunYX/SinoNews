@@ -30,6 +30,7 @@ pod 'IQKeyboardManager'
 pod 'GHConsole'
 pod 'FCUUID'
 pod 'BaiduMobStat'
+pod 'MGSocialShareKit', '~> 1.0'
 
 
 end

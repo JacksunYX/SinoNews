@@ -17,15 +17,22 @@
         
         
         //设置图片
-        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         //按钮点击事件
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-        
-        [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [btn setBackgroundImage:[UIImage imageNamed:hightimage] forState:UIControlStateHighlighted];
+    
+        btn.contentMode = 4;
+        UIImage *backimg = [UIImage imageNamed:image];
+        //如果图片宽度小于这个btn的宽度，就需要做缩进
+        if (backimg.size.width<=40) {
+            CGFloat insetLeft = 20 - backimg.size.width/2;
+            btn.imageEdgeInsets = UIEdgeInsetsMake(0, -insetLeft, 0, 0);
+        }
+        [btn setImage:backimg forState:UIControlStateNormal];
+        [btn setImage:backimg forState:UIControlStateHighlighted];
         
         //设置尺寸
-        btn.frame = CGRectMake(0, 0, btn.currentBackgroundImage.size.width, btn.currentBackgroundImage.size.height);
+        btn.frame = CGRectMake(0, 0, 40, 40);
         
 //        NSLog(@"w:%lf  h:%lf  ",btn.frame.size.width,btn.frame.size.height);
         return  [[UIBarButtonItem alloc]initWithCustomView:btn];
@@ -95,9 +102,6 @@
     
     
 }
-
-
-
 
 
 +(UIBarButtonItem *)itemBottomWithTarget:(id)target Action:(SEL)action image:(NSString *)image hightimage:(NSString *)hightimage andTitle:(NSString *)title

@@ -136,7 +136,7 @@
     //中间的
     LineLayout *layout = [[LineLayout alloc] init];
     layout.sectionInset = UIEdgeInsetsMake(10, 20, 50, 20);
-    layout.itemSize = CGSizeMake(ScreenW, WIDTH_SCALE * 120);
+    layout.itemSize = CGSizeMake(ScreenW - 40, WIDTH_SCALE * 120);
     layout.minimumLineSpacing = 10;
     //速率
     layout.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;

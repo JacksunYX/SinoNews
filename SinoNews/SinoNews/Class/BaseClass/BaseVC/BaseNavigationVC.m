@@ -39,7 +39,7 @@
  */
 -(void)showNavigationDownLine
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@""] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:kWhite(0.8)]];
     
@@ -51,7 +51,7 @@
  */
 -(void)hideNavigationDownLine
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@""] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc]init]];
 }

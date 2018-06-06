@@ -15,5 +15,5 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define WEAK(weaks,s)  __weak __typeof(&*s)weaks = s;
-
+#define STRONG(strongs,s) __strong __typeof(&*s)strongs = s;
 #endif /* SegmentPageHead_h */

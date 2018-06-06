@@ -18,7 +18,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *titleList;
 @property (nonatomic, strong) NSMutableArray *leaveTitleList;
-
+@property (nonatomic, strong) UIImageView *userIcon;
 @end
 
 @implementation HomePageViewController
@@ -99,16 +99,12 @@
     
     self.navigationItem.titleView = self.searchBar;
     
-    UIButton *userIcon = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 34, 34)];
-    userIcon.backgroundColor = GrayColor;
-    LRViewBorderRadius(userIcon, 17, 0, HexColor(#B5B5B5));
-    [userIcon addTarget:self action:@selector(userIconTouch:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:userIcon];
-}
-
--(void)userIconTouch:(UIButton *)btn
-{
-    GGLog(@"头像被点击了");
+    _userIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 34, 34)];
+    _userIcon.backgroundColor = GrayColor;
+    LRViewBorderRadius(_userIcon, 17, 0, HexColor(#B5B5B5));
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
+    
 }
 
 //设置下方分页联动

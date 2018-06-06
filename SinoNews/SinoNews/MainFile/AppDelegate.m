@@ -19,14 +19,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //百度移动统计
+    [self addBaiduMobStat];
     //全局调试
-    [[GHConsole sharedConsole]startPrintLog];
-    
+    [[GHConsole sharedConsole] startPrintLog];
+    //键盘监听
     [IQKeyboardManager sharedManager].enable = YES;
-    
+    //设置主页
     [self setMainVC];
     
-    GGLog(@"UUID-----%@-----",[[UIDevice currentDevice] uuid]);
+//    GGLog(@"UUID-----%@-----",[[UIDevice currentDevice] uuid]);
     
     return YES;
 }
@@ -43,7 +45,15 @@
     [self.window makeKeyAndVisible];
 }
 
-
+//百度移动统计
+-(void)addBaiduMobStat
+{
+    BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
+    statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    statTracker.enableDebugOn = YES;
+    // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
+    [statTracker startWithAppId:@"565a224155"];
+}
 
 
 

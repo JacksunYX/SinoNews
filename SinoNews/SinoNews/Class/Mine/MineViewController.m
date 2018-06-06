@@ -8,6 +8,7 @@
 
 #import "MineViewController.h"
 #import "BaseTableView.h"
+#import "SettingViewController.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -16,6 +17,8 @@
 //上方
 @property (nonatomic ,strong) BaseTableView *tableView;
 @property (nonatomic ,strong) NSMutableArray *mainDatasource;
+
+@property (nonatomic ,strong) UIImageView *userImg;
 @end
 
 @implementation MineViewController
@@ -165,7 +168,7 @@
     headView.backgroundColor = RGBA(196, 222, 247, 1);
     self.tableView.tableHeaderView = headView;
     
-    UIImageView *userImg = [UIImageView new];
+    _userImg = [UIImageView new];
     UILabel *userName = [UILabel new];
     userName.font = Font(17);
     userName.textColor = RGBA(72, 72, 72, 1);
@@ -182,7 +185,7 @@
     UILabel *praise = [self getLabel];
     
     [headView sd_addSubviews:@[
-                               userImg,
+                               _userImg,
                                userName,
                                integral,
                                signIn,
@@ -193,17 +196,18 @@
                                praise
                                ]];
     
-    userImg.sd_layout
+    _userImg.sd_layout
     .topSpaceToView(headView, 54)
     .leftSpaceToView(headView, 10)
     .widthIs(64)
     .heightEqualToWidth()
     ;
-    userImg.image = UIImageNamed(@"userIcon");
+    _userImg.image = UIImageNamed(@"userIcon");
+    [_userImg setSd_cornerRadius:@32];
     
     userName.sd_layout
-    .bottomSpaceToView(userImg, -27)
-    .leftSpaceToView(userImg, 18 * ScaleW)
+    .bottomSpaceToView(_userImg, -27)
+    .leftSpaceToView(_userImg, 18 * ScaleW)
     .heightIs(20)
     ;
     [userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
@@ -219,7 +223,7 @@
     
     signIn.sd_layout
     .rightEqualToView(headView)
-    .centerYEqualToView(userImg)
+    .centerYEqualToView(_userImg)
     .heightIs(26)
     .widthIs(113 * ScaleW)
     ;
@@ -232,7 +236,7 @@
     [self cutCornerradiusWithView:signIn];
     
     publish.sd_layout
-    .topSpaceToView(userImg, 50)
+    .topSpaceToView(_userImg, 50)
     .leftEqualToView(headView)
     .bottomSpaceToView(headView, 20)
     .widthIs(ScreenW/4)
@@ -263,6 +267,24 @@
     ;
     praise.attributedText = [self leadString:@"0" tailString:@"获赞" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
     
+    UITapGestureRecognizer *userTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userTouch)];
+    userTap.numberOfTapsRequired = 1;
+    _userImg.userInteractionEnabled = YES;
+    [_userImg addGestureRecognizer:userTap];
+    
+}
+
+-(void)userTouch
+{
+    WEAK(weakSelf, self)
+    [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
+        STRONG(strongSelf, weakSelf)
+        //先对质量压缩
+        NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
+        UIImage *img = [UIImage imageWithData:imgData];
+        strongSelf.userImg.image = img;
+        
+    }];
 }
 
 //获取统一label
@@ -396,6 +418,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SettingViewController *stVC = [SettingViewController new];
+    [self.navigationController pushViewController:stVC animated:YES];
 }
 
 

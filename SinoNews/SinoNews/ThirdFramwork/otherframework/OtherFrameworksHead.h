@@ -16,4 +16,6 @@
 //分页联动
 #import "MLMSegmentManager.h"
 
+#import "ZZYPhotoHelper.h"
+
 #endif /* OtherFrameworksHead_h */

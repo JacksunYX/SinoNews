@@ -83,6 +83,8 @@
 		4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DA20C0E14100A44782 /* RankListTableViewCell.m */; };
 		4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DD20C11DA000A44782 /* RankDetailViewController.m */; };
 		4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121E020C13BC800A44782 /* YSProgressView.m */; };
+		4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91720C7C380004550B9 /* ZZYPhotoHelper.m */; };
+		4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91A20C7D508004550B9 /* SettingViewController.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -272,6 +274,10 @@
 		4CE121DD20C11DA000A44782 /* RankDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankDetailViewController.m; sourceTree = "<group>"; };
 		4CE121E020C13BC800A44782 /* YSProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSProgressView.m; sourceTree = "<group>"; };
 		4CE121E120C13BC800A44782 /* YSProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSProgressView.h; sourceTree = "<group>"; };
+		4CE9C91620C7C37F004550B9 /* ZZYPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZYPhotoHelper.h; sourceTree = "<group>"; };
+		4CE9C91720C7C380004550B9 /* ZZYPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZYPhotoHelper.m; sourceTree = "<group>"; };
+		4CE9C91920C7D508004550B9 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		4CE9C91A20C7D508004550B9 /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -528,6 +534,8 @@
 			children = (
 				4C3F8FF720BCEF45003EC4FC /* MineViewController.h */,
 				4C3F8FF820BCEF45003EC4FC /* MineViewController.m */,
+				4CE9C91920C7D508004550B9 /* SettingViewController.h */,
+				4CE9C91A20C7D508004550B9 /* SettingViewController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -622,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
+				4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */,
 				4C13E96320C67263009115C1 /* AddressPickerView */,
 				4C17414920C52F7B00AA6D57 /* LXSegmentBtn */,
 				4C17413820C5168600AA6D57 /* InputKit */,
@@ -783,6 +792,15 @@
 				4CE121E120C13BC800A44782 /* YSProgressView.h */,
 			);
 			path = YSProgress;
+			sourceTree = "<group>";
+		};
+		4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */ = {
+			isa = PBXGroup;
+			children = (
+				4CE9C91620C7C37F004550B9 /* ZZYPhotoHelper.h */,
+				4CE9C91720C7C380004550B9 /* ZZYPhotoHelper.m */,
+			);
+			path = ZZYPhotoHelper;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -1063,6 +1081,7 @@
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
+				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
@@ -1080,6 +1099,7 @@
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
+				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
@@ -1259,8 +1279,9 @@
 			baseConfigurationReference = C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95VLMCLGVQ;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;
@@ -1281,8 +1302,9 @@
 			baseConfigurationReference = 1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 95VLMCLGVQ;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;

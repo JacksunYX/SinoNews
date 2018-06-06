@@ -29,6 +29,7 @@ pod 'FMDB'
 pod 'IQKeyboardManager'
 pod 'GHConsole'
 pod 'FCUUID'
+pod 'BaiduMobStat'
 
 
 end

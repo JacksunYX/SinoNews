@@ -541,8 +541,8 @@
 {
     NSString *btnTitle = btn.titleLabel.text;
     if ([btnTitle isEqualToString:@"官网"]) {
-//        [self openUrlWithString:@"www.baidu.com"];
-        LRToast(@"点击了官网");
+        [self openUrlWithString:@"http://www.baidu.com"];
+//        LRToast(@"点击了官网");
     }else if ([btnTitle isEqualToString:@"发评论"]){
         LRToast(@"发送了一个评论~");
     }else if ([btnTitle isEqualToString:@"收藏"]){

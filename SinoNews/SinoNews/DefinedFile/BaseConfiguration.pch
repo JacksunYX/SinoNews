@@ -47,7 +47,7 @@
 
 #import <UIDevice+FCUUID.h>
 
-
+#import <BaiduMobStat.h>
 
 
 

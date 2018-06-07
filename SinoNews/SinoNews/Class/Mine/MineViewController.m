@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "BaseTableView.h"
 #import "SettingViewController.h"
+#import "UserModel.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -97,6 +98,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     [self addViews];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -420,6 +422,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SettingViewController *stVC = [SettingViewController new];
     [self.navigationController pushViewController:stVC animated:YES];
+    
 }
 
 

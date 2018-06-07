@@ -53,7 +53,7 @@
 {
     BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
     statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    statTracker.enableDebugOn = YES;
+//    statTracker.enableDebugOn = YES;
     // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
     [statTracker startWithAppId:@"565a224155"];
 }
@@ -68,7 +68,7 @@
     [MGSocialShareHelper configSharePlateform:MGShareToWechatTimeline withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
     [MGSocialShareHelper configSharePlateform:MGShareToQQ withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
     [MGSocialShareHelper configSharePlateform:MGShareToSina withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-    
+/*
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]) {
         GGLog(@"可以分享到微信朋友圈");
     }
@@ -81,6 +81,7 @@
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
         GGLog(@"可以分享到新浪微博");
     }
+ */
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

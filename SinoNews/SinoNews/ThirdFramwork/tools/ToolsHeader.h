@@ -16,5 +16,6 @@
 #import "NSArray+compare.h"
 #import "YXHeader.h"
 #import "CustomRefreshHead.h"
+#import "NSObject+save.h"
 
 #endif /* ToolsHeader_h */

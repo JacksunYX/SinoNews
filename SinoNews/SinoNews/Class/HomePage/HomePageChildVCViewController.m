@@ -31,6 +31,8 @@
     [self addTableView];
     
     [self testBanner];
+    
+    GGLog(@"news_id:%@",self.news_id);
 }
 
 - (void)didReceiveMemoryWarning {

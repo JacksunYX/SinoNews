@@ -26,16 +26,28 @@
 -(NSMutableArray *)titleList
 {
     if (!_titleList) {
-        _titleList = [NSMutableArray arrayWithObjects:
-                      @"最新",
-                      @"视频",
-                      @"游戏",
-                      @"娱乐",
-                      @"测试一下",
-                      @"体育",
-                      @"电子",
-                      
-                      nil];
+        _titleList = [NSMutableArray new];
+        
+        NSArray *title = @[
+                           @"最新",
+                           @"视频",
+                           @"游戏",
+                           @"娱乐",
+                           @"测试一下",
+                           @"体育",
+                           @"电子",
+                           ];
+        for (int i = 0; i < title.count; i ++) {
+            XLChannelModel *model = [XLChannelModel new];
+            model.news_id = [NSString stringWithFormat:@"%d",i + 10086];
+            model.title = title[i];
+            if (i < 4) {
+                [_titleList addObject:model];
+            }else{
+                model.isNew = YES;
+                [self.leaveTitleList addObject:model];
+            }
+        }
         
     }
     return _titleList;
@@ -114,7 +126,8 @@
     if (_segHead) {
         [_segHead removeFromSuperview];
     }
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:self.titleList headStyle:1 layoutStyle:2];
+    
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:[self getTitlesArrFromArr:self.titleList] headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.8;
     _segHead.fontSize = 16;
@@ -128,7 +141,7 @@
     if (_segScroll) {
         [_segScroll removeFromSuperview];
     }
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self vcArr:self.titleList.count]];
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getvcArr]];
     _segScroll.countLimit = 0;
     
     WEAK(weakself, self);
@@ -160,7 +173,7 @@
     [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
         GGLog(@"返回标题数组");
         //看是否并没有改变数组
-        if ([NSArray compareArr:inUseTitles another:self.titleList]) {
+        if ([NSArray compareArr:[self getTitlesArrFromArr:inUseTitles] andArr2:[self getTitlesArrFromArr:self.titleList]]) {
             
         }else{
             weakSelf.titleList = [inUseTitles mutableCopy];
@@ -172,15 +185,16 @@
         GGLog(@"返回单个点击");
         NSInteger index = [weakSelf.titleList indexOfObject:title];
         [weakSelf.segHead changeIndex:index completion:YES];
-        
     }];
 }
 
-- (NSArray *)vcArr:(NSInteger)count {
+- (NSArray *)getvcArr
+{
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSInteger i = 0; i < count; i ++) {
+    for (NSInteger i = 0; i < self.titleList.count; i ++) {
         HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
-//        vc.index = i;
+        XLChannelModel *model = self.titleList[i];
+        vc.news_id = model.news_id;
         [arr addObject:vc];
     }
     return arr;
@@ -193,6 +207,15 @@
     [self.navigationController pushViewController:sVC animated:NO];
 }
 
+//将title分离出一个数组
+-(NSArray *)getTitlesArrFromArr:(NSArray *)arr
+{
+    NSMutableArray *titleArr = [NSMutableArray new];
+    for (XLChannelModel *model in arr) {
+        [titleArr addObject:model.title];
+    }
+    return titleArr;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

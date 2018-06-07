@@ -9,29 +9,45 @@
 #import "NSArray+compare.h"
 
 @implementation NSArray (compare)
-+(BOOL)compareArr:(NSArray *)array1 another:(NSArray *)array2
-{
-    BOOL equeal = NO;
-    NSMutableSet *set1 = [NSMutableSet setWithArray:array1];
-    NSMutableSet *set2 = [NSMutableSet setWithArray:array2];
-    
-    [set1 intersectSet:set2];  //取交集后 set1中为1
-    
-    if (set1.count < array1.count) {
-        GGLog(@"两者不相等,说明arr1包含有arr2没有的数据");
-        equeal = NO;
-    }else if(set1.count == array1.count){
-        if (set1.count == array2.count) {
-            GGLog(@"array2 == array1 数组相等");
-            equeal = YES;
-        }else{
-            GGLog(@"arr2大于arr1的数据");
-            equeal = NO;
-        }
-    }else{
-        GGLog(@"交集count > arr1的count，算法出错了了了了");
+
+//比较两个数组中是否有不同元素
+- (BOOL)filterArr:(NSArray *)arr1 andArr2:(NSArray *)arr2 {
+    NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"NOT (SELF IN %@)",arr1];
+    //得到两个数组中不同的数据
+    NSArray *reslutFilteredArray = [arr2 filteredArrayUsingPredicate:filterPredicate];
+    if (reslutFilteredArray.count > 0) {
+        return YES;
     }
-    
-    return equeal;
+    return NO;
 }
+
++ (BOOL)compareArr:(NSArray *)arr1 andArr2:(NSArray *)arr2 {
+    if (arr1.count != arr2.count) { //两次数量不同，直接显示
+        return NO;
+    }else { //两个数量相同,比较字符串
+        int hasSame =0;
+        for (int i = 0; i < arr1.count; i++) {
+            NSString *str1 = arr1[i];
+            NSString *str2 = arr2[i];
+            if ([str1 isEqualToString:str2]) {
+                hasSame ++;
+            }else{
+                break;
+            }
+        }
+        
+        if (hasSame == arr1.count) { //两个元素相同
+            return YES;
+        }else {
+            return NO;
+        }
+    }
+}
+
+
+
+
+
+
+
 @end

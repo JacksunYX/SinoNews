@@ -9,6 +9,7 @@
 #import "XLChannelView.h"
 #import "XLChannelItem.h"
 #import "XLChannelHeader.h"
+#import "XLChannelModel.h"
 
 //菜单列数
 static NSInteger ColumnNumber = 4;
@@ -227,14 +228,19 @@ static CGFloat CellMarginY = 13.0f;
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString* cellId = @"XLChannelItem";
+    XLChannelModel *model = indexPath.section == 0 ? _inUseTitles[indexPath.row] : _unUseTitles[indexPath.row];
     XLChannelItem* item = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    item.title = indexPath.section == 0 ? _inUseTitles[indexPath.row] : _unUseTitles[indexPath.row];
+//    item.title = indexPath.section == 0 ? _inUseTitles[indexPath.row] : _unUseTitles[indexPath.row];
+    item.title = model.title;
     item.isFixed = indexPath.section == 0 && indexPath.row == 0;
     if (indexPath.section == 0&&indexPath.row != 0) {
         item.canDelete = canEdit;
     }else{
         item.canDelete = NO;
     }
+    
+    item.isNew = model.isNew;
+    
     return  item;
 }
 
@@ -253,9 +259,10 @@ static CGFloat CellMarginY = 13.0f;
             [_collectionView moveItemAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
             
         }else{
-            id obj = [_unUseTitles objectAtIndex:indexPath.row];
-            [_unUseTitles removeObject:obj];
-            [_inUseTitles addObject:obj];
+            XLChannelModel *model = [_unUseTitles objectAtIndex:indexPath.row];
+            model.isNew = NO;
+            [_unUseTitles removeObject:model];
+            [_inUseTitles addObject:model];
             [_collectionView moveItemAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:_inUseTitles.count - 1 inSection:0]];
             
         }

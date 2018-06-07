@@ -21,4 +21,7 @@
 //是否可以被移除
 @property (nonatomic, assign) BOOL canDelete;
 
+//是否是最新
+@property (nonatomic, assign) BOOL isNew;
+
 @end

@@ -11,12 +11,12 @@
 @interface NSArray (compare)
 
 /**
- 比较2个数组里的元素是否完全相同
+ 比较两个包含字符串的数组中元素是否完全相等（包括元素和位置）
 
- @param array1 数组1
- @param array2 数组2
- @return 是否相等
+ @param arr1 数组1
+ @param arr2 数组2
+ @return 比较结果
  */
-+(BOOL)compareArr:(NSArray *)array1 another:(NSArray *)array2;
++ (BOOL)compareArr:(NSArray *)arr1 andArr2:(NSArray *)arr2;
 
 @end

@@ -15,6 +15,8 @@
     CAShapeLayer *_borderLayer;
     
     UIImageView *deleteImg;
+    
+    UILabel *newLabel;
 }
 @end
 
@@ -52,6 +54,15 @@
     deleteImg.hidden = YES;
     [deleteImg setImage:[UIImage imageNamed:@"delete.png"]];
     [self addSubview:deleteImg];
+    
+    newLabel = [UILabel new];
+    newLabel.textColor = OrangeColor;
+    newLabel.font = Font(12);
+    newLabel.text = @"new";
+    [newLabel sizeToFit];
+    newLabel.hidden = YES;
+    newLabel.frame = CGRectMake(_textLabel.frame.size.width - CGRectGetWidth(newLabel.frame)/2, -3, CGRectGetWidth(newLabel.frame), CGRectGetHeight(newLabel.frame));
+    [self addSubview:newLabel];
 }
 
 -(void)addBorderLayer{
@@ -132,6 +143,12 @@
 {
     _canDelete = canDelete;
     deleteImg.hidden = !canDelete;
+}
+
+-(void)setIsNew:(BOOL)isNew
+{
+    _isNew = isNew;
+    newLabel.hidden = !isNew;
 }
 
 @end

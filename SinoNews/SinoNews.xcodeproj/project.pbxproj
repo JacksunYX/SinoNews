@@ -62,6 +62,7 @@
 		4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */; };
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
+		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
 		4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */; };
 		4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */; };
@@ -234,6 +235,8 @@
 		4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageThirdKindCell.m; sourceTree = "<group>"; };
 		4C3F905720BD7102003EC4FC /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
+		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
+		4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLChannelModel.m; sourceTree = "<group>"; };
 		4C83E64120BFE32C00C99AAB /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
 		4C83E64220BFE32C00C99AAB /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
 		4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCollectionViewCell.h; sourceTree = "<group>"; };
@@ -751,14 +754,16 @@
 		4C8735E920BE8CC700B6A8B5 /* XLChannelControl */ = {
 			isa = PBXGroup;
 			children = (
-				4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */,
-				4C8735EB20BE8CC700B6A8B5 /* XLChannelView.h */,
-				4C8735EC20BE8CC700B6A8B5 /* XLChannelHeader.h */,
-				4C8735ED20BE8CC700B6A8B5 /* XLChannelItem.h */,
-				4C8735EE20BE8CC700B6A8B5 /* XLChannelHeader.m */,
-				4C8735EF20BE8CC700B6A8B5 /* XLChannelView.m */,
 				4C8735F020BE8CC700B6A8B5 /* XLChannelControl.h */,
+				4C8735EA20BE8CC700B6A8B5 /* XLChannelControl.m */,
+				4C8735EC20BE8CC700B6A8B5 /* XLChannelHeader.h */,
+				4C8735EE20BE8CC700B6A8B5 /* XLChannelHeader.m */,
+				4C8735ED20BE8CC700B6A8B5 /* XLChannelItem.h */,
 				4C8735F120BE8CC700B6A8B5 /* XLChannelItem.m */,
+				4C8735EB20BE8CC700B6A8B5 /* XLChannelView.h */,
+				4C8735EF20BE8CC700B6A8B5 /* XLChannelView.m */,
+				4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */,
+				4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */,
 				4C8735F220BE8CC700B6A8B5 /* delete@2x.png */,
 				4C8735F320BE8CC700B6A8B5 /* delete@3x.png */,
 			);
@@ -1127,6 +1132,7 @@
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
+				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,

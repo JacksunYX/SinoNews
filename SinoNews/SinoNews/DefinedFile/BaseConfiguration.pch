@@ -17,6 +17,9 @@
 //通用宏
 #import "DefinedHeader.h"
 
+//请求封装
+#import "HttpRequest.h"
+
 //接口
 #import "NetQuestList.h"
 

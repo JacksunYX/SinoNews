@@ -28,26 +28,26 @@
     if (!_titleList) {
         _titleList = [NSMutableArray new];
         
-        NSArray *title = @[
-                           @"最新",
-                           @"视频",
-                           @"游戏",
-                           @"娱乐",
-                           @"测试一下",
-                           @"体育",
-                           @"电子",
-                           ];
-        for (int i = 0; i < title.count; i ++) {
-            XLChannelModel *model = [XLChannelModel new];
-            model.news_id = [NSString stringWithFormat:@"%d",i + 10086];
-            model.title = title[i];
-            if (i < 4) {
-                [_titleList addObject:model];
-            }else{
-                model.isNew = YES;
-                [self.leaveTitleList addObject:model];
-            }
-        }
+//        NSArray *title = @[
+//                           @"最新",
+//                           @"视频",
+//                           @"游戏",
+//                           @"娱乐",
+//                           @"测试一下",
+//                           @"体育",
+//                           @"电子",
+//                           ];
+//        for (int i = 0; i < title.count; i ++) {
+//            XLChannelModel *model = [XLChannelModel new];
+//            model.channelId = [NSString stringWithFormat:@"%d",i + 10086];
+//            model.channelName = title[i];
+//            if (i < 4) {
+//                [_titleList addObject:model];
+//            }else{
+//                model.isNew = YES;
+//                [self.leaveTitleList addObject:model];
+//            }
+//        }
         
     }
     return _titleList;
@@ -70,7 +70,7 @@
     
     [self addNavigationView];
     
-    [self reloadChildVCWithTitles:self.titleList];
+    [self requestChnanel];
     
 }
 
@@ -194,7 +194,7 @@
     for (NSInteger i = 0; i < self.titleList.count; i ++) {
         HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
         XLChannelModel *model = self.titleList[i];
-        vc.news_id = model.news_id;
+        vc.news_id = model.channelId;
         [arr addObject:vc];
     }
     return arr;
@@ -212,7 +212,7 @@
 {
     NSMutableArray *titleArr = [NSMutableArray new];
     for (XLChannelModel *model in arr) {
-        [titleArr addObject:model.title];
+        [titleArr addObject:model.channelName];
     }
     return titleArr;
 }
@@ -222,9 +222,24 @@
     
 }
 
-
-
-
+#pragma mark ---- 请求相关
+//请求栏目列表
+-(void)requestChnanel
+{
+    [HttpRequest getWithURLString:Channel_listChannels parameters:nil success:^(id responseObject) {
+        NSArray *channelConcerned = responseObject[@"data"][@"concerned"];
+        NSArray *channelUnconcerned = responseObject[@"data"][@"unconcerned"];
+        if (!kArrayIsEmpty(channelConcerned)) {
+            self.titleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelConcerned]];
+        }
+        if (!kArrayIsEmpty(channelUnconcerned)) {
+            self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
+        }
+        
+        [self reloadChildVCWithTitles:self.titleList];
+        
+    } failure:nil];
+}
 
 
 @end

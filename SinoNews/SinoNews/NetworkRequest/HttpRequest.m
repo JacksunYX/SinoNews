@@ -44,7 +44,12 @@
         GGLog(@"%@",resultdic);
         
         if (success) {
-            success(resultdic);
+            if ([resultdic[@"success"] integerValue] == 1) {
+                success(resultdic);
+            }else{
+                LRToast(@"请求失败");
+            }
+            
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {

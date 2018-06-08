@@ -135,6 +135,7 @@ static CGFloat CellMarginY = 13.0f;
         self->_dragingItem.hidden = true;
         XLChannelItem *item = (XLChannelItem*)[_collectionView cellForItemAtIndexPath:self->_dragingIndexPath];
         item.isMoving = false;
+        [self reloadData];
     }];
 }
 
@@ -154,6 +155,10 @@ static CGFloat CellMarginY = 13.0f;
             if (indexPath.row != 0) {
                 dragIndexPath = indexPath;
             }
+//            XLChannelModel *model = _inUseTitles[indexPath.row];
+//            if (model.status != 2) {
+//                dragIndexPath = indexPath;
+//            }
             break;
         }
     }
@@ -170,9 +175,9 @@ static CGFloat CellMarginY = 13.0f;
         if (indexPath.section > 0) {continue;}
         //在第一组中找出将被替换位置的Item
         if (CGRectContainsPoint([_collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
-            if (indexPath.row != 0) {
+//            if (indexPath.row != 0) {
                 targetIndexPath = indexPath;
-            }
+//            }
         }
     }
     return targetIndexPath;
@@ -231,10 +236,15 @@ static CGFloat CellMarginY = 13.0f;
     XLChannelModel *model = indexPath.section == 0 ? _inUseTitles[indexPath.row] : _unUseTitles[indexPath.row];
     XLChannelItem* item = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
 //    item.title = indexPath.section == 0 ? _inUseTitles[indexPath.row] : _unUseTitles[indexPath.row];
-    item.title = model.title;
-    item.isFixed = indexPath.section == 0 && indexPath.row == 0;
-    if (indexPath.section == 0&&indexPath.row != 0) {
-        item.canDelete = canEdit;
+    item.title = model.channelName;
+//    item.isFixed = indexPath.section == 0 && indexPath.row == 0;
+    if (model.status == 2) {    //固定
+        item.isFixed = YES;
+    }else{
+        item.isFixed = NO;
+    }
+    if (indexPath.section == 0&&canEdit) {
+        item.canDelete = !item.isFixed;
     }else{
         item.canDelete = NO;
     }
@@ -252,8 +262,11 @@ static CGFloat CellMarginY = 13.0f;
             //只剩一个的时候不可删除
             if ([_collectionView numberOfItemsInSection:0] == 1) {return;}
             //第一个不可删除
-            if (indexPath.row  == 0) {return;}
-            id obj = [_inUseTitles objectAtIndex:indexPath.row];
+//            if (indexPath.row  == 0) {return;}
+            XLChannelModel *obj = [_inUseTitles objectAtIndex:indexPath.row];
+            if (obj.status == 2) {
+                return;
+            }
             [_inUseTitles removeObject:obj];
             [_unUseTitles insertObject:obj atIndex:0];
             [_collectionView moveItemAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];

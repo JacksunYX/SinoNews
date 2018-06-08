@@ -10,5 +10,7 @@
 #ifndef HomePageNet_h
 #define HomePageNet_h
 
+//栏目管理
+#define Channel_listChannels    @"/api/channel/listChannels"
 
 #endif /* HomePageNet_h */

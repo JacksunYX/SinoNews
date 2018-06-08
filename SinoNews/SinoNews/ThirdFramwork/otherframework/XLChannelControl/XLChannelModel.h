@@ -10,9 +10,11 @@
 
 @interface XLChannelModel : NSObject
 
-@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *channelName;
 
-@property (nonatomic,strong) NSString *news_id;
+@property (nonatomic,strong) NSString *channelId;
+
+@property (nonatomic,assign) NSInteger status;   //1.可以修改，2.系统自带，不可修改
 
 @property (nonatomic,assign) BOOL isNew;
 

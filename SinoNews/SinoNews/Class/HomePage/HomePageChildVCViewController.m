@@ -32,7 +32,7 @@
     
     [self testBanner];
     
-    GGLog(@"news_id:%@",self.news_id);
+//    GGLog(@"news_id:%@",self.news_id);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,10 +43,6 @@
 //测试轮播图
 -(void)testBanner
 {
-    if (self.index != 0) {
-        return;
-    }
-    
     HeadBannerView *headView = [HeadBannerView new];
     
     [self.view addSubview:headView];
@@ -90,6 +86,12 @@
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+    
+    WEAK(weakSelf, self);
+    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+//        [weakSelf requestNews_list];
+        [weakSelf requestBanner];
+    }];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -147,5 +149,23 @@
     return 0.01;
 }
 
+#pragma mark ---- 请求方法
+//请求文章列表
+-(void)requestNews_list
+{
+    [HttpRequest getWithURLString:[News_list stringByAppendingString:[NSString stringWithFormat:@"%@",GetSaveString(self.news_id)]] parameters:nil success:^(id responseObject) {
+        
+    } failure:nil];
+    [self.tableView.mj_header endRefreshing];
+}
+
+//请求banner
+-(void)requestBanner
+{
+    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
+        
+    } failure:nil];
+    [self.tableView.mj_header endRefreshing];
+}
 
 @end

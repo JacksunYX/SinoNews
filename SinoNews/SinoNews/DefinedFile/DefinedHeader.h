@@ -432,4 +432,22 @@ kWindow.userInteractionEnabled = YES;\
 //----------------------是否是空对象----------------------------
 
 
+//字符串宏
+//拼接字符串
+#define AppendingString(str1,str2) [str1 stringByAppendingString:str2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif /* DefinedHeader_h */

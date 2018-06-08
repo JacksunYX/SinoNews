@@ -35,8 +35,8 @@
     AFHTTPSessionManager *manager = [self getQuestManager];
     
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
-    
-    [manager GET:baseURLString parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+    GGLog(@"baseURLString:%@",baseURLString);
+    [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
         //直接把返回的参数进行解析然后返回
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
@@ -47,7 +47,7 @@
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                LRToast(@"请求失败");
+                LRToast(resultdic[@"alertMsg"]);
             }
             
         }

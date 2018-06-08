@@ -75,11 +75,11 @@
     .rightSpaceToView(self.contentView, lrMargin)
     .autoHeightRatio(0)
     ;
-    [title setMaxNumberOfLinesToShow:1];
-    title.text = @"上班族注意啦！用贝壳app租房～没想到这么便宜";
+    [title setMaxNumberOfLinesToShow:2];
+    title.text = @"上班族注意啦！用贝壳app租房～没想到这么便宜上班族注意啦！用贝壳app租房～没想到这么便宜上班族注意啦！用贝壳app租房～没想到这么便宜";
     
     CGFloat imgW = (ScreenW - lrMargin*2);
-    CGFloat imgH = imgW * 127.0 / 355;
+    CGFloat imgH = imgW * 160.0 / 355;
     img.sd_layout
     .topSpaceToView(title, tbMargin)
     .leftSpaceToView(self.contentView, lrMargin)

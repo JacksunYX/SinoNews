@@ -102,6 +102,7 @@
 //        [weakSelf requestNews_list];
         [weakSelf requestBanner];
     }];
+    [_tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -169,8 +170,9 @@
         if (!kArrayIsEmpty(self.adArr)) {
             [self creatBanner];
         }
+        [self.tableView.mj_header endRefreshing];
     } failure:nil];
-    [self.tableView.mj_header endRefreshing];
+    
 }
 
 @end

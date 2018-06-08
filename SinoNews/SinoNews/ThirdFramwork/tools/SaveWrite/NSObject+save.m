@@ -64,7 +64,7 @@
     {
         objc = [NSData dataWithContentsOfFile:savePath];
     }
-//    GGLog(@"取出数据：%@",objc);
+    GGLog(@"取出数据：%@",objc);
     return objc;
 }
 

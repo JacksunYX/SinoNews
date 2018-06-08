@@ -88,8 +88,8 @@
     .rightSpaceToView(rightImg, 20)
     .autoHeightRatio(0)
     ;
-    [title setMaxNumberOfLinesToShow:2];
-    title.text = [@"        " stringByAppendingString:@"发改委：严格防范外 债严格防范外债"];
+    [title setMaxNumberOfLinesToShow:3];
+    title.text = [@"        " stringByAppendingString:@"发改委：严格防范外 债严格防范外债发改委：严格防范外 债严格防范外债发改委：严格防范外 债严格防范外债"];
     
     bottomLabel.sd_layout
     .leftSpaceToView(self.contentView, 10)

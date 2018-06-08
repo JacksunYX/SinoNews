@@ -26,12 +26,11 @@ pod 'MJExtension'
 pod 'MJRefresh'
 pod 'SDAutoLayout', '~> 2.1.3'
 pod 'SDWebImage'
-pod 'FMDB'
 pod 'IQKeyboardManager'
 pod 'GHConsole'
 pod 'FCUUID'
 pod 'BaiduMobStat'
 pod 'MGSocialShareKit', '~> 1.0'
-
+pod 'BGFMDB'
 
 end

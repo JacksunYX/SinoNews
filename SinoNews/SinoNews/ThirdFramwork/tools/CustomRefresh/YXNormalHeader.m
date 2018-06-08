@@ -15,12 +15,17 @@
     [super prepare];
     
     //所有的自定义东西都放在这里
-    [self setTitle:@"闲置状态" forState:MJRefreshStateIdle];
+    [self setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
     [self setTitle:@"松开刷新" forState:MJRefreshStatePulling];
     [self setTitle:@"刷新中" forState:MJRefreshStateRefreshing];
-    [self setTitle:@"下拉刷新" forState:MJRefreshStateWillRefresh];
+    [self setTitle:@"马上刷新" forState:MJRefreshStateWillRefresh];
     [self setTitle:@"已显示全部内容" forState:MJRefreshStateNoMoreData];
     //一些其他属性设置
+//    self.lastUpdatedTimeText = ^NSString *(NSDate *lastUpdatedTime) {
+//        return @"";
+//    };
+    
+    self.labelLeftInset = 50;
     /*
      // 设置字体
      self.stateLabel.font = [UIFont systemFontOfSize:15];
@@ -44,7 +49,8 @@
     
     //如果需要自己重新布局子控件，请在这里设置
     //箭头
-    //    self.arrowView.center =
+//    self.arrowView.center = self.center;
+    
 }
 
 

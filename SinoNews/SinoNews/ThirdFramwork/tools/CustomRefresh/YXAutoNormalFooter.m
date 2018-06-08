@@ -16,7 +16,7 @@
     [self setTitle:@"闲置状态" forState:MJRefreshStateIdle];
     [self setTitle:@"松开刷新" forState:MJRefreshStatePulling];
     [self setTitle:@"刷新中" forState:MJRefreshStateRefreshing];
-    [self setTitle:@"下拉刷新" forState:MJRefreshStateWillRefresh];
+    [self setTitle:@"上拉刷新" forState:MJRefreshStateWillRefresh];
     [self setTitle:@"已显示全部内容" forState:MJRefreshStateNoMoreData];
     //一些其他属性设置
     

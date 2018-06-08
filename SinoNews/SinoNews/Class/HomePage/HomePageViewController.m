@@ -70,8 +70,14 @@
     
     [self addNavigationView];
     
-    [self requestChnanel];
-    
+    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
+    if (kArrayIsEmpty(columnArr)) {
+        [self requestChnanel];
+    }else{
+        self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
+        [self reloadChildVCWithTitles:self.titleList];
+        self.leaveTitleList = columnArr[1];
+    }
 }
 
 //修改导航栏显示
@@ -80,7 +86,9 @@
     self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 34)];
     
     self.searchBar.placeholder = @"热门搜索";
-    
+    // 设置搜索框放大镜图标
+    UIImage *searchIcon = UIImageNamed(@"searchBar_icon");
+    [self.searchBar setImage:searchIcon forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
@@ -117,7 +125,7 @@
     _userIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 34, 34)];
     _userIcon.backgroundColor = GrayColor;
     LRViewBorderRadius(_userIcon, 17, 0, HexColor(#B5B5B5));
-    
+    _userIcon.image = UIImageNamed(@"logo_test");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
     
 }
@@ -140,11 +148,16 @@
     _segHead.deSelectColor = HexColor(#5A5A5A);
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
+    //添加下阴影
+    _segHead.layer.shadowColor = GrayColor.CGColor;
+    _segHead.layer.shadowOffset = CGSizeMake(-2, 2);
+    _segHead.layer.shadowOpacity = 0.5;
+//    _segHead.layer.shadowRadius = 1;
     
     if (_segScroll) {
         [_segScroll removeFromSuperview];
     }
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getvcArr]];
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame) + 5, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT - 5) vcOrViews:[self getvcArr]];
     _segScroll.countLimit = 0;
     
     WEAK(weakself, self);
@@ -157,7 +170,7 @@
     UIButton *moreBtn = [[UIButton alloc]initWithFrame:CGRectZero];
     
     [moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [moreBtn setBackgroundColor:WhiteColor];
     [self.view addSubview:moreBtn];
     
     [moreBtn activateConstraints:^{
@@ -167,6 +180,9 @@
         moreBtn.height_attr.constant = 40;
     }];
     [moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
+    moreBtn.layer.shadowColor = GrayColor.CGColor;
+    moreBtn.layer.shadowOffset = CGSizeMake(-1, 2);
+    moreBtn.layer.shadowOpacity = 0.5;
 }
 
 //全部频道
@@ -180,8 +196,9 @@
             
         }else{
             weakSelf.titleList = [inUseTitles mutableCopy];
-            [weakSelf reloadChildVCWithTitles:inUseTitles];
+            [weakSelf reloadChildVCWithTitles:weakSelf.titleList];
             weakSelf.leaveTitleList = [unUseTitles mutableCopy];
+            [weakSelf saveColumnArr];
         }
         
     } click:^(NSString *title) {
@@ -238,10 +255,22 @@
         if (!kArrayIsEmpty(channelUnconcerned)) {
             self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
         }
+        //存储数据
+        [self saveColumnArr];
         
         [self reloadChildVCWithTitles:self.titleList];
         
     } failure:nil];
+}
+
+//保存栏目设置
+-(void)saveColumnArr
+{
+    [NSArray bg_clearArrayWithName:@"columnArr"];
+    NSMutableArray* columnArr = [NSMutableArray array];
+    [columnArr addObject:self.titleList];
+    [columnArr addObject:self.leaveTitleList];
+    [columnArr bg_saveArrayWithName:@"columnArr"];
 }
 
 

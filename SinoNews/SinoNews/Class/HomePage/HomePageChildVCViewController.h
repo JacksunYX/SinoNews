@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSString * news_id;
 
+
+
 @end

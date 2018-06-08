@@ -39,6 +39,7 @@
     
     [self addTableView];
     
+    self.view.backgroundColor = WhiteColor;
 //    GGLog(@"news_id:%@",self.news_id);
 }
 

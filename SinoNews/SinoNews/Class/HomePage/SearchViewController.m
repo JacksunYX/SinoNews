@@ -216,10 +216,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
     
-    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [rightBtn setImage:UIImageNamed(@"saerchClose") forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(popAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(popAction:) image:@"saerchClose" hightimage:nil andTitle:@""];
 }
 
 -(void)popAction:(UIButton *)rightBtn

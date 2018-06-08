@@ -25,8 +25,13 @@
         UIImage *backimg = [UIImage imageNamed:image];
         //如果图片宽度小于这个btn的宽度，就需要做缩进
         if (backimg.size.width<=40) {
-            CGFloat insetLeft = 20 - backimg.size.width/2;
-            btn.imageEdgeInsets = UIEdgeInsetsMake(0, -insetLeft, 0, 0);
+//            CGFloat insetLeft = 20 - backimg.size.width/2;
+            //当没有hlightimg时默认是右按钮，缩进相反,暂定
+            if (!kStringIsEmpty(hightimage)) {
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+            }else{
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
+            }
         }
         [btn setImage:backimg forState:UIControlStateNormal];
         [btn setImage:backimg forState:UIControlStateHighlighted];

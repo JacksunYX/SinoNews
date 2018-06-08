@@ -61,7 +61,7 @@
                                        title,
                                        img,
                                        label1,
-                                       label2,
+//                                       label2,
                                        
                                        ]];
     
@@ -89,7 +89,7 @@
     [img  setSd_cornerRadius:@4];
     
     label1.sd_layout
-    .leftSpaceToView(self.contentView, lrMargin)
+    .rightSpaceToView(self.contentView, lrMargin)
     .topSpaceToView(img, tbMargin)
     .heightIs(ScaleW * 16)
     .widthIs(ScaleW * 11 * 3)

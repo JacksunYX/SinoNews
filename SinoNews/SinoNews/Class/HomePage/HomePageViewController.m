@@ -86,15 +86,18 @@
             UITextField *textField = (UITextField *)view;
             //设置输入框的背景颜色
             textField.clipsToBounds = YES;
-            textField.backgroundColor = HexColor(#EEEEEE);
+            textField.backgroundColor = HexColor(#F1F1F1);
             //设置输入框边框的圆角以及颜色
             textField.layer.cornerRadius = 17.0f;
-            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
+            textField.layer.borderColor = HexColor(#F1F1F1).CGColor;
             textField.layer.borderWidth = 1;
             //设置输入字体颜色
             textField.textColor = BlueColor;
             //设置默认文字颜色
-            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{NSForegroundColorAttributeName:HexColor(#AEAEAE)}];
+            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 搜个关键词试试看？" attributes:@{
+                                                                                                                    NSForegroundColorAttributeName:HexColor(#E1E1E1),
+                                                                                                                    NSFontAttributeName:Font(13),
+                                                                                                                    }];
             
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
             tap.numberOfTapsRequired = 1;
@@ -129,12 +132,12 @@
     
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:[self getTitlesArrFromArr:self.titleList] headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
-    _segHead.lineScale = 0.8;
+    _segHead.lineScale = 0.5;
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
-    _segHead.selectColor = HexColor(#1282EE);
-    _segHead.deSelectColor = HexColor(#7B7B7B);
+    _segHead.selectColor = HexColor(#5A5A5A);
+    _segHead.deSelectColor = HexColor(#5A5A5A);
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
     

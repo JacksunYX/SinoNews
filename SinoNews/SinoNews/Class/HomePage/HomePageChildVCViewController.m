@@ -9,6 +9,7 @@
 #import "HomePageChildVCViewController.h"
 #import "BaseTableView.h"
 #import "HeadBannerView.h"
+#import "ADModel.h"
 
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
@@ -19,18 +20,24 @@
 @interface HomePageChildVCViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) BaseTableView *tableView;
-
+@property (nonatomic,strong) NSMutableArray *adArr; //广告数组
 @end
 
 @implementation HomePageChildVCViewController
+
+-(NSMutableArray *)adArr
+{
+    if (!_adArr) {
+        _adArr = [NSMutableArray new];
+    }
+    return _adArr;
+}
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
     [self addTableView];
-    
-    [self testBanner];
     
 //    GGLog(@"news_id:%@",self.news_id);
 }
@@ -41,7 +48,7 @@
 }
 
 //测试轮播图
--(void)testBanner
+-(void)creatBanner
 {
     HeadBannerView *headView = [HeadBannerView new];
     
@@ -56,14 +63,17 @@
     [headView updateLayout];
     
     NSMutableArray *imgs = [NSMutableArray new];
-    for (int i = 0; i < 4; i ++) {
-        NSString *imgStr = [NSString stringWithFormat:@"banner%d",i];
-        [imgs addObject:imgStr];
+    for (int i = 0; i < self.adArr.count; i ++) {
+        ADModel *model = self.adArr[i];
+        [imgs addObject:model.url];
     }
     [headView setupUIWithImageUrls:imgs];
     
+    WEAK(weakSelf, self);
     headView.selectBlock = ^(NSInteger index) {
         GGLog(@"选择了下标为%ld的轮播图",index);
+        ADModel *model = weakSelf.adArr[index];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
     };
     
     self.tableView.tableHeaderView = headView;
@@ -128,15 +138,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        return HomePageFirstKindCellH;
-    }
-    
-    if (indexPath.row == 1 || indexPath.row == 2) {
-        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
-    }
-    
-    return 0;
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -163,7 +165,10 @@
 -(void)requestBanner
 {
     [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
-        
+        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]]];
+        if (!kArrayIsEmpty(self.adArr)) {
+            [self creatBanner];
+        }
     } failure:nil];
     [self.tableView.mj_header endRefreshing];
 }

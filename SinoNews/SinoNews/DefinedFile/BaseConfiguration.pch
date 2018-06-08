@@ -38,6 +38,8 @@
 
 #import <SDAutoLayout.h>
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import <Toast.h>
 
 #import <MJRefresh.h>

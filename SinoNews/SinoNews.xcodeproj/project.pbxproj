@@ -63,6 +63,7 @@
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
+		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
 		4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */; };
 		4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */; };
@@ -237,6 +238,8 @@
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
 		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
 		4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLChannelModel.m; sourceTree = "<group>"; };
+		4C56137720CA342B00C7FA5A /* ADModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
+		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C83E64120BFE32C00C99AAB /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
 		4C83E64220BFE32C00C99AAB /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
 		4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCollectionViewCell.h; sourceTree = "<group>"; };
@@ -720,6 +723,8 @@
 			children = (
 				4C3F905720BD7102003EC4FC /* HomePageModel.h */,
 				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
+				4C56137720CA342B00C7FA5A /* ADModel.h */,
+				4C56137820CA342B00C7FA5A /* ADModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1100,6 +1105,7 @@
 				4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */,
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
+				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,

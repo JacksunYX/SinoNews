@@ -68,7 +68,7 @@
     
     typeLabel = [UILabel new];
     typeLabel.font = FontScale(11);
-    typeLabel.backgroundColor = HexColor(#071C2F);
+    typeLabel.backgroundColor = HexColor(#1282EE);
     typeLabel.textColor = WhiteColor;
     typeLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -126,8 +126,8 @@
     [bottomLabel setMaxNumberOfLinesToShow:1];
     NSString *str1 = [@"" stringByAppendingString:@""];
     NSString *str2 = [@"环球国际时报" stringByAppendingString:@"  "];
-    NSString *str3 = [@"12321" stringByAppendingString:@" 阅"];
-    NSString *str4 = [@"" stringByAppendingString:@""];
+    NSString *str3 = [@"12321" stringByAppendingString:@" 阅 "];
+    NSString *str4 = [@"812" stringByAppendingString:@" 评"];
     NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
     bottomLabel.text = totalStr;
     

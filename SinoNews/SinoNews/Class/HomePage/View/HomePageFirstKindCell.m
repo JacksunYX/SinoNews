@@ -58,9 +58,11 @@
     
     typeLabel = [UILabel new];
     typeLabel.font = FontScale(11);
-    typeLabel.backgroundColor = HexColor(#1282EE);
-    typeLabel.textColor = WhiteColor;
+    typeLabel.backgroundColor = WhiteColor;
+    typeLabel.textColor = HexColor(#1282EE);
     typeLabel.textAlignment = NSTextAlignmentCenter;
+    typeLabel.layer.borderColor = HexColor(#1282EE).CGColor;
+    typeLabel.layer.borderWidth = 1;
     
     [self.contentView sd_addSubviews:@[
                                        rightImg,
@@ -72,9 +74,11 @@
     //布局
     rightImg.sd_layout
     .rightSpaceToView(self.contentView, 10)
-    .topSpaceToView(self.contentView, 10)
-    .widthIs(kScaelW(130))
-    .heightIs(kScaelW(130)*80/130)
+    .topSpaceToView(self.contentView, 15)
+//    .widthIs(kScaelW(130))
+//    .heightIs(kScaelW(130)*80/130)
+    .widthIs(kScaelW(105))
+    .heightEqualToWidth()
     ;
     [rightImg setSd_cornerRadius:@4];
     
@@ -119,6 +123,8 @@
     typeLabel.text = @"推荐";
 //    [typeLabel updateLayout];
 //    typeLabel.frame = CGRectMake(typeLabel.frame.origin.x, typeLabel.frame.origin.y, typeLabel.frame.size.width + kScaelW(10), typeLabel.frame.size.height + kScaelW(10));
+    
+    [self setupAutoHeightWithBottomView:rightImg bottomMargin:15];
 }
 
 

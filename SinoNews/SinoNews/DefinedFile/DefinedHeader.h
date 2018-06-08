@@ -20,7 +20,7 @@
 //图片域名
 #define defaultUrl DebugImgDomain
 //测试环境
-#define DebugImgDomain @"http://testweb.kuaiyishare.com"
+#define DebugImgDomain @"http://192.168.2.144:8081"
 //正式环境
 #define FormalImgDomain @"https://static.kuaiyishare.com"
 
@@ -436,7 +436,8 @@ kWindow.userInteractionEnabled = YES;\
 //拼接字符串
 #define AppendingString(str1,str2) [str1 stringByAppendingString:str2]
 
-
+//生成url
+#define UrlWithStr(str) [NSURL URLWithString:str]
 
 
 

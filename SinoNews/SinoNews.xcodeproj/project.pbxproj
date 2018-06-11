@@ -63,6 +63,10 @@
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
+		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
+		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
+		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
+		4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949520CE263B00CB448E /* AttentionRecommendModel.m */; };
 		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -239,6 +243,14 @@
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
 		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
 		4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLChannelModel.m; sourceTree = "<group>"; };
+		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
+		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
+		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
+		4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendFirstCell.m; sourceTree = "<group>"; };
+		4C54949020CE22D400CB448E /* AttentionRecommendSecondCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendSecondCell.h; sourceTree = "<group>"; };
+		4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendSecondCell.m; sourceTree = "<group>"; };
+		4C54949420CE263B00CB448E /* AttentionRecommendModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendModel.h; sourceTree = "<group>"; };
+		4C54949520CE263B00CB448E /* AttentionRecommendModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendModel.m; sourceTree = "<group>"; };
 		4C56137720CA342B00C7FA5A /* ADModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
 		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendVC.h; sourceTree = "<group>"; };
@@ -509,6 +521,8 @@
 				4C3F8FEF20BCEF1A003EC4FC /* AttentionViewController.m */,
 				4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */,
 				4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */,
+				4C54949320CE260E00CB448E /* Model */,
+				4C54948920CE20DB00CB448E /* View */,
 			);
 			path = Attention;
 			sourceTree = "<group>";
@@ -730,6 +744,28 @@
 				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
 				4C56137720CA342B00C7FA5A /* ADModel.h */,
 				4C56137820CA342B00C7FA5A /* ADModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4C54948920CE20DB00CB448E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C54948B20CE20F600CB448E /* AttentionCollectionView.h */,
+				4C54948A20CE20F600CB448E /* AttentionCollectionView.m */,
+				4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */,
+				4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */,
+				4C54949020CE22D400CB448E /* AttentionRecommendSecondCell.h */,
+				4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4C54949320CE260E00CB448E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C54949420CE263B00CB448E /* AttentionRecommendModel.h */,
+				4C54949520CE263B00CB448E /* AttentionRecommendModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1111,6 +1147,7 @@
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
+				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
@@ -1131,6 +1168,7 @@
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
+				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
@@ -1153,6 +1191,7 @@
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
+				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
@@ -1165,6 +1204,7 @@
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
+				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,

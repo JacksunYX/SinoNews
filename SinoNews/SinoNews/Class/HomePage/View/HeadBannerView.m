@@ -105,8 +105,8 @@
     }
 //    NSLog(@"图片地址:%@",self.imageArray[index]);
     //在这里下载网络图片
-    NSString *imgstr = [NSString stringWithFormat:@"%@%@",defaultUrl,self.imageArray[index]];
-    [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(imgstr) placeholderImage:nil];
+//    NSString *imgstr = [NSString stringWithFormat:@"%@%@",defaultUrl,self.imageArray[index]];
+    [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(self.imageArray[index]) placeholderImage:nil];
     
 //    bannerView.mainImageView.image = UIImageNamed(self.imageArray[index]);
 //    bannerView.indexLabel.text = [NSString stringWithFormat:@"第%ld张图",(long)index + 1];

@@ -8,6 +8,7 @@
 //首页第一类cell
 
 #import <UIKit/UIKit.h>
+#import "HomePageModel.h"
 
 #define HomePageThirdKindCellID @"HomePageThirdKindCellID"
 #define HomePageThirdKindCellH 201

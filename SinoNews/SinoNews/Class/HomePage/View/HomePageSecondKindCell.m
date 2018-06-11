@@ -88,7 +88,7 @@
     .autoHeightRatio(0)
     ;
     [title setMaxNumberOfLinesToShow:2];
-    title.text = [@"        " stringByAppendingString:@"发改委 ：多个经济体货币纷纷倒在美元魔掌以 后，美元屠刀或正在伸向欧元区"];
+//    title.text = [@"        " stringByAppendingString:@"发改委 ：多个经济体货币纷纷倒在美元魔掌以 后，美元屠刀或正在伸向欧元区"];
     
     //图片宽度
     CGFloat imgW = (ScreenW - lrMargin*2 - imgMargin*2)/3;
@@ -124,12 +124,12 @@
     .autoHeightRatio(0)
     ;
     [bottomLabel setMaxNumberOfLinesToShow:1];
-    NSString *str1 = [@"" stringByAppendingString:@""];
-    NSString *str2 = [@"环球国际时报" stringByAppendingString:@"  "];
-    NSString *str3 = [@"12321" stringByAppendingString:@" 阅 "];
-    NSString *str4 = [@"812" stringByAppendingString:@" 评"];
-    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
-    bottomLabel.text = totalStr;
+//    NSString *str1 = [@"" stringByAppendingString:@""];
+//    NSString *str2 = [@"环球国际时报" stringByAppendingString:@"  "];
+//    NSString *str3 = [@"12321" stringByAppendingString:@" 阅 "];
+//    NSString *str4 = [@"812" stringByAppendingString:@" 评"];
+//    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
+//    bottomLabel.text = totalStr;
     
     typeLabel.sd_layout
     .leftEqualToView(title)
@@ -138,13 +138,21 @@
     .widthIs(ScaleW * 16 + 10)
     ;
     [typeLabel setSd_cornerRadius:@2];
-    typeLabel.text = @"专题";
+//    typeLabel.text = @"专题";
     
     [self setupAutoHeightWithBottomView:bottomLabel bottomMargin:10];
     
 }
 
-
+-(void)setModel:(HomePageModel *)model
+{
+    _model = model;
+    if ([model.topicId integerValue]) {
+        typeLabel.text = @"专题";
+    }
+    title.text = [@"        " stringByAppendingString:GetSaveString(model.newsTitle)];
+    
+}
 
 
 

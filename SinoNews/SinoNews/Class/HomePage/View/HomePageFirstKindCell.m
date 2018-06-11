@@ -127,7 +127,12 @@
     [self setupAutoHeightWithBottomView:rightImg bottomMargin:15];
 }
 
-
+-(void)setModel:(HomePageModel *)model
+{
+    _model = model;
+    
+    
+}
 
 
 @end

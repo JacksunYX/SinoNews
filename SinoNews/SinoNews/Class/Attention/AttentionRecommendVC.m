@@ -116,10 +116,6 @@
     tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT - BOTTOM_MARGIN) style:UITableViewStyleGrouped];
     tableView.dataSource = self;
     tableView.delegate = self;
-    tableView.estimatedRowHeight = 0;
-    tableView.estimatedSectionFooterHeight = 0;
-    tableView.estimatedSectionHeaderHeight = 0;
-    tableView.backgroundColor = BACKGROUND_COLOR;
     [tableView registerClass:[AttentionRecommendFirstCell class] forCellReuseIdentifier:AttentionRecommendFirstCellID];
     [tableView registerClass:[AttentionRecommendSecondCell class] forCellReuseIdentifier:AttentionRecommendSecondCellID];
     [tableView registerClass:[AttentionRecommendThirdCell class] forCellReuseIdentifier:AttentionRecommendThirdCellID];
@@ -204,7 +200,41 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section != 0) {
+        return 43;
+    }
     return 10;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headView = [UIView new];
+    if (section != 0) {
+        headView.backgroundColor = BACKGROUND_COLOR;
+        UILabel *title = [UILabel new];
+        title.font = Font(15);
+        
+        [headView addSubview:title];
+        title.sd_layout
+        .leftSpaceToView(headView, 10)
+        .bottomSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .autoHeightRatio(0)
+        ;
+        [title setMaxNumberOfLinesToShow:1];
+        if (section == 1) {
+            title.text = @"大咖入驻";
+        }else if (section == 2){
+            title.text = @"热门频道 ";
+        }
+    }
+    
+    return headView;
 }
 
 -(void)choseSection:(NSInteger)section row:(NSInteger)index

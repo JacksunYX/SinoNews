@@ -11,6 +11,7 @@
 #import "HeadBannerView.h"
 #import "ADModel.h"
 
+
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
 #import "HomePageThirdKindCell.h"
@@ -21,9 +22,20 @@
 
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *adArr; //广告数组
+@property (nonatomic,strong) NSMutableArray *dataSource;
+
+@property (nonatomic,assign) NSInteger page; //页面(起始为1)
 @end
 
 @implementation HomePageChildVCViewController
+
+-(NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray new];
+    }
+    return _dataSource;
+}
 
 -(NSMutableArray *)adArr
 {
@@ -100,9 +112,16 @@
     
     WEAK(weakSelf, self);
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-//        [weakSelf requestNews_list];
+        weakSelf.page = 1;
+        [weakSelf requestNews_list:0];
         [weakSelf requestBanner];
     }];
+    
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.page ++;
+        [weakSelf requestNews_list:1];
+    }];
+    
     [_tableView.mj_header beginRefreshing];
 }
 
@@ -114,25 +133,22 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.row == 0) {
-        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-        cell = (UITableViewCell *)cell1;
-    }
-    
-    if (indexPath.row == 1) {
+    HomePageModel *model = self.dataSource[indexPath.row];
+    if ([model.topicId integerValue]) { //说明是专题
         HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+        cell2.model = model;
         cell = (UITableViewCell *)cell2;
-    }
-    
-    if (indexPath.row == 2) {
-        HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
-        cell = (UITableViewCell *)cell3;
+    }else{
+        //非专题暂时都用普通cell
+        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+        cell1.model = model;
+        cell = (UITableViewCell *)cell1;
     }
     
     return cell;
@@ -154,13 +170,32 @@
 }
 
 #pragma mark ---- 请求方法
-//请求文章列表
--(void)requestNews_list
+//请求文章列表(上拉或下拉)
+-(void)requestNews_list:(NSInteger)upOrDown
 {
-    [HttpRequest getWithURLString:[News_list stringByAppendingString:[NSString stringWithFormat:@"%@",GetSaveString(self.news_id)]] parameters:nil success:^(id responseObject) {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+//    parameters[@"channelId"] = @([GetSaveString(self.news_id) integerValue]);
+//    parameters[@"loadTime"] = @([[NSString currentTimeStr] longLongValue]);
+    
+    parameters[@"page"] = @(self.page);
+    parameters[@"loadType"] = @(upOrDown);
+    parameters[@"channelId"] = @1;
+    parameters[@"loadTime"] = @1525939544;
+    
+    [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         
-    } failure:nil];
-    [self.tableView.mj_header endRefreshing];
+        NSArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (self.page == 1) {
+            self.dataSource = [dataArr mutableCopy];
+        }
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+    
 }
 
 //请求banner

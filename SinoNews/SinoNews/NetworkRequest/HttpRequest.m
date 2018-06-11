@@ -36,6 +36,7 @@
     
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
     GGLog(@"baseURLString:%@",baseURLString);
+    GGLog(@"parameters:%@",parameters);
     [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
         //直接把返回的参数进行解析然后返回
@@ -43,11 +44,12 @@
         
         GGLog(@"%@",resultdic);
         
-        if (success) {
+        if (success&&resultdic) {
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                LRToast(resultdic[@"alertMsg"]);
+//                LRToast(resultdic[@"alertMsg"]);
+                LRToast(resultdic[@"errorMsg"]);
             }
             
         }
@@ -92,28 +94,21 @@
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
         //取出返回数据
-        if (success) {
+        if (success&&resultdic) {
             
             //隐藏loding
             HiddenHudOnly;
             
-            if (isshowtoastd == YES) {
-                
-                //显示提示用户信息
-                NSString *msg = [NSString stringWithFormat:@"%@",[resultdic objectForKey:@"msg"]];
-                
-                if ([msg isEqualToString:@"成功"]||kStringIsEmpty(msg)) {
-                    
-                } else {
-                    LRToast(msg);
-                }
-                
-            }
-            
             GGLog(@"resultdic-----%@",resultdic);
             
             //成功返回服务器数据
-            success(resultdic);
+            if ([resultdic[@"success"] integerValue] == 1) {
+                success(resultdic);
+            }else{
+                if (isshowtoastd == YES) {
+                    LRToast(resultdic[@"errorMsg"]);
+                }
+            }
             
         }
         

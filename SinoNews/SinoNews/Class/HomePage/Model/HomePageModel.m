@@ -9,5 +9,8 @@
 #import "HomePageModel.h"
 
 @implementation HomePageModel
-
++(NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"news_id" : @"id"};
+}
 @end

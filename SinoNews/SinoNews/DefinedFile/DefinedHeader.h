@@ -11,9 +11,12 @@
 #define DefinedHeader_h
 
 //接口域名
-#define DefaultDomainName DebugDomain
+#define DefaultDomainName DebugDomain1
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
+#define DebugDomain1 @"http://192.168.2.144:8083"
+
+
 //正式环境
 #define FormalDomain @"https://www.kuaiyishare.com/"
 
@@ -50,7 +53,7 @@
 #define RGB(r,g,b) RGBA(r,g,b,1.0f)
 
 //背景色
-#define BACKGROUND_COLOR [UIColor colorWithRed:242.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]
+#define BACKGROUND_COLOR HexColor(#f7f7f7)
 
 //16进制颜色
 #define HexColor(hexstring) [UIColor colorWithHexString:@#hexstring]

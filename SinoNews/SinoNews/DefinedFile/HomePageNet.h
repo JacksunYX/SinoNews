@@ -13,7 +13,8 @@
 //栏目管理(get)
 #define Channel_listChannels    @"/api/channel/listChannels"
 //分页展现指定栏目下的文章(get)
-#define News_list               @"/api/news/list/"
+#define News_list               @"/api/news/listForChannel"
 //广告轮播图
 #define Adverts                 @"/adverts"
+
 #endif /* HomePageNet_h */

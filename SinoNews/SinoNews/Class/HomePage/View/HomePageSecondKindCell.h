@@ -8,10 +8,13 @@
 //首页第一类cell
 
 #import <UIKit/UIKit.h>
+#import "HomePageModel.h"
 
 #define HomePageSecondKindCellID @"HomePageSecondKindCellID"
 
 
 @interface HomePageSecondKindCell : UITableViewCell
+
+@property (nonatomic,strong) HomePageModel *model;
 
 @end

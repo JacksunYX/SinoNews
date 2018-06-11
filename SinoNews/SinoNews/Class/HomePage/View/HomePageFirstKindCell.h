@@ -8,10 +8,12 @@
 //首页第一类cell
 
 #import <UIKit/UIKit.h>
+#import "HomePageModel.h"
 
 #define HomePageFirstKindCellID @"HomePageFirstKindCellID"
 #define HomePageFirstKindCellH (kScaelW(130)*80/130 + 20)
 
 @interface HomePageFirstKindCell : UITableViewCell
+@property (nonatomic,strong) HomePageModel *model;
 
 @end

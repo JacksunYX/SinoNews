@@ -23,7 +23,7 @@
         self.dataSource = self;
         self.delegate = self;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = BACKGROUND_COLOR;
         [self registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }
     return self;

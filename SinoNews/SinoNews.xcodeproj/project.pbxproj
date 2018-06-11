@@ -71,6 +71,7 @@
 		4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949B20CE2E8F00CB448E /* RecommendSecondCell.m */; };
 		4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949E20CE5DF900CB448E /* AttentionRecommendThirdCell.m */; };
 		4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5494A120CE5ED800CB448E /* RecommendThirdCell.m */; };
+		4C5494A620CE799500CB448E /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5494A520CE799500CB448E /* NSString+Time.m */; };
 		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -263,6 +264,8 @@
 		4C54949E20CE5DF900CB448E /* AttentionRecommendThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendThirdCell.m; sourceTree = "<group>"; };
 		4C5494A020CE5ED800CB448E /* RecommendThirdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendThirdCell.h; sourceTree = "<group>"; };
 		4C5494A120CE5ED800CB448E /* RecommendThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendThirdCell.m; sourceTree = "<group>"; };
+		4C5494A420CE799500CB448E /* NSString+Time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Time.h"; sourceTree = "<group>"; };
+		4C5494A520CE799500CB448E /* NSString+Time.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Time.m"; sourceTree = "<group>"; };
 		4C56137720CA342B00C7FA5A /* ADModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
 		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendVC.h; sourceTree = "<group>"; };
@@ -621,6 +624,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4C5494A320CE796F00CB448E /* NSString */,
 				4CE9C91C20C8E17E004550B9 /* SaveWrite */,
 				4CE121D020C0148700A44782 /* DLogName_Line */,
 				4C83E64820BFFA2B00C99AAB /* CustomRefresh */,
@@ -788,6 +792,15 @@
 				4C54949520CE263B00CB448E /* AttentionRecommendModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4C5494A320CE796F00CB448E /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				4C5494A420CE799500CB448E /* NSString+Time.h */,
+				4C5494A520CE799500CB448E /* NSString+Time.m */,
+			);
+			path = NSString;
 			sourceTree = "<group>";
 		};
 		4C83E64020BFE30200C99AAB /* View */ = {
@@ -1220,6 +1233,7 @@
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
+				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,

@@ -17,5 +17,6 @@
 #import "YXHeader.h"
 #import "CustomRefreshHead.h"
 #import "NSObject+save.h"
+#import "NSString+Time.h"
 
 #endif /* ToolsHeader_h */

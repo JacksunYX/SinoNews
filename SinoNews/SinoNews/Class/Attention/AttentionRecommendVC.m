@@ -12,6 +12,7 @@
 
 #import "AttentionRecommendFirstCell.h"
 #import "AttentionRecommendSecondCell.h"
+#import "AttentionRecommendThirdCell.h"
 
 
 @interface AttentionRecommendVC ()<UITableViewDataSource,UITableViewDelegate>
@@ -57,21 +58,22 @@
                               @"算你识相~",
                               ];
         NSArray *isAttention = @[
-                                 @0,
-                                 @0,
-                                 @1,
-                                 @0,
-                                 @1,
+                                 @(NO),
+                                 @(NO),
+                                 @(NO),
+                                 @(NO),
+                                 @(NO),
                                  ];
         for (int i = 0; i < 3; i ++) {
             NSMutableArray *dataArr = [NSMutableArray new];
-            for (int j = 0; j < title.count; j ++) {
+            for (int j = 0; j < 15; j ++) {
                 AttentionRecommendModel *model = [AttentionRecommendModel new];
                 model.title = title[arc4random()%title.count];
                 model.img = img[arc4random()%img.count];
                 model.fansNum = [fansNum[arc4random()%fansNum.count] integerValue];
                 model.subTitle = subTitle[arc4random()%subTitle.count];
-                model.isAttention = isAttention[arc4random()%isAttention.count];
+                
+                model.isAttention = [isAttention[arc4random()%isAttention.count]  boolValue];
                 [dataArr addObject:model];
             }
             [_dataSource addObject:dataArr];
@@ -120,6 +122,7 @@
     tableView.backgroundColor = BACKGROUND_COLOR;
     [tableView registerClass:[AttentionRecommendFirstCell class] forCellReuseIdentifier:AttentionRecommendFirstCellID];
     [tableView registerClass:[AttentionRecommendSecondCell class] forCellReuseIdentifier:AttentionRecommendSecondCellID];
+    [tableView registerClass:[AttentionRecommendThirdCell class] forCellReuseIdentifier:AttentionRecommendThirdCellID];
     [self.view addSubview:tableView];
 }
 
@@ -141,19 +144,47 @@
     if (indexPath.section == 0) {
         AttentionRecommendFirstCell *cell0 = (AttentionRecommendFirstCell *)[tableView dequeueReusableCellWithIdentifier:AttentionRecommendFirstCellID];
         cell0.dataSource = self.dataSource[indexPath.section];
+        
         WEAK(weakSelf, self);
         cell0.selectedIndex = ^(NSInteger index) {
             [weakSelf choseSection:0 row:index];
         };
+        cell0.attentionIndex = ^(NSInteger row) {
+            
+            [weakSelf choseAttentionStatusWithSection:indexPath.section line:0 row:row];
+        };
+        
         cell = (UITableViewCell *)cell0;
-    }else{
+    }else if(indexPath.section == 1){
         AttentionRecommendSecondCell *cell1 = (AttentionRecommendSecondCell *)[tableView dequeueReusableCellWithIdentifier:AttentionRecommendSecondCellID];
         cell1.dataSource = self.dataSource[indexPath.section];
+        
         WEAK(weakSelf, self);
-        cell1.selectedIndex = ^(NSInteger index) {
-            [weakSelf choseSection:indexPath.section row:index];
+        cell1.selectedIndex = ^(NSInteger line, NSInteger row) {
+            [weakSelf choseSection:indexPath.section line:line row:row];
         };
+        
+        cell1.attentionBlock = ^(NSInteger line, NSInteger row) {
+            
+            [weakSelf choseAttentionStatusWithSection:indexPath.section line:line row:row];
+        };
+        
         cell = (UITableViewCell *)cell1;
+    }else if(indexPath.section == 2){
+        AttentionRecommendThirdCell *cell2 = (AttentionRecommendThirdCell *)[tableView dequeueReusableCellWithIdentifier:AttentionRecommendThirdCellID];
+        cell2.dataSource = self.dataSource[indexPath.section];
+        
+        WEAK(weakSelf, self);
+        cell2.selectedIndex = ^(NSInteger line, NSInteger row) {
+            [weakSelf choseSection:indexPath.section line:line row:row];
+        };
+        
+        cell2.attentionBlock = ^(NSInteger line, NSInteger row) {
+            
+            [weakSelf choseAttentionStatusWithSection:indexPath.section line:line row:row];
+        };
+        
+        cell = (UITableViewCell *)cell2;
     }
     
     return cell;
@@ -181,6 +212,32 @@
     GGLog(@"点击了第%ld分区的第个%ldcell",section,index);
 }
 
+-(void)choseSection:(NSInteger)section line:(NSInteger)line row:(NSInteger)row
+{
+    GGLog(@"点击了第%ld分区第%ld列的第个%ldcell",section,line,row);
+}
+
+//修改对应分区对应cell的关注状态
+-(void)choseAttentionStatusWithSection:(NSInteger)section line:(NSInteger)line row:(NSInteger)row
+{
+    if (section == 0) {
+        GGLog(@"改变了分区0的%ld的关注状态",row);
+        NSMutableArray *dataSource = [self.dataSource[section] mutableCopy];
+        AttentionRecommendModel *model = dataSource[row];
+        model.isAttention = !model.isAttention;
+        [self.dataSource replaceObjectAtIndex:section withObject:dataSource];
+        [tableView reloadData];
+        
+    }else{
+        GGLog(@"改变了分区%ld的%ld列%ld行的关注状态",section,line,row);
+        NSMutableArray *dataSource = [self.dataSource[section] mutableCopy];
+        NSInteger index = line*3 + row;
+        AttentionRecommendModel *model = dataSource[index];
+        model.isAttention = !model.isAttention;
+        [self.dataSource replaceObjectAtIndex:section withObject:dataSource];
+        [tableView reloadData];
+    }
+}
 
 
 @end

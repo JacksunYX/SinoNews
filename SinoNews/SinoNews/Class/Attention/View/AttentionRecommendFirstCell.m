@@ -8,9 +8,10 @@
 
 #import "AttentionRecommendFirstCell.h"
 #import "AttentionCollectionView.h"
+#import "RecommendFirstCell.h"
 
 @interface AttentionRecommendFirstCell ()<AttentionDelegate>
-
+@property (nonatomic,strong) AttentionCollectionView *attentionView;
 @end
 
 @implementation AttentionRecommendFirstCell
@@ -37,16 +38,16 @@
 
 -(void)setUI
 {
-    AttentionCollectionView *attentionView = [[AttentionCollectionView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 140)];
-    [attentionView registerViewClass:[UICollectionViewCell class] ID:@"Cell"];
-    attentionView.delegate = self;
-    [self.contentView addSubview:attentionView];
+    self.attentionView = [[AttentionCollectionView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 140)];
+    [self.attentionView registerViewClass:[RecommendFirstCell class] ID:RecommendFirstCellID];
+    self.attentionView.delegate = self;
+    [self.contentView addSubview:self.attentionView];
 }
 
 -(void)setDataSource:(NSArray *)dataSource
 {
     _dataSource = dataSource;
-    
+    [self.attentionView reloadata];
 }
 
 #pragma mark --- AttentionDelegate ---
@@ -58,10 +59,17 @@
 
 -(UICollectionViewCell *)returnCollectionCellForIndexPath:(NSIndexPath *)indexpath collectionView:(UICollectionView *)collectionView
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexpath];
-    cell.layer.cornerRadius = 9.0f;
-    cell.layer.masksToBounds = YES;
-    cell.backgroundColor = Arc4randomColor;
+    RecommendFirstCell *cell = (RecommendFirstCell *)[collectionView dequeueReusableCellWithReuseIdentifier:RecommendFirstCellID forIndexPath:indexpath];
+    cell.tag = indexpath.row;
+    cell.model = self.dataSource[indexpath.row];
+    
+    WEAK(weakSelf, self);
+    cell.attentionIndex = ^(NSInteger row) {
+        if (weakSelf.attentionIndex) {
+            weakSelf.attentionIndex(row);
+        }
+    };
+    
     return cell;
 }
 

@@ -1,20 +1,20 @@
 //
-//  AttentionRecommendSecondCell.m
+//  AttentionRecommendThirdCell.m
 //  SinoNews
 //
 //  Created by Michael on 2018/6/11.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "AttentionRecommendSecondCell.h"
+#import "AttentionRecommendThirdCell.h"
 #import "AttentionCollectionView.h"
-#import "RecommendSecondCell.h"
+#import "RecommendThirdCell.h"
 
-@interface AttentionRecommendSecondCell ()<AttentionDelegate>
+@interface AttentionRecommendThirdCell ()<AttentionDelegate>
 @property (nonatomic,strong) AttentionCollectionView *attentionView;
 @end
 
-@implementation AttentionRecommendSecondCell
+@implementation AttentionRecommendThirdCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -39,7 +39,7 @@
 -(void)setUI
 {
     self.attentionView = [[AttentionCollectionView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 205)];
-    [self.attentionView registerViewClass:[RecommendSecondCell class] ID:RecommendSecondCellID];
+    [self.attentionView registerViewClass:[RecommendThirdCell class] ID:RecommendThirdCellID];
     self.attentionView.delegate = self;
     [self.contentView addSubview:self.attentionView];
 }
@@ -59,7 +59,7 @@
 
 -(UICollectionViewCell *)returnCollectionCellForIndexPath:(NSIndexPath *)indexpath collectionView:(UICollectionView *)collectionView
 {
-    RecommendSecondCell *cell = (RecommendSecondCell *)[collectionView dequeueReusableCellWithReuseIdentifier:RecommendSecondCellID forIndexPath:indexpath];
+    RecommendThirdCell *cell = (RecommendThirdCell *)[collectionView dequeueReusableCellWithReuseIdentifier:RecommendThirdCellID forIndexPath:indexpath];
     cell.tag = indexpath.row;
     NSInteger first = indexpath.row * 3;
     NSInteger second = first + 1;
@@ -72,21 +72,23 @@
                          
                          ];
     
-//    cell.model = self.dataSource[indexpath.row];
+    //    cell.model = self.dataSource[indexpath.row];
     cell.modelArr = dataArr;
+    
     WEAK(weakSelf, self);
-    //点击
     cell.selectedIndex = ^(NSInteger line, NSInteger row) {
+        //        GGLog(@"点击了第%ld列的第%ld个cell",line,row);
         if (weakSelf.selectedIndex) {
             weakSelf.selectedIndex(line, row);
         }
     };
-    //关注
+    
     cell.attentionIndex = ^(NSInteger line, NSInteger row) {
         if (weakSelf.attentionBlock) {
             weakSelf.attentionBlock(line, row);
         }
     };
+    
     return cell;
 }
 
@@ -94,5 +96,9 @@
 {
     
 }
+
+
+
+
 
 @end

@@ -12,12 +12,12 @@
 
 #define AttentionRecommendFirstCellID @"AttentionRecommendFirstCell"
 
-typedef void(^clickBlock)(NSInteger);
-
 @interface AttentionRecommendFirstCell : UITableViewCell
 
 @property(nonatomic,strong) NSArray *dataSource;
 
-@property (nonatomic, copy) clickBlock selectedIndex;
+@property (nonatomic, copy) void(^selectedIndex)(NSInteger);
+
+@property (nonatomic, copy) void (^attentionIndex)(NSInteger row);
 
 @end

@@ -46,4 +46,6 @@
 
 -(void)registerViewClass:(id)view ID:(NSString *)identifier;
 
+-(void)reloadata;
+
 @end

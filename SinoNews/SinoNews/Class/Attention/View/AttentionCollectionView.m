@@ -50,6 +50,11 @@
     return self;
 }
 
+-(void)reloadata
+{
+    [self.collectionView reloadData];
+}
+
 //注册
 -(void)registerViewClass:(id)view ID:(NSString *)identifier
 {

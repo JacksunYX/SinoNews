@@ -67,6 +67,10 @@
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
 		4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949520CE263B00CB448E /* AttentionRecommendModel.m */; };
+		4C54949920CE2E4600CB448E /* RecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949820CE2E4600CB448E /* RecommendFirstCell.m */; };
+		4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949B20CE2E8F00CB448E /* RecommendSecondCell.m */; };
+		4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949E20CE5DF900CB448E /* AttentionRecommendThirdCell.m */; };
+		4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5494A120CE5ED800CB448E /* RecommendThirdCell.m */; };
 		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -251,6 +255,14 @@
 		4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendSecondCell.m; sourceTree = "<group>"; };
 		4C54949420CE263B00CB448E /* AttentionRecommendModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendModel.h; sourceTree = "<group>"; };
 		4C54949520CE263B00CB448E /* AttentionRecommendModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendModel.m; sourceTree = "<group>"; };
+		4C54949720CE2E4600CB448E /* RecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendFirstCell.h; sourceTree = "<group>"; };
+		4C54949820CE2E4600CB448E /* RecommendFirstCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendFirstCell.m; sourceTree = "<group>"; };
+		4C54949A20CE2E8F00CB448E /* RecommendSecondCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendSecondCell.h; sourceTree = "<group>"; };
+		4C54949B20CE2E8F00CB448E /* RecommendSecondCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendSecondCell.m; sourceTree = "<group>"; };
+		4C54949D20CE5DF900CB448E /* AttentionRecommendThirdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendThirdCell.h; sourceTree = "<group>"; };
+		4C54949E20CE5DF900CB448E /* AttentionRecommendThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendThirdCell.m; sourceTree = "<group>"; };
+		4C5494A020CE5ED800CB448E /* RecommendThirdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendThirdCell.h; sourceTree = "<group>"; };
+		4C5494A120CE5ED800CB448E /* RecommendThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendThirdCell.m; sourceTree = "<group>"; };
 		4C56137720CA342B00C7FA5A /* ADModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
 		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendVC.h; sourceTree = "<group>"; };
@@ -757,6 +769,14 @@
 				4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */,
 				4C54949020CE22D400CB448E /* AttentionRecommendSecondCell.h */,
 				4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */,
+				4C54949D20CE5DF900CB448E /* AttentionRecommendThirdCell.h */,
+				4C54949E20CE5DF900CB448E /* AttentionRecommendThirdCell.m */,
+				4C54949720CE2E4600CB448E /* RecommendFirstCell.h */,
+				4C54949820CE2E4600CB448E /* RecommendFirstCell.m */,
+				4C54949A20CE2E8F00CB448E /* RecommendSecondCell.h */,
+				4C54949B20CE2E8F00CB448E /* RecommendSecondCell.m */,
+				4C5494A020CE5ED800CB448E /* RecommendThirdCell.h */,
+				4C5494A120CE5ED800CB448E /* RecommendThirdCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1137,6 +1157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C17413320C4D1C600AA6D57 /* StoreChildViewController.m in Sources */,
+				4C54949920CE2E4600CB448E /* RecommendFirstCell.m in Sources */,
 				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C17414720C5168600AA6D57 /* TXLimitedTextField.m in Sources */,
 				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
@@ -1185,12 +1206,15 @@
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
+				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
+				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
+				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,

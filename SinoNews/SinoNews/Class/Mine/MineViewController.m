@@ -173,11 +173,11 @@
     
     _userImg = [UIImageView new];
     UILabel *userName = [UILabel new];
-    userName.font = Font(17);
+    userName.font = PFFontR(17);
     userName.textColor = RGBA(72, 72, 72, 1);
     
     UILabel *integral = [UILabel new];
-    integral.font = Font(16);
+    integral.font = PFFontR(16);
     integral.textColor = RGBA(119, 119, 119, 1);
     
     UIButton *signIn = [UIButton new];
@@ -295,7 +295,7 @@
 {
     UILabel *label = [UILabel new];
     label.textColor = RGBA(119, 119, 119, 1);
-    label.font = Font(16);
+    label.font = PFFontL(16);
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
     label.isAttributedContent = YES;
@@ -381,9 +381,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineCell"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
-        cell.textLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:16];
+        cell.textLabel.font = PFFontL(16);
         cell.textLabel.textColor = RGBA(50, 50, 50, 1);
-        cell.detailTextLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+        cell.detailTextLabel.font = PFFontL(14);
         cell.detailTextLabel.textColor = RGBA(152, 152, 152, 1);
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];

@@ -37,17 +37,17 @@
     self.backgroundColor = WhiteColor;
     
     title = [UILabel new];
-    title.font = Font(16);
+    title.font = PFFontL(16);
     
     fansNum = [UILabel new];
-    fansNum.font = Font(12);
+    fansNum.font = PFFontL(12);
     fansNum.textColor = HexColor(#888888);
     
     subTitle = [UILabel new];
-    subTitle.font = Font(12);
+    subTitle.font = PFFontL(12);
     
     isAttention = [UIButton new];
-    isAttention.titleLabel.font = Font(14);
+    isAttention.titleLabel.font = PFFontL(14);
     [isAttention addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView sd_addSubviews:@[

@@ -7,6 +7,7 @@
 //
 
 #import "FansViewController.h"
+#import "FansTableViewCell.h"
 
 @interface FansViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -19,10 +20,61 @@
 
 @implementation FansViewController
 
+-(NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray new];
+        NSArray *name = @[
+                          @"uzi",
+                          @"xiaohu",
+                          @"letme",
+                          @"ming",
+                          @"mlxg",
+                          @"karsa",
+                          ];
+        NSArray *time = @[
+                          @"3小时前",
+                          @"1小时前",
+                          @"10分钟前",
+                          @"1天前",
+                          @"5天前",
+                          @"13分钟前",
+                          ];
+        NSArray *icon = @[
+                          @"userIcon",
+                          @"user_icon",
+                          @"userIcon",
+                          @"user_icon",
+                          @"userIcon",
+                          @"user_icon",
+                          ];
+        NSArray *sex = @[
+                         @0,
+                         @1,
+                         @0,
+                         @2,
+                         @0,
+                         @1,
+                         ];
+        for (int i = 0; i < 6; i ++) {
+            NSDictionary *dic = @{
+                                  @"name"   :   name[arc4random()%name.count],
+                                  @"time"   :   time[arc4random()%time.count],
+                                  @"icon"   :   icon[arc4random()%icon.count],
+                                  @"sex"   :   sex[arc4random()%sex.count],
+                                  
+                                  };
+            [_dataSource addObject:dic];
+        }
+    }
+    return _dataSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"粉丝";
+    self.navigationItem.title = @"我的粉丝";
     self.view.backgroundColor = WhiteColor;
+    [self addTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,9 +97,9 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     //注册
-    
+    [self.tableView registerClass:[FansTableViewCell class] forCellReuseIdentifier:FansTableViewCellID];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -63,14 +115,24 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
+    FansTableViewCell *cell = (FansTableViewCell *)[tableView dequeueReusableCellWithIdentifier:FansTableViewCellID];
+    cell.model = self.dataSource[indexPath.row];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88;
+    return 65;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

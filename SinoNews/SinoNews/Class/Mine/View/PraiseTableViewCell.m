@@ -42,14 +42,14 @@
 -(void)setUI
 {
     comment = [UILabel new];
-    comment.font = Font(14);
+    comment.font = PFFontL(14);
     comment.textAlignment = NSTextAlignmentRight;
     
     title = [UILabel new];
-    title.font = Font(15);
+    title.font = PFFontL(15);
     
     time = [UILabel new];
-    time.font = Font(11);
+    time.font = PFFontL(11);
     time.textColor = RGBA(152, 152, 152, 1);
     
     iconView = [UIView new];

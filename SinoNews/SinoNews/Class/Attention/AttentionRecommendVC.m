@@ -208,7 +208,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.01;
+    return 10;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -217,7 +217,7 @@
     if (section != 0) {
         headView.backgroundColor = BACKGROUND_COLOR;
         UILabel *title = [UILabel new];
-        title.font = Font(15);
+        title.font = PFFontL(15);
         
         [headView addSubview:title];
         title.sd_layout

@@ -113,15 +113,15 @@
     img1.userInteractionEnabled = YES;
     
     isAttention1 = [UIButton new];
-    isAttention1.titleLabel.font = Font(14);
+    isAttention1.titleLabel.font = PFFontL(14);
     isAttention1.tag = 10086;
     [isAttention1 addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     
     title1 = [UILabel new];
-    title1.font = Font(16);
+    title1.font = PFFontL(16);
     
     subTitle1 = [UILabel new];
-    subTitle1.font = Font(12);
+    subTitle1.font = PFFontL(12);
     subTitle1.textColor = HexColor(#888888);
     
     [topView sd_addSubviews:@[
@@ -162,7 +162,8 @@
     .leftSpaceToView(topView, 10)
     .topSpaceToView(topView, 21)
     .rightSpaceToView(isAttention1, 10)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(16)
     ;
     [title1 setMaxNumberOfLinesToShow:1];
     
@@ -186,15 +187,15 @@
     img2.userInteractionEnabled = YES;
     
     isAttention2 = [UIButton new];
-    isAttention2.titleLabel.font = Font(14);
+    isAttention2.titleLabel.font = PFFontL(14);
     isAttention2.tag = 10086 + 1;
     [isAttention2 addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     
     title2 = [UILabel new];
-    title2.font = Font(16);
+    title2.font = PFFontL(16);
     
     subTitle2 = [UILabel new];
-    subTitle2.font = Font(12);
+    subTitle2.font = PFFontL(12);
     subTitle2.textColor = HexColor(#888888);
     
     [centerView sd_addSubviews:@[
@@ -243,7 +244,8 @@
     .leftSpaceToView(centerView, 10)
     .topSpaceToView(line1, 21)
     .rightSpaceToView(isAttention2, 10)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(16)
     ;
     [title2 setMaxNumberOfLinesToShow:1];
     
@@ -265,15 +267,15 @@
     img3.userInteractionEnabled = YES;
     
     isAttention3 = [UIButton new];
-    isAttention3.titleLabel.font = Font(14);
+    isAttention3.titleLabel.font = PFFontL(14);
     isAttention3.tag = 10086 + 2;
     [isAttention3 addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     
     title3 = [UILabel new];
-    title3.font = Font(16);
+    title3.font = PFFontL(16);
     
     subTitle3 = [UILabel new];
-    subTitle3.font = Font(12);
+    subTitle3.font = PFFontL(12);
     subTitle3.textColor = HexColor(#888888);
     
     [bottomView sd_addSubviews:@[
@@ -322,7 +324,8 @@
     .leftSpaceToView(bottomView, 10)
     .topSpaceToView(line2, 21)
     .rightSpaceToView(isAttention3, 10)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(16)
     ;
     [title3 setMaxNumberOfLinesToShow:1];
     

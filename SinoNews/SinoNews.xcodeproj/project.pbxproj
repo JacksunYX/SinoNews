@@ -24,6 +24,7 @@
 		4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414320C5168600AA6D57 /* TXLimitedTextView.m */; };
 		4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */; };
 		4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */; };
+		4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */; };
 		4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA020BCD893003EC4FC /* AppDelegate.m */; };
 		4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA520BCD893003EC4FC /* Main.storyboard */; };
 		4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA820BCD894003EC4FC /* Assets.xcassets */; };
@@ -168,6 +169,8 @@
 		4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSegmentBtnView.m; sourceTree = "<group>"; };
 		4C17414D20C545EF00AA6D57 /* ManagerRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerRecordCell.h; sourceTree = "<group>"; };
 		4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerRecordCell.m; sourceTree = "<group>"; };
+		4C1F7B1D20CFB56100C49B11 /* FansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
+		4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -904,6 +907,8 @@
 				4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */,
 				4C93498020CF9B7F00BD8F07 /* PraiseTableViewCell.h */,
 				4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */,
+				4C1F7B1D20CFB56100C49B11 /* FansTableViewCell.h */,
+				4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1300,6 +1305,7 @@
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
 				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
+				4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
 				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,

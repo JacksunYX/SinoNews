@@ -8,6 +8,7 @@
 
 #import "RankViewController.h"
 #import "RankListViewController.h"
+#import "ADModel.h"
 
 #import "HeadBannerView.h"
 #import "LineCollectionViewCell.h"
@@ -17,6 +18,7 @@
 @interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 //上方的滚动视图
 @property (nonatomic, strong) HeadBannerView *headView;
+@property (nonatomic,strong) NSMutableArray *adArr; //轮播广告数组
 //中间的排行视图
 @property (nonatomic, strong) UICollectionView *lineCollectionView;
 @property (nonatomic, strong) NSMutableArray *datasource;
@@ -26,6 +28,13 @@
 @end
 
 @implementation RankViewController
+-(NSMutableArray *)adArr
+{
+    if (!_adArr) {
+        _adArr = [NSMutableArray new];
+    }
+    return _adArr;
+}
 
 -(NSMutableArray *)datasource
 {
@@ -85,6 +94,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     self.navigationItem.title = @"排行榜";
+    [self requestBanner];
     [self addViews];
     
 }
@@ -118,16 +128,20 @@
     [self.headView updateLayout];
     
     NSMutableArray *imgs = [NSMutableArray new];
-    for (int i = 0; i < 4; i ++) {
-        NSString *imgStr = [NSString stringWithFormat:@"banner%d",i];
-        [imgs addObject:imgStr];
+    for (int i = 0; i < self.adArr.count; i ++) {
+        ADModel *model = self.adArr[i];
+        [imgs addObject:model.url];
     }
     self.headView.type = NormalType;
     [self.headView setupUIWithImageUrls:imgs];
     
+    WEAK(weakSelf, self);
     self.headView.selectBlock = ^(NSInteger index) {
         GGLog(@"选择了下标为%ld的轮播图",index);
+        ADModel *model = weakSelf.adArr[index];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
     };
+
 }
 
 //添加中间的排行视图
@@ -146,7 +160,8 @@
     self.lineCollectionView.backgroundColor = WhiteColor;
     [self.view addSubview:self.lineCollectionView];
     [self.lineCollectionView activateConstraints:^{
-        self.lineCollectionView.top_attr = self.headView.bottom_attr;
+//        self.lineCollectionView.top_attr = self.headView.bottom_attr;
+        [self.lineCollectionView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 15];
         self.lineCollectionView.left_attr = self.view.left_attr_safe;
         self.lineCollectionView.right_attr = self.view.right_attr_safe;
         self.lineCollectionView.bottom_attr = self.adCollectionView.top_attr;
@@ -234,7 +249,18 @@
     }
 }
 
-
+//请求banner
+-(void)requestBanner
+{
+    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
+        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]]];
+        if (!kArrayIsEmpty(self.adArr)) {
+            [self addTopLoopView];
+        }
+        
+    } failure:nil];
+    
+}
 
 
 

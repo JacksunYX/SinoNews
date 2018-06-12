@@ -70,7 +70,7 @@
         ;
         
         UIButton *btn = [UIButton new];
-        btn.titleLabel.font = Font(15);
+        btn.titleLabel.font = PFFontL(15);
         [btn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
         [backView addSubview:btn];
         btn.sd_layout

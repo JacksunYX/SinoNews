@@ -75,7 +75,7 @@
 
 
 //设置字体
-#define PFR [[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? @"PingFangSC-Regular" : @"PingFang SC"
+#define PFR [[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? @"PingFangSC-Regular" : @"PingFangSC-Light"
 //设置不同大小字体
 #define PFR26Font [UIFont fontWithName:PFR size:26]
 #define PFR20Font [UIFont fontWithName:PFR size:20]
@@ -88,7 +88,6 @@
 #define PFR11Font [UIFont fontWithName:PFR size:11]
 #define PFR10Font [UIFont fontWithName:PFR size:10]
 #define PFR9Font [UIFont fontWithName:PFR size:9]
-
 
 #define AlipayPublicKey  @""
 
@@ -134,7 +133,7 @@
 //宽度比例
 #define ScaleW (ScreenW/375.0)
 //根据屏幕宽度调整字体比例
-#define FontScale(f) Font(ScaleW * f)
+#define FontScale(f) PFFontL(ScaleW * f)
 
 //-------------------获取设备大小-------------------------
 
@@ -231,7 +230,10 @@
 
 //方正黑体简体字体定义
 #define FZFont(F) [UIFont fontWithName:@"FZHTJW--GB1-0" size:F]
-
+//苹方Light
+#define PFFontL(F) [UIFont fontWithName:@"PingFangSC-Light" size:F]
+//苹方Regular
+#define PFFontR(F) [UIFont fontWithName:@"PingFangSC-Regular" size:F]
 
 #define Font(F) [UIFont systemFontOfSize:F]
 

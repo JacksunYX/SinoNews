@@ -24,20 +24,20 @@
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
         NSArray *title = @[
-                           @"我说一句RNG🐂🍺还有人赞嘛？",
-                           @"来一场精彩绝伦的比赛吧！",
-                           @"我不能进去吗？",
-                           @"福无双至，祸不单行～",
-                           @"无形之刃，最为致命～",
-                           @"让我抱抱你吧～",
+                           @"写梦一场您好，您已成功充值1000积分",
+                           @"您收藏的猜大小娱乐场有新的优惠，敬请关注",
+                           @"写梦一场您好，您已成功充值1000积分",
+                           @"您收藏的猜大小娱乐场有新的优惠，敬请关注",
+                           @"写梦一场您好，您已成功充值1000积分",
+                           @"您收藏的猜大小娱乐场有新的优惠，敬请关注",
                            ];
         NSArray *subTitle = @[
-                              @"uzi",
-                              @"xiaohu",
-                              @"letme",
-                              @"ming",
-                              @"mlxg",
-                              @"karsa",
+                              @"18-06-04 16:45",
+                              @"18-05-28 06:12",
+                              @"18-06-01 17:23",
+                              @"18-03-04 10:30",
+                              @"18-05-20 05:20",
+                              @"18-04-28 22:00",
                               ];
         for (int i = 0; i < 10; i ++) {
             NSDictionary *dic = @{
@@ -98,9 +98,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotifyCell"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:3 reuseIdentifier:@"NotifyCell"];
-        cell.textLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:16];
+        cell.textLabel.font = PFFontL(16);
         cell.textLabel.textColor = RGBA(50, 50, 50, 1);
-        cell.detailTextLabel.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+        cell.detailTextLabel.font = PFFontL(12);
         cell.detailTextLabel.textColor = RGBA(152, 152, 152, 1);
     }
     
@@ -112,7 +112,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 65;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

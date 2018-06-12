@@ -10,6 +10,7 @@
 
 #import "SettingViewController.h"
 #import "BrowsingHistoryVC.h"
+#import "MessageViewController.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -429,6 +430,9 @@
         }else if (CompareString(title, @"历史")){
             BrowsingHistoryVC *bhVC = [BrowsingHistoryVC new];
             [self.navigationController pushViewController:bhVC animated:YES];
+        }else if (CompareString(title, @"消息")){
+            MessageViewController *mVC = [MessageViewController new];
+            [self.navigationController pushViewController:mVC animated:YES];
         }
         
     }

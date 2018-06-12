@@ -91,6 +91,8 @@
 		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
 		4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */; };
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
+		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
+		4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497520CF77A300BD8F07 /* FeedbackViewController.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
@@ -306,6 +308,10 @@
 		4C93496C20CF677600BD8F07 /* BaseViewHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewHead.h; sourceTree = "<group>"; };
 		4C93496E20CF6DF800BD8F07 /* BrowsingHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryCell.h; sourceTree = "<group>"; };
 		4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryCell.m; sourceTree = "<group>"; };
+		4C93497120CF777900BD8F07 /* MessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		4C93497220CF777900BD8F07 /* MessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		4C93497420CF77A300BD8F07 /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		4C93497520CF77A300BD8F07 /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
 		4CE121CE20C00A6400A44782 /* RankListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListViewController.m; sourceTree = "<group>"; };
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
@@ -592,6 +598,10 @@
 				4CE9C91A20C7D508004550B9 /* SettingViewController.m */,
 				4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */,
 				4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */,
+				4C93497120CF777900BD8F07 /* MessageViewController.h */,
+				4C93497220CF777900BD8F07 /* MessageViewController.m */,
+				4C93497420CF77A300BD8F07 /* FeedbackViewController.h */,
+				4C93497520CF77A300BD8F07 /* FeedbackViewController.m */,
 				4C93496D20CF6DD100BD8F07 /* View */,
 			);
 			path = Mine;
@@ -1240,6 +1250,7 @@
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
+				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
@@ -1259,6 +1270,7 @@
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
+				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,

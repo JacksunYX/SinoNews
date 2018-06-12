@@ -93,6 +93,10 @@
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
 		4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497520CF77A300BD8F07 /* FeedbackViewController.m */; };
+		4C93497920CF94F500BD8F07 /* PraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497820CF94F500BD8F07 /* PraiseViewController.m */; };
+		4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497B20CF951800BD8F07 /* FansViewController.m */; };
+		4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497E20CF953400BD8F07 /* NotifyViewController.m */; };
+		4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
@@ -312,6 +316,14 @@
 		4C93497220CF777900BD8F07 /* MessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		4C93497420CF77A300BD8F07 /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		4C93497520CF77A300BD8F07 /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		4C93497720CF94F500BD8F07 /* PraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseViewController.h; sourceTree = "<group>"; };
+		4C93497820CF94F500BD8F07 /* PraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseViewController.m; sourceTree = "<group>"; };
+		4C93497A20CF951800BD8F07 /* FansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansViewController.h; sourceTree = "<group>"; };
+		4C93497B20CF951800BD8F07 /* FansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansViewController.m; sourceTree = "<group>"; };
+		4C93497D20CF953400BD8F07 /* NotifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyViewController.h; sourceTree = "<group>"; };
+		4C93497E20CF953400BD8F07 /* NotifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyViewController.m; sourceTree = "<group>"; };
+		4C93498020CF9B7F00BD8F07 /* PraiseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseTableViewCell.h; sourceTree = "<group>"; };
+		4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseTableViewCell.m; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
 		4CE121CE20C00A6400A44782 /* RankListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListViewController.m; sourceTree = "<group>"; };
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
@@ -600,6 +612,12 @@
 				4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */,
 				4C93497120CF777900BD8F07 /* MessageViewController.h */,
 				4C93497220CF777900BD8F07 /* MessageViewController.m */,
+				4C93497720CF94F500BD8F07 /* PraiseViewController.h */,
+				4C93497820CF94F500BD8F07 /* PraiseViewController.m */,
+				4C93497A20CF951800BD8F07 /* FansViewController.h */,
+				4C93497B20CF951800BD8F07 /* FansViewController.m */,
+				4C93497D20CF953400BD8F07 /* NotifyViewController.h */,
+				4C93497E20CF953400BD8F07 /* NotifyViewController.m */,
 				4C93497420CF77A300BD8F07 /* FeedbackViewController.h */,
 				4C93497520CF77A300BD8F07 /* FeedbackViewController.m */,
 				4C93496D20CF6DD100BD8F07 /* View */,
@@ -884,6 +902,8 @@
 			children = (
 				4C93496E20CF6DF800BD8F07 /* BrowsingHistoryCell.h */,
 				4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */,
+				4C93498020CF9B7F00BD8F07 /* PraiseTableViewCell.h */,
+				4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1226,6 +1246,7 @@
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
 				4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */,
 				4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */,
+				4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
@@ -1244,6 +1265,7 @@
 				4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */,
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
+				4C93497920CF94F500BD8F07 /* PraiseViewController.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
@@ -1266,6 +1288,7 @@
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
 				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
+				4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
@@ -1279,6 +1302,7 @@
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
+				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,

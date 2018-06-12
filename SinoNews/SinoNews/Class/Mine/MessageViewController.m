@@ -7,6 +7,9 @@
 //
 
 #import "MessageViewController.h"
+#import "PraiseViewController.h"
+#import "FansViewController.h"
+#import "NotifyViewController.h"
 
 @interface MessageViewController ()
 
@@ -101,7 +104,22 @@
     GGLog(@"tag:%ld",btn.tag);
     switch (btn.tag - 10086) {
         case 0:
-            
+        {
+            PraiseViewController *pvc = [PraiseViewController new];
+            [self.navigationController pushViewController:pvc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            FansViewController *fvc = [FansViewController new];
+            [self.navigationController pushViewController:fvc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            NotifyViewController *nvc = [NotifyViewController new];
+            [self.navigationController pushViewController:nvc animated:YES];
+        }
             break;
             
         default:

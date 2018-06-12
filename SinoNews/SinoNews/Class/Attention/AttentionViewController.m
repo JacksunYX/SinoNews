@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"关注";
-    self.view.backgroundColor = Arc4randomColor;
+    self.view.backgroundColor = WhiteColor;
     
     [self addNavigationView];
 }

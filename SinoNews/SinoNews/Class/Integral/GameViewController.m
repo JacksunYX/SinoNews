@@ -8,7 +8,7 @@
 
 #import "GameViewController.h"
 #import "HeadBannerView.h"
-#import "BaseTableView.h"
+
 
 @interface GameViewController ()<UITableViewDataSource,UITableViewDelegate>
 

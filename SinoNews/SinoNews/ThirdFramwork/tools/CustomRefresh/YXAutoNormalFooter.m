@@ -13,7 +13,7 @@
     [super prepare];
     
     //所有的自定义东西都放在这里
-    [self setTitle:@"闲置状态" forState:MJRefreshStateIdle];
+    [self setTitle:@"上拉刷新" forState:MJRefreshStateIdle];
     [self setTitle:@"松开刷新" forState:MJRefreshStatePulling];
     [self setTitle:@"刷新中" forState:MJRefreshStateRefreshing];
     [self setTitle:@"上拉刷新" forState:MJRefreshStateWillRefresh];

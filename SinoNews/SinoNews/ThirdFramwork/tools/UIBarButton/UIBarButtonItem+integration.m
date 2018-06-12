@@ -44,37 +44,24 @@
         
         
     }else if (kStringIsEmpty(image)&&kStringIsEmpty(hightimage)){
-        
-        
-        //设置图片
-        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+        //只有文字的按钮
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         //按钮点击事件
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         [btn.titleLabel setTextAlignment:NSTextAlignmentRight];
         
         [btn.titleLabel setFont:PFR15Font];
-        //设置尺寸
-        //btn.size=btn.currentBackgroundImage.size;
         
-        btn.frame = CGRectMake(0, 0, 100, 40);
-        
-        //影响按钮内的titleLable;
-        btn.titleEdgeInsets=UIEdgeInsetsMake(0, 50, 0, 0);
-        //影响按钮内部imageView
-        
-        //    // 直接设置按钮的图片和文字的布局样式以及之间的间隔
-        //    [btn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:5.0];
-        
+        btn.frame = CGRectMake(0, 0, 40, 40);
         
         return  [[UIBarButtonItem alloc]initWithCustomView:btn];
         
-        
     }else{
-        
+        //图片跟文字都存在
         //设置图片
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
         //按钮点击事件

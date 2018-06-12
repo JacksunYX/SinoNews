@@ -29,7 +29,10 @@
 //工具类
 #import "ToolsHeader.h"
 
+#import "UserModel.h"
 
+//自定义的一些通用视图
+#import "BaseViewHead.h"
 
 //部分第三方库
 #import <MBProgressHUD.h>

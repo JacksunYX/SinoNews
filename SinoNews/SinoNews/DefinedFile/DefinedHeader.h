@@ -442,7 +442,8 @@ kWindow.userInteractionEnabled = YES;\
 //生成url
 #define UrlWithStr(str) [NSURL URLWithString:str]
 
-
+//比较字符串相等
+#define CompareString(str1,str2) [str1 isEqualToString:str2]
 
 
 

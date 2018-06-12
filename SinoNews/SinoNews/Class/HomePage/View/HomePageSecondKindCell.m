@@ -147,7 +147,7 @@
 -(void)setModel:(HomePageModel *)model
 {
     _model = model;
-    if ([model.topicId integerValue]) {
+    if (model.topicId) {
         typeLabel.text = @"专题";
     }
     title.text = [@"        " stringByAppendingString:GetSaveString(model.newsTitle)];

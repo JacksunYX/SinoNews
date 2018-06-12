@@ -89,7 +89,6 @@
     .autoHeightRatio(0)
     ;
     [title setMaxNumberOfLinesToShow:3];
-    title.text = [@"        " stringByAppendingString:@"发改委：严格防范外 债严格防范外债发改委：严格防范外 债严格防范外债发改委：严格防范外 债严格防范外债"];
     
     bottomLabel.sd_layout
     .leftSpaceToView(self.contentView, 10)
@@ -99,19 +98,6 @@
     ;
     [bottomLabel setMaxNumberOfLinesToShow:1];
     
-    NSString *str1 = [@"问答" stringByAppendingString:@"  "];
-    NSString *str2 = [@"环球国际时报" stringByAppendingString:@"  "];
-    NSString *str3 = [@"12321" stringByAppendingString:@" 阅  "];
-    NSString *str4 = [@"23812" stringByAppendingString:@" 评"];
-    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
-    NSDictionary *dic1 = @{
-                           NSForegroundColorAttributeName:HexColor(#1282EE),
-                           NSFontAttributeName:FontScale(11),
-                           };
-    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
-    bottomLabel.attributedText = attString;
-    
     typeLabel.sd_layout
     .leftEqualToView(title)
     .topEqualToView(title)
@@ -120,7 +106,7 @@
     ;
     [typeLabel setSd_cornerRadius:@2];
 //    [typeLabel setSingleLineAutoResizeWithMaxWidth:100];
-    typeLabel.text = @"推荐";
+    
 //    [typeLabel updateLayout];
 //    typeLabel.frame = CGRectMake(typeLabel.frame.origin.x, typeLabel.frame.origin.y, typeLabel.frame.size.width + kScaelW(10), typeLabel.frame.size.height + kScaelW(10));
     
@@ -131,7 +117,22 @@
 {
     _model = model;
     
+    title.text = [@"        " stringByAppendingString:GetSaveString(model.newsTitle)];
     
+    NSString *str1 = [@"" stringByAppendingString:@"  "];
+    NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
+    NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
+    NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
+    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
+//    NSDictionary *dic1 = @{
+//                           NSForegroundColorAttributeName:HexColor(#1282EE),
+//                           NSFontAttributeName:FontScale(11),
+//                           };
+//    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
+    bottomLabel.attributedText = attString;
+    
+    typeLabel.text = GetSaveString(model.labelName);
 }
 
 

@@ -14,7 +14,6 @@
 #import "IntegralViewController.h"
 #import "MineViewController.h"
 
-#import "BaseNavigationVC.h"
 
 @interface MainTabbarVC ()<UITabBarControllerDelegate>
 @property (nonatomic,assign) NSInteger  indexFlag;

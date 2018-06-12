@@ -7,8 +7,6 @@
 //
 
 #import "ManagerViewController.h"
-
-#import "BaseTableView.h"
 #import "ManagerRecordCell.h"
 
 @interface ManagerViewController ()<UITableViewDataSource,UITableViewDelegate>

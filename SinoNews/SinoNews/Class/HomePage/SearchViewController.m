@@ -8,7 +8,7 @@
 
 #import "SearchViewController.h"
 #import "SearchHeadReusableView.h"
-#import "BaseTableView.h"
+
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
 #import "HomePageThirdKindCell.h"

@@ -7,9 +7,9 @@
 //
 
 #import "MineViewController.h"
-#import "BaseTableView.h"
+
 #import "SettingViewController.h"
-#import "UserModel.h"
+#import "BrowsingHistoryVC.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -420,8 +420,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SettingViewController *stVC = [SettingViewController new];
-    [self.navigationController pushViewController:stVC animated:YES];
+    if (indexPath.section == 0) {
+        NSArray *section = self.mainDatasource[indexPath.section];
+        NSString *title = GetSaveString(section[indexPath.row][@"title"]);
+        if (CompareString(title, @"设置")) {
+            SettingViewController *stVC = [SettingViewController new];
+            [self.navigationController pushViewController:stVC animated:YES];
+        }else if (CompareString(title, @"历史")){
+            BrowsingHistoryVC *bhVC = [BrowsingHistoryVC new];
+            [self.navigationController pushViewController:bhVC animated:YES];
+        }
+        
+    }
     
 }
 

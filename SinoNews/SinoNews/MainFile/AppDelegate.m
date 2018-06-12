@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "MainTabbarVC.h"
 #import <IQKeyboardManager.h>
 #import <MGSocialShareKit/MGSocialShareKit.h>
 

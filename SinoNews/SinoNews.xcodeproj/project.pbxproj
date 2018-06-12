@@ -89,6 +89,8 @@
 		4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */; };
 		4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */; };
 		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
+		4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */; };
+		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
@@ -299,6 +301,11 @@
 		4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
 		4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHeadReusableView.h; sourceTree = "<group>"; };
 		4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHeadReusableView.m; sourceTree = "<group>"; };
+		4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryVC.h; sourceTree = "<group>"; };
+		4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryVC.m; sourceTree = "<group>"; };
+		4C93496C20CF677600BD8F07 /* BaseViewHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewHead.h; sourceTree = "<group>"; };
+		4C93496E20CF6DF800BD8F07 /* BrowsingHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryCell.h; sourceTree = "<group>"; };
+		4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryCell.m; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
 		4CE121CE20C00A6400A44782 /* RankListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListViewController.m; sourceTree = "<group>"; };
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
@@ -583,6 +590,9 @@
 				4C3F8FF820BCEF45003EC4FC /* MineViewController.m */,
 				4CE9C91920C7D508004550B9 /* SettingViewController.h */,
 				4CE9C91A20C7D508004550B9 /* SettingViewController.m */,
+				4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */,
+				4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */,
+				4C93496D20CF6DD100BD8F07 /* View */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -590,6 +600,7 @@
 		4C3F8FFA20BCF792003EC4FC /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
+				4C93496C20CF677600BD8F07 /* BaseViewHead.h */,
 				4C3F900520BCF807003EC4FC /* BaseView */,
 				4C3F8FFB20BCF7AB003EC4FC /* BaseVC */,
 			);
@@ -856,6 +867,15 @@
 				4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */,
 			);
 			path = NSArray;
+			sourceTree = "<group>";
+		};
+		4C93496D20CF6DD100BD8F07 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C93496E20CF6DF800BD8F07 /* BrowsingHistoryCell.h */,
+				4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4CE121D020C0148700A44782 /* DLogName_Line */ = {
@@ -1240,6 +1260,7 @@
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
+				4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
 				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,
@@ -1249,6 +1270,7 @@
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
+				4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,

@@ -6,7 +6,6 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "BaseTableView.h"
 
 #import "RankDetailViewController.h"
 

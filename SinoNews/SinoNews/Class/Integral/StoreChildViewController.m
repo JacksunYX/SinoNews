@@ -7,7 +7,6 @@
 //
 
 #import "StoreChildViewController.h"
-#import "BaseTableView.h"
 #import "StoreChildCell.h"
 
 @interface StoreChildViewController ()<UITableViewDataSource,UITableViewDelegate>

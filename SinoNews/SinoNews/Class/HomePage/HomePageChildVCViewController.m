@@ -7,7 +7,6 @@
 //
 
 #import "HomePageChildVCViewController.h"
-#import "BaseTableView.h"
 #import "HeadBannerView.h"
 #import "ADModel.h"
 
@@ -140,7 +139,7 @@
 {
     UITableViewCell *cell;
     HomePageModel *model = self.dataSource[indexPath.row];
-    if ([model.topicId integerValue]) { //说明是专题
+    if (model.topicId) { //说明是专题
         HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
         cell2.model = model;
         cell = (UITableViewCell *)cell2;
@@ -179,7 +178,7 @@
     
     parameters[@"page"] = @(self.page);
     parameters[@"loadType"] = @(upOrDown);
-    parameters[@"channelId"] = @1;
+    parameters[@"channelId"] = @0;
     parameters[@"loadTime"] = @1525939544;
     
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {

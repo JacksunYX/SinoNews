@@ -8,7 +8,7 @@
 
 #import "AttentionRecommendVC.h"
 #import "SearchViewController.h"    //搜索页面
-#import "BaseTableView.h"
+
 
 #import "AttentionRecommendFirstCell.h"
 #import "AttentionRecommendSecondCell.h"

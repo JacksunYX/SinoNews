@@ -341,6 +341,7 @@
     .widthIs(50)
     .heightEqualToWidth()
     ;
+    [icon setSd_cornerRadius:@25];
     icon.image = UIImageNamed(GetSaveString(model[@"icon"]));
     
     title.sd_layout

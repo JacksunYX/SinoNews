@@ -71,6 +71,7 @@
 		4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06620D0E74C009DC42B /* MyAttentionFirstCell.m */; };
 		4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */; };
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
+		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -82,6 +83,8 @@
 		4C5494A620CE799500CB448E /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5494A520CE799500CB448E /* NSString+Time.m */; };
 		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */; };
+		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
+		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
 		4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */; };
 		4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */; };
@@ -280,6 +283,8 @@
 		4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionSecondCell.m; sourceTree = "<group>"; };
 		4C49F06E20D0E7B7009DC42B /* MyAttentionThirdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAttentionThirdCell.h; sourceTree = "<group>"; };
 		4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionThirdCell.m; sourceTree = "<group>"; };
+		4C49F07120D0F94B009DC42B /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
+		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -302,6 +307,10 @@
 		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendVC.h; sourceTree = "<group>"; };
 		4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendVC.m; sourceTree = "<group>"; };
+		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
+		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
+		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
+		4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectCasinoCell.m; sourceTree = "<group>"; };
 		4C83E64120BFE32C00C99AAB /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
 		4C83E64220BFE32C00C99AAB /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
 		4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCollectionViewCell.h; sourceTree = "<group>"; };
@@ -647,6 +656,8 @@
 				4C93497520CF77A300BD8F07 /* FeedbackViewController.m */,
 				4C49F06220D0C74D009DC42B /* MyAttentionViewController.h */,
 				4C49F06320D0C74D009DC42B /* MyAttentionViewController.m */,
+				4C49F07120D0F94B009DC42B /* MyCollectViewController.h */,
+				4C49F07220D0F94B009DC42B /* MyCollectViewController.m */,
 				4C93496D20CF6DD100BD8F07 /* View */,
 			);
 			path = Mine;
@@ -960,6 +971,10 @@
 				4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */,
 				4C49F06E20D0E7B7009DC42B /* MyAttentionThirdCell.h */,
 				4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */,
+				4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */,
+				4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */,
+				4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */,
+				4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1299,6 +1314,7 @@
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
+				4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */,
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
 				4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */,
 				4C49F06420D0C74D009DC42B /* MyAttentionViewController.m in Sources */,
@@ -1307,6 +1323,7 @@
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
 				4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */,
+				4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
@@ -1342,6 +1359,7 @@
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
+				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */,

@@ -11,6 +11,7 @@
 #import "SettingViewController.h"
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
+#import "MyCollectViewController.h"
 
 #import "MyAttentionViewController.h"
 
@@ -470,6 +471,9 @@
             [self.navigationController pushViewController:bhVC animated:YES];
         }else if (CompareString(title, @"消息")){
             MessageViewController *mVC = [MessageViewController new];
+            [self.navigationController pushViewController:mVC animated:YES];
+        }else if (CompareString(title, @"收藏")){
+            MyCollectViewController *mVC = [MyCollectViewController new];
             [self.navigationController pushViewController:mVC animated:YES];
         }
         

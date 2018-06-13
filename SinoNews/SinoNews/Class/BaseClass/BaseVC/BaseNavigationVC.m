@@ -41,7 +41,7 @@
 {
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
     
-    [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:kWhite(0.8)]];
+    [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
     
 }
 

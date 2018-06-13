@@ -151,8 +151,12 @@
     _tableView.backgroundColor = BACKGROUND_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    //注册
-
+    
+    WEAK(weakSelf, self);
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf requestCompanyRanking];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -548,5 +552,22 @@
         LRToast(@"点击了收藏~");
     }
 }
+
+//请求企业详情
+-(void)requestCompanyRanking
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"companyId"] = GetSaveString(self.companyId);
+    
+    [HttpRequest getWithURLString:CompanyDetail parameters:parameters success:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    [self.tableView.mj_header endRefreshing];
+}
+
+
+
 
 @end

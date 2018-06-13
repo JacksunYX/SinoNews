@@ -240,7 +240,7 @@
         
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
-        self.selectionStyle = UITableViewCellSeparatorStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.tableView = [[UITableView alloc]initWithFrame:CGRectInset(self.bounds, 15, 0) style:UITableViewStylePlain];
         self.tableView.delegate = self;

@@ -39,40 +39,40 @@
 -(NSMutableArray *)datasource
 {
     if (!_datasource) {
-        NSArray *title = @[
-                           @"综合排行",
-                           @"体育投注排行",
-                           @"真人游戏排行",
-                           @"男性玩家排行",
-                           @"女性玩家排行",
-                           @"未成年玩家排行",
-                           ];
-        NSArray *backImg = @[
-                                @"rank_banner0",
-                                @"rank_banner1",
-                                @"rank_banner2",
-                                @"rank_banner3",
-                                @"rank_banner0",
-                                @"rank_banner1",
-                                ];
-        
-        NSArray *updateTime = @[
-                                   @"2018年5月30日",
-                                   @"2018年5月31日",
-                                   @"2018年5月15日",
-                                   @"2018年6月1日",
-                                   @"2018年4月23日",
-                                   @"2018年1月1日",
-                                   ];
+//        NSArray *title = @[
+//                           @"综合排行",
+//                           @"体育投注排行",
+//                           @"真人游戏排行",
+//                           @"男性玩家排行",
+//                           @"女性玩家排行",
+//                           @"未成年玩家排行",
+//                           ];
+//        NSArray *backImg = @[
+//                                @"rank_banner0",
+//                                @"rank_banner1",
+//                                @"rank_banner2",
+//                                @"rank_banner3",
+//                                @"rank_banner0",
+//                                @"rank_banner1",
+//                                ];
+//
+//        NSArray *updateTime = @[
+//                                   @"2018年5月30日",
+//                                   @"2018年5月31日",
+//                                   @"2018年5月15日",
+//                                   @"2018年6月1日",
+//                                   @"2018年4月23日",
+//                                   @"2018年1月1日",
+//                                   ];
         _datasource = [NSMutableArray new];
-        
-        for (int i = 0; i < title.count; i ++) {
-            NSMutableDictionary *dic = [NSMutableDictionary new];
-            dic[@"title"] = title[i];
-            dic[@"backImg"] = backImg[i];
-            dic[@"updateTime"] = updateTime[i];
-            [_datasource addObject:dic];
-        }
+//
+//        for (int i = 0; i < title.count; i ++) {
+//            NSMutableDictionary *dic = [NSMutableDictionary new];
+//            dic[@"title"] = title[i];
+//            dic[@"backImg"] = backImg[i];
+//            dic[@"updateTime"] = updateTime[i];
+//            [_datasource addObject:dic];
+//        }
         
     }
     return _datasource;
@@ -169,7 +169,7 @@
     
     _lineCollectionView.dataSource = self;
     _lineCollectionView.delegate = self;
-    [_lineCollectionView registerClass:[LineCollectionViewCell class] forCellWithReuseIdentifier:@"cellID"];
+    [_lineCollectionView registerClass:[LineCollectionViewCell class] forCellWithReuseIdentifier:LineCollectionViewCellID];
     
     WeakSelf
     self.lineCollectionView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -177,6 +177,12 @@
             [weakSelf.lineCollectionView.mj_footer endRefreshingWithNoMoreData];
         });
     }];
+    
+    self.lineCollectionView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf requestRanking];
+    }];
+    
+    [self.lineCollectionView.mj_header beginRefreshing];
 }
 
 //添加下方广告视图
@@ -215,8 +221,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell;
     if (collectionView == self.lineCollectionView) {
-        LineCollectionViewCell *cell1 = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellID" forIndexPath:indexPath];
-        NSDictionary *model = self.datasource[indexPath.row];
+        LineCollectionViewCell *cell1 = [collectionView dequeueReusableCellWithReuseIdentifier:LineCollectionViewCellID forIndexPath:indexPath];
+        RankingModel *model = self.datasource[indexPath.row];
         cell1.model = model;
         cell = cell1;
     }
@@ -245,6 +251,9 @@
 {
     if (collectionView == self.lineCollectionView) {
         RankListViewController *rlVC = [RankListViewController new];
+        RankingModel *model = self.datasource[indexPath.row];
+        rlVC.rankingId = model.rankingId;
+        rlVC.navigationItem.title = model.rankingName;
         [self.navigationController pushViewController:rlVC animated:YES];
     }
 }
@@ -262,6 +271,19 @@
     
 }
 
-
+//请求排行榜
+-(void)requestRanking
+{
+    [HttpRequest getWithURLString:Ranking parameters:nil success:^(id responseObject) {
+        NSArray *data = [RankingModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (!kArrayIsEmpty(data)) {
+            self.datasource = [data mutableCopy];
+        }
+        [self.lineCollectionView.mj_header endRefreshing];
+        [self.lineCollectionView reloadData];
+    } failure:^(NSError *error) {
+        [self.lineCollectionView.mj_header endRefreshing];
+    }];
+}
 
 @end

@@ -23,7 +23,7 @@
 //图片域名
 #define defaultUrl DebugImgDomain
 //测试环境
-#define DebugImgDomain @"http://192.168.2.144:8081"
+#define DebugImgDomain @"http://192.168.2.144:8083"
 //正式环境
 #define FormalImgDomain @"https://static.kuaiyishare.com"
 

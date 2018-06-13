@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RankingModel.h"
+
+#define LineCollectionViewCellID @"LineCollectionViewCellID"
 
 @interface LineCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) RankingModel *model;
 
 @end

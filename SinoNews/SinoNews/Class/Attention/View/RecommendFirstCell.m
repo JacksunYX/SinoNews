@@ -77,9 +77,10 @@
     .topSpaceToView(self.contentView, 20)
     .leftSpaceToView(self.contentView, 10)
     .rightSpaceToView(isAttention, 10)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(16)
     ;
-    [title setMaxNumberOfLinesToShow:2];
+//    [title setMaxNumberOfLinesToShow:2];
     
     fansNum.sd_layout
     .leftEqualToView(title)

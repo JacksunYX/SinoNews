@@ -10,6 +10,13 @@
 #ifndef RankingListNet_h
 #define RankingListNet_h
 
+//查询榜单
+#define Ranking  @"/ranking"
 
+//查询企业排名
+#define CompanyRanking @"/companyRanking"
+
+//公司详情
+#define CompanyDetail @"/api/company/showCompanyDetails"
 
 #endif /* RankingListNet_h */

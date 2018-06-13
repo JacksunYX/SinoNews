@@ -8,11 +8,12 @@
 //自定义排行榜cell
 
 #import <UIKit/UIKit.h>
+#import "RankingListModel.h"
 
 #define RankListTableViewCellID @"RankListTableViewCellID"
 
 @interface RankListTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) RankingListModel *model;
 
 @end

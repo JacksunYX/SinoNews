@@ -14,7 +14,7 @@
 @interface RankListViewController ()<GroupShadowTableViewDelegate,GroupShadowTableViewDataSource>
 @property (strong, nonatomic) GroupShadowTableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
-
+@property (nonatomic, assign) NSInteger currPage;   //页码
 @end
 
 @implementation RankListViewController
@@ -23,76 +23,76 @@
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
-        NSArray *userIcon = @[
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              @"user_icon",
-                              ];
-        NSArray *title = @[
-                           @"儿童娱乐场",
-                           @"成人娱乐场",
-                           @"测试娱乐场",
-                           @"竞技娱乐场",
-                           @"贪玩娱乐场",
-                           @"中老年娱乐场",
-                           @"猛男娱乐场",
-                           @"淑女娱乐场",
-                           @"混搭娱乐场",
-                           @"血战娱乐场",
-                           ];
-        NSArray *score = @[
-                           @"99.9 分",
-                           @"99.5 分",
-                           @"99.1 分",
-                           @"97.0 分",
-                           @"96.5 分",
-                           @"94.5 分",
-                           @"90.0 分",
-                           @"88.5 分",
-                           @"85.5 分",
-                           @"82.5 分",
-                           ];
-        
-        NSArray *subTitle = @[
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              @"首存送100奖金",
-                              ];
-        NSArray *upOrDown = @[
-                              @1,
-                              @1,
-                              @1,
-                              @0,
-                              @0,
-                              @0,
-                              @1,
-                              @0,
-                              @1,
-                              @0,
-                              ];
-        for (int i = 0; i < userIcon.count; i ++) {
-            NSMutableDictionary *dic = [NSMutableDictionary new];
-            dic[@"userIcon"] = userIcon[i];
-            dic[@"title"] = title[i];
-            dic[@"score"] = score[i];
-            dic[@"subTitle"] = subTitle[i];
-            dic[@"upOrDown"] = upOrDown[i];
-            [_dataSource addObject:dic];
-        }
+//        NSArray *userIcon = @[
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              @"user_icon",
+//                              ];
+//        NSArray *title = @[
+//                           @"儿童娱乐场",
+//                           @"成人娱乐场",
+//                           @"测试娱乐场",
+//                           @"竞技娱乐场",
+//                           @"贪玩娱乐场",
+//                           @"中老年娱乐场",
+//                           @"猛男娱乐场",
+//                           @"淑女娱乐场",
+//                           @"混搭娱乐场",
+//                           @"血战娱乐场",
+//                           ];
+//        NSArray *score = @[
+//                           @"99.9 分",
+//                           @"99.5 分",
+//                           @"99.1 分",
+//                           @"97.0 分",
+//                           @"96.5 分",
+//                           @"94.5 分",
+//                           @"90.0 分",
+//                           @"88.5 分",
+//                           @"85.5 分",
+//                           @"82.5 分",
+//                           ];
+//
+//        NSArray *subTitle = @[
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              @"首存送100奖金",
+//                              ];
+//        NSArray *upOrDown = @[
+//                              @1,
+//                              @1,
+//                              @1,
+//                              @0,
+//                              @0,
+//                              @0,
+//                              @1,
+//                              @0,
+//                              @1,
+//                              @0,
+//                              ];
+//        for (int i = 0; i < userIcon.count; i ++) {
+//            NSMutableDictionary *dic = [NSMutableDictionary new];
+//            dic[@"userIcon"] = userIcon[i];
+//            dic[@"title"] = title[i];
+//            dic[@"score"] = score[i];
+//            dic[@"subTitle"] = subTitle[i];
+//            dic[@"upOrDown"] = upOrDown[i];
+//            [_dataSource addObject:dic];
+//        }
     }
     return _dataSource;
 }
@@ -100,9 +100,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
-    self.navigationItem.title = @"xxx排行榜";
+//    self.navigationItem.title = @"xxx排行榜";
     
     [self addBaseViews];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +131,25 @@
     
     [self.tableView registerClass:[RankListTableViewCell class] forCellReuseIdentifier:RankListTableViewCellID];
     
+    WEAK(weakSelf, self);
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        if (weakSelf.tableView.mj_footer.isRefreshing) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            return ;
+        }
+        weakSelf.currPage = 1;
+        [weakSelf requestCompanyRanking];
+    }];
+    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        if (weakSelf.tableView.mj_header.isRefreshing) {
+            [weakSelf.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        weakSelf.currPage ++;
+        [weakSelf requestCompanyRanking];
+    }];
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 //MARK: - GroupShadowTableViewDataSource
@@ -138,10 +158,10 @@
 }
 
 - (NSInteger)groupShadowTableView:(GroupShadowTableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section != 3) {
+    if (section != 3&&self.dataSource.count>=3) {
         return 1;
     }
-    return 7;
+    return self.dataSource.count - 3;
 }
 
 - (UITableViewCell *)groupShadowTableView:(GroupShadowTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -167,10 +187,53 @@
 }
 
 - (void)groupShadowTableView:(GroupShadowTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     RankDetailViewController *rdVC = [RankDetailViewController new];
+    NSInteger num = 0;
+    if (indexPath.section < 3) {
+        num = indexPath.section;
+    }else{
+        num = indexPath.row + 3;
+    }
+    RankingListModel *model = self.dataSource[num];
+    rdVC.companyId = model.companyId;
+    
     [self.navigationController pushViewController:rdVC animated:YES];
 }
+
+//请求详细榜单
+-(void)requestCompanyRanking
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"rankingId"] = GetSaveString(self.rankingId);
+    parameters[@"currPage"] = @(self.currPage);
+   
+    [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
+        NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        if (self.currPage == 1) {
+            self.dataSource = [data mutableCopy];
+        }else{
+            [self.dataSource addObjectsFromArray:data];
+        }
+        [self endRefresh];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self endRefresh];
+    }];
+    
+}
+
+-(void)endRefresh
+{
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+}
+
+
+
+
+
+
 
 
 @end

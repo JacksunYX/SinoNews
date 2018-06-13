@@ -64,6 +64,8 @@
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
+		4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F05920D0A321009DC42B /* RankingModel.m */; };
+		4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F05C20D0AF5C009DC42B /* RankingListModel.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -259,6 +261,10 @@
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
 		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
 		4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLChannelModel.m; sourceTree = "<group>"; };
+		4C49F05820D0A321009DC42B /* RankingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingModel.h; sourceTree = "<group>"; };
+		4C49F05920D0A321009DC42B /* RankingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankingModel.m; sourceTree = "<group>"; };
+		4C49F05B20D0AF5C009DC42B /* RankingListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingListModel.h; sourceTree = "<group>"; };
+		4C49F05C20D0AF5C009DC42B /* RankingListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankingListModel.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -579,6 +585,7 @@
 				4CE121CE20C00A6400A44782 /* RankListViewController.m */,
 				4CE121DC20C11DA000A44782 /* RankDetailViewController.h */,
 				4CE121DD20C11DA000A44782 /* RankDetailViewController.m */,
+				4C49F05720D0A303009DC42B /* Model */,
 				4C83E64020BFE30200C99AAB /* View */,
 			);
 			path = RankingList;
@@ -802,6 +809,17 @@
 				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
 				4C56137720CA342B00C7FA5A /* ADModel.h */,
 				4C56137820CA342B00C7FA5A /* ADModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4C49F05720D0A303009DC42B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C49F05820D0A321009DC42B /* RankingModel.h */,
+				4C49F05920D0A321009DC42B /* RankingModel.m */,
+				4C49F05B20D0AF5C009DC42B /* RankingListModel.h */,
+				4C49F05C20D0AF5C009DC42B /* RankingListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1254,12 +1272,14 @@
 				4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
+				4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
+				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,

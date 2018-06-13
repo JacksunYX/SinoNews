@@ -56,24 +56,25 @@
     
     crown = [UIImageView new];
     userIcon = [UIImageView new];
+    userIcon.backgroundColor = WhiteColor;
     
     score = [UILabel new];
-    score.font = FontScale(15);
+    score.font = PFFontL(14);
     
     title = [UILabel new];
-    title.font = FontScale(15);
+    title.font = PFFontR(15);
     
     subTitle = [UILabel new];
-    subTitle.font = FontScale(14);
+    subTitle.font = PFFontL(14);
     
     toPlayBtn = [UIButton new];
-    toPlayBtn.titleLabel.font = FontScale(15);
+    toPlayBtn.titleLabel.font = PFFontL(15);
     [toPlayBtn setTitleColor:RGBA(238, 174, 38, 1) forState:UIControlStateNormal];
     toPlayBtn.layer.borderWidth = 1;
     toPlayBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
     
     detailBtn = [UIButton new];
-    detailBtn.titleLabel.font = FontScale(15);
+    detailBtn.titleLabel.font = PFFontL(15);
     [detailBtn setTitleColor:RGBA(78, 152, 223, 1) forState:UIControlStateNormal];
     detailBtn.layer.borderWidth = 1;
     detailBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
@@ -95,16 +96,16 @@
                                        ]];
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(RankingListModel *)model
 {
     _model = model;
-    
-    userIcon.image = UIImageNamed(GetSaveString(model[@"userIcon"]));
-    
+    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.companyLogo)];
+    [userIcon sd_setImageWithURL:UrlWithStr(imgStr)];
+
     [num setTitle:[NSString stringWithFormat:@"%ld",self.tag] forState:UIControlStateNormal];
-    score.text = model[@"score"];
-    title.text = model[@"title"];
-    subTitle.text = model[@"subTitle"];
+    score.text = @"";
+    title.text = model.companyName;
+    subTitle.text = @"";
     
     [num setBackgroundImage:UIImageNamed(@"rank_medal") forState:UIControlStateNormal];
     crown.image = nil;
@@ -184,25 +185,28 @@
     score.sd_layout
     .leftSpaceToView(userIcon, 30 * ScaleW)
     .centerYEqualToView(self.contentView)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(14)
     ;
-    [score setMaxNumberOfLinesToShow:1];
+//    [score setMaxNumberOfLinesToShow:1];
     [score setSingleLineAutoResizeWithMaxWidth:100];
     
     title.sd_layout
     .leftEqualToView(score)
     .bottomSpaceToView(score, 0)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(15)
     ;
-    [title setMaxNumberOfLinesToShow:1];
+//    [title setMaxNumberOfLinesToShow:1];
     [title setSingleLineAutoResizeWithMaxWidth:100 * ScaleW];
     
     subTitle.sd_layout
     .leftEqualToView(score)
     .topSpaceToView(score, 0)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(14)
     ;
-    [subTitle setMaxNumberOfLinesToShow:1];
+//    [subTitle setMaxNumberOfLinesToShow:1];
     [subTitle setSingleLineAutoResizeWithMaxWidth:100 * ScaleW];
     
     if (self.tag < 4) {
@@ -242,10 +246,18 @@
     .heightIs(14)
     ;
     
-    if ([self.model[@"upOrDown"] integerValue]) {
-        upOrDown.image = UIImageNamed(@"up_icon");
-    }else{
-        upOrDown.image = UIImageNamed(@"down_icon");
+    switch ([self.model.status integerValue]) {
+        case -1:
+            upOrDown.image = UIImageNamed(@"down_icon");
+            break;
+        case 0:
+            upOrDown.image = nil;
+            break;
+        case 1:
+            upOrDown.image = UIImageNamed(@"up_icon");
+            break;
+        default:
+            break;
     }
 }
 

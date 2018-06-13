@@ -10,5 +10,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RankListViewController : UIViewController
-
+@property (nonatomic,strong) NSString *rankingId;
 @end

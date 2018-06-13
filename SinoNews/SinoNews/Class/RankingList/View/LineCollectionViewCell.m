@@ -74,12 +74,14 @@
     
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(RankingModel *)model
 {
     _model = model;
-    backImg.image = UIImageNamed(model[@"backImg"]);
-    title.text = model[@"title"];
-    updateTime.text = model[@"updateTime"];
+    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.rankingLogo)];
+//    GGLog(@"imgStr：%@",imgStr);
+    [backImg sd_setImageWithURL:UrlWithStr(imgStr)];
+    title.text = GetSaveString(model.rankingName);
+    updateTime.text = GetSaveString(model.updateTime);
 }
 
 @end

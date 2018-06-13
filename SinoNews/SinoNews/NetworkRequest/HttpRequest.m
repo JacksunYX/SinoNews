@@ -13,6 +13,19 @@
 + (AFHTTPSessionManager *)getQuestManager
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //无条件的信任服务器上的证书
+    
+    AFSecurityPolicy *securityPolicy =  [AFSecurityPolicy defaultPolicy];
+    
+    // 客户端是否信任非法证书
+    
+    securityPolicy.allowInvalidCertificates = YES;
+    
+    // 是否在证书域字段中验证域名
+    
+    securityPolicy.validatesDomainName = NO;
+    
+    manager.securityPolicy = securityPolicy;
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     

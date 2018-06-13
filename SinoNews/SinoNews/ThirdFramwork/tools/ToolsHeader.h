@@ -18,5 +18,6 @@
 #import "CustomRefreshHead.h"
 #import "NSObject+save.h"
 #import "NSString+Time.h"
+#import "UIView+Gesture.h"
 
 #endif /* ToolsHeader_h */

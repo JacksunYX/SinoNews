@@ -149,6 +149,8 @@ typedef NS_ENUM(NSUInteger,HttpRequestType) {
 //获取当前页面的控制器
 + (UIViewController *)getCurrentVC;
 
+//获取Window当前显示的ViewController
++ (UIViewController*)currentViewController;
 
 //进行相对应的请求参数的拼接加密方法
 +(NSString *)ParameterFormattingSplicing:(NSMutableDictionary *)requestparameterdic WithKey:(NSString *)keyStr;

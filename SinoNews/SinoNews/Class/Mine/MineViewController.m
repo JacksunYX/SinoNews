@@ -12,6 +12,8 @@
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
 
+#import "MyAttentionViewController.h"
+
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
@@ -186,6 +188,10 @@
     UILabel *attention = [self getLabel];
     UILabel *fans = [self getLabel];
     UILabel *praise = [self getLabel];
+    publish.tag = 0;
+    attention.tag = 1;
+    fans.tag = 2;
+    praise.tag = 3;
     
     [headView sd_addSubviews:@[
                                _userImg,
@@ -245,6 +251,7 @@
     .widthIs(ScreenW/4)
     ;
     publish.attributedText = [self leadString:@"0" tailString:@"文章" font:Font(14) color:RGBA(119, 119, 119, 1) lineBreak:YES];
+    [publish creatTapWithSelector:@selector(tapView:)];
     
     attention.sd_layout
     .topEqualToView(publish)
@@ -253,6 +260,7 @@
     .widthIs(ScreenW/4)
     ;
     attention.attributedText = [self leadString:@"0" tailString:@"关注" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
+    [attention creatTapWithSelector:@selector(tapView:)];
     
     fans.sd_layout
     .topEqualToView(publish)
@@ -261,6 +269,7 @@
     .widthIs(ScreenW/4)
     ;
     fans.attributedText = [self leadString:@"0" tailString:@"粉丝" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
+    [fans creatTapWithSelector:@selector(tapView:)];
     
     praise.sd_layout
     .topEqualToView(publish)
@@ -269,12 +278,41 @@
     .widthIs(ScreenW/4)
     ;
     praise.attributedText = [self leadString:@"0" tailString:@"获赞" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
+    [praise creatTapWithSelector:@selector(tapView:)];
     
-    UITapGestureRecognizer *userTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userTouch)];
-    userTap.numberOfTapsRequired = 1;
-    _userImg.userInteractionEnabled = YES;
-    [_userImg addGestureRecognizer:userTap];
+    [_userImg creatTapWithSelector:@selector(userTouch)];
     
+}
+
+-(void)tapView:(UITapGestureRecognizer *)tap
+{
+    
+    switch (tap.view.tag) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            MyAttentionViewController *maVC = [MyAttentionViewController new];
+            [self.navigationController pushViewController:maVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void)userTouch

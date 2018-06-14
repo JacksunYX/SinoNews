@@ -7,9 +7,10 @@
 //
 
 #import "HomePageChildVCViewController.h"
+#import "NewsDetailViewController.h"
+
 #import "HeadBannerView.h"
 #import "ADModel.h"
-
 
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
@@ -111,12 +112,18 @@
     
     WEAK(weakSelf, self);
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        if (weakSelf.tableView.mj_footer.isRefreshing) {
+            [weakSelf.tableView.mj_header endRefreshing];
+        }
         weakSelf.page = 1;
         [weakSelf requestNews_list:0];
         [weakSelf requestBanner];
     }];
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        if (weakSelf.tableView.mj_header.isRefreshing) {
+            [weakSelf.tableView.mj_footer endRefreshing];
+        }
         weakSelf.page ++;
         [weakSelf requestNews_list:1];
     }];
@@ -168,6 +175,12 @@
     return 0.01;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewsDetailViewController *ndVC = [NewsDetailViewController new];
+    [self.navigationController pushViewController:ndVC animated:YES];
+}
+
 #pragma mark ---- 请求方法
 //请求文章列表(上拉或下拉)
 -(void)requestNews_list:(NSInteger)upOrDown
@@ -206,7 +219,9 @@
             [self creatBanner];
         }
         [self.tableView.mj_header endRefreshing];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
     
 }
 

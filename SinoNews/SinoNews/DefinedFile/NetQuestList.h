@@ -10,6 +10,9 @@
 #ifndef NetQuestList_h
 #define NetQuestList_h
 
+//版本号
+#define VersionNum  @"/v1.0.1"
+
 #import "HomePageNet.h"
 #import "AttentionNet.h"
 #import "RankingListNet.h"

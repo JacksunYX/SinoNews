@@ -70,20 +70,24 @@
     
     [self addNavigationView];
     
-    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
-    if (kArrayIsEmpty(columnArr)) {
+//    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
+//    if (kArrayIsEmpty(columnArr)) {
         [self requestChnanel];
-    }else{
-        self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
-        [self reloadChildVCWithTitles:self.titleList];
-        self.leaveTitleList = columnArr[1];
-    }
+//    }else{
+//        self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
+//        [self reloadChildVCWithTitles:self.titleList];
+//        self.leaveTitleList = columnArr[1];
+//    }
 }
 
 //修改导航栏显示
 -(void)addNavigationView
 {
-    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 34)];
+    //需要把searchbar作为导航栏的titleview时，不要直接设置，因为直接创建的searchbar高度时固定为44的，这样会把导航栏的高度撑高，不再是44，可以使用下面的方法来创建
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320 * ScaleW, 34)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
+    [titleView addSubview:self.searchBar];
+    self.navigationItem.titleView = titleView;
     
     self.searchBar.placeholder = @"热门搜索";
     // 设置搜索框放大镜图标
@@ -118,13 +122,9 @@
         }
     }
     
-    
-    
-    self.navigationItem.titleView = self.searchBar;
-    
-    _userIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 34, 34)];
+    _userIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     _userIcon.backgroundColor = GrayColor;
-    LRViewBorderRadius(_userIcon, 17, 0, HexColor(#B5B5B5));
+    LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
     _userIcon.image = UIImageNamed(@"logo_test");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
     
@@ -256,7 +256,7 @@
             self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
         }
         //存储数据
-        [self saveColumnArr];
+//        [self saveColumnArr];
         
         [self reloadChildVCWithTitles:self.titleList];
         

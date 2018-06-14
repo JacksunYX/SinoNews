@@ -47,7 +47,7 @@
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
     GGLog(@"baseURLString:%@",baseURLString);
     GGLog(@"parameters:%@",parameters);
     [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {

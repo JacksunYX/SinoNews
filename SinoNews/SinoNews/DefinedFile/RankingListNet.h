@@ -11,10 +11,10 @@
 #define RankingListNet_h
 
 //查询榜单
-#define Ranking  @"/ranking"
+#define Ranking  @"/api/ranking"
 
 //查询企业排名
-#define CompanyRanking @"/companyRanking"
+#define CompanyRanking @"/api/companyRanking"
 
 //公司详情
 #define CompanyDetail @"/api/company/showCompanyDetails"

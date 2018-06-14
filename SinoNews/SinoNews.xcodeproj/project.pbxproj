@@ -72,6 +72,7 @@
 		4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */; };
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
+		4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -285,6 +286,8 @@
 		4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionThirdCell.m; sourceTree = "<group>"; };
 		4C49F07120D0F94B009DC42B /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
+		4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
+		4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -581,6 +584,8 @@
 				4C3F903320BD1EB7003EC4FC /* HomePageChildVCViewController.m */,
 				4C8735FE20BE9F4600B6A8B5 /* SearchViewController.h */,
 				4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */,
+				4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */,
+				4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */,
 				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
@@ -1302,6 +1307,7 @@
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
+				4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */,
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,

@@ -11,7 +11,7 @@
 @interface NSString (STRegex)
 - (BOOL)isNumber;//全是数字。
 - (BOOL)isValidEnglish;//验证英文字母。
-- (BOOL)isValidChinese;//验证是否为汉字。
+- (BOOL)isValidChinese;//验证是否为汉字 。
 - (BOOL)isValidPassword;//验证密码：6—20位，只能包含字符、数字和 下划线。
 -(BOOL)checkPassWord;
 /**

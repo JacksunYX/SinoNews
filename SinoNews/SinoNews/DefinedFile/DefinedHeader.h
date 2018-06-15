@@ -14,7 +14,7 @@
 #define DefaultDomainName DebugDomain1
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
-#define DebugDomain1 @"http://192.168.2.144:8083"
+#define DebugDomain1 @"http://192.168.2.142:8087"
 
 
 //正式环境

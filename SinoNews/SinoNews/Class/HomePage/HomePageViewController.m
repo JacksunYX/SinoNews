@@ -84,7 +84,7 @@
 -(void)addNavigationView
 {
     //需要把searchbar作为导航栏的titleview时，不要直接设置，因为直接创建的searchbar高度时固定为44的，这样会把导航栏的高度撑高，不再是44，可以使用下面的方法来创建
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320 * ScaleW, 34)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300 * ScaleW, 34)];
     self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;

@@ -10,7 +10,7 @@
 #define HEIGHT_Adaptation (IPHONE_X ? ([UIScreen mainScreen].bounds.size.height)/812 : ([UIScreen mainScreen].bounds.size.height)/667)
 #define NAVI_HEIGHT (IPHONE_X ? 88 : 64)
 #define BOTTOM_MARGIN (IPHONE_X ? 34 : 0)
-#define StatusBarHeight (20)
+#define StatusBarHeight (IPHONE_X ? 44 : 20)
 
 #define TAB_HEIGHT (IPHONE_X ? 83 : 49)
 #define ScaleWidth(width) width * WIDTH_SCALE

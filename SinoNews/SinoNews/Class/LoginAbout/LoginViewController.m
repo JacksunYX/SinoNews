@@ -244,7 +244,23 @@
         }
         //再检测密码
         if ([password.text checkPassWord]) {
-            LRToast(@"发送登陆请求~");
+            NSMutableDictionary *parameters = [NSMutableDictionary new];
+            parameters[@"account"] = username.text;
+            parameters[@"password"] = password.text;
+            
+            [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+                LRToast(@"登陆成功");
+                GCDAfterTime(1, ^{
+                    if (self.normalBack) {
+                        if (self.backHandleBlock) {
+                            self.backHandleBlock();
+                        }
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                });
+            } failure:^(NSError *error) {
+                LRToast(@"登陆失败");
+            }  RefreshAction:nil];
         }else{
             LRToast(@"密码为6-16位数字、字母和下划线组成");
         }

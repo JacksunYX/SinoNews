@@ -96,7 +96,7 @@
     seccode.clearButtonMode = UITextFieldViewModeWhileEditing;
     seccode.limitedType = TXLimitedTextFieldTypeCustom;
     seccode.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
-    seccode.limitedNumber = 4;
+    seccode.limitedNumber = 6;
     seccode.delegate = self;
     
     getCodeBtn = [UIButton new];
@@ -188,9 +188,29 @@
 
 -(void)getSeccode:(UIButton *)sender
 {
-    LRToast(@"验证码已发送");
-    //发送成功后
-    [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:NAVIGATIONBAR_COLOR countColor:WhiteColor];
+    //检测帐号
+    //先做邮箱判断
+    if ([username.text containsString:@"@"]) {
+        if (![username.text isValidEmail]) {
+            LRToast(@"邮箱有误！");
+            return;
+        }
+        
+    }else{
+        if (![username.text isValidPhone]) {
+            LRToast(@"手机号有误！");
+            return;
+        }
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"account"] = username.text;
+    
+    [HttpRequest getWithURLString:SendValidCodeForAuthentication parameters:parameters success:^(id responseObject) {
+        LRToast(@"验证码已发送");
+        //发送成功后
+        [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:WhiteColor countColor:WhiteColor];
+    } failure:nil];
 }
 
 -(void)completeAction
@@ -218,7 +238,19 @@
         }
         //再检测密码
         if ([password.text checkPassWord]) {
-            LRToast(@"发送找回密码请求~");
+            NSMutableDictionary *parameters = [NSMutableDictionary new];
+            parameters[@"account"] = username.text;
+            parameters[@"password"] = password.text;
+            parameters[@"valid"] = seccode.text;
+            
+            [HttpRequest postWithURLString:ResetPassword parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+                LRToast(@"重制密码成功");
+                GCDAfterTime(1, ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            } failure:^(NSError *error) {
+                LRToast(@"重制密码失败");
+            }  RefreshAction:nil];
         }else{
             LRToast(@"密码为6-16位数字、字母和下划线组成");
         }

@@ -196,6 +196,7 @@
 		4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordViewController.m; sourceTree = "<group>"; };
 		4C21ABE920D36DA900615F20 /* NSString+STRegex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+STRegex.h"; sourceTree = "<group>"; };
 		4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+STRegex.m"; sourceTree = "<group>"; };
+		4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAboutNet.h; sourceTree = "<group>"; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -603,6 +604,7 @@
 				4C3F8FE720BCE648003EC4FC /* RankingListNet.h */,
 				4C3F8FE820BCE65A003EC4FC /* IntegralNet.h */,
 				4C3F8FE920BCE664003EC4FC /* MineNet.h */,
+				4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */,
 			);
 			path = DefinedFile;
 			sourceTree = "<group>";

@@ -61,8 +61,8 @@
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-//                LRToast(resultdic[@"alertMsg"]);
-                LRToast(resultdic[@"errorMsg"]);
+                LRToast(resultdic[@"alertMsg"]);
+//                LRToast(resultdic[@"errorMsg"]);
             }
             
         }
@@ -90,7 +90,7 @@
     AFHTTPSessionManager *manager = [self getQuestManager];
     
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
@@ -119,7 +119,7 @@
                 success(resultdic);
             }else{
                 if (isshowtoastd == YES) {
-                    LRToast(resultdic[@"errorMsg"]);
+                    LRToast(resultdic[@"alertMsg"]);
                 }
             }
             
@@ -157,7 +157,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
     NSString *token = GetSaveString([USER_DEFAULT objectForKey:@"token"]);
     NSString *user_id = GetSaveString([USER_DEFAULT objectForKey:@"user_id"]);
     

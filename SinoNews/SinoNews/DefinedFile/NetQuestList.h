@@ -18,5 +18,6 @@
 #import "RankingListNet.h"
 #import "IntegralNet.h"
 #import "MineNet.h"
+#import "UserAboutNet.h"
 
 #endif /* NetQuestList_h */

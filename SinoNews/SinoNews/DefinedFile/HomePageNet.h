@@ -14,7 +14,7 @@
 #define Channel_listChannels    @"/api/channel/listChannels"
 //分页展现指定栏目下的文章(get)
 #define News_list               @"/api/news/listForChannel"
-//广告轮播图
+//广告轮播图(get)
 #define Adverts                 @"/api/adverts"
 
 #endif /* HomePageNet_h */

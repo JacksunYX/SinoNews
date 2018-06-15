@@ -92,6 +92,7 @@
     
     password = [TXLimitedTextField new];
     password.clearButtonMode = UITextFieldViewModeWhileEditing;
+    password.secureTextEntry = YES;
     password.delegate = self;
     
     UIView *seccodeBackView = [UIView new];
@@ -101,7 +102,7 @@
     seccode.clearButtonMode = UITextFieldViewModeWhileEditing;
     seccode.limitedType = TXLimitedTextFieldTypeCustom;
     seccode.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
-    seccode.limitedNumber = 4;
+    seccode.limitedNumber = 6;
     seccode.delegate = self;
     
     getCodeBtn = [UIButton new];
@@ -204,9 +205,30 @@
 
 -(void)getSeccode:(UIButton *)sender
 {
-    LRToast(@"验证码已发送");
-    //发送成功后
-    [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:NAVIGATIONBAR_COLOR countColor:WhiteColor];
+    //检测帐号
+    //先做邮箱判断
+    if ([username.text containsString:@"@"]) {
+        if (![username.text isValidEmail]) {
+            LRToast(@"邮箱有误！");
+            return;
+        }
+        
+    }else{
+        if (![username.text isValidPhone]) {
+            LRToast(@"手机号有误！");
+            return;
+        }
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"account"] = username.text;
+    
+    [HttpRequest getWithURLString:SendValidCode parameters:parameters success:^(id responseObject) {
+        LRToast(@"验证码已发送");
+        //发送成功后
+        [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:WhiteColor countColor:WhiteColor];
+    } failure:nil];
+    
 }
 
 //注册操作
@@ -221,7 +243,7 @@
     }else if (kStringIsEmpty(seccode.text)){
         LRToast(@"请输入验证码");
     }else{
-        //先检测帐号
+        //检测帐号
         //先做邮箱判断
         if ([username.text containsString:@"@"]) {
             if (![username.text isValidEmail]) {
@@ -237,7 +259,21 @@
         }
         //再检测密码
         if ([password.text checkPassWord]) {
-            GGLog(@"发送注册请求~");
+            NSMutableDictionary *parameters = [NSMutableDictionary new];
+            parameters[@"account"] = username.text;
+            parameters[@"nickname"] = nickname.text;
+            parameters[@"password"] = password.text;
+            parameters[@"valid"] = seccode.text;
+            parameters[@"source"] = @"2";
+            
+            [HttpRequest postWithURLString:DoRegister parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+                LRToast(@"注册成功");
+                GCDAfterTime(1, ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            } failure:^(NSError *error) {
+                LRToast(@"注册失败");
+            }  RefreshAction:nil];
         }else{
             LRToast(@"密码为6-16位数字、字母和下划线组成");
         }

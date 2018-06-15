@@ -30,11 +30,12 @@
 
 -(void)setUI
 {
-    self.layer.cornerRadius = 9.0f;
-    self.layer.masksToBounds = YES;
+//    self.layer.cornerRadius = 9.0f;
+//    self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1;
     self.layer.borderColor = HexColor(#E3E3E3).CGColor;
     self.backgroundColor = WhiteColor;
+    [self cornerWithRadius:9];
     
     title = [UILabel new];
     title.font = PFFontL(16);

@@ -152,6 +152,8 @@
     _segHead.layer.shadowColor = GrayColor.CGColor;
     _segHead.layer.shadowOffset = CGSizeMake(-2, 2);
     _segHead.layer.shadowOpacity = 0.5;
+    _segHead.layer.shouldRasterize = NO;
+    _segHead.layer.shadowPath = [UIBezierPath bezierPathWithRect:_segHead.bounds].CGPath;
 //    _segHead.layer.shadowRadius = 1;
     
     if (_segScroll) {
@@ -183,6 +185,8 @@
     moreBtn.layer.shadowColor = GrayColor.CGColor;
     moreBtn.layer.shadowOffset = CGSizeMake(-1, 2);
     moreBtn.layer.shadowOpacity = 0.5;
+    moreBtn.layer.shouldRasterize = NO;
+    moreBtn.layer.shadowPath = [UIBezierPath bezierPathWithRect:moreBtn.bounds].CGPath;
 }
 
 //全部频道

@@ -293,7 +293,8 @@
         ;
         icon.contentMode = 4;
         icon.image = UIImageNamed(@"game_rule");
-        [icon setSd_cornerRadius:@10];
+//        [icon setSd_cornerRadius:@10];
+        [icon cornerWithRadius:10];
         icon.layer.borderColor = RGBA(204, 204, 204, 1).CGColor;
         icon.layer.borderWidth = 1;
     }
@@ -341,7 +342,8 @@
     .widthIs(50)
     .heightEqualToWidth()
     ;
-    [icon setSd_cornerRadius:@25];
+//    [icon setSd_cornerRadius:@25];
+    [icon cornerWithRadius:25];
     icon.image = UIImageNamed(GetSaveString(model[@"icon"]));
     
     title.sd_layout

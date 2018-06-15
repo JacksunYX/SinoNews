@@ -32,5 +32,6 @@ pod 'FCUUID'
 pod 'BaiduMobStat'
 pod 'MGSocialShareKit', '~> 1.0'
 pod 'BGFMDB'
+pod 'ReactiveObjC'
 
 end

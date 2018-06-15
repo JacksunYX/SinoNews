@@ -42,11 +42,12 @@
 
 -(void)setUI
 {
-    self.layer.cornerRadius = 9.0f;
-    self.layer.masksToBounds = YES;
+//    self.layer.cornerRadius = 9.0f;
+//    self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1;
     self.layer.borderColor = HexColor(#E3E3E3).CGColor;
     self.backgroundColor = WhiteColor;
+    [self cornerWithRadius:9];
     
     [self addViews];
 }
@@ -138,7 +139,8 @@
     .widthIs(48)
     .heightEqualToWidth()
     ;
-    [img1 setSd_cornerRadius:@24];
+//    [img1 setSd_cornerRadius:@24];
+    [img1 cornerWithRadius:24];
     img1.backgroundColor = Arc4randomColor;
     
     isAttention1.sd_layout
@@ -220,7 +222,8 @@
     .widthIs(48)
     .heightEqualToWidth()
     ;
-    [img2 setSd_cornerRadius:@24];
+//    [img2 setSd_cornerRadius:@24];
+    [img2 cornerWithRadius:24];
     img2.backgroundColor = Arc4randomColor;
     
     isAttention2.sd_layout
@@ -300,7 +303,8 @@
     .widthIs(48)
     .heightEqualToWidth()
     ;
-    [img3 setSd_cornerRadius:@24];
+//    [img3 setSd_cornerRadius:@24];
+    [img3 cornerWithRadius:24];
     img3.backgroundColor = Arc4randomColor;
     
     isAttention3.sd_layout

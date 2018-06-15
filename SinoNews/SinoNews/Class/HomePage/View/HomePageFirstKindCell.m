@@ -26,7 +26,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -44,7 +44,7 @@
     title = [UILabel new];
     title.font = FontScale(17);
     title.textColor = HexColor(#323232);
-//    title.backgroundColor = Arc4randomColor;
+    //    title.backgroundColor = Arc4randomColor;
     
     rightImg = [UIImageView new];
     rightImg.userInteractionEnabled = YES;
@@ -53,7 +53,7 @@
     bottomLabel = [UILabel new];
     bottomLabel.font = FontScale(11);
     bottomLabel.textColor = HexColor(#989898);
-//    bottomLabel.backgroundColor = Arc4randomColor;
+    //    bottomLabel.backgroundColor = Arc4randomColor;
     bottomLabel.isAttributedContent = YES;
     
     typeLabel = [UILabel new];
@@ -75,12 +75,13 @@
     rightImg.sd_layout
     .rightSpaceToView(self.contentView, 10)
     .topSpaceToView(self.contentView, 15)
-//    .widthIs(kScaelW(130))
-//    .heightIs(kScaelW(130)*80/130)
+    //    .widthIs(kScaelW(130))
+    //    .heightIs(kScaelW(130)*80/130)
     .widthIs(kScaelW(105))
     .heightEqualToWidth()
     ;
-    [rightImg setSd_cornerRadius:@4];
+//    [rightImg setSd_cornerRadius:@4];
+    [rightImg cornerWithRadius:4];
     
     title.sd_layout
     .leftSpaceToView(self.contentView, 10)
@@ -104,11 +105,12 @@
     .heightIs(ScaleW * 17)
     .widthIs(ScaleW * 17 + 10)
     ;
-    [typeLabel setSd_cornerRadius:@2];
-//    [typeLabel setSingleLineAutoResizeWithMaxWidth:100];
+//    [typeLabel setSd_cornerRadius:@2];
+    [typeLabel cornerWithRadius:2];
+    //    [typeLabel setSingleLineAutoResizeWithMaxWidth:100];
     
-//    [typeLabel updateLayout];
-//    typeLabel.frame = CGRectMake(typeLabel.frame.origin.x, typeLabel.frame.origin.y, typeLabel.frame.size.width + kScaelW(10), typeLabel.frame.size.height + kScaelW(10));
+    //    [typeLabel updateLayout];
+    //    typeLabel.frame = CGRectMake(typeLabel.frame.origin.x, typeLabel.frame.origin.y, typeLabel.frame.size.width + kScaelW(10), typeLabel.frame.size.height + kScaelW(10));
     
     [self setupAutoHeightWithBottomView:rightImg bottomMargin:15];
 }
@@ -125,11 +127,11 @@
     NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
     NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
-//    NSDictionary *dic1 = @{
-//                           NSForegroundColorAttributeName:HexColor(#1282EE),
-//                           NSFontAttributeName:FontScale(11),
-//                           };
-//    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
+    //    NSDictionary *dic1 = @{
+    //                           NSForegroundColorAttributeName:HexColor(#1282EE),
+    //                           NSFontAttributeName:FontScale(11),
+    //                           };
+    //    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
     bottomLabel.attributedText = attString;
     
     typeLabel.text = GetSaveString(model.labelName);

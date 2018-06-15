@@ -86,7 +86,8 @@
     .widthIs(imgW)
     .heightIs(imgH)
     ;
-    [img  setSd_cornerRadius:@4];
+//    [img  setSd_cornerRadius:@4];
+    [img cornerWithRadius:4];
     
     label1.sd_layout
     .rightSpaceToView(self.contentView, lrMargin)

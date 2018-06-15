@@ -7,7 +7,7 @@
 //
 
 #import "MineViewController.h"
-
+#import "LoginViewController.h"
 #import "SettingViewController.h"
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
@@ -318,15 +318,18 @@
 
 -(void)userTouch
 {
-    WEAK(weakSelf, self)
-    [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
-        STRONG(strongSelf, weakSelf)
-        //先对质量压缩
-        NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
-        UIImage *img = [UIImage imageWithData:imgData];
-        strongSelf.userImg.image = img;
-        
-    }];
+    if ([YXHeader checkNormalBackLogin]) {
+        WEAK(weakSelf, self)
+        [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
+            STRONG(strongSelf, weakSelf)
+            //先对质量压缩
+            NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
+            UIImage *img = [UIImage imageWithData:imgData];
+            strongSelf.userImg.image = img;
+            
+        }];
+    }
+    
 }
 
 //获取统一label

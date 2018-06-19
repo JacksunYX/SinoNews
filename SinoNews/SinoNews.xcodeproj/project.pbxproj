@@ -31,6 +31,8 @@
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
+		4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */; };
+		4C3D112520D90BF900480E03 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D112420D90BF900480E03 /* CommentCell.m */; };
 		4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA020BCD893003EC4FC /* AppDelegate.m */; };
 		4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA520BCD893003EC4FC /* Main.storyboard */; };
 		4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA820BCD894003EC4FC /* Assets.xcassets */; };
@@ -203,6 +205,10 @@
 		4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailModel.m; sourceTree = "<group>"; };
 		4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		4C3D111E20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
+		4C3D112020D8FD1A00480E03 /* CompanyCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCommentModel.h; sourceTree = "<group>"; };
+		4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommentModel.m; sourceTree = "<group>"; };
+		4C3D112320D90BF900480E03 /* CommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		4C3D112420D90BF900480E03 /* CommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -906,6 +912,8 @@
 				4C49F05C20D0AF5C009DC42B /* RankingListModel.m */,
 				4C3D111920D8D58100480E03 /* CompanyDetailModel.h */,
 				4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */,
+				4C3D112020D8FD1A00480E03 /* CompanyCommentModel.h */,
+				4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -973,6 +981,8 @@
 				4C83E64220BFE32C00C99AAB /* LineLayout.m */,
 				4CE121D920C0E14100A44782 /* RankListTableViewCell.h */,
 				4CE121DA20C0E14100A44782 /* RankListTableViewCell.m */,
+				4C3D112320D90BF900480E03 /* CommentCell.h */,
+				4C3D112420D90BF900480E03 /* CommentCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1432,6 +1442,7 @@
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */,
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
+				4C3D112520D90BF900480E03 /* CommentCell.m in Sources */,
 				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
@@ -1442,6 +1453,7 @@
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
+				4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */,
 				4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */,

@@ -19,4 +19,7 @@
 //公司详情(get)
 #define CompanyDetail   @"/api/company/showCompanyDetails"
 
+//查看企业评论(get)
+#define CompanyShowComment @"/api/company/companyShowComment"
+
 #endif /* RankingListNet_h */

@@ -9,16 +9,31 @@
 
 #import "RankDetailViewController.h"
 #import "CompanyDetailModel.h"
+#import "CommentCell.h"
 
 
 @interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    NSInteger sectionNum;   //总的分区数量
+}
 @property (nonatomic,strong) BaseTableView *tableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,strong) CompanyDetailModel *companyModel;
+
+@property (nonatomic,strong) NSMutableArray *commentsArr;   //评论列表
+@property (nonatomic,assign) NSInteger currPage;   //页码
 @end
 
 @implementation RankDetailViewController
+
+-(NSMutableArray *)commentsArr
+{
+    if (!_commentsArr) {
+        _commentsArr = [NSMutableArray new];
+    }
+    return _commentsArr;
+}
 
 -(NSMutableArray *)dataSource
 {
@@ -161,11 +176,29 @@
     _tableView.backgroundColor = BACKGROUND_COLOR;
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
     WEAK(weakSelf, self);
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        if (weakSelf.tableView.mj_footer.refreshing) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            return ;
+        }
+        weakSelf.currPage = 1;
         [weakSelf requestCompanyRanking];
+        [weakSelf requestCompanyCommentList];
     }];
+    
+    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        if (weakSelf.tableView.mj_header.refreshing) {
+            [weakSelf.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        weakSelf.currPage ++;
+        [weakSelf requestCompanyCommentList];
+    }];
+    
+    
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -173,7 +206,8 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (self.companyModel) {
-        return 4;
+        sectionNum = self.dataSource.count + 1;
+        return sectionNum;
     }
     return 0;
 }
@@ -186,14 +220,15 @@
     if (section == 1) {
         return 4;
     }
-    
     if (section == 2) {
         return 1;
     }
     if (section == 3) {
         return 1;
     }
-    
+    if (section == 4) {
+        return self.commentsArr.count;
+    }
     return 0;
 }
 
@@ -230,6 +265,10 @@
             [self setSection3RowWithData:data[indexPath.row] onView:cell];
         }
         
+    }else if (indexPath.section == 4){
+        CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
+        cell2.model = self.commentsArr[indexPath.row];
+        cell = (CommentCell *)cell2;
     }
 
     return cell;
@@ -249,12 +288,15 @@
     }
     
     if (indexPath.section == 2) {
-//        return 147;
         return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     }
     
     if (indexPath.section == 3) {
         return ((ScreenW - 20)*130/355 + 15 + 45);
+    }
+    
+    if (indexPath.section == 4) {
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     }
     
     return 0;
@@ -267,9 +309,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == 2||section == 4) {
         return 40;
     }
+    
     return 0.01;
 }
 
@@ -316,6 +359,18 @@
         [icon cornerWithRadius:10];
         icon.layer.borderColor = RGBA(204, 204, 204, 1).CGColor;
         icon.layer.borderWidth = 1;
+    }else if (section == 4){
+        UILabel *title = [UILabel new];
+        title.font = PFFontR(15);
+        [headView addSubview:title];
+        //布局
+        title.sd_layout
+        .centerYEqualToView(headView)
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .autoHeightRatio(0)
+        ;
+        title.text = @"评论";
     }
     
     return headView;
@@ -487,8 +542,11 @@
             }
             
             descrip.attributedText = attrStr;
+            @weakify(self);
             [descrip yb_addAttributeTapActionWithStrings:actionStrs tapClicked:^(NSString *string, NSRange range, NSInteger index) {
-                GGLog(@"点击了%@\n index:%ld",string,index);
+//                GGLog(@"点击了%@\n index:%ld",string,index);
+                @strongify(self);
+                [self openUrlWithString:GetSaveString(self.companyModel.otherwebsite[index])];
             }];
         }else{
 //            [otherWeb appendString:@"无"];
@@ -668,7 +726,28 @@
 //评论列表
 -(void)requestCompanyCommentList
 {
-    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"companyId"] = GetSaveString(self.companyId);
+    parameters[@"currPage"] = @(self.currPage);
+    [HttpRequest getWithURLString:CompanyShowComment parameters:parameters success:^(id responseObject) {
+        NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        if (arr.count) {
+            if (self.currPage == 1) {
+                self.commentsArr = [arr mutableCopy];
+                [self.tableView.mj_header endRefreshing];
+            }else{
+                [self.commentsArr addObjectsFromArray:arr];
+            }
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
 }
 
 

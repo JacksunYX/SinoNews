@@ -8,12 +8,14 @@
 
 
 #import "RankDetailViewController.h"
+#import "CompanyDetailModel.h"
 
 
 @interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) CompanyDetailModel *companyModel;
 @end
 
 @implementation RankDetailViewController
@@ -37,18 +39,18 @@
 -(NSArray *)addSection0Data
 {
     NSDictionary *dic0_0 = @{
-                             @"title"         :   @"猜大小娱乐场",
-                             @"icon"          :   @"user_icon",
-                             @"webserveUrl"   :   @"www.baidu.com",
+                             @"title"         :   GetSaveString(self.companyModel.companyName),
+                             @"icon"          :   GetSaveString(self.companyModel.logo),
+                             @"webserveUrl"   :   GetSaveString(self.companyModel.website),
                              @"collectType"   :   @"1",
                              };
     NSDictionary *dic0_1 = @{
                              @"icon"          :   @"game_discount",
-                             @"title"         :   @"优惠：首冲100送50",
+                             @"title"         :   GetSaveString(self.companyModel.promos),
                              };
     NSDictionary *dic0_2 = @{
                              @"icon"          :   @"game_setup",
-                             @"title"         :   @"成立：2018年",
+                             @"title"         :   [@"成立：" stringByAppendingString:GetSaveString(self.companyModel.foundTime)],
                              };
     NSArray *section0 = @[dic0_0,dic0_1,dic0_2];
     return section0;
@@ -58,19 +60,21 @@
 {
     NSDictionary *dic1_0 = @{
                              @"icon"          :   @"game_type",
-                             @"title"         :   @"游戏：体育/真人/老虎机/捕鱼/电竞/金融",
+                             @"title"         :   GetSaveString(self.companyModel.game),
                              };
     NSDictionary *dic1_1 = @{
                              @"icon"          :   @"game_operation",
-                             @"title"         :   @"運营：中国/泰国/美国",
+                             @"title"         :   GetSaveString(self.companyModel.area),
                              };
+    
+    
     NSDictionary *dic1_2 = @{
                              @"icon"          :   @"game_reserve",
-                             @"title"         :   @"备用：网址1  网址2",
+                             @"title"         :   @"",
                              };
     NSDictionary *dic1_3 = @{
                              @"icon"          :   @"game_introduce",
-                             @"title"         :   @"简介：猜大小娱乐场是当今比较流行的游戏，方 便人们的操作，娱乐与赚钱于一体.",
+                             @"title"         :   AppendingString(@"简介：", GetSaveString(self.companyModel.information)),
                              };
     
     NSArray *section1 = @[dic1_0,dic1_1,dic1_2,dic1_3];
@@ -79,30 +83,36 @@
 
 -(NSArray *)addSection2Data
 {
-    NSArray *title = @[
-                       @"存款体验",
-                       @"提款体验",
-                       @"游戏体验",
-                       @"网站体验",
-                       @"APP体验",
-                       @"历史信誉",
-                       @"资金运营",
-                       @"客户服务",
-                       @"拍照场地",
-                       @"担保金额",
-                       ];
-    NSArray *score = @[
-                       @9,
-                       @10,
-                       @8,
-                       @10,
-                       @9,
-                       @10,
-                       @9,
-                       @10,
-                       @10,
-                       @10,
-                       ];
+    NSMutableArray *title = [NSMutableArray new];
+    NSMutableArray *score = [NSMutableArray new];
+    for (NSDictionary *dic in self.companyModel.rankings) {
+        [title addObject:dic[@"rankingName"]];
+        [score addObject:dic[@"score"]];
+    }
+//    NSArray *title = @[
+//                       @"存款体验",
+//                       @"提款体验",
+//                       @"游戏体验",
+//                       @"网站体验",
+//                       @"APP体验",
+//                       @"历史信誉",
+//                       @"资金运营",
+//                       @"客户服务",
+//                       @"拍照场地",
+//                       @"担保金额",
+//                       ];
+//    NSArray *score = @[
+//                       @9,
+//                       @10,
+//                       @8,
+//                       @10,
+//                       @9,
+//                       @10,
+//                       @9,
+//                       @10,
+//                       @10,
+//                       @10,
+//                       ];
     NSMutableArray *section2 = [NSMutableArray new];
     for (int i = 0; i < title.count; i ++) {
         NSMutableDictionary *dic = [NSMutableDictionary new];
@@ -117,7 +127,7 @@
 -(NSArray *)addSection3Data
 {
     NSDictionary *dic = @{
-                          @"img"    :   @"webImg",
+                          @"img"    :   GetSaveString(self.companyModel.siteThumbnail),
                           
                           };
     
@@ -162,7 +172,10 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataSource.count;
+    if (self.companyModel) {
+        return 4;
+    }
+    return 0;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -203,10 +216,14 @@
             if (indexPath.row == 0) {
                 [self setSection0Row0WithData:data[indexPath.row] onView:cell];
             }else{
-                [self setSection0OtherRowWithData:data[indexPath.row] onView:cell];
+                [self setSection0OtherRowWithData:data[indexPath.row] onView:cell custom:NO];
             }
         }else if (indexPath.section == 1){
-            [self setSection0OtherRowWithData:data[indexPath.row] onView:cell];
+            if (indexPath.row == 2) {
+                [self setSection0OtherRowWithData:data[indexPath.row] onView:cell custom:YES];
+            }else{
+                [self setSection0OtherRowWithData:data[indexPath.row] onView:cell custom:NO];
+            }
         }else if (indexPath.section == 2){
             [self setSection2OtherRowWithDatas:data onView:cell];
         }else if (indexPath.section == 3){
@@ -232,7 +249,8 @@
     }
     
     if (indexPath.section == 2) {
-        return 147;
+//        return 147;
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     }
     
     if (indexPath.section == 3) {
@@ -264,6 +282,7 @@
         title.font = FontScale(16);
         title.isAttributedContent = YES;
         UIImageView *icon = [UIImageView new];
+        icon.backgroundColor = WhiteColor;
         [headView sd_addSubviews:@[
                                    title,
                                    icon,
@@ -275,7 +294,7 @@
         .autoHeightRatio(0)
         ;
         [title setSingleLineAutoResizeWithMaxWidth:100];
-        NSString *titleStr = @"95";
+        NSString *titleStr = GetSaveString(self.companyModel.syntheticalRanking.score);
         NSString *str = [titleStr stringByAppendingString:@" 总分"];
         NSMutableAttributedString *attText = [[NSMutableAttributedString alloc]initWithString:str];
         NSDictionary *dic = @{
@@ -302,6 +321,16 @@
     return headView;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    if (indexPath.section == 1 && indexPath.row == 2) {
+//        if (self.companyModel.otherwebsite.count) {
+//            NSString *webStr = [self.companyModel.otherwebsite firstObject];
+//            [self openUrlWithString:webStr];
+//        }
+//    }
+}
+
 //设置0区0行内容
 -(void)setSection0Row0WithData:(NSDictionary *)model onView:(UITableViewCell *)cell
 {
@@ -323,9 +352,9 @@
     [fatherView sd_addSubviews:@[
                                  star,
                                  icon,
-                                 title,
                                  websiteBtn,
                                  collectBtn,
+                                 title,
                                  ]];
     //布局
     star.sd_layout
@@ -344,16 +373,8 @@
     ;
 //    [icon setSd_cornerRadius:@25];
     [icon cornerWithRadius:25];
-    icon.image = UIImageNamed(GetSaveString(model[@"icon"]));
-    
-    title.sd_layout
-    .centerYEqualToView(fatherView)
-    .leftSpaceToView(star, 7)
-    .autoHeightRatio(0)
-    ;
-    [title setMaxNumberOfLinesToShow:1];
-    [title setSingleLineAutoResizeWithMaxWidth:100];
-    title.text = GetSaveString(model[@"title"]);
+    [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.companyModel.logo))];
+//    icon.image = UIImageNamed(GetSaveString(model[@"icon"]));
     
     websiteBtn.sd_layout
     .rightSpaceToView(fatherView, 10)
@@ -385,10 +406,22 @@
     
     [websiteBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
     [collectBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
+    
+    title.sd_layout
+    .centerYEqualToView(fatherView)
+    .leftSpaceToView(star, 7)
+    .rightSpaceToView(collectBtn, 7)
+//    .autoHeightRatio(0)
+    .heightIs(16)
+    ;
+//    [title setMaxNumberOfLinesToShow:1];
+//    [title setSingleLineAutoResizeWithMaxWidth:100];
+    //    title.text = GetSaveString(model[@"title"]);
+    title.text = GetSaveString(self.companyModel.companyName);
 }
 
 //0区其他行
--(void)setSection0OtherRowWithData:(NSDictionary *)model onView:(UITableViewCell *)cell
+-(void)setSection0OtherRowWithData:(NSDictionary *)model onView:(UITableViewCell *)cell custom:(BOOL)custom
 {
     UIView *fatherView = cell.contentView;
     
@@ -407,6 +440,7 @@
     .widthIs(20)
     .heightEqualToWidth()
     ;
+    leftIcon.contentMode = 1;
     leftIcon.image = UIImageNamed(GetSaveString(model[@"icon"]));
     
     descrip.sd_layout
@@ -415,7 +449,62 @@
     .topEqualToView(leftIcon)
     .autoHeightRatio(0)
     ;
-    descrip.text = GetSaveString(model[@"title"]);
+    
+    if (custom) {
+        NSMutableString *otherWeb = [@"备用：" mutableCopy];
+        NSMutableArray *ranges = [NSMutableArray new];
+        NSMutableArray *actionStrs = [NSMutableArray array]; // 将要添加点击事件的字符串集合
+        if (self.companyModel.otherwebsite.count) {
+            for (int i = 0; i < self.companyModel.otherwebsite.count; i ++) {
+                NSString *str = [NSString stringWithFormat:@"网址%d",i + 1];
+                [actionStrs addObject:str];
+                [otherWeb appendString:str];
+                
+                NSRange range = [otherWeb rangeOfString:str];
+                [ranges addObject:[NSValue valueWithRange:range]];
+                
+                [otherWeb appendString:@"  "];
+            }
+            // 转换成富文本字符串
+            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:otherWeb];
+            
+            [attrStr addAttributes:@{NSFontAttributeName : FontScale(15)} range:NSMakeRange(0, otherWeb.length)];
+            
+            // 最好设置一下行高，不设的话默认是0
+            
+            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+            
+            style.lineSpacing = 0;
+            
+            [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, otherWeb.length)];
+            
+            // 给指定文字添加颜色
+            
+            for (NSValue *rangeVal in ranges) {
+                
+                [attrStr addAttributes:@{NSForegroundColorAttributeName : RGBA(216, 132, 132, 1)} range:rangeVal.rangeValue];
+                
+            }
+            
+            descrip.attributedText = attrStr;
+            [descrip yb_addAttributeTapActionWithStrings:actionStrs tapClicked:^(NSString *string, NSRange range, NSInteger index) {
+                GGLog(@"点击了%@\n index:%ld",string,index);
+            }];
+        }else{
+//            [otherWeb appendString:@"无"];
+            descrip.text = @"备用：无";
+            
+        }
+    }else{
+        descrip.text = GetSaveString(model[@"title"]);
+    }
+    
+    
+//    if (cell.sd_indexPath.row == 1) {
+//        descrip.text = [NSString stringWithFormat:@"优惠：%@",self.companyModel.promos];
+//    }else if (cell.sd_indexPath.row == 2){
+//        descrip.text = [NSString stringWithFormat:@"成立：%@",self.companyModel.foundTime];
+//    }
     [cell setupAutoHeightWithBottomView:descrip bottomMargin:10];
 }
 
@@ -446,7 +535,7 @@
         YSProgressView *progress = [[YSProgressView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(title.frame) + lrMargin, CGRectGetMidY(title.frame) - 9, progressW, 18)];
         progress.trackTintColor = RGBA(139, 198, 255, 1);
         progress.progressTintColor = RGBA(234, 234, 234, 1);
-        progress.progressValue = ([dic[@"score"] floatValue]/10.0)*100.0;
+        progress.progressValue = ([dic[@"score"] floatValue]/100.0)*100.0;
         
         //分数
         UILabel *score = [[UILabel alloc]initWithFrame:progress.frame];
@@ -460,6 +549,9 @@
 
         if ((i + 1)%2 == 0) {
             y += CGRectGetHeight(title.frame);
+        }
+        if (i == modelArr.count - 1) {
+            [cell setupAutoHeightWithBottomView:title bottomMargin:10];
         }
     }
 }
@@ -475,8 +567,9 @@
     .topEqualToView(cell.contentView)
     .heightIs((ScreenW - 20)*130/355)
     ;
-    
-    img.image = UIImageNamed(GetSaveString(model[@"img"]));
+    [img setSd_cornerRadius:@7];
+//    img.image = UIImageNamed(GetSaveString(model[@"img"]));
+    [img sd_setImageWithURL:UrlWithStr(model[@"img"])];
     
     UIButton *sendCommentBtn = [UIButton new];
     sendCommentBtn.titleLabel.font = Font(15);
@@ -547,30 +640,36 @@
 {
     NSString *btnTitle = btn.titleLabel.text;
     if ([btnTitle isEqualToString:@"官网"]) {
-        [self openUrlWithString:@"http://www.baidu.com"];
-//        LRToast(@"点击了官网");
+        [self openUrlWithString:GetSaveString(self.companyModel.website)];
     }else if ([btnTitle isEqualToString:@"发评论"]){
         LRToast(@"发送了一个评论~");
-    }else if ([btnTitle isEqualToString:@"收藏"]){
+    }else{
         LRToast(@"点击了收藏~");
     }
 }
 
-//请求企业详情
+#pragma mark ----- 发送请求
+//企业详情
 -(void)requestCompanyRanking
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"companyId"] = GetSaveString(self.companyId);
     
     [HttpRequest getWithURLString:CompanyDetail parameters:parameters success:^(id responseObject) {
-        
+        self.companyModel = [CompanyDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
+        [self.tableView.mj_header endRefreshing];
     }];
-    [self.tableView.mj_header endRefreshing];
+    
 }
 
-
+//评论列表
+-(void)requestCompanyCommentList
+{
+    
+}
 
 
 @end

@@ -23,5 +23,6 @@
 #import "UIView+Gesture.h"
 #import "UIView+GFBorder.h"
 #import "UIView+GFCorner.h"
+#import "UILabel+YBAttributeTextTapAction.h"
 
 #endif /* ToolsHeader_h */

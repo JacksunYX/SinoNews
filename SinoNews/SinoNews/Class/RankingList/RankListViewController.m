@@ -212,10 +212,15 @@
         NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         if (self.currPage == 1) {
             self.dataSource = [data mutableCopy];
+            [self endRefresh];
         }else{
-            [self.dataSource addObjectsFromArray:data];
+            if (data.count) {
+                [self.dataSource addObjectsFromArray:data];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }
-        [self endRefresh];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self endRefresh];

@@ -29,6 +29,8 @@
 		4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD320D34A5100615F20 /* LoginViewController.m */; };
 		4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */; };
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
+		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
+		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
 		4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA020BCD893003EC4FC /* AppDelegate.m */; };
 		4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA520BCD893003EC4FC /* Main.storyboard */; };
 		4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3F8FA820BCD894003EC4FC /* Assets.xcassets */; };
@@ -197,6 +199,10 @@
 		4C21ABE920D36DA900615F20 /* NSString+STRegex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+STRegex.h"; sourceTree = "<group>"; };
 		4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+STRegex.m"; sourceTree = "<group>"; };
 		4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAboutNet.h; sourceTree = "<group>"; };
+		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
+		4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailModel.m; sourceTree = "<group>"; };
+		4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
+		4C3D111E20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
 		4C3F8F9C20BCD893003EC4FC /* SinoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C3F8FA020BCD893003EC4FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -503,6 +509,15 @@
 			path = LoginAbout;
 			sourceTree = "<group>";
 		};
+		4C3D111C20D8F01500480E03 /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				4C3D111E20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.h */,
+				4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */,
+			);
+			path = UILabel;
+			sourceTree = "<group>";
+		};
 		4C3F8F9320BCD893003EC4FC = {
 			isa = PBXGroup;
 			children = (
@@ -740,6 +755,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4C3D111C20D8F01500480E03 /* UILabel */,
 				4C49F05E20D0C2B1009DC42B /* UIView */,
 				4C5494A320CE796F00CB448E /* NSString */,
 				4CE9C91C20C8E17E004550B9 /* SaveWrite */,
@@ -888,6 +904,8 @@
 				4C49F05920D0A321009DC42B /* RankingModel.m */,
 				4C49F05B20D0AF5C009DC42B /* RankingListModel.h */,
 				4C49F05C20D0AF5C009DC42B /* RankingListModel.m */,
+				4C3D111920D8D58100480E03 /* CompanyDetailModel.h */,
+				4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1359,6 +1377,7 @@
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
+				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
 				4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */,
 				4C3F902C20BD1CD6003EC4FC /* MLMSegmentManager.m in Sources */,
@@ -1415,6 +1434,7 @@
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
 				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
+				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,

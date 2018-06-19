@@ -239,10 +239,7 @@
 
 #define BoldFont(F) [UIFont boldSystemFontOfSize:F]
 
-//定义一个API
-#define APIURL @"http://xxxxx/"
-//登录API
-#define APILogin [APIURL stringByAppendingString:@"Login"]
+
 
 //设置View的tag属性
 #define VIEWWITHTAG(_OBJECT, _TAG) [_OBJECT viewWithTag : _TAG]
@@ -253,12 +250,17 @@
 
 //NSUserDefaults 实例化
 #define USER_DEFAULT [NSUserDefaults standardUserDefaults]
-
+//偏好设置
+#define UserSet(Object,key) \
+[USER_DEFAULT setObject:Object forKey:key];\
+[USER_DEFAULT synchronize];
+//偏好获取
+#define UserGet(key) [USER_DEFAULT objectForKey:key]
 
 #define UserInfoData [DCUserInfo findAll].lastObject
 
 
-//由角度获取弧度 有弧度获取角度
+//由角度获取弧度 由弧度获取角度
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 #define radianToDegrees(radian) (radian*180.0)/(M_PI)
 

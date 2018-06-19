@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "ForgetPasswordViewController.h"
 
+
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     TXLimitedTextField *username;
@@ -250,6 +251,8 @@
             
             [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
                 LRToast(@"登陆成功");
+                UserSet(@"YES", @"isLogin")
+                UserSet(response[@"data"], @"userAvatar")
                 GCDAfterTime(1, ^{
                     if (self.normalBack) {
                         if (self.backHandleBlock) {

@@ -20,6 +20,9 @@
 #define ResetPassword   @"/api/resetPassword"
 //重制密码发送验证码(get)
 #define SendValidCodeForAuthentication @"/api/sendValidCodeForAuthentication"
-
+//用户头像
+#define UserAvatar @"/api/user/avatar"
+//获取当前登录用户信息
+#define GetCurrentUserInformation @"/api/user/getCurrentUserInformation"
 
 #endif /* UserAboutNet_h */

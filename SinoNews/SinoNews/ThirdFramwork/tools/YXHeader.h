@@ -37,6 +37,7 @@
 + (BOOL)checkLogin;
 //新增一个跳转登录正常返回的
 +(BOOL)checkNormalBackLogin;
-
+//带回调的登陆检测
++(BOOL)checkNormalBackLoginHandle:(void(^)(void))backHandle;
 
 @end

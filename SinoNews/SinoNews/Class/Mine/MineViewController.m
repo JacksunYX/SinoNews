@@ -22,8 +22,18 @@
 //上方
 @property (nonatomic ,strong) BaseTableView *tableView;
 @property (nonatomic ,strong) NSMutableArray *mainDatasource;
-
+//用户信息
 @property (nonatomic ,strong) UIImageView *userImg;
+@property (nonatomic ,strong) UILabel *userName;
+@property (nonatomic ,strong) UILabel *integral;
+@property (nonatomic ,strong) UIButton *signIn;
+@property (nonatomic ,strong) UILabel *publish;     //文章
+@property (nonatomic ,strong) UILabel *attention;   //关注
+@property (nonatomic ,strong) UILabel *fans;        //粉丝
+@property (nonatomic ,strong) UILabel *praise;      //获赞
+
+@property (nonatomic ,strong) UserModel *user;
+
 @end
 
 @implementation MineViewController
@@ -102,7 +112,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     [self addViews];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +123,17 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
+    if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
+        NSArray* findAlls = [UserModel bg_findAll:nil];
+        if (kArrayIsEmpty(findAlls)) {
+            [self requestToGetUserInfo];
+        }else{
+            self.user = [findAlls firstObject];
+            [self setHeadViewData:YES];
+        }
+    }else{
+        [self requestToGetUserInfo];
+    }
 }
 
 //添加视图
@@ -175,35 +195,36 @@
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];
-    UILabel *userName = [UILabel new];
-    userName.font = PFFontR(17);
-    userName.textColor = RGBA(72, 72, 72, 1);
     
-    UILabel *integral = [UILabel new];
-    integral.font = PFFontR(16);
-    integral.textColor = RGBA(119, 119, 119, 1);
+    _userName = [UILabel new];
+    _userName.font = PFFontR(17);
+    _userName.textColor = RGBA(72, 72, 72, 1);
     
-    UIButton *signIn = [UIButton new];
+    _integral = [UILabel new];
+    _integral.font = PFFontR(16);
+    _integral.textColor = RGBA(119, 119, 119, 1);
     
-    UILabel *publish = [self getLabel];
-    UILabel *attention = [self getLabel];
-    UILabel *fans = [self getLabel];
-    UILabel *praise = [self getLabel];
-    publish.tag = 0;
-    attention.tag = 1;
-    fans.tag = 2;
-    praise.tag = 3;
+    _signIn = [UIButton new];
+    
+    _publish = [self getLabel];
+    _attention = [self getLabel];
+    _fans = [self getLabel];
+    _praise = [self getLabel];
+    _publish.tag = 0;
+    _attention.tag = 1;
+    _fans.tag = 2;
+    _praise.tag = 3;
     
     [headView sd_addSubviews:@[
                                _userImg,
-                               userName,
-                               integral,
-                               signIn,
+                               _userName,
+                               _integral,
+                               _signIn,
                                
-                               publish,
-                               attention,
-                               fans,
-                               praise
+                               _publish,
+                               _attention,
+                               _fans,
+                               _praise
                                ]];
     
     _userImg.sd_layout
@@ -212,82 +233,106 @@
     .widthIs(64)
     .heightEqualToWidth()
     ;
-    _userImg.image = UIImageNamed(@"userIcon");
     [_userImg setSd_cornerRadius:@32];
+    [_userImg creatTapWithSelector:@selector(userTouch)];
     
-    userName.sd_layout
-    .bottomSpaceToView(_userImg, -27)
+    _userName.sd_layout
+//    .bottomSpaceToView(_userImg, -27)
+    .centerYEqualToView(self.userImg)
     .leftSpaceToView(_userImg, 18 * ScaleW)
     .heightIs(20)
     ;
-    [userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    userName.text = @"一辈子一场梦";
+    [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
     
-    integral.sd_layout
-    .topSpaceToView(userName, 10)
-    .leftEqualToView(userName)
+    _integral.sd_layout
+    .topSpaceToView(_userName, 10)
+    .leftEqualToView(_userName)
     .heightIs(20)
     ;
-    [integral setSingleLineAutoResizeWithMaxWidth:100];
-    integral.text = @"11200积分";
+    [_integral setSingleLineAutoResizeWithMaxWidth:100];
     
-    signIn.sd_layout
+    _signIn.sd_layout
     .rightEqualToView(headView)
     .centerYEqualToView(_userImg)
     .heightIs(26)
     .widthIs(113 * ScaleW)
     ;
-    signIn.backgroundColor = RGBA(178, 217, 249, 1);
-    [signIn setTitle:@"签到领金币" forState:UIControlStateNormal];
-    signIn.titleLabel.font = FontScale(14);
-    [signIn setTitleColor:RGBA(119, 119, 119, 1) forState:UIControlStateNormal];
-    [signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
-    signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
-    [self cutCornerradiusWithView:signIn];
+    _signIn.backgroundColor = RGBA(178, 217, 249, 1);
+    [_signIn setTitle:@"签到领金币" forState:UIControlStateNormal];
+    _signIn.titleLabel.font = FontScale(14);
+    [_signIn setTitleColor:RGBA(119, 119, 119, 1) forState:UIControlStateNormal];
+    [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
+    _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
+    [self cutCornerradiusWithView:_signIn];
+    _signIn.hidden = YES;
     
-    publish.sd_layout
+    _publish.sd_layout
     .topSpaceToView(_userImg, 50)
     .leftEqualToView(headView)
     .bottomSpaceToView(headView, 20)
     .widthIs(ScreenW/4)
     ;
-    publish.attributedText = [self leadString:@"0" tailString:@"文章" font:Font(14) color:RGBA(119, 119, 119, 1) lineBreak:YES];
-    [publish creatTapWithSelector:@selector(tapView:)];
+    [_publish creatTapWithSelector:@selector(tapView:)];
     
-    attention.sd_layout
-    .topEqualToView(publish)
-    .leftSpaceToView(publish, 0)
+    _attention.sd_layout
+    .topEqualToView(_publish)
+    .leftSpaceToView(_publish, 0)
     .bottomSpaceToView(headView, 20)
     .widthIs(ScreenW/4)
     ;
-    attention.attributedText = [self leadString:@"0" tailString:@"关注" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
-    [attention creatTapWithSelector:@selector(tapView:)];
+    [_attention creatTapWithSelector:@selector(tapView:)];
     
-    fans.sd_layout
-    .topEqualToView(publish)
-    .leftSpaceToView(attention, 0)
+    _fans.sd_layout
+    .topEqualToView(_publish)
+    .leftSpaceToView(_attention, 0)
     .bottomSpaceToView(headView, 20)
     .widthIs(ScreenW/4)
     ;
-    fans.attributedText = [self leadString:@"0" tailString:@"粉丝" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
-    [fans creatTapWithSelector:@selector(tapView:)];
+    [_fans creatTapWithSelector:@selector(tapView:)];
     
-    praise.sd_layout
-    .topEqualToView(publish)
-    .leftSpaceToView(fans, 0)
+    _praise.sd_layout
+    .topEqualToView(_publish)
+    .leftSpaceToView(_fans, 0)
     .bottomSpaceToView(headView, 20)
     .widthIs(ScreenW/4)
     ;
-    praise.attributedText = [self leadString:@"0" tailString:@"获赞" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
-    [praise creatTapWithSelector:@selector(tapView:)];
+    [_praise creatTapWithSelector:@selector(tapView:)];
     
-    [_userImg creatTapWithSelector:@selector(userTouch)];
+}
+
+//重新设置头部内容
+-(void)setHeadViewData:(BOOL)login
+{
+    NSString *pub = @"0";
+    NSString *att = @"0";
+    NSString *fan = @"0";
+    NSString *pra = @"0";
+    _userName.text = @"登 陆";
+    _integral.text = @"";
+    _signIn.hidden = YES;
+    if (login) {
+        [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar)];
+        _userName.text = GetSaveString(self.user.username);
+        _integral.text = [NSString stringWithFormat:@"%ld 积分",self.user.integral];
+        pub = [NSString stringWithFormat:@"%lu",self.user.postCount];
+        att = [NSString stringWithFormat:@"%lu",self.user.followCount];
+        fan = [NSString stringWithFormat:@"%lu",self.user.fansCount];
+        pra = [NSString stringWithFormat:@"%lu",self.user.postCount];
+        _signIn.hidden = NO;
+    }
+    
+    _publish.attributedText = [self leadString:pub tailString:@"文章" font:Font(14) color:RGBA(119, 119, 119, 1) lineBreak:YES];
+    _attention.attributedText = [self leadString:att tailString:@"关注" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
+    _fans.attributedText = [self leadString:fan tailString:@"粉丝" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
+    _praise.attributedText = [self leadString:pra tailString:@"获赞" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
     
 }
 
 -(void)tapView:(UITapGestureRecognizer *)tap
 {
-    
+    if (![YXHeader checkNormalBackLogin]) {
+        return;
+    }
     switch (tap.view.tag) {
         case 0:
         {
@@ -466,6 +511,9 @@
     if (indexPath.section == 0) {
         NSArray *section = self.mainDatasource[indexPath.section];
         NSString *title = GetSaveString(section[indexPath.row][@"title"]);
+        if (![YXHeader checkNormalBackLogin]) {
+            return;
+        }
         if (CompareString(title, @"设置")) {
             SettingViewController *stVC = [SettingViewController new];
             [self.navigationController pushViewController:stVC animated:YES];
@@ -478,13 +526,40 @@
         }else if (CompareString(title, @"收藏")){
             MyCollectViewController *mVC = [MyCollectViewController new];
             [self.navigationController pushViewController:mVC animated:YES];
+        }else if (CompareString(title, @"分享")){
+            
         }
         
     }
     
 }
 
+#pragma  mark ----- 网络请求
+//获取头像
+-(void)requestToGetUserAvatar
+{
+    [HttpRequest getWithURLString:UserAvatar parameters:@{} success:^(id responseObject) {
+//        UserSet(responseObject[@"data"], @"userAvatar")
+//        [self.userImg sd_setImageWithURL:UrlWithStr(responseObject[@"data"])];
+    } failure:nil];
+}
 
-
+//获取用户信息
+-(void)requestToGetUserInfo
+{
+    [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
+        NSDictionary *data = responseObject[@"data"];
+        //后台目前的逻辑是，如果没有登陆，只给默认头像这一个字段,只能靠这个来判断
+        if ([data allKeys].count>1) {
+            UserModel *model = [UserModel mj_objectWithKeyValues:data];
+            [model bg_cover];
+            self.user = model;
+            [self setHeadViewData:YES];
+        }else{
+            [self.userImg sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
+            [self setHeadViewData:NO];
+        }
+    } failure:nil];
+}
 
 @end

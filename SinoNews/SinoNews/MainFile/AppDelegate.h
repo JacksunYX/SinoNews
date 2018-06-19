@@ -12,6 +12,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic,assign) BOOL isLogin;  //是否登陆
 @end
 

@@ -68,7 +68,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
+        LRToast(@"请求失败");
         if (failure) {
             failure(error);
         }
@@ -128,7 +128,7 @@
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
         HiddenHudOnly;
-        
+        LRToast(@"请求失败");
         if (failure) {
             //失败返回错误原因
             failure(error);

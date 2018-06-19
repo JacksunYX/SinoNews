@@ -7,14 +7,12 @@
 //
 
 #import "YXHeader.h"
-#import "AppDelegate.h"
 #import "LoginViewController.h"
 
 @implementation YXHeader
 + (BOOL)checkLogin
 {
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (delegate.isLogin) {
+    if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
         return YES;
     } else {
         [[HttpRequest getCurrentVC] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
@@ -26,8 +24,7 @@
 //新增一个跳转登录正常返回的
 +(BOOL)checkNormalBackLogin
 {
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (delegate.isLogin) {
+    if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
         return YES;
     } else {
         LoginViewController *loginVC = [LoginViewController new];
@@ -35,6 +32,23 @@
         [[HttpRequest getCurrentVC] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }
+}
+
+//新增一个带回调的登陆检测
++ (BOOL)checkNormalBackLoginHandle:(void (^)(void))backHandle
+{
+    if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
+        return YES;
+    } else {
+        LoginViewController *loginVC = [LoginViewController new];
+        loginVC.normalBack = YES;
+        loginVC.backHandleBlock = ^{
+            backHandle();
+        };
+        [[HttpRequest getCurrentVC] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
 }
 
 @end

@@ -15,5 +15,13 @@
 @interface CommentCell : UITableViewCell
 
 @property (nonatomic,strong) CompanyCommentModel *model;
+//点赞
+@property (nonatomic,copy) void(^praiseBlock)(NSInteger row);
+//回复
+@property (nonatomic,copy) void(^replayBlock)(NSInteger row);
+//点击了某个cell里的某条回复的评论
+@property (nonatomic,copy) void(^clickReplay)(NSInteger row,NSInteger index);
+//查看所有评论
+@property (nonatomic,copy) void(^checkAllReplay)(NSInteger row);
 
 @end

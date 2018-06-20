@@ -20,8 +20,8 @@
     UIView *bottomBackView;
     UILabel *first;
     UILabel *second;
-    UILabel *checkAllReplay;
-    
+    UILabel *checkAllReplayLabel;
+    UIImageView *checkImg;
 }
 @end
 
@@ -143,22 +143,28 @@
     .topSpaceToView(replyBtn, 10)
     ;
     
-    checkAllReplay = [UILabel new];
-    checkAllReplay.font = PFFontR(11);
-    checkAllReplay.textColor = RGBA(152, 152, 152, 1);
+    checkAllReplayLabel = [UILabel new];
+    checkAllReplayLabel.font = PFFontR(11);
+    checkAllReplayLabel.textColor = RGBA(152, 152, 152, 1);
+    checkAllReplayLabel.userInteractionEnabled = YES;
     
     first = [UILabel new];
     first.isAttributedContent = YES;
     first.font = PFFontR(14);
+    first.userInteractionEnabled = YES;
     
     second = [UILabel new];
     second.isAttributedContent = YES;
     second.font = PFFontR(14);
+    second.userInteractionEnabled = YES;
+    
+    checkImg = [UIImageView new];
     
     [bottomBackView sd_addSubviews:@[
-                                     checkAllReplay,
                                      first,
                                      second,
+                                     checkAllReplayLabel,
+                                     checkImg,
                                      ]];
     
     first.sd_layout
@@ -175,15 +181,23 @@
     .autoHeightRatio(0)
     ;
     
-    checkAllReplay.sd_layout
+    checkAllReplayLabel.sd_layout
     .leftSpaceToView(bottomBackView, 10)
     .topSpaceToView(second, 0)
-    .rightSpaceToView(bottomBackView, 10)
+//    .rightSpaceToView(bottomBackView, 10)
     .heightIs(0)
     ;
 //    checkAllReplay.backgroundColor = Arc4randomColor;
     
-    [bottomBackView setupAutoHeightWithBottomView:checkAllReplay bottomMargin:0];
+    checkImg.sd_layout
+    .leftSpaceToView(checkAllReplayLabel, 10)
+    .centerYEqualToView(checkAllReplayLabel)
+    .widthIs(8)
+    .heightEqualToWidth()
+    ;
+    checkImg.image = UIImageNamed(@"company_checkAllReplay");
+    
+    [bottomBackView setupAutoHeightWithBottomView:checkAllReplayLabel bottomMargin:0];
     
     [self setupAutoHeightWithBottomView:bottomBackView bottomMargin:10];
 }
@@ -191,6 +205,8 @@
 -(void)setModel:(CompanyCommentModel *)model
 {
     _model = model;
+    @weakify(self);
+    
     NSString *avaterStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.avatar)];
     [avatar sd_setImageWithURL:UrlWithStr(avaterStr)];
     
@@ -202,9 +218,32 @@
     
     [praise setTitle:@"23" forState:UIControlStateNormal];
     
+    [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self);
+        if (self.praiseBlock) {
+            self.praiseBlock(self.tag);
+        }
+    }];
+    
+    [[replyBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self);
+        if (self.replayBlock) {
+            self.replayBlock(self.tag);
+        }
+    }];
+    
     createTime.text = @"1小时前";
     
-    checkAllReplay.text = [NSString stringWithFormat:@"查看全部%@条评论",model.replyNum];
+    checkAllReplayLabel.text = [NSString stringWithFormat:@"查看全部%@条评论",model.replyNum];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        @strongify(self);
+        if (self.checkAllReplay) {
+            self.checkAllReplay(self.tag);
+        }
+    }];
+    [checkAllReplayLabel addGestureRecognizer:tap];
     
     CGFloat marginT = 0;
     CGFloat marginM = 0;
@@ -222,6 +261,15 @@
         marginT = 7;
         marginB = 9;
         checkBtnH = 11;
+        first.tag = 0;
+        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] init];
+        [[tap1 rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            @strongify(self);
+            if (self.clickReplay) {
+                self.clickReplay(self.tag, 0);
+            }
+        }];
+        [first addGestureRecognizer:tap1];
     }
     if (model.replyList.count > 1) {
         CompanyCommentModel *replaymodel2 = model.replyList[1];
@@ -232,6 +280,15 @@
         [arrstr addAttributes:dic range:NSMakeRange(arrstr.length - replaymodel2.comment.length, replaymodel2.comment.length)];
         second.attributedText = arrstr;
         marginM = 5;
+        second.tag = 0;
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] init];
+        [[tap2 rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            @strongify(self);
+            if (self.clickReplay) {
+                self.clickReplay(self.tag, 1);
+            }
+        }];
+        [second addGestureRecognizer:tap2];
     }
     
     first.sd_layout
@@ -246,14 +303,23 @@
     .rightSpaceToView(bottomBackView, 10)
     .autoHeightRatio(0)
     ;
-    checkAllReplay.sd_layout
+    checkAllReplayLabel.sd_layout
     .topSpaceToView(second, marginB)
     .leftSpaceToView(bottomBackView, 10)
-    .rightSpaceToView(bottomBackView, 10)
+//    .rightSpaceToView(bottomBackView, 10)
     .heightIs(checkBtnH)
     ;
-    [bottomBackView setupAutoHeightWithBottomView:checkAllReplay bottomMargin:marginB];
+    [checkAllReplayLabel setSingleLineAutoResizeWithMaxWidth:100];
+    [bottomBackView setupAutoHeightWithBottomView:checkAllReplayLabel bottomMargin:marginB];
+    
+    UITapGestureRecognizer *tapB = [[UITapGestureRecognizer alloc] init];
+    [[tapB rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        
+    }];
+    [bottomBackView addGestureRecognizer:tapB];
 }
+
+
 
 
 

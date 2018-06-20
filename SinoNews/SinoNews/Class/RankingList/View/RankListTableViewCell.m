@@ -109,7 +109,7 @@
     
     [num setBackgroundImage:UIImageNamed(@"rank_medal") forState:UIControlStateNormal];
     crown.image = nil;
-    userIcon.layer.borderWidth = 1.5;
+    userIcon.layer.borderWidth = 1;
     userIcon.layer.borderColor = ClearColor.CGColor;
     score.textColor = RGB(54, 54, 54);
     title.textColor = RGB(50, 50, 50);

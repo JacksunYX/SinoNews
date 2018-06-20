@@ -267,7 +267,25 @@
         
     }else if (indexPath.section == 4){
         CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
+        cell2.tag = indexPath.row;
         cell2.model = self.commentsArr[indexPath.row];
+        //点赞
+        cell2.praiseBlock = ^(NSInteger row) {
+            GGLog(@"点赞");
+        };
+        //回复TA
+        cell2.replayBlock = ^(NSInteger row) {
+            GGLog(@"点击了回复TA");
+        };
+        //点击回复
+        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
+            GGLog(@"点击了第%ld条回复",index);
+        };
+        //查看全部评论
+        cell2.checkAllReplay = ^(NSInteger row) {
+            GGLog(@"点击了查看全部回复");
+        };
+        
         cell = (CommentCell *)cell2;
     }
 
@@ -378,12 +396,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.section == 1 && indexPath.row == 2) {
-//        if (self.companyModel.otherwebsite.count) {
-//            NSString *webStr = [self.companyModel.otherwebsite firstObject];
-//            [self openUrlWithString:webStr];
-//        }
-//    }
+    if (indexPath.section == 4) {
+        GGLog(@"点击了第%ld个cell",indexPath.row);
+    }
 }
 
 //设置0区0行内容

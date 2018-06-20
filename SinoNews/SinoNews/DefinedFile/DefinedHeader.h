@@ -41,6 +41,9 @@
 //正式环境
 #define FormalShopShareDomain @""
 
+//域名+版本号+接口名
+#define ApiAppending(api) [NSString stringWithFormat:@"%@%@%@",DefaultDomainName,VersionNum,GetSaveString(api)]
+
 //拼接分享商品或商家的链接地址
 #define JoinShareWebUrlStr(webUrl,goods_id,business_id,mobile) [webUrl stringByAppendingString:[NSString stringWithFormat:@"?goods_id=%@&business_id=%@&mobile=%@",goods_id,business_id,mobile]]
 

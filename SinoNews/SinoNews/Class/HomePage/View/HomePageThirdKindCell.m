@@ -110,8 +110,11 @@
     [self setupAutoHeightWithBottomView:label1 bottomMargin:tbMargin];
 }
 
-
-
+-(void)setModel:(ADModel *)model
+{
+    _model = model;
+    title.text = GetSaveString(model.itemTitle);
+}
 
 
 

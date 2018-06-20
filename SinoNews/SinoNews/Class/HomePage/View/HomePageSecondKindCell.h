@@ -9,12 +9,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HomePageModel.h"
+#import "TopicModel.h"
 
 #define HomePageSecondKindCellID @"HomePageSecondKindCellID"
 
 
 @interface HomePageSecondKindCell : UITableViewCell
 
-@property (nonatomic,strong) HomePageModel *model;
+@property (nonatomic,strong) TopicModel *model;
 
 @end

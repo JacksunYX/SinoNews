@@ -8,11 +8,13 @@
 //首页第一类cell
 
 #import <UIKit/UIKit.h>
-#import "HomePageModel.h"
+#import "ADModel.h"
 
 #define HomePageThirdKindCellID @"HomePageThirdKindCellID"
 #define HomePageThirdKindCellH 201
 
 @interface HomePageThirdKindCell : UITableViewCell
+
+@property (nonatomic,strong) ADModel *model;
 
 @end

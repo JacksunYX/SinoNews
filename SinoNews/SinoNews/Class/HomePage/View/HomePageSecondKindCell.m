@@ -87,6 +87,7 @@
     .rightSpaceToView(self.contentView, lrMargin)
     .autoHeightRatio(0)
     ;
+    typeLabel.text = @"专题";
     [title setMaxNumberOfLinesToShow:2];
 //    title.text = [@"        " stringByAppendingString:@"发改委 ：多个经济体货币纷纷倒在美元魔掌以 后，美元屠刀或正在伸向欧元区"];
     
@@ -148,13 +149,11 @@
     
 }
 
--(void)setModel:(HomePageModel *)model
+-(void)setModel:(TopicModel *)model
 {
     _model = model;
-    if (model.topicId) {
-        typeLabel.text = @"专题";
-    }
-    title.text = [@"        " stringByAppendingString:GetSaveString(model.newsTitle)];
+    
+    title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
     
 }
 

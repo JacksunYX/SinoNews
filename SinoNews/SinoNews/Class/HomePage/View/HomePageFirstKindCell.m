@@ -119,7 +119,7 @@
 {
     _model = model;
     
-    title.text = [@"        " stringByAppendingString:GetSaveString(model.newsTitle)];
+    title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
     
     NSString *str1 = [@"" stringByAppendingString:@"  "];
     NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];

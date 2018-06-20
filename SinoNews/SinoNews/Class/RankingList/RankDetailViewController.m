@@ -746,16 +746,17 @@
     parameters[@"currPage"] = @(self.currPage);
     [HttpRequest getWithURLString:CompanyShowComment parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        if (arr.count) {
-            if (self.currPage == 1) {
-                self.commentsArr = [arr mutableCopy];
-                [self.tableView.mj_header endRefreshing];
-            }else{
-                [self.commentsArr addObjectsFromArray:arr];
-            }
-            [self.tableView.mj_footer endRefreshing];
+        
+        if (self.currPage == 1) {
+            self.commentsArr = [arr mutableCopy];
+            [self.tableView.mj_header endRefreshing];
         }else{
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            if (arr.count) {
+                [self.commentsArr addObjectsFromArray:arr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }
         
         [self.tableView reloadData];

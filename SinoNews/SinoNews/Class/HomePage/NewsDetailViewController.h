@@ -11,4 +11,6 @@
 
 @interface NewsDetailViewController : UIViewController
 
+@property (nonatomic,assign) NSInteger newsId;
+
 @end

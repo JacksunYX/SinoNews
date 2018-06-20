@@ -119,6 +119,9 @@
 		4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497B20CF951800BD8F07 /* FansViewController.m */; };
 		4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497E20CF953400BD8F07 /* NotifyViewController.m */; };
 		4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */; };
+		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
+		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
+		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
@@ -391,6 +394,12 @@
 		4C93497E20CF953400BD8F07 /* NotifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyViewController.m; sourceTree = "<group>"; };
 		4C93498020CF9B7F00BD8F07 /* PraiseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseTableViewCell.h; sourceTree = "<group>"; };
 		4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseTableViewCell.m; sourceTree = "<group>"; };
+		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
+		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
+		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
+		4CB4196C20DA5ADF00EBF202 /* TopicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicModel.m; sourceTree = "<group>"; };
+		4CB4196F20DA793A00EBF202 /* UIScrollView+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Direction.h"; sourceTree = "<group>"; };
+		4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Direction.m"; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
 		4CE121CE20C00A6400A44782 /* RankListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListViewController.m; sourceTree = "<group>"; };
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
@@ -761,6 +770,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4CB4196E20DA792A00EBF202 /* UIScrollView */,
 				4C3D111C20D8F01500480E03 /* UILabel */,
 				4C49F05E20D0C2B1009DC42B /* UIView */,
 				4C5494A320CE796F00CB448E /* NSString */,
@@ -899,6 +909,10 @@
 				4C3F905820BD7102003EC4FC /* HomePageModel.m */,
 				4C56137720CA342B00C7FA5A /* ADModel.h */,
 				4C56137820CA342B00C7FA5A /* ADModel.m */,
+				4CB4196B20DA5ADF00EBF202 /* TopicModel.h */,
+				4CB4196C20DA5ADF00EBF202 /* TopicModel.m */,
+				4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */,
+				4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1050,6 +1064,15 @@
 				4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		4CB4196E20DA792A00EBF202 /* UIScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				4CB4196F20DA793A00EBF202 /* UIScrollView+Direction.h */,
+				4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */,
+			);
+			path = UIScrollView;
 			sourceTree = "<group>";
 		};
 		4CE121D020C0148700A44782 /* DLogName_Line */ = {
@@ -1381,6 +1404,8 @@
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
+				4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */,
+				4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */,
 				4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */,
 				4C17414620C5168600AA6D57 /* TXMatchConst.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
@@ -1405,6 +1430,7 @@
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
+				4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,

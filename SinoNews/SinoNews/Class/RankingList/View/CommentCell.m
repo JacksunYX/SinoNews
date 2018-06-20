@@ -74,6 +74,7 @@
     bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
     
     UIView *fatherView = self.contentView;
+    @weakify(self);
     
     [fatherView sd_addSubviews:@[
                                  avatar,
@@ -147,6 +148,14 @@
     checkAllReplayLabel.font = PFFontR(11);
     checkAllReplayLabel.textColor = RGBA(152, 152, 152, 1);
     checkAllReplayLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        @strongify(self);
+        if (self.checkAllReplay) {
+            self.checkAllReplay(self.tag);
+        }
+    }];
+    [checkAllReplayLabel addGestureRecognizer:tap];
     
     first = [UILabel new];
     first.isAttributedContent = YES;
@@ -236,31 +245,32 @@
     
     checkAllReplayLabel.text = [NSString stringWithFormat:@"查看全部%@条评论",model.replyNum];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
-        @strongify(self);
-        if (self.checkAllReplay) {
-            self.checkAllReplay(self.tag);
-        }
-    }];
-    [checkAllReplayLabel addGestureRecognizer:tap];
+    //先移除手势
+    for (UITapGestureRecognizer *tap in first.gestureRecognizers) {
+        [first removeGestureRecognizer:tap];
+    }
+    for (UITapGestureRecognizer *tap in second.gestureRecognizers) {
+        [second removeGestureRecognizer:tap];
+    }
     
     CGFloat marginT = 0;
     CGFloat marginM = 0;
     CGFloat marginB = 0;
     CGFloat checkBtnH = 0;
-    
+    UIView *finalView = checkAllReplayLabel;
+
+    NSMutableAttributedString *att1;
+    NSMutableAttributedString *att2;
     if (model.replyList.count > 0) {
         CompanyCommentModel *replaymodel1 = model.replyList[0];
-        NSMutableAttributedString *arrstr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@：%@",replaymodel1.username,replaymodel1.comment]];
+        att1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@：%@",replaymodel1.username,replaymodel1.comment]];
         NSDictionary *dic = @{
                               NSFontAttributeName : PFFontL(14),
                               };
-        [arrstr addAttributes:dic range:NSMakeRange(arrstr.length - replaymodel1.comment.length, replaymodel1.comment.length)];
-        first.attributedText = arrstr;
+        [att1 addAttributes:dic range:NSMakeRange(att1.length - replaymodel1.comment.length, replaymodel1.comment.length)];
+        
         marginT = 7;
         marginB = 9;
-        checkBtnH = 11;
         first.tag = 0;
         UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] init];
         [[tap1 rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
@@ -270,15 +280,20 @@
             }
         }];
         [first addGestureRecognizer:tap1];
+        finalView = first;
+    }else{
+        att1 = [[NSMutableAttributedString alloc]initWithString:@""];
     }
+    first.attributedText = att1;
+    
     if (model.replyList.count > 1) {
         CompanyCommentModel *replaymodel2 = model.replyList[1];
-        NSMutableAttributedString *arrstr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@：%@",replaymodel2.username,replaymodel2.comment]];
+        att2 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@：%@",replaymodel2.username,replaymodel2.comment]];
         NSDictionary *dic = @{
                               NSFontAttributeName : PFFontL(14),
                               };
-        [arrstr addAttributes:dic range:NSMakeRange(arrstr.length - replaymodel2.comment.length, replaymodel2.comment.length)];
-        second.attributedText = arrstr;
+        [att2 addAttributes:dic range:NSMakeRange(att2.length - replaymodel2.comment.length, replaymodel2.comment.length)];
+        second.attributedText = att2;
         marginM = 5;
         second.tag = 0;
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] init];
@@ -289,6 +304,9 @@
             }
         }];
         [second addGestureRecognizer:tap2];
+        finalView = second;
+    }else{
+        att2 = [[NSMutableAttributedString alloc]initWithString:@""];
     }
     
     first.sd_layout
@@ -297,20 +315,32 @@
     .rightSpaceToView(bottomBackView, 10)
     .autoHeightRatio(0)
     ;
+    first.attributedText = att1;
+    
     second.sd_layout
     .topSpaceToView(first, marginM)
     .leftSpaceToView(bottomBackView, 10)
     .rightSpaceToView(bottomBackView, 10)
     .autoHeightRatio(0)
     ;
+    second.attributedText = att2;
+    
+    if ([model.replyNum integerValue]) {
+        finalView = checkAllReplayLabel;
+        checkBtnH = 11;
+        checkAllReplayLabel.hidden = NO;
+        checkImg.hidden = NO;
+    }else{
+        checkAllReplayLabel.hidden = YES;
+        checkImg.hidden = YES;
+    }
     checkAllReplayLabel.sd_layout
     .topSpaceToView(second, marginB)
     .leftSpaceToView(bottomBackView, 10)
-//    .rightSpaceToView(bottomBackView, 10)
     .heightIs(checkBtnH)
     ;
     [checkAllReplayLabel setSingleLineAutoResizeWithMaxWidth:100];
-    [bottomBackView setupAutoHeightWithBottomView:checkAllReplayLabel bottomMargin:marginB];
+    [bottomBackView setupAutoHeightWithBottomView:finalView bottomMargin:marginB];
     
     UITapGestureRecognizer *tapB = [[UITapGestureRecognizer alloc] init];
     [[tapB rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {

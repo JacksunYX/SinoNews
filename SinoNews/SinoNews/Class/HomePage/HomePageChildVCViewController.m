@@ -145,16 +145,30 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    HomePageModel *model = self.dataSource[indexPath.row];
-    if (model.topicId) { //说明是专题
-        HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
-        cell2.model = model;
-        cell = (UITableViewCell *)cell2;
-    }else{
-        //非专题暂时都用普通cell
+//    HomePageModel *model = self.dataSource[indexPath.row];
+//    if (model.topicId) { //说明是专题
+//        HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+//        cell2.model = model;
+//        cell = (UITableViewCell *)cell2;
+//    }else{
+//        //非专题暂时都用普通cell
+//        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+//        cell1.model = model;
+//        cell = (UITableViewCell *)cell1;
+//    }
+    id model = self.dataSource[indexPath.row];
+    if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         cell1.model = model;
         cell = (UITableViewCell *)cell1;
+    }else if ([model isKindOfClass:[TopicModel class]]){
+        HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+        cell2.model = model;
+        cell = (UITableViewCell *)cell2;
+    }else if ([model isKindOfClass:[ADModel class]]){
+        HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+        cell3.model = model;
+        cell = (UITableViewCell *)cell3;
     }
     
     return cell;
@@ -178,6 +192,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NewsDetailViewController *ndVC = [NewsDetailViewController new];
+    HomePageModel *model = self.dataSource[indexPath.row];
+    ndVC.newsId = model.news_id;
     [self.navigationController pushViewController:ndVC animated:YES];
 }
 
@@ -196,13 +212,46 @@
     
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         
-        NSArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *dataArr = [NSMutableArray new];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            NSInteger itemType = [dic[@"itemType"] integerValue];
+            switch (itemType) {
+                case 1: //普通新闻
+                {
+                    HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                    [dataArr addObject:model];
+                }
+                    break;
+                case 2: //专题
+                {
+                    TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
+                    [dataArr addObject:model];
+                }
+                    break;
+                case 3: //广告
+                {
+                    ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+                    [dataArr addObject:model];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
         if (self.page == 1) {
             self.dataSource = [dataArr mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            if (dataArr) {
+                [self.dataSource addObjectsFromArray:dataArr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }
         [self.tableView reloadData];
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];

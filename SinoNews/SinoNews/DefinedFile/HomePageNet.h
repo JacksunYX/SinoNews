@@ -16,5 +16,9 @@
 #define News_list               @"/api/news/listForChannel"
 //广告轮播图(get)
 #define Adverts                 @"/api/adverts"
+//获取文章详情(get)
+#define BrowseNews              @"/api/news/browseNews"
+//查看评论
+#define ShowComment             @"/api/showComment"
 
 #endif /* HomePageNet_h */

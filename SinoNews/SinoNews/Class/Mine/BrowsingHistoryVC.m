@@ -95,12 +95,6 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
-}
-
 //修改导航栏显示
 -(void)addNavigationView
 {

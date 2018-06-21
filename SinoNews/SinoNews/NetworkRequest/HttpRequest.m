@@ -122,6 +122,9 @@
                 if (isshowtoastd == YES) {
                     LRToast(resultdic[@"alertMsg"]);
                 }
+                if ([resultdic[@"alertMsg"] isEqualToString:@"用户未登录,请重新登录"]) {
+                    GGLog(@"需要跳转登录");
+                }
             }
             
         }

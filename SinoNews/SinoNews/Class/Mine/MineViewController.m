@@ -122,7 +122,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
         NSArray* findAlls = [UserModel bg_findAll:nil];
         if (kArrayIsEmpty(findAlls)) {
@@ -134,6 +134,12 @@
     }else{
         [self requestToGetUserInfo];
     }
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 //添加视图

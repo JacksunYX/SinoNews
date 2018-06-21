@@ -41,7 +41,6 @@
     [super viewWillAppear:animated];
     BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
     [navi showNavigationDownLine];
-    [self.navigationController setNavigationBarHidden:NO];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

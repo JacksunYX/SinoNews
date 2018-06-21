@@ -488,7 +488,7 @@
         .widthIs(14)
         ;
         [line setSd_cornerRadius:@1];
-    }else if (section == 1){
+    }else if (section == 1&&self.newsModel){
         UILabel *title = [UILabel new];
         title.font = PFFontR(13);
         [headView addSubview:title];
@@ -556,6 +556,7 @@
         [self setTitle];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
+        
         [self.tableView.mj_header endRefreshing];
     }];
 }

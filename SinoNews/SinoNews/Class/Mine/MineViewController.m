@@ -184,25 +184,25 @@
     self.tableView.backgroundColor = BACKGROUND_COLOR;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
 }
 
 -(void)addHeadView
 {
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 230)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
     headView.backgroundColor = RGBA(196, 222, 247, 1);
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];
     
     _userName = [UILabel new];
-    _userName.font = PFFontR(17);
+    _userName.font = PFFontL(18);
     _userName.textColor = RGBA(72, 72, 72, 1);
     
     _integral = [UILabel new];
-    _integral.font = PFFontR(16);
-    _integral.textColor = RGBA(119, 119, 119, 1);
+    _integral.font = PFFontL(14);
+    _integral.textColor = RGBA(50, 50, 50, 1);
     
     _signIn = [UIButton new];
     
@@ -230,7 +230,7 @@
     _userImg.sd_layout
     .topSpaceToView(headView, 54)
     .leftSpaceToView(headView, 10)
-    .widthIs(64)
+    .widthIs(63)
     .heightEqualToWidth()
     ;
     [_userImg setSd_cornerRadius:@32];
@@ -259,17 +259,17 @@
     ;
     _signIn.backgroundColor = RGBA(178, 217, 249, 1);
     [_signIn setTitle:@"签到领金币" forState:UIControlStateNormal];
-    _signIn.titleLabel.font = FontScale(14);
-    [_signIn setTitleColor:RGBA(119, 119, 119, 1) forState:UIControlStateNormal];
+    _signIn.titleLabel.font = FontScale(13);
+    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
     _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
     [self cutCornerradiusWithView:_signIn];
     _signIn.hidden = YES;
     
     _publish.sd_layout
-    .topSpaceToView(_userImg, 50)
+    .topSpaceToView(_userImg, 40)
     .leftEqualToView(headView)
-    .bottomSpaceToView(headView, 20)
+    .bottomSpaceToView(headView, 10)
     .widthIs(ScreenW/4)
     ;
     [_publish creatTapWithSelector:@selector(tapView:)];
@@ -277,7 +277,8 @@
     _attention.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_publish, 0)
-    .bottomSpaceToView(headView, 20)
+//    .bottomSpaceToView(headView, 20)
+    .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
     [_attention creatTapWithSelector:@selector(tapView:)];
@@ -285,7 +286,8 @@
     _fans.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_attention, 0)
-    .bottomSpaceToView(headView, 20)
+//    .bottomSpaceToView(headView, 20)
+    .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
     [_fans creatTapWithSelector:@selector(tapView:)];
@@ -293,7 +295,8 @@
     _praise.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_fans, 0)
-    .bottomSpaceToView(headView, 20)
+//    .bottomSpaceToView(headView, 20)
+    .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
     [_praise creatTapWithSelector:@selector(tapView:)];
@@ -321,10 +324,10 @@
         _signIn.hidden = NO;
     }
     
-    _publish.attributedText = [self leadString:pub tailString:@"文章" font:Font(14) color:RGBA(119, 119, 119, 1) lineBreak:YES];
-    _attention.attributedText = [self leadString:att tailString:@"关注" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
-    _fans.attributedText = [self leadString:fan tailString:@"粉丝" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
-    _praise.attributedText = [self leadString:pra tailString:@"获赞" font:Font(14) color:RGBA(119, 119, 119, 1)  lineBreak:YES];
+    _publish.attributedText = [self leadString:pub tailString:@"文章" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
+    _attention.attributedText = [self leadString:att tailString:@"关注" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
+    _fans.attributedText = [self leadString:fan tailString:@"粉丝" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
+    _praise.attributedText = [self leadString:pra tailString:@"获赞" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     
 }
 
@@ -381,7 +384,7 @@
 -(UILabel *)getLabel
 {
     UILabel *label = [UILabel new];
-    label.textColor = RGBA(119, 119, 119, 1);
+    label.textColor = RGBA(50, 50, 50, 1);
     label.font = PFFontL(16);
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
@@ -468,14 +471,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MineCell"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
-        cell.textLabel.font = PFFontL(16);
+        cell.textLabel.font = PFFontL(14);
         cell.textLabel.textColor = RGBA(50, 50, 50, 1);
         cell.detailTextLabel.font = PFFontL(14);
-        cell.detailTextLabel.textColor = RGBA(152, 152, 152, 1);
+        cell.detailTextLabel.textColor = RGBA(188, 188, 188, 1);
+        cell.accessoryType = 1;
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
     if (indexPath.section == 0 && indexPath.row == 0) {
-        cell.textLabel.attributedText = [self leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(25) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+        cell.textLabel.attributedText = [self leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
     }else{
         cell.textLabel.text = GetSaveString(model[@"title"]);
     }

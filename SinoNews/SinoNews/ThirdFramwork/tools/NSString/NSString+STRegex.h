@@ -73,4 +73,9 @@
  @brief     是否符合IP格式，xxx.xxx.xxx.xxx
  */
 - (BOOL)isValidIP;
+
+//判断是否全是空格
++ (BOOL)isEmpty:(NSString *)str;
+
+
 @end

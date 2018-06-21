@@ -42,7 +42,7 @@
     _textLabel.textAlignment = NSTextAlignmentCenter;
     _textLabel.textColor = [self textColor];
     _textLabel.adjustsFontSizeToFitWidth = true;
-    _textLabel.userInteractionEnabled = true;
+//    _textLabel.userInteractionEnabled = true;
     [self addSubview:_textLabel];
     
     [self addBorderLayer];

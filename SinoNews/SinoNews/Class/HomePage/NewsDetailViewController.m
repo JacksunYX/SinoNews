@@ -12,9 +12,10 @@
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
 
-@interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate>
+@interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     CGFloat topWebHeight;
+    UITextField *commentInput;
 }
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
@@ -22,6 +23,9 @@
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) NSInteger currPage;   //页码; //页面(起始为1)
 @property (nonatomic,strong) UIView *titleView;
+@property (nonatomic,strong) UIView *bottomView;
+
+@property (nonatomic,assign) NSInteger parentId;
 @end
 
 @implementation NewsDetailViewController
@@ -56,6 +60,10 @@
         }
     }];
     
+    [self addNavigationView];
+    
+    [self creatBottomView];
+    
     [self addTableView];
     
     [self requestNewData];
@@ -64,6 +72,112 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//修改导航栏显示
+-(void)addNavigationView
+{
+    UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
+    UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
+    self.navigationItem.rightBarButtonItems = @[more,fonts];
+    @weakify(self);
+    UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        @strongify(self);
+        [self->commentInput endEditing:YES];
+    }];
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)creatBottomView
+{
+    self.bottomView = [UIView new];
+    [self.view addSubview:self.bottomView];
+    
+    self.bottomView.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .heightIs(47)
+    ;
+    
+    commentInput = [UITextField new];
+    commentInput.delegate = self;
+    commentInput.returnKeyType = UIReturnKeySend;
+    [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+        UITextField *field = x.first;
+        GGLog(@"-----%@",field.text);
+        [field resignFirstResponder];
+        if ([NSString isEmpty:field.text]) {
+            LRToast(@"评论不能为空哦~");
+        }else{
+            [self requestCommentWithComment:field.text];
+            field.text = @"";
+        }
+    }];
+    
+    UIButton *praiseBtn = [UIButton new];
+    UIButton *collectBtn = [UIButton new];
+    UIButton *shareBtn = [UIButton new];
+    
+    [self.bottomView sd_addSubviews:@[
+                                      shareBtn,
+                                      collectBtn,
+                                      praiseBtn,
+                                      commentInput,
+                                      ]];
+    
+    shareBtn.sd_layout
+    .rightSpaceToView(self.bottomView, 14)
+    .centerYEqualToView(self.bottomView)
+    .widthIs(23)
+    .heightIs(19)
+    ;
+    [shareBtn setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
+    
+    collectBtn.sd_layout
+    .rightSpaceToView(shareBtn, 12)
+    .centerYEqualToView(self.bottomView)
+    .widthIs(24)
+    .heightIs(23)
+    ;
+    [collectBtn setImage:UIImageNamed(@"news_unCollect") forState:UIControlStateNormal];
+    [collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
+    
+    praiseBtn.sd_layout
+    .rightSpaceToView(collectBtn, 13)
+    .centerYEqualToView(self.bottomView)
+    .widthIs(22)
+    .heightIs(20)
+    ;
+    [praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
+    [praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
+    
+    commentInput.sd_layout
+    .leftSpaceToView(self.bottomView, 35)
+    .rightSpaceToView(praiseBtn, 16)
+    .centerYEqualToView(self.bottomView)
+    .heightIs(33)
+    ;
+    commentInput.backgroundColor = RGBA(238, 238, 238, 1);
+    [commentInput setSd_cornerRadius:@16];
+    NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
+    NSDictionary *dic = @{
+                          NSFontAttributeName : PFFontR(14),
+                          NSForegroundColorAttributeName : RGBA(53, 53, 53, 1),
+                          };
+    [placeholder addAttributes:dic range:NSMakeRange(0, placeholder.length)];
+    commentInput.attributedPlaceholder = placeholder;
+
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 33)];
+    UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
+    [leftView addSubview:leftImg];
+    leftImg.center = leftView.center;
+    leftImg.image = UIImageNamed(@"news_comment");
+    commentInput.leftViewMode = UITextFieldViewModeAlways;
+    commentInput.leftView = leftView;
+    
+    self.bottomView.hidden = YES;
 }
 
 -(void)addTableView
@@ -75,7 +189,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.bottomView, 0)
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
@@ -208,6 +322,18 @@
         [attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
         [attentionBtn setSd_cornerRadius:@8];
     }
+}
+
+//更多
+-(void)moreSelect
+{
+    LRToast(@"更多");
+}
+
+//更多
+-(void)fontsSelect
+{
+    LRToast(@"字体");
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
@@ -454,7 +580,7 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
         }
-        
+        self.bottomView.hidden = NO;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
@@ -462,5 +588,16 @@
     }];
 }
 
+//回复评论
+-(void)requestCommentWithComment:(NSString *)comment
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(1);
+    parameters[@"comment"] = comment;
+    parameters[@"parentId"] = @(self.parentId);
+    [HttpRequest postWithURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+    } failure:nil RefreshAction:nil];
+}
 
 @end

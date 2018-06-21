@@ -192,19 +192,20 @@
 //全部频道
 -(void)more:(UIButton *)btn
 {
+    
     WeakSelf
     [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
         GGLog(@"返回标题数组");
         //看是否并没有改变数组
         if ([NSArray compareArr:[self getTitlesArrFromArr:inUseTitles] andArr2:[self getTitlesArrFromArr:self.titleList]]) {
-            
+
         }else{
             weakSelf.titleList = [inUseTitles mutableCopy];
             [weakSelf reloadChildVCWithTitles:weakSelf.titleList];
             weakSelf.leaveTitleList = [unUseTitles mutableCopy];
             [weakSelf saveColumnArr];
         }
-        
+
     } click:^(NSString *title) {
         GGLog(@"返回单个点击");
         NSInteger index = [weakSelf.titleList indexOfObject:title];

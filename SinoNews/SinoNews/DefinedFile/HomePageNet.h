@@ -20,5 +20,7 @@
 #define BrowseNews              @"/api/news/browseNews"
 //查看评论
 #define ShowComment             @"/api/showComment"
+//回复评论
+#define Comments                @"/api/comments"
 
 #endif /* HomePageNet_h */

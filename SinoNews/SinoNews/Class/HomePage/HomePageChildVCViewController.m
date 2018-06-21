@@ -191,10 +191,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewsDetailViewController *ndVC = [NewsDetailViewController new];
-    HomePageModel *model = self.dataSource[indexPath.row];
-    ndVC.newsId = model.news_id;
-    [self.navigationController pushViewController:ndVC animated:YES];
+    id model = self.dataSource[indexPath.row];
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = [(HomePageModel *)model news_id];
+        [self.navigationController pushViewController:ndVC animated:YES];
+    }else if ([model isKindOfClass:[TopicModel class]]){
+        
+    }else if ([model isKindOfClass:[ADModel class]]){
+        
+    }
+    
 }
 
 #pragma mark ---- 请求方法

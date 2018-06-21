@@ -15,7 +15,6 @@
     
     if (kStringIsEmpty(title)) {
         
-        
         //设置图片
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         //按钮点击事件

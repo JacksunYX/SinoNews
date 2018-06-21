@@ -401,4 +401,26 @@
     }
     return YES;
 }
+
+//判断是否全是空格
++ (BOOL)isEmpty:(NSString *)str
+{
+    if (!str) {
+        return true;
+    } else {
+        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSString *trimedString = [str stringByTrimmingCharactersInSet:set];
+        if ([trimedString length] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+
+
+
+
 @end

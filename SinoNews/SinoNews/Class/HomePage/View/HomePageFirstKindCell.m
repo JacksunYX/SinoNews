@@ -101,7 +101,8 @@
     
     typeLabel.sd_layout
     .leftEqualToView(title)
-    .topEqualToView(title)
+//    .topEqualToView(title)
+    .topSpaceToView(self.contentView, 13)
     .heightIs(ScaleW * 17)
     .widthIs(ScaleW * 17 + 10)
     ;
@@ -118,23 +119,50 @@
 -(void)setModel:(HomePageModel *)model
 {
     _model = model;
+
+    if (model.itemType < 200) {
+        NSString *labelName = GetSaveString(model.labelName);
+        if (kStringIsEmpty(labelName)) {
+            title.text = GetSaveString(model.itemTitle);
+            typeLabel.hidden = YES;
+        }else{
+            typeLabel.hidden = NO;
+            title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+            typeLabel.text = GetSaveString(model.labelName);
+            typeLabel.backgroundColor = WhiteColor;
+            typeLabel.textColor = HexColor(#1282EE);
+        }
+        NSString *str1 = @"  ";
+        NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
+        NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
+        NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
+        NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
+        NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
+        bottomLabel.attributedText = attString;
+        
+    }else{
+        typeLabel.text = @"专题";
+        title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        bottomLabel.text = @"";
+        typeLabel.backgroundColor = HexColor(#1282EE);
+        typeLabel.textColor = WhiteColor;
+        typeLabel.hidden = NO;
+    }
     
-    title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
-    
-    NSString *str1 = [@"" stringByAppendingString:@"  "];
-    NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
-    NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
-    NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
-    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
     //    NSDictionary *dic1 = @{
     //                           NSForegroundColorAttributeName:HexColor(#1282EE),
     //                           NSFontAttributeName:FontScale(11),
     //                           };
     //    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
-    bottomLabel.attributedText = attString;
     
-    typeLabel.text = GetSaveString(model.labelName);
+    if (model.images.count>0) {
+        NSString *imgStr = [model.images firstObject];
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr))];
+    }else{
+        rightImg.image = nil;
+    }
+    
+    
 }
 
 

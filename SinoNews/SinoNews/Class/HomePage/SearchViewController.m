@@ -469,10 +469,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.tableView) {
-        if (indexPath.row == 0) {
-            return HomePageFirstKindCellH;
-        }
-        
+//        if (indexPath.row == 0) {
+//            return HomePageFirstKindCellH;
+//        }
+//
         return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
         
     }else if (tableView == self.keyTableView){

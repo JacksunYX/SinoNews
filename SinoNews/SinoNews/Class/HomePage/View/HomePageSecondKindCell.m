@@ -87,7 +87,7 @@
     .rightSpaceToView(self.contentView, lrMargin)
     .autoHeightRatio(0)
     ;
-    typeLabel.text = @"专题";
+//    typeLabel.text = @"专题";
     [title setMaxNumberOfLinesToShow:2];
 //    title.text = [@"        " stringByAppendingString:@"发改委 ：多个经济体货币纷纷倒在美元魔掌以 后，美元屠刀或正在伸向欧元区"];
     
@@ -137,7 +137,8 @@
     
     typeLabel.sd_layout
     .leftEqualToView(title)
-    .topEqualToView(title)
+//    .topEqualToView(title)
+    .topSpaceToView(self.contentView, 13)
     .heightIs(ScaleW * 16)
     .widthIs(ScaleW * 16 + 10)
     ;
@@ -149,12 +150,41 @@
     
 }
 
--(void)setModel:(TopicModel *)model
+-(void)setModel:(HomePageModel *)model
 {
     _model = model;
     
-    title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
     
+    NSString *labelName = GetSaveString(model.labelName);
+    if (kStringIsEmpty(labelName)) {
+        title.text = GetSaveString(model.itemTitle);
+        typeLabel.hidden = YES;
+    }else{
+        title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        typeLabel.hidden = NO;
+    }
+    
+    if (model.images.count>0) {
+        NSString *imgStr = GetSaveString(model.images[0]);
+        [imgL sd_setImageWithURL:UrlWithStr(imgStr)];
+    }else{
+        imgL.image = nil;
+    }
+    
+    if (model.images.count>1) {
+        NSString *imgStr = GetSaveString(model.images[1]);
+        [imgC sd_setImageWithURL:UrlWithStr(imgStr)];
+    }else{
+        imgC.image = nil;
+    }
+    
+    if (model.images.count>2) {
+        NSString *imgStr = GetSaveString(model.images[2]);
+        [imgR sd_setImageWithURL:UrlWithStr(imgStr)];
+    }else{
+        imgR.image = nil;
+    }
+    typeLabel.text = GetSaveString(model.labelName);
 }
 
 

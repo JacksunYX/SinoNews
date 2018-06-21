@@ -15,6 +15,7 @@
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
 #import "HomePageThirdKindCell.h"
+#import "HomePageFourthCell.h"
 
 #define HeadViewHeight (ScreenW * 9 / 16 + 15)
 
@@ -84,8 +85,8 @@
     
     WEAK(weakSelf, self);
     headView.selectBlock = ^(NSInteger index) {
-        GGLog(@"选择了下标为%ld的轮播图",index);
         ADModel *model = weakSelf.adArr[index];
+        GGLog(@"跳转地址：%@",model.redirectUrl);
         [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
     };
     
@@ -109,6 +110,7 @@
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+    [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
     WEAK(weakSelf, self);
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
@@ -145,24 +147,38 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-//    HomePageModel *model = self.dataSource[indexPath.row];
-//    if (model.topicId) { //说明是专题
-//        HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
-//        cell2.model = model;
-//        cell = (UITableViewCell *)cell2;
-//    }else{
-//        //非专题暂时都用普通cell
-//        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-//        cell1.model = model;
-//        cell = (UITableViewCell *)cell1;
-//    }
     id model = self.dataSource[indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
-        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-        cell1.model = model;
-        cell = (UITableViewCell *)cell1;
+        HomePageModel *model1 = (HomePageModel *)model;
+        switch (model1.itemType) {
+            case 100:   //无图
+            {
+                HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+            case 101:   //1图
+            {
+                HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+            case 103:   //3图
+            {
+                HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+                
+            default:
+                break;
+        }
+
     }else if ([model isKindOfClass:[TopicModel class]]){
-        HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+        HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         cell2.model = model;
         cell = (UITableViewCell *)cell2;
     }else if ([model isKindOfClass:[ADModel class]]){
@@ -194,7 +210,8 @@
     id model = self.dataSource[indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
-        ndVC.newsId = [(HomePageModel *)model news_id];
+//        ndVC.newsId = [(HomePageModel *)model news_id];
+        ndVC.newsId = 118;
         [self.navigationController pushViewController:ndVC animated:YES];
     }else if ([model isKindOfClass:[TopicModel class]]){
         
@@ -222,35 +239,22 @@
         NSMutableArray *dataArr = [NSMutableArray new];
         for (NSDictionary *dic in responseObject[@"data"]) {
             NSInteger itemType = [dic[@"itemType"] integerValue];
-            switch (itemType) {
-                case 1: //普通新闻
-                {
-                    HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                    [dataArr addObject:model];
-                }
-                    break;
-                case 2: //专题
-                {
-                    TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
-                    [dataArr addObject:model];
-                }
-                    break;
-                case 3: //广告
-                {
-                    ADModel *model = [ADModel mj_objectWithKeyValues:dic];
-                    [dataArr addObject:model];
-                }
-                    break;
-                    
-                default:
-                    break;
+            if (itemType>=100&&itemType<200) {  //新闻
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=200&&itemType<300) {    //专题
+                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=300&&itemType<400){     //广告
+                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
             }
         }
         if (self.page == 1) {
             self.dataSource = [dataArr mutableCopy];
             [self.tableView.mj_header endRefreshing];
         }else{
-            if (dataArr) {
+            if (dataArr.count) {
                 [self.dataSource addObjectsFromArray:dataArr];
                 [self.tableView.mj_footer endRefreshing];
             }else{

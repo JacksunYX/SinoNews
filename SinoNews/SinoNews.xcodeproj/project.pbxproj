@@ -24,6 +24,7 @@
 		4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414320C5168600AA6D57 /* TXLimitedTextView.m */; };
 		4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */; };
 		4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */; };
+		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
 		4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */; };
 		4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD020D34A4500615F20 /* RegisterViewController.m */; };
 		4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD320D34A5100615F20 /* LoginViewController.m */; };
@@ -193,6 +194,8 @@
 		4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSegmentBtnView.m; sourceTree = "<group>"; };
 		4C17414D20C545EF00AA6D57 /* ManagerRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerRecordCell.h; sourceTree = "<group>"; };
 		4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerRecordCell.m; sourceTree = "<group>"; };
+		4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFourthCell.h; sourceTree = "<group>"; };
+		4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFourthCell.m; sourceTree = "<group>"; };
 		4C1F7B1D20CFB56100C49B11 /* FansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
 		4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
 		4C21ABCF20D34A4500615F20 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -881,6 +884,8 @@
 				4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */,
 				4C3F905320BD7082003EC4FC /* HomePageThirdKindCell.h */,
 				4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */,
+				4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */,
+				4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */,
 				4C87360120BEAB4F00B6A8B5 /* SearchCollectionViewCell.h */,
 				4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */,
 				4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */,
@@ -1429,6 +1434,7 @@
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
+				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,

@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/5/29.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//首页第一类cell
+//首页第三类cell
 
 #import <UIKit/UIKit.h>
 #import "ADModel.h"

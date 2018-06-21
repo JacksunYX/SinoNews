@@ -315,7 +315,7 @@
         
         attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
-        .centerYEqualToView(_titleView)
+        .centerYEqualToView(icon)
         .widthIs(58)
         .heightIs(20)
         ;
@@ -543,7 +543,7 @@
 -(void)requestNewData
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"newsId"] = @(1);
+    parameters[@"newsId"] = @(self.newsId);
     
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
@@ -571,8 +571,11 @@
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         if (self.currPage == 1) {
-            self.commentsArr = [arr mutableCopy];
-            [self.tableView.mj_header endRefreshing];
+            if (arr.count) {
+                self.commentsArr = [arr mutableCopy];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }else{
             if (arr.count) {
                 [self.commentsArr addObjectsFromArray:arr];
@@ -593,7 +596,7 @@
 -(void)requestCommentWithComment:(NSString *)comment
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"newsId"] = @(1);
+    parameters[@"newsId"] = @(self.newsId);
     parameters[@"comment"] = comment;
     parameters[@"parentId"] = @(self.parentId);
     [HttpRequest postWithURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {

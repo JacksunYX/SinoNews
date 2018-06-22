@@ -76,6 +76,7 @@
     
     password = [TXLimitedTextField new];
     password.clearButtonMode = UITextFieldViewModeWhileEditing;
+    password.secureTextEntry = YES;
     password.delegate = self;
     
     secureBtn = [UIButton new];
@@ -252,7 +253,7 @@
             [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
                 LRToast(@"登陆成功");
                 UserSet(@"YES", @"isLogin")
-                UserSet(response[@"data"], @"userAvatar")
+                UserSet(GetSaveString(response[@"data"][@"token"]), @"token")
                 GCDAfterTime(1, ^{
                     if (self.normalBack) {
                         if (self.backHandleBlock) {

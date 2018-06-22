@@ -37,6 +37,11 @@
     
     //设置请求头中请求数据类型
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript", nil];
+    //设置与后台对接的请求头
+    NSString *token = GetSaveString(UserGet(@"token"));
+//    if (!kStringIsEmpty(token)) {
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+//    }
     return manager;
 }
 
@@ -48,14 +53,15 @@
     AFHTTPSessionManager *manager = [self getQuestManager];
     
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
-    GGLog(@"baseURLString:%@",baseURLString);
-    GGLog(@"parameters:%@",parameters);
+    
+    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    
     [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
         //直接把返回的参数进行解析然后返回
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        GGLog(@"%@",resultdic);
+        GGLog(@"resultdic-----%@",resultdic);
         
         if (success&&resultdic) {
             if ([resultdic[@"success"] integerValue] == 1) {
@@ -63,7 +69,6 @@
             }else{
                 LRToast(resultdic[@"alertMsg"]);
 //                LRToast(resultdic[@"errorMsg"]);
-                failure(resultdic[@"alertMsg"]);
             }
             
         }
@@ -121,9 +126,15 @@
             }else{
                 if (isshowtoastd == YES) {
                     LRToast(resultdic[@"alertMsg"]);
-                }
-                if ([resultdic[@"alertMsg"] isEqualToString:@"用户未登录,请重新登录"]) {
-                    GGLog(@"需要跳转登录");
+                    
+                    GCDAfterTime(1.2, ^{
+                        //未登陆
+                        if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                            //清空登录状态,然后跳转到登录界面
+                            [UserModel clearLocalData];
+                            [YXHeader checkNormalBackLogin];
+                        }
+                    });
                 }
             }
             
@@ -144,8 +155,6 @@
 }
 
 
-
-
 #pragma mark -- 请求带token参数的POST请求 --
 + (void)postWithTokenURLString:(NSString *)URLString
                     parameters:(id)parameters
@@ -158,16 +167,8 @@
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
-    NSString *token = GetSaveString([USER_DEFAULT objectForKey:@"token"]);
-    NSString *user_id = GetSaveString([USER_DEFAULT objectForKey:@"user_id"]);
-    
-    [parameters setValue:token forKey:@"token"];
-    
-    [parameters setValue:user_id forKey:@"user_id"];
     
     //判断显示loding
     if (isshowhud == YES) {
@@ -186,52 +187,38 @@
         GGLog(@"resultdic-----%@",resultdic);
         
         //取出返回数据
-        if (success) {
+        if (success&&resultdic) {
             
+            //隐藏loding
             HiddenHudOnly;
             
-            if (isshowtoastd == YES) {
-                
-                //显示提示用户信息
-                NSString *msg = [NSString stringWithFormat:@"%@",[resultdic objectForKey:@"msg"]];
-                
-                if ([msg isEqualToString:@"成功"]||kStringIsEmpty(msg)) {
-                    
-                } else {
-                    LRToast(msg);
-                }
-                
-            }
-            // 判断登录
-            if ([resultdic[@"code"] integerValue] == 10) {
-                
-                LRToast(resultdic[@"msg"]);
-                
-                [USER_DEFAULT setObject:@"" forKey:@"token"];
-                [USER_DEFAULT setObject:@"" forKey:@"user_id"];
-                [USER_DEFAULT synchronize];
-                //                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                //                delegate.isLogin = NO;
-                GCDAfterTime(1, ^{
-                    //                    [[self getCurrentVC] presentViewController:[[YYFNavigationController alloc] initWithRootViewController:[[enterNavigationController alloc]init]] animated:YES completion:nil];
-                });
-                
-            } else {
-                
-                //成功返回服务器数据
+            //成功返回服务器数据
+            if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
+            }else{
+                if (isshowtoastd == YES) {
+                    LRToast(resultdic[@"alertMsg"]);
+                    
+                    GCDAfterTime(1.2, ^{
+                        //未登陆
+                        if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                            //清空登录状态,然后跳转到登录界面
+                            [UserModel clearLocalData];
+                            [YXHeader checkNormalBackLoginHandle:^{
+                                GGLog(@"登陆成功回调");
+                                RefreshAction();
+                            }];
+                        }
+                    });
+                }
             }
             
         }
         
-        
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
-        GGLog(@"error:%@",error);
         //隐藏loding
-        
         HiddenHudOnly;
-        LRToast(@"网络故障，请重试");
+        LRToast(@"请求失败");
         
         if (failure) {
             

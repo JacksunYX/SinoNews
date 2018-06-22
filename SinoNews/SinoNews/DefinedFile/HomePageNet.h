@@ -16,11 +16,28 @@
 #define News_list               @"/api/news/listForChannel"
 //广告轮播图(get)
 #define Adverts                 @"/api/adverts"
+
 //获取文章详情(get)
 #define BrowseNews              @"/api/news/browseNews"
-//查看评论
+//查看评论(get)
 #define ShowComment             @"/api/showComment"
-//回复评论
+//回复评论(post)
 #define Comments                @"/api/comments"
+
+//新闻收藏(post)
+#define Favor                   @"/api/favor"
+//是否被收藏(post)
+#define IsFavor                 @"/api/isFavor"
+
+//点赞(post)
+//点赞类型(1:回复,2:评论,3:新闻,4:问答,5:公司回复,6:公司评论)
+#define Praise                  @"/api/praise"
+//是否被点赞
+#define IsPraise                @"/api/isPraise"
+
+//关注/取消关注
+#define AttentionUser           @"/api/attentionUser"
+
+
 
 #endif /* HomePageNet_h */

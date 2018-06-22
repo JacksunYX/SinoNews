@@ -42,7 +42,8 @@
 //用户积分
 @property (nonatomic,assign) long integral;
 
-
+//清楚本地保存的用户信息
++(void)clearLocalData;
 
 
 

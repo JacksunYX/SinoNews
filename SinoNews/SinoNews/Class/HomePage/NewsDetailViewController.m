@@ -23,7 +23,11 @@
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) NSInteger currPage;   //页码; //页面(起始为1)
 @property (nonatomic,strong) UIView *titleView;
+@property (nonatomic,strong) UIButton *attentionBtn;
+
 @property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIButton *praiseBtn;
+@property (nonatomic,strong) UIButton *collectBtn;
 
 @property (nonatomic,assign) NSInteger parentId;
 @end
@@ -47,22 +51,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     
-    @weakify(self);
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"getCellHightNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self);
-        NSDictionary * dic = x.userInfo;
-        //判断通知中的参数是否与原来的值一致,防止死循环
-        if (self.webView.height != [[dic objectForKey:@"height"]floatValue])
-        {
-            self.webView.height = [[dic objectForKey:@"height"]floatValue];
-            self.tableView.tableHeaderView = self.webView;
-            [self.tableView reloadData];
-        }
-    }];
-    
     [self addNavigationView];
-    
-    [self creatBottomView];
     
     [self addTableView];
     
@@ -80,104 +69,120 @@
     UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
     UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
     self.navigationItem.rightBarButtonItems = @[more,fonts];
-    @weakify(self);
-    UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
-    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
-        @strongify(self);
-        [self->commentInput endEditing:YES];
-    }];
-    [self.view addGestureRecognizer:tap];
+
 }
 
--(void)creatBottomView
+-(void)setBottomView
 {
-    self.bottomView = [UIView new];
-    [self.view addSubview:self.bottomView];
+    if (!self.bottomView) {
+        self.bottomView = [UIView new];
+        [self.view addSubview:self.bottomView];
+        
+        self.bottomView.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+        .heightIs(47)
+        ;
+        
+        commentInput = [UITextField new];
+        commentInput.delegate = self;
+        commentInput.returnKeyType = UIReturnKeySend;
+        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+            UITextField *field = x.first;
+            GGLog(@"-----%@",field.text);
+            [field resignFirstResponder];
+            if ([NSString isEmpty:field.text]) {
+                LRToast(@"评论不能为空哦~");
+            }else{
+                [self requestCommentWithComment:field.text];
+                field.text = @"";
+            }
+        }];
+        
+        _praiseBtn = [UIButton new];
+        _collectBtn = [UIButton new];
+        UIButton *shareBtn = [UIButton new];
+        
+        @weakify(self);
+        [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            [self requestPraiseWithPraiseType:3 praiseId:self.newsId];
+        }];
+        
+        [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            [self requestCollectNews];
+        }];
+        
+        [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            
+        }];
+        
+        [self.bottomView sd_addSubviews:@[
+                                          shareBtn,
+                                          _collectBtn,
+                                          _praiseBtn,
+                                          commentInput,
+                                          ]];
+        
+        shareBtn.sd_layout
+        .rightSpaceToView(self.bottomView, 14)
+        .centerYEqualToView(self.bottomView)
+        .widthIs(23)
+        .heightIs(19)
+        ;
+        [shareBtn setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
+        
+        _collectBtn.sd_layout
+        .rightSpaceToView(shareBtn, 12)
+        .centerYEqualToView(self.bottomView)
+        .widthIs(24)
+        .heightIs(23)
+        ;
+        [_collectBtn setImage:UIImageNamed(@"news_unCollect") forState:UIControlStateNormal];
+        [_collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
+        
+        _praiseBtn.sd_layout
+        .rightSpaceToView(_collectBtn, 13)
+        .centerYEqualToView(self.bottomView)
+        .widthIs(22)
+        .heightIs(20)
+        ;
+        [_praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
+        [_praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
+        
+        commentInput.sd_layout
+        .leftSpaceToView(self.bottomView, 35)
+        .rightSpaceToView(_praiseBtn, 16)
+        .centerYEqualToView(self.bottomView)
+        .heightIs(33)
+        ;
+        commentInput.backgroundColor = RGBA(238, 238, 238, 1);
+        [commentInput setSd_cornerRadius:@16];
+        NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
+        NSDictionary *dic = @{
+                              NSFontAttributeName : PFFontR(14),
+                              NSForegroundColorAttributeName : RGBA(53, 53, 53, 1),
+                              };
+        [placeholder addAttributes:dic range:NSMakeRange(0, placeholder.length)];
+        commentInput.attributedPlaceholder = placeholder;
+        
+        UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 33)];
+        UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
+        [leftView addSubview:leftImg];
+        leftImg.center = leftView.center;
+        leftImg.image = UIImageNamed(@"news_comment");
+        commentInput.leftViewMode = UITextFieldViewModeAlways;
+        commentInput.leftView = leftView;
+        
+        self.bottomView.hidden = YES;
+    }
     
-    self.bottomView.sd_layout
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-    .heightIs(47)
-    ;
-    
-    commentInput = [UITextField new];
-    commentInput.delegate = self;
-    commentInput.returnKeyType = UIReturnKeySend;
-    [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
-        UITextField *field = x.first;
-        GGLog(@"-----%@",field.text);
-        [field resignFirstResponder];
-        if ([NSString isEmpty:field.text]) {
-            LRToast(@"评论不能为空哦~");
-        }else{
-            [self requestCommentWithComment:field.text];
-            field.text = @"";
-        }
-    }];
-    
-    UIButton *praiseBtn = [UIButton new];
-    UIButton *collectBtn = [UIButton new];
-    UIButton *shareBtn = [UIButton new];
-    
-    [self.bottomView sd_addSubviews:@[
-                                      shareBtn,
-                                      collectBtn,
-                                      praiseBtn,
-                                      commentInput,
-                                      ]];
-    
-    shareBtn.sd_layout
-    .rightSpaceToView(self.bottomView, 14)
-    .centerYEqualToView(self.bottomView)
-    .widthIs(23)
-    .heightIs(19)
-    ;
-    [shareBtn setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
-    
-    collectBtn.sd_layout
-    .rightSpaceToView(shareBtn, 12)
-    .centerYEqualToView(self.bottomView)
-    .widthIs(24)
-    .heightIs(23)
-    ;
-    [collectBtn setImage:UIImageNamed(@"news_unCollect") forState:UIControlStateNormal];
-    [collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
-    
-    praiseBtn.sd_layout
-    .rightSpaceToView(collectBtn, 13)
-    .centerYEqualToView(self.bottomView)
-    .widthIs(22)
-    .heightIs(20)
-    ;
-    [praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
-    [praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
-    
-    commentInput.sd_layout
-    .leftSpaceToView(self.bottomView, 35)
-    .rightSpaceToView(praiseBtn, 16)
-    .centerYEqualToView(self.bottomView)
-    .heightIs(33)
-    ;
-    commentInput.backgroundColor = RGBA(238, 238, 238, 1);
-    [commentInput setSd_cornerRadius:@16];
-    NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
-    NSDictionary *dic = @{
-                          NSFontAttributeName : PFFontR(14),
-                          NSForegroundColorAttributeName : RGBA(53, 53, 53, 1),
-                          };
-    [placeholder addAttributes:dic range:NSMakeRange(0, placeholder.length)];
-    commentInput.attributedPlaceholder = placeholder;
-
-    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 33)];
-    UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
-    [leftView addSubview:leftImg];
-    leftImg.center = leftView.center;
-    leftImg.image = UIImageNamed(@"news_comment");
-    commentInput.leftViewMode = UITextFieldViewModeAlways;
-    commentInput.leftView = leftView;
-    
-    self.bottomView.hidden = YES;
+    self.collectBtn.selected = self.newsModel.isCollection;
+    self.praiseBtn.selected = self.newsModel.hasPraised;
+    if (self.praiseBtn.selected) {
+        self.praiseBtn.enabled = NO;    //如果被点赞过，则不能再点击
+    }
 }
 
 -(void)addTableView
@@ -189,7 +194,8 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.bottomView, 0)
+//    .bottomSpaceToView(self.bottomView, 0)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 48)
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
@@ -199,22 +205,13 @@
     _tableView.contentInset = UIEdgeInsetsMake(80, 0, 0, 0);
     _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
     _tableView.enableDirection = YES;
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
     
     @weakify(self);
-//    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-//        @strongify(self);
-//        if (self.tableView.mj_footer.isRefreshing) {
-//            [self.tableView.mj_header endRefreshing];
-//            return ;
-//        }
-//        self.currPage = 1;
-//        [self requestComments];
-//    }];
-    
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
         if (!self.commentsArr.count) {
@@ -234,23 +231,29 @@
     // 创建设置对象
     WKPreferences *preference = [[WKPreferences alloc]init];
     // 设置字体大小(最小的字体大小)
-    preference.minimumFontSize = 27;
+//    preference.minimumFontSize = 12;
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.userContentController = wkUController;
 //    // 设置偏好设置对象
-//    config.preferences = preference;
+    config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
     self.webView.navigationDelegate = self;
     //监听web的高度变化
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-}
-
--(void)refreshComments
-{
-    self.currPage = 1;
-    [self requestComments];
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"getCellHightNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self);
+        NSDictionary * dic = x.userInfo;
+        //判断通知中的参数是否与原来的值一致,防止死循环
+        if (self.webView.height != [[dic objectForKey:@"height"]floatValue])
+        {
+            self.webView.height = [[dic objectForKey:@"height"]floatValue];
+            self.tableView.tableHeaderView = self.webView;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 -(void)setTitle
@@ -277,17 +280,22 @@
         authorAndTime.font = PFFontR(11);
         authorAndTime.textColor = RGBA(152, 152, 152, 1);
         
-        UIButton *attentionBtn = [UIButton new];
-        [attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        attentionBtn.backgroundColor = RGBA(18, 130, 238, 1);
+        @weakify(self);
+        _attentionBtn = [UIButton new];
+        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        _attentionBtn.backgroundColor = RGBA(18, 130, 238, 1);
+        [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            [self requestIsAttention];
+        }];
         
-        attentionBtn.titleLabel.font = PFFontR(13);
+        _attentionBtn.titleLabel.font = PFFontR(13);
         
         [self.titleView sd_addSubviews:@[
                                          title,
                                          icon,
                                          authorAndTime,
-                                         attentionBtn,
+                                         _attentionBtn,
                                          ]];
         title.sd_layout
         .leftSpaceToView(self.titleView, 10)
@@ -313,16 +321,25 @@
         [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
         authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
         
-        attentionBtn.sd_layout
+        _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
         .centerYEqualToView(icon)
         .widthIs(58)
         .heightIs(20)
         ;
-        [attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
-        [attentionBtn setSd_cornerRadius:@8];
+        [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
+        [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
+        [_attentionBtn setSd_cornerRadius:@8];
     }
+    _attentionBtn.selected = self.newsModel.isAttention;
 }
+
+-(void)refreshComments
+{
+    self.currPage = 1;
+    [self requestComments];
+}
+
 
 //更多
 -(void)moreSelect
@@ -370,7 +387,7 @@
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     [self refreshComments];
-    
+    [self setBottomView];
     [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
 //        CGFloat height = [data floatValue];
         //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
@@ -385,6 +402,7 @@
 //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#323232'"completionHandler:nil];
     //修改背景色
 //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'" completionHandler:nil];
+    
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -510,7 +528,29 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    GGLog(@"tableView点击了");
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+//    GGLog(@"touchesBegan点击了");
+    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
+    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
+    CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
+    int x = point.x;
+    int y = point.y;
+//    NSLog(@"touch (x, y) is (%d, %d)", x, y);
+    if (self.attentionBtn.enabled) {
+        if (self.tableView.contentOffset.y > -80) {
+//            GGLog(@"不能点击");
+        }else{
+//            GGLog(@"点击了关注周围");
+            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= 48 && y <= 68) {
+//                GGLog(@"点击了关注");
+                [self requestIsAttention];
+            }
+        }
+    }
 }
 
 #pragma mark ----- UIScrollViewDelegate
@@ -518,17 +558,9 @@
 {
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= -80&&offsetY <= 0) {
-//        if (scrollView.direction == DirectionUp) {
-////            GGLog(@"111");
-//            CGFloat alpha = MIN(1, fabs(offsetY)/(80));
-//            self.titleView.alpha = alpha;
-//        }else{
-////            GGLog(@"222");
-//            CGFloat alpha = MIN(1, fabs(offsetY)/(80));
-//            self.titleView.alpha = alpha;
-//        }
         CGFloat alpha = MIN(1, fabs(offsetY)/(80));
         self.titleView.alpha = alpha;
+        self.attentionBtn.enabled = alpha;
         if (offsetY >= -20) {
             self.navigationItem.title = GetSaveString(self.newsModel.author);
         }else{
@@ -547,12 +579,14 @@
     
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
-        NSString *urlStr = ApiAppending(self.newsModel.freeContentUrl);
-        GGLog(@"文章h5：%@",urlStr);
-//        NSURL *url = UrlWithStr(urlStr);
-        NSURL *url = UrlWithStr(@"http://www.bilibili.com");
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
-        [self.webView loadRequest:request];
+        if (!self.webView.URL.absoluteString) {
+            NSString *urlStr = ApiAppending(self.newsModel.freeContentUrl);
+            GGLog(@"文章h5：%@",urlStr);
+            NSURL *url = UrlWithStr(urlStr);
+            //        NSURL *url = UrlWithStr(@"http://www.bilibili.com");
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
+            [self.webView loadRequest:request];
+        }
         [self setTitle];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -599,9 +633,105 @@
     parameters[@"newsId"] = @(self.newsId);
     parameters[@"comment"] = comment;
     parameters[@"parentId"] = @(self.parentId);
-    [HttpRequest postWithURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        
-    } failure:nil RefreshAction:nil];
+    
+    [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        LRToast(@"发送成功，等待审核~");
+        [self refreshComments];
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
 }
+
+//点赞文章/评论
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(praiseType);
+    parameters[@"id"] = @(ID);
+    [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        self.newsModel.hasPraised = !self.newsModel.hasPraised;
+        [self setBottomView];
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
+}
+
+//收藏/取消收藏文章
+-(void)requestCollectNews
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(self.newsId);
+    [HttpRequest postWithTokenURLString:Favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        self.newsModel.isCollection = !self.newsModel.isCollection;
+        if (self.newsModel.isCollection) {
+            LRToast(@"收藏成功～");
+        }else{
+            LRToast(@"已取消收藏");
+        }
+        [self setBottomView];
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
+}
+
+//关注/取消关注
+-(void)requestIsAttention
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(self.newsModel.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        self.newsModel.isAttention = !self.newsModel.isAttention;
+        if (self.newsModel.isAttention) {
+            LRToast(@"关注成功～");
+        }else{
+            LRToast(@"已取消关注");
+        }
+        [self setTitle];
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
+}
+
+
+//分享
+-(void)shareView
+{
+    
+}
+
+-(void)getIsFavorAndIsPraise
+{
+    [self requestIsFavor];
+    [self requestIsPraise];
+}
+
+//新闻是否被收藏
+-(void)requestIsFavor
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(self.newsId);
+    [HttpRequest postWithTokenURLString:IsFavor parameters:parameters isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id res) {
+        
+    } failure:nil RefreshAction:^{
+        
+    }];
+}
+
+//新闻是否被点赞
+-(void)requestIsPraise
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(3);
+    parameters[@"id"] = @(self.newsId);
+    [HttpRequest postWithTokenURLString:IsPraise parameters:parameters isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id res) {
+        
+    } failure:nil RefreshAction:^{
+        
+    }];
+}
+
+
+
+
 
 @end

@@ -29,6 +29,12 @@
     return self;
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    //穿透
+    [[self nextResponder] touchesBegan:touches withEvent:event];
+}
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

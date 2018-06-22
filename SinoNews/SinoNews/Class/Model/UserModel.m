@@ -17,6 +17,14 @@ MJCodingImplementation
     return @{};
 }
 
-
++(void)clearLocalData
+{
+    UserSet(@"", @"isLogin")
+    UserSet(@"", @"token")
+    NSArray* findAlls = [UserModel bg_findAll:nil];
+    if (!kArrayIsEmpty(findAlls)) {
+        [UserModel bg_clear:nil];
+    }
+}
 
 @end

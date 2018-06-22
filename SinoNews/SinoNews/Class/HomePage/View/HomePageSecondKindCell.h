@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/5/29.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//首页第二类cell
+//首页第二类cell(三图)
 
 #import <UIKit/UIKit.h>
 #import "HomePageModel.h"

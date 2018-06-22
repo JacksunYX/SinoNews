@@ -185,6 +185,13 @@
         imgR.image = nil;
     }
     typeLabel.text = GetSaveString(model.labelName);
+    NSString *str1 = @"  ";
+    NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
+    NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
+    NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
+    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
+    bottomLabel.attributedText = attString;
 }
 
 

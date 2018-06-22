@@ -21,6 +21,7 @@
 @property (nonatomic,assign) NSInteger hasPaid;         //是否已付费
 @property (nonatomic,assign) NSInteger isAttention;     //是否关注
 @property (nonatomic,assign) NSInteger isCollection;    //是否收藏
+@property (nonatomic,assign) NSInteger hasPraised;      //是否被点赞（点赞都无法取消点赞）
 @property (nonatomic,assign) NSInteger isToll;          //文章是否收费
 @property (nonatomic,assign) NSInteger isTopic;         //是否是专题
 @property (nonatomic,assign) NSInteger newsId;

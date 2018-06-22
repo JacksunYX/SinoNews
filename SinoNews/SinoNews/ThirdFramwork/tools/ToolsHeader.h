@@ -25,5 +25,6 @@
 #import "UIView+GFCorner.h"
 #import "UILabel+YBAttributeTextTapAction.h"
 #import "UIScrollView+Direction.h"
+#import "NSString+FileSize.h"
 
 #endif /* ToolsHeader_h */

@@ -257,10 +257,19 @@
 #define UserSet(Object,key) \
 [USER_DEFAULT setObject:Object forKey:key];\
 [USER_DEFAULT synchronize];
+
+#define UserSetBool(bool,key) \
+[USER_DEFAULT setBool:bool forKey:key];\
+[USER_DEFAULT synchronize];
+
 //偏好获取
 #define UserGet(key) [USER_DEFAULT objectForKey:key]
 
+#define UserGetBool(key) [USER_DEFAULT boolForKey:key]
+
 #define UserInfoData [DCUserInfo findAll].lastObject
+
+
 
 
 //由角度获取弧度 由弧度获取角度

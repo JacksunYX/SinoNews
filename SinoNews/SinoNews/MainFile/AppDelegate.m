@@ -22,7 +22,7 @@
     //百度移动统计
     [self addBaiduMobStat];
     //全局调试
-    [[GHConsole sharedConsole] startPrintLog];
+//    [[GHConsole sharedConsole] startPrintLog];
     //键盘监听
     [IQKeyboardManager sharedManager].enable = YES;
     //集成友盟分享

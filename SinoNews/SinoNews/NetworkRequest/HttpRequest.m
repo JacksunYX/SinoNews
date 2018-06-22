@@ -68,7 +68,7 @@
                 success(resultdic);
             }else{
                 LRToast(resultdic[@"alertMsg"]);
-//                LRToast(resultdic[@"errorMsg"]);
+                
             }
             
         }

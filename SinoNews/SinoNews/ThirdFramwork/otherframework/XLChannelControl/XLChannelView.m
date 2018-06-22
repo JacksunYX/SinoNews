@@ -133,7 +133,7 @@ static CGFloat CellMarginY = 13.0f;
         self->_dragingItem.frame = endFrame;
     }completion:^(BOOL finished) {
         self->_dragingItem.hidden = true;
-        XLChannelItem *item = (XLChannelItem*)[_collectionView cellForItemAtIndexPath:self->_dragingIndexPath];
+        XLChannelItem *item = (XLChannelItem*)[self->_collectionView cellForItemAtIndexPath:self->_dragingIndexPath];
         item.isMoving = false;
         [self reloadData];
     }];
@@ -175,9 +175,9 @@ static CGFloat CellMarginY = 13.0f;
         if (indexPath.section > 0) {continue;}
         //在第一组中找出将被替换位置的Item
         if (CGRectContainsPoint([_collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
-//            if (indexPath.row != 0) {
+            if (indexPath.row != 0) {
                 targetIndexPath = indexPath;
-//            }
+            }
         }
     }
     return targetIndexPath;

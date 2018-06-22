@@ -30,6 +30,7 @@
 		4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD320D34A5100615F20 /* LoginViewController.m */; };
 		4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */; };
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
+		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
 		4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */; };
@@ -207,6 +208,8 @@
 		4C21ABE920D36DA900615F20 /* NSString+STRegex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+STRegex.h"; sourceTree = "<group>"; };
 		4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+STRegex.m"; sourceTree = "<group>"; };
 		4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAboutNet.h; sourceTree = "<group>"; };
+		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
+		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
 		4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailModel.m; sourceTree = "<group>"; };
 		4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
@@ -987,6 +990,8 @@
 				4C5494A520CE799500CB448E /* NSString+Time.m */,
 				4C21ABE920D36DA900615F20 /* NSString+STRegex.h */,
 				4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */,
+				4C24DCD120DD071D003DC53A /* NSString+FileSize.h */,
+				4C24DCD220DD071D003DC53A /* NSString+FileSize.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -1404,6 +1409,7 @@
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
 				4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */,
+				4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */,
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,

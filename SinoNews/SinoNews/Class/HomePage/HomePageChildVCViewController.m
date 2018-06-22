@@ -112,22 +112,26 @@
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
-    WEAK(weakSelf, self);
+    @weakify(self)
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-        if (weakSelf.tableView.mj_footer.isRefreshing) {
-            [weakSelf.tableView.mj_header endRefreshing];
+        @strongify(self)
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
         }
-        weakSelf.page = 1;
-        [weakSelf requestNews_list:0];
-        [weakSelf requestBanner];
+        self.page = 1;
+        [self requestNews_list:0];
+        if ([self.news_id integerValue] == 82) {
+            [self requestBanner];
+        }
     }];
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-        if (weakSelf.tableView.mj_header.isRefreshing) {
-            [weakSelf.tableView.mj_footer endRefreshing];
+        @strongify(self)
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
         }
-        weakSelf.page ++;
-        [weakSelf requestNews_list:1];
+        self.page ++;
+        [self requestNews_list:1];
     }];
     
     [_tableView.mj_header beginRefreshing];
@@ -276,7 +280,9 @@
     [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
         self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]]];
         if (!kArrayIsEmpty(self.adArr)) {
+            //只有第一个才加载banner
             [self creatBanner];
+            
         }
         [self.tableView.mj_header endRefreshing];
     } failure:^(NSError *error) {

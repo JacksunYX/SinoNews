@@ -107,7 +107,11 @@
         @weakify(self);
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            [self requestPraiseWithPraiseType:3 praiseId:self.newsId];
+            if (self.praiseBtn.selected) {
+                LRToast(@"只能点一次赞哟～");
+            }else{
+                [self requestPraiseWithPraiseType:3 praiseId:self.newsId];
+            }
         }];
         
         [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -175,14 +179,11 @@
         commentInput.leftViewMode = UITextFieldViewModeAlways;
         commentInput.leftView = leftView;
         
-        self.bottomView.hidden = YES;
     }
     
     self.collectBtn.selected = self.newsModel.isCollection;
     self.praiseBtn.selected = self.newsModel.hasPraised;
-    if (self.praiseBtn.selected) {
-        self.praiseBtn.enabled = NO;    //如果被点赞过，则不能再点击
-    }
+    
 }
 
 -(void)addTableView
@@ -387,7 +388,6 @@
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     [self refreshComments];
-    [self setBottomView];
     [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
 //        CGFloat height = [data floatValue];
         //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
@@ -588,6 +588,7 @@
             [self.webView loadRequest:request];
         }
         [self setTitle];
+        [self setBottomView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
@@ -618,7 +619,6 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
         }
-        self.bottomView.hidden = NO;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
@@ -649,6 +649,7 @@
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        LRToast(@"点赞成功～");
         self.newsModel.hasPraised = !self.newsModel.hasPraised;
         [self setBottomView];
     } failure:nil RefreshAction:^{

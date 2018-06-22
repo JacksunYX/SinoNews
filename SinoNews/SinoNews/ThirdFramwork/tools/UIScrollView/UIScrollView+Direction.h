@@ -5,6 +5,7 @@
 //  Created by zhangjianbin on 2016/11/7.
 //  Copyright © 2016年 zhangjianbin. All rights reserved.
 //
+//获取滚动视图的滚动方向
 
 #import <UIKit/UIKit.h>
 

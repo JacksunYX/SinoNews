@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "FontAndNightModeView.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -166,6 +167,19 @@
             UserSetBool(YES, @"NightMode")
         }
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
+    }else if (CompareString(title, @"字体大小")){
+        [FontAndNightModeView showWithModelAndFont:^(BOOL open, NSInteger fontIndex) {
+            GGLog(@"夜间模式：%d,选择了下标为%ld的字体大小",open,fontIndex);
+            if (open) {
+                UserSetBool(YES, @"NightMode")
+            }else{
+                UserSetBool(NO, @"NightMode")
+            }
+            NSString *fontSize = [NSString stringWithFormat:@"%ld",fontIndex];
+            UserSet(fontSize, @"fontSize")
+            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+            [tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:0];
+        }];
     }else if (CompareString(title, @"清除缓存")){
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"需要清除缓存嘛？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

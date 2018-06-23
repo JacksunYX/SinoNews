@@ -8,6 +8,7 @@
 
 #import "PersonalDataViewController.h"
 #import "WSDatePickerView.h"
+#import "BindingDataViewController.h"
 
 @interface PersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -267,9 +268,12 @@
     }else if (CompareString(title, @"收货地址")){
         
     }else if (CompareString(title, @"绑定手机")){
-        
+        BindingDataViewController *bdVC = [BindingDataViewController new];
+        bdVC.bindingType = 1;
+        [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"绑定邮箱")){
-        
+        BindingDataViewController *bdVC = [BindingDataViewController new];
+        [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"修改密码")){
         
     }

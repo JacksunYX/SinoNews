@@ -42,11 +42,25 @@
 //用户积分
 @property (nonatomic,assign) long integral;
 
-//清楚本地保存的用户信息
+
+/**
+ 清除本地保存的用户信息
+ */
 +(void)clearLocalData;
 
+/**
+ 获取本地保存的用户信息
 
+ @return 返回用户模型
+ */
++(UserModel *)getLocalUserModel;
 
+/**
+ 覆盖之前保存的用户信息
+
+ @param data 新的数据
+ */
++(void)coverUserData:(UserModel *)data;
 
 
 

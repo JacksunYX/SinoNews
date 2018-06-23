@@ -121,9 +121,9 @@
     
     if ([title isEqualToString:@"字体大小"]) {
         cell.accessoryType = 1;
-    }else if([title isEqualToString:@"清除缓存"]){
+    }else if(CompareString(title, @"清除缓存")){
         cell.detailTextLabel.text = [NSString getCacheSize];
-    }else if ([title isEqualToString:@"夜间模式"]){
+    }else if (CompareString(title, @"夜间模式")){
         UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 13, 13)];
         if (UserGetBool(@"NightMode")) {
             icon.image = UIImageNamed(@"setting_nightModeSelected");
@@ -131,7 +131,7 @@
             icon.image = UIImageNamed(@"setting_nightModeUnSelected");
         }
         cell.accessoryView = icon;
-    }else if ([title isEqualToString:@"视频自动播放"]){
+    }else if (CompareString(title, @"视频自动播放")){
         if (UserGetBool(@"VideoAutoPlay")) {
             cell.detailTextLabel.text = @"仅Wi-Fi网络";
         }else{

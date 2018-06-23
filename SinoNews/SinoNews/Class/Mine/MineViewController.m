@@ -12,8 +12,8 @@
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
 #import "MyCollectViewController.h"
-
 #import "MyAttentionViewController.h"
+#import "PersonalDataViewController.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -373,15 +373,8 @@
 -(void)userTouch
 {
     if ([YXHeader checkNormalBackLogin]) {
-        WEAK(weakSelf, self)
-        [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
-            STRONG(strongSelf, weakSelf)
-            //先对质量压缩
-            NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
-            UIImage *img = [UIImage imageWithData:imgData];
-            strongSelf.userImg.image = img;
-            
-        }];
+        PersonalDataViewController *pdVC = [PersonalDataViewController new];
+        [self.navigationController pushViewController:pdVC animated:YES];
     }
     
 }
@@ -562,7 +555,8 @@
         //后台目前的逻辑是，如果没有登陆，只给默认头像这一个字段,只能靠这个来判断
         if ([data allKeys].count>1) {
             UserModel *model = [UserModel mj_objectWithKeyValues:data];
-            [model bg_cover];
+            //覆盖之前保存的信息
+            [UserModel coverUserData:model];
             self.user = model;
             [self setHeadViewData:YES];
         }else{

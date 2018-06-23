@@ -28,4 +28,21 @@ MJCodingImplementation
     GGLog(@"本地用户信息已清除");
 }
 
++(UserModel *)getLocalUserModel
+{
+    UserModel *user;
+    NSArray* findAlls = [UserModel bg_findAll:nil];
+    if (!kArrayIsEmpty(findAlls)) {
+        user = [findAlls firstObject];
+    }
+    return user;
+}
+
++(void)coverUserData:(UserModel *)data
+{
+    if ([data bg_cover]) {
+        GGLog(@"用户本地数据已被覆盖至最新");
+    }
+}
+
 @end

@@ -127,6 +127,7 @@
 		4C95FFDA20DDEEC80040E348 /* LQXSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFD920DDEEC80040E348 /* LQXSwitch.m */; };
 		4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFDC20DDF4EA0040E348 /* VideoAutoPlaySelectView.m */; };
 		4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */; };
+		4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFE220DE20BC0040E348 /* PersonalDataViewController.m */; };
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
@@ -417,6 +418,8 @@
 		4C95FFDC20DDF4EA0040E348 /* VideoAutoPlaySelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoAutoPlaySelectView.m; sourceTree = "<group>"; };
 		4C95FFDE20DE1B490040E348 /* LogoutNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogoutNoticeView.h; sourceTree = "<group>"; };
 		4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogoutNoticeView.m; sourceTree = "<group>"; };
+		4C95FFE120DE20BC0040E348 /* PersonalDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalDataViewController.h; sourceTree = "<group>"; };
+		4C95FFE220DE20BC0040E348 /* PersonalDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalDataViewController.m; sourceTree = "<group>"; };
 		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
 		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
 		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
@@ -750,6 +753,8 @@
 				4C49F06320D0C74D009DC42B /* MyAttentionViewController.m */,
 				4C49F07120D0F94B009DC42B /* MyCollectViewController.h */,
 				4C49F07220D0F94B009DC42B /* MyCollectViewController.m */,
+				4C95FFE120DE20BC0040E348 /* PersonalDataViewController.h */,
+				4C95FFE220DE20BC0040E348 /* PersonalDataViewController.m */,
 				4C93496D20CF6DD100BD8F07 /* View */,
 			);
 			path = Mine;
@@ -1507,6 +1512,7 @@
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
+				4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
 				4C95FFDA20DDEEC80040E348 /* LQXSwitch.m in Sources */,

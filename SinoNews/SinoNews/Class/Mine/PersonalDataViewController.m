@@ -7,6 +7,7 @@
 //
 
 #import "PersonalDataViewController.h"
+#import "WSDatePickerView.h"
 
 @interface PersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -241,7 +242,28 @@
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
         }];
     }else if (CompareString(title, @"生日")){
+        WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
+            
+            NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+            GGLog(@"选择的日期：%@",dateString);
+            
+        }];
+        //指定最小最大日期
+        NSDateFormatter *minDateFormater = [[NSDateFormatter alloc] init];
+        [minDateFormater setDateFormat:@"yyyy-MM-dd"];
+        NSDate *minLimitDate = [minDateFormater dateFromString:@"1900-01-01"];
+        datepicker.minLimitDate = minLimitDate;
         
+        NSDateFormatter *maxDateFormater = [[NSDateFormatter alloc] init];
+        [maxDateFormater setDateFormat:@"yyyy-MM-dd"];
+        NSDate *maxLimitDate = [maxDateFormater dateFromString:@"2018-01-01"];
+        datepicker.maxLimitDate = maxLimitDate;
+        
+        datepicker.dateLabelColor = [UIColor clearColor];//年-月-日-时-分 颜色
+        datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
+        datepicker.doneButtonColor = [UIColor whiteColor];//确定按钮的颜色
+        datepicker.hideBackgroundYearLabel = YES;
+        [datepicker show];
     }else if (CompareString(title, @"收货地址")){
         
     }else if (CompareString(title, @"绑定手机")){

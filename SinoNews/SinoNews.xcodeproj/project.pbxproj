@@ -128,6 +128,10 @@
 		4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFDC20DDF4EA0040E348 /* VideoAutoPlaySelectView.m */; };
 		4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */; };
 		4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFE220DE20BC0040E348 /* PersonalDataViewController.m */; };
+		4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C95FFE820DE4C7A0040E348 /* WSDatePickerView.xib */; };
+		4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFE920DE4C7A0040E348 /* WSDatePickerView.m */; };
+		4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEA20DE4C7A0040E348 /* NSDate+Extension.m */; };
+		4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */; };
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
@@ -420,6 +424,13 @@
 		4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogoutNoticeView.m; sourceTree = "<group>"; };
 		4C95FFE120DE20BC0040E348 /* PersonalDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalDataViewController.h; sourceTree = "<group>"; };
 		4C95FFE220DE20BC0040E348 /* PersonalDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalDataViewController.m; sourceTree = "<group>"; };
+		4C95FFE520DE4C7A0040E348 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		4C95FFE620DE4C7A0040E348 /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
+		4C95FFE720DE4C7A0040E348 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		4C95FFE820DE4C7A0040E348 /* WSDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WSDatePickerView.xib; sourceTree = "<group>"; };
+		4C95FFE920DE4C7A0040E348 /* WSDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDatePickerView.m; sourceTree = "<group>"; };
+		4C95FFEA20DE4C7A0040E348 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
 		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
 		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
@@ -856,6 +867,7 @@
 			isa = PBXGroup;
 			children = (
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
+				4C95FFE420DE4C7A0040E348 /* WSDaePickerView */,
 				4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */,
 				4C13E96320C67263009115C1 /* AddressPickerView */,
 				4C17414920C52F7B00AA6D57 /* LXSegmentBtn */,
@@ -1133,6 +1145,20 @@
 			path = LQX;
 			sourceTree = "<group>";
 		};
+		4C95FFE420DE4C7A0040E348 /* WSDaePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				4C95FFE520DE4C7A0040E348 /* NSDate+Extension.h */,
+				4C95FFE620DE4C7A0040E348 /* WSDatePickerView.h */,
+				4C95FFE720DE4C7A0040E348 /* UIView+Extension.h */,
+				4C95FFE820DE4C7A0040E348 /* WSDatePickerView.xib */,
+				4C95FFE920DE4C7A0040E348 /* WSDatePickerView.m */,
+				4C95FFEA20DE4C7A0040E348 /* NSDate+Extension.m */,
+				4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */,
+			);
+			path = WSDaePickerView;
+			sourceTree = "<group>";
+		};
 		4CB4196E20DA792A00EBF202 /* UIScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1334,6 +1360,7 @@
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
+				4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */,
 				4C95FFD620DDE8FA0040E348 /* ReadMe.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1525,15 +1552,18 @@
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */,
+				4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
+				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */,
+				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,

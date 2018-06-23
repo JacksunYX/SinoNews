@@ -8,6 +8,8 @@
 
 #import "SettingViewController.h"
 #import "FontAndNightModeView.h"
+#import "VideoAutoPlaySelectView.h"
+#import "LogoutNoticeView.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -33,7 +35,7 @@
         NSArray *rightTitle = @[
                                 @"",
                                 @"",
-                                @"仅WI-FI网络",
+                                @"",
                                 @"",
                                 @"",
                                 @"",
@@ -129,6 +131,12 @@
             icon.image = UIImageNamed(@"setting_nightModeUnSelected");
         }
         cell.accessoryView = icon;
+    }else if ([title isEqualToString:@"视频自动播放"]){
+        if (UserGetBool(@"VideoAutoPlay")) {
+            cell.detailTextLabel.text = @"仅Wi-Fi网络";
+        }else{
+            cell.detailTextLabel.text = @"从不";
+        }
     }
     
     return cell;
@@ -168,8 +176,8 @@
         }
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
     }else if (CompareString(title, @"字体大小")){
-        [FontAndNightModeView showWithModelAndFont:^(BOOL open, NSInteger fontIndex) {
-            GGLog(@"夜间模式：%d,选择了下标为%ld的字体大小",open,fontIndex);
+        [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
+//            GGLog(@"夜间模式：%d,选择了下标为%ld的字体大小",open,fontIndex);
             if (open) {
                 UserSetBool(YES, @"NightMode")
             }else{
@@ -179,6 +187,16 @@
             UserSet(fontSize, @"fontSize")
             NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
             [tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:0];
+        }];
+    }else if (CompareString(title, @"视频自动播放")){
+        [VideoAutoPlaySelectView show:^(NSInteger selectIndex) {
+//            GGLog(@"选择了%ld",selectIndex);
+            if (selectIndex) {
+                UserSetBool(NO, @"VideoAutoPlay")
+            }else{
+                UserSetBool(YES, @"VideoAutoPlay")
+            }
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
         }];
     }else if (CompareString(title, @"清除缓存")){
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"需要清除缓存嘛？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
@@ -193,8 +211,9 @@
         [alertVC addAction:action2];
         [self presentViewController:alertVC animated:YES completion:nil];
     }else if (CompareString(title, @"退出登录")){
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"退出登录？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [LogoutNoticeView show:^{
+//            GGLog(@"确定退出登录");
             [UserModel clearLocalData];
             //重构主界面
             MainTabbarVC *mainVC = [MainTabbarVC new];
@@ -203,10 +222,6 @@
             
             [keyWindow makeKeyAndVisible];
         }];
-        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"不用了" style:UIAlertActionStyleCancel handler:nil];
-        [alertVC addAction:action1];
-        [alertVC addAction:action2];
-        [self presentViewController:alertVC animated:YES completion:nil];
     }
     
 }

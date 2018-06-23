@@ -14,7 +14,7 @@
 
 static CGFloat anumationTime = 0.3;
 
-+(void)showWithModelAndFont:(void (^)(BOOL, NSInteger))handlBlock
++(void)show:(void (^)(BOOL, NSInteger))handlBlock
 {
     
     //背景视图
@@ -45,7 +45,7 @@ static CGFloat anumationTime = 0.3;
     [[backTap rac_gestureSignal]subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         STRONG(strongBackView, weakBackView)
         [UIView animateWithDuration:anumationTime animations:^{
-            backView.alpha = 0;
+            strongBackView.alpha = 0;
             bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame), ScreenW, 180);
         } completion:^(BOOL finished) {
             [strongBackView removeFromSuperview];
@@ -173,7 +173,7 @@ static CGFloat anumationTime = 0.3;
         }
         STRONG(strongBackView, weakBackView)
         [UIView animateWithDuration:anumationTime animations:^{
-            backView.alpha = 0;
+            strongBackView.alpha = 0;
             bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame), ScreenW, 180);
         } completion:^(BOOL finished) {
             [strongBackView removeFromSuperview];

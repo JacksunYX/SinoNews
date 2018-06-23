@@ -9,6 +9,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^selectBlock)(NSInteger selectIndex);
+
 @interface VideoAutoPlaySelectView : UIView
+/**
+ 显示在当前页面
+ */
++(void)show:(selectBlock)handlBlock;
+
+@property (nonatomic,copy)selectBlock handlBlock;
 
 @end

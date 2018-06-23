@@ -126,6 +126,7 @@
 		4C95FFD620DDE8FA0040E348 /* ReadMe.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C95FFD420DDE8FA0040E348 /* ReadMe.strings */; };
 		4C95FFDA20DDEEC80040E348 /* LQXSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFD920DDEEC80040E348 /* LQXSwitch.m */; };
 		4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFDC20DDF4EA0040E348 /* VideoAutoPlaySelectView.m */; };
+		4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */; };
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
@@ -414,6 +415,8 @@
 		4C95FFD920DDEEC80040E348 /* LQXSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQXSwitch.m; sourceTree = "<group>"; };
 		4C95FFDB20DDF4EA0040E348 /* VideoAutoPlaySelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoAutoPlaySelectView.h; sourceTree = "<group>"; };
 		4C95FFDC20DDF4EA0040E348 /* VideoAutoPlaySelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoAutoPlaySelectView.m; sourceTree = "<group>"; };
+		4C95FFDE20DE1B490040E348 /* LogoutNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogoutNoticeView.h; sourceTree = "<group>"; };
+		4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogoutNoticeView.m; sourceTree = "<group>"; };
 		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
 		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
 		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
@@ -1100,6 +1103,8 @@
 				4C95FFCC20DDD1950040E348 /* FontAndNightModeView.m */,
 				4C95FFDB20DDF4EA0040E348 /* VideoAutoPlaySelectView.h */,
 				4C95FFDC20DDF4EA0040E348 /* VideoAutoPlaySelectView.m */,
+				4C95FFDE20DE1B490040E348 /* LogoutNoticeView.h */,
+				4C95FFDF20DE1B490040E348 /* LogoutNoticeView.m */,
 			);
 			path = SettingCustomView;
 			sourceTree = "<group>";
@@ -1500,6 +1505,7 @@
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
+				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,

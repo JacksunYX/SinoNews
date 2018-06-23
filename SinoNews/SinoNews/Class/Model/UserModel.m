@@ -25,6 +25,7 @@ MJCodingImplementation
     if (!kArrayIsEmpty(findAlls)) {
         [UserModel bg_clear:nil];
     }
+    GGLog(@"本地用户信息已清除");
 }
 
 @end

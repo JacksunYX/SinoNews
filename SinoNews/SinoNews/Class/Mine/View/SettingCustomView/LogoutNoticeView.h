@@ -1,19 +1,19 @@
 //
-//  FontAndNightModeView.h
+//  LogoutNoticeView.h
 //  SinoNews
 //
 //  Created by Michael on 2018/6/23.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//夜间模式和字体大小选择
+//自定义退出提示框
 
 #import <UIKit/UIKit.h>
 
-@interface FontAndNightModeView : UIView
+@interface LogoutNoticeView : UIView
 
 /**
  显示在当前页面
  */
-+(void)show: (void(^)(BOOL open,NSInteger fontIndex))handlBlock;
++(void)show:(void(^)(void))handlBlock;
 
 @end

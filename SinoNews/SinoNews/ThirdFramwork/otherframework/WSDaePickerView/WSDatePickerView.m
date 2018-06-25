@@ -406,17 +406,18 @@ typedef void(^doneBlock)(NSDate *);
 //        topLine.hidden = YES;
 //        botomLine.hidden = YES;
         //添加自定义的上下部分分割线
-        CGFloat totalWid = self.datePicker.width - 20 *2;
-        CGFloat avgLineW = 57;
-        CGFloat space = (totalWid - 57*3)/2;
+        CGFloat lrMargin = 30*ScaleW;
+        CGFloat space = lrMargin * 2;
+        CGFloat totalWid = self.datePicker.width - lrMargin *2;
+        CGFloat avgLineW = (totalWid - space*2)/3;
         
         topLine.backgroundColor = [UIColor whiteColor];
-        UIView *customLineT = [[UIView alloc]initWithFrame:CGRectMake(20, 0, totalWid, 1)];
+        UIView *customLineT = [[UIView alloc]initWithFrame:CGRectMake(lrMargin, 0, totalWid, 1)];
         [self drawDashLine:customLineT lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
         [topLine addSubview:customLineT];
         
         botomLine.backgroundColor = [UIColor whiteColor];
-        UIView *customLineB = [[UIView alloc]initWithFrame:CGRectMake(20, 0, totalWid, 1)];
+        UIView *customLineB = [[UIView alloc]initWithFrame:CGRectMake(lrMargin, 0, totalWid, 1)];
         [self drawDashLine:customLineB lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
         [botomLine addSubview:customLineB];
 

@@ -39,7 +39,7 @@
  */
 -(void)showNavigationDownLine
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forBarMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
     

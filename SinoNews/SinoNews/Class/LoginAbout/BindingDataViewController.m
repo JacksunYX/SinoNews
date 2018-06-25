@@ -38,7 +38,6 @@
 
 -(void)setUI
 {
-    @weakify(self);
     //背景图
     UIImageView *backImg = [UIImageView new];
     backImg.userInteractionEnabled = YES;
@@ -59,6 +58,11 @@
     username = [TXLimitedTextField new];
     username.clearButtonMode = UITextFieldViewModeWhileEditing;
     username.delegate = self;
+    if (self.bindingType) {
+        username.limitedType = TXLimitedTextFieldTypeCustom;
+        username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+        username.limitedNumber = 11;
+    }
     
     UIView *seccodeBackView = [UIView new];
     seccodeBackView.backgroundColor = WhiteColor;
@@ -76,6 +80,7 @@
     
     confirmBtn = [UIButton new];
     [confirmBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+    confirmBtn.backgroundColor = RGBA(62, 159, 252, 1);
     confirmBtn.titleLabel.font = PFFontL(17);
     
     [backImg sd_addSubviews:@[
@@ -92,7 +97,7 @@
     [username updateLayout];
     username.placeholder = @"请输入邮箱";
     if (self.bindingType) {
-        username.placeholder = @"请输入手机/邮箱";
+        username.placeholder = @"请输入手机";
     }
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
@@ -150,22 +155,38 @@
 
 -(void)confirmAction
 {
-    GGLog(@"确认");
+    if (kStringIsEmpty(username.text)) {
+        LRToast(@"请输入账号");
+    }else if (kStringIsEmpty(seccode.text)){
+        LRToast(@"请输入验证码");
+    }else{
+        //检测帐号
+        if (self.bindingType) {
+            if (![username.text isValidPhone]) {
+                LRToast(@"手机号有误！");
+                return;
+            }
+        }else{
+            if (![username.text isValidEmail]) {
+                LRToast(@"邮箱有误！");
+                return;
+            }
+        }
+        LRToast(@"绑定中...");
+    }
 }
 
 -(void)getSeccode:(UIButton *)sender
 {
     //检测帐号
-    //先做邮箱判断
-    if ([username.text containsString:@"@"]) {
-        if (![username.text isValidEmail]) {
-            LRToast(@"邮箱有误！");
-            return;
-        }
-        
-    }else{
+    if (self.bindingType) {
         if (![username.text isValidPhone]) {
             LRToast(@"手机号有误！");
+            return;
+        }
+    }else{
+        if (![username.text isValidEmail]) {
+            LRToast(@"邮箱有误！");
             return;
         }
     }
@@ -181,7 +202,40 @@
     
 }
 
+#pragma mark ----- UITextFieldDelegate
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == username) {
+        [username resignFirstResponder];
+        [seccode becomeFirstResponder];
+    }else{
+        [seccode resignFirstResponder];
+        [confirmBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return NO;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSString *tem = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]componentsJoinedByString:@""];
+    if (![string isEqualToString:tem]) {
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    if (action == @selector(paste:))//禁止粘贴
+        return NO;
+    if (action == @selector(select:))// 禁止选择
+        return NO;
+    if (action == @selector(selectAll:))// 禁止全选
+        return NO;
+    return [super canPerformAction:action withSender:sender];
+}
 
 
 

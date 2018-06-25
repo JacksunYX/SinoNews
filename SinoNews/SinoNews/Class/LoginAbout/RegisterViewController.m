@@ -311,7 +311,6 @@
     return YES;
 }
 
-
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (action == @selector(paste:))//禁止粘贴

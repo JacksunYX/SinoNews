@@ -28,9 +28,9 @@
     
     [self.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:18],
+     @{NSFontAttributeName:PFFontL(16),
        
-       NSForegroundColorAttributeName:HexColor(#333333)}];
+       NSForegroundColorAttributeName:HexColor(#323232)}];
     
 }
 

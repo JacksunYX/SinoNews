@@ -10,6 +10,7 @@
 #import "WSDatePickerView.h"
 #import "BindingDataViewController.h"
 #import "ChangePasswordViewController.h"
+#import "AddressViewController.h"
 
 @interface PersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -267,7 +268,8 @@
         datepicker.hideBackgroundYearLabel = YES;
         [datepicker show];
     }else if (CompareString(title, @"收货地址")){
-        
+        AddressViewController *aVC = [AddressViewController new];
+        [self.navigationController pushViewController:aVC animated:YES];
     }else if (CompareString(title, @"绑定手机")){
         BindingDataViewController *bdVC = [BindingDataViewController new];
         bdVC.bindingType = 1;

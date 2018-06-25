@@ -234,12 +234,13 @@
         }
     }];
     
-    [[replyBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        @strongify(self);
-        if (self.replayBlock) {
-            self.replayBlock(self.tag);
-        }
-    }];
+    replyBtn.hidden = YES;
+//    [[replyBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+//        @strongify(self);
+//        if (self.replayBlock) {
+//            self.replayBlock(self.tag);
+//        }
+//    }];
     
     createTime.text = @"1小时前";
     

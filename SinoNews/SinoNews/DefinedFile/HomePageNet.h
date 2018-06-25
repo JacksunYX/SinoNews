@@ -23,6 +23,8 @@
 #define ShowComment             @"/api/showComment"
 //回复评论(post)
 #define Comments                @"/api/comments"
+//查看评论的回复(get)
+#define ShowReply               @"/api/showReply"
 
 //新闻收藏(post)
 #define Favor                   @"/api/favor"

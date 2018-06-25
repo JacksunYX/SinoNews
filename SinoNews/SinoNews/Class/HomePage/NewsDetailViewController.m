@@ -8,6 +8,7 @@
 
 #import <WebKit/WebKit.h>
 #import "NewsDetailViewController.h"
+#import "CommentDetailViewController.h"
 #import "HomePageFirstKindCell.h"
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
@@ -15,8 +16,9 @@
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     CGFloat topWebHeight;
-    UITextField *commentInput;
+    
 }
+@property (nonatomic,strong) UITextField *commentInput;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
 @property (nonatomic,strong) NormalNewsModel *newsModel;    //新闻模型
@@ -85,10 +87,13 @@
         .heightIs(47)
         ;
         
-        commentInput = [UITextField new];
-        commentInput.delegate = self;
-        commentInput.returnKeyType = UIReturnKeySend;
+        self.commentInput = [UITextField new];
+        self.commentInput.delegate = self;
+        self.commentInput.returnKeyType = UIReturnKeySend;
+        @weakify(self)
         [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+            @strongify(self)
+            GGLog(@"完成编辑");
             UITextField *field = x.first;
             GGLog(@"-----%@",field.text);
             [field resignFirstResponder];
@@ -100,11 +105,16 @@
             }
         }];
         
+//        [[self rac_signalForSelector:@selector(textFieldDidEndEditing:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+//            GGLog(@"结束编辑");
+//            @strongify(self)
+//
+//        }];
+        
         _praiseBtn = [UIButton new];
         _collectBtn = [UIButton new];
         UIButton *shareBtn = [UIButton new];
         
-        @weakify(self);
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             if (self.praiseBtn.selected) {
@@ -126,7 +136,7 @@
                                           shareBtn,
                                           _collectBtn,
                                           _praiseBtn,
-                                          commentInput,
+                                          self.commentInput,
                                           ]];
         
         shareBtn.sd_layout
@@ -155,29 +165,29 @@
         [_praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
         [_praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
         
-        commentInput.sd_layout
+        self.commentInput.sd_layout
         .leftSpaceToView(self.bottomView, 35)
         .rightSpaceToView(_praiseBtn, 16)
         .centerYEqualToView(self.bottomView)
         .heightIs(33)
         ;
-        commentInput.backgroundColor = RGBA(238, 238, 238, 1);
-        [commentInput setSd_cornerRadius:@16];
+        self.commentInput.backgroundColor = RGBA(238, 238, 238, 1);
+        [self.commentInput setSd_cornerRadius:@16];
         NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
         NSDictionary *dic = @{
                               NSFontAttributeName : PFFontR(14),
                               NSForegroundColorAttributeName : RGBA(53, 53, 53, 1),
                               };
         [placeholder addAttributes:dic range:NSMakeRange(0, placeholder.length)];
-        commentInput.attributedPlaceholder = placeholder;
+        self.commentInput.attributedPlaceholder = placeholder;
         
         UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 33)];
         UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
         [leftView addSubview:leftImg];
         leftImg.center = leftView.center;
         leftImg.image = UIImageNamed(@"news_comment");
-        commentInput.leftViewMode = UITextFieldViewModeAlways;
-        commentInput.leftView = leftView;
+        self.commentInput.leftViewMode = UITextFieldViewModeAlways;
+        self.commentInput.leftView = leftView;
         
     }
     
@@ -432,15 +442,19 @@
     }else if (indexPath.section == 1){
         CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
         cell2.tag = indexPath.row;
-        cell2.model = self.commentsArr[indexPath.row];
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        cell2.model = model;
+//        @weakify(self)
         //点赞
         cell2.praiseBlock = ^(NSInteger row) {
             GGLog(@"点赞");
         };
         //回复TA
-        cell2.replayBlock = ^(NSInteger row) {
-            GGLog(@"点击了回复TA");
-        };
+//        cell2.replayBlock = ^(NSInteger row) {
+//            @strongify(self)
+//            self.parentId = [model.commentId integerValue];
+//            [self.commentInput becomeFirstResponder];
+//        };
         //点击回复
         cell2.clickReplay = ^(NSInteger row,NSInteger index) {
             GGLog(@"点击了第%ld条回复",index);
@@ -518,7 +532,7 @@
         .autoHeightRatio(0)
         ;
         if (self.newsModel) {
-            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.newsModel.commentCount];
+            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.commentsArr.count];
         }else{
           title.text = @"全部评论";
         }
@@ -528,7 +542,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GGLog(@"tableView点击了");
+//    GGLog(@"tableView点击了");
+    [self.view endEditing:YES];
+    if (indexPath.section == 1) {
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        CommentDetailViewController *cdVC = [CommentDetailViewController new];
+        cdVC.model = model;
+        [self.navigationController pushViewController:cdVC animated:YES];
+    }
+    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -600,14 +622,16 @@
 -(void)requestComments
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"newsId"] = @(1);
+    parameters[@"newsId"] = @(self.newsId);
     parameters[@"currPage"] = @(self.currPage);
     [HttpRequest getWithURLString:ShowComment parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         if (self.currPage == 1) {
+            [self.tableView.mj_header endRefreshing];
             if (arr.count) {
                 self.commentsArr = [arr mutableCopy];
+                [self.tableView.mj_footer endRefreshing];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
@@ -635,7 +659,8 @@
     parameters[@"parentId"] = @(self.parentId);
     
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"发送成功，等待审核~");
+        LRToast(@"评论成功~");
+//        self.parentId = 0;
         [self refreshComments];
     } failure:nil RefreshAction:^{
         [self requestNewData];
@@ -650,8 +675,12 @@
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"点赞成功～");
-        self.newsModel.hasPraised = !self.newsModel.hasPraised;
-        [self setBottomView];
+        if (praiseType == 3) {  //新闻
+            self.newsModel.hasPraised = !self.newsModel.hasPraised;
+            [self setBottomView];
+        }else{
+            
+        }
     } failure:nil RefreshAction:^{
         [self requestNewData];
     }];
@@ -692,7 +721,6 @@
         [self requestNewData];
     }];
 }
-
 
 //分享
 -(void)shareView

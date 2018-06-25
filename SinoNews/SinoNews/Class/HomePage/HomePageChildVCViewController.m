@@ -235,8 +235,8 @@
     
     parameters[@"page"] = @(self.page);
     parameters[@"loadType"] = @(upOrDown);
-    parameters[@"channelId"] = @0;
-    parameters[@"loadTime"] = @1525939544;
+    parameters[@"channelId"] = @([self.news_id integerValue]);
+    parameters[@"loadTime"] = @0;
     
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         
@@ -278,7 +278,7 @@
 -(void)requestBanner
 {
     [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
-        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]]];
+        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
         if (!kArrayIsEmpty(self.adArr)) {
             //只有第一个才加载banner
             [self creatBanner];

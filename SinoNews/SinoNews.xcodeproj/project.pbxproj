@@ -101,6 +101,7 @@
 		4C6332CC20E08EAE00D80056 /* EditAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332CB20E08EAE00D80056 /* EditAddressViewController.m */; };
 		4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332CE20E097CB00D80056 /* AddressTableViewCell.m */; };
 		4C6332D320E0985C00D80056 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332D220E0985C00D80056 /* AddressModel.m */; };
+		4C6332D620E0D11000D80056 /* CommentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332D520E0D11000D80056 /* CommentDetailViewController.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -377,6 +378,8 @@
 		4C6332CE20E097CB00D80056 /* AddressTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		4C6332D120E0985C00D80056 /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		4C6332D220E0985C00D80056 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		4C6332D420E0D11000D80056 /* CommentDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentDetailViewController.h; sourceTree = "<group>"; };
+		4C6332D520E0D11000D80056 /* CommentDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentDetailViewController.m; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -709,6 +712,8 @@
 				4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */,
 				4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */,
 				4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */,
+				4C6332D420E0D11000D80056 /* CommentDetailViewController.h */,
+				4C6332D520E0D11000D80056 /* CommentDetailViewController.m */,
 				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
@@ -894,7 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
-				4C95FFE420DE4C7A0040E348 /* WSDaePickerView */,
+				4C95FFE420DE4C7A0040E348 /* WSDatePickerView */,
 				4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */,
 				4C13E96320C67263009115C1 /* AddressPickerView */,
 				4C17414920C52F7B00AA6D57 /* LXSegmentBtn */,
@@ -1183,7 +1188,7 @@
 			path = LQX;
 			sourceTree = "<group>";
 		};
-		4C95FFE420DE4C7A0040E348 /* WSDaePickerView */ = {
+		4C95FFE420DE4C7A0040E348 /* WSDatePickerView */ = {
 			isa = PBXGroup;
 			children = (
 				4C95FFE520DE4C7A0040E348 /* NSDate+Extension.h */,
@@ -1194,7 +1199,7 @@
 				4C95FFEA20DE4C7A0040E348 /* NSDate+Extension.m */,
 				4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */,
 			);
-			path = WSDaePickerView;
+			path = WSDatePickerView;
 			sourceTree = "<group>";
 		};
 		4CB4196E20DA792A00EBF202 /* UIScrollView */ = {
@@ -1640,6 +1645,7 @@
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
+				4C6332D620E0D11000D80056 /* CommentDetailViewController.m in Sources */,
 				4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
 				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,

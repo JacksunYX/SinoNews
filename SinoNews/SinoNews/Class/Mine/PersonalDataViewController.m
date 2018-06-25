@@ -9,6 +9,7 @@
 #import "PersonalDataViewController.h"
 #import "WSDatePickerView.h"
 #import "BindingDataViewController.h"
+#import "ChangePasswordViewController.h"
 
 @interface PersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -275,7 +276,8 @@
         BindingDataViewController *bdVC = [BindingDataViewController new];
         [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"修改密码")){
-        
+        ChangePasswordViewController *cpVC = [ChangePasswordViewController new];
+        [self.navigationController pushViewController:cpVC animated:YES];
     }
 }
 

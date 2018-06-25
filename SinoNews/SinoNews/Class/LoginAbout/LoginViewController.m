@@ -286,6 +286,7 @@
     return NO;
 }
 
+//检测空格
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSString *tem = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]componentsJoinedByString:@""];
@@ -295,6 +296,7 @@
     return YES;
 }
 
+//禁止粘贴、全选
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (action == @selector(paste:))//禁止粘贴

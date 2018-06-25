@@ -96,6 +96,7 @@
 		4C5494A620CE799500CB448E /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5494A520CE799500CB448E /* NSString+Time.m */; };
 		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */; };
+		4C6332C620E07CBA00D80056 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332C520E07CBA00D80056 /* ChangePasswordViewController.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -362,6 +363,8 @@
 		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendVC.h; sourceTree = "<group>"; };
 		4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendVC.m; sourceTree = "<group>"; };
+		4C6332C420E07CBA00D80056 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		4C6332C520E07CBA00D80056 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -562,6 +565,8 @@
 				4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */,
 				4C95FFF020DE514E0040E348 /* BindingDataViewController.h */,
 				4C95FFF120DE514E0040E348 /* BindingDataViewController.m */,
+				4C6332C420E07CBA00D80056 /* ChangePasswordViewController.h */,
+				4C6332C520E07CBA00D80056 /* ChangePasswordViewController.m */,
 			);
 			path = LoginAbout;
 			sourceTree = "<group>";
@@ -1502,6 +1507,7 @@
 				4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */,
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
+				4C6332C620E07CBA00D80056 /* ChangePasswordViewController.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,

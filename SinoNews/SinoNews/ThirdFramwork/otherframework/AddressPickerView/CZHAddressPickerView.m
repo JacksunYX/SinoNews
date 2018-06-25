@@ -160,21 +160,22 @@ typedef NS_ENUM(NSInteger, CZHAddressPickerViewType) {
     self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     
     UIView *containView = [[UIView alloc] init];
-    containView.frame = CGRectMake(0, ScreenHeight, ScreenWidth, CZH_ScaleHeight(270));
+    containView.frame = CGRectMake(0, ScreenHeight, ScreenWidth, CZH_ScaleHeight(223));
     [self addSubview:containView];
     self.containView = containView;
     
     
     UIView *toolBar = [[UIView alloc] init];
     toolBar.frame = CGRectMake(0, 0, ScreenWidth, CZH_ScaleHeight(55));
-    toolBar.backgroundColor = CZHColor(0xf6f6f6);
+//    toolBar.backgroundColor = CZHColor(0xf6f6f6);
+    toolBar.backgroundColor = [UIColor whiteColor];
     [containView addSubview:toolBar];
     
-    UIButton *cancleButton = [UIButton czh_buttonWithTarget:self action:@selector(buttonClick:) frame:CGRectMake(0, 0, TOOLBAR_BUTTON_WIDTH, toolBar.czh_height) titleColor:CZHColor(0x666666) titleFont:CZHGlobelNormalFont(18) title:@"取消"];
+    UIButton *cancleButton = [UIButton czh_buttonWithTarget:self action:@selector(buttonClick:) frame:CGRectMake(0, 0, TOOLBAR_BUTTON_WIDTH, toolBar.czh_height) titleColor:RGBA(152, 152, 152, 1) titleFont:CZHGlobelNormalFont(16) title:@"取消"];
     cancleButton.tag = CZHAddressPickerViewButtonTypeCancle;
     [toolBar addSubview:cancleButton];
     
-    UIButton *sureButton = [UIButton czh_buttonWithTarget:self action:@selector(buttonClick:) frame:CGRectMake(toolBar.czh_width - TOOLBAR_BUTTON_WIDTH, 0, TOOLBAR_BUTTON_WIDTH, toolBar.czh_height) titleColor:CZHThemeColor titleFont:CZHGlobelNormalFont(18) title:@"确定"];
+    UIButton *sureButton = [UIButton czh_buttonWithTarget:self action:@selector(buttonClick:) frame:CGRectMake(toolBar.czh_width - TOOLBAR_BUTTON_WIDTH, 0, TOOLBAR_BUTTON_WIDTH, toolBar.czh_height) titleColor:RGBA(152, 152, 152, 1) titleFont:CZHGlobelNormalFont(16) title:@"确定"];
     sureButton.tag = CZHAddressPickerViewButtonTypeSure;
     [toolBar addSubview:sureButton];
     
@@ -339,6 +340,31 @@ typedef NS_ENUM(NSInteger, CZHAddressPickerViewType) {
     }else if (component == 2){
         label.text = self.areaArray[row];
     }
+    
+    static NSInteger addLine = 0;
+    if (addLine ==0) {
+        UIView* topLine  =  [pickerView.subviews objectAtIndex:1];
+        UIView* botomLine  =  [pickerView.subviews objectAtIndex:2];
+        //        topLine.hidden = YES;
+        //        botomLine.hidden = YES;
+        //添加自定义的上下部分分割线
+        CGFloat lrMargin = 30*ScaleW;
+        CGFloat space = lrMargin * 2;
+        CGFloat totalWid = self.frame.size.width - lrMargin *2;
+        CGFloat avgLineW = (totalWid - space*2)/3;
+        
+        topLine.backgroundColor = [UIColor whiteColor];
+        UIView *customLineT = [[UIView alloc]initWithFrame:CGRectMake(lrMargin, 0, totalWid, 1)];
+        [UIView drawDashLine:customLineT lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
+        [topLine addSubview:customLineT];
+        
+        botomLine.backgroundColor = [UIColor whiteColor];
+        UIView *customLineB = [[UIView alloc]initWithFrame:CGRectMake(lrMargin, 0, totalWid, 1)];
+        [UIView drawDashLine:customLineB lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
+        [botomLine addSubview:customLineB];
+        
+    }
+    
     return label;
 }
 

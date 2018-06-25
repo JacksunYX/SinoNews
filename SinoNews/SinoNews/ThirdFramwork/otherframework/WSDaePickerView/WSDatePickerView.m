@@ -390,8 +390,6 @@ typedef void(^doneBlock)(NSDate *);
 
 -(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     
-    static NSInteger addLine = 0;
-    
     UILabel *customLabel = (UILabel *)view;
     if (!customLabel) {
         customLabel = [[UILabel alloc] init];
@@ -400,6 +398,7 @@ typedef void(^doneBlock)(NSDate *);
     }
     NSString *title;
     
+    static NSInteger addLine = 0;
     if (self.datePickerStyle == DateStyleShowYearMonthDay && addLine ==0) {
         UIView* topLine  =  [pickerView.subviews objectAtIndex:1];
         UIView* botomLine  =  [pickerView.subviews objectAtIndex:2];
@@ -413,12 +412,12 @@ typedef void(^doneBlock)(NSDate *);
         
         topLine.backgroundColor = [UIColor whiteColor];
         UIView *customLineT = [[UIView alloc]initWithFrame:CGRectMake(lrMargin, 0, totalWid, 1)];
-        [self drawDashLine:customLineT lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
+        [UIView drawDashLine:customLineT lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
         [topLine addSubview:customLineT];
         
         botomLine.backgroundColor = [UIColor whiteColor];
         UIView *customLineB = [[UIView alloc]initWithFrame:CGRectMake(lrMargin, 0, totalWid, 1)];
-        [self drawDashLine:customLineB lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
+        [UIView drawDashLine:customLineB lineLength:avgLineW lineSpacing:space lineColor:RGBA(87, 161, 232, 1)];
         [botomLine addSubview:customLineB];
 
     }
@@ -512,28 +511,6 @@ typedef void(^doneBlock)(NSDate *);
     
 }
 
-- (void)drawDashLine:(UIView *)lineView lineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor
-{
-    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
-    [shapeLayer setBounds:lineView.bounds];
-    [shapeLayer setPosition:CGPointMake(CGRectGetWidth(lineView.frame) / 2, CGRectGetHeight(lineView.frame))];
-    [shapeLayer setFillColor:[UIColor clearColor].CGColor];
-    //  设置虚线颜色为blackColor
-    [shapeLayer setStrokeColor:lineColor.CGColor];
-    //  设置虚线宽度
-    [shapeLayer setLineWidth:CGRectGetHeight(lineView.frame)];
-    [shapeLayer setLineJoin:kCALineJoinRound];
-    //  设置线宽，线间距
-    [shapeLayer setLineDashPattern:[NSArray arrayWithObjects:[NSNumber numberWithInt:lineLength], [NSNumber numberWithInt:lineSpacing], nil]];
-    //  设置路径
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, 0, 0);
-    CGPathAddLineToPoint(path, NULL,CGRectGetWidth(lineView.frame), 0);
-    [shapeLayer setPath:path];
-    CGPathRelease(path);
-    //  把绘制好的虚线添加上来
-    [lineView.layer addSublayer:shapeLayer];
-}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {

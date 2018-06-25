@@ -53,7 +53,7 @@
         
         [btn.titleLabel setTextAlignment:NSTextAlignmentRight];
         
-        [btn.titleLabel setFont:PFR15Font];
+        [btn.titleLabel setFont:PFFontL(16)];
         
         btn.frame = CGRectMake(0, 0, 40, 40);
         

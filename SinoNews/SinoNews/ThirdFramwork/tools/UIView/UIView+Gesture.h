@@ -19,4 +19,14 @@
  */
 -(void)creatTapWithSelector:(SEL)sel;
 
+/**
+ 画虚线
+
+ @param lineView 画在哪个视图上
+ @param lineLength 平均线长
+ @param lineSpacing 虚线间隔
+ @param lineColor 线条颜色
+ */
++ (void)drawDashLine:(UIView *)lineView lineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor;
+
 @end

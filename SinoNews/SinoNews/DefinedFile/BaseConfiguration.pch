@@ -34,6 +34,7 @@
 
 //自定义的一些通用视图
 #import "BaseViewHead.h"
+#import "UserInfoViewController.h"
 
 //部分第三方库
 #import <MBProgressHUD.h>

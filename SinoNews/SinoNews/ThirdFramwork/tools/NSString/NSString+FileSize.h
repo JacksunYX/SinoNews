@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/6/22.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//文件大小计算，清楚缓存
+//文件大小计算，清除缓存
 
 #import <Foundation/Foundation.h>
 

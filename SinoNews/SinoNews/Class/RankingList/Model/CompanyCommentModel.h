@@ -18,7 +18,8 @@
 @property (nonatomic,strong) NSString *commentId;   //评论id
 @property (nonatomic,strong) NSString *companyId;   //企业id
 @property (nonatomic,strong) NSString *createTime;  //评论时间
-@property (nonatomic,strong) NSString *likeNum;     //点赞数
+@property (nonatomic,assign) NSInteger likeNum;     //点赞数
+@property (nonatomic,assign) BOOL isPraise;         //是否被点赞了
 
 @property (nonatomic,strong) NSString *parentId;    //父id
 @property (nonatomic,strong) NSString *replyNum;    //回复数

@@ -120,7 +120,7 @@
             if (self.praiseBtn.selected) {
                 LRToast(@"只能点一次赞哟～");
             }else{
-                [self requestPraiseWithPraiseType:3 praiseId:self.newsId];
+                [self requestPraiseWithPraiseType:3 praiseId:self.newsId commentNum:0];
             }
         }];
         
@@ -447,7 +447,8 @@
 //        @weakify(self)
         //点赞
         cell2.praiseBlock = ^(NSInteger row) {
-            GGLog(@"点赞");
+            GGLog(@"点赞的commendId:%@",model.commentId);
+            [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:row];
         };
         //回复TA
 //        cell2.replayBlock = ^(NSInteger row) {
@@ -668,18 +669,29 @@
 }
 
 //点赞文章/评论
--(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"点赞成功～");
+        
         if (praiseType == 3) {  //新闻
+            LRToast(@"点赞成功");
             self.newsModel.hasPraised = !self.newsModel.hasPraised;
             [self setBottomView];
         }else{
+            CompanyCommentModel *model = self.commentsArr[row];
+            model.isPraise = !model.isPraise;
             
+            if (model.isPraise) {
+                LRToast(@"点赞成功");
+                model.likeNum ++;
+            }else{
+                LRToast(@"点赞已取消");
+                model.likeNum --;
+            }
+            [self.tableView reloadData];
         }
     } failure:nil RefreshAction:^{
         [self requestNewData];

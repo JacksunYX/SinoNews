@@ -185,6 +185,14 @@
     return headView;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        UserInfoViewController *uiVC = [UserInfoViewController new];
+        [self.navigationController pushViewController:uiVC animated:YES];
+    }
+}
+
 -(void)pushToAttentionRecommend
 {
     AttentionRecommendVC *arVC = [AttentionRecommendVC new];

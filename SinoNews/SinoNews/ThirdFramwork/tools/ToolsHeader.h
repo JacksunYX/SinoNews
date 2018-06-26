@@ -26,5 +26,6 @@
 #import "UILabel+YBAttributeTextTapAction.h"
 #import "UIScrollView+Direction.h"
 #import "NSString+FileSize.h"
+#import "NSString+AttText.h"
 
 #endif /* ToolsHeader_h */

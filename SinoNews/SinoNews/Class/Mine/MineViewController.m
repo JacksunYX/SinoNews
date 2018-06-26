@@ -330,10 +330,10 @@
         _signIn.hidden = NO;
     }
     
-    _publish.attributedText = [self leadString:pub tailString:@"文章" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
-    _attention.attributedText = [self leadString:att tailString:@"关注" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
-    _fans.attributedText = [self leadString:fan tailString:@"粉丝" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
-    _praise.attributedText = [self leadString:pra tailString:@"获赞" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
+    _publish.attributedText = [NSString leadString:pub tailString:@"文章" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
+    _attention.attributedText = [NSString leadString:att tailString:@"关注" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
+    _fans.attributedText = [NSString leadString:fan tailString:@"粉丝" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
+    _praise.attributedText = [NSString leadString:pra tailString:@"获赞" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     
 }
 
@@ -391,24 +391,6 @@
     return label;
 }
 
-//返回定制文字
--(NSMutableAttributedString *)leadString:(NSString *)str1 tailString:(NSString *)str2 font:(UIFont *)font color:(UIColor *)color lineBreak:(BOOL)tab
-{
-    NSString *totalStr;
-    if (tab) {
-        totalStr = [NSString stringWithFormat:@"%@\n%@",str1,str2];
-    }else{
-        totalStr = [str1 stringByAppendingString:str2];
-    }
-    
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:totalStr];
-    NSDictionary *attDic = @{
-                             NSFontAttributeName:font,
-                             NSForegroundColorAttributeName:color,
-                             };
-    [attStr addAttributes:attDic range:NSMakeRange((totalStr.length - str2.length), str2.length)];
-    return attStr;
-}
 
 //给view添加指定圆角
 -(void)cutCornerradiusWithView:(UIView *)view
@@ -478,7 +460,7 @@
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
     if (indexPath.section == 0 && indexPath.row == 0) {
-        cell.textLabel.attributedText = [self leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+        cell.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
     }else{
         cell.textLabel.text = GetSaveString(model[@"title"]);
     }

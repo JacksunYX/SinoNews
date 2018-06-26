@@ -180,7 +180,14 @@
     .bottomEqualToView(headView)
     ;
     
-    title.text = @"关注的人(0)";
+    if (section == 0) {
+       title.text = @"关注的人(0)";
+    }else if (section == 1){
+        title.text = @"关注的话题(0)";
+    }else if (section == 2){
+        title.text = @"关注的频道(0)";
+    }
+    
     
     return headView;
 }

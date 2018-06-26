@@ -21,10 +21,9 @@ MJCodingImplementation
 {
     UserSet(@"", @"isLogin")
     UserSet(@"", @"token")
-    NSArray* findAlls = [UserModel bg_findAll:nil];
-    if (!kArrayIsEmpty(findAlls)) {
-        [UserModel bg_clear:nil];
-    }
+    UserSet(@"", @"avatar")
+    UserSet(@"", @"username")
+    [UserModel bg_clear:nil];
     GGLog(@"本地用户信息已清除");
 }
 

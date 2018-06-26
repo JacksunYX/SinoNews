@@ -88,6 +88,7 @@
 		4C534F2420E1C37E00754695 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2320E1C37E00754695 /* UserInfoViewController.m */; };
 		4C534F2720E1C6E800754695 /* NSString+AttText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2620E1C6E800754695 /* NSString+AttText.m */; };
 		4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2920E1D5F500754695 /* UserInfoCommentCell.m */; };
+		4C534F2D20E22A0D00754695 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2C20E22A0D00754695 /* TopicViewController.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -355,6 +356,8 @@
 		4C534F2620E1C6E800754695 /* NSString+AttText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AttText.m"; sourceTree = "<group>"; };
 		4C534F2820E1D5F500754695 /* UserInfoCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoCommentCell.h; sourceTree = "<group>"; };
 		4C534F2920E1D5F500754695 /* UserInfoCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoCommentCell.m; sourceTree = "<group>"; };
+		4C534F2B20E22A0D00754695 /* TopicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicViewController.h; sourceTree = "<group>"; };
+		4C534F2C20E22A0D00754695 /* TopicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicViewController.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -723,6 +726,8 @@
 				4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */,
 				4C6332D420E0D11000D80056 /* CommentDetailViewController.h */,
 				4C6332D520E0D11000D80056 /* CommentDetailViewController.m */,
+				4C534F2B20E22A0D00754695 /* TopicViewController.h */,
+				4C534F2C20E22A0D00754695 /* TopicViewController.m */,
 				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
@@ -1576,6 +1581,7 @@
 				4C51FFD820D2758A0018387B /* UIView+GFBorder.m in Sources */,
 				4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */,
 				4C49F06420D0C74D009DC42B /* MyAttentionViewController.m in Sources */,
+				4C534F2D20E22A0D00754695 /* TopicViewController.m in Sources */,
 				4C534F2420E1C37E00754695 /* UserInfoViewController.m in Sources */,
 				4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */,
 				4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */,

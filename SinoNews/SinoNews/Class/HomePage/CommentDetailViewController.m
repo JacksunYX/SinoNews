@@ -200,10 +200,15 @@
         cell2.tag = indexPath.row;
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         cell2.model = model;
-//        @weakify(self)
+        @weakify(self)
         //点赞
         cell2.praiseBlock = ^(NSInteger row) {
-            GGLog(@"点赞");
+            @strongify(self)
+            if (model.isPraise) {
+                LRToast(@"已经点过赞啦~");
+            }else{
+                [self requestPraiseWithPraiseType:1 praiseId:[model.commentId integerValue] commentNum:row];
+            }
         };
         //回复TA
 //        cell2.replayBlock = ^(NSInteger row) {
@@ -298,7 +303,6 @@
     
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论成功~");
-        self.parentId = [self.model.newsId integerValue];
         [self refreshComments];
     } failure:nil RefreshAction:^{
         
@@ -306,14 +310,25 @@
 }
 
 //点赞文章/评论
--(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"点赞成功～");
-        
+        if (praiseType == 1) {
+            CompanyCommentModel *model = self.commentsArr[row];
+            model.isPraise = !model.isPraise;
+            
+            if (model.isPraise) {
+                LRToast(@"点赞成功");
+                model.likeNum ++;
+            }else{
+                LRToast(@"点赞已取消");
+                model.likeNum --;
+            }
+            [self.tableView reloadData];
+        }
         
     } failure:nil RefreshAction:^{
         

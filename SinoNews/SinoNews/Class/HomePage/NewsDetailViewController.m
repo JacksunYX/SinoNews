@@ -118,7 +118,7 @@
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             if (self.praiseBtn.selected) {
-                LRToast(@"只能点一次赞哟～");
+                LRToast(@"已经点过赞啦~");
             }else{
                 [self requestPraiseWithPraiseType:3 praiseId:self.newsId commentNum:0];
             }
@@ -225,7 +225,7 @@
     @weakify(self);
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
-        if (!self.commentsArr.count) {
+        if (self.webView.loading) {
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
@@ -347,8 +347,8 @@
 
 -(void)refreshComments
 {
-    self.currPage = 1;
-    [self requestComments];
+    self.currPage = 0;
+    [self.tableView.mj_footer beginRefreshing];
 }
 
 
@@ -444,11 +444,16 @@
         cell2.tag = indexPath.row;
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         cell2.model = model;
-//        @weakify(self)
+        @weakify(self)
         //点赞
         cell2.praiseBlock = ^(NSInteger row) {
             GGLog(@"点赞的commendId:%@",model.commentId);
-            [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:row];
+            @strongify(self)
+            if (model.isPraise) {
+                LRToast(@"已经点过赞啦～");
+            }else{
+                [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:row];
+            }
         };
         //回复TA
 //        cell2.replayBlock = ^(NSInteger row) {
@@ -533,7 +538,7 @@
         .autoHeightRatio(0)
         ;
         if (self.newsModel) {
-            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.commentsArr.count];
+            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.newsModel.commentCount];
         }else{
           title.text = @"全部评论";
         }
@@ -603,7 +608,7 @@
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
         if (!self.webView.URL.absoluteString) {
-            NSString *urlStr = ApiAppending(self.newsModel.freeContentUrl);
+            NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
             GGLog(@"文章h5：%@",urlStr);
             NSURL *url = UrlWithStr(urlStr);
             //        NSURL *url = UrlWithStr(@"http://www.bilibili.com");
@@ -629,7 +634,7 @@
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         if (self.currPage == 1) {
-            [self.tableView.mj_header endRefreshing];
+//            [self.tableView.mj_header endRefreshing];
             if (arr.count) {
                 self.commentsArr = [arr mutableCopy];
                 [self.tableView.mj_footer endRefreshing];
@@ -663,6 +668,14 @@
         LRToast(@"评论成功~");
 //        self.parentId = 0;
         [self refreshComments];
+        [self requestNewData];
+//        CompanyCommentModel *commentModel = [CompanyCommentModel new];
+//        commentModel.avatar = UserGet(@"avatar");
+//        commentModel.username = UserGet(@"username");
+//        commentModel.comment = comment;
+//        [self.commentsArr
+//         insertObject:commentModel atIndex:0];
+//        [self.tableView reloadData];
     } failure:nil RefreshAction:^{
         [self requestNewData];
     }];
@@ -680,7 +693,7 @@
             LRToast(@"点赞成功");
             self.newsModel.hasPraised = !self.newsModel.hasPraised;
             [self setBottomView];
-        }else{
+        }else if (praiseType == 2) {
             CompanyCommentModel *model = self.commentsArr[row];
             model.isPraise = !model.isPraise;
             

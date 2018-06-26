@@ -8,6 +8,7 @@
 
 #import "HomePageChildVCViewController.h"
 #import "NewsDetailViewController.h"
+#import "TopicViewController.h"
 
 #import "HeadBannerView.h"
 #import "ADModel.h"
@@ -218,7 +219,9 @@
         ndVC.newsId = 118;
         [self.navigationController pushViewController:ndVC animated:YES];
     }else if ([model isKindOfClass:[TopicModel class]]){
-        
+        TopicViewController *tVC = [TopicViewController new];
+        tVC.model = model;
+        [self.navigationController pushViewController:tVC animated:YES];
     }else if ([model isKindOfClass:[ADModel class]]){
         
     }

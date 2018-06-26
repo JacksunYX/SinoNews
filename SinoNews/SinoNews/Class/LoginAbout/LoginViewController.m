@@ -252,8 +252,7 @@
             
             [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
                 LRToast(@"登陆成功");
-                UserSet(@"YES", @"isLogin")
-                UserSet(GetSaveString(response[@"data"][@"token"]), @"token")
+                [YXHeader loginSuccessSaveWithData:response];
                 GCDAfterTime(1, ^{
                     if (self.normalBack) {
                         if (self.backHandleBlock) {

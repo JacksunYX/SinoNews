@@ -29,6 +29,7 @@
 @property (nonatomic ,strong) UserModel *user;
 @property (nonatomic ,assign) NSInteger selectedIndex;
 
+@property (nonatomic, strong) UIView *sectionView;
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @end
 
@@ -49,24 +50,32 @@
     return _articlesArr;
 }
 
--(MLMSegmentHead *)segHead
+-(UIView *)getSectionView
 {
-    if (!_segHead) {
-        _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH - 20, 34) titles:@[@"评论",@"文章"] headStyle:1 layoutStyle:1];
+    if (!self.sectionView) {
+        self.sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 34)];
+        self.sectionView.backgroundColor = WhiteColor;
+        
+        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"评论",@"文章"] headStyle:1 layoutStyle:1];
         //    _segHead.fontScale = .85;
-        _segHead.lineScale = 0.3;
-        _segHead.fontSize = 15;
-        _segHead.lineHeight = 2;
-        _segHead.lineColor = HexColor(#1282EE);
-        _segHead.selectColor = HexColor(#323232);
-        _segHead.deSelectColor = HexColor(#989898);
-        _segHead.maxTitles = 2;
-        _segHead.bottomLineHeight = 1;
-        _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
-        _segHead.singleW_Add = 90;
-        _segHead.delegate = self;
+        self.segHead.lineScale = 0.3;
+        self.segHead.fontSize = 15;
+        self.segHead.lineHeight = 2;
+        self.segHead.lineColor = HexColor(#1282EE);
+        self.segHead.selectColor = HexColor(#323232);
+        self.segHead.deSelectColor = HexColor(#989898);
+        self.segHead.maxTitles = 2;
+        self.segHead.bottomLineHeight = 1;
+        self.segHead.bottomLineColor = RGBA(227, 227, 227, 1);
+        self.segHead.singleW_Add = 90;
+        self.segHead.delegate = self;
+        @weakify(self)
+        [MLMSegmentManager associateHead:self.segHead withScroll:nil completion:^{
+            @strongify(self)
+            [self.sectionView addSubview:self.segHead];
+        }];
     }
-    return _segHead;
+    return self.sectionView;
 }
 
 - (void)viewDidLoad {
@@ -108,6 +117,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:[UserInfoCommentCell class] forCellReuseIdentifier:UserInfoCommentCellID];
+    [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
 }
@@ -349,7 +359,7 @@
     }
 }
 
-//关注事件
+//关注按钮点击事件
 -(void)attentionAction:(UIButton *)sender
 {
     sender.selected = !sender.selected;
@@ -368,7 +378,8 @@
         return 5;
     }
     if (_selectedIndex == 1) {
-        return self.articlesArr.count;
+//        return self.articlesArr.count;
+        return 4;
     }
     return 0;
 }
@@ -405,23 +416,8 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headView = [UIView new];
-    headView.backgroundColor = WhiteColor;
     self.segHead.showIndex = self.selectedIndex;
-    @weakify(headView)
-    @weakify(self)
-//    static int i = 0;
-//    if (i==0) {
-    
-        [MLMSegmentManager associateHead:self.segHead withScroll:nil completion:^{
-            @strongify(headView)
-            @strongify(self)
-            [headView addSubview:self.segHead];
-//            i ++;
-        }];
-//    }
-    
-    return headView;
+    return [self getSectionView];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

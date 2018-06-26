@@ -124,12 +124,11 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
-        NSArray* findAlls = [UserModel bg_findAll:nil];
-        if (kArrayIsEmpty(findAlls)) {
-            [self requestToGetUserInfo];
-        }else{
-            self.user = [findAlls firstObject];
+        self.user = [UserModel getLocalUserModel];
+        if (self.user) {
             [self setHeadViewData:YES];
+        }else{
+            [self requestToGetUserInfo];
         }
     }else{
         [self requestToGetUserInfo];

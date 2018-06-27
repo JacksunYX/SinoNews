@@ -155,8 +155,7 @@
     .topEqualToView(cell.contentView)
     .heightIs((ScreenW - 2 * lrMargin) * 105 / 355)
     ;
-//    [adView setSd_cornerRadius:@6];
-    [adView cornerWithRadius:6];
+    [adView setSd_cornerRadius:@6];
     adView.image = UIImageNamed(GetSaveString(model[@"imgStr"]));
     [cell setupAutoHeightWithBottomView:adView bottomMargin:10];
 }

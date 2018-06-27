@@ -15,7 +15,7 @@
 
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
-
+@property (nonatomic,strong) UIView *headView;
 @end
 
 @implementation TopicViewController
@@ -33,6 +33,8 @@
     self.view.backgroundColor = WhiteColor;
     
     [self addTableView];
+    
+    [self addHeadView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,7 +75,59 @@
         
     }];
     
-    [_tableView.mj_header beginRefreshing];
+//    [_tableView.mj_header beginRefreshing];
+}
+
+-(void)addHeadView
+{
+    if (!self.headView) {
+        self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 270)];
+        self.headView.backgroundColor = WhiteColor;
+        
+        UIImageView *titltImg = [UIImageView new];
+        titltImg.backgroundColor = Arc4randomColor;
+        
+        UILabel *title = [UILabel new];
+        title.font = PFFontL(18);
+        title.numberOfLines = 1;
+        
+        UILabel *subTitle = [UILabel new];
+        subTitle.font = PFFontL(15);
+        subTitle.textColor = RGBA(136, 136, 136, 1);
+        
+        [self.headView sd_addSubviews:@[
+                                        titltImg,
+                                        title,
+                                        subTitle,
+                                        
+                                        ]];
+        
+        titltImg.sd_layout
+        .topEqualToView(self.headView)
+        .leftEqualToView(self.headView)
+        .rightEqualToView(self.headView)
+        .heightIs(125)
+        ;
+        
+        title.sd_layout
+        .topSpaceToView(titltImg, 25)
+        .leftSpaceToView(self.headView, 10)
+        .rightSpaceToView(self.headView, 10)
+        .heightIs(18)
+        ;
+        title.text = @"朝美领导人历史性会晤";
+        
+        subTitle.sd_layout
+        .topSpaceToView(title, 10)
+        .leftSpaceToView(self.headView, 10)
+        .rightSpaceToView(self.headView, 10)
+        .autoHeightRatio(0)
+        ;
+        [subTitle setMaxNumberOfLinesToShow:3];
+        subTitle.text = @"美国总统特朗普将于6月12日在新加坡会见朝鲜最高领 导人金正恩。这是朝美在任领导人历史上首次举行会 晤。";
+    }
+    
+    self.tableView.tableHeaderView = self.headView;
 }
 
 #pragma mark ----- UITableViewDataSource

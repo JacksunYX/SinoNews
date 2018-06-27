@@ -184,7 +184,8 @@
     
     if ([title isEqualToString:@"头像"]) {
         UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 42, 42)];
-        [icon cornerWithRadius:21];
+        icon.layer.cornerRadius = 21;
+        icon.layer.masksToBounds = YES;
         NSString *avatarStr = GetSaveString(self.user.avatar);
         [icon sd_setImageWithURL:UrlWithStr(avatarStr)];
         cell.accessoryView = icon;

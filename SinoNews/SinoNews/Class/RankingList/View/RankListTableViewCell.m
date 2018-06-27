@@ -180,8 +180,7 @@
     }
     
     userIcon.userInteractionEnabled = YES;
-//    [userIcon setSd_cornerRadius:@27];
-    [userIcon cornerWithRadius:27];
+    [userIcon setSd_cornerRadius:@27];
     
     score.sd_layout
     .leftSpaceToView(userIcon, 30 * ScaleW)

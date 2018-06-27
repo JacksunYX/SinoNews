@@ -168,6 +168,12 @@ static CGFloat anumationTime = 0.3;
     
     [[finishBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         GGLog(@"完成");
+        //全局设置字体和夜间模式
+        UserSetBool(switchBtn.on, @"NightMode")
+  
+        NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
+        UserSet(fontSize, @"fontSize")
+        
         if (handlBlock) {
             handlBlock(switchBtn.on,fontSelect.currentIdx);
         }

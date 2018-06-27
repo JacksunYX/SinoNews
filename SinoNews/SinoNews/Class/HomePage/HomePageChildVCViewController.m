@@ -225,7 +225,7 @@
     }else if ([model isKindOfClass:[ADModel class]]){
         
     }
-    
+
 }
 
 #pragma mark ---- 请求方法

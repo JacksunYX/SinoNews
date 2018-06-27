@@ -24,6 +24,10 @@
 		4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414320C5168600AA6D57 /* TXLimitedTextView.m */; };
 		4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */; };
 		4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */; };
+		4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B49C20E250C900470AEB /* IFMShareItem.m */; };
+		4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B49D20E250C900470AEB /* IFMShareView.m */; };
+		4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C17B49E20E250C900470AEB /* IFMShareImage.bundle */; };
+		4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B4A220E250C900470AEB /* IFMShareItemCell.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
 		4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */; };
 		4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD020D34A4500615F20 /* RegisterViewController.m */; };
@@ -82,6 +86,7 @@
 		4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */; };
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
+		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */; };
 		4C51FFD820D2758A0018387B /* UIView+GFBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD420D2758A0018387B /* UIView+GFBorder.m */; };
 		4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD720D2758A0018387B /* UIView+GFCorner.m */; };
@@ -217,6 +222,13 @@
 		4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSegmentBtnView.m; sourceTree = "<group>"; };
 		4C17414D20C545EF00AA6D57 /* ManagerRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ManagerRecordCell.h; sourceTree = "<group>"; };
 		4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManagerRecordCell.m; sourceTree = "<group>"; };
+		4C17B49C20E250C900470AEB /* IFMShareItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFMShareItem.m; sourceTree = "<group>"; };
+		4C17B49D20E250C900470AEB /* IFMShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFMShareView.m; sourceTree = "<group>"; };
+		4C17B49E20E250C900470AEB /* IFMShareImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IFMShareImage.bundle; sourceTree = "<group>"; };
+		4C17B49F20E250C900470AEB /* IFMShareItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareItemCell.h; sourceTree = "<group>"; };
+		4C17B4A020E250C900470AEB /* IFMShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareItem.h; sourceTree = "<group>"; };
+		4C17B4A120E250C900470AEB /* IFMShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareView.h; sourceTree = "<group>"; };
+		4C17B4A220E250C900470AEB /* IFMShareItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFMShareItemCell.m; sourceTree = "<group>"; };
 		4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFourthCell.h; sourceTree = "<group>"; };
 		4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFourthCell.m; sourceTree = "<group>"; };
 		4C1F7B1D20CFB56100C49B11 /* FansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
@@ -344,6 +356,8 @@
 		4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionThirdCell.m; sourceTree = "<group>"; };
 		4C49F07120D0F94B009DC42B /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
+		4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareAndFunctionView.h; sourceTree = "<group>"; };
+		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		4C51FFD420D2758A0018387B /* UIView+GFBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GFBorder.m"; sourceTree = "<group>"; };
@@ -579,6 +593,20 @@
 				4C17414B20C52F7B00AA6D57 /* LXSegmentBtnView.m */,
 			);
 			path = LXSegmentBtn;
+			sourceTree = "<group>";
+		};
+		4C17B49B20E250C900470AEB /* IFMShare */ = {
+			isa = PBXGroup;
+			children = (
+				4C17B49C20E250C900470AEB /* IFMShareItem.m */,
+				4C17B49D20E250C900470AEB /* IFMShareView.m */,
+				4C17B49E20E250C900470AEB /* IFMShareImage.bundle */,
+				4C17B49F20E250C900470AEB /* IFMShareItemCell.h */,
+				4C17B4A020E250C900470AEB /* IFMShareItem.h */,
+				4C17B4A120E250C900470AEB /* IFMShareView.h */,
+				4C17B4A220E250C900470AEB /* IFMShareItemCell.m */,
+			);
+			path = IFMShare;
 			sourceTree = "<group>";
 		};
 		4C21ABCE20D34A0300615F20 /* LoginAbout */ = {
@@ -915,6 +943,7 @@
 			isa = PBXGroup;
 			children = (
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
+				4C17B49B20E250C900470AEB /* IFMShare */,
 				4C95FFE420DE4C7A0040E348 /* WSDatePickerView */,
 				4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */,
 				4C13E96320C67263009115C1 /* AddressPickerView */,
@@ -975,6 +1004,8 @@
 				4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */,
 				4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */,
 				4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */,
+				4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */,
+				4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1418,6 +1449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
+				4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */,
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
@@ -1571,6 +1603,7 @@
 				4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */,
 				4C17414620C5168600AA6D57 /* TXMatchConst.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
+				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
@@ -1620,6 +1653,7 @@
 				4C93497920CF94F500BD8F07 /* PraiseViewController.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
+				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */,
@@ -1632,6 +1666,7 @@
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
+				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */,
@@ -1651,6 +1686,7 @@
 				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
+				4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */,
 				4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,

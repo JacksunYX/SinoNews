@@ -13,6 +13,10 @@
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
 
+#import "FontAndNightModeView.h"
+#import "ShareAndFunctionView.h"
+
+
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     CGFloat topWebHeight;
@@ -32,6 +36,7 @@
 @property (nonatomic,strong) UIButton *collectBtn;
 
 @property (nonatomic,assign) NSInteger parentId;
+
 @end
 
 @implementation NewsDetailViewController
@@ -345,23 +350,35 @@
     _attentionBtn.selected = self.newsModel.isAttention;
 }
 
+//刷新评论
 -(void)refreshComments
 {
     self.currPage = 0;
     [self.tableView.mj_footer beginRefreshing];
 }
 
-
 //更多
 -(void)moreSelect
 {
-    LRToast(@"更多");
+    if (!self.newsModel) {
+        return;
+    }
+    @weakify(self)
+    [ShareAndFunctionView showWithCollect:self.newsModel.isCollection returnBlock:^(NSInteger section, NSInteger row) {
+        @strongify(self)
+        GGLog(@"点击了第%lu行第%lu个",section,row);
+        if (section==1&&row==2) {
+            [self requestCollectNews];
+        }
+    }];
 }
 
-//更多
+//字体
 -(void)fontsSelect
 {
-    LRToast(@"字体");
+    [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
+        
+    }];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context

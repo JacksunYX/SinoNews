@@ -13,6 +13,7 @@
 #import "LXSegmentBtnView.h"
 #import "InputKit.h"
 #import "YSProgressView.h"
+#import "IFMShareView.h"    //分享
 //分页联动
 #import "MLMSegmentManager.h"
 

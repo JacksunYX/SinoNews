@@ -87,6 +87,7 @@
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
+		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */; };
 		4C51FFD820D2758A0018387B /* UIView+GFBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD420D2758A0018387B /* UIView+GFBorder.m */; };
 		4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD720D2758A0018387B /* UIView+GFCorner.m */; };
@@ -358,6 +359,8 @@
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareAndFunctionView.h; sourceTree = "<group>"; };
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
+		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
+		4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+emptyView.m"; sourceTree = "<group>"; };
 		4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		4C51FFD420D2758A0018387B /* UIView+GFBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GFBorder.m"; sourceTree = "<group>"; };
@@ -885,6 +888,7 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4C4ED9E820E39B1500347974 /* UIViewController */,
 				4CB4196E20DA792A00EBF202 /* UIScrollView */,
 				4C3D111C20D8F01500480E03 /* UILabel */,
 				4C49F05E20D0C2B1009DC42B /* UIView */,
@@ -1064,6 +1068,15 @@
 				4C51FFD720D2758A0018387B /* UIView+GFCorner.m */,
 			);
 			path = UIView;
+			sourceTree = "<group>";
+		};
+		4C4ED9E820E39B1500347974 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */,
+				4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */,
+			);
+			path = UIViewController;
 			sourceTree = "<group>";
 		};
 		4C54948920CE20DB00CB448E /* View */ = {
@@ -1633,6 +1646,7 @@
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */,
+				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,

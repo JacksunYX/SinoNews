@@ -36,7 +36,9 @@
 {
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:@"attention_search" hightimage:@"attention_search" andTitle:@""];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:@"manageMenu" hightimage:nil andTitle:@""];
-    
+    if (CompareString(UserGet(@"isLogin"), @"YES")) {
+        
+    }
     [self reloadChildVCWithTitles:@[@"作者",@"频道"]];
     
 }

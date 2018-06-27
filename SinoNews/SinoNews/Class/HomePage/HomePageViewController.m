@@ -68,7 +68,7 @@
     
     self.view.backgroundColor = WhiteColor;
     
-    [self showOrHideLoadView:YES];
+    [self showOrHideLoadView:YES page:1];
     
     [self addNavigationView];
     
@@ -80,38 +80,6 @@
 //        [self reloadChildVCWithTitles:self.titleList];
 //        self.leaveTitleList = columnArr[1];
 //    }
-}
-
-//显隐加载背景
--(void)showOrHideLoadView:(BOOL)show
-{
-    if ([[self.view viewWithTag:10011] isKindOfClass:[UIImageView class]]) {
-        if (!show) {
-            [[self.view viewWithTag:10011] removeFromSuperview];
-        }else{
-            [[self.view viewWithTag:10011] setHidden:NO];
-        }
-    }else{
-        UIImageView *loadingImg = [UIImageView new];
-        loadingImg.tag = 10011;
-        loadingImg.userInteractionEnabled = YES;
-        [self.view addSubview:loadingImg];
-        [self.view bringSubviewToFront:loadingImg];
-        loadingImg.sd_layout
-        .topEqualToView(self.view)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-        ;
-        loadingImg.image = UIImageNamed(@"homePage_loadingImg");
-        if (!show) {
-            [loadingImg removeFromSuperview];
-        }else{
-            [loadingImg setHidden:NO];
-        }
-    }
-    
-    
 }
 
 //修改导航栏显示
@@ -167,7 +135,7 @@
 //设置下方分页联动
 -(void)reloadChildVCWithTitles:(NSArray *)titles
 {
-    [self showOrHideLoadView:NO];
+    [self showOrHideLoadView:NO page:1];
     self.titleList = [titles mutableCopy];
     if (_segHead) {
         [_segHead removeFromSuperview];

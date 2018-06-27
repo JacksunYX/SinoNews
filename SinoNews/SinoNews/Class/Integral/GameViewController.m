@@ -8,7 +8,7 @@
 
 #import "GameViewController.h"
 #import "HeadBannerView.h"
-
+#import "ADModel.h"
 
 @interface GameViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -16,9 +16,18 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 //上方的滚动视图
 @property (nonatomic, strong) HeadBannerView *headView;
+@property (nonatomic,strong) NSMutableArray *adArr; //轮播广告数组
 @end
 
 @implementation GameViewController
+-(NSMutableArray *)adArr
+{
+    if (!_adArr) {
+        _adArr = [NSMutableArray new];
+    }
+    return _adArr;
+}
+
 -(NSMutableArray *)dataSource
 {
     if (!_dataSource) {
@@ -41,7 +50,7 @@
     self.navigationItem.title = @"游戏";
     self.view.backgroundColor = WhiteColor;
     
-    [self addTopLoopView];
+    [self requestBanner];
     
     [self addTableView];
 }
@@ -67,15 +76,18 @@
     [self.headView updateLayout];
     
     NSMutableArray *imgs = [NSMutableArray new];
-    for (int i = 0; i < 4; i ++) {
-        NSString *imgStr = [NSString stringWithFormat:@"banner%d",i];
-        [imgs addObject:imgStr];
+    for (int i = 0; i < self.adArr.count; i ++) {
+        ADModel *model = self.adArr[i];
+        [imgs addObject:model.url];
     }
     self.headView.type = NormalType;
     [self.headView setupUIWithImageUrls:imgs];
     
+    WEAK(weakSelf, self);
     self.headView.selectBlock = ^(NSInteger index) {
         GGLog(@"选择了下标为%ld的轮播图",index);
+        ADModel *model = weakSelf.adArr[index];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
     };
 }
 
@@ -84,7 +96,7 @@
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
-        [self.tableView.top_attr equalTo:self.headView.bottom_attr constant:0];
+        [self.tableView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 15];
         self.tableView.left_attr = self.view.left_attr_safe;
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
@@ -159,5 +171,19 @@
     adView.image = UIImageNamed(GetSaveString(model[@"imgStr"]));
     [cell setupAutoHeightWithBottomView:adView bottomMargin:10];
 }
+
+//请求banner
+-(void)requestBanner
+{
+    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
+        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
+        if (!kArrayIsEmpty(self.adArr)) {
+            [self addTopLoopView];
+        }
+        
+    } failure:nil];
+    
+}
+
 
 @end

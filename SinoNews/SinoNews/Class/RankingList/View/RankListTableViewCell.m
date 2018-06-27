@@ -99,8 +99,8 @@
 -(void)setModel:(RankingListModel *)model
 {
     _model = model;
-    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.companyLogo)];
-    [userIcon sd_setImageWithURL:UrlWithStr(imgStr)];
+//    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.companyLogo)];
+    [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(model.companyLogo))];
 
     [num setTitle:[NSString stringWithFormat:@"%ld",self.tag] forState:UIControlStateNormal];
     score.text = @"";

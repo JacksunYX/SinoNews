@@ -80,8 +80,8 @@
     .widthIs(kScaelW(105))
     .heightEqualToWidth()
     ;
-//    [rightImg setSd_cornerRadius:@4];
-    [rightImg cornerWithRadius:4];
+    [rightImg setSd_cornerRadius:@4];
+//    [rightImg cornerWithRadius:4];
     
     title.sd_layout
     .leftSpaceToView(self.contentView, 10)
@@ -106,8 +106,8 @@
     .heightIs(ScaleW * 17)
     .widthIs(ScaleW * 17 + 10)
     ;
-//    [typeLabel setSd_cornerRadius:@2];
-    [typeLabel cornerWithRadius:2];
+    [typeLabel setSd_cornerRadius:@2];
+//    [typeLabel cornerWithRadius:2];
     //    [typeLabel setSingleLineAutoResizeWithMaxWidth:100];
     
     //    [typeLabel updateLayout];

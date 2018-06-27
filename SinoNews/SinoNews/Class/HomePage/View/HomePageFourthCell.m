@@ -88,7 +88,8 @@
     .heightIs(ScaleW * 17)
     .widthIs(ScaleW * 17 + 10)
     ;
-    [typeLabel cornerWithRadius:2];
+    [typeLabel  setSd_cornerRadius:@4];
+//    [typeLabel cornerWithRadius:2];
    
     [self setupAutoHeightWithBottomView:bottomLabel bottomMargin:15];
 }

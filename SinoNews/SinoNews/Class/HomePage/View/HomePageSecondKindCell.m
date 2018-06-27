@@ -100,8 +100,8 @@
     .widthIs(imgW)
     .heightIs(imgH)
     ;
-//    [imgL setSd_cornerRadius:@4];
-    [imgL cornerWithRadius:4];
+    [imgL setSd_cornerRadius:@4];
+//    [imgL cornerWithRadius:4];
     
     imgC.sd_layout
     .topEqualToView(imgL)
@@ -109,8 +109,8 @@
     .widthIs(imgW)
     .heightIs(imgH)
     ;
-//    [imgC setSd_cornerRadius:@4];
-    [imgC cornerWithRadius:4];
+    [imgC setSd_cornerRadius:@4];
+//    [imgC cornerWithRadius:4];
     
     imgR.sd_layout
     .topEqualToView(imgC)
@@ -118,8 +118,8 @@
     .widthIs(imgW)
     .heightIs(imgH)
     ;
-//    [imgR setSd_cornerRadius:@4];
-    [imgR cornerWithRadius:4];
+    [imgR setSd_cornerRadius:@4];
+//    [imgR cornerWithRadius:4];
     
     bottomLabel.sd_layout
     .leftSpaceToView(self.contentView, lrMargin)

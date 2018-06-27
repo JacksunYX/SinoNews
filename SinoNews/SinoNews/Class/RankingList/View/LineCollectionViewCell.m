@@ -77,9 +77,9 @@
 -(void)setModel:(RankingModel *)model
 {
     _model = model;
-    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.rankingLogo)];
+//    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.rankingLogo)];
 //    GGLog(@"imgStr：%@",imgStr);
-    [backImg sd_setImageWithURL:UrlWithStr(imgStr)];
+    [backImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.rankingLogo))];
     title.text = GetSaveString(model.rankingName);
     updateTime.text = GetSaveString(model.updateTime);
 }

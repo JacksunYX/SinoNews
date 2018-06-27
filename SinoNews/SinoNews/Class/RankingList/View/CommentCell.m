@@ -218,8 +218,8 @@
     _model = model;
     @weakify(self);
     
-    NSString *avaterStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.avatar)];
-    [avatar sd_setImageWithURL:UrlWithStr(avaterStr)];
+//    NSString *avaterStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.avatar)];
+    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
     
     username.text = GetSaveString(model.username);
     

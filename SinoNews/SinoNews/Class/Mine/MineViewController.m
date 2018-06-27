@@ -123,7 +123,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
+    if (CompareString(UserGet(@"isLogin"), @"YES")) {
         self.user = [UserModel getLocalUserModel];
         if (self.user) {
             [self setHeadViewData:YES];

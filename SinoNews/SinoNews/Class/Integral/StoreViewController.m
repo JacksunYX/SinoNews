@@ -9,10 +9,12 @@
 #import "StoreViewController.h"
 #import "StoreChildViewController.h"
 #import "HeadBannerView.h"
+#import "ADModel.h"
 
 @interface StoreViewController ()
 //上方的滚动视图
 @property (nonatomic, strong) HeadBannerView *headView;
+@property (nonatomic,strong) NSMutableArray *adArr; //轮播广告数组
 //分页联动
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
@@ -20,13 +22,20 @@
 @end
 
 @implementation StoreViewController
+-(NSMutableArray *)adArr
+{
+    if (!_adArr) {
+        _adArr = [NSMutableArray new];
+    }
+    return _adArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"商城";
     self.view.backgroundColor = WhiteColor;
     
-    [self addTopLoopView];
+    [self requestBanner];
     
     [self reloadChildVCWithTitles:@[
                                     @"筹码",
@@ -57,15 +66,18 @@
     [self.headView updateLayout];
     
     NSMutableArray *imgs = [NSMutableArray new];
-    for (int i = 0; i < 4; i ++) {
-        NSString *imgStr = [NSString stringWithFormat:@"banner%d",i];
-        [imgs addObject:imgStr];
+    for (int i = 0; i < self.adArr.count; i ++) {
+        ADModel *model = self.adArr[i];
+        [imgs addObject:model.url];
     }
     self.headView.type = NormalType;
     [self.headView setupUIWithImageUrls:imgs];
     
+    WEAK(weakSelf, self);
     self.headView.selectBlock = ^(NSInteger index) {
         GGLog(@"选择了下标为%ld的轮播图",index);
+        ADModel *model = weakSelf.adArr[index];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
     };
 }
 
@@ -76,7 +88,7 @@
     if (_segHead) {
         [_segHead removeFromSuperview];
     }
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_headView.frame), SCREEN_WIDTH, 42) titles:titles headStyle:1 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, WIDTH_SCALE * 108 + 15, SCREEN_WIDTH, 42) titles:titles headStyle:1 layoutStyle:0];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;
@@ -112,6 +124,17 @@
     return arr;
 }
 
-
+//请求banner
+-(void)requestBanner
+{
+    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
+        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
+        if (!kArrayIsEmpty(self.adArr)) {
+            [self addTopLoopView];
+        }
+        
+    } failure:nil];
+    
+}
 
 @end

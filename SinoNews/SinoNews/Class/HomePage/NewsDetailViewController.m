@@ -76,7 +76,7 @@
     UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
     UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
     self.navigationItem.rightBarButtonItems = @[more,fonts];
-
+    
 }
 
 -(void)setBottomView
@@ -110,11 +110,11 @@
             }
         }];
         
-//        [[self rac_signalForSelector:@selector(textFieldDidEndEditing:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
-//            GGLog(@"结束编辑");
-//            @strongify(self)
-//
-//        }];
+        //        [[self rac_signalForSelector:@selector(textFieldDidEndEditing:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+        //            GGLog(@"结束编辑");
+        //            @strongify(self)
+        //
+        //        }];
         
         _praiseBtn = [UIButton new];
         _collectBtn = [UIButton new];
@@ -205,12 +205,12 @@
 {
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-
+    
     self.tableView.sd_layout
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-//    .bottomSpaceToView(self.bottomView, 0)
+    //    .bottomSpaceToView(self.bottomView, 0)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN + 48)
     ;
     [_tableView updateLayout];
@@ -247,12 +247,12 @@
     // 创建设置对象
     WKPreferences *preference = [[WKPreferences alloc]init];
     // 设置字体大小(最小的字体大小)
-//    preference.minimumFontSize = 12;
+    //    preference.minimumFontSize = 12;
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.userContentController = wkUController;
-//    // 设置偏好设置对象
+    //    // 设置偏好设置对象
     config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
     self.webView.navigationDelegate = self;
@@ -366,8 +366,31 @@
     @weakify(self)
     [ShareAndFunctionView showWithCollect:self.newsModel.isCollection returnBlock:^(NSInteger section, NSInteger row) {
         @strongify(self)
-        GGLog(@"点击了第%lu行第%lu个",section,row);
-        if (section==1&&row==2) {
+        //        GGLog(@"点击了第%lu行第%lu个",section,row);
+        if (section == 0 && row!=5) {
+            NSUInteger sharePlateform = 0;
+            switch (row) {
+                case 0:
+                    sharePlateform = MGShareToWechatSession;
+                    break;
+                case 1:
+                    sharePlateform = MGShareToWechatTimeline;
+                    break;
+                case 2:
+                    sharePlateform = MGShareToQQ;
+                    break;
+                case 3:
+                    sharePlateform = MGShareToQzone;
+                    break;
+                case 4:
+                    sharePlateform = MGShareToSina;
+                    break;
+                    
+                default:
+                    break;
+            }
+            [self shareToPlatform:sharePlateform];
+        }else if (section==1&&row==2) {
             [self requestCollectNews];
         }
     }];
@@ -388,7 +411,7 @@
         if (newHeight > topWebHeight) {
             topWebHeight = newHeight;
             self.webView.frame = CGRectMake(0, 0, ScreenW, topWebHeight);
-//            GGLog(@"topWebHeight:%lf",topWebHeight);
+            //            GGLog(@"topWebHeight:%lf",topWebHeight);
             [self.tableView beginUpdates];
             self.tableView.tableHeaderView = self.webView;
             [self.tableView endUpdates];
@@ -416,19 +439,19 @@
 {
     [self refreshComments];
     [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
-//        CGFloat height = [data floatValue];
+        //        CGFloat height = [data floatValue];
         //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
         //设置通知或者代理来传高度
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
+        //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
     }];
     
     //修改字体大小 300%
-//    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'" completionHandler:nil];
+    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'" completionHandler:nil];
     
     //修改字体颜色  #9098b8
-//    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#323232'"completionHandler:nil];
+    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#323232'"completionHandler:nil];
     //修改背景色
-//    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'" completionHandler:nil];
+    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'" completionHandler:nil];
     
 }
 
@@ -473,11 +496,11 @@
             }
         };
         //回复TA
-//        cell2.replayBlock = ^(NSInteger row) {
-//            @strongify(self)
-//            self.parentId = [model.commentId integerValue];
-//            [self.commentInput becomeFirstResponder];
-//        };
+        //        cell2.replayBlock = ^(NSInteger row) {
+        //            @strongify(self)
+        //            self.parentId = [model.commentId integerValue];
+        //            [self.commentInput becomeFirstResponder];
+        //        };
         //点击回复
         cell2.clickReplay = ^(NSInteger row,NSInteger index) {
             GGLog(@"点击了第%ld条回复",index);
@@ -557,7 +580,7 @@
         if (self.newsModel) {
             title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.newsModel.commentCount];
         }else{
-          title.text = @"全部评论";
+            title.text = @"全部评论";
         }
     }
     return headView;
@@ -565,7 +588,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    GGLog(@"tableView点击了");
+    //    GGLog(@"tableView点击了");
     [self.view endEditing:YES];
     if (indexPath.section == 1) {
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
@@ -578,20 +601,20 @@
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-//    GGLog(@"touchesBegan点击了");
+    //    GGLog(@"touchesBegan点击了");
     NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
     UITouch *touch = [allTouches anyObject];   //视图中的所有对象
     CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
     int x = point.x;
     int y = point.y;
-//    NSLog(@"touch (x, y) is (%d, %d)", x, y);
+    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
     if (self.attentionBtn.enabled) {
         if (self.tableView.contentOffset.y > -80) {
-//            GGLog(@"不能点击");
+            //            GGLog(@"不能点击");
         }else{
-//            GGLog(@"点击了关注周围");
+            //            GGLog(@"点击了关注周围");
             if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= 48 && y <= 68) {
-//                GGLog(@"点击了关注");
+                //                GGLog(@"点击了关注");
                 [self requestIsAttention];
             }
         }
@@ -612,7 +635,7 @@
             self.navigationItem.title = @"";
         }
     }
-
+    
 }
 
 #pragma mark ----- 发送请求
@@ -651,7 +674,7 @@
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         if (self.currPage == 1) {
-//            [self.tableView.mj_header endRefreshing];
+            //            [self.tableView.mj_header endRefreshing];
             if (arr.count) {
                 self.commentsArr = [arr mutableCopy];
                 [self.tableView.mj_footer endRefreshing];
@@ -683,16 +706,16 @@
     
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论成功~");
-//        self.parentId = 0;
+        //        self.parentId = 0;
         [self refreshComments];
         [self requestNewData];
-//        CompanyCommentModel *commentModel = [CompanyCommentModel new];
-//        commentModel.avatar = UserGet(@"avatar");
-//        commentModel.username = UserGet(@"username");
-//        commentModel.comment = comment;
-//        [self.commentsArr
-//         insertObject:commentModel atIndex:0];
-//        [self.tableView reloadData];
+        //        CompanyCommentModel *commentModel = [CompanyCommentModel new];
+        //        commentModel.avatar = UserGet(@"avatar");
+        //        commentModel.username = UserGet(@"username");
+        //        commentModel.comment = comment;
+        //        [self.commentsArr
+        //         insertObject:commentModel atIndex:0];
+        //        [self.tableView reloadData];
     } failure:nil RefreshAction:^{
         [self requestNewData];
     }];
@@ -801,7 +824,35 @@
     }];
 }
 
-
+//分享方法
+-(void)shareToPlatform:(MGShareToPlateform)type
+{
+    //创建分享对象
+    MGSocialShareModel *shareModel = [MGSocialShareModel new];
+    
+    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    if (type == MGShareToSina) {
+        //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
+        shareModel.contentType = MGShareContentTypeText;
+        shareModel.content = AppendingString(self.newsModel.newsTitle, urlStr);
+//        shareModel.thumbImage = [UIImage imageNamed:@""];
+//        shareModel.image = @"xxx";
+    }else{
+        shareModel.contentType = MGShareContentTypeWebPage;
+        shareModel.title = self.newsModel.newsTitle;
+        shareModel.url = urlStr;
+        shareModel.content = @"";
+        shareModel.thumbImage = [UIImage imageNamed:@""];
+    }
+    
+    //分享
+    [[MGSocialShareHelper defaultShareHelper]  shareMode:shareModel toSharePlatform:type showInController:self successBlock:^{
+        NSLog(@"分享成功");
+    } failureBlock:^(MGShareResponseErrorCode errorCode) {
+        NSLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
+        
+    }];
+}
 
 
 

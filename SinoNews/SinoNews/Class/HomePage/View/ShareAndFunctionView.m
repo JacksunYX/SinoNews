@@ -21,32 +21,19 @@ static bool isCollect = NO;
     if (!_shareArray) {
         _shareArray = [NSMutableArray array];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qqZone") title:@"QQ空间" action:^(IFMShareItem *item) {
-            LRToast(@"点击了QQ空间");
-        }]];
+        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechat") title:@"微信好友" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qq") title:@"QQ好友" action:^(IFMShareItem *item) {
-            LRToast(@"点击了QQ好友");
-        }]];
+        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechatFriend") title:@"微信朋友圈" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechat") title:@"微信好友" action:^(IFMShareItem *item) {
-            LRToast(@"点击了微信好友");
-        }]];
+        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qq") title:@"QQ好友" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechatFriend") title:@"微信朋友圈" action:^(IFMShareItem *item) {
-            LRToast(@"点击了微信朋友圈");
-        }]];
+        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qqZone") title:@"QQ空间" action:nil]];
+
+        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_sina") title:@"新浪微博" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_sina") title:@"新浪微博" action:^(IFMShareItem *item) {
-            LRToast(@"点击了新浪微博");
-        }]];
+        [_shareArray addObject:[[IFMShareItem alloc]initWithImage:UIImageNamed(@"share_email") title:@"邮件分享" actionName:IFMPlatformHandleEmail]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_email") title:@"邮件分享" action:^(IFMShareItem *item) {
-            LRToast(@"点击了邮件分享");
-        }]];
-        
-        
-        //        [_shareArray addObject:IFMPlatformNameSms];
+//                [_shareArray addObject:IFMPlatformNameSms];
         //        [_shareArray addObject:IFMPlatformNameAlipay];
         //        [_shareArray addObject:IFMPlatformNameEmail];
         //        [_shareArray addObject:IFMPlatformNameSina];
@@ -118,14 +105,9 @@ static bool isCollect = NO;
         collectTitle = @"取消收藏";
         collectImg = UIImageNamed(@"share_collected");
     }
-    @weakify(self)
-    [functionArray addObject:[[IFMShareItem alloc] initWithImage:collectImg title:collectTitle action:^(IFMShareItem *item) {
-        @strongify(self)
-//        [self requestCollectNews];
-    }]];
-    [functionArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_copy") title:@"复制链接" action:^(IFMShareItem *item) {
-        LRToast(@"点击了复制链接");
-    }]];
+    
+    [functionArray addObject:[[IFMShareItem alloc] initWithImage:collectImg title:collectTitle action:nil]];
+    [functionArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_copy") title:@"复制链接" action:nil]];
     
     return functionArray;
     

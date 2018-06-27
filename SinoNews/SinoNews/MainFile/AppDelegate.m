@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import <IQKeyboardManager.h>
-#import <MGSocialShareKit/MGSocialShareKit.h>
+
 
 @interface AppDelegate ()
 
@@ -63,11 +63,12 @@
     //初始化
     [MGSocialShareHelper configWithUMAppKey:@"5b17b13df29d98533d00009e" umSocialAppSecret:@"" openLog:YES usingHttpsWhenShareContent:NO];
     //配置分享平台
-    [MGSocialShareHelper configSharePlateform:MGShareToWechatSession withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-    [MGSocialShareHelper configSharePlateform:MGShareToWechatTimeline withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-    [MGSocialShareHelper configSharePlateform:MGShareToQQ withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-    [MGSocialShareHelper configSharePlateform:MGShareToSina withAppKey:@"wxdc1e388c3822c80b" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-/*
+//    [MGSocialShareHelper configSharePlateform:MGShareToWechatSession|MGShareToWechatTimeline withAppKey:@"" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+//    [MGSocialShareHelper configSharePlateform:MGShareToWechatTimeline withAppKey:@"" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    [MGSocialShareHelper configSharePlateform:MGShareToQQ withAppKey:@"1106998630" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    [MGSocialShareHelper configSharePlateform:MGShareToQzone withAppKey:@"1106998630" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
+    [MGSocialShareHelper configSharePlateform:MGShareToSina withAppKey:@"2509849189" appSecret:@"4a729c55f2d965e781cb9fb3ef236105" redirectURL:@"http://mobile.umeng.com/social"];
+
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]) {
         GGLog(@"可以分享到微信朋友圈");
     }
@@ -77,10 +78,13 @@
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]) {
         GGLog(@"可以分享到QQ好友");
     }
+    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+        GGLog(@"可以分享到QQ空间");
+    }
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
         GGLog(@"可以分享到新浪微博");
     }
- */
+ 
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -107,6 +111,15 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [MGSocialShareHelper mg_handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 

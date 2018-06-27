@@ -63,6 +63,6 @@
 
 #import <ReactiveObjC.h>
 
-
+#import <MGSocialShareKit/MGSocialShareKit.h>
 
 #endif /* BaseConfiguration_pch */

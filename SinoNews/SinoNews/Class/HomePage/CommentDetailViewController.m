@@ -250,10 +250,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        CompanyCommentModel *model = self.commentsArr[indexPath.row];
-        CommentDetailViewController *cdVC = [CommentDetailViewController new];
-        cdVC.model = model;
-        [self.navigationController pushViewController:cdVC animated:YES];
+//        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+//        CommentDetailViewController *cdVC = [CommentDetailViewController new];
+//        cdVC.model = model;
+//        [self.navigationController pushViewController:cdVC animated:YES];
     }
     
 }

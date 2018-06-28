@@ -11,6 +11,7 @@
 		4C13E96D20C67263009115C1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C13E96920C67263009115C1 /* city.plist */; };
 		4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */; };
 		4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */; };
+		4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C149CBA20E4FCC500D57D12 /* ExchangeProductViewController.m */; };
 		4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412620C4C7B400AA6D57 /* StoreViewController.m */; };
 		4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412920C4C7E300AA6D57 /* GameViewController.m */; };
 		4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17412C20C4C80400AA6D57 /* RechargeViewController.m */; };
@@ -198,6 +199,8 @@
 		4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CZHExtension.m"; sourceTree = "<group>"; };
 		4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CZHExtension.m"; sourceTree = "<group>"; };
 		4C13E97020C67360009115C1 /* OtherFrameworksHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherFrameworksHead.h; sourceTree = "<group>"; };
+		4C149CB920E4FCC500D57D12 /* ExchangeProductViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeProductViewController.h; sourceTree = "<group>"; };
+		4C149CBA20E4FCC500D57D12 /* ExchangeProductViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeProductViewController.m; sourceTree = "<group>"; };
 		4C17412520C4C7B400AA6D57 /* StoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
 		4C17412620C4C7B400AA6D57 /* StoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		4C17412820C4C7E300AA6D57 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
@@ -816,6 +819,8 @@
 				4C17412C20C4C80400AA6D57 /* RechargeViewController.m */,
 				4C17412E20C4C83200AA6D57 /* ManagerViewController.h */,
 				4C17412F20C4C83200AA6D57 /* ManagerViewController.m */,
+				4C149CB920E4FCC500D57D12 /* ExchangeProductViewController.h */,
+				4C149CBA20E4FCC500D57D12 /* ExchangeProductViewController.m */,
 				4C17413420C4D92500AA6D57 /* View */,
 			);
 			path = Integral;
@@ -1663,6 +1668,7 @@
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
+				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,

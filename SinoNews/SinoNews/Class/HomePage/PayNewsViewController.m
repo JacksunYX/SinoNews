@@ -21,6 +21,7 @@
 @end
 
 static CGFloat topHeight = 235;
+
 @implementation PayNewsViewController
 
 -(UITableView *)tableView
@@ -223,7 +224,11 @@ static CGFloat topHeight = 235;
     [self.webView loadRequest:request];
 }
 
-
+#pragma mark ----- WKNavigationDelegate
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+//    [self showOrHideLoadView:NO page:2];
+}
 
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -264,7 +269,7 @@ static CGFloat topHeight = 235;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (section == 0) {
+    if (section == 0&& self.webView.isLoading == NO) {
         headView = [UIView new];
         headView.backgroundColor = WhiteColor;
         //添加文本和提示

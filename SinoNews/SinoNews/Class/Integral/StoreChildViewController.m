@@ -7,6 +7,7 @@
 //
 
 #import "StoreChildViewController.h"
+#import "ExchangeProductViewController.h"
 #import "StoreChildCell.h"
 
 @interface StoreChildViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -89,7 +90,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GGLog(@"点击了第%ld个",indexPath.row);
+//    GGLog(@"点击了第%ld个",indexPath.row);
+    ExchangeProductViewController *epVc = [ExchangeProductViewController new];
+    [self.navigationController pushViewController:epVc animated:YES];
 }
 
 @end

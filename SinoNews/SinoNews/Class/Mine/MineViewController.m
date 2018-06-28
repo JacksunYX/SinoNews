@@ -14,6 +14,7 @@
 #import "MyCollectViewController.h"
 #import "MyAttentionViewController.h"
 #import "PersonalDataViewController.h"
+#import "SignInViewController.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -270,6 +271,12 @@
     _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
     [self cutCornerradiusWithView:_signIn];
     _signIn.hidden = YES;
+    @weakify(self)
+    [[_signIn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        SignInViewController *siVC = [SignInViewController new];
+        [self.navigationController pushViewController:siVC animated:YES];
+    }];
     
     _publish.sd_layout
     .topSpaceToView(_userImg, 40)

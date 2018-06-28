@@ -856,9 +856,9 @@
     
     //分享
     [[MGSocialShareHelper defaultShareHelper]  shareMode:shareModel toSharePlatform:type showInController:self successBlock:^{
-        NSLog(@"分享成功");
+        GGLog(@"分享成功");
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
-        NSLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
+        GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
         
     }];
 }

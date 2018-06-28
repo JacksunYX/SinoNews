@@ -500,4 +500,19 @@
     [self showWithStatus:1];
 }
 
+
+#pragma mark ----- 请求发送
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

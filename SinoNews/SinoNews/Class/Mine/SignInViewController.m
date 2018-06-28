@@ -294,7 +294,7 @@
             backView.backgroundColor = RGBA(242, 249, 255, 1);
             
             UIImageView *iconView = [UIImageView new];
-//            iconView.backgroundColor = Arc4randomColor;
+            //            iconView.backgroundColor = Arc4randomColor;
             iconView.contentMode = 4;
             
             [signInView sd_addSubviews:@[
@@ -398,15 +398,9 @@
 {
     UIView *headView;
     if (section == 0) {
-        headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"headView"];
-        if (headView.subviews.count) {
-            for (UIView *subView in headView.subviews) {
-                [subView removeFromSuperview];
-            }
-        }else{
-            headView = [UIView new];
-            headView.backgroundColor = WhiteColor;
-        }
+        
+        headView = [UIView new];
+        headView.backgroundColor = WhiteColor;
         
         UILabel *title = [UILabel new];
         title.font = PFFontR(16);
@@ -457,15 +451,10 @@
 {
     UIView *footView;
     if (section == 0) {
-        footView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"footView"];
-        if (footView.subviews.count) {
-            for (UIView *subView in footView.subviews) {
-                [subView removeFromSuperview];
-            }
-        }else{
-            footView = [UIView new];
-            footView.backgroundColor = WhiteColor;
-        }
+        
+        footView = [UIView new];
+        footView.backgroundColor = WhiteColor;
+        
         
         UIButton *footBtn = [UIButton new];
         [footBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];

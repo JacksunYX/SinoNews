@@ -127,7 +127,7 @@
     _userIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     _userIcon.backgroundColor = GrayColor;
     LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
-    _userIcon.image = UIImageNamed(@"logo_test");
+    _userIcon.image = UIImageNamed(@"homePage_logo");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
     
 }

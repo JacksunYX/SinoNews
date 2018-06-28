@@ -6,7 +6,7 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import <WebKit/WebKit.h>
+
 #import "NewsDetailViewController.h"
 #import "CommentDetailViewController.h"
 #import "HomePageFirstKindCell.h"
@@ -258,18 +258,30 @@
     config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
     self.webView.navigationDelegate = self;
-    //监听web的高度变化
-    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"getCellHightNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self);
-        NSDictionary * dic = x.userInfo;
-        //判断通知中的参数是否与原来的值一致,防止死循环
-        if (self.webView.height != [[dic objectForKey:@"height"]floatValue])
-        {
-            self.webView.height = [[dic objectForKey:@"height"]floatValue];
+
+//    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"getCellHightNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self);
+//        NSDictionary * dic = x.userInfo;
+//        //判断通知中的参数是否与原来的值一致,防止死循环
+//        if (self.webView.height != [[dic objectForKey:@"height"]floatValue])
+//        {
+//            self.webView.height = [[dic objectForKey:@"height"]floatValue];
+//            self.tableView.tableHeaderView = self.webView;
+//            [self.tableView reloadData];
+//        }
+//    }];
+    //KVO监听web的高度变化
+    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+//        GGLog(@"x:%@",x);
+        CGFloat newHeight = self.webView.scrollView.contentSize.height;
+        if (newHeight != self->topWebHeight) {
+            self->topWebHeight = newHeight;
+            self.webView.frame = CGRectMake(0, 0, ScreenW, self->topWebHeight);
+            //            GGLog(@"topWebHeight:%lf",topWebHeight);
+            [self.tableView beginUpdates];
             self.tableView.tableHeaderView = self.webView;
-            [self.tableView reloadData];
+            [self.tableView endUpdates];
         }
     }];
 }
@@ -404,21 +416,6 @@
     [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
         
     }];
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"contentSize"]) {
-        CGFloat newHeight = self.webView.scrollView.contentSize.height;
-        if (newHeight > topWebHeight) {
-            topWebHeight = newHeight;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, topWebHeight);
-            //            GGLog(@"topWebHeight:%lf",topWebHeight);
-            [self.tableView beginUpdates];
-            self.tableView.tableHeaderView = self.webView;
-            [self.tableView endUpdates];
-        }
-    }
 }
 
 #pragma mark ----- UIWebViewDelegattopWebHeighte

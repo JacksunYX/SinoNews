@@ -11,8 +11,9 @@
 #import "RankListTableViewCell.h"
 #import "RankDetailViewController.h"
 
-@interface RankListViewController ()<GroupShadowTableViewDelegate,GroupShadowTableViewDataSource>
-@property (strong, nonatomic) GroupShadowTableView *tableView;
+@interface RankListViewController ()<GroupShadowTableViewDelegate,GroupShadowTableViewDataSource,UITableViewDataSource,UITableViewDelegate>
+//@property (strong, nonatomic) GroupShadowTableView *tableView;
+@property (strong, nonatomic) BaseTableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger currPage;   //页码
 @end
@@ -113,11 +114,11 @@
 
 -(void)addBaseViews
 {
-    self.tableView = [[GroupShadowTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.tableView.groupShadowDelegate = self;
-    self.tableView.groupShadowDataSource = self;
-    self.tableView.showSeparator = YES;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+//    self.tableView.showSeparator = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.tableView];
 
@@ -152,7 +153,56 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
-//MARK: - GroupShadowTableViewDataSource
+#pragma mark ----- UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.dataSource.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RankListTableViewCell *cell = (RankListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RankListTableViewCellID];
+    cell.model = self.dataSource[indexPath.row];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+    if (indexPath.row<3) {
+        return 100;
+    }
+    return 73;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    RankDetailViewController *rdVC = [RankDetailViewController new];
+    RankingListModel *model = self.dataSource[indexPath.row];
+    rdVC.companyId = model.companyId;
+    
+    [self.navigationController pushViewController:rdVC animated:YES];
+}
+
+
+//暂弃
+#pragma mark ----- GroupShadowTableViewDataSource
 - (NSInteger)numberOfSectionsInGroupShadowTableView:(GroupShadowTableView *)tableView {
     return 4;
 }
@@ -178,7 +228,7 @@
     
 }
 
-//MARK: - GroupShadowTableViewDelegate
+#pragma mark ----- GroupShadowTableViewDelegate
 - (CGFloat)groupShadowTableView:(GroupShadowTableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section != 3) {
         return 84;
@@ -200,6 +250,10 @@
     
     [self.navigationController pushViewController:rdVC animated:YES];
 }
+
+
+#pragma mark ----- 
+
 
 //请求详细榜单
 -(void)requestCompanyRanking

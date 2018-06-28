@@ -13,7 +13,11 @@
 @property (nonatomic,strong) NSString *companyId;
 @property (nonatomic,strong) NSString *companyLogo;
 @property (nonatomic,strong) NSString *companyName;
-@property (nonatomic,strong) NSString *currentRank;
+@property (nonatomic,strong) NSString *companyUrl;
+@property (nonatomic,assign) NSInteger currentRank;
+@property (nonatomic,assign) NSInteger currentScore;
+@property (nonatomic,assign) NSInteger lastRank;
+@property (nonatomic,strong) NSString *promos;
 @property (nonatomic,strong) NSString *rankingName;
-@property (nonatomic,strong) NSString *status;
+@property (nonatomic,assign) NSInteger status;
 @end

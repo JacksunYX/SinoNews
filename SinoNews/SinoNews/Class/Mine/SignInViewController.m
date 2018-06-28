@@ -7,6 +7,7 @@
 //
 
 #import "SignInViewController.h"
+#import "StoreChildCell.h"
 
 @interface SignInViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -98,6 +99,7 @@
     self.tableView.backgroundColor = BACKGROUND_COLOR;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    [self.tableView registerClass:[StoreChildCell class] forCellReuseIdentifier:StoreChildCellID];
     
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
@@ -341,7 +343,7 @@
     }
     if (section == 1) {
         //        return self.articlesArr.count;
-        return 0;
+        return 5;
     }
     return 0;
 }
@@ -361,7 +363,8 @@
         [self setViewWithCell:cell data:dic];
         
     }else if (indexPath.section == 1){
-        
+        StoreChildCell *cell1 = (StoreChildCell *)[tableView dequeueReusableCellWithIdentifier:StoreChildCellID];
+        cell = (UITableViewCell *)cell1;
     }
     return cell;
 }

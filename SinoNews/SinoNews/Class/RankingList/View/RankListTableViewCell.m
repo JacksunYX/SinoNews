@@ -18,6 +18,7 @@
     UILabel *title; //标题
     UILabel *score; //分数
     UILabel *subTitle;
+    UIImageView *status;
     //中
     UIButton *detailBtn;
     UIButton *toPlayBtn;
@@ -50,49 +51,55 @@
 -(void)setupUI
 {
     num = [UIButton new];
-    num.titleLabel.font = BoldFont(12);
+    num.titleLabel.font = [UIFont fontWithName:@"DINCondensed-Bold" size:14];
     num.titleLabel.textAlignment = NSTextAlignmentCenter;
     [num setTitleColor:WhiteColor forState:UIControlStateNormal];
     
     crown = [UIImageView new];
     userIcon = [UIImageView new];
     userIcon.backgroundColor = WhiteColor;
+    userIcon.userInteractionEnabled = YES;
     
     score = [UILabel new];
     score.font = PFFontL(14);
+    score.textColor = RGBA(69, 69, 69, 1);
+    
+    status = [UIImageView new];
+    status.contentMode = 1;
     
     title = [UILabel new];
     title.font = PFFontR(15);
     
     subTitle = [UILabel new];
     subTitle.font = PFFontL(14);
+    subTitle.textColor = RGBA(111, 111, 111, 1);
     
     toPlayBtn = [UIButton new];
-    toPlayBtn.titleLabel.font = PFFontL(15);
-    [toPlayBtn setTitleColor:RGBA(238, 174, 38, 1) forState:UIControlStateNormal];
-    toPlayBtn.layer.borderWidth = 1;
-    toPlayBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+    toPlayBtn.titleLabel.font = PFFontL(14);
+    toPlayBtn.backgroundColor = RGBA(107, 182, 255, 1);
+    [toPlayBtn setTitleColor:RGBA(255, 255, 255, 1) forState:UIControlStateNormal];
+//    toPlayBtn.layer.borderWidth = 1;
+//    toPlayBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
     
     detailBtn = [UIButton new];
-    detailBtn.titleLabel.font = PFFontL(15);
-    [detailBtn setTitleColor:RGBA(78, 152, 223, 1) forState:UIControlStateNormal];
+    detailBtn.titleLabel.font = PFFontL(14);
+    [detailBtn setTitleColor:RGBA(102, 102, 132, 1) forState:UIControlStateNormal];
     detailBtn.layer.borderWidth = 1;
-    detailBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
-    
-    upOrDown = [UIImageView new];
+    detailBtn.layer.borderColor = RGBA(102, 102, 132, 1).CGColor;
     
     [self.contentView sd_addSubviews:@[
-                                       num,
                                        crown,
                                        userIcon,
+                                       num,
                                        
                                        score,
                                        title,
                                        subTitle,
+                                       status,
                                        
                                        toPlayBtn,
                                        detailBtn,
-                                       upOrDown,
+
                                        ]];
 }
 
@@ -101,164 +108,157 @@
     _model = model;
 //    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.companyLogo)];
     [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(model.companyLogo))];
-
-    [num setTitle:[NSString stringWithFormat:@"%ld",self.tag] forState:UIControlStateNormal];
-    score.text = @"";
-    title.text = model.companyName;
-    subTitle.text = @"";
+    [num setTitle:[NSString stringWithFormat:@"%lu",model.currentRank] forState:UIControlStateNormal];
+    score.text = [NSString stringWithFormat:@"%lu分",model.currentScore];
+    title.text = GetSaveString(model.companyName);
+    subTitle.text = GetSaveString(model.promos);
     
-    [num setBackgroundImage:UIImageNamed(@"rank_medal") forState:UIControlStateNormal];
     crown.image = nil;
+    UIImage *numImg = UIImageNamed(@"rank_flag");
     userIcon.layer.borderWidth = 1;
     userIcon.layer.borderColor = ClearColor.CGColor;
     score.textColor = RGB(54, 54, 54);
     title.textColor = RGB(50, 50, 50);
     if (self.tag == 1) {
-        userIcon.layer.borderColor = HexColor(#ffc41f).CGColor;
-        crown.image = UIImageNamed(@"crown_first");
-        title.textColor = HexColor(#ffc41f);
+//        userIcon.layer.borderColor = HexColor(#ffc41f).CGColor;
+//        crown.image = UIImageNamed(@"crown_first");
+//        title.textColor = HexColor(#ffc41f);
+        numImg = UIImageNamed(@"");
     }else if (self.tag == 2){
-        userIcon.layer.borderColor = HexColor(#1282ee).CGColor;
-        crown.image = UIImageNamed(@"crown_second");
-        title.textColor = HexColor(#1282ee);
+//        userIcon.layer.borderColor = HexColor(#1282ee).CGColor;
+//        crown.image = UIImageNamed(@"crown_second");
+//        title.textColor = HexColor(#1282ee);
+        numImg = UIImageNamed(@"");
     }else if (self.tag == 3){
-        userIcon.layer.borderColor = HexColor(#f29f00).CGColor;
-        crown.image = UIImageNamed(@"crown_third");
-        title.textColor = HexColor(#f29f00);
+//        userIcon.layer.borderColor = HexColor(#f29f00).CGColor;
+//        crown.image = UIImageNamed(@"crown_third");
+//        title.textColor = HexColor(#f29f00);
+        numImg = UIImageNamed(@"");
     }else{
-        userIcon.layer.borderColor = HexColor(#dbdbdb).CGColor;
-        [num setBackgroundImage:UIImageNamed(@"rank_flag") forState:UIControlStateNormal];
+//        userIcon.layer.borderColor = HexColor(#dbdbdb).CGColor;
         score.textColor = RGB(152, 152, 152);
     }
+    [num setBackgroundImage:numImg forState:UIControlStateNormal];
+    
+    switch (self.model.status) {
+        case -1:
+            status.image = UIImageNamed(@"down_icon");
+            break;
+        case 0:
+            status.image = UIImageNamed(@"invariable_icon");
+            break;
+        case 1:
+            status.image = UIImageNamed(@"up_icon");
+            break;
+        default:
+            break;
+    }
+    
     [self layoutSubviews];
 }
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
+    
     //布局
-    if (self.tag < 4) {
+    if (self.model.currentRank < 4) {
+        userIcon.sd_layout
+        .leftSpaceToView(self.contentView, 30)
+        .centerYEqualToView(self.contentView)
+        .widthIs(80)
+        .heightEqualToWidth()
+        ;
+        [userIcon setSd_cornerRadius:@40];
         
         num.sd_layout
-        .centerYEqualToView(self.contentView)
-        .leftSpaceToView(self.contentView, 6)
-        .widthIs(22)
-        .heightIs(26)
-        ;
-        num.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0);
-    }else{
-        num.sd_layout
-        .centerYEqualToView(self.contentView)
-        .leftSpaceToView(self.contentView, 6)
-        .widthIs(24)
-        .heightIs(21)
+        .topSpaceToView(self.contentView, 9)
+        .leftSpaceToView(self.contentView, 10)
+        .widthIs(31)
+        .heightIs(41)
         ;
         num.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    }
-    
-    crown.sd_layout
-    .topSpaceToView(self.contentView, 6)
-    .leftSpaceToView(num, 12)
-    .widthIs(51)
-    .heightIs(35)
-    ;
-    
-    if (self.tag < 4) {
-        userIcon.sd_layout
-        .bottomSpaceToView(self.contentView, 5)
-        .centerXEqualToView(crown)
-        .widthIs(54)
-        .heightEqualToWidth()
-        ;
-    }else{
-        userIcon.sd_layout
-        .centerYEqualToView(self.contentView)
-        .centerXEqualToView(crown)
-        .widthIs(54)
-        .heightEqualToWidth()
-        ;
-    }
-    
-    userIcon.userInteractionEnabled = YES;
-    [userIcon setSd_cornerRadius:@27];
-    
-    score.sd_layout
-    .leftSpaceToView(userIcon, 30 * ScaleW)
-    .centerYEqualToView(self.contentView)
-//    .autoHeightRatio(0)
-    .heightIs(14)
-    ;
-//    [score setMaxNumberOfLinesToShow:1];
-    [score setSingleLineAutoResizeWithMaxWidth:100];
-    
-    title.sd_layout
-    .leftEqualToView(score)
-    .bottomSpaceToView(score, 0)
-//    .autoHeightRatio(0)
-    .heightIs(15)
-    ;
-//    [title setMaxNumberOfLinesToShow:1];
-    [title setSingleLineAutoResizeWithMaxWidth:100 * ScaleW];
-    
-    subTitle.sd_layout
-    .leftEqualToView(score)
-    .topSpaceToView(score, 0)
-//    .autoHeightRatio(0)
-    .heightIs(14)
-    ;
-//    [subTitle setMaxNumberOfLinesToShow:1];
-    [subTitle setSingleLineAutoResizeWithMaxWidth:100 * ScaleW];
-    
-    if (self.tag < 4) {
+        
         toPlayBtn.sd_layout
-        .widthIs(55 * ScaleW)
-        .heightIs(21)
-        .rightSpaceToView(self.contentView, 5)
-        .bottomSpaceToView(self.contentView, 10)
+        .widthIs(67 * ScaleW)
+        .heightIs(28)
+        .rightSpaceToView(self.contentView, 15)
+        .bottomSpaceToView(self.contentView, 19)
         ;
         
         detailBtn.hidden = NO;
         detailBtn.sd_layout
-        .widthIs(55 * ScaleW)
-        .heightIs(21)
-        .rightSpaceToView(self.contentView, 5)
+        .widthIs(67 * ScaleW)
+        .heightIs(28)
+        .rightSpaceToView(self.contentView, 15)
         .bottomSpaceToView(toPlayBtn, 8)
         ;
+        
+        score.sd_layout
+        .leftSpaceToView(userIcon, 23 * ScaleW)
+        .centerYEqualToView(self.contentView)
+        .widthIs(60)
+        .heightIs(14)
+        ;
+        
+        subTitle.sd_layout
+        .leftEqualToView(score)
+        .topSpaceToView(score, 11)
+        .heightIs(14)
+        ;
+        [subTitle setSingleLineAutoResizeWithMaxWidth:150 * ScaleW];
+        
     }else{
+        userIcon.sd_layout
+        .leftSpaceToView(self.contentView, 43)
+        .centerYEqualToView(self.contentView)
+        .widthIs(54)
+        .heightEqualToWidth()
+        ;
+        [userIcon setSd_cornerRadius:@27];
+        
+        num.sd_layout
+        .topSpaceToView(self.contentView, 26)
+        .leftSpaceToView(self.contentView, 14)
+        .widthIs(24)
+        .heightIs(21)
+        ;
+        num.titleEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
+        
         detailBtn.hidden = YES;
         toPlayBtn.sd_layout
-        .widthIs(55 * ScaleW)
-        .heightIs(21)
-        .rightSpaceToView(self.contentView, 5)
+        .widthIs(67 * ScaleW)
+        .heightIs(28)
+        .rightSpaceToView(self.contentView, 15)
         .centerYEqualToView(self.contentView)
         ;
+        
+        score.sd_layout
+        .leftSpaceToView(userIcon, 35 * ScaleW)
+        .bottomSpaceToView(self.contentView, 15)
+        .widthIs(60)
+        .heightIs(14)
+        ;
+        
+        subTitle.hidden = YES;
     }
-    [toPlayBtn setSd_cornerRadius:@4];
-    [detailBtn setSd_cornerRadius:@4];
     [detailBtn setTitle:@"详情" forState:UIControlStateNormal];
     [toPlayBtn setTitle:@"去玩" forState:UIControlStateNormal];
     
-    upOrDown.sd_layout
-    .rightSpaceToView(toPlayBtn, 30 * ScaleW)
-//    .topSpaceToView(self.contentView, 20)
-    .centerYEqualToView(self.contentView)
+    title.sd_layout
+    .leftEqualToView(score)
+    .bottomSpaceToView(score, 11)
+    .heightIs(15)
+    ;
+    [title setSingleLineAutoResizeWithMaxWidth:120 * ScaleW];
+    
+    status.sd_layout
+    .leftSpaceToView(score, 15)
+    .centerYEqualToView(score)
     .widthIs(11)
     .heightIs(14)
     ;
     
-    switch ([self.model.status integerValue]) {
-        case -1:
-            upOrDown.image = UIImageNamed(@"down_icon");
-            break;
-        case 0:
-            upOrDown.image = nil;
-            break;
-        case 1:
-            upOrDown.image = UIImageNamed(@"up_icon");
-            break;
-        default:
-            break;
-    }
 }
 
 

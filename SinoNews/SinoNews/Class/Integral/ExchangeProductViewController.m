@@ -54,6 +54,7 @@
     .rightEqualToView(scrollView)
     .heightIs(175)
     ;
+    [topView updateLayout];
     topView.image = UIImageNamed(@"product_topBackImg");
     
     centerView.sd_layout
@@ -62,6 +63,8 @@
     .rightEqualToView(scrollView)
     .heightIs(138)
     ;
+    [centerView updateLayout];
+    [centerView addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
 //    centerView.backgroundColor = YellowColor;
     
     bottomView.sd_layout
@@ -69,7 +72,7 @@
     .leftEqualToView(scrollView)
     .rightEqualToView(scrollView)
     ;
-    bottomView.backgroundColor = BlueColor;
+//    bottomView.backgroundColor = BlueColor;
     
     [self addTopViewWithView:topView];
     [self addCenterViewWithView:centerView];
@@ -205,7 +208,98 @@
 
 -(void)addBottomViewWithView:(UIView *)fatherView
 {
+    UITextField *pruductInfo1 = [self creatTextfield];
+    UILabel *pruductInfo2 = [UILabel new];
+    pruductInfo2.textColor = RGBA(50, 50, 50, 1);
+    pruductInfo2.font = PFFontL(15);
     
+    UITextField *validDate1 = [self creatTextfield];
+    UILabel *validDate2 = [UILabel new];
+    validDate2.textColor = RGBA(50, 50, 50, 1);
+    validDate2.font = PFFontL(15);
+    
+    UITextField *useRaw1 = [self creatTextfield];
+    UILabel *useRaw2 = [UILabel new];
+    useRaw2.textColor = RGBA(50, 50, 50, 1);
+    useRaw2.font = PFFontL(15);
+    
+    [fatherView sd_addSubviews:@[
+                                 pruductInfo1,
+                                 pruductInfo2,
+                                 validDate1,
+                                 validDate2,
+                                 useRaw1,
+                                 useRaw2,
+                                 ]];
+    pruductInfo1.sd_layout
+    .leftSpaceToView(fatherView, 10)
+    .topSpaceToView(fatherView, 20)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(20)
+    ;
+    pruductInfo1.text = @"商品介绍";
+    
+    pruductInfo2.sd_layout
+    .topSpaceToView(pruductInfo1, 10)
+    .leftSpaceToView(fatherView, 20)
+    .rightSpaceToView(fatherView, 20)
+    .autoHeightRatio(0)
+    ;
+    pruductInfo2.text = @"总价值15元的优酷VIP会员一个月";
+    
+    validDate1.sd_layout
+    .topSpaceToView(pruductInfo2, 15)
+    .leftSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(20)
+    ;
+    validDate1.text = @"使用范围有效期";
+    
+    validDate2.sd_layout
+    .topSpaceToView(validDate1, 10)
+    .leftSpaceToView(fatherView, 20)
+    .rightSpaceToView(fatherView, 20)
+    .autoHeightRatio(0)
+    ;
+    validDate2.text = @"2018.6.10-7.30";
+    
+    useRaw1.sd_layout
+    .topSpaceToView(validDate2, 15)
+    .leftSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(20)
+    ;
+    useRaw1.text = @"使用规则流程";
+    
+    useRaw2.sd_layout
+    .topSpaceToView(useRaw1, 10)
+    .leftSpaceToView(fatherView, 20)
+    .rightSpaceToView(fatherView, 20)
+    .autoHeightRatio(0)
+    ;
+    useRaw2.text = @"奖品数量有限，兑完即下架，先到先得哦～\n1.请在兑换之后七天内留下您的地址，过期视为放弃奖 品，将不再重新发放。 \n2.奖品将邮寄至您填写的地址，请正确填写信息。 \n3.无商品质量问题，兑换后不退不换";
+    
+    [fatherView setupAutoHeightWithBottomView:useRaw2 bottomMargin:10];
 }
+
+-(UITextField *)creatTextfield
+{
+    UITextField *textfield = [UITextField new];
+    textfield.textColor = RGBA(152, 152, 152, 1);
+    textfield.font = PFFontL(15);
+    textfield.leftViewMode = UITextFieldViewModeAlways;
+    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+    UIView *colorview = [[UIView alloc]initWithFrame:CGRectMake(8, 0, 4, 20)];
+    colorview.backgroundColor = RGBA(255, 213, 170, 1);
+    [leftView addSubview:colorview];
+    textfield.leftView = leftView;
+    return textfield;
+}
+
+
+
+
+
+
 
 @end

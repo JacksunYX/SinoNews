@@ -16,6 +16,11 @@
 @property (nonatomic,strong) NSString *username;
 //用户头像
 @property (nonatomic,strong) NSString *avatar;
+//性别(默认-1无性别，0女1男)
+@property (nonatomic,assign) NSInteger gender;
+//生日
+@property (nonatomic,strong) NSString *birthday;
+
 //用户上次登录时间
 @property (nonatomic,strong) NSString *lastLoginTime;
 //用户本次登录时间

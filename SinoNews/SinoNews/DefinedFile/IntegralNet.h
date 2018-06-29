@@ -10,5 +10,9 @@
 #ifndef IntegralNet_h
 #define IntegralNet_h
 
+//商城分类(get)
+#define Mall_category @"/api/mall/category"
+//商品列表(get)
+#define Mall_products @"/api/mall/products"
 
 #endif /* IntegralNet_h */

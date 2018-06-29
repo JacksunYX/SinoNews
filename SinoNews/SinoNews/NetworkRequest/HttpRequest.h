@@ -114,8 +114,9 @@ typedef NS_ENUM(NSUInteger,HttpRequestType) {
 + (void)uploadFileImage:(NSString *)URLString
              parameters:(id)parameters
             uploadImage:(UIImage *)uploadimage
-                success:(void (^)())success
-                failure:(void (^)(NSError *))failur;
+                success:(void (^)(id response))success
+                failure:(void (^)(NSError *error))failur
+          RefreshAction:(void (^)())RefreshAction;
 
 
 
@@ -124,7 +125,7 @@ typedef NS_ENUM(NSUInteger,HttpRequestType) {
               parameters:(id)parameters
              uploadImage:(NSMutableArray *)uploadimages
                  success:(void (^)())success
-                 failure:(void (^)(NSError *))failure;
+                 failure:(void (^)(NSError *error))failure;
 
 
 
@@ -132,7 +133,7 @@ typedef NS_ENUM(NSUInteger,HttpRequestType) {
             parameters:(id)parameters
        uploadVideoData:(NSData *)uploadVideoData
                success:(void (^)())success
-               failure:(void (^)(NSError *))failure;
+               failure:(void (^)(NSError *error))failure;
 
 
 //获取App的固定请求参数

@@ -19,6 +19,8 @@
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
 
+@property (nonatomic,strong) NSArray *categoryArr;
+
 @end
 
 @implementation StoreViewController
@@ -37,12 +39,9 @@
     
     [self requestBanner];
     
-    [self reloadChildVCWithTitles:@[
-                                    @"筹码",
-                                    @"优惠",
-                                    @"充值卡",
-                                    @"实惠",
-                                    ]];
+    [self requestMallcCategory];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,12 +117,13 @@
     NSMutableArray *arr = [NSMutableArray array];
     for (NSInteger i = 0; i < count; i ++) {
         StoreChildViewController *vc = [StoreChildViewController new];
-        vc.index = i;
+        vc.categoryId = [self.categoryArr[i][@"categoryId"] integerValue];
         [arr addObject:vc];
     }
     return arr;
 }
 
+#pragma mark ---- 请求发送
 //请求banner
 -(void)requestBanner
 {
@@ -136,5 +136,25 @@
     } failure:nil];
     
 }
+
+//请求商品分类
+-(void)requestMallcCategory
+{
+    [HttpRequest getWithURLString:Mall_category parameters:@{} success:^(id responseObject) {
+        self.categoryArr = responseObject[@"data"];
+        NSMutableArray *titleArr = [NSMutableArray new];
+        for (NSDictionary *dic in self.categoryArr) {
+            [titleArr addObject:GetSaveString([dic objectForKey:@"categoryName"])];
+        }
+        if (titleArr.count > 0) {
+            [self reloadChildVCWithTitles:titleArr];
+        }
+    } failure:nil];
+}
+
+
+
+
+
 
 @end

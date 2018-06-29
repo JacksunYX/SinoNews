@@ -36,12 +36,20 @@
     manager.requestSerializer.timeoutInterval = 10;
     
     //设置请求头中请求数据类型
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript", nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:
+                                                         @"application/json",
+                                                         @"text/html",
+                                                         @"text/json",
+                                                         @"text/javascript",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         nil];
     //设置与后台对接的请求头
     NSString *token = GetSaveString(UserGet(@"token"));
-//    if (!kStringIsEmpty(token)) {
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
-//    }
+    //    if (!kStringIsEmpty(token)) {
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    //    }
     return manager;
 }
 
@@ -68,9 +76,13 @@
                 success(resultdic);
             }else{
                 LRToast(resultdic[@"alertMsg"]);
-                
+                if (failure) {
+                    failure(nil);
+                }
             }
             
+        }else{
+            LRToast(@"返回数据为空！");
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
@@ -112,11 +124,10 @@
         //把网络请求返回数据转换成json数据
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
+        //隐藏loding
+        HiddenHudOnly;
         //取出返回数据
         if (success&&resultdic) {
-            
-            //隐藏loding
-            HiddenHudOnly;
             
             GGLog(@"resultdic-----%@",resultdic);
             
@@ -132,12 +143,23 @@
                         if ([resultdic[@"statusCode"] integerValue] == 110001) {
                             //清空登录状态,然后跳转到登录界面
                             [UserModel clearLocalData];
-                            [YXHeader checkNormalBackLogin];
+                            [YXHeader checkNormalBackLoginHandle:^{
+                                if (RefreshAction) {
+                                    GGLog(@"登陆成功回调");
+                                    RefreshAction();
+                                }
+                            }];
+                        }else{
+                            if (failure) {
+                                failure(nil);
+                            }
                         }
                     });
                 }
             }
             
+        }else{
+            LRToast(@"返回数据为空！");
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
@@ -186,11 +208,10 @@
         
         GGLog(@"resultdic-----%@",resultdic);
         
+        //隐藏loding
+        HiddenHudOnly;
         //取出返回数据
         if (success&&resultdic) {
-            
-            //隐藏loding
-            HiddenHudOnly;
             
             //成功返回服务器数据
             if ([resultdic[@"success"] integerValue] == 1) {
@@ -208,11 +229,17 @@
                                 GGLog(@"登陆成功回调");
                                 RefreshAction();
                             }];
+                        }else{
+                            if (failure) {
+                                failure(nil);
+                            }
                         }
                     });
                 }
             }
             
+        }else{
+            LRToast(@"返回数据为空！");
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
@@ -230,6 +257,265 @@
     }];
     
 }
+
+#pragma mark -- 上传单张图片
++ (void)uploadFileImage:(NSString *)URLString
+             parameters:(id)parameters
+            uploadImage:(UIImage *)uploadimage
+                success:(void (^)(id response))success
+                failure:(void (^)(NSError *error))failure
+          RefreshAction:(void (^)())RefreshAction
+{
+    
+    AFHTTPSessionManager *manager = [self getQuestManager];
+
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
+    
+    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    ShowHudOnly;
+    NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        
+        //        NSData *imageData = UIImageJPEGRepresentation(uploadimage,1);
+        NSData *imageData = UIImagePNGRepresentation(uploadimage);
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        formatter.dateFormat = @"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
+        
+        //上传的参数(上传图片，以文件流的格式)
+        [formData appendPartWithFileData:imageData
+                                    name:@"file" //这里name是后台取数据对应的字段，所以不能乱写
+                                fileName:fileName
+                                mimeType:@"image/jpg/png/jpeg"];
+        
+    } progress:^(NSProgress *_Nonnull uploadProgress) {
+        //打印下上传进度
+        
+    } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
+        
+        //上传成功
+        NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
+        NSLog(@"responseObject-------%@",resultdic);
+        HiddenHudOnly;
+        //取出返回数据
+        if (success&&resultdic) {
+            if ([resultdic[@"success"] integerValue] == 1) {
+                success(resultdic);
+            }else{
+                LRToast(resultdic[@"alertMsg"]);
+                GCDAfterTime(1.2, ^{
+                    //未登陆
+                    if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                        //清空登录状态,然后跳转到登录界面
+                        [UserModel clearLocalData];
+                        [YXHeader checkNormalBackLoginHandle:^{
+                            GGLog(@"登陆成功回调");
+                            RefreshAction();
+                        }];
+                    }
+                });
+            }
+        }else{
+            LRToast(@"返回数据为空！");
+        }
+        
+    } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        //上传失败
+        NSLog(@"error-------%@",error);
+        //隐藏loding
+        HiddenHudOnly;
+        LRToast(@"图片上传失败");
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+    
+}
+
+
+
+
+#pragma mark -- 上传多张图片 -- 如果要上传多张图片只需要for循环遍历数组图片上传 上传图片时把图片转换成字符串传递
++ (void)uploadFileImages:(NSString *)URLString
+              parameters:(id)parameters
+             uploadImage:(NSMutableArray *)uploadimages
+                 success:(void (^)())success
+                 failure:(void (^)(NSError *error))failure {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //接收类型不一致请替换一致text/html或别的
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:
+                                                         @"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",
+                                                         nil];
+    
+    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    
+    [parameters setValue:@"1" forKey:@"client_id"];
+    
+    [parameters setValue:[HttpRequest  getapi_tokenwithurlstring:URLString] forKey:@"api_token"];
+    
+    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    
+    NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        
+        //通过循环取出图片上传
+        for (int i = 0; i < uploadimages.count; i ++) {
+            
+            UIImage *uploadimage = uploadimages[i];
+            
+            NSData *imageData =UIImageJPEGRepresentation(uploadimage,1);
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+            formatter.dateFormat =@"yyyyMMddHHmmss";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+            
+            NSLog(@"fileName---------%@",fileName);
+            
+            NSString *picname=[NSString stringWithFormat:@"dt_pic%d",i];
+            
+            
+            //上传的参数(上传图片，以文件流的格式)
+            [formData appendPartWithFileData:imageData
+                                        name:picname
+                                    fileName:fileName
+                                    mimeType:@"image/jpeg"];
+            
+        }
+        
+    } progress:^(NSProgress *_Nonnull uploadProgress) {
+        //打印下上传进度
+        
+    } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
+        //上传成功
+        NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
+        NSLog(@"responseObject-------%@",resultdic);
+        
+        if (success) {
+            success(resultdic);
+        }
+        
+    } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        //上传失败
+        NSLog(@"error-------%@",error);
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+    
+}
+
+
+
+
+
++(void)uploadFileVideo:(NSString *)URLString
+            parameters:(id)parameters
+       uploadVideoData:(NSData *)uploadVideoData
+               success:(void (^)())success
+               failure:(void (^)(NSError *error))failure {
+    
+    //    //在token获取成功之后进行相应的请求
+    //    [self gettoken:^(id tokenStr) {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //接收类型不一致请替换一致text/html或别的
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",@"text/plain",
+                                                         nil];
+    
+    
+    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    
+    [parameters setValue:@"1" forKey:@"client_id"];
+    
+    [parameters setValue:[HttpRequest  getapi_tokenwithurlstring:URLString] forKey:@"api_token"];
+    
+    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    
+    if (![MBProgressHUD allHUDsForView:kWindow].count)
+        
+        kShowHUDAndActivity;
+    
+    NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        formatter.dateFormat =@"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *fileName = [NSString stringWithFormat:@"%@.mp4", str];
+        
+        //上传的参数(上传图片，以文件流的格式)
+        [formData appendPartWithFileData:uploadVideoData
+                                    name:@"video"
+                                fileName:fileName
+                                mimeType:@"video/mpeg4"];
+        
+    } progress:^(NSProgress *_Nonnull uploadProgress) {
+        
+        //打印下上传进度
+        NSLog(@"uploadProgress.fractionCompleted---%f",uploadProgress.fractionCompleted);
+        
+        if (uploadProgress.fractionCompleted==1.0) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 在主线程中更新 UI
+                kHiddenHUDAndAvtivity;
+            });
+            
+        }
+        
+    } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
+        
+        //上传成功
+        NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        
+        NSLog(@"responseObject-------%@",resultdic);
+        
+        //显示提示用户信息
+        NSString *msg= [NSString stringWithFormat:@"%@",[resultdic objectForKey:@"mess"]];
+        
+        LRToast(msg);
+        
+        if (success) {
+            success(resultdic);
+        }
+        
+    } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        //上传失败
+        NSLog(@"error-------%@",error);
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+    
+    //    }];
+    
+}
+
+
+
 
 //获取当前页面的控制器 进行相应的跳转以及视图的添加
 + (UIViewController *)getCurrentVC

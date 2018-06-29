@@ -172,7 +172,7 @@
                 return;
             }
         }
-        LRToast(@"绑定中...");
+        [self requestImproveUserInfo];
     }
 }
 
@@ -194,11 +194,15 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"account"] = username.text;
     
+    ShowHudOnly
     [HttpRequest getWithURLString:SendValidCode parameters:parameters success:^(id responseObject) {
+        HiddenHudOnly
         LRToast(@"验证码已发送");
         //发送成功后
         [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:WhiteColor countColor:WhiteColor];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        HiddenHudOnly
+    }];
     
 }
 
@@ -237,8 +241,29 @@
     return [super canPerformAction:action withSender:sender];
 }
 
+#pragma mark ---- 请求发送
+//完善用户资料
+-(void)requestImproveUserInfo
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    NSString *urlStr = User_bindMobile;
+    if (self.bindingType) {
+        parameters[@"mobile"] = username.text;
+    }else{
+        parameters[@"email"] = username.text;
+        urlStr = User_bindEmail;
+    }
+    parameters[@"validCode"] = seccode.text;
+    [HttpRequest postWithURLString:urlStr parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"绑定成功~");
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
 
-
+    } failure:nil RefreshAction:^{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
 
 

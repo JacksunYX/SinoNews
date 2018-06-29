@@ -8,11 +8,12 @@
 //自定义展示商城相关的cell
 
 #import <UIKit/UIKit.h>
+#import "ProductModel.h"
 
 #define StoreChildCellID @"StoreChildCellID"
 
 @interface StoreChildCell : UITableViewCell
 
-@property(nonatomic,strong) NSDictionary *model;
+@property(nonatomic,strong) ProductModel *model;
 
 @end

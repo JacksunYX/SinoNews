@@ -11,9 +11,12 @@
 #import "StoreChildCell.h"
 
 @interface StoreChildViewController ()<UITableViewDataSource,UITableViewDelegate>
-
+{
+    
+}
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) NSInteger page;
 
 @end
 
@@ -31,6 +34,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     [self addTableView];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,6 +57,30 @@
     _tableView.delegate = self;
     //注册
     [_tableView registerClass:[StoreChildCell class] forCellReuseIdentifier:StoreChildCellID];
+    @weakify(self)
+    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        self.page = 1;
+        [self requestProductsList];
+    }];
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self)
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (!self.dataSource.count) {
+            self.page = 1;
+        }else{
+            self.page++;
+        }
+        [self requestProductsList];
+    }];
+    
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -63,13 +91,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     StoreChildCell *cell = (StoreChildCell *)[tableView dequeueReusableCellWithIdentifier:StoreChildCellID];
-    
+    cell.model = self.dataSource[indexPath.row];
     return cell;
 }
 
@@ -94,5 +122,44 @@
     ExchangeProductViewController *epVc = [ExchangeProductViewController new];
     [self.navigationController pushViewController:epVc animated:YES];
 }
+
+#pragma mark ----- 请求发送
+//请求商品列表
+-(void)requestProductsList
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"categoryId"] = [NSString stringWithFormat:@"%ld",self.categoryId];
+    parameters[@"page"] = @(self.page);
+    [HttpRequest getWithURLString:Mall_products parameters:parameters success:^(id responseObject) {
+        NSArray *data = [ProductModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (self.page == 1) {
+            self.dataSource = [data mutableCopy];
+            if (data.count) {
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            if (data.count) {
+                [self.dataSource addObjectsFromArray:data];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
+
+
+
+
+
+
 
 @end

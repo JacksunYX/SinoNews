@@ -85,7 +85,7 @@
     .bottomSpaceToView(backImg, 5)
     .widthEqualToHeight()
     ;
-    [iconImg setImage:UIImageNamed(@"logo_youku")];
+//    [iconImg setImage:UIImageNamed(@"logo_youku")];
     
     title.sd_layout
     .leftSpaceToView(iconImg, 5)
@@ -94,7 +94,7 @@
     ;
 
     [title setSingleLineAutoResizeWithMaxWidth:180 * ScaleW];
-    title.text = @"优酷VIP会员卡";
+//    title.text = @"优酷VIP会员卡";
     
     subTitle.sd_layout
     .leftSpaceToView(iconImg, 5)
@@ -103,7 +103,7 @@
     ;
 
     [subTitle setSingleLineAutoResizeWithMaxWidth:180 * ScaleW];
-    subTitle.text = @"一个月超级会员";
+//    subTitle.text = @"一个月超级会员";
     
     bottomTitle.sd_layout
     .leftSpaceToView(iconImg, 5)
@@ -112,7 +112,7 @@
     ;
 
     [bottomTitle setSingleLineAutoResizeWithMaxWidth:180 * ScaleW];
-    bottomTitle.text = @"价值1000元";
+//    bottomTitle.text = @"价值1000元";
     
     rightTitle.sd_layout
     .rightSpaceToView(backImg, 10 * ScaleW)
@@ -120,16 +120,20 @@
     .widthIs(70 * ScaleW)
     .autoHeightRatio(0)
     ;
-    rightTitle.text = @"550000\n积分兑换";
+//    rightTitle.text = @"550000\n积分兑换";
     
     [self setupAutoHeightWithBottomView:backImg bottomMargin:10];
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(ProductModel *)model
 {
     _model = model;
-    
-    
+    [iconImg sd_setImageWithURL:UrlWithStr(model.imageUrl)];
+    title.text = GetSaveString(model.productName);
+    if (model.price) {
+        bottomTitle.text = [NSString stringWithFormat:@"价值%@元",model.price];
+    }
+    rightTitle.text = [NSString stringWithFormat:@"%@\n积分兑换",model.specialPrice];
 }
 
 

@@ -148,7 +148,7 @@
         }else if (![newPassword.text checkPassWord]){
             LRToast(@"新密码为6-16位数字、字母和下划线组成");
         }else{
-            LRToast(@"密码修改中...");
+            [self requestChangePassword];
         }
     }
 }
@@ -192,7 +192,23 @@
 }
 
 
-
+#pragma mark ---- 请求发送
+//修改密码
+-(void)requestChangePassword
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"oldPassword"] = oldPassword.text;
+    parameters[@"newsPassword"] = newPassword.text;
+    [HttpRequest postWithURLString:User_editPassword parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"修改密码成功");
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        
+    } failure:nil RefreshAction:^{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
 
 

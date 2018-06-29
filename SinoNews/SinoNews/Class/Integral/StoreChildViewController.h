@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface StoreChildViewController : UIViewController
-@property (nonatomic,assign) NSInteger index;   //下标
+@property (nonatomic,assign) NSInteger categoryId;   //分类id
 @end

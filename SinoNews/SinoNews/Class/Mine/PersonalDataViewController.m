@@ -22,25 +22,37 @@
 @implementation PersonalDataViewController
 
 //性别选择视图
--(UIView *)sexSelectView
+-(UIView *)getSexSelectView
 {
-    if (!_sexSelectView) {
-        _sexSelectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 71, 17)];
-        _sexSelectView.backgroundColor = WhiteColor;
+    if (!self.sexSelectView) {
+        self.sexSelectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 71, 17)];
+        self.sexSelectView.backgroundColor = WhiteColor;
         
         UIButton *btn1 = [self getBtn];
         btn1.frame = CGRectMake(0, 0, 34, 17);
         [btn1 setTitle:@"男" forState:UIControlStateNormal];
         btn1.tag = 10010 + 1;
-
+        
         UIButton *btn2 = [self getBtn];
         btn2.frame = CGRectMake(CGRectGetMaxX(btn1.frame) + 3, 0, 34, 17);
         [btn2 setTitle:@"女" forState:UIControlStateNormal];
-        btn2.tag = 10010 + 2;
+        btn2.tag = 10010 + 0;
         
-        [_sexSelectView sd_addSubviews:@[btn1,btn2]];
+        [self.sexSelectView sd_addSubviews:@[btn1,btn2]];
     }
-    return _sexSelectView;
+    UIButton *btn1 = [self.sexSelectView viewWithTag:10010 + 1];
+    UIButton *btn2 = [self.sexSelectView viewWithTag:10010 + 0];
+    btn1.selected = NO;
+    btn2.selected = NO;
+    if (self.user.gender==0) {  //女
+        btn1.selected = NO;
+        btn2.selected = YES;
+    }else if (self.user.gender==1){ //男
+        btn1.selected = YES;
+        btn2.selected = NO;
+    }
+    
+    return self.sexSelectView;
 }
 
 -(UIButton *)getBtn
@@ -138,20 +150,19 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
 }
 
-//按钮点击事件
+//性别按钮点击事件
 -(void)sexSelectedAction:(UIButton *)sender
 {
     NSInteger index = sender.tag - 10010;
-    [sender setSelected:YES];
-    NSInteger another = 0;
-    if (index == 1) {
-        another = 10010 + 2;
-    }else if (index == 2){
-        another = 10010 + 1;
-    }
-    //获取另一个btn
-    UIButton *btn2 = [self.sexSelectView viewWithTag:another];
-    [btn2 setSelected:NO];
+    @weakify(self)
+    [self requestEditGenderWith:index haveChanged:^{
+        @strongify(self)
+        self.user.gender = index;
+        [UserModel coverUserData:self.user];
+        //刷新
+        [self.tableView reloadData];
+    }];
+
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -194,9 +205,13 @@
         NSString *username = GetSaveString(self.user.username);
         cell.detailTextLabel.text = username;
     }else if (CompareString(title, @"性别")){
-        cell.accessoryView = self.sexSelectView;
+        cell.accessoryView = [self getSexSelectView];
     }else if (CompareString(title, @"生日")){
-        cell.detailTextLabel.text = @"点击编辑生日";
+        if (self.user.birthday) {
+            cell.detailTextLabel.text = self.user.birthday;
+        }else{
+            cell.detailTextLabel.text = @"点击编辑生日";
+        }
     }else if (CompareString(title, @"收货地址")){
         cell.detailTextLabel.text = @"设置";
     }else if (CompareString(title, @"绑定手机")){
@@ -242,16 +257,37 @@
             //先对质量压缩
             NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
             UIImage *img = [UIImage imageWithData:imgData];
-            
-            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
+            GCDAfterTime(0.5, ^{
+                
+                [HttpRequest uploadFileImage:User_updateAvata parameters:@{} uploadImage:img success:^(id response){
+                    LRToast(@"上传成功");
+                    UserModel *user = [UserModel getLocalUserModel];
+                    user.avatar = response[@"data"];
+                    self.user = user;
+                    [UserModel coverUserData:user];
+                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
+                } failure:nil RefreshAction:^{
+                    self.user = [UserModel getLocalUserModel];
+                    if (!self.user) {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    [self.tableView beginUpdates];
+                    [self.tableView endUpdates];
+                }];
+                
+            });
+   
         }];
     }else if (CompareString(title, @"生日")){
-        WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
-            
+        //获取用户的生日，如果存在就滚动到该日期
+        NSDate *date = [NSDate date:GetSaveString(self.user.birthday) WithFormat:@"yyyy-MM-dd"];
+        WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay scrollToDate:date CompleteBlock:^(NSDate *selectDate) {
             NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
             GGLog(@"选择的日期：%@",dateString);
-            
+            @strongify(self)
+            [self requestImproveUserInfoWithBirthday:dateString];
         }];
+        
         //指定最小最大日期
         NSDateFormatter *minDateFormater = [[NSDateFormatter alloc] init];
         [minDateFormater setDateFormat:@"yyyy-MM-dd"];
@@ -284,9 +320,45 @@
     }
 }
 
+#pragma mark ---- 请求发送
+//修改性别
+-(void)requestEditGenderWith:(NSInteger)gender haveChanged:(void(^)(void))changed
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"gender"] = [NSString stringWithFormat:@"%ld",gender];
+    [HttpRequest postWithURLString:User_editUserInfo parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"性别修改成功");
+        if (changed) {
+            changed();
+        }
+        
+    } failure:nil RefreshAction:^{
+        self.user = [UserModel getLocalUserModel];
+        if (!self.user) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        [self.tableView reloadData];
+    }];
+}
 
-
-
+//修改生日
+-(void)requestImproveUserInfoWithBirthday:(NSString *)birthday
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"birthday"] = birthday;
+    [HttpRequest postWithURLString:User_editUserInfo parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"生日修改成功");
+        self.user.birthday = birthday;
+        [UserModel coverUserData:self.user];
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:^{
+        self.user = [UserModel getLocalUserModel];
+        if (!self.user) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        [self.tableView reloadData];
+    }];
+}
 
 
 

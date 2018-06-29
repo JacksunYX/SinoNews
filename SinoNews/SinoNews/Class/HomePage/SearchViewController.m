@@ -124,16 +124,16 @@
 {
     if (!_hotNews) {
         _hotNews = [NSMutableArray new];
-        [_hotNews addObjectsFromArray:@[
-                                        @"蒙冤者申请赔偿",
-                                        @"韩国记者赶赴报道",
-                                        @"扎克伯格欧洲作证",
-                                        @"富士康今日申购",
-                                        @"富士康今日申购asdas",
-                                        @"扎克伯格欧洲作证aqwdf",
-                                        @"测试测试测试测试测试测试测试测试",
-                                        @"韩国记者赶赴报道韩国记者赶赴报道",
-                                        ]];
+//        [_hotNews addObjectsFromArray:@[
+//                                        @"蒙冤者申请赔偿",
+//                                        @"韩国记者赶赴报道",
+//                                        @"扎克伯格欧洲作证",
+//                                        @"富士康今日申购",
+//                                        @"富士康今日申购asdas",
+//                                        @"扎克伯格欧洲作证aqwdf",
+//                                        @"测试测试测试测试测试测试测试测试",
+//                                        @"韩国记者赶赴报道韩国记者赶赴报道",
+//                                        ]];
     }
     return _hotNews;
 }
@@ -161,6 +161,8 @@
     self.collectionView.backgroundColor = WhiteColor;
     self.tableView.backgroundColor = WhiteColor;
     self.keyTableView.backgroundColor = WhiteColor;
+    
+    [self requsetNewsKeys];
     
     [self showWithStatus:3];
     
@@ -283,26 +285,26 @@
     
     titleLabel.sd_layout
     .leftSpaceToView(cell.contentView, 10)
+    .rightSpaceToView(cell.contentView, 10)
     .centerYEqualToView(cell.contentView)
-    .autoHeightRatio(0)
+    .heightIs(34)
     ;
-    [titleLabel setMaxNumberOfLinesToShow:1];
     
     if (indexPath.section == 0) {
-        [titleLabel setSingleLineAutoResizeWithMaxWidth:(ScreenW - 20)/2];
+//        [titleLabel setSingleLineAutoResizeWithMaxWidth:(ScreenW - 20)/2];
         titleLabel.text = self.hotNews[indexPath.row];
         //分割线
         UIView *line = [UIView new];
         line.backgroundColor = RGB(227, 227, 227);
         [cell.contentView addSubview:line];
         line.sd_layout
-        .leftEqualToView(titleLabel)
+        .leftSpaceToView(cell.contentView, 10)
         .rightSpaceToView(cell.contentView, 10)
         .bottomEqualToView(cell.contentView)
         .heightIs(1)
         ;
     }else{
-        [titleLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
+//        [titleLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
         titleLabel.text = self.choicenessNews[indexPath.row];
     }
     
@@ -312,14 +314,18 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return CGSizeMake((ScreenW - 10)/2, 34);
+        return CGSizeMake((ScreenW - 1)/2, 34);
     }
     return CGSizeMake(ScreenW, 34);
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(ScreenW, 54);
+    if ((section ==0 && self.hotNews.count)||(section ==1 && self.choicenessNews.count)) {
+        return CGSizeMake(ScreenW, 54);
+    }
+    
+    return CGSizeZero;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
@@ -330,13 +336,13 @@
 //列间距
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5;
+    return 0.01;
 }
 
 //行间距
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10;
+    return 0.01;
 }
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -469,10 +475,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.tableView) {
-//        if (indexPath.row == 0) {
-//            return HomePageFirstKindCellH;
-//        }
-//
+        
         return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
         
     }else if (tableView == self.keyTableView){
@@ -502,7 +505,19 @@
 
 
 #pragma mark ----- 请求发送
-
+-(void)requsetNewsKeys
+{
+    [HttpRequest postWithURLString:News_getNewsKeys parameters:nil isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        
+        NSArray *arr = response[@"data"];
+        [self.hotNews removeAllObjects];
+        for (NSDictionary *dic in arr) {
+            NSString *value = dic[@"hotName"];
+            [self.hotNews addObject:GetSaveString(value)];
+        }
+        [self.collectionView reloadData];
+    } failure:nil RefreshAction:nil];
+}
 
 
 

@@ -8,6 +8,8 @@
 //用来展示积分-管理中的cell数据
 
 #import <UIKit/UIKit.h>
+#import "IntegralModel.h"
+
 #define ManagerRecordCellID @"ManagerRecordCellID"
 
 @interface ManagerRecordCell : UITableViewCell

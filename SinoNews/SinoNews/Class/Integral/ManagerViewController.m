@@ -17,10 +17,11 @@
 }
 
 @property (nonatomic,strong) LXSegmentBtnView *segmentView;
-@property (nonatomic,strong) CAGradientLayer *gradient;
+@property (nonatomic,strong) CAGradientLayer *gradient; //渐变色覆盖物
 
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) NSInteger page;
 @end
 
 @implementation ManagerViewController
@@ -214,6 +215,30 @@
     //注册
     [_tableView registerClass:[ManagerRecordCell class] forCellReuseIdentifier:ManagerRecordCellID];
     
+    @weakify(self)
+    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        self.page = 1;
+        [self requestPointsList];
+    }];
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self)
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (!self.dataSource.count) {
+            self.page = 1;
+        }else{
+            self.page++;
+        }
+        [self requestPointsList];
+    }];
+    [_tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -340,8 +365,36 @@
     GGLog(@"点击了第%ld个",indexPath.row);
 }
 
-
-
+#pragma mark ---- 请求发送
+//请求积分列表
+-(void)requestPointsList
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"page"] = @(self.page);
+    [HttpRequest getWithURLString:PointsBalanceSheet parameters:parameters success:^(id responseObject) {
+//        NSArray *data = [IntegralModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+//        if (self.page == 1) {
+//            self.dataSource = [data mutableCopy];
+//            if (data.count) {
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            if (data.count) {
+//                [self.dataSource addObjectsFromArray:data];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
 
 
 

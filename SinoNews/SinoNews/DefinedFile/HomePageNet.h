@@ -34,11 +34,23 @@
 //点赞(post)
 //点赞类型(1:回复,2:评论,3:新闻,4:问答,5:公司回复,6:公司评论)
 #define Praise                  @"/api/praise"
-//是否被点赞
+//是否被点赞(post)
 #define IsPraise                @"/api/isPraise"
 
-//关注/取消关注
+//关注/取消关注(post)
 #define AttentionUser           @"/api/attentionUser"
+
+//搜索相关接口
+//热搜关键词(get)
+#define News_getNewsKeys        @"/api/news/getNewsKeys"
+//搜索文章(get)
+#define News_listForSearching   @"/api/news/listForSearching"
+//搜索自动补全(get)
+#define News_autoComplete       @"/api/news/autoComplete"
+
+
+
+
 
 
 

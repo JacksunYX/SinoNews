@@ -8,12 +8,13 @@
 //关注的人
 
 #import <UIKit/UIKit.h>
+#import "MyFansModel.h"
 
 #define MyAttentionFirstCellID @"MyAttentionFirstCellID"
 
 @interface MyAttentionFirstCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) MyFansModel *model;
 
 @property (nonatomic, copy) void (^attentionIndex)(NSInteger row);
 

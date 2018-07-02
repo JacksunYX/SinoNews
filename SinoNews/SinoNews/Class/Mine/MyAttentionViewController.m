@@ -18,11 +18,20 @@
     
 }
 @property (nonatomic,strong) BaseTableView *tableView;
-@property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *attentionArr;
+@property (nonatomic,strong) NSMutableArray *topicArr;
+@property (nonatomic,strong) NSMutableArray *channelArr;
 
 @end
 
 @implementation MyAttentionViewController
+-(NSMutableArray *)attentionArr
+{
+    if (!_attentionArr) {
+        _attentionArr = [NSMutableArray new];
+    }
+    return _attentionArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,6 +115,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0) {
+        return self.attentionArr.count;
+    }
     return 1;
 }
 
@@ -114,6 +126,13 @@
     UITableViewCell *cell;
     if (indexPath.section == 0) {
         MyAttentionFirstCell *cell0 = (MyAttentionFirstCell *)[tableView dequeueReusableCellWithIdentifier:MyAttentionFirstCellID];
+        MyFansModel *model = self.attentionArr[indexPath.row];
+        cell0.model = model;
+        @weakify(self)
+        cell0.attentionIndex = ^(NSInteger row) {
+            @strongify(self)
+            [self requestIsAttentionWithFansModel:model];
+        };
         
         cell = (UITableViewCell *)cell0;
     }else if (indexPath.section == 1) {
@@ -212,9 +231,30 @@
 -(void)requestAttentionList
 {
     [HttpRequest postWithURLString:Attention_myUser parameters:@{} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        self.attentionArr = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
+        [self.tableView reloadData];
     } failure:nil RefreshAction:nil];
 }
+
+//关注/取消关注
+-(void)requestIsAttentionWithFansModel:(MyFansModel *)model
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(model.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        model.isFollow = !model.isFollow;
+        if (model.isFollow) {
+            LRToast(@"关注成功～");
+        }else{
+            LRToast(@"已取消关注");
+        }
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:^{
+        [self requestAttentionList];
+    }];
+}
+
 
 
 

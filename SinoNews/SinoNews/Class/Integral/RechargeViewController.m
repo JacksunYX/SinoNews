@@ -267,7 +267,7 @@
     moneyInput.delegate = self;
     moneyInput.font = Font(21);
     moneyInput.textColor = RGBA(18, 130, 238, 1);
-    moneyInput.backgroundColor = RGBA(227, 227, 227, 1);
+    moneyInput.backgroundColor = HexColor(#f6f6f6);
     // 自定义输入限制类型
     moneyInput.limitedType = TXLimitedTextFieldTypePrice;
     // 限制输入长度
@@ -291,7 +291,7 @@
     NSMutableAttributedString *placeholderAtt = [[NSMutableAttributedString alloc]initWithString:placeholder];
     NSDictionary *attDic = @{
                           NSFontAttributeName : FontScale(15),
-                          NSForegroundColorAttributeName : RGBA(152, 152, 152, 1),
+                          NSForegroundColorAttributeName : HexColor(#d1d1d1),
                           };
     [placeholderAtt addAttributes:attDic range:NSMakeRange(0, placeholder.length)];
     moneyInput.attributedPlaceholder = placeholderAtt;

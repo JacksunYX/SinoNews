@@ -15,4 +15,6 @@
 
 @property (nonatomic,strong) MyFansModel *model;
 
+@property (nonatomic,copy) void (^attentionBlock)(void);
+
 @end

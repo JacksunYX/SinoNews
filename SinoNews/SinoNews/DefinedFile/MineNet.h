@@ -29,7 +29,8 @@
 //我的关注列表
 #define Attention_myUser    @"/api/myUser"
 
-
+//我的粉丝列表
+#define Fans_myFollow       @"/api/myFollow"
 
 
 

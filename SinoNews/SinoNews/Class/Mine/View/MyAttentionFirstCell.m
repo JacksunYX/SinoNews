@@ -112,20 +112,24 @@
 //关注点击事件
 -(void)attentionAction:(UIButton *)btn
 {
-    btn.selected = !btn.selected;
-    if (btn.selected) {
-        btn.layer.borderColor = HexColor(#E3E3E3).CGColor;
-    }else{
-        btn.layer.borderColor = HexColor(#1282EE).CGColor;
-    }
     if (self.attentionIndex) {
         self.attentionIndex(self.tag);
     }
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(MyFansModel *)model
 {
     _model = model;
+    
+    [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
+    
+    isAttention.selected = model.isFollow;
+    
+    if (isAttention.selected) {
+        isAttention.layer.borderColor = HexColor(#E3E3E3).CGColor;
+    }else{
+        isAttention.layer.borderColor = HexColor(#1282EE).CGColor;
+    }
 }
 
 

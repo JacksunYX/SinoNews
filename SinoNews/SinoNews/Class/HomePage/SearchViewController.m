@@ -9,9 +9,14 @@
 #import "SearchViewController.h"
 #import "SearchHeadReusableView.h"
 
+#import "NewsDetailViewController.h"
+#import "TopicViewController.h"
+#import "PayNewsViewController.h"
+
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
 #import "HomePageThirdKindCell.h"
+#import "HomePageFourthCell.h"
 
 @interface SearchViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 {
@@ -21,6 +26,7 @@
 }
 
 @property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UITextField *searchField;
 //资讯展示tableview
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *newsArr;    //资讯数组
@@ -90,6 +96,7 @@
         [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
         [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
         [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+        [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
         
         _tableView.hidden = YES;
 
@@ -142,14 +149,22 @@
 {
     if (!_choicenessNews) {
         _choicenessNews = [NSMutableArray new];
-        [_choicenessNews addObjectsFromArray:@[
-                                               @"富士康今日申购asdas",
-                                               @"扎克伯格欧洲作证aqwdf",
-                                               @"测试测试测试测试测试测试测试测试",
-                                               @"韩国记者赶赴报道韩国记者赶赴报道",
-                                               ]];
+//        [_choicenessNews addObjectsFromArray:@[
+//                                               @"富士康今日申购asdas",
+//                                               @"扎克伯格欧洲作证aqwdf",
+//                                               @"测试测试测试测试测试测试测试测试",
+//                                               @"韩国记者赶赴报道韩国记者赶赴报道",
+//                                               ]];
     }
     return _choicenessNews;
+}
+
+-(NSMutableArray *)keyArr
+{
+    if (!_keyArr) {
+        _keyArr = [NSMutableArray new];
+    }
+    return _keyArr;
 }
 
 - (void)viewDidLoad {
@@ -169,12 +184,57 @@
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
 //    tap.numberOfTapsRequired = 1;
 //    [self.view addGestureRecognizer:tap];
+    
+    [self getSearchField];
+}
+
+//获取搜索框里的输入框
+-(void)getSearchField
+{
+    for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
+        if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+            UITextField *textField = (UITextField *)view;
+            //设置输入框的背景颜色
+            textField.clipsToBounds = YES;
+            textField.backgroundColor = HexColor(#EEEEEE);
+            //设置输入框边框的圆角以及颜色
+            textField.layer.cornerRadius = 17.0f;
+//            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
+//            textField.layer.borderWidth = 1;
+            //设置输入字体颜色
+//            textField.textColor = BlueColor;
+            //设置默认文字颜色
+            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{
+                                                                                                                    NSForegroundColorAttributeName:HexColor(#AEAEAE),
+                                                                                                                    NSFontAttributeName:Font(13),
+                                                                                                                    }];
+            self.searchField = textField;
+        }
+    }
+    //加入输入监听(注意，如果信号没有被订阅，则会提示警告⚠️)
+    //先判断是否全是空格
+    //上次的值与本次的值不能相同
+    //节流1秒
+    //发送请求
+    //切入主线程
+    //更新UI
+    @weakify(self)
+    [[[[[[self.searchField.rac_textSignal filter:^BOOL(NSString *text) {
+        return ![NSString isEmpty:text];
+    }] distinctUntilChanged] throttle:1.0] flattenMap:^__kindof RACSignal * _Nullable(NSString *text) {
+        @strongify(self)
+        return [self signalForSearchWithText:text];
+    }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        self.keyArr = x[@"data"];
+        [self reloadViews];
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.searchBar becomeFirstResponder];
+//    [self.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -185,9 +245,10 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 34)];
-    
-    self.searchBar.placeholder = @"热门搜索";
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300 * ScaleW, 34)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
+    [titleView addSubview:self.searchBar];
+    self.navigationItem.titleView = titleView;
     
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
@@ -212,7 +273,6 @@
         }
     }
     
-    self.navigationItem.titleView = self.searchBar;
     self.searchBar.delegate = self;
     
     self.navigationItem.leftBarButtonItem = nil;
@@ -254,6 +314,20 @@
             
         default:
             break;
+    }
+}
+
+//刷新界面
+-(void)reloadViews
+{
+    if (!self.keyTableView.hidden) {
+        [self.keyTableView reloadData];
+    }
+    if (!self.tableView.hidden) {
+        [self.tableView reloadData];
+    }
+    if (!self.collectionView.hidden) {
+        [self.collectionView reloadData];
     }
 }
 
@@ -395,13 +469,15 @@
 {
     GGLog(@"点击了第%ld条",indexPath.row);
     [self.searchBar resignFirstResponder];
+    [self showWithStatus:1];
     if (indexPath.section == 0) {
         self.searchBar.text = self.hotNews[indexPath.row];
     }else{
         self.searchBar.text = self.choicenessNews[indexPath.row];
     }
+    //发送请求
+    [self requestSearchNewsListWithText:self.searchBar.text];
     
-    [self showWithStatus:1];
 }
 
 -(void)tap:(UITapGestureRecognizer *)gesture
@@ -413,7 +489,7 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     GGLog(@"开始获取后台搜索关键词:%@",searchText);
-    if ([GetSaveString(searchText) isEqualToString:@""]) {
+    if ([GetSaveString(searchText) isEqualToString:@""]||[NSString isEmpty:GetSaveString(searchText)]) {
         [self showWithStatus:3];
     }else{
         //相关关键词
@@ -442,10 +518,10 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.tableView) {
-        return 5;
+        return self.newsArr.count;
     }
     if (tableView == self.keyTableView) {
-        return 10;
+        return self.keyArr.count;
     }
     return 0;
 }
@@ -454,19 +530,48 @@
 {
     UITableViewCell *cell;
     if (tableView == self.tableView) {
-        if (indexPath.row == 0) {
-            HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-            cell = (UITableViewCell *)cell1;
-        }else if (indexPath.row == 1) {
-            HomePageSecondKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+        id model = self.newsArr[indexPath.row];
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            HomePageModel *model1 = (HomePageModel *)model;
+            switch (model1.itemType) {
+                case 100:   //无图
+                {
+                    HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                case 101:   //1图
+                {
+                    HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                case 103:   //3图
+                {
+                    HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }else if ([model isKindOfClass:[TopicModel class]]){
+            HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+            cell2.model = model;
             cell = (UITableViewCell *)cell2;
-        }else{
+        }else if ([model isKindOfClass:[ADModel class]]){
             HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+            cell3.model = model;
             cell = (UITableViewCell *)cell3;
         }
     }else if (tableView == self.keyTableView){
         cell = [tableView dequeueReusableCellWithIdentifier:@"KeyCellID"];
-        cell.textLabel.text = [NSString stringWithFormat:@"第%ld条相关关键词",indexPath.row];
+        cell.textLabel.text = self.keyArr[indexPath.row];
     }
     
     return cell;
@@ -501,10 +606,34 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.searchBar resignFirstResponder];
     [self showWithStatus:1];
+    if (tableView == self.keyTableView) {
+        self.searchBar.text = self.keyArr[indexPath.row];
+        //发送请求
+        [self requestSearchNewsListWithText:self.searchBar.text];
+    }else if (tableView == self.tableView){
+        id model = self.newsArr[indexPath.row];
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            //        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ////        ndVC.newsId = [(HomePageModel *)model news_id];
+            //        ndVC.newsId = 118;
+            //        [self.navigationController pushViewController:ndVC animated:YES];
+            
+            PayNewsViewController *pnVC = [PayNewsViewController new];
+            [self.navigationController pushViewController:pnVC animated:YES];
+            
+        }else if ([model isKindOfClass:[TopicModel class]]){
+            TopicViewController *tVC = [TopicViewController new];
+            tVC.model = model;
+            [self.navigationController pushViewController:tVC animated:YES];
+        }else if ([model isKindOfClass:[ADModel class]]){
+            
+        }
+    }
 }
 
 
 #pragma mark ----- 请求发送
+//热搜关键字
 -(void)requsetNewsKeys
 {
     [HttpRequest postWithURLString:News_getNewsKeys parameters:nil isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
@@ -515,14 +644,45 @@
             NSString *value = dic[@"hotName"];
             [self.hotNews addObject:GetSaveString(value)];
         }
-        [self.collectionView reloadData];
+        [self reloadViews];
     } failure:nil RefreshAction:nil];
 }
 
+//搜索文章列表
+-(void)requestSearchNewsListWithText:(NSString *)text
+{
+    [HttpRequest getWithURLString:News_listForSearching parameters:@{@"keyword":text} success:^(id responseObject) {
+        NSMutableArray *dataArr = [NSMutableArray new];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            NSInteger itemType = [dic[@"itemType"] integerValue];
+            if (itemType>=100&&itemType<200) {  //新闻
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=200&&itemType<300) {    //专题
+                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=300&&itemType<400){     //广告
+                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }
+        }
+        self.newsArr = [dataArr mutableCopy];
+        [self reloadViews];
+    } failure:nil];
+}
 
-
-
-
+//搜索补全信号
+-(RACSignal *)signalForSearchWithText:(NSString *)text
+{
+    //创建信号
+    return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        [HttpRequest getWithURLString:News_autoComplete parameters:@{@"keyword":text} success:^(id responseObject) {
+            [subscriber sendNext:responseObject];
+            [subscriber sendCompleted];
+        } failure:nil];
+        return nil;
+    }];
+}
 
 
 

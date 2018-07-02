@@ -141,14 +141,14 @@
         weakSelf.currPage = 1;
         [weakSelf requestCompanyRanking];
     }];
-    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-        if (weakSelf.tableView.mj_header.isRefreshing) {
-            [weakSelf.tableView.mj_footer endRefreshing];
-            return ;
-        }
-        weakSelf.currPage ++;
-        [weakSelf requestCompanyRanking];
-    }];
+//    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+//        if (weakSelf.tableView.mj_header.isRefreshing) {
+//            [weakSelf.tableView.mj_footer endRefreshing];
+//            return ;
+//        }
+//        weakSelf.currPage ++;
+//        [weakSelf requestCompanyRanking];
+//    }];
     
     [self.tableView.mj_header beginRefreshing];
 }
@@ -260,7 +260,7 @@
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"rankingId"] = GetSaveString(self.rankingId);
-    parameters[@"currPage"] = @(self.currPage);
+//    parameters[@"currPage"] = @(self.currPage);
    
     [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
         NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];

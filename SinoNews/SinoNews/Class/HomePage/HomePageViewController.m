@@ -90,8 +90,7 @@
     self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;
-    
-    self.searchBar.placeholder = @"热门搜索";
+
     // 设置搜索框放大镜图标
     UIImage *searchIcon = UIImageNamed(@"searchBar_icon");
     [self.searchBar setImage:searchIcon forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];

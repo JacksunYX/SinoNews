@@ -107,7 +107,7 @@
         typeLabel.hidden = NO;
     }
     
-    NSString *str1 = [@"" stringByAppendingString:@"  "];
+    NSString *str1 = [@"" stringByAppendingString:@""];
     NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
     NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
     NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];

@@ -16,12 +16,11 @@
 @property (nonatomic,strong) UITextField *commentInput;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
-@property (nonatomic,assign) NSInteger currPage;   //页码; //页面(起始为1)
+@property (nonatomic,assign) NSInteger currPage;   //页码(起始为1)
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
 @property (nonatomic,strong) UIButton *collectBtn;
 
-@property (nonatomic,assign) NSInteger parentId;
 @end
 
 @implementation CommentDetailViewController
@@ -154,8 +153,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
-        self.currPage = 1;
-        [self requestComments];
+        [self refreshComments];
     }];
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -207,7 +205,13 @@
             if (model.isPraise) {
                 LRToast(@"已经点过赞啦~");
             }else{
-                [self requestPraiseWithPraiseType:1 praiseId:[model.commentId integerValue] commentNum:row];
+                NSInteger type = 0;
+                if (!kStringIsEmpty(self.model.newsId)) { //存在，说明是新闻相关的回复
+                    type = 1;
+                }else{
+                    type = 5;
+                }
+                [self requestPraiseWithPraiseType:type praiseId:[model.commentId integerValue] commentNum:row];
             }
         };
         //回复TA
@@ -249,12 +253,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-//        CompanyCommentModel *model = self.commentsArr[indexPath.row];
-//        CommentDetailViewController *cdVC = [CommentDetailViewController new];
-//        cdVC.model = model;
-//        [self.navigationController pushViewController:cdVC animated:YES];
-    }
+    [self.commentInput resignFirstResponder];
     
 }
 
@@ -263,10 +262,17 @@
 -(void)requestComments
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"newsId"] = @([self.model.newsId integerValue]);
+    NSString *requestUrl;
+    if (!kStringIsEmpty(self.model.newsId)) { //存在，说明是新闻相关的回复
+        parameters[@"newsId"] = @([self.model.newsId integerValue]);
+        requestUrl = ShowReply;
+    }else{
+        parameters[@"companyId"] = @([self.model.companyId integerValue]);
+        requestUrl = CompanyShowReply;
+    }
     parameters[@"commentId"] = @([self.model.commentId integerValue]);
     parameters[@"currPage"] = @(self.currPage);
-    [HttpRequest getWithURLString:ShowReply parameters:parameters success:^(id responseObject) {
+    [HttpRequest getWithURLString:requestUrl parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
         if (self.currPage == 1) {
@@ -297,11 +303,18 @@
 -(void)requestCommentWithComment:(NSString *)comment
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"newsId"] = @([self.model.newsId integerValue]);
+    NSString *requestUrl;
+    if (!kStringIsEmpty(self.model.newsId)) { //存在，说明是新闻相关的回复
+        parameters[@"newsId"] = @([self.model.newsId integerValue]);
+        requestUrl = Comments;
+    }else{
+        parameters[@"companyId"] = @([self.model.companyId integerValue]);
+        requestUrl = CompanyComments;
+    }
     parameters[@"comment"] = comment;
     parameters[@"parentId"] = @([self.model.commentId integerValue]);
     
-    [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+    [HttpRequest postWithTokenURLString:requestUrl parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论成功~");
         [self refreshComments];
     } failure:nil RefreshAction:^{
@@ -316,7 +329,7 @@
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        if (praiseType == 1) {
+        if (praiseType == 1||praiseType == 5) {
             CompanyCommentModel *model = self.commentsArr[row];
             model.isPraise = !model.isPraise;
             

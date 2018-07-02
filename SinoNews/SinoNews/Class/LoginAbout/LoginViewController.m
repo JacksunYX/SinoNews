@@ -261,9 +261,7 @@
                         [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 });
-            } failure:^(NSError *error) {
-                LRToast(@"登陆失败");
-            }  RefreshAction:nil];
+            } failure:nil  RefreshAction:nil];
         }else{
             LRToast(@"密码为6-16位数字、字母和下划线组成");
         }

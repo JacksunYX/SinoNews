@@ -88,7 +88,7 @@
 #pragma mark 配置方法
 
 -(UIColor*)backgroundColor{
-    return [UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
+    return HexColor(#f6f7fb);
 }
 
 -(UIColor*)textColor{

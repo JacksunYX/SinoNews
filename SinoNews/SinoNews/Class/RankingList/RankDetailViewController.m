@@ -10,6 +10,7 @@
 #import "RankDetailViewController.h"
 #import "CompanyDetailModel.h"
 #import "CommentCell.h"
+#import "CommentDetailViewController.h"
 
 
 @interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -17,6 +18,8 @@
     NSInteger sectionNum;   //总的分区数量
 }
 @property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic, strong) CLInputToolbar *inputToolbar;
+@property (nonatomic, strong) UIView *maskView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,strong) CompanyDetailModel *companyModel;
@@ -156,6 +159,7 @@
     self.view.backgroundColor = WhiteColor;
     
     [self addTableView];
+    [self setTextViewToolbar];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -200,6 +204,33 @@
     
     
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)setTextViewToolbar {
+    
+    self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapActions:)];
+    [self.maskView addGestureRecognizer:tap];
+    [self.view addSubview:self.maskView];
+    self.maskView.hidden = YES;
+    self.inputToolbar = [[CLInputToolbar alloc] init];
+    self.inputToolbar.textViewMaxLine = 3;
+    self.inputToolbar.fontSize = 18;
+    self.inputToolbar.placeholder = @"说点什么吧...";
+    __weak __typeof(self) weakSelf = self;
+    [self.inputToolbar inputToolbarSendText:^(NSString *text) {
+        __typeof(&*weakSelf) strongSelf = weakSelf;
+        // 清空输入框文字
+        [strongSelf.inputToolbar bounceToolbar];
+        strongSelf.maskView.hidden = YES;
+        if ([NSString isEmpty:text]) {
+            LRToast(@"评论不能为空哦~");
+        }else{
+           [self requestCommentWithComment:text];
+        }
+    }];
+    [self.maskView addSubview:self.inputToolbar];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -268,15 +299,24 @@
     }else if (indexPath.section == 4){
         CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
         cell2.tag = indexPath.row;
-        cell2.model = self.commentsArr[indexPath.row];
+        //点赞
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        cell2.model = model;
+        @weakify(self)
         //点赞
         cell2.praiseBlock = ^(NSInteger row) {
-            GGLog(@"点赞");
-        };
+            GGLog(@"点赞的commendId:%@",model.commentId);
+            @strongify(self)
+            if (model.isPraise) {
+                LRToast(@"已经点过赞啦～");
+            }else{
+                [self requestPraiseWithPraiseType:6 praiseId:[model.commentId integerValue] commentNum:row];
+            }
+        };;
         //回复TA
-        cell2.replayBlock = ^(NSInteger row) {
-            GGLog(@"点击了回复TA");
-        };
+//        cell2.replayBlock = ^(NSInteger row) {
+//            GGLog(@"点击了回复TA");
+//        };
         //点击回复
         cell2.clickReplay = ^(NSInteger row,NSInteger index) {
             GGLog(@"点击了第%ld条回复",index);
@@ -396,7 +436,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 4) {
-        GGLog(@"点击了第%ld个cell",indexPath.row);
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        CommentDetailViewController *cdVC = [CommentDetailViewController new];
+        cdVC.model = model;
+        [self.navigationController pushViewController:cdVC animated:YES];
     }
 }
 
@@ -461,13 +504,13 @@
     .widthIs(32 * ScaleW)
     .heightIs(23)
     ;
-    UIImage *img;
-    if ([model[@"collectType"] integerValue]) {
-        img = UIImageNamed(@"game_collected");
+    UIImage *collectImg;
+    if (self.companyModel.hasConcerned) {
+        collectImg = UIImageNamed(@"game_collected");
     }else{
-        img = UIImageNamed(@"game_unCollect");
+        collectImg = UIImageNamed(@"game_unCollect");
     }
-    [collectBtn setImage:img forState:UIControlStateNormal];
+    [collectBtn setImage:collectImg forState:UIControlStateNormal];
     [collectBtn setSd_cornerRadius:@5];
     collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
     collectBtn.layer.borderWidth = 1;
@@ -681,7 +724,13 @@
     collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
     [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
     collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
-    [collectBtn setImage:UIImageNamed(@"game_collected") forState:UIControlStateNormal];
+    UIImage *collectImg;
+    if (self.companyModel.hasConcerned) {
+        collectImg = UIImageNamed(@"game_collected");
+    }else{
+        collectImg = UIImageNamed(@"game_unCollect");
+    }
+    [collectBtn setImage:collectImg forState:UIControlStateNormal];
     
     webserveBtn.sd_layout
     .leftSpaceToView(sendCommentBtn, 12)
@@ -713,10 +762,16 @@
     if ([btnTitle isEqualToString:@"官网"]) {
         [self openUrlWithString:GetSaveString(self.companyModel.website)];
     }else if ([btnTitle isEqualToString:@"发评论"]){
-        LRToast(@"发送了一个评论~");
+        self.maskView.hidden = NO;
+        [self.inputToolbar popToolbar];
     }else{
-        LRToast(@"点击了收藏~");
+        [self requestConcernCompany];
     }
+}
+
+-(void)tapActions:(UITapGestureRecognizer *)tap {
+    [self.inputToolbar bounceToolbar];
+    self.maskView.hidden = YES;
 }
 
 #pragma mark ----- 发送请求
@@ -763,6 +818,70 @@
         [self.tableView.mj_footer endRefreshing];
     }];
 }
+
+//点赞文章/评论
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(praiseType);
+    parameters[@"id"] = @(ID);
+    [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        //公司评论点赞
+        if (praiseType == 6) {
+            CompanyCommentModel *model = self.commentsArr[row];
+            model.isPraise = !model.isPraise;
+            
+            if (model.isPraise) {
+                LRToast(@"点赞成功");
+                model.likeNum ++;
+            }else{
+                LRToast(@"点赞已取消");
+                model.likeNum --;
+            }
+            [self.tableView reloadData];
+        }
+    } failure:nil RefreshAction:^{
+        [self.tableView.mj_header beginRefreshing];
+    }];
+}
+
+//收藏、取消收藏公司(娱乐城)
+-(void)requestConcernCompany
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"companyId"] = GetSaveString(self.companyId);
+    [HttpRequest postWithURLString:ConcernCompany parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        self.companyModel.hasConcerned = !self.companyModel.hasConcerned;
+        if (self.companyModel.hasConcerned) {
+            LRToast(@"已收藏");
+        }else{
+            LRToast(@"已取消收藏");
+        }
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:nil];
+}
+
+//回复评论
+-(void)requestCommentWithComment:(NSString *)comment
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"companyId"] = self.companyId;
+    parameters[@"comment"] = comment;
+    parameters[@"parentId"] = @(0);
+    
+    [HttpRequest postWithTokenURLString:CompanyComments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        LRToast(@"评论成功~");
+        [self requestCompanyCommentList];
+    } failure:nil RefreshAction:^{
+        [self.tableView.mj_header beginRefreshing];
+    }];
+}
+
+
+
+
+
+
 
 
 @end

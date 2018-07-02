@@ -19,4 +19,6 @@
 
 #import "ZZYPhotoHelper.h"
 
+#import "CLInputToolbar.h"  //输入框弹出
+
 #endif /* OtherFrameworksHead_h */

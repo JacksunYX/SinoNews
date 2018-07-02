@@ -16,7 +16,7 @@
 @property (nonatomic,strong) NSString *avatar;      //用户头像
 @property (nonatomic,strong) NSString *comment;     //评论内容
 @property (nonatomic,strong) NSString *commentId;   //评论id
-@property (nonatomic,strong) NSString *companyId;   //企业id
+@property (nonatomic,strong) NSString *companyId;   //所属游戏公司的id
 @property (nonatomic,strong) NSString *createTime;  //评论时间
 @property (nonatomic,assign) NSInteger likeNum;     //点赞数
 @property (nonatomic,assign) BOOL isPraise;         //是否被点赞了

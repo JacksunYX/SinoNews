@@ -21,7 +21,7 @@
 @property (nonatomic,strong) NSString *companyName;         //企业名称
 @property (nonatomic,strong) NSString *foundTime;           //成立时间
 @property (nonatomic,strong) NSString *game;                //游戏
-@property (nonatomic,strong) NSString *hasConcerned;        //未知
+@property (nonatomic,assign) NSUInteger hasConcerned;        //是否收藏
 @property (nonatomic,strong) NSString *information;         //简介
 @property (nonatomic,strong) NSString *logo;                //公司logo
 @property (nonatomic,strong) NSArray *otherwebsite;         //备用地址

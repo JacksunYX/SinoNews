@@ -215,13 +215,13 @@
 {
     id model = self.dataSource[indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
-//        NewsDetailViewController *ndVC = [NewsDetailViewController new];
-////        ndVC.newsId = [(HomePageModel *)model news_id];
-//        ndVC.newsId = 118;
-//        [self.navigationController pushViewController:ndVC animated:YES];
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+//        ndVC.newsId = [(HomePageModel *)model news_id];
+        ndVC.newsId = 118;
+        [self.navigationController pushViewController:ndVC animated:YES];
         
-        PayNewsViewController *pnVC = [PayNewsViewController new];
-        [self.navigationController pushViewController:pnVC animated:YES];
+//        PayNewsViewController *pnVC = [PayNewsViewController new];
+//        [self.navigationController pushViewController:pnVC animated:YES];
         
     }else if ([model isKindOfClass:[TopicModel class]]){
         TopicViewController *tVC = [TopicViewController new];

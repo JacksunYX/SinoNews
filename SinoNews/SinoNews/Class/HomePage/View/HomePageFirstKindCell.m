@@ -132,7 +132,7 @@
             typeLabel.backgroundColor = WhiteColor;
             typeLabel.textColor = HexColor(#1282EE);
         }
-        NSString *str1 = @"  ";
+        NSString *str1 = @"";
         NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
         NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
         NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];

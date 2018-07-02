@@ -171,13 +171,7 @@
     _lineCollectionView.delegate = self;
     [_lineCollectionView registerClass:[LineCollectionViewCell class] forCellWithReuseIdentifier:LineCollectionViewCellID];
     
-    WeakSelf
-    self.lineCollectionView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-        GCDAfterTime(2, ^{
-            [weakSelf.lineCollectionView.mj_footer endRefreshingWithNoMoreData];
-        });
-    }];
-    
+    WeakSelf    
     self.lineCollectionView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         [weakSelf requestRanking];
     }];

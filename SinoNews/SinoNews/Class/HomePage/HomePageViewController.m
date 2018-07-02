@@ -99,10 +99,10 @@
             UITextField *textField = (UITextField *)view;
             //设置输入框的背景颜色
             textField.clipsToBounds = YES;
-            textField.backgroundColor = HexColor(#F1F1F1);
+            textField.backgroundColor = HexColor(#f7f7f7);
             //设置输入框边框的圆角以及颜色
             textField.layer.cornerRadius = 17.0f;
-            textField.layer.borderColor = HexColor(#F1F1F1).CGColor;
+            textField.layer.borderColor = HexColor(#f7f7f7).CGColor;
             textField.layer.borderWidth = 1;
             //设置输入字体颜色
             textField.textColor = BlueColor;

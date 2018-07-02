@@ -132,7 +132,11 @@
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];
         }
-        self.page ++;
+        if (!self.dataSource.count) {
+            self.page = 1;
+        }else{
+            self.page++;
+        }
         [self requestNews_list:1];
     }];
     

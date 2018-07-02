@@ -22,6 +22,8 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger page;
+
+@property (nonatomic ,strong) UserModel *user;
 @end
 
 @implementation ManagerViewController
@@ -29,68 +31,68 @@
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
-        NSArray *behavior = @[
-                              @"签到",
-                              @"猜大小游戏",
-                              @"回答被采纳",
-                              @"发表评论",
-                              @"发表文章",
-                              @"分享得积分",
-                              @"回答问题",
-                              @"兑换iphone8",
-                              ];
-        NSArray *subBehavior = @[
-                                 @"",
-                                 @"投注小",
-                                 @"",
-                                 @"",
-                                 @"",
-                                 @"",
-                                 @"",
-                                 @"",
-                                 ];
-        NSArray *time = @[
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          @"2018-12-23",
-                          ];
-        
-        NSArray *integerChange = @[
-                                   @"-35",
-                                   @"+1100",
-                                   @"-100",
-                                   @"+500",
-                                   @"+100",
-                                   @"+5100",
-                                   @"-800",
-                                   @"+100",
-                                   ];
-        
-        NSArray *balance = @[
-                             @"5500",
-                             @"6500",
-                             @"12000",
-                             @"3500",
-                             @"500",
-                             @"1500",
-                             @"550",
-                             @"2300",
-                             ];
-        for (int i = 0; i < behavior.count; i ++) {
-            NSDictionary *dic = @{
-                                  @"behavior"       :   behavior[i],
-                                  @"subBehavior"    :   subBehavior[i],
-                                  @"time"           :   time[i],
-                                  @"integerChange"  :   integerChange[i],
-                                  @"balance"        :   balance[i],
-                                  };
-            [_dataSource addObject:dic];
-        }
+//        NSArray *behavior = @[
+//                              @"签到",
+//                              @"猜大小游戏",
+//                              @"回答被采纳",
+//                              @"发表评论",
+//                              @"发表文章",
+//                              @"分享得积分",
+//                              @"回答问题",
+//                              @"兑换iphone8",
+//                              ];
+//        NSArray *subBehavior = @[
+//                                 @"",
+//                                 @"投注小",
+//                                 @"",
+//                                 @"",
+//                                 @"",
+//                                 @"",
+//                                 @"",
+//                                 @"",
+//                                 ];
+//        NSArray *time = @[
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          @"2018-12-23",
+//                          ];
+//
+//        NSArray *integerChange = @[
+//                                   @"-35",
+//                                   @"+1100",
+//                                   @"-100",
+//                                   @"+500",
+//                                   @"+100",
+//                                   @"+5100",
+//                                   @"-800",
+//                                   @"+100",
+//                                   ];
+//
+//        NSArray *balance = @[
+//                             @"5500",
+//                             @"6500",
+//                             @"12000",
+//                             @"3500",
+//                             @"500",
+//                             @"1500",
+//                             @"550",
+//                             @"2300",
+//                             ];
+//        for (int i = 0; i < behavior.count; i ++) {
+//            NSDictionary *dic = @{
+//                                  @"behavior"       :   behavior[i],
+//                                  @"subBehavior"    :   subBehavior[i],
+//                                  @"time"           :   time[i],
+//                                  @"integerChange"  :   integerChange[i],
+//                                  @"balance"        :   balance[i],
+//                                  };
+//            [_dataSource addObject:dic];
+//        }
     }
     return _dataSource;
 }
@@ -132,22 +134,22 @@
     userName.font = FontScale(15);
     integer = [UILabel new];
     integer.font = FontScale(15);
+    integer.textAlignment = NSTextAlignmentRight;
     UIView *line = [UIView new];
     
     [self.view sd_addSubviews:@[
-                                      userIcon,
-                                      userName,
-                                      integer,
-                                      line,
-                                      ]];
+                                userIcon,
+                                userName,
+                                integer,
+                                line,
+                                ]];
     userIcon.sd_layout
-    .leftSpaceToView(self.view, 10)
     .topSpaceToView(self.view, 10)
+    .leftSpaceToView(self.view, 10)
     .widthIs(44)
     .heightEqualToWidth()
     ;
     [userIcon setSd_cornerRadius:@22];
-    userIcon.image = UIImageNamed(@"userIcon");
     
     userName.sd_layout
     .leftSpaceToView(userIcon, 7)
@@ -155,15 +157,13 @@
     .heightIs(kScaelW(15))
     ;
     [userName setSingleLineAutoResizeWithMaxWidth:150];
-    userName.text = @"春风十里不如你";
     
     integer.sd_layout
     .rightSpaceToView(self.view, 10)
     .centerYEqualToView(userIcon)
-    .heightIs(kScaelW(14))
+    .heightIs(kScaelW(16))
     ;
     [integer setSingleLineAutoResizeWithMaxWidth:150];
-    integer.text = @"1000000积分";
     
     _segmentView = [LXSegmentBtnView new];
     [self.view addSubview:_segmentView];
@@ -224,6 +224,7 @@
         }
         self.page = 1;
         [self requestPointsList];
+        [self requestToGetUserInfo];
     }];
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self)
@@ -372,23 +373,23 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"page"] = @(self.page);
     [HttpRequest getWithURLString:PointsBalanceSheet parameters:parameters success:^(id responseObject) {
-//        NSArray *data = [IntegralModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-//        if (self.page == 1) {
-//            self.dataSource = [data mutableCopy];
-//            if (data.count) {
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//            [self.tableView.mj_header endRefreshing];
-//        }else{
-//            if (data.count) {
-//                [self.dataSource addObjectsFromArray:data];
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//        }
+        NSArray *data = [IntegralModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        if (self.page == 1) {
+            self.dataSource = [data mutableCopy];
+            if (data.count) {
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            if (data.count) {
+                [self.dataSource addObjectsFromArray:data];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
@@ -396,6 +397,28 @@
     }];
 }
 
-
+//获取用户信息
+-(void)requestToGetUserInfo
+{
+    @weakify(self)
+    [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
+        @strongify(self)
+        NSDictionary *data = responseObject[@"data"];
+        //后台目前的逻辑是，如果没有登陆，只给默认头像这一个字段,只能靠这个来判断
+        if ([data allKeys].count>1) {
+            UserModel *model = [UserModel mj_objectWithKeyValues:data];
+            //覆盖之前保存的信息
+            [UserModel coverUserData:model];
+            self.user = model;
+            [self->userIcon sd_setImageWithURL:UrlWithStr(model.avatar)];
+            self->userName.text = GetSaveString(model.username);
+            [self->userName updateLayout];
+            self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
+            [self->integer updateLayout];
+        }else{
+            
+        }
+    } failure:nil];
+}
 
 @end

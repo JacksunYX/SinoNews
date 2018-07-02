@@ -236,7 +236,11 @@
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
-        self.currPage ++;
+        if (!self.commentsArr.count) {
+            self.currPage = 1;
+        }else{
+            self.currPage++;
+        }
         [self requestComments];
     }];
     

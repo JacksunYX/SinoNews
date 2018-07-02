@@ -14,6 +14,6 @@
 
 @interface ManagerRecordCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) IntegralModel *model;
 
 @end

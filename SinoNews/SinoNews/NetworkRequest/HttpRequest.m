@@ -76,6 +76,11 @@
                 success(resultdic);
             }else{
                 LRToast(resultdic[@"alertMsg"]);
+                //未登陆
+                if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                    //清空登录状态
+                    [UserModel clearLocalData];
+                }
                 if (failure) {
                     failure(nil);
                 }

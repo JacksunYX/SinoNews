@@ -15,7 +15,7 @@
 static NSInteger ColumnNumber = 4;
 //横向和纵向的间距
 static CGFloat CellMarginX = 10.0f;
-static CGFloat CellMarginY = 13.0f;
+static CGFloat CellMarginY = 20.0f;
 
 
 @interface XLChannelView ()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -47,7 +47,7 @@ static CGFloat CellMarginY = 13.0f;
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     
     CGFloat cellWidth = (self.bounds.size.width - (ColumnNumber + 1) * CellMarginX)/ColumnNumber;
-    CGFloat cellHeight = cellWidth * 30 / 85;
+    CGFloat cellHeight = cellWidth * 30 / 78;
     flowLayout.itemSize = CGSizeMake(cellWidth,cellHeight);
     flowLayout.sectionInset = UIEdgeInsetsMake(CellMarginY, CellMarginX, CellMarginY, CellMarginX);
     flowLayout.minimumLineSpacing = CellMarginY;
@@ -201,10 +201,10 @@ static CGFloat CellMarginY = 13.0f;
     headerView.showLine = NO;
     if (indexPath.section == 0) {
         headerView.title = @"我的频道";
-//        headerView.subTitle = @"按住拖动调整排序";
         headerView.subTitle = @"点击进入频道";
         if (canEdit) {
             headerView.rightTitle = @"完成";
+            headerView.subTitle = @"按住拖动调整排序";
         }else{
             headerView.rightTitle = @"编辑";
         }
@@ -221,14 +221,13 @@ static CGFloat CellMarginY = 13.0f;
             [weakSelf reloadData];
         };
     }else{
-        headerView.showLine = YES;
-        headerView.title = @"未关注频道";
-        headerView.subTitle = @"";
+//        headerView.showLine = YES;
+        headerView.title = @"频道推荐";
+        headerView.subTitle = @"点击添加频道";
         headerView.rightTitle = @"";
     }
     return headerView;
 }
-
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {

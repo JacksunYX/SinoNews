@@ -182,24 +182,29 @@
     _tableView.delegate = self;
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
-    WEAK(weakSelf, self);
+    @weakify(self)
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-        if (weakSelf.tableView.mj_footer.refreshing) {
-            [weakSelf.tableView.mj_header endRefreshing];
+        @strongify(self)
+        if (self.tableView.mj_footer.refreshing) {
+            [self.tableView.mj_header endRefreshing];
             return ;
         }
-        weakSelf.currPage = 1;
-        [weakSelf requestCompanyRanking];
-        [weakSelf requestCompanyCommentList];
+        self.currPage = 1;
+        [self requestCompanyRanking];
+        [self requestCompanyCommentList];
     }];
     
     self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-        if (weakSelf.tableView.mj_header.refreshing) {
-            [weakSelf.tableView.mj_footer endRefreshing];
+        if (self.tableView.mj_header.refreshing) {
+            [self.tableView.mj_footer endRefreshing];
             return ;
         }
-        weakSelf.currPage ++;
-        [weakSelf requestCompanyCommentList];
+        if (!self.dataSource.count) {
+            self.currPage = 1;
+        }else{
+            self.currPage++;
+        }
+        [self requestCompanyCommentList];
     }];
     
     

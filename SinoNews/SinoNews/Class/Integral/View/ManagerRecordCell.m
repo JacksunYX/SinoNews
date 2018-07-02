@@ -141,25 +141,26 @@
     ;
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(IntegralModel *)model
 {
     _model = model;
-    NSString *behaviorStr = GetSaveString(model[@"behavior"]);
-    NSString *subBehaviorStr = GetSaveString(model[@"subBehavior"]);
-    NSString *totalStr = [NSString stringWithFormat:@"%@\n%@",behaviorStr,subBehaviorStr];
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:totalStr];
-    NSDictionary *attDic = @{
-                             NSFontAttributeName:Font(12),
-                             NSForegroundColorAttributeName:RGBA(136, 136, 136, 1),
-                             };
+//    NSString *behaviorStr = GetSaveString(model[@"behavior"]);
+//    NSString *subBehaviorStr = GetSaveString(model[@"subBehavior"]);
+//    NSString *totalStr = [NSString stringWithFormat:@"%@\n%@",behaviorStr,subBehaviorStr];
+//    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:totalStr];
+//    NSDictionary *attDic = @{
+//                             NSFontAttributeName:Font(12),
+//                             NSForegroundColorAttributeName:RGBA(136, 136, 136, 1),
+//                             };
 //    NSLog(@"totalStr.length:%ld",totalStr.length);
 //    NSLog(@"attStr:%ld",attStr.length);
-    [attStr addAttributes:attDic range:NSMakeRange((totalStr.length - subBehaviorStr.length), subBehaviorStr.length)];
-    behavior.attributedText = attStr;
+//    [attStr addAttributes:attDic range:NSMakeRange((totalStr.length - subBehaviorStr.length), subBehaviorStr.length)];
+//    behavior.attributedText = attStr;
 //    NSLog(@"behavior:%@",behaviorStr);
-    time.text = GetSaveString(model[@"time"]);
-    integerChange.text = GetSaveString(model[@"integerChange"]);
-    balance.text = GetSaveString(model[@"balance"]);
+    behavior.text = GetSaveString(model.pointsType);
+    time.text = GetSaveString(model.time);
+    integerChange.text = GetSaveString(model.pointsChange);
+    balance.text = [NSString stringWithFormat:@"%ld",model.remialPoints];
 }
 
 

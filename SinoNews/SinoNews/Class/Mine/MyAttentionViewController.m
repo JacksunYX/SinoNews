@@ -29,6 +29,7 @@
     self.navigationItem.title = @"我的关注";
     self.view.backgroundColor = WhiteColor;
     [self addViews];
+    [self requestAttentionList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -206,7 +207,14 @@
     [self.navigationController pushViewController:arVC animated:YES];
 }
 
-
+#pragma mark ---- 请求发送
+//我的关注列表
+-(void)requestAttentionList
+{
+    [HttpRequest postWithURLString:Attention_myUser parameters:@{} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        
+    } failure:nil RefreshAction:nil];
+}
 
 
 

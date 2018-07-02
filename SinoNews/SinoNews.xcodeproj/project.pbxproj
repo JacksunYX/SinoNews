@@ -138,9 +138,9 @@
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
 		4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497520CF77A300BD8F07 /* FeedbackViewController.m */; };
-		4C93497920CF94F500BD8F07 /* PraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497820CF94F500BD8F07 /* PraiseViewController.m */; };
-		4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497B20CF951800BD8F07 /* FansViewController.m */; };
-		4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497E20CF953400BD8F07 /* NotifyViewController.m */; };
+		4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497820CF94F500BD8F07 /* MessagePraiseViewController.m */; };
+		4C93497C20CF951800BD8F07 /* MessageFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497B20CF951800BD8F07 /* MessageFansViewController.m */; };
+		4C93497F20CF953400BD8F07 /* MessageNotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497E20CF953400BD8F07 /* MessageNotifyViewController.m */; };
 		4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */; };
 		4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFCC20DDD1950040E348 /* FontAndNightModeView.m */; };
 		4C95FFD520DDE8FA0040E348 /* CLSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFD220DDE8FA0040E348 /* CLSlider.m */; };
@@ -159,6 +159,9 @@
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
 		4CCCF01620E9EE2B000EC6BD /* CLInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01220E9EE2B000EC6BD /* CLInputToolbar.m */; };
 		4CCCF01720E9EE2B000EC6BD /* UIView+CLSetRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01320E9EE2B000EC6BD /* UIView+CLSetRect.m */; };
+		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
+		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
+		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
@@ -468,12 +471,12 @@
 		4C93497220CF777900BD8F07 /* MessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		4C93497420CF77A300BD8F07 /* FeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		4C93497520CF77A300BD8F07 /* FeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		4C93497720CF94F500BD8F07 /* PraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseViewController.h; sourceTree = "<group>"; };
-		4C93497820CF94F500BD8F07 /* PraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseViewController.m; sourceTree = "<group>"; };
-		4C93497A20CF951800BD8F07 /* FansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansViewController.h; sourceTree = "<group>"; };
-		4C93497B20CF951800BD8F07 /* FansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansViewController.m; sourceTree = "<group>"; };
-		4C93497D20CF953400BD8F07 /* NotifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotifyViewController.h; sourceTree = "<group>"; };
-		4C93497E20CF953400BD8F07 /* NotifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotifyViewController.m; sourceTree = "<group>"; };
+		4C93497720CF94F500BD8F07 /* MessagePraiseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePraiseViewController.h; sourceTree = "<group>"; };
+		4C93497820CF94F500BD8F07 /* MessagePraiseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessagePraiseViewController.m; sourceTree = "<group>"; };
+		4C93497A20CF951800BD8F07 /* MessageFansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageFansViewController.h; sourceTree = "<group>"; };
+		4C93497B20CF951800BD8F07 /* MessageFansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageFansViewController.m; sourceTree = "<group>"; };
+		4C93497D20CF953400BD8F07 /* MessageNotifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageNotifyViewController.h; sourceTree = "<group>"; };
+		4C93497E20CF953400BD8F07 /* MessageNotifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageNotifyViewController.m; sourceTree = "<group>"; };
 		4C93498020CF9B7F00BD8F07 /* PraiseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseTableViewCell.h; sourceTree = "<group>"; };
 		4C93498120CF9B7F00BD8F07 /* PraiseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseTableViewCell.m; sourceTree = "<group>"; };
 		4C95FFCB20DDD1950040E348 /* FontAndNightModeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontAndNightModeView.h; sourceTree = "<group>"; };
@@ -508,6 +511,12 @@
 		4CCCF01320E9EE2B000EC6BD /* UIView+CLSetRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CLSetRect.m"; sourceTree = "<group>"; };
 		4CCCF01420E9EE2B000EC6BD /* CLInputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLInputToolbar.h; sourceTree = "<group>"; };
 		4CCCF01520E9EE2B000EC6BD /* UIView+CLSetRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CLSetRect.h"; sourceTree = "<group>"; };
+		4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansViewController.h; sourceTree = "<group>"; };
+		4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansViewController.m; sourceTree = "<group>"; };
+		4CCCF01E20EA1D2E000EC6BD /* MyFansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewCell.h; sourceTree = "<group>"; };
+		4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansTableViewCell.m; sourceTree = "<group>"; };
+		4CCCF02120EA1E14000EC6BD /* MyFansModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansModel.h; sourceTree = "<group>"; };
+		4CCCF02220EA1E14000EC6BD /* MyFansModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansModel.m; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
 		4CE121CE20C00A6400A44782 /* RankListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListViewController.m; sourceTree = "<group>"; };
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
@@ -861,16 +870,18 @@
 				4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */,
 				4C93497120CF777900BD8F07 /* MessageViewController.h */,
 				4C93497220CF777900BD8F07 /* MessageViewController.m */,
-				4C93497720CF94F500BD8F07 /* PraiseViewController.h */,
-				4C93497820CF94F500BD8F07 /* PraiseViewController.m */,
-				4C93497A20CF951800BD8F07 /* FansViewController.h */,
-				4C93497B20CF951800BD8F07 /* FansViewController.m */,
-				4C93497D20CF953400BD8F07 /* NotifyViewController.h */,
-				4C93497E20CF953400BD8F07 /* NotifyViewController.m */,
+				4C93497720CF94F500BD8F07 /* MessagePraiseViewController.h */,
+				4C93497820CF94F500BD8F07 /* MessagePraiseViewController.m */,
+				4C93497A20CF951800BD8F07 /* MessageFansViewController.h */,
+				4C93497B20CF951800BD8F07 /* MessageFansViewController.m */,
+				4C93497D20CF953400BD8F07 /* MessageNotifyViewController.h */,
+				4C93497E20CF953400BD8F07 /* MessageNotifyViewController.m */,
 				4C93497420CF77A300BD8F07 /* FeedbackViewController.h */,
 				4C93497520CF77A300BD8F07 /* FeedbackViewController.m */,
 				4C49F06220D0C74D009DC42B /* MyAttentionViewController.h */,
 				4C49F06320D0C74D009DC42B /* MyAttentionViewController.m */,
+				4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */,
+				4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */,
 				4C49F07120D0F94B009DC42B /* MyCollectViewController.h */,
 				4C49F07220D0F94B009DC42B /* MyCollectViewController.m */,
 				4C95FFE120DE20BC0040E348 /* PersonalDataViewController.h */,
@@ -1169,6 +1180,8 @@
 			children = (
 				4C6332D120E0985C00D80056 /* AddressModel.h */,
 				4C6332D220E0985C00D80056 /* AddressModel.m */,
+				4CCCF02120EA1E14000EC6BD /* MyFansModel.h */,
+				4CCCF02220EA1E14000EC6BD /* MyFansModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1246,6 +1259,8 @@
 				4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */,
 				4C49F06E20D0E7B7009DC42B /* MyAttentionThirdCell.h */,
 				4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */,
+				4CCCF01E20EA1D2E000EC6BD /* MyFansTableViewCell.h */,
+				4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */,
 				4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */,
 				4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */,
 				4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */,
@@ -1670,6 +1685,7 @@
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
+				4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
@@ -1682,7 +1698,7 @@
 				4C534F2D20E22A0D00754695 /* TopicViewController.m in Sources */,
 				4C534F2420E1C37E00754695 /* UserInfoViewController.m in Sources */,
 				4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */,
-				4C93497F20CF953400BD8F07 /* NotifyViewController.m in Sources */,
+				4C93497F20CF953400BD8F07 /* MessageNotifyViewController.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
@@ -1705,6 +1721,7 @@
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
+				4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */,
 				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
@@ -1719,7 +1736,7 @@
 				4C534F2720E1C6E800754695 /* NSString+AttText.m in Sources */,
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
-				4C93497920CF94F500BD8F07 /* PraiseViewController.m in Sources */,
+				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
 				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
@@ -1757,7 +1774,7 @@
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */,
-				4C93497C20CF951800BD8F07 /* FansViewController.m in Sources */,
+				4C93497C20CF951800BD8F07 /* MessageFansViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
@@ -1773,6 +1790,7 @@
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,
 				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,
+				4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */,
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,

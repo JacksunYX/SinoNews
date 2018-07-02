@@ -1,14 +1,14 @@
 //
-//  FansViewController.h
+//  MessageFansViewController.h
 //  SinoNews
 //
 //  Created by Michael on 2018/6/12.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//粉丝页面
+//消息-粉丝页面
 
 #import <UIKit/UIKit.h>
 
-@interface FansViewController : UIViewController
+@interface MessageFansViewController : UIViewController
 
 @end

@@ -1,16 +1,15 @@
 //
-//  PraiseViewController.m
+//  MessageFansViewController.m
 //  SinoNews
 //
 //  Created by Michael on 2018/6/12.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//
 
-#import "PraiseViewController.h"
-#import "PraiseTableViewCell.h"
+#import "MessageFansViewController.h"
+#import "FansTableViewCell.h"
 
-@interface PraiseViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MessageFansViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     
 }
@@ -19,29 +18,12 @@
 
 @end
 
-@implementation PraiseViewController
+@implementation MessageFansViewController
 
 -(NSMutableArray *)dataSource
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
-        NSArray *comment = @[
-                             @"我说一句RNG🐂🍺还有人赞嘛？",
-                             @"来一场精彩绝伦的比赛吧！",
-                             @"我不能进去吗？",
-                             @"福无双至，祸不单行～",
-                             @"无形之刃，最为致命～",
-                             @"让我抱抱你吧～",
-                             ];
-        NSArray *time = @[
-                          @"3小时前",
-                          @"1小时前",
-                          @"10分钟前",
-                          @"1天前",
-                          @"5天前",
-                          @"13分钟前",
-                          ];
-        
         NSArray *name = @[
                           @"uzi",
                           @"xiaohu",
@@ -49,6 +31,14 @@
                           @"ming",
                           @"mlxg",
                           @"karsa",
+                          ];
+        NSArray *time = @[
+                          @"3小时前",
+                          @"1小时前",
+                          @"10分钟前",
+                          @"1天前",
+                          @"5天前",
+                          @"13分钟前",
                           ];
         NSArray *icon = @[
                           @"userIcon",
@@ -58,31 +48,31 @@
                           @"userIcon",
                           @"user_icon",
                           ];
-        
-        for (int i = 0; i < 10; i ++) {
-            NSMutableDictionary *model = [NSMutableDictionary new];
-            model[@"comment"] = comment[arc4random()%comment.count];
-            model[@"time"] = time[arc4random()%time.count];
-            NSMutableArray *praises = [NSMutableArray new];
-            NSInteger num = arc4random()%6 + 1;
-            for (int j = 0; j < num; j ++) {
-                NSDictionary *dic = @{
-                                      @"name"   :   name[arc4random()%name.count],
-                                      @"icon"   :   icon[arc4random()%icon.count],
-                                      };
-                [praises addObject:dic];
-            }
-            model[@"praises"] = praises;
-            [_dataSource addObject:model];
+        NSArray *sex = @[
+                         @0,
+                         @1,
+                         @0,
+                         @2,
+                         @0,
+                         @1,
+                         ];
+        for (int i = 0; i < 6; i ++) {
+            NSDictionary *dic = @{
+                                  @"name"   :   name[arc4random()%name.count],
+                                  @"time"   :   time[arc4random()%time.count],
+                                  @"icon"   :   icon[arc4random()%icon.count],
+                                  @"sex"   :   sex[arc4random()%sex.count],
+                                  
+                                  };
+            [_dataSource addObject:dic];
         }
-        
     }
     return _dataSource;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"赞";
+    self.navigationItem.title = @"我的粉丝";
     self.view.backgroundColor = WhiteColor;
     [self addTableView];
 }
@@ -109,7 +99,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     //注册
-    [self.tableView registerClass:[PraiseTableViewCell class] forCellReuseIdentifier:PraiseTableViewCellID];
+    [self.tableView registerClass:[FansTableViewCell class] forCellReuseIdentifier:FansTableViewCellID];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -125,14 +115,14 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PraiseTableViewCell *cell = (PraiseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PraiseTableViewCellID];
+    FansTableViewCell *cell = (FansTableViewCell *)[tableView dequeueReusableCellWithIdentifier:FansTableViewCellID];
     cell.model = self.dataSource[indexPath.row];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88;
+    return 65;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -150,12 +140,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
-
-
-
-
-
-
 
 
 @end

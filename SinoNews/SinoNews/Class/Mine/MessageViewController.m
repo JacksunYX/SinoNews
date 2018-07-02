@@ -7,9 +7,9 @@
 //
 
 #import "MessageViewController.h"
-#import "PraiseViewController.h"
-#import "FansViewController.h"
-#import "NotifyViewController.h"
+#import "MessagePraiseViewController.h"
+#import "MessageFansViewController.h"
+#import "MessageNotifyViewController.h"
 
 @interface MessageViewController ()
 
@@ -99,19 +99,19 @@
     switch (btn.tag - 10086) {
         case 0:
         {
-            PraiseViewController *pvc = [PraiseViewController new];
+            MessagePraiseViewController *pvc = [MessagePraiseViewController new];
             [self.navigationController pushViewController:pvc animated:YES];
         }
             break;
         case 1:
         {
-            FansViewController *fvc = [FansViewController new];
+            MessageFansViewController *fvc = [MessageFansViewController new];
             [self.navigationController pushViewController:fvc animated:YES];
         }
             break;
         case 2:
         {
-            NotifyViewController *nvc = [NotifyViewController new];
+            MessageNotifyViewController *nvc = [MessageNotifyViewController new];
             [self.navigationController pushViewController:nvc animated:YES];
         }
             break;

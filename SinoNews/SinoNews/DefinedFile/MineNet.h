@@ -25,4 +25,24 @@
 //修改用户密码(post)
 #define User_editPassword   @"/api/user/editPassword"
 
+
+//我的关注列表
+#define Attention_myUser    @"/api/myUser"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif /* MineNet_h */

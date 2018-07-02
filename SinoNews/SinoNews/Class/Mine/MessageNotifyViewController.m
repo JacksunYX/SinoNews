@@ -6,9 +6,9 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "NotifyViewController.h"
+#import "MessageNotifyViewController.h"
 
-@interface NotifyViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MessageNotifyViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     
 }
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation NotifyViewController
+@implementation MessageNotifyViewController
 
 -(NSMutableArray *)dataSource
 {

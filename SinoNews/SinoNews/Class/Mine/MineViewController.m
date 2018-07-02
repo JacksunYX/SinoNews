@@ -13,6 +13,7 @@
 #import "MessageViewController.h"
 #import "MyCollectViewController.h"
 #import "MyAttentionViewController.h"
+#import "MyFansViewController.h"
 #import "PersonalDataViewController.h"
 #import "SignInViewController.h"
 
@@ -362,7 +363,8 @@
             break;
         case 2:
         {
-            
+            MyFansViewController *mfvc = [MyFansViewController new];
+            [self.navigationController pushViewController:mfvc animated:YES];
         }
             break;
         case 3:

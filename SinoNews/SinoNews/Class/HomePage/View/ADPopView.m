@@ -26,11 +26,11 @@ static CGFloat anumationTime = 0.3;
     centerView.alpha = 0;
     centerView.backgroundColor = WhiteColor;
     
-    UIImageView *topImgV = [UIImageView new];
+    UIButton *closeBtn = [UIButton new];
     
     [backView sd_addSubviews:@[
                                centerView,
-                               topImgV,
+                               closeBtn,
                                ]];
     centerView.sd_layout
     .leftSpaceToView(backView, 50)
@@ -41,42 +41,13 @@ static CGFloat anumationTime = 0.3;
     [centerView updateLayout];
     [centerView setSd_cornerRadius:@(18)];
     
-    topImgV.sd_layout
-    .centerXEqualToView(backView)
-    .bottomSpaceToView(centerView, -75)
-    .widthIs(180)
-    .heightIs(100)
-    ;
-    topImgV.image = UIImageNamed(@"mine_praisePopTopImg");
-    
-    //出现动画
-    [UIView animateWithDuration:anumationTime animations:^{
-        backView.backgroundColor = RGBA(0, 0, 0, 0.82);
-        centerView.alpha = 1;
-    }];
-    
-    UIButton *closeBtn = [UIButton new];
-    closeBtn.titleLabel.font = PFFontL(17);
-    [closeBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
-    
-    UILabel *centerLabel = [UILabel new];
-    centerLabel.font = PFFontL(16);
-    centerLabel.textColor = RGBA(50, 50, 50, 1);
-    
-    [centerView sd_addSubviews:@[
-                                 closeBtn,
-                                 centerLabel,
-                                 ]];
-    
     closeBtn.sd_layout
-    .leftEqualToView(centerView)
-    .bottomEqualToView(centerView)
-    .rightEqualToView(centerView)
-    .heightIs(50)
+    .centerXEqualToView(backView)
+    .topSpaceToView(centerView, 33)
+    .widthIs(42)
+    .heightEqualToWidth()
     ;
-    [closeBtn updateLayout];
-    [closeBtn setTitle:@"前往围观" forState:UIControlStateNormal];
-    [closeBtn addBorderTo:BorderTypeTop borderColor:RGBA(227, 227, 227, 1)];
+    [closeBtn setImage:UIImageNamed(@"signIn_popClose") forState:UIControlStateNormal];
     
     //点击移除手势
     @weakify(backView)
@@ -88,6 +59,55 @@ static CGFloat anumationTime = 0.3;
             [backView removeFromSuperview];
         }];
     }];
+    
+    //出现动画
+    [UIView animateWithDuration:anumationTime animations:^{
+        backView.backgroundColor = RGBA(0, 0, 0, 0.82);
+        centerView.alpha = 1;
+    }];
+    
+    UIButton *toSee = [UIButton new];
+    toSee.titleLabel.font = PFFontL(17);
+    [toSee setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
+    
+    UIImageView *topImgV = [UIImageView new];
+    topImgV.backgroundColor = RedColor;
+    
+    [centerView sd_addSubviews:@[
+                                 toSee,
+                                 topImgV,
+                                 ]];
+    
+    toSee.sd_layout
+    .leftEqualToView(centerView)
+    .rightEqualToView(centerView)
+    .bottomEqualToView(centerView)
+    .heightIs(50)
+    ;
+    [toSee updateLayout];
+    [toSee setTitle:@"前往围观" forState:UIControlStateNormal];
+    [toSee addBorderTo:BorderTypeTop borderColor:RGBA(227, 227, 227, 1)];
+    
+    topImgV.sd_layout
+    .topEqualToView(centerView)
+    .leftEqualToView(centerView)
+    .rightEqualToView(centerView)
+    .bottomSpaceToView(toSee, 0)
+    ;
+    topImgV.image = UIImageNamed(@"adPopImg");
+    
+    [[toSee rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        
+        [[UIApplication sharedApplication] openURL:UrlWithStr(@"https://www.baidu.com")];
+        
+        @strongify(backView)
+        [UIView animateWithDuration:anumationTime animations:^{
+            backView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [backView removeFromSuperview];
+        }];
+    }];
+    
 }
 
 @end

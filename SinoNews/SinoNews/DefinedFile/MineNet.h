@@ -25,26 +25,27 @@
 //修改用户密码(post)
 #define User_editPassword   @"/api/user/editPassword"
 
-//我的被点赞数
+//我的被点赞数(post)
 #define MyPraiseNum         @"/api/myPraise"
 
-//我的关注列表
+//我的关注列表(post)
 #define Attention_myUser    @"/api/myUser"
 
-//我的粉丝列表
+//我的粉丝列表(post)
 #define Fans_myFollow       @"/api/myFollow"
 
 
-//用户签到
+//用户签到(post)
 #define SignIn              @"/api/user/signIn"
 
 //我的收藏
-//查看当前用户关注的游戏公司
+//查看当前用户关注的游戏公司(get)
 #define ListConcernedCompanyForUser @"/api/company/listConcernedCompanyForUser"
-//查看当前用户关注的文章(新闻)
+//查看当前用户关注的文章(新闻)(post)
 #define MyFavor             @"/api/myFavor"
 
-
+//批量取关游戏公司(post)
+#define CancelCompanysCollects @"/api/company/batchCancelConcernCompany"
 
 
 

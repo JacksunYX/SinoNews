@@ -308,7 +308,7 @@
         title.numberOfLines = 2;
         
         UIImageView *icon = [UIImageView new];
-        icon.backgroundColor = Arc4randomColor;
+//        icon.backgroundColor = Arc4randomColor;
         
         UILabel *authorAndTime = [UILabel new];
         authorAndTime.font = PFFontR(11);
@@ -349,6 +349,7 @@
         .heightEqualToWidth()
         ;
         [icon setSd_cornerRadius:@12];
+        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
         
         authorAndTime.sd_layout
         .leftSpaceToView(icon, 3)

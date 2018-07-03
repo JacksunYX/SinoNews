@@ -189,7 +189,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.adCollectionView.top_attr;
     }];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    self.tableView.backgroundColor = RGBA(196, 222, 247, 1);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

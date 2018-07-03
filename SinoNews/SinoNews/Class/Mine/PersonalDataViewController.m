@@ -327,7 +327,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"gender"] = [NSString stringWithFormat:@"%ld",gender];
     [HttpRequest postWithURLString:User_editUserInfo parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"性别修改成功");
+//        LRToast(@"性别修改成功");
         if (changed) {
             changed();
         }
@@ -347,7 +347,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"birthday"] = birthday;
     [HttpRequest postWithURLString:User_editUserInfo parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"生日修改成功");
+//        LRToast(@"生日修改成功");
         self.user.birthday = birthday;
         [UserModel coverUserData:self.user];
         [self.tableView reloadData];

@@ -14,6 +14,7 @@
 @property (nonatomic,assign) NSInteger allowCollect;    //是否允许收藏
 @property (nonatomic,assign) NSInteger allowComment;    //是否允许评论
 @property (nonatomic,strong) NSString *author;          //作者名称
+@property (nonatomic,strong) NSString *avatar;          //作者头像
 @property (nonatomic,assign) NSInteger commentCount;    //评论数
 @property (nonatomic,strong) NSArray *comments;         //评论列表
 @property (nonatomic,strong) NSString *createTime;      //发布时间

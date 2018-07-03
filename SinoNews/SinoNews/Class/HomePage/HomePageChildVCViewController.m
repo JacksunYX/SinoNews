@@ -220,8 +220,8 @@
     id model = self.dataSource[indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
-//        ndVC.newsId = [(HomePageModel *)model news_id];
-        ndVC.newsId = 118;
+        ndVC.newsId = [(HomePageModel *)model itemId];
+//        ndVC.newsId = 118;
         [self.navigationController pushViewController:ndVC animated:YES];
         
 //        PayNewsViewController *pnVC = [PayNewsViewController new];

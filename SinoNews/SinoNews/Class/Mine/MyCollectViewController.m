@@ -11,6 +11,7 @@
 #import "MyCollectCasinoCell.h"
 #import "RankDetailViewController.h"
 
+
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSInteger selectedIndex;    //选择的下标
@@ -269,20 +270,25 @@
         LRToast(@"还没有选择要删掉的东西哟～");
         return;
     }
-    NSMutableArray *arr;
-    if (selectedIndex == 0) {
-        arr = self.articleArray;
-    }else if (selectedIndex == 1){
-        arr = self.casinoArray;
-    }
-    //将数据源数组中包含有删除数组中的数据删除掉
-    [arr removeObjectsInArray:self.deleteArray];
-    //清空删除数组
-    [self.deleteArray removeAllObjects];
-
-    [self.tableView reloadData];
-    //恢复初始状态
-    [self showOrHiddenTheSelections:NO];
+    @weakify(self)
+    [self requestCancelCompanysCollects:^{
+        @strongify(self)
+        NSMutableArray *arr;
+        if (self->selectedIndex == 0) {
+            arr = self.articleArray;
+        }else if (self->selectedIndex == 1){
+            arr = self.casinoArray;
+        }
+        //将数据源数组中包含有删除数组中的数据删除掉
+        [arr removeObjectsInArray:self.deleteArray];
+        //清空删除数组
+        [self.deleteArray removeAllObjects];
+        
+        [self.tableView reloadData];
+        //恢复初始状态
+        [self showOrHiddenTheSelections:NO];
+    }];
+    
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -389,6 +395,9 @@
 {
     [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
         
+        
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
@@ -396,6 +405,38 @@
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
+
+//批量取消关注游戏公司
+-(void)requestCancelCompanysCollects: (void (^)(void)) handleBlock
+{
+    NSMutableArray *array = [NSMutableArray new];
+    if (selectedIndex == 1){
+        for (CompanyDetailModel *model in self.deleteArray) {
+            [array addObject:model.companyId];
+        }
+        
+    }else{
+        
+    }
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
+     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [HttpRequest postWithURLString:CancelCompanysCollects parameters:@{@"companyIds":jsonString} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        if (handleBlock) {
+            handleBlock();
+        }
+    } failure:nil RefreshAction:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+}
+
+
+
+
+
+
 
 
 @end

@@ -26,6 +26,7 @@
 {
     if (!_taskArr) {
         _taskArr = [NSMutableArray new];
+        /*
         NSArray *taskIcon = @[
                               @"signIn_browse",
                               @"signIn_share",
@@ -59,7 +60,9 @@
                                   
                                   };
             [_taskArr addObject:dic];
+         
         }
+         */
     }
     return _taskArr;
 }
@@ -333,18 +336,17 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        //        return self.commentsArr.count;
         return self.taskArr.count;
     }
     if (section == 1) {
         //        return self.articlesArr.count;
-        return 5;
+        return 0;
     }
     return 0;
 }
@@ -398,7 +400,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (section == 0) {
+    if (section == 0&&self.taskArr.count > 0) {
         
         headView = [UIView new];
         headView.backgroundColor = WhiteColor;
@@ -451,7 +453,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
-    if (section == 0) {
+    if (section == 0&& self.taskArr.count > 0) {
         
         footView = [UIView new];
         footView.backgroundColor = WhiteColor;

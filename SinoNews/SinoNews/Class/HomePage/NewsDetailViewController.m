@@ -317,7 +317,10 @@
         @weakify(self);
         _attentionBtn = [UIButton new];
         [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        _attentionBtn.backgroundColor = RGBA(18, 130, 238, 1);
+        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
+
+        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
+        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             [self requestIsAttention];

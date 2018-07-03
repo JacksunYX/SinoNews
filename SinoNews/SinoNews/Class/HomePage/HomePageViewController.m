@@ -10,6 +10,7 @@
 #import "XLChannelControl.h"        //频道管理页面
 #import "HomePageChildVCViewController.h"
 #import "SearchViewController.h"    //搜索页面
+#import "ADPopView.h"
 
 @interface HomePageViewController ()
 
@@ -80,6 +81,8 @@
 //        [self reloadChildVCWithTitles:self.titleList];
 //        self.leaveTitleList = columnArr[1];
 //    }
+    
+    [ADPopView showWithData:nil];
 }
 
 //修改导航栏显示

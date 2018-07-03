@@ -201,7 +201,7 @@
     ;
     
     if (section == 0) {
-       title.text = @"关注的人(0)";
+       title.text = [NSString stringWithFormat:@"关注的人(%ld)",self.attentionArr.count];
     }else if (section == 1){
         title.text = @"关注的话题(0)";
     }else if (section == 2){

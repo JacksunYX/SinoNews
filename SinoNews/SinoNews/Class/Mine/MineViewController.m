@@ -16,6 +16,7 @@
 #import "MyFansViewController.h"
 #import "PersonalDataViewController.h"
 #import "SignInViewController.h"
+#import "PraisePopView.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
@@ -369,7 +370,7 @@
             break;
         case 3:
         {
-            
+            [PraisePopView showWithData:nil];
         }
             break;
             
@@ -550,6 +551,7 @@
             self.user = model;
             [self setHeadViewData:YES];
         }else{
+            [UserModel clearLocalData];
             [self.userImg sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
             [self setHeadViewData:NO];
         }

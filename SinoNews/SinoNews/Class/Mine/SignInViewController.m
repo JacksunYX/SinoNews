@@ -8,6 +8,7 @@
 
 #import "SignInViewController.h"
 #import "StoreChildCell.h"
+#import "SignInPopView.h"
 
 @interface SignInViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -78,6 +79,8 @@
     [self addTableView];
     
     [self setHeadView];
+    
+    [SignInPopView showWithData:nil];
 }
 
 - (void)didReceiveMemoryWarning {

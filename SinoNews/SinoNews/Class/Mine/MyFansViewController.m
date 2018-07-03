@@ -132,8 +132,12 @@
 -(void)requestFansList
 {
     [HttpRequest postWithURLString:Fans_myFollow parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        
-    } failure:nil RefreshAction:nil];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    } RefreshAction:nil];
 }
 
 //关注/取消关注

@@ -117,6 +117,9 @@
 		4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332CE20E097CB00D80056 /* AddressTableViewCell.m */; };
 		4C6332D320E0985C00D80056 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332D220E0985C00D80056 /* AddressModel.m */; };
 		4C6332D620E0D11000D80056 /* CommentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6332D520E0D11000D80056 /* CommentDetailViewController.m */; };
+		4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4820EB04A700BA0534 /* SignInPopView.m */; };
+		4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4B20EB11A400BA0534 /* PraisePopView.m */; };
+		4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4E20EB155F00BA0534 /* ADPopView.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -429,6 +432,12 @@
 		4C6332D220E0985C00D80056 /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		4C6332D420E0D11000D80056 /* CommentDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentDetailViewController.h; sourceTree = "<group>"; };
 		4C6332D520E0D11000D80056 /* CommentDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentDetailViewController.m; sourceTree = "<group>"; };
+		4C6B4E4720EB04A700BA0534 /* SignInPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInPopView.h; sourceTree = "<group>"; };
+		4C6B4E4820EB04A700BA0534 /* SignInPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInPopView.m; sourceTree = "<group>"; };
+		4C6B4E4A20EB11A400BA0534 /* PraisePopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraisePopView.h; sourceTree = "<group>"; };
+		4C6B4E4B20EB11A400BA0534 /* PraisePopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraisePopView.m; sourceTree = "<group>"; };
+		4C6B4E4D20EB155F00BA0534 /* ADPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADPopView.h; sourceTree = "<group>"; };
+		4C6B4E4E20EB155F00BA0534 /* ADPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADPopView.m; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1061,6 +1070,8 @@
 				4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */,
 				4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */,
 				4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */,
+				4C6B4E4D20EB155F00BA0534 /* ADPopView.h */,
+				4C6B4E4E20EB155F00BA0534 /* ADPopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1269,6 +1280,10 @@
 				4C6332CE20E097CB00D80056 /* AddressTableViewCell.m */,
 				4C534F2820E1D5F500754695 /* UserInfoCommentCell.h */,
 				4C534F2920E1D5F500754695 /* UserInfoCommentCell.m */,
+				4C6B4E4720EB04A700BA0534 /* SignInPopView.h */,
+				4C6B4E4820EB04A700BA0534 /* SignInPopView.m */,
+				4C6B4E4A20EB11A400BA0534 /* PraisePopView.h */,
+				4C6B4E4B20EB11A400BA0534 /* PraisePopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1711,6 +1726,7 @@
 				4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
+				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
@@ -1737,6 +1753,7 @@
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
+				4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
 				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
@@ -1760,6 +1777,7 @@
 				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C6332D320E0985C00D80056 /* AddressModel.m in Sources */,
 				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
+				4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,

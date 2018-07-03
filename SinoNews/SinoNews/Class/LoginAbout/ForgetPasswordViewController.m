@@ -244,7 +244,7 @@
             parameters[@"valid"] = seccode.text;
             
             [HttpRequest postWithURLString:ResetPassword parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-                LRToast(@"重制密码成功");
+                LRToast(@"重置密码成功");
                 GCDAfterTime(1, ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });

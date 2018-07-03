@@ -16,6 +16,7 @@
 @property (nonatomic,strong) NSMutableArray *taskArr;       //任务
 @property (nonatomic,strong) NSMutableArray *integralArr;   //积分兑换
 
+@property (nonatomic,strong) NSDictionary *data;
 @property (nonatomic,strong) UIView *headView;
 @end
 
@@ -179,7 +180,8 @@
         .heightEqualToWidth()
         ;
         [userIcon setSd_cornerRadius:@(63/2)];
-        userIcon.image = UIImageNamed(@"userIcon");
+        UserModel *user = [UserModel getLocalUserModel];
+        [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(user.avatar))];
         
         integral.sd_layout
         .leftSpaceToView(userIcon, 10)
@@ -188,7 +190,7 @@
         ;
         [integral setSingleLineAutoResizeWithMaxWidth:150];
         NSString *integralStr1 = @"";
-        NSString *integralStr2 = @"17";
+        NSString *integralStr2 = [NSString stringWithFormat:@"%ld",[self.data[@"totalPoints"] integerValue]];
         NSMutableAttributedString *integralAtt1 = [NSString leadString:integralStr1 tailString:integralStr2 font:PFFontR(17) color:RGBA(242, 87, 71, 1) lineBreak:NO];
         NSString *integralStr3 = @" 积分";
         NSMutableAttributedString *integralAtt2 = [[NSMutableAttributedString alloc]initWithString:integralStr3];
@@ -201,7 +203,7 @@
         .heightIs(14)
         ;
         [signInDay setSingleLineAutoResizeWithMaxWidth:150];
-        signInDay.text = @"累计签到3天";
+        signInDay.text = [NSString stringWithFormat:@"连续签到%ld天",[self.data[@"conSignDays"] integerValue]];
         
         signInRaw.sd_layout
         .centerYEqualToView(centerView)
@@ -243,8 +245,8 @@
         .heightIs(17)
         ;
         [topNotice updateLayout];
-        NSString *noticeStr1 = @"今日已签到，明天可获得";
-        NSString *noticeStr2 = @"11积分";
+        NSString *noticeStr1 = @"今日已签到";
+        NSString *noticeStr2 = @"";
         NSMutableAttributedString *noticeAtt1 = [NSString leadString:noticeStr1 tailString:noticeStr2 font:PFFontR(16) color:RGBA(18, 130, 238, 1) lineBreak:NO];
         topNotice.attributedText = noticeAtt1;
         
@@ -254,10 +256,10 @@
         .widthIs(20)
         .heightEqualToWidth()
         ;
-        [bottomIcon setSd_cornerRadius:@10];
-        bottomIcon.layer.borderWidth = 1;
-        bottomIcon.layer.borderColor = RGBA(207, 218, 229, 1).CGColor;
-        bottomIcon.image = UIImageNamed(@"game_rule");
+//        [bottomIcon setSd_cornerRadius:@10];
+//        bottomIcon.layer.borderWidth = 1;
+//        bottomIcon.layer.borderColor = RGBA(207, 218, 229, 1).CGColor;
+//        bottomIcon.image = UIImageNamed(@"game_rule");
         
         bottomNotice.sd_layout
         .leftSpaceToView(bottomIcon, 5)
@@ -265,7 +267,7 @@
         .heightIs(12)
         ;
         [bottomNotice setSingleLineAutoResizeWithMaxWidth:250];
-        bottomNotice.text = @"连续3天不来我就会溜回圆点哦～";
+//        bottomNotice.text = @"连续3天不来我就会溜回圆点哦～";
         
         signInView.sd_layout
         .topSpaceToView(topNotice, 9)
@@ -282,7 +284,7 @@
         CGFloat avgMarginY = 10;
         CGFloat x = 0;
         CGFloat y = 0;
-        int signInDays = 3; //测试签到天数
+        int signInDays = [self.data[@"conSignDays"] intValue]; //测试签到天数
         
         for (int i = 0; i < 14; i ++) {
             //检查换行
@@ -552,11 +554,14 @@
     @weakify(self)
     [HttpRequest postWithURLString:SignIn parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         @strongify(self)
+        self.data = response[@"data"];
+        //为1，说明是签到，需要弹窗提示
+        if ([self.data[@"statusCode"]integerValue] == 1) {
+            [SignInPopView showWithData:self.data];
+        }
         [self addTableView];
         
         [self setHeadView];
-        
-        [SignInPopView showWithData:nil];
         
     } failure:nil RefreshAction:nil];
 }

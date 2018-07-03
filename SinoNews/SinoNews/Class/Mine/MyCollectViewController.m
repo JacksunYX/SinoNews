@@ -19,6 +19,8 @@
 
 @property (nonatomic,strong) BaseTableView *tableView;
 
+@property (nonatomic,assign) NSInteger currPage;    //页码
+
 //文章数据源数组
 @property (nonatomic,strong) NSMutableArray *articleArray;
 //娱乐城数据源数组
@@ -158,6 +160,33 @@
     //注册
     [self.tableView registerClass:[MyCollectArticleCell class] forCellReuseIdentifier:MyCollectArticleCellID];
     [self.tableView registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];
+    
+    @weakify(self);
+    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_footer.isRefreshing||self->selectedIndex == 1||self.tableView.editing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        self.currPage = 1;
+        [self requestNewsList];
+    }];
+    
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_header.isRefreshing||self->selectedIndex == 1||self.tableView.editing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (!self.articleArray.count) {
+            self.currPage = 1;
+        }else{
+            self.currPage++;
+        }
+        [self requestNewsList];
+    }];
+    
+    [_tableView.mj_header beginRefreshing];
 }
 
 //创建选择、删除按钮
@@ -346,7 +375,7 @@
 }
 
 #pragma mark ---- 请求发送
-//关注的游戏公司列表
+//收藏的游戏公司列表
 -(void)requestCompanyList
 {
     [HttpRequest getWithURLString:ListConcernedCompanyForUser parameters:nil success:^(id responseObject) {
@@ -355,10 +384,17 @@
     } failure:nil];
 }
 
-//关注的游戏公司列表
+//收藏的文章列表
 -(void)requestNewsList
 {
-    GGLog(@"请求收藏的文章列表");
+    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    } RefreshAction:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 

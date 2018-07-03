@@ -110,7 +110,8 @@ static CGFloat anumationTime = 0.3;
     .widthIs(100)
     .heightIs(24)
     ;
-    [goldBtn setTitle:@"+8" forState:UIControlStateNormal];
+    
+    [goldBtn setTitle:[NSString stringWithFormat:@"+%d",[data[@"points"] intValue]] forState:UIControlStateNormal];
     [goldBtn setImage:UIImageNamed(@"signIn_popGold") forState:UIControlStateNormal];
     goldBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     
@@ -121,7 +122,7 @@ static CGFloat anumationTime = 0.3;
     ;
     [centerLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 120];
     NSString *integralStr1 = @"已连续签到 ";
-    NSString *integralStr2 = @"1";
+    NSString *integralStr2 = [NSString stringWithFormat:@"%d",[data[@"conSignDays"] intValue]];
     NSMutableAttributedString *integralAtt1 = [NSString leadString:integralStr1 tailString:integralStr2 font:PFFontL(20) color:RGBA(18, 130, 238, 1) lineBreak:NO];
     NSString *integralStr3 = @" 天";
     NSMutableAttributedString *integralAtt2 = [[NSMutableAttributedString alloc]initWithString:integralStr3];

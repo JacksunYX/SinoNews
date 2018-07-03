@@ -42,7 +42,7 @@
 //查看当前用户关注的游戏公司
 #define ListConcernedCompanyForUser @"/api/company/listConcernedCompanyForUser"
 //查看当前用户关注的文章(新闻)
-
+#define MyFavor             @"/api/myFavor"
 
 
 

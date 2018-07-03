@@ -33,6 +33,22 @@
     return _attentionArr;
 }
 
+-(NSMutableArray *)topicArr
+{
+    if (!_topicArr) {
+        _topicArr = [NSMutableArray new];
+    }
+    return _topicArr;
+}
+
+-(NSMutableArray *)channelArr
+{
+    if (!_channelArr) {
+        _channelArr = [NSMutableArray new];
+    }
+    return _channelArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的关注";
@@ -118,7 +134,14 @@
     if (section == 0) {
         return self.attentionArr.count;
     }
-    return 1;
+    if (section == 0) {
+        return self.topicArr.count;
+    }
+    if (section == 0) {
+        return self.channelArr.count;
+    }
+    
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -174,40 +197,41 @@
     UIView *headView = [UIView new];
     headView.backgroundColor = WhiteColor;
     
-    UIView *line = [UIView new];
-    line.backgroundColor = RGBA(237, 237, 237, 1);
-    [headView addSubview:line];
-    
-    CGFloat leftX = 0;
-    if (section != 0) {
-        leftX = 0;
+    if ((section == 0&&self.attentionArr.count>0)||(section == 1&&self.topicArr.count>0)||(section == 2&&self.channelArr.count>0)) {
+        UIView *line = [UIView new];
+        line.backgroundColor = RGBA(237, 237, 237, 1);
+        [headView addSubview:line];
+        
+        CGFloat leftX = 0;
+        if (section != 0) {
+            leftX = 0;
+        }
+        line.sd_layout
+        .topEqualToView(headView)
+        .leftSpaceToView(headView, leftX)
+        .rightEqualToView(headView)
+        .heightIs(3)
+        ;
+        
+        UILabel *title = [UILabel new];
+        title.font = PFFontL(16);
+        
+        [headView addSubview:title];
+        title.sd_layout
+        .topSpaceToView(line, 0)
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .bottomEqualToView(headView)
+        ;
+        
+        if (section == 0) {
+            title.text = [NSString stringWithFormat:@"关注的人(%ld)",self.attentionArr.count];
+        }else if (section == 1){
+            title.text = @"关注的话题(0)";
+        }else if (section == 2){
+            title.text = @"关注的频道(0)";
+        }
     }
-    line.sd_layout
-    .topEqualToView(headView)
-    .leftSpaceToView(headView, leftX)
-    .rightEqualToView(headView)
-    .heightIs(3)
-    ;
-    
-    UILabel *title = [UILabel new];
-    title.font = PFFontL(16);
-    
-    [headView addSubview:title];
-    title.sd_layout
-    .topSpaceToView(line, 0)
-    .leftSpaceToView(headView, 10)
-    .rightSpaceToView(headView, 10)
-    .bottomEqualToView(headView)
-    ;
-    
-    if (section == 0) {
-       title.text = [NSString stringWithFormat:@"关注的人(%ld)",self.attentionArr.count];
-    }else if (section == 1){
-        title.text = @"关注的话题(0)";
-    }else if (section == 2){
-        title.text = @"关注的频道(0)";
-    }
-    
     
     return headView;
 }
@@ -232,7 +256,9 @@
 {
     [HttpRequest postWithURLString:Attention_myUser parameters:@{} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         self.attentionArr = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
-        
+        UserModel *user = [UserModel getLocalUserModel];
+        user.followCount = self.attentionArr.count;
+        [UserModel coverUserData:user];
         [self.tableView reloadData];
     } failure:nil RefreshAction:nil];
 }
@@ -244,11 +270,16 @@
     parameters[@"userId"] = @(model.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         model.isFollow = !model.isFollow;
+        UserModel *user = [UserModel getLocalUserModel];
+        
         if (model.isFollow) {
-            LRToast(@"关注成功～");
+            LRToast(@"关注成功");
+            user.followCount ++;
         }else{
-            LRToast(@"已取消关注");
+            LRToast(@"取消关注");
+            user.followCount --;
         }
+        [UserModel coverUserData:user];
         [self.tableView reloadData];
     } failure:nil RefreshAction:^{
         [self requestAttentionList];

@@ -8,11 +8,12 @@
 //收藏娱乐城cell
 
 #import <UIKit/UIKit.h>
+#import "CompanyDetailModel.h"
 
 #define MyCollectCasinoCellID @"MyCollectCasinoCellID"
 
 @interface MyCollectCasinoCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) CompanyDetailModel *model;
 
 @end

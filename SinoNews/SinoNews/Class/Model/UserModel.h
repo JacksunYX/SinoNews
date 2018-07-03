@@ -44,6 +44,8 @@
 @property (nonatomic,assign) NSUInteger favorCount;
 //用户关注数
 @property (nonatomic,assign) NSUInteger followCount;
+//用户被点赞数
+@property (nonatomic,assign) NSUInteger praisedCount;
 //用户积分
 @property (nonatomic,assign) long integral;
 

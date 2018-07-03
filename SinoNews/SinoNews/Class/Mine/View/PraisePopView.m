@@ -83,7 +83,8 @@ static CGFloat anumationTime = 0.3;
     .heightIs(18)
     ;
     [centerLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 120];
-    centerLabel.text = @"“写梦一场”共获10赞";
+    UserModel *user = [UserModel getLocalUserModel];
+    centerLabel.text = [NSString stringWithFormat:@"“%@”共获%ld赞",GetSaveString(UserGet(@"username")),user.praisedCount];
     
     //点击移除手势
     @weakify(backView)

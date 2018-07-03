@@ -76,11 +76,7 @@
     self.view.backgroundColor = WhiteColor;
     self.navigationItem.title = @"天天签到";
     
-    [self addTableView];
-    
-    [self setHeadView];
-    
-    [SignInPopView showWithData:nil];
+    [self requestSignIn];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -549,7 +545,21 @@
     taskAward.text = GetSaveString(data[@"taskAward"]);
 }
 
-
+#pragma mark ---- 请求发送
+//签到
+-(void)requestSignIn
+{
+    @weakify(self)
+    [HttpRequest postWithURLString:SignIn parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        @strongify(self)
+        [self addTableView];
+        
+        [self setHeadView];
+        
+        [SignInPopView showWithData:nil];
+        
+    } failure:nil RefreshAction:nil];
+}
 
 
 

@@ -789,11 +789,16 @@
     parameters[@"userId"] = @(self.newsModel.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         self.newsModel.isAttention = !self.newsModel.isAttention;
+        UserModel *user = [UserModel getLocalUserModel];
         if (self.newsModel.isAttention) {
+            user.followCount ++;
             LRToast(@"关注成功～");
         }else{
+            user.followCount --;
             LRToast(@"已取消关注");
         }
+        //覆盖之前保存的信息
+        [UserModel coverUserData:user];
         [self setTitle];
     } failure:nil RefreshAction:^{
         [self requestNewData];

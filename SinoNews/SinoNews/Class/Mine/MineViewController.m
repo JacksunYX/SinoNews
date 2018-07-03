@@ -198,8 +198,10 @@
 
 -(void)addHeadView
 {
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
-    headView.backgroundColor = RGBA(196, 222, 247, 1);
+    UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
+    headView.userInteractionEnabled = YES;
+//    headView.backgroundColor = RGBA(196, 222, 247, 1);
+    headView.image = UIImageNamed(@"mine_topBackImg");
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];
@@ -286,6 +288,8 @@
     .bottomSpaceToView(headView, 10)
     .widthIs(ScreenW/4)
     ;
+    [_publish updateLayout];
+    [_publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
     [_publish creatTapWithSelector:@selector(tapView:)];
     
     _attention.sd_layout
@@ -295,6 +299,8 @@
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
+    [_attention updateLayout];
+    [_attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
     [_attention creatTapWithSelector:@selector(tapView:)];
     
     _fans.sd_layout
@@ -304,6 +310,8 @@
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
+    [_fans updateLayout];
+    [_fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
     [_fans creatTapWithSelector:@selector(tapView:)];
     
     _praise.sd_layout
@@ -334,7 +342,7 @@
         pub = [NSString stringWithFormat:@"%lu",self.user.postCount];
         att = [NSString stringWithFormat:@"%lu",self.user.followCount];
         fan = [NSString stringWithFormat:@"%lu",self.user.fansCount];
-        pra = [NSString stringWithFormat:@"%lu",self.user.postCount];
+        pra = [NSString stringWithFormat:@"%lu",self.user.praisedCount];
         _signIn.hidden = NO;
     }
     
@@ -370,7 +378,7 @@
             break;
         case 3:
         {
-            [PraisePopView showWithData:nil];
+            [self requsetgetMyPraises];
         }
             break;
             
@@ -557,5 +565,23 @@
         }
     } failure:nil];
 }
+
+//获取我的被点赞数
+-(void)requsetgetMyPraises
+{
+    [HttpRequest postWithURLString:MyPraiseNum parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        UserModel *user = [UserModel getLocalUserModel];
+        user.praisedCount = [response[@"data"] integerValue];
+        //覆盖之前保存的信息
+        [UserModel coverUserData:user];
+        self.user = user;
+        [self setHeadViewData:YES];
+        [PraisePopView showWithData:nil];
+    } failure:nil RefreshAction:^{
+        [self requestToGetUserInfo];
+    }];
+}
+
+
 
 @end

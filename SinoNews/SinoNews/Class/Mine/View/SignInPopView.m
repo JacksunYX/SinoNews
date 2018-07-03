@@ -102,7 +102,7 @@ static CGFloat anumationTime = 0.3;
     .rightEqualToView(centerView)
     .heightIs(43)
     ;
-    bottonLabel.text = @"明天签到可获9积分";
+    bottonLabel.text = @"连续签到可获得额外积分";
     
     goldBtn.sd_layout
     .bottomSpaceToView(bottonLabel, 30)

@@ -72,7 +72,7 @@
     .widthIs(50)
     .heightEqualToWidth()
     ;
-    img.image = UIImageNamed(@"user_icon");
+//    img.image = UIImageNamed(@"user_icon");
     [img setSd_cornerRadius:@25];
     
     title.sd_layout
@@ -81,7 +81,7 @@
     .heightIs(16)
     .rightSpaceToView(fatherView, 10)
     ;
-    title.text = @"猜大小娱乐场";
+//    title.text = @"猜大小娱乐场";
     
     introduce.sd_layout
     .leftSpaceToView(fatherView, 10)
@@ -90,12 +90,18 @@
     .autoHeightRatio(0)
     ;
     [introduce setMaxNumberOfLinesToShow:2];
-    introduce.text = @"简介：猜大小娱乐场是当今比较流行的游戏，方 便人们的操作，娱乐与赚钱于一体.";
+//    introduce.text = @"简介：猜大小娱乐场是当今比较流行的游戏，方 便人们的操作，娱乐与赚钱于一体.";
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(CompanyDetailModel *)model
 {
     _model = model;
+    
+    title.text = GetSaveString(model.companyName);
+    
+    introduce.text = GetSaveString(model.information);
+    
+    [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.logo))];
 }
 
 @end

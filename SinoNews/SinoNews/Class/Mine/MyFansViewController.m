@@ -65,6 +65,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
+        self.currPage = 1;
         [self requestFansList];
     }];
     
@@ -88,18 +89,18 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.dataSource.count;
-    return 3;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyFansTableViewCell *cell = (MyFansTableViewCell *)[tableView dequeueReusableCellWithIdentifier:MyFansTableViewCellID];
-//    cell.model = self.dataSource[indexPath.row];
+    MyFansModel *model = self.dataSource[indexPath.row];
+    cell.model = model;
     @weakify(self)
     cell.attentionBlock = ^{
         @strongify(self)
-        [self requestIsAttentionWithFansModel:nil];
+        [self requestIsAttentionWithFansModel:model];
     };
     
     return cell;
@@ -128,12 +129,32 @@
 
 
 #pragma mark ---- 请求发送
-//我的关注列表
+//我的粉丝列表
 -(void)requestFansList
 {
     [HttpRequest postWithURLString:Fans_myFollow parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        
+        NSArray *arr = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
+        
+        if (self.currPage == 1) {
+            [self.tableView.mj_header endRefreshing];
+            if (arr.count) {
+                self.dataSource = [arr mutableCopy];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }else{
+            if (arr.count) {
+                [self.dataSource addObjectsFromArray:arr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+
+        [self.tableView reloadData];
+
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];

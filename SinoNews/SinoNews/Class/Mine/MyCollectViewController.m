@@ -9,6 +9,7 @@
 #import "MyCollectViewController.h"
 #import "MyCollectArticleCell.h"
 #import "MyCollectCasinoCell.h"
+#import "RankDetailViewController.h"
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -52,10 +53,10 @@
 {
     if (!_casinoArray) {
         _casinoArray = [NSMutableArray array];
-        for (int i = 0; i< 5; i++) {
-            NSString *string = [NSString stringWithFormat:@"测试测试测试测试测试测试测试测试%d",arc4random()%100];
-            [_casinoArray addObject:string];
-        }
+//        for (int i = 0; i< 5; i++) {
+//            NSString *string = [NSString stringWithFormat:@"测试测试测试测试测试测试测试测试%d",arc4random()%100];
+//            [_casinoArray addObject:string];
+//        }
     }
     return _casinoArray;
 }
@@ -110,16 +111,23 @@
     _segHead.bottomLineHeight = 0;
     _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
     
-    WEAK(weakself, self);
+    @weakify(self)
     [MLMSegmentManager associateHead:_segHead withScroll:nil completion:^{
-        weakself.navigationItem.titleView = weakself.segHead;
+        @strongify(self)
+        self.navigationItem.titleView = self.segHead;
     }];
     
     self.segHead.selectedIndex = ^(NSInteger index) {
 //        GGLog(@"选择了下标为：%ld",index);
+        @strongify(self)
         self->selectedIndex = index;
-        [weakself showOrHiddenTheSelections:NO];
-        [weakself.tableView reloadData];
+        [self showOrHiddenTheSelections:NO];
+        [self.tableView reloadData];
+        if (index) {
+            [self requestCompanyList];
+        }else{
+            [self requestNewsList];
+        }
     };
 }
 
@@ -268,7 +276,7 @@
         cell = (MyCollectArticleCell *)cell0;
     }else if (selectedIndex == 1){
         MyCollectCasinoCell *cell1 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
-//        cell1.model = self.casinoArray[indexPath.row];
+        cell1.model = self.casinoArray[indexPath.row];
         cell = (MyCollectCasinoCell *)cell1;
     }
     
@@ -305,6 +313,16 @@
             arr = self.casinoArray;
         }
         [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
+    }else{
+        if (selectedIndex == 0) {
+            
+        }else if (selectedIndex == 1){
+            //跳转到公司详情
+            RankDetailViewController *rdVC = [RankDetailViewController new];
+            CompanyDetailModel *model = self.casinoArray[indexPath.row];
+            rdVC.companyId = model.companyId;
+            [self.navigationController pushViewController:rdVC animated:YES];
+        }
     }
     [self.deleteBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
 }
@@ -327,7 +345,21 @@
     
 }
 
+#pragma mark ---- 请求发送
+//关注的游戏公司列表
+-(void)requestCompanyList
+{
+    [HttpRequest getWithURLString:ListConcernedCompanyForUser parameters:nil success:^(id responseObject) {
+        self.casinoArray = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [self.tableView reloadData];
+    } failure:nil];
+}
 
+//关注的游戏公司列表
+-(void)requestNewsList
+{
+    GGLog(@"请求收藏的文章列表");
+}
 
 
 @end

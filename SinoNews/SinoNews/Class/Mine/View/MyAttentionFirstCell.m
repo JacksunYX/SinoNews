@@ -72,7 +72,7 @@
     .heightEqualToWidth()
     ;
     [img setSd_cornerRadius:@24];
-    img.backgroundColor = Arc4randomColor;
+//    img.backgroundColor = Arc4randomColor;
     
     isAttention.sd_layout
     .rightSpaceToView(self.contentView, 10)
@@ -97,7 +97,7 @@
     .rightSpaceToView(isAttention, 10)
     .heightIs(16)
     ;
-    title.text = @"这个杀手不太冷";
+//    title.text = @"这个杀手不太冷";
     
     subTitle.sd_layout
     .leftEqualToView(title)
@@ -105,7 +105,7 @@
     .rightSpaceToView(isAttention, 10)
     .autoHeightRatio(0)
     ;
-    subTitle.text = @"湖北省委机关报，湖北广告份额都市类报纸";
+//    subTitle.text = @"湖北省委机关报，湖北广告份额都市类报纸";
     
 }
 
@@ -130,6 +130,9 @@
     }else{
         isAttention.layer.borderColor = HexColor(#1282EE).CGColor;
     }
+    
+    title.text = GetSaveString(model.username);
+    subTitle.text = GetSaveString(model.signature);
 }
 
 

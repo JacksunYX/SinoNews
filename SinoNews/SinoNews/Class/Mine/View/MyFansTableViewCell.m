@@ -60,7 +60,7 @@
     .heightEqualToWidth()
     ;
     [fansIcon setSd_cornerRadius:@(45/2)];
-    fansIcon.backgroundColor = Arc4randomColor;
+//    fansIcon.backgroundColor = Arc4randomColor;
     
     fansName.sd_layout
     .centerYEqualToView(fansIcon)
@@ -68,7 +68,7 @@
     .heightIs(18)
     ;
     [fansName setSingleLineAutoResizeWithMaxWidth:150];
-    fansName.text = @"╰☆叶枫〆";
+//    fansName.text = @"╰☆叶枫〆";
     
     sex.sd_layout
     .leftSpaceToView(fansName, 10)
@@ -76,8 +76,7 @@
     .widthIs(19)
     .heightEqualToWidth()
     ;
-    sex.image = UIImageNamed(@"message_man");
-    sex.image = UIImageNamed(@"message_woman");
+    
     
     attentionBtn.sd_layout
     .rightSpaceToView(fatherView, 10)
@@ -90,14 +89,6 @@
     [attentionBtn setImage:UIImageNamed(@"myFans_attentioned") forState:UIControlStateSelected];
     [attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
     [attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forState:UIControlStateSelected];
-    
-    [self setupAutoHeightWithBottomView:fansIcon bottomMargin:10];
-}
-
--(void)setModel:(MyFansModel *)model
-{
-    _model = model;
-    attentionBtn.selected = model.isFollow;
     @weakify(self)
     [[attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
@@ -105,6 +96,26 @@
             self.attentionBlock();
         }
     }];
+    
+    [self setupAutoHeightWithBottomView:fansIcon bottomMargin:10];
+}
+
+-(void)setModel:(MyFansModel *)model
+{
+    _model = model;
+    
+    attentionBtn.selected = model.isFollow;
+    
+    sex.image = nil;
+    if (model.gender == 1) {
+        sex.image = UIImageNamed(@"message_man");
+    }else if (model.gender == 0){
+        sex.image = UIImageNamed(@"message_woman");
+    }
+    
+    fansName.text = GetSaveString(model.username);
+    
+    [fansIcon sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
 }
 
 

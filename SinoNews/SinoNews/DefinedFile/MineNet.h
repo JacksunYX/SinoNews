@@ -49,7 +49,8 @@
 //批量取关文章(post)
 #define Unfavors            @"/api/unfavors"
 
-
+//保存地址(post)
+#define Mall_saveAddress    @"/api/mall/saveAddress"
 
 
 

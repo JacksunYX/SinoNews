@@ -37,6 +37,9 @@
 #import "BaseViewHead.h"
 #import "UserInfoViewController.h"
 
+//通知名
+#import "NotifyList.h"
+
 //部分第三方库
 #import <MBProgressHUD.h>
 

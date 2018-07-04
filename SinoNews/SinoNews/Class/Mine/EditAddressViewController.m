@@ -167,16 +167,16 @@
 -(void)saveAdress
 {
     
-    if (kStringIsEmpty(receiver.text)) {
+    if (kStringIsEmpty(receiver.text)||[NSString isEmpty:receiver.text]) {
         LRToast(@"请输入收件人姓名~");
-    }else if (kStringIsEmpty(phoneNum.text)||![GetSaveString(phoneNum.text) isValidPhone]){
+    }else if (kStringIsEmpty(phoneNum.text)||[NSString isEmpty:phoneNum.text]||![GetSaveString(phoneNum.text) isValidPhone]){
         LRToast(@"请输入正确的手机号~");
     }else if (kStringIsEmpty(cityLabel.text)){
         LRToast(@"请选择省/市/行政区～");
-    }else if (kStringIsEmpty(detailAddress.text)){
+    }else if (kStringIsEmpty(detailAddress.text)||[NSString isEmpty:detailAddress.text]){
         LRToast(@"请输入详细地址～");
     }else{
-        LRToast(@"保存中...");
+        [self requestSaveAddress];
     }
 }
 
@@ -232,14 +232,35 @@
 //禁止粘贴、全选
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-    if (action == @selector(paste:))//禁止粘贴
-        return NO;
-    if (action == @selector(select:))// 禁止选择
-        return NO;
-    if (action == @selector(selectAll:))// 禁止全选
-        return NO;
+//    if (action == @selector(paste:))//禁止粘贴
+//        return NO;
+//    if (action == @selector(select:))// 禁止选择
+//        return NO;
+//    if (action == @selector(selectAll:))// 禁止全选
+//        return NO;
     return [super canPerformAction:action withSender:sender];
 }
+
+#pragma mark ---- 请求发送
+-(void)requestSaveAddress
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"consignee"] = receiver.text;
+    parameters[@"mobile"] = phoneNum.text;
+    //后台暂时没有地址库，只能先拼接了传过去
+    parameters[@"fullAddress"] = [cityLabel.text stringByAppendingString:detailAddress.text];
+    [HttpRequest postWithURLString:Mall_saveAddress parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"保存地址成功");
+        GCDAfterTime(1.2, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        if (self.refreshBlock) {
+            self.refreshBlock();
+        }
+    } failure:nil RefreshAction:nil];
+}
+
+
 
 
 @end

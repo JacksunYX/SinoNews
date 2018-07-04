@@ -13,6 +13,9 @@
 
 //我的关注文章列表(post)
 #define MyUserNews      @"/api/myUserNews"
+//我的关注频道文章列表(get)
+#define ListForFollow   @"/api/news/listForFollow"
+
 
 //推荐用户列表
 #define UserRecommend   @"/api/user/recommend"

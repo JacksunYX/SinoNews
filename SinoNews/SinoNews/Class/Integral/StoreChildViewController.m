@@ -120,6 +120,8 @@
 {
 //    GGLog(@"点击了第%ld个",indexPath.row);
     ExchangeProductViewController *epVc = [ExchangeProductViewController new];
+    ProductModel *model = self.dataSource[indexPath.row];
+    epVc.productId = model.product_id;
     [self.navigationController pushViewController:epVc animated:YES];
 }
 

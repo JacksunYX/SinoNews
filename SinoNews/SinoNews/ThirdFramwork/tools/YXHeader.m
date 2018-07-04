@@ -54,10 +54,11 @@
 //登陆成功，保存数据
 +(void)loginSuccessSaveWithData:(NSDictionary *)response
 {
-    UserSet(@"YES", @"isLogin")
-    UserSet(GetSaveString(response[@"data"][@"avatar"]), @"avatar")
-    UserSet(GetSaveString(response[@"data"][@"username"]), @"username")
-    UserSet(GetSaveString(response[@"data"][@"token"]), @"token")
+    UserSet(@"YES", @"isLogin");
+    UserSet(GetSaveString(response[@"data"][@"avatar"]), @"avatar");
+    UserSet(GetSaveString(response[@"data"][@"username"]), @"username");
+    UserSet(GetSaveString(response[@"data"][@"token"]), @"token");
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginSuccess object:nil];
 }
 
 

@@ -39,7 +39,7 @@
     if (CompareString(UserGet(@"isLogin"), @"YES")) {
         
     }
-    [self reloadChildVCWithTitles:@[@"作者"]];
+    [self reloadChildVCWithTitles:@[@"作者",@"频道"]];
     
 }
 
@@ -90,7 +90,7 @@
 - (NSArray *)getvcArr
 {
     NSMutableArray *arr = [NSMutableArray array];
-    for (NSInteger i = 0; i < 1; i ++) {
+    for (NSInteger i = 0; i < 2; i ++) {
         HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
         if (i == 0) {
            vc.news_id = @"作者";

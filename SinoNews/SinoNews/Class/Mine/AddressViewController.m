@@ -27,6 +27,7 @@
     self.navigationItem.title = @"管理收货地址";
     self.view.backgroundColor = WhiteColor;
     [self configUI];
+    [self showOrHiddenTheAddBtn:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,6 +51,15 @@
     ;
     [self.addAddress updateLayout];
     [self.addAddress setTitle:@"添加新地址" forState:UIControlStateNormal];
+    @weakify(self)
+    [[self.addAddress rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        EditAddressViewController *eaVC = [EditAddressViewController new];
+        eaVC.refreshBlock = ^{
+            
+        };
+        [self.navigationController pushViewController:eaVC animated:YES];
+    }];
     //添加阴影
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.addAddress.bounds];
     self.addAddress.layer.masksToBounds = NO;
@@ -76,6 +86,12 @@
     [self.tableView registerClass:[AddressTableViewCell class] forCellReuseIdentifier:AddressTableViewCellID];
 }
 
+//显示或隐藏添加地址按钮
+-(void)showOrHiddenTheAddBtn:(BOOL)show
+{
+    self.tableView.hidden = show;
+}
+
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -84,7 +100,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,10 +132,13 @@
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除该地址" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
-    
+    @weakify(self)
     UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"编辑该地址" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self)
         EditAddressViewController *eaVC = [EditAddressViewController new];
-        
+        eaVC.refreshBlock = ^{
+            
+        };
         [self.navigationController pushViewController:eaVC animated:YES];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];

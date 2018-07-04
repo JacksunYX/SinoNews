@@ -10,8 +10,11 @@
 #ifndef HomePageNet_h
 #define HomePageNet_h
 
-//栏目管理(get)
+//查看当前用户已关注的频道(get)
 #define Channel_listChannels    @"/api/channel/listChannels"
+//设置用户关注的频道(post)
+#define SetConcernedChannels    @"/api/channel/setConcernedChannels"
+
 //分页展现指定栏目下的文章(get)
 #define News_list               @"/api/news/listForChannel"
 //广告轮播图(get)

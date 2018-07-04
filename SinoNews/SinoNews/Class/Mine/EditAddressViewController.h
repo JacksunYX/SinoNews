@@ -14,4 +14,6 @@
 
 @property (nonatomic,strong) AddressModel *model;
 
+@property (nonatomic,copy) void(^refreshBlock)(void);
+
 @end

@@ -7,9 +7,10 @@
 //
 
 #import "ExchangeProductViewController.h"
+#import "ProductDetailModel.h"
 
 @interface ExchangeProductViewController ()
-
+@property(nonatomic,strong) ProductDetailModel *productModel;
 @end
 
 @implementation ExchangeProductViewController
@@ -18,7 +19,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     self.navigationItem.title = @"商品兑换";
-    [self setUI];
+    
+    [self requestGetProduct];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,7 +117,7 @@
     .heightIs(18)
     ;
     [productName setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
-    productName.text = @"优酷VIP会员一个月";
+    productName.text = GetSaveString(self.productModel.productName);
     
     [backImg sd_addSubviews:@[
                               productImg,
@@ -128,7 +130,8 @@
     .widthIs(60)
     .heightEqualToWidth()
     ;
-    productImg.backgroundColor = Arc4randomColor;
+    [productImg sd_setImageWithURL:UrlWithStr(GetSaveString(self.productModel.imageUrl))];
+//    productImg.backgroundColor = Arc4randomColor;
     
     leftLabel.sd_layout
     .leftSpaceToView(backImg, 16)
@@ -148,6 +151,11 @@
     exchangeBtn.titleLabel.font = PFFontL(18);
     exchangeBtn.backgroundColor = RGBA(255, 211, 5, 1);
     [exchangeBtn setTitle:@"立即兑换" forState:UIControlStateNormal];
+    @weakify(self)
+    [[exchangeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        [self requestBuyProduct];
+    }];
     
     UILabel *discountLabel = [UILabel new];
     discountLabel.textColor = RGBA(50, 50, 50, 1);
@@ -179,15 +187,16 @@
     ;
     [discountLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 60];
     NSString *str1 = @"优惠价：";
-    NSString *str2 = @"5000";
+    NSString *str2 = [NSString stringWithFormat:@"%ld",self.productModel.specialPrice];
     NSMutableAttributedString *att1 = [NSString leadString:str1 tailString:str2 font:PFFontL(15) color:RGBA(250, 84, 38, 1) lineBreak:NO];
     
     NSString *str3 = @" 积分  ";
     NSMutableAttributedString *att2 = [[NSMutableAttributedString alloc]initWithString:str3];
     
-    NSString *str4 = @"原价55000积分";
+    NSString *str4 = [NSString stringWithFormat:@"原价%ld积分",self.productModel.price];
     NSMutableAttributedString *att3 = [[NSMutableAttributedString alloc]initWithString:str4];
     NSDictionary *dic = @{
+                          //下划线
                           NSStrikethroughStyleAttributeName : @1,
                           NSStrikethroughColorAttributeName : RGBA(133, 133, 133, 1),
                           };
@@ -296,9 +305,32 @@
     return textfield;
 }
 
+#pragma mark ---- 请求发送
+//获取商品详情
+-(void)requestGetProduct
+{
+    @weakify(self)
+    [HttpRequest getWithURLString:Mall_product parameters:@{@"productId":GetSaveString(self.productId)} success:^(id responseObject) {
+        @strongify(self)
+        self.productModel = [ProductDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self setUI];
+    } failure:nil];
+}
 
-
-
+//购买商品
+-(void)requestBuyProduct
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"productId"] = @(self.productModel.productId);
+    @weakify(self)
+    [HttpRequest postWithURLString:Mall_buy parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"购买成功~");
+        @strongify(self)
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    } failure:nil RefreshAction:nil];
+}
 
 
 

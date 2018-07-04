@@ -13,6 +13,7 @@
 
 #import "HeadBannerView.h"
 #import "ADModel.h"
+#import "XLChannelModel.h"
 
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
@@ -130,7 +131,7 @@
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){  //反之则是关注子页面
             [self requestAttentionNews];
         }else if(CompareString(GetSaveString(self.news_id), @"频道")){
-            
+            [self requestAttentionChannelNews];
         }
         
     }];
@@ -151,7 +152,7 @@
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){
             [self requestAttentionNews];
         }else if(CompareString(GetSaveString(self.news_id), @"频道")){
-            
+            [self requestAttentionChannelNews];
         }
         
     }];
@@ -354,8 +355,47 @@
     } RefreshAction:nil];
 }
 
-
-
+//获取关注频道的文章列表
+-(void)requestAttentionChannelNews
+{
+    NSMutableString *str = [@"" mutableCopy];
+    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
+    if (kArrayIsEmpty(columnArr)) {
+        LRToast(@"没有任何关注的频道哦");
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        return;
+    }else{
+        NSArray *titleList = [NSMutableArray arrayWithArray:columnArr[0]];
+        for (XLChannelModel *model in titleList) {
+            if (model.status!=2) {
+               [str appendString:[NSString stringWithFormat:@"%@,",model.channelId]];
+            }
+            
+        }
+        if (str.length>0) {
+            [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
+        }else{
+            LRToast(@"先去关注点其他的频道吧~");
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            return;
+        }
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"page"] = @(self.page);
+    parameters[@"channelIds"] = str;
+    
+    [HttpRequest getWithURLString:ListForFollow parameters:parameters success:^(id responseObject) {
+        
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
 
 
 

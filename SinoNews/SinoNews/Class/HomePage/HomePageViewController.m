@@ -72,17 +72,25 @@
     [self showOrHideLoadView:YES page:1];
     
     [self addNavigationView];
-    
-//    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
-//    if (kArrayIsEmpty(columnArr)) {
+    //先从缓存里查是否有保存
+    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
+    if (kArrayIsEmpty(columnArr)) {
         [self requestChnanel];
-//    }else{
-//        self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
-//        [self reloadChildVCWithTitles:self.titleList];
-//        self.leaveTitleList = columnArr[1];
-//    }
+    }else{
+        self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
+        self.leaveTitleList = columnArr[1];
+        [self reloadChildVCWithTitles:self.titleList];
+    }
     
     [ADPopView showWithData:nil];
+    
+    //监听登陆
+    @weakify(self)
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self requestChnanel];
+    }];
+
 }
 
 //修改导航栏显示
@@ -198,23 +206,26 @@
 -(void)more:(UIButton *)btn
 {
     
-    WeakSelf
+    @weakify(self)
     [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
+        @strongify(self)
         GGLog(@"返回标题数组");
         //看是否并没有改变数组
         if ([NSArray compareArr:[self getTitlesArrFromArr:inUseTitles] andArr2:[self getTitlesArrFromArr:self.titleList]]) {
-
+            
         }else{
-            weakSelf.titleList = [inUseTitles mutableCopy];
-            [weakSelf reloadChildVCWithTitles:weakSelf.titleList];
-            weakSelf.leaveTitleList = [unUseTitles mutableCopy];
-            [weakSelf saveColumnArr];
+            self.titleList = [inUseTitles mutableCopy];
+            [self reloadChildVCWithTitles:self.titleList];
+            self.leaveTitleList = [unUseTitles mutableCopy];
+            [self requestUserAttentionChannels];
+            [self saveColumnArr];
         }
 
     } click:^(NSString *title) {
+        @strongify(self)
         GGLog(@"返回单个点击");
-        NSInteger index = [weakSelf.titleList indexOfObject:title];
-        [weakSelf.segHead changeIndex:index completion:YES];
+        NSInteger index = [self.titleList indexOfObject:title];
+        [self.segHead changeIndex:index completion:YES];
     }];
 }
 
@@ -266,14 +277,14 @@
             self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
         }
         //存储数据
-//        [self saveColumnArr];
+        [self saveColumnArr];
         
         [self reloadChildVCWithTitles:self.titleList];
         
     } failure:nil];
 }
 
-//保存栏目设置
+//保存栏目设置到本地
 -(void)saveColumnArr
 {
     [NSArray bg_clearArrayWithName:@"columnArr"];
@@ -282,6 +293,32 @@
     [columnArr addObject:self.leaveTitleList];
     [columnArr bg_saveArrayWithName:@"columnArr"];
 }
+
+//设置用户的频道管理
+-(void)requestUserAttentionChannels
+{
+    NSMutableArray *array = [NSMutableArray new];
+    for (XLChannelModel *model in self.titleList) {
+        if (model.status != 2) {
+           [array addObject:model.channelId];
+        }
+    }
+    if (array.count<=0) {
+        LRToast(@"没有关注更多频道~");
+        return;
+    }
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [HttpRequest postWithURLString:SetConcernedChannels parameters:@{@"channelIds":jsonString} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        LRToast(@"频道已设置完毕~");
+    } failure:nil RefreshAction:nil];
+}
+
+
+
+
 
 
 @end

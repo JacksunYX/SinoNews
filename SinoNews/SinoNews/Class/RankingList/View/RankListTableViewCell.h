@@ -16,4 +16,6 @@
 
 @property (nonatomic,strong) RankingListModel *model;
 
+@property (nonatomic,copy) void(^toPlayBlock)(void);
+
 @end

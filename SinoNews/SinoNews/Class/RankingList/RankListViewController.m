@@ -167,7 +167,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RankListTableViewCell *cell = (RankListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RankListTableViewCellID];
-    cell.model = self.dataSource[indexPath.row];
+    RankingListModel *model = self.dataSource[indexPath.row];
+    cell.model = model;
+    
+    cell.toPlayBlock = ^{
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.companyUrl)];
+    };
     return cell;
 }
 

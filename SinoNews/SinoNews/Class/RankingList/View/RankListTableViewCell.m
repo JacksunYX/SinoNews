@@ -80,6 +80,13 @@
     [toPlayBtn setTitleColor:RGBA(255, 255, 255, 1) forState:UIControlStateNormal];
 //    toPlayBtn.layer.borderWidth = 1;
 //    toPlayBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+    @weakify(self)
+    [[toPlayBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        if (self.toPlayBlock) {
+            self.toPlayBlock();
+        }
+    }];
     
     detailBtn = [UIButton new];
     detailBtn.titleLabel.font = PFFontL(14);

@@ -10,20 +10,7 @@
 #ifndef MineNet_h
 #define MineNet_h
 
-//上传文件(post)
-#define FileUpload          @"/api/fileupload"
-//上传并更新用户头像(post)
-#define User_updateAvata    @"/api/user/updateAvatar"
-//修改性别(post)
-#define User_editGender     @"/api/user/editGender"
-//完善个人资料(post)
-#define User_editUserInfo     @"/api/user/editUserInfo"
-//绑定手机(post)
-#define User_bindMobile     @"/api/user/bindMobile"
-//绑定邮箱(post)
-#define User_bindEmail      @"/api/user/bindEmail"
-//修改用户密码(post)
-#define User_editPassword   @"/api/user/editPassword"
+
 
 //我的被点赞数(post)
 #define MyPraiseNum         @"/api/myPraise"
@@ -33,7 +20,6 @@
 
 //我的粉丝列表(post)
 #define Fans_myFollow       @"/api/myFollow"
-
 
 //用户签到(post)
 #define SignIn              @"/api/user/signIn"
@@ -49,10 +35,11 @@
 //批量取关文章(post)
 #define Unfavors            @"/api/unfavors"
 
-//保存地址(post)
+//保存收获地址(post)
 #define Mall_saveAddress    @"/api/mall/saveAddress"
 
-
+//获取某一用户的详情信息
+#define GetUserInformation  @"/api/user/getUserInformation"
 
 
 #endif /* MineNet_h */

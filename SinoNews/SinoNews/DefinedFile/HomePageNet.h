@@ -43,6 +43,9 @@
 //关注/取消关注(post)
 #define AttentionUser           @"/api/attentionUser"
 
+//是否关注用户
+#define IsAttention             @"/api/isAttention"
+
 //搜索相关接口
 //热搜关键词(get)
 #define News_getNewsKeys        @"/api/news/getNewsKeys"

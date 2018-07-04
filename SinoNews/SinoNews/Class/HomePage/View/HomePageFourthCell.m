@@ -43,6 +43,7 @@
     title = [UILabel new];
     title.font = FontScale(17);
     title.textColor = HexColor(#323232);
+    title.isAttributedContent = YES;
     
     bottomLabel = [UILabel new];
     bottomLabel.font = FontScale(11);
@@ -99,13 +100,24 @@
     _model = model;
     
     NSString *labelName = GetSaveString(model.labelName);
+    NSString *titletext ;
     if (kStringIsEmpty(labelName)) {
-        title.text = GetSaveString(model.itemTitle);
+        titletext = GetSaveString(model.itemTitle);
         typeLabel.hidden = YES;
     }else{
-        title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
         typeLabel.hidden = NO;
     }
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]
+                                           initWithData:[titletext dataUsingEncoding:
+                                                         NSUnicodeStringEncoding]
+                                           options:@{
+                                                     NSDocumentTypeDocumentAttribute:
+                                                         NSHTMLTextDocumentType,
+                                                     NSFontAttributeName:FontScale(17)
+                                                     }
+                                           documentAttributes:nil error:nil];
+    title.attributedText = attrStr;
     
     NSString *str1 = [@"" stringByAppendingString:@""];
     NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];

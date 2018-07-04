@@ -9,6 +9,7 @@
 #import "UserInfoViewController.h"
 #import "UserInfoCommentCell.h"
 #import "HomePageFirstKindCell.h"
+#import "UserInfoModel.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 
@@ -26,7 +27,7 @@
 @property (nonatomic ,strong) UILabel *fans;        //粉丝
 @property (nonatomic ,strong) UILabel *praise;      //获赞
 
-@property (nonatomic ,strong) UserModel *user;
+@property (nonatomic ,strong) UserInfoModel *user;
 @property (nonatomic ,assign) NSInteger selectedIndex;
 
 @property (nonatomic, strong) UIView *sectionView;
@@ -83,6 +84,9 @@
     self.view.backgroundColor = WhiteColor;
     [self addTableView];
     [self addHeadView];
+    
+    [self requestGetUserInfomation];
+    [self requestIsAttention];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -212,7 +216,7 @@
     .widthIs(38)
     .heightIs(15)
     ;
-    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
+//    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
     
     _userName.sd_layout
     //    .bottomSpaceToView(_userImg, -27)
@@ -244,7 +248,7 @@
     [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(54, 136, 247, 1)] forState:UIControlStateNormal];
     [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(245, 245, 245, 1)] forState:UIControlStateSelected];
     [_attentionBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
-//    _attentionBtn.enabled = NO;
+    _attentionBtn.hidden = YES;
     
     _publish.sd_layout
     .topSpaceToView(_userImg, 40)
@@ -299,8 +303,8 @@
     NSString *att = @"0";
     NSString *fan = @"0";
     NSString *pra = @"0";
-    _userName.text = @"写梦一场一场";
-    _integral.text = @"10000积分";
+    _userName.text = @"0";
+    _integral.text = @"0积分";
     if (self.user) {
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar)];
         _userName.text = GetSaveString(self.user.username);
@@ -362,7 +366,7 @@
 //关注按钮点击事件
 -(void)attentionAction:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    [self requestAttentionUser];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -442,9 +446,59 @@
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:0];
 }
 
+#pragma mark ---- 请求发送
+//获取用户信息
+-(void)requestGetUserInfomation
+{
+    @weakify(self)
+    [HttpRequest getWithURLString:GetUserInformation parameters:@{@"userId":@(self.userId)} success:^(id responseObject) {
+        @strongify(self)
+        self.user = [UserInfoModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self setHeadView];
+    } failure:nil];
+}
 
+//是否关注此用户
+-(void)requestIsAttention
+{
+    @weakify(self)
+    [HttpRequest postWithURLString:IsAttention parameters:@{@"userId":@(self.userId)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        @strongify(self)
+        NSInteger status = [response[@"data"] integerValue];
+        self.attentionBtn.hidden = NO;
+        self.attentionBtn.selected = status;
+    } failure:nil RefreshAction:^{
+        @strongify(self)
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
-
-
+//关注/取消关注
+-(void)requestAttentionUser
+{
+    @weakify(self)
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(self.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        NSInteger status = [response[@"data"][@"status"] integerValue];
+        self.attentionBtn.selected = status;
+        UserModel *user = [UserModel getLocalUserModel];
+        if (status) {
+            user.followCount ++;
+            LRToast(@"关注成功～");
+        }else{
+            user.followCount --;
+            LRToast(@"已取消关注");
+        }
+        //覆盖之前保存的信息
+        [UserModel coverUserData:user];
+        if (self.refreshBlock) {
+            self.refreshBlock();
+        }
+    } failure:nil RefreshAction:^{
+        @strongify(self)
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
 @end

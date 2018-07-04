@@ -13,4 +13,6 @@
 
 @property (nonatomic,assign) NSUInteger userId;
 
+@property (nonatomic,copy) void(^refreshBlock)(void);
+
 @end

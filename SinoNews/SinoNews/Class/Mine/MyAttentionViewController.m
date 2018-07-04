@@ -238,8 +238,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    @weakify(self);
     if (indexPath.section == 0) {
         UserInfoViewController *uiVC = [UserInfoViewController new];
+        MyFansModel *model = self.attentionArr[indexPath.row];
+        uiVC.userId = model.userId;
+        
+        uiVC.refreshBlock = ^{
+            //刷新界面
+            @strongify(self);
+            [self requestAttentionList];
+        };
         [self.navigationController pushViewController:uiVC animated:YES];
     }
 }

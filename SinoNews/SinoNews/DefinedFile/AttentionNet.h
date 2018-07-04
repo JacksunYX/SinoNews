@@ -9,8 +9,13 @@
 
 #ifndef AttentionNet_h
 #define AttentionNet_h
+
+
 //我的关注文章列表(post)
-#define MyUserNews @"/api/myUserNews"
+#define MyUserNews      @"/api/myUserNews"
+
+//推荐用户列表
+#define UserRecommend   @"/api/user/recommend"
 
 
 #endif /* AttentionNet_h */

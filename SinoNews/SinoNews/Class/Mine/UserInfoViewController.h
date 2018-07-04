@@ -11,4 +11,6 @@
 
 @interface UserInfoViewController : UIViewController
 
+@property (nonatomic,assign) NSUInteger userId;
+
 @end

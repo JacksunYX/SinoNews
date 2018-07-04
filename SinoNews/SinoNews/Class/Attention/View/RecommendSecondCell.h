@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AttentionRecommendModel.h"
+#import "RecommendUserModel.h"
 
 #define RecommendSecondCellID @"RecommendSecondCellID"
 

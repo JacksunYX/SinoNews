@@ -389,12 +389,12 @@
 {
     _modelArr = modelArr;
     
-    AttentionRecommendModel *model1 = modelArr[0];
-    AttentionRecommendModel *model2 = modelArr[1];
-    AttentionRecommendModel *model3 = modelArr[2];
-    img1.image = UIImageNamed(GetSaveString(model1.img));
-    title1.text = GetSaveString(model1.title);
-    subTitle1.text = GetSaveString(model1.subTitle);
+    RecommendUserModel *model1 = modelArr[0];
+    RecommendUserModel *model2 = modelArr[1];
+    RecommendUserModel *model3 = modelArr[2];
+    [img1 sd_setImageWithURL:UrlWithStr(GetSaveString(model1.avatar))];
+    title1.text = GetSaveString(model1.username);
+//    subTitle1.text = GetSaveString(model1.subTitle);
     
     if (model1.isAttention) {
         isAttention1.selected = YES;
@@ -404,9 +404,9 @@
         isAttention1.layer.borderColor = HexColor(#1282EE).CGColor;
     }
     
-    img2.image = UIImageNamed(GetSaveString(model2.img));
-    title2.text = GetSaveString(model2.title);
-    subTitle2.text = GetSaveString(model2.subTitle);
+    [img2 sd_setImageWithURL:UrlWithStr(GetSaveString(model2.avatar))];
+    title2.text = GetSaveString(model2.username);
+//    subTitle2.text = GetSaveString(model2.subTitle);
     
     if (model2.isAttention) {
         isAttention2.selected = YES;
@@ -416,9 +416,9 @@
         isAttention2.layer.borderColor = HexColor(#1282EE).CGColor;
     }
     
-    img3.image = UIImageNamed(GetSaveString(model3.img));
-    title3.text = GetSaveString(model3.title);
-    subTitle3.text = GetSaveString(model3.subTitle);
+    [img3 sd_setImageWithURL:UrlWithStr(GetSaveString(model3.avatar))];
+    title3.text = GetSaveString(model3.username);
+//    subTitle3.text = GetSaveString(model3.subTitle);
     
     if (model3.isAttention) {
         isAttention3.selected = YES;
@@ -432,12 +432,12 @@
 //关注点击事件
 -(void)attentionAction:(UIButton *)btn
 {
-    btn.selected = !btn.selected;
-    if (btn.selected) {
-        btn.layer.borderColor = HexColor(#E3E3E3).CGColor;
-    }else{
-        btn.layer.borderColor = HexColor(#1282EE).CGColor;
-    }
+//    btn.selected = !btn.selected;
+//    if (btn.selected) {
+//        btn.layer.borderColor = HexColor(#E3E3E3).CGColor;
+//    }else{
+//        btn.layer.borderColor = HexColor(#1282EE).CGColor;
+//    }
     if (self.attentionIndex) {
         self.attentionIndex(self.tag, btn.tag - 10086);
     }

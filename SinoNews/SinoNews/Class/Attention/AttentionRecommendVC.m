@@ -8,19 +8,22 @@
 
 #import "AttentionRecommendVC.h"
 #import "SearchViewController.h"    //搜索页面
-
+#import "UserInfoViewController.h"  //用户信息页面
 
 #import "AttentionRecommendFirstCell.h"
 #import "AttentionRecommendSecondCell.h"
 #import "AttentionRecommendThirdCell.h"
 
+#import "RecommendChannelModel.h"
+#import "RecommendUserModel.h"
 
 @interface AttentionRecommendVC ()<UITableViewDataSource,UITableViewDelegate>
-{
-    BaseTableView *tableView;
-}
 
+@property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *recommendTopicArr;     //推荐话题
+@property (nonatomic,strong) NSMutableArray *recommendChannelArr;   //推荐频道
+@property (nonatomic,strong) NSMutableArray *recommendUserArr;      //推荐人
 @end
 
 @implementation AttentionRecommendVC
@@ -76,11 +79,35 @@
                 model.isAttention = [isAttention[arc4random()%isAttention.count]  boolValue];
                 [dataArr addObject:model];
             }
-            [_dataSource addObject:dataArr];
+//            [_dataSource addObject:dataArr];
         }
         
     }
     return _dataSource;
+}
+
+-(NSMutableArray *)recommendTopicArr
+{
+    if (!_recommendTopicArr) {
+        _recommendTopicArr = [NSMutableArray new];
+    }
+    return _recommendTopicArr;
+}
+
+-(NSMutableArray *)recommendChannelArr
+{
+    if (!_recommendChannelArr) {
+        _recommendChannelArr = [NSMutableArray new];
+    }
+    return _recommendChannelArr;
+}
+
+-(NSMutableArray *)recommendUserArr
+{
+    if (!_recommendUserArr) {
+        _recommendUserArr = [NSMutableArray new];
+    }
+    return _recommendUserArr;
 }
 
 - (void)viewDidLoad {
@@ -91,6 +118,7 @@
     
     [self addTableview];
     
+    [self requestRecommend];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,13 +141,13 @@
 
 -(void)addTableview
 {
-    tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT - BOTTOM_MARGIN) style:UITableViewStyleGrouped];
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    [tableView registerClass:[AttentionRecommendFirstCell class] forCellReuseIdentifier:AttentionRecommendFirstCellID];
-    [tableView registerClass:[AttentionRecommendSecondCell class] forCellReuseIdentifier:AttentionRecommendSecondCellID];
-    [tableView registerClass:[AttentionRecommendThirdCell class] forCellReuseIdentifier:AttentionRecommendThirdCellID];
-    [self.view addSubview:tableView];
+    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT - BOTTOM_MARGIN) style:UITableViewStyleGrouped];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.tableView registerClass:[AttentionRecommendFirstCell class] forCellReuseIdentifier:AttentionRecommendFirstCellID];
+    [self.tableView registerClass:[AttentionRecommendSecondCell class] forCellReuseIdentifier:AttentionRecommendSecondCellID];
+    [self.tableView registerClass:[AttentionRecommendThirdCell class] forCellReuseIdentifier:AttentionRecommendThirdCellID];
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -131,23 +159,26 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    NSArray *arr = self.dataSource[section];
+    return arr.count>0?1:0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
+    @weakify(self)
     if (indexPath.section == 0) {
         AttentionRecommendFirstCell *cell0 = (AttentionRecommendFirstCell *)[tableView dequeueReusableCellWithIdentifier:AttentionRecommendFirstCellID];
         cell0.dataSource = self.dataSource[indexPath.section];
-        
-        WEAK(weakSelf, self);
+        //点击了
         cell0.selectedIndex = ^(NSInteger index) {
-            [weakSelf choseSection:0 row:index];
+            @strongify(self)
+            [self choseSection:0 row:index];
         };
+        //关注
         cell0.attentionIndex = ^(NSInteger row) {
-            
-            [weakSelf choseAttentionStatusWithSection:indexPath.section line:0 row:row];
+            @strongify(self)
+            [self choseAttentionStatusWithSection:indexPath.section line:0 row:row];
         };
         
         cell = (UITableViewCell *)cell0;
@@ -155,14 +186,16 @@
         AttentionRecommendSecondCell *cell1 = (AttentionRecommendSecondCell *)[tableView dequeueReusableCellWithIdentifier:AttentionRecommendSecondCellID];
         cell1.dataSource = self.dataSource[indexPath.section];
         
-        WEAK(weakSelf, self);
+        //点击了
         cell1.selectedIndex = ^(NSInteger line, NSInteger row) {
-            [weakSelf choseSection:indexPath.section line:line row:row];
+            @strongify(self)
+            [self choseSection:indexPath.section line:line row:row];
         };
         
+        //关注
         cell1.attentionBlock = ^(NSInteger line, NSInteger row) {
-            
-            [weakSelf choseAttentionStatusWithSection:indexPath.section line:line row:row];
+            @strongify(self)
+            [self choseAttentionStatusWithSection:indexPath.section line:line row:row];
         };
         
         cell = (UITableViewCell *)cell1;
@@ -170,14 +203,15 @@
         AttentionRecommendThirdCell *cell2 = (AttentionRecommendThirdCell *)[tableView dequeueReusableCellWithIdentifier:AttentionRecommendThirdCellID];
         cell2.dataSource = self.dataSource[indexPath.section];
         
-        WEAK(weakSelf, self);
+        //点击了
         cell2.selectedIndex = ^(NSInteger line, NSInteger row) {
-            [weakSelf choseSection:indexPath.section line:line row:row];
+            @strongify(self)
+            [self choseSection:indexPath.section line:line row:row];
         };
-        
+        //关注
         cell2.attentionBlock = ^(NSInteger line, NSInteger row) {
-            
-            [weakSelf choseAttentionStatusWithSection:indexPath.section line:line row:row];
+            @strongify(self)
+            [self choseAttentionStatusWithSection:indexPath.section line:line row:row];
         };
         
         cell = (UITableViewCell *)cell2;
@@ -245,29 +279,121 @@
 -(void)choseSection:(NSInteger)section line:(NSInteger)line row:(NSInteger)row
 {
     GGLog(@"点击了第%ld分区第%ld列的第个%ldcell",section,line,row);
+    switch (section) {
+        case 0:
+            
+            break;
+        case 1: //人
+        {
+            NSUInteger index = line * 3 + row;
+            RecommendUserModel *userModel = self.recommendUserArr[index];
+            UserInfoViewController *uiVC = [UserInfoViewController new];
+            uiVC.userId = userModel.userId;
+            [self.navigationController pushViewController:uiVC animated:YES];
+        }
+            break;
+        case 2: //频道
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 //修改对应分区对应cell的关注状态
 -(void)choseAttentionStatusWithSection:(NSInteger)section line:(NSInteger)line row:(NSInteger)row
 {
-    if (section == 0) {
-        GGLog(@"改变了分区0的%ld的关注状态",row);
-        NSMutableArray *dataSource = [self.dataSource[section] mutableCopy];
-        AttentionRecommendModel *model = dataSource[row];
-        model.isAttention = !model.isAttention;
-        [self.dataSource replaceObjectAtIndex:section withObject:dataSource];
-        [tableView reloadData];
-        
-    }else{
-        GGLog(@"改变了分区%ld的%ld列%ld行的关注状态",section,line,row);
-        NSMutableArray *dataSource = [self.dataSource[section] mutableCopy];
-        NSInteger index = line*3 + row;
-        AttentionRecommendModel *model = dataSource[index];
-        model.isAttention = !model.isAttention;
-        [self.dataSource replaceObjectAtIndex:section withObject:dataSource];
-        [tableView reloadData];
+//    if (section == 0) {
+//        GGLog(@"改变了分区0的%ld的关注状态",row);
+//        NSMutableArray *dataSource = [self.dataSource[section] mutableCopy];
+//        AttentionRecommendModel *model = dataSource[row];
+//        model.isAttention = !model.isAttention;
+//        [self.dataSource replaceObjectAtIndex:section withObject:dataSource];
+//        [self.tableView reloadData];
+//
+//    }else{
+//        GGLog(@"改变了分区%ld的%ld列%ld行的关注状态",section,line,row);
+//        NSMutableArray *dataSource = [self.dataSource[section] mutableCopy];
+//        NSInteger index = line*3 + row;
+//        AttentionRecommendModel *model = dataSource[index];
+//        model.isAttention = !model.isAttention;
+//        [self.dataSource replaceObjectAtIndex:section withObject:dataSource];
+//        [self.tableView reloadData];
+//    }
+    switch (section) {
+        case 0:
+            
+            break;
+        case 1: //人
+        {
+            NSUInteger index = line * 3 + row;
+            RecommendUserModel *userModel = self.recommendUserArr[index];
+            NSUInteger userId = userModel.userId;
+            [self requestIsAttentionWithUserId:userId index:index];
+        }
+            break;
+        case 2: //频道
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
     }
+    
 }
+
+#pragma mark ----- 请求发送
+//推荐用户列表
+-(void)requestRecommend
+{
+    [HttpRequest getWithURLString:UserRecommend parameters:nil success:^(id responseObject) {
+        NSDictionary *data = responseObject[@"data"];
+        self.recommendChannelArr = [RecommendChannelModel mj_objectArrayWithKeyValuesArray:data[@"recommendChannel"]];
+        self.recommendUserArr = [RecommendUserModel mj_objectArrayWithKeyValuesArray:data[@"recommendUser"]];
+        [self.dataSource addObject:self.recommendTopicArr];
+        [self.dataSource addObject:self.recommendUserArr];
+        [self.dataSource addObject:self.recommendChannelArr];
+        [self.tableView reloadData];
+    } failure:nil];
+}
+
+//关注/取关 某个人
+-(void)requestIsAttentionWithUserId:(NSUInteger)userId index:(NSUInteger)index
+{
+    @weakify(self)
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        @strongify(self)
+        RecommendUserModel *userModel = self.recommendUserArr[index];
+        userModel.isAttention = !userModel.isAttention;
+        UserModel *user = [UserModel getLocalUserModel];
+        if (userModel.isAttention) {
+            user.followCount ++;
+            LRToast(@"关注成功～");
+        }else{
+            user.followCount --;
+            LRToast(@"已取消关注");
+        }
+        //覆盖之前保存的信息
+        [UserModel coverUserData:user];
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:^{
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+//关注/取关 某个频道
+
+
+
+
 
 
 @end

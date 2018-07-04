@@ -37,6 +37,8 @@
 
 @property (nonatomic,assign) NSInteger parentId;
 
+@property (nonatomic,assign) BOOL allowZoom;    //是否允许缩放
+
 @end
 
 @implementation NewsDetailViewController
@@ -57,6 +59,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
+    
+    self.allowZoom = YES;
     
     [self addNavigationView];
     
@@ -257,23 +261,14 @@
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    config.userContentController = wkUController;
+//    config.userContentController = wkUController;
     //    // 设置偏好设置对象
     config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
     self.webView.navigationDelegate = self;
 
-//    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"getCellHightNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-//        @strongify(self);
-//        NSDictionary * dic = x.userInfo;
-//        //判断通知中的参数是否与原来的值一致,防止死循环
-//        if (self.webView.height != [[dic objectForKey:@"height"]floatValue])
-//        {
-//            self.webView.height = [[dic objectForKey:@"height"]floatValue];
-//            self.tableView.tableHeaderView = self.webView;
-//            [self.tableView reloadData];
-//        }
-//    }];
+    self.webView.scrollView.delegate = self;
+    
     //KVO监听web的高度变化
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
         @strongify(self)
@@ -426,24 +421,10 @@
     }];
 }
 
-#pragma mark ----- UIWebViewDelegattopWebHeighte
-//-(void)webViewDidFinishLoad:(UIWebView *)webView
-//{
-//    //此方法获取webview的内容高度（建议使用）
-//    float height = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollHeight"]floatValue];
-//    //设置通知或者代理来传高度
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
-//}
-//
-//-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-//{
-//
-//    [self.webView reload];
-//}
-
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
+    self.allowZoom = NO;    //加载完禁止缩放
     [self refreshComments];
     [self showOrHideLoadView:NO page:2];
     [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
@@ -460,6 +441,12 @@
     //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#323232'"completionHandler:nil];
     //修改背景色
     //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'" completionHandler:nil];
+    //防止缩放
+    NSString *injectionJSString = @"var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
+    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
     
 }
 
@@ -652,6 +639,16 @@
     
 }
 
+//禁止手势缩放s
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    if(self.allowZoom){
+        return nil;
+    }else{
+        return self.webView.scrollView.subviews.firstObject;
+    }
+}
+
 #pragma mark ----- 发送请求
 //获取文章详情
 -(void)requestNewData
@@ -665,7 +662,7 @@
             NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
             GGLog(@"文章h5：%@",urlStr);
             NSURL *url = UrlWithStr(urlStr);
-            //        NSURL *url = UrlWithStr(@"http://www.bilibili.com");
+//            NSURL *url = UrlWithStr(@"https://www.tmall.com");
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
             [self.webView loadRequest:request];
         }

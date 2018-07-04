@@ -34,6 +34,8 @@
 		4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE420E468D200637E2A /* SignInViewController.m */; };
 		4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */; };
 		4C1D503320E5C8300002C53E /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D503220E5C8300002C53E /* ProductModel.m */; };
+		4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0ADD20EC9F8500C3A2E7 /* RecommendChannelModel.m */; };
+		4C1F0AE120ECA02A00C3A2E7 /* RecommendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0AE020ECA02A00C3A2E7 /* RecommendUserModel.m */; };
 		4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */; };
 		4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD020D34A4500615F20 /* RegisterViewController.m */; };
 		4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD320D34A5100615F20 /* LoginViewController.m */; };
@@ -255,6 +257,10 @@
 		4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayNewsViewController.m; sourceTree = "<group>"; };
 		4C1D503120E5C8300002C53E /* ProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
 		4C1D503220E5C8300002C53E /* ProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
+		4C1F0ADC20EC9F8500C3A2E7 /* RecommendChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendChannelModel.h; sourceTree = "<group>"; };
+		4C1F0ADD20EC9F8500C3A2E7 /* RecommendChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendChannelModel.m; sourceTree = "<group>"; };
+		4C1F0ADF20ECA02A00C3A2E7 /* RecommendUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendUserModel.h; sourceTree = "<group>"; };
+		4C1F0AE020ECA02A00C3A2E7 /* RecommendUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendUserModel.m; sourceTree = "<group>"; };
 		4C1F7B1D20CFB56100C49B11 /* FansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
 		4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
 		4C21ABCF20D34A4500615F20 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -1167,6 +1173,10 @@
 			children = (
 				4C54949420CE263B00CB448E /* AttentionRecommendModel.h */,
 				4C54949520CE263B00CB448E /* AttentionRecommendModel.m */,
+				4C1F0ADC20EC9F8500C3A2E7 /* RecommendChannelModel.h */,
+				4C1F0ADD20EC9F8500C3A2E7 /* RecommendChannelModel.m */,
+				4C1F0ADF20ECA02A00C3A2E7 /* RecommendUserModel.h */,
+				4C1F0AE020ECA02A00C3A2E7 /* RecommendUserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1796,6 +1806,7 @@
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
+				4C1F0AE120ECA02A00C3A2E7 /* RecommendUserModel.m in Sources */,
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
@@ -1804,6 +1815,7 @@
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */,
 				4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */,
+				4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,

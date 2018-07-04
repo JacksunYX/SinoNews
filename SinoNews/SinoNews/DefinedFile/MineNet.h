@@ -46,8 +46,8 @@
 
 //批量取关游戏公司(post)
 #define CancelCompanysCollects @"/api/company/batchCancelConcernCompany"
-
-
+//批量取关文章(post)
+#define Unfavors            @"/api/unfavors"
 
 
 

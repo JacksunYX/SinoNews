@@ -142,25 +142,24 @@
             }else{
                 if (isshowtoastd == YES) {
                     LRToast(resultdic[@"alertMsg"]);
-                    
-                    GCDAfterTime(1.2, ^{
-                        //未登陆
-                        if ([resultdic[@"statusCode"] integerValue] == 110001) {
-                            //清空登录状态,然后跳转到登录界面
-                            [UserModel clearLocalData];
-                            [YXHeader checkNormalBackLoginHandle:^{
-                                if (RefreshAction) {
-                                    GGLog(@"登陆成功回调");
-                                    RefreshAction();
-                                }
-                            }];
-                        }else{
-                            if (failure) {
-                                failure(nil);
-                            }
-                        }
-                    });
                 }
+                GCDAfterTime(1.2, ^{
+                    //未登陆
+                    if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                        //清空登录状态,然后跳转到登录界面
+                        [UserModel clearLocalData];
+                        [YXHeader checkNormalBackLoginHandle:^{
+                            if (RefreshAction) {
+                                GGLog(@"登陆成功回调");
+                                RefreshAction();
+                            }
+                        }];
+                    }else{
+                        if (failure) {
+                            failure(nil);
+                        }
+                    }
+                });
             }
             
         }else{
@@ -224,23 +223,23 @@
             }else{
                 if (isshowtoastd == YES) {
                     LRToast(resultdic[@"alertMsg"]);
-                    
-                    GCDAfterTime(1.2, ^{
-                        //未登陆
-                        if ([resultdic[@"statusCode"] integerValue] == 110001) {
-                            //清空登录状态,然后跳转到登录界面
-                            [UserModel clearLocalData];
-                            [YXHeader checkNormalBackLoginHandle:^{
-                                GGLog(@"登陆成功回调");
-                                RefreshAction();
-                            }];
-                        }else{
-                            if (failure) {
-                                failure(nil);
-                            }
-                        }
-                    });
                 }
+                
+                GCDAfterTime(1.2, ^{
+                    //未登陆
+                    if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                        //清空登录状态,然后跳转到登录界面
+                        [UserModel clearLocalData];
+                        [YXHeader checkNormalBackLoginHandle:^{
+                            GGLog(@"登陆成功回调");
+                            RefreshAction();
+                        }];
+                    }else{
+                        if (failure) {
+                            failure(nil);
+                        }
+                    }
+                });
             }
             
         }else{
@@ -273,7 +272,7 @@
 {
     
     AFHTTPSessionManager *manager = [self getQuestManager];
-
+    
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
     
     NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);

@@ -93,7 +93,8 @@
     
     //图片宽度
     CGFloat imgW = (ScreenW - lrMargin*2 - imgMargin*2)/3;
-    CGFloat imgH = imgW * 90.0 / 117;
+//    CGFloat imgH = imgW * 90.0 / 117;
+    CGFloat imgH = imgW;
     imgL.sd_layout
     .topSpaceToView(title, tbMargin)
     .leftSpaceToView(self.contentView, lrMargin)

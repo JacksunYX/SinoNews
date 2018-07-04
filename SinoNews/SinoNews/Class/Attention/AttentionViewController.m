@@ -103,5 +103,22 @@
     return arr;
 }
 
+#pragma mark ----- 请求发送
+//获取关注的人相关文章
+-(void)requestAttentionNews
+{
+    [HttpRequest postWithURLString:MyUserNews parameters:nil isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        
+    } failure:nil RefreshAction:^{
+        
+    }];
+}
+
+
+
+
+
+
+
 
 @end

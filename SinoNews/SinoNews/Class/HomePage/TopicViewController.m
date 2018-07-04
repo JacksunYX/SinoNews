@@ -61,21 +61,21 @@
     @weakify(self)
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
-        if (self.tableView.mj_footer.isRefreshing) {
-            [self.tableView.mj_header endRefreshing];
-        }
-
+//        if (self.tableView.mj_footer.isRefreshing) {
+//            [self.tableView.mj_header endRefreshing];
+//        }
+        [self requestShowTopicDetail];
     }];
     
-    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-        @strongify(self)
-        if (self.tableView.mj_header.isRefreshing) {
-            [self.tableView.mj_footer endRefreshing];
-        }
-        
-    }];
+//    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+//        @strongify(self)
+//        if (self.tableView.mj_header.isRefreshing) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }
+//
+//    }];
     
-//    [_tableView.mj_header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
 }
 
 -(void)addHeadView
@@ -171,6 +171,23 @@
 {
     
 }
+
+
+#pragma mark ----- 请求发送
+//展示专题详情
+-(void)requestShowTopicDetail
+{
+    [HttpRequest getWithURLString:ShowTopicDetails parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
+        
+        [self.tableView.mj_header endRefreshing];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
+}
+
+
+
+
 
 
 @end

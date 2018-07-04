@@ -12,5 +12,5 @@
 @class TopicModel;
 @interface TopicViewController : UIViewController
 
-@property (nonatomic,strong) TopicModel *model;
+@property (nonatomic,assign) NSInteger topicId;
 @end

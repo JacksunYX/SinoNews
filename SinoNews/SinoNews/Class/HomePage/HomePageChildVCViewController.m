@@ -120,11 +120,19 @@
         if (self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_header endRefreshing];
         }
+        //有newsid，说明是首页的子页面
         self.page = 1;
-        [self requestNews_list:0];
-        if ([self.news_id integerValue] == 82) {
-            [self requestBanner];
+        if ([self.news_id integerValue]) {
+            [self requestNews_list:0];
+            if ([self.news_id integerValue] == 82) {
+                [self requestBanner];
+            }
+        }else if(CompareString(GetSaveString(self.news_id), @"作者")){  //反之则是关注子页面
+            [self requestAttentionNews];
+        }else if(CompareString(GetSaveString(self.news_id), @"频道")){
+            
         }
+        
     }];
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -132,12 +140,20 @@
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];
         }
+        
         if (!self.dataSource.count) {
             self.page = 1;
         }else{
             self.page++;
         }
-        [self requestNews_list:1];
+        if ([self.news_id integerValue]) {
+            [self requestNews_list:1];
+        }else if(CompareString(GetSaveString(self.news_id), @"作者")){
+            [self requestAttentionNews];
+        }else if(CompareString(GetSaveString(self.news_id), @"频道")){
+            
+        }
+        
     }];
     
     [_tableView.mj_header beginRefreshing];
@@ -221,7 +237,6 @@
     if ([model isKindOfClass:[HomePageModel class]]) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         ndVC.newsId = [(HomePageModel *)model itemId];
-//        ndVC.newsId = 118;
         [self.navigationController pushViewController:ndVC animated:YES];
         
 //        PayNewsViewController *pnVC = [PayNewsViewController new];
@@ -229,7 +244,7 @@
         
     }else if ([model isKindOfClass:[TopicModel class]]){
         TopicViewController *tVC = [TopicViewController new];
-        tVC.model = model;
+        tVC.topicId = [(TopicModel *)model itemId];
         [self.navigationController pushViewController:tVC animated:YES];
     }else if ([model isKindOfClass:[ADModel class]]){
         
@@ -302,5 +317,46 @@
     }];
     
 }
+
+//获取关注的人相关文章
+-(void)requestAttentionNews
+{
+    [HttpRequest postWithURLString:MyUserNews parameters:@{@"currPage":@(self.page)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        NSMutableArray *dataArr = [NSMutableArray new];
+        for (NSDictionary *dic in response[@"data"]) {
+            NSInteger itemType = [dic[@"itemType"] integerValue];
+            if (itemType>=100&&itemType<200) {  //新闻
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=200&&itemType<300) {    //专题
+                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=300&&itemType<400){     //广告
+                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }
+        }
+        if (self.page == 1) {
+            self.dataSource = [dataArr mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            if (dataArr.count) {
+                [self.dataSource addObjectsFromArray:dataArr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    } RefreshAction:nil];
+}
+
+
+
+
+
 
 @end

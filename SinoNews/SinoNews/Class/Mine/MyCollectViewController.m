@@ -10,6 +10,8 @@
 #import "MyCollectArticleCell.h"
 #import "MyCollectCasinoCell.h"
 #import "RankDetailViewController.h"
+#import "HomePageFirstKindCell.h"
+#import "NewsDetailViewController.h"
 
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -44,10 +46,10 @@
 {
     if (!_articleArray) {
         _articleArray = [NSMutableArray array];
-        for (int i = 0; i< 4; i++) {
-            NSString *string = [NSString stringWithFormat:@"stringstringstringstringstringstringstring%d",arc4random()%100];
-            [_articleArray addObject:string];
-        }
+//        for (int i = 0; i< 4; i++) {
+//            NSString *string = [NSString stringWithFormat:@"stringstringstringstringstringstringstring%d",arc4random()%100];
+//            [_articleArray addObject:string];
+//        }
     }
     return _articleArray;
 }
@@ -160,6 +162,7 @@
     self.tableView.separatorColor = RGBA(227, 227, 227, 1);
     //注册
     [self.tableView registerClass:[MyCollectArticleCell class] forCellReuseIdentifier:MyCollectArticleCellID];
+    [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [self.tableView registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];
     
     @weakify(self);
@@ -270,25 +273,34 @@
         LRToast(@"还没有选择要删掉的东西哟～");
         return;
     }
-    @weakify(self)
-    [self requestCancelCompanysCollects:^{
-        @strongify(self)
-        NSMutableArray *arr;
-        if (self->selectedIndex == 0) {
-            arr = self.articleArray;
-        }else if (self->selectedIndex == 1){
-            arr = self.casinoArray;
-        }
-        //将数据源数组中包含有删除数组中的数据删除掉
-        [arr removeObjectsInArray:self.deleteArray];
-        //清空删除数组
-        [self.deleteArray removeAllObjects];
-        
-        [self.tableView reloadData];
-        //恢复初始状态
-        [self showOrHiddenTheSelections:NO];
-    }];
     
+    //批量删除游戏公司
+    if (selectedIndex == 1) {
+        [self requestCancelCompanysCollects];
+    }
+    if (selectedIndex == 0) {
+        [self requestCancelNewsCollects];
+    }
+    
+}
+
+//重置当前显示状态
+-(void)resetStatus
+{
+    NSMutableArray *arr;
+    if (self->selectedIndex == 0) {
+        arr = self.articleArray;
+    }else if (self->selectedIndex == 1){
+        arr = self.casinoArray;
+    }
+    //将数据源数组中包含有删除数组中的数据删除掉
+    [arr removeObjectsInArray:self.deleteArray];
+    //清空删除数组
+    [self.deleteArray removeAllObjects];
+    
+    [self.tableView reloadData];
+    //恢复初始状态
+    [self showOrHiddenTheSelections:NO];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -306,9 +318,11 @@
 {
     UITableViewCell *cell;
     if (selectedIndex == 0) {
-        MyCollectArticleCell *cell0 = (MyCollectArticleCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectArticleCellID];
-//        cell0.model = self.articleArray[indexPath.row];
-        cell = (MyCollectArticleCell *)cell0;
+        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+        
+        cell1.model = self.articleArray[indexPath.row];
+        cell = (UITableViewCell *)cell1;
+
     }else if (selectedIndex == 1){
         MyCollectCasinoCell *cell1 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
         cell1.model = self.casinoArray[indexPath.row];
@@ -321,7 +335,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (selectedIndex == 0) {
-        return 100;
+//        return 100;
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     }else if (selectedIndex == 1){
         return 128;
     }
@@ -350,7 +365,12 @@
         [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
     }else{
         if (selectedIndex == 0) {
-            
+            HomePageModel *model = self.articleArray[indexPath.row];
+            if ([model.newsType intValue]==0) {
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = [(HomePageModel *)model itemId];
+                [self.navigationController pushViewController:ndVC animated:YES];
+            }
         }else if (selectedIndex == 1){
             //跳转到公司详情
             RankDetailViewController *rdVC = [RankDetailViewController new];
@@ -393,11 +413,22 @@
 //收藏的文章列表
 -(void)requestNewsList
 {
-    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
+
+        if (self.currPage == 1) {
+            self.articleArray = [dataArr mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            [self.articleArray addObjectsFromArray:dataArr];
+        }
         
-        
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        if (dataArr.count) {
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
@@ -407,32 +438,43 @@
 }
 
 //批量取消关注游戏公司
--(void)requestCancelCompanysCollects: (void (^)(void)) handleBlock
+-(void)requestCancelCompanysCollects
 {
     NSMutableArray *array = [NSMutableArray new];
-    if (selectedIndex == 1){
-        for (CompanyDetailModel *model in self.deleteArray) {
-            [array addObject:model.companyId];
-        }
-        
-    }else{
-        
+    for (CompanyDetailModel *model in self.deleteArray) {
+        [array addObject:model.companyId];
     }
     
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
      NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
+    @weakify(self)
     [HttpRequest postWithURLString:CancelCompanysCollects parameters:@{@"companyIds":jsonString} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        if (handleBlock) {
-            handleBlock();
-        }
+        @strongify(self)
+        [self resetStatus];
     } failure:nil RefreshAction:^{
+        @strongify(self)
         [self.navigationController popViewControllerAnimated:YES];
     }];
     
 }
 
-
+//批量取消关注文章
+-(void)requestCancelNewsCollects
+{
+    NSMutableString *str = [@"" mutableCopy];
+    for (HomePageModel *model in self.deleteArray) {
+        [str appendString:[NSString stringWithFormat:@"%ld,",model.itemId]];
+    }
+    [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
+    @weakify(self)
+    [HttpRequest postWithURLString:Unfavors parameters:@{@"newsIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        @strongify(self)
+        [self resetStatus];
+    } failure:nil RefreshAction:^{
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
 
 
 

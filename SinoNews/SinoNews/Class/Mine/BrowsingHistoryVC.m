@@ -104,7 +104,7 @@
 //添加tableview
 -(void)addTableView
 {
-    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
         self.tableView.top_attr = self.view.top_attr_safe;
@@ -168,7 +168,7 @@
 {
     UIView *headView = [UIView new];
     if ([self.dataSource[section][@"models"] count]) {
-        headView.backgroundColor = HexColor(#ededed);
+        headView.backgroundColor = HexColor(#f6f6f6);
         UILabel *title = [UILabel new];
         title.font = Font(14);
         

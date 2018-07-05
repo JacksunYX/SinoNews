@@ -43,6 +43,7 @@
 		4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD320D34A5100615F20 /* LoginViewController.m */; };
 		4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */; };
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
+		4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
@@ -279,6 +280,8 @@
 		4C21ABE920D36DA900615F20 /* NSString+STRegex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+STRegex.h"; sourceTree = "<group>"; };
 		4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+STRegex.m"; sourceTree = "<group>"; };
 		4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAboutNet.h; sourceTree = "<group>"; };
+		4C21C17120EDBAFA0054F7AE /* UserAttentionOrFansVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAttentionOrFansVC.h; sourceTree = "<group>"; };
+		4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserAttentionOrFansVC.m; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
@@ -917,6 +920,8 @@
 				4C6332CB20E08EAE00D80056 /* EditAddressViewController.m */,
 				4C534F2220E1C37E00754695 /* UserInfoViewController.h */,
 				4C534F2320E1C37E00754695 /* UserInfoViewController.m */,
+				4C21C17120EDBAFA0054F7AE /* UserAttentionOrFansVC.h */,
+				4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */,
 				4C1C6DE320E468D200637E2A /* SignInViewController.h */,
 				4C1C6DE420E468D200637E2A /* SignInViewController.m */,
 				4C6332D020E0983C00D80056 /* Model */,
@@ -1803,6 +1808,7 @@
 				4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
+				4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,

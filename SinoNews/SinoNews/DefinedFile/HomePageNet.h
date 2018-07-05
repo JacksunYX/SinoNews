@@ -43,7 +43,7 @@
 //关注/取消关注(post)
 #define AttentionUser           @"/api/attentionUser"
 
-//是否关注用户
+//是否关注用户(post)
 #define IsAttention             @"/api/isAttention"
 
 //搜索相关接口

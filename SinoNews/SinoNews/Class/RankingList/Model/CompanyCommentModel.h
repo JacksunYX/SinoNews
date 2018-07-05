@@ -24,4 +24,12 @@
 @property (nonatomic,strong) NSString *parentId;    //父id
 @property (nonatomic,strong) NSString *replyNum;    //回复数
 @property (nonatomic,strong) NSArray <CompanyCommentModel *> *replyList;    //回复数组
+
+@property (nonatomic,strong) NSString *ip;          //评论发布地址
+@property (nonatomic,strong) NSString *title;       //所属新闻的标题
+
+//用户信息页专用，展示新闻图片数组
+@property (nonatomic, strong) NSArray *newsImages;
+@property (nonatomic,assign) NSInteger newsType;    //新闻类型：0普通 1收费
+
 @end

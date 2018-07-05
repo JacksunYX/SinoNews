@@ -54,7 +54,7 @@
     self.navigationItem.title = @"我的关注";
     self.view.backgroundColor = WhiteColor;
     [self addViews];
-    [self requestAttentionList];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,6 +65,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self requestAttentionList];
     BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
     [navi showNavigationDownLine];
 }

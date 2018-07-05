@@ -55,10 +55,10 @@ static bool isCollect = NO;
     shareView.itemImageTopSpace = 15;
     shareView.iconAndTitleSpace = 10;
     
-    shareView.itemImageSize = CGSizeMake(67, 67);
+    shareView.itemImageSize = CGSizeMake(56, 56);
     
     shareView.containViewColor = WhiteColor;
-    shareView.itemTitleFont = PFFontR(15);
+    shareView.itemTitleFont = PFFontL(13);
     shareView.itemTitleColor = RGBA(152, 152, 152, 1);
     shareView.cancleButton.titleLabel.font = PFFontR(17);
     [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];

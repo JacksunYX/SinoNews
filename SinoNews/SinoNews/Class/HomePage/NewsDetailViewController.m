@@ -257,7 +257,7 @@
     // 创建设置对象
     WKPreferences *preference = [[WKPreferences alloc]init];
     // 设置字体大小(最小的字体大小)
-    //    preference.minimumFontSize = 12;
+//    preference.minimumFontSize = 12;
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
@@ -442,11 +442,11 @@
     //修改背景色
     //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'" completionHandler:nil];
     //防止缩放
-    NSString *injectionJSString = @"var script = document.createElement('meta');"
-    "script.name = 'viewport';"
-    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
-    "document.getElementsByTagName('head')[0].appendChild(script);";
-    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
+//    NSString *injectionJSString = @"var script = document.createElement('meta');"
+//    "script.name = 'viewport';"
+//    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+//    "document.getElementsByTagName('head')[0].appendChild(script);";
+//    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
     
 }
 
@@ -587,9 +587,8 @@
     [self.view endEditing:YES];
     if (indexPath.section == 0) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
-//        HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
-//        ndVC.newsId = [(HomePageModel *)model news_id];
-        ndVC.newsId = 118;
+        HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
+        ndVC.newsId = [(HomePageModel *)model itemId];
         [self.navigationController pushViewController:ndVC animated:YES];
     }else if (indexPath.section == 1) {
         CompanyCommentModel *model = self.commentsArr[indexPath.row];

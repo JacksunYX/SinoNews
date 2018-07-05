@@ -8,11 +8,14 @@
 //用户信息中的评论列表cell
 
 #import <UIKit/UIKit.h>
+#import "CompanyCommentModel.h"
 
 #define UserInfoCommentCellID  @"UserInfoCommentCellID"
 
 @interface UserInfoCommentCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) CompanyCommentModel *model;
+
+@property (nonatomic,copy) void(^clickNewBlock)(void);
 
 @end

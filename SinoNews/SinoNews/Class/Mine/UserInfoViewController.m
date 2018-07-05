@@ -7,6 +7,11 @@
 //
 
 #import "UserInfoViewController.h"
+#import "NewsDetailViewController.h"
+#import "PayNewsViewController.h"
+#import "UserAttentionOrFansVC.h"
+#import "PraisePopView.h"
+
 #import "UserInfoCommentCell.h"
 #import "HomePageFirstKindCell.h"
 #import "UserInfoModel.h"
@@ -32,6 +37,9 @@
 
 @property (nonatomic, strong) UIView *sectionView;
 @property (nonatomic, strong) MLMSegmentHead *segHead;
+
+@property (nonatomic ,assign) NSInteger currPage0;   //页码0
+@property (nonatomic ,assign) NSInteger currPage1;   //页码1
 @end
 
 @implementation UserInfoViewController
@@ -124,19 +132,66 @@
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
+    
+    @weakify(self);
+    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        if (self.selectedIndex == 1) {
+            self.currPage1 = 1;
+            [self requestUserPushNews];
+        }else{
+            self.currPage0 = 1;
+            [self requestUserComments];
+        }
+        
+    }];
+    
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        
+        if (self.selectedIndex == 1) {
+            if (!self.articlesArr.count) {
+                self.currPage1 = 1;
+            }else{
+                self.currPage1 ++;
+            }
+            [self requestUserPushNews];
+        }else{
+            if (!self.commentsArr.count) {
+                self.currPage0 = 1;
+            }else{
+                self.currPage0 ++;
+            }
+            [self requestUserComments];
+        }
+        
+    }];
+    
+    [_tableView.mj_header beginRefreshing];
+    
 }
 
 -(void)addHeadView
 {
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
+    UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
     headView.backgroundColor = RGBA(196, 222, 247, 1);
+    headView.userInteractionEnabled = YES;
+    headView.image = UIImageNamed(@"mine_topBackImg");
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];
-//    _userImg.backgroundColor = Arc4randomColor;
+    //    _userImg.backgroundColor = Arc4randomColor;
     
     _isApproved = [UIImageView new];
-//    _isApproved.backgroundColor = Arc4randomColor;
+    //    _isApproved.backgroundColor = Arc4randomColor;
     
     _userName = [UILabel new];
     _userName.font = PFFontL(18);
@@ -208,7 +263,7 @@
     ;
     [_userImg setSd_cornerRadius:@32];
     _userImg.image = UIImageNamed(@"userIcon");
-//    [_userImg creatTapWithSelector:@selector(userTouch)];
+    //    [_userImg creatTapWithSelector:@selector(userTouch)];
     
     _isApproved.sd_layout
     .bottomEqualToView(_userImg)
@@ -216,7 +271,7 @@
     .widthIs(38)
     .heightIs(15)
     ;
-//    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
+    //    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
     
     _userName.sd_layout
     //    .bottomSpaceToView(_userImg, -27)
@@ -315,7 +370,7 @@
         pra = [NSString stringWithFormat:@"%lu",self.user.postCount];
     }
     
-    _publish.attributedText = [NSString leadString:pub tailString:@"文章" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
+    _publish.attributedText = [NSString leadString:pub tailString:@"发表" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
     _attention.attributedText = [NSString leadString:att tailString:@"关注" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     _fans.attributedText = [NSString leadString:fan tailString:@"粉丝" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     _praise.attributedText = [NSString leadString:pra tailString:@"获赞" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
@@ -344,17 +399,23 @@
             break;
         case 1:
         {
-            
+            UserAttentionOrFansVC *uarfVC = [UserAttentionOrFansVC new];
+            uarfVC.userId = self.userId;
+            uarfVC.type = 0;
+            [self.navigationController pushViewController:uarfVC animated:YES];
         }
             break;
         case 2:
         {
-            
+            UserAttentionOrFansVC *uarfVC = [UserAttentionOrFansVC new];
+            uarfVC.userId = self.userId;
+            uarfVC.type = 1;
+            [self.navigationController pushViewController:uarfVC animated:YES];
         }
             break;
         case 3:
         {
-            
+            [PraisePopView showWithData:@{@"username":self.user.username,@"praisedCount":@(self.user.praisedCount)}];
         }
             break;
             
@@ -378,12 +439,10 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_selectedIndex == 0) {
-//        return self.commentsArr.count;
-        return 5;
+        return self.commentsArr.count;
     }
     if (_selectedIndex == 1) {
-//        return self.articlesArr.count;
-        return 4;
+        return self.articlesArr.count;
     }
     return 0;
 }
@@ -393,11 +452,24 @@
     UITableViewCell *cell;
     if (_selectedIndex == 0) {
         UserInfoCommentCell *cell0 = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
-//        cell0.model = self.commentsArr[indexPath.row];
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        cell0.model = model;
+        
+        @weakify(self)
+        cell0.clickNewBlock = ^{
+            @strongify(self)
+            if (model.newsType == 0) {
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = [model.newsId integerValue];
+                [self.navigationController pushViewController:ndVC animated:YES];
+            }
+            
+        };
+        
         cell = (UITableViewCell *)cell0;
     }else if (_selectedIndex == 1){
         HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-//        cell1.model = self.articlesArr[indexPath.row];
+        cell1.model = self.articlesArr[indexPath.row];
         cell = (UITableViewCell *)cell1;
     }
     return cell;
@@ -426,7 +498,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.selectedIndex == 1) {
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = [(HomePageModel *)self.articlesArr[indexPath.row] itemId];
+        [self.navigationController pushViewController:ndVC animated:YES];
+    }
     
 }
 
@@ -434,16 +510,14 @@
 -(void)didSelectedIndex:(NSInteger)index
 {
     self.selectedIndex = index;
-    [self.tableView reloadData];
-//    NSInteger count = self.commentsArr.count;
-//    if (index) {
-//        index = self.articlesArr.count;
-//    }
-//    NSRange range = NSMakeRange(0, count);
-//
-//    NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndexesInRange:range];
     
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:0];
+    [self.tableView reloadData];
+    
+    if (index == 1&&!self.articlesArr.count) {
+        [self.tableView.mj_header beginRefreshing];
+    }else if (index == 0&&!self.commentsArr.count){
+        [self.tableView.mj_header beginRefreshing];
+    }
 }
 
 #pragma mark ---- 请求发送
@@ -500,5 +574,82 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 }
+
+//获取用户评论
+-(void)requestUserComments
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"page"] = @(self.currPage0);
+    parameters[@"userId"] = @(self.userId);
+    [HttpRequest getWithURLString:GetUserComments parameters:parameters success:^(id responseObject) {
+        NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        if (self.currPage0 == 1) {
+            [self.tableView.mj_header endRefreshing];
+            if (arr.count) {
+                self.commentsArr = [arr mutableCopy];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }else{
+            if (arr.count) {
+                [self.commentsArr addObjectsFromArray:arr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
+//获取用户发表文章
+-(void)requestUserPushNews
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"page"] = @(self.currPage1);
+    parameters[@"userId"] = @(self.userId);
+    [HttpRequest getWithURLString:GetUserNews parameters:parameters success:^(id responseObject) {
+        NSArray *arr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        if (self.currPage1 == 1) {
+            [self.tableView.mj_header endRefreshing];
+            if (arr.count) {
+                self.articlesArr = [arr mutableCopy];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }else{
+            if (arr.count) {
+                [self.articlesArr addObjectsFromArray:arr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
+
+
+
+
+
+
+
+
+
+
 
 @end

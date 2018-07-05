@@ -13,9 +13,10 @@
     UIImageView *avatar;
     UILabel *username;
     UILabel *comment;
+    UILabel *ip;
     UILabel *createTime;
     UIButton *praise;   //点赞
-    
+    UIView *bottomBackView;
     UIImageView *articleImg;
     UILabel *articleTitle;
 }
@@ -58,11 +59,15 @@
     comment.font = PFFontL(15);
     comment.numberOfLines = 0;
     
+    ip = [UILabel new];
+    ip.font = PFFontL(11);
+    ip.textColor = RGBA(152, 152, 152, 1);
+    
     createTime = [UILabel new];
     createTime.font = PFFontL(11);
     createTime.textColor = RGBA(152, 152, 152, 1);
 
-    UIView *bottomBackView = [UIView new];
+    bottomBackView = [UIView new];
     bottomBackView.backgroundColor = RGBA(227, 227, 227, 1);
     
     UIView *fatherView = self.contentView;
@@ -72,6 +77,7 @@
                                  praise,
                                  username,
                                  comment,
+                                 ip,
                                  createTime,
                                  bottomBackView,
                                  ]];
@@ -95,6 +101,7 @@
     praise.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     [praise setImage:UIImageNamed(@"company_unPraise") forState:UIControlStateNormal];
     [praise setImage:UIImageNamed(@"company_praised") forState:UIControlStateSelected];
+    praise.hidden = YES;
     
     username.sd_layout
     .centerYEqualToView(avatar)
@@ -111,12 +118,20 @@
     ;
     //    comment.backgroundColor = Arc4randomColor;
     
-    createTime.sd_layout
+    ip.sd_layout
     .leftEqualToView(username)
     .topSpaceToView(comment, 14)
     .heightIs(11)
     ;
-    [createTime setSingleLineAutoResizeWithMaxWidth:50];
+    [ip setSingleLineAutoResizeWithMaxWidth:100];
+    
+    createTime.sd_layout
+    .leftSpaceToView(ip, 10)
+//    .topSpaceToView(comment, 14)
+    .centerYEqualToView(ip)
+    .heightIs(11)
+    ;
+    [createTime setSingleLineAutoResizeWithMaxWidth:80];
     
     bottomBackView.sd_layout
     .leftEqualToView(username)
@@ -156,19 +171,34 @@
     
 }
 
-- (void)setModel:(NSDictionary *)model
+- (void)setModel:(CompanyCommentModel *)model
 {
     _model = model;
     
-    avatar.image = UIImageNamed(@"user_icon");
-    username.text = @"曾许诺";
-    praise.selected = YES;
-    [praise setTitle:@"23" forState:UIControlStateNormal];
+    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
+    username.text = GetSaveString(model.username);
     
-    comment.text = @"抗日神剧就是这样，是神剧";
-    createTime.text = @"18分钟前";
-    articleImg.image = UIImageNamed(@"logo_youku");
-    articleTitle.text = @"日本人如何看待抗日神剧中“手撕鬼子”？";
+    UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
+    @weakify(self)
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        @strongify(self)
+        if (self.clickNewBlock) {
+            self.clickNewBlock();
+        }
+    }];
+    [bottomBackView addGestureRecognizer:tap];
+    
+    comment.text = GetSaveString(model.comment);
+    
+    ip.text = GetSaveString(model.ip);
+    
+    createTime.text = GetSaveString(model.createTime);
+
+    if (model.newsImages.count) {
+        NSString *imgStr = model.newsImages[0];
+        [articleImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr))];
+    }
+    articleTitle.text = GetSaveString(model.title);
 }
 
 @end

@@ -100,6 +100,14 @@
     [self setupAutoHeightWithBottomView:fansIcon bottomMargin:10];
 }
 
+-(void)setType:(NSInteger)type
+{
+    _type = type;
+    if (type == 1) {
+        [attentionBtn setImage:UIImageNamed(@"myFans_tick") forState:UIControlStateSelected];
+    }
+}
+
 -(void)setModel:(MyFansModel *)model
 {
     _model = model;

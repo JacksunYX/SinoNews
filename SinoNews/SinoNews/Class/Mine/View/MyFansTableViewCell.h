@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) MyFansModel *model;
 
+@property (nonatomic,assign) NSInteger type;    //0默认是互关的图标、1右边关注了则是勾
+
 @property (nonatomic,copy) void (^attentionBlock)(void);
 
 @end

@@ -84,7 +84,13 @@ static CGFloat anumationTime = 0.3;
     ;
     [centerLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 120];
     UserModel *user = [UserModel getLocalUserModel];
-    centerLabel.text = [NSString stringWithFormat:@"“%@”共获%ld赞",GetSaveString(UserGet(@"username")),user.praisedCount];
+    NSString *centerText;
+    if (data.allKeys.count>0) {
+        centerText = [NSString stringWithFormat:@"“%@”共获%ld赞",data[@"username"],[data[@"praisedCount"] integerValue]];
+    }else{
+        centerText = [NSString stringWithFormat:@"“%@”共获%ld赞",GetSaveString(UserGet(@"username")),user.praisedCount];
+    }
+    centerLabel.text = centerText;
     
     //点击移除手势
     @weakify(backView)

@@ -38,8 +38,23 @@
 //保存收获地址(post)
 #define Mall_saveAddress    @"/api/mall/saveAddress"
 
-//获取某一用户的详情信息
+//获取某一用户的详情信息(get)
 #define GetUserInformation  @"/api/user/getUserInformation"
+
+//查询某一用户发表的评论列表(get)
+#define GetUserComments     @"/api/user/getUserComments"
+
+//查询某一用户发表的文章列表(get)
+#define GetUserNews         @"/api/user/getUserNews"
+
+//查询某一用户关注列表(get)
+#define ShowUser            @"/api/showUser"
+//查询某一用户粉丝列表(get)
+#define ShowFollowUser      @"/api/showFollowUser"
+
+
+
+
 
 
 #endif /* MineNet_h */

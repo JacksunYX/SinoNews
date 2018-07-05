@@ -19,6 +19,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //每次重启拉取用户信息
+    [self requestToGetUserInfo];
     //百度移动统计
     [self addBaiduMobStat];
     //全局调试
@@ -85,6 +87,22 @@
         GGLog(@"可以分享到新浪微博");
     }
  
+}
+
+//获取用户信息
+-(void)requestToGetUserInfo
+{
+    [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
+        NSDictionary *data = responseObject[@"data"];
+        //后台目前的逻辑是，如果没有登陆，只给默认头像这一个字段,只能靠这个来判断
+        if ([data allKeys].count>1) {
+            UserModel *model = [UserModel mj_objectWithKeyValues:data];
+            //覆盖之前保存的信息
+            [UserModel coverUserData:model];
+        }else{
+            [UserModel clearLocalData];
+        }
+    } failure:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

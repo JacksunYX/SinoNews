@@ -35,4 +35,5 @@
 @property (nonatomic,assign) NSInteger favorId; //收藏id
 //新闻类型(0.普通新闻  1.付费新闻 2.问答 3.投票)
 @property (nonatomic,strong) NSString *newsType;
+
 @end

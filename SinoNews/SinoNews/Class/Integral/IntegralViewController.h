@@ -11,4 +11,6 @@
 
 @interface IntegralViewController : UIViewController
 
+-(void)setSelectIndex:(NSInteger)index;
+
 @end

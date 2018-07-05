@@ -23,6 +23,8 @@
 @property (nonatomic,strong) NSMutableArray *payBtnArr;
 @property (nonatomic,strong) NSMutableArray *moneyBtnArr;
 
+@property (nonatomic ,strong) UserModel *user;
+
 @end
 
 @implementation RechargeViewController
@@ -82,6 +84,8 @@
     [self addViews];
     
     [self updatePayBtnStatus:0 endEdite:YES];
+    
+    [self requestToGetUserInfo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -448,6 +452,32 @@
     }
     [payBtn setTitle:payStr forState:UIControlStateNormal];
 }
+
+
+//获取用户信息
+-(void)requestToGetUserInfo
+{
+    @weakify(self)
+    [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
+        @strongify(self)
+        NSDictionary *data = responseObject[@"data"];
+        //后台目前的逻辑是，如果没有登陆，只给默认头像这一个字段,只能靠这个来判断
+        if ([data allKeys].count>1) {
+            UserModel *model = [UserModel mj_objectWithKeyValues:data];
+            //覆盖之前保存的信息
+            [UserModel coverUserData:model];
+            self.user = model;
+            [self->userIcon sd_setImageWithURL:UrlWithStr(model.avatar)];
+            self->userName.text = GetSaveString(model.username);
+            [self->userName updateLayout];
+            self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
+            [self->integer updateLayout];
+        }else{
+            
+        }
+    } failure:nil];
+}
+
 
 
 @end

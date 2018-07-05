@@ -16,6 +16,8 @@
 #import "MyFansViewController.h"
 #import "PersonalDataViewController.h"
 #import "SignInViewController.h"
+#import "IntegralViewController.h"
+
 #import "PraisePopView.h"
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
@@ -510,12 +512,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //是否登陆
+    if (![YXHeader checkNormalBackLogin]) {
+        return;
+    }
+    NSArray *section = self.mainDatasource[indexPath.section];
+    NSString *title = GetSaveString(section[indexPath.row][@"title"]);
+    MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
     if (indexPath.section == 0) {
-        NSArray *section = self.mainDatasource[indexPath.section];
-        NSString *title = GetSaveString(section[indexPath.row][@"title"]);
-        if (![YXHeader checkNormalBackLogin]) {
-            return;
-        }
         if (CompareString(title, @"设置")) {
             SettingViewController *stVC = [SettingViewController new];
             [self.navigationController pushViewController:stVC animated:YES];
@@ -530,6 +534,23 @@
             [self.navigationController pushViewController:mVC animated:YES];
         }else if (CompareString(title, @"分享")){
             
+        }
+        
+    }else if(indexPath.section == 1){
+        BaseNavigationVC *bvc = keyVC.viewControllers[3];
+        IntegralViewController *ivC = bvc.viewControllers[0];
+        if (CompareString(title, @"积分充值")){
+            [keyVC setSelectedIndex:3];
+            [ivC setSelectIndex:2];
+        }else if (CompareString(title, @"积分游戏")){
+            [keyVC setSelectedIndex:3];
+            [ivC setSelectIndex:1];
+        }else if (CompareString(title, @"积分商城")){
+            [keyVC setSelectedIndex:3];
+            [ivC setSelectIndex:0];
+        }else if (CompareString(title, @"积分管理")){
+            [keyVC setSelectedIndex:3];
+            [ivC setSelectIndex:3];
         }
         
     }

@@ -15,6 +15,8 @@
 @interface IntegralViewController ()
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
+
+@property (nonatomic, assign) NSInteger selectedIndex;
 @end
 
 @implementation IntegralViewController
@@ -54,6 +56,7 @@
     _segHead.maxTitles = 4;
     _segHead.bottomLineHeight = 0;
     _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
+    _segHead.showIndex = self.selectedIndex;
     
     if (_segScroll) {
         [_segScroll removeFromSuperview];
@@ -67,6 +70,14 @@
         [weakself.view addSubview:weakself.segScroll];
     }];
 
+}
+
+-(void)setSelectIndex:(NSInteger)index
+{
+    self.selectedIndex = index;
+    if (self.segHead) {
+        [self.segHead changeIndex:index completion:YES];
+    }
 }
 
 - (NSArray *)vcArr:(NSInteger)count {

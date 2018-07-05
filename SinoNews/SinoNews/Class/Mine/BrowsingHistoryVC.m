@@ -8,6 +8,8 @@
 
 #import "BrowsingHistoryVC.h"
 #import "BrowsingHistoryCell.h"
+#import "HomePageFirstKindCell.h"
+#import "NewsDetailViewController.h"
 
 @interface BrowsingHistoryVC ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -73,7 +75,7 @@
                 [models addObject:model];
             }
             sectionDic[@"models"] = models;
-            [_dataSource addObject:sectionDic];
+//            [_dataSource addObject:sectionDic];
         }
         
     }
@@ -88,6 +90,9 @@
     [self addNavigationView];
     
     [self addTableView];
+    
+    self.dataSource = [[HomePageModel getSortedHistory] mutableCopy];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,7 +111,9 @@
 {
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self.view addSubview:_tableView];
+    @weakify(self)
     [self.tableView activateConstraints:^{
+        @strongify(self)
         self.tableView.top_attr = self.view.top_attr_safe;
         self.tableView.left_attr = self.view.left_attr_safe;
         self.tableView.right_attr = self.view.right_attr_safe;
@@ -119,6 +126,7 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     //注册
     [self.tableView registerClass:[BrowsingHistoryCell class] forCellReuseIdentifier:BrowsingHistoryCellID];
+    [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
 }
 
 //清空浏览历史
@@ -135,20 +143,21 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataSource[section][@"models"] count];
+    NSArray *arr = self.dataSource[section];
+    return arr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BrowsingHistoryCell *cell = (BrowsingHistoryCell *)[tableView dequeueReusableCellWithIdentifier:BrowsingHistoryCellID];
-    NSDictionary *model = self.dataSource[indexPath.section][@"models"][indexPath.row];
+    HomePageFirstKindCell *cell = (HomePageFirstKindCell *)[tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+    HomePageModel *model = self.dataSource[indexPath.section][indexPath.row];
     cell.model = model;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 112;
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -158,7 +167,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([self.dataSource[section][@"models"] count]) {
+    if ([self.dataSource[section] count]) {
         return 40;
     }
     return 0.01;
@@ -166,12 +175,13 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headView = [UIView new];
-    if ([self.dataSource[section][@"models"] count]) {
+    UIView *headView;
+    if ([self.dataSource[section] count]) {
+        headView = [UIView new];
         headView.backgroundColor = HexColor(#f6f6f6);
         UILabel *title = [UILabel new];
-        title.font = Font(14);
-        
+        title.font = PFFontL(14);
+
         [headView addSubview:title];
         title.sd_layout
         .leftSpaceToView(headView, 10)
@@ -180,8 +190,10 @@
         .autoHeightRatio(0)
         ;
         [title setMaxNumberOfLinesToShow:1];
+        HomePageModel *model = [self.dataSource[section] firstObject];
+        NSString *sectionTitle = [NSString getDateStringWithTimeStr:model.saveTimeStr];
+        title.text = GetSaveString(sectionTitle);
         
-        title.text = GetSaveString(self.dataSource[section][@"sectionTitle"]);
     }
     
     return headView;
@@ -189,8 +201,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    id model = self.dataSource[indexPath.section][indexPath.row];
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = [(HomePageModel *)model itemId];
+        [self.navigationController pushViewController:ndVC animated:YES];
+    }
 }
 
 

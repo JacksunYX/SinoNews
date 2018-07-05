@@ -10,6 +10,7 @@
 #import "FontAndNightModeView.h"
 #import "VideoAutoPlaySelectView.h"
 #import "LogoutNoticeView.h"
+#import "HomePageModel.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -202,6 +203,7 @@
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"需要清除缓存嘛？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([NSString clearCache]) {
+                [HomePageModel clearLocaHistory];
                 LRToast(@"清理完毕~");
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
             }

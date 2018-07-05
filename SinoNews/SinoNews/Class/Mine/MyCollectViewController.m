@@ -439,6 +439,7 @@
     return @"删除";
 }
 
+
 #pragma mark ---- 请求发送
 //收藏的游戏公司列表
 -(void)requestCompanyList

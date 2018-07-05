@@ -238,6 +238,7 @@
     if ([model isKindOfClass:[HomePageModel class]]) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         ndVC.newsId = [(HomePageModel *)model itemId];
+        [self saveLocationHistoryBrowWithModel:model];
         [self.navigationController pushViewController:ndVC animated:YES];
         
 //        PayNewsViewController *pnVC = [PayNewsViewController new];
@@ -397,6 +398,12 @@
     }];
 }
 
-
+//存储本地浏览历史
+-(void)saveLocationHistoryBrowWithModel:(HomePageModel *)model
+{
+    //获取当前时间戳字符串作为存储时的标记
+    model.saveTimeStr = [NSString currentTimeStr];
+    [HomePageModel saveWithModel:model];
+}
 
 @end

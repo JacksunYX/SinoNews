@@ -36,4 +36,19 @@
 //新闻类型(0.普通新闻  1.付费新闻 2.问答 3.投票)
 @property (nonatomic,strong) NSString *newsType;
 
+//用来做本地存储的字符串属性
+@property (nonatomic,strong) NSString *saveTimeStr;
+
+//存储数据
++(void)saveWithModel:(HomePageModel *)model;
+//获取本书存储数据
++(NSArray *)getCurrentHistory;
+//直接获取到已经排好序并分完组的数据
++(NSArray *)getSortedHistory;
+
+//清除缓存
++(void)clearLocaHistory;
+
+
+
 @end

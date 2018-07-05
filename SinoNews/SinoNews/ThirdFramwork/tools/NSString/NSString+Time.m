@@ -24,18 +24,20 @@
 {
     NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];//获取当前时间0秒后的时间
     NSTimeInterval time = [date timeIntervalSince1970];// *1000 是精确到毫秒，不乘就是精确到秒
-    NSString *timeString = [NSString stringWithFormat:@"%.0f", time];
+    NSString *timeString = [NSString stringWithFormat:@"%.f", time];
     return timeString;
 }
 
 // 时间戳转时间,时间戳为13位是精确到毫秒的，10位精确到秒
 +(NSString *)getDateStringWithTimeStr:(NSString *)str
 {
-    NSTimeInterval time = [str doubleValue]/1000;//传入的时间戳str如果是精确到毫秒的记得要/1000
+    NSTimeInterval time = [str doubleValue];//传入的时间戳str如果是精确到毫秒的记得要/1000
     NSDate *detailDate = [NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
     //设定时间格式,这里可以设置成自己需要的格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss SS"];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss SS"];
+    [dateFormatter setDateFormat:@"yyyy 年 MM 月 dd 日"];
+    
     NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
     return currentDateStr;
 }

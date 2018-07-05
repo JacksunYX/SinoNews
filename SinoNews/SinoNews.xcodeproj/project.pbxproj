@@ -44,6 +44,7 @@
 		4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */; };
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
 		4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */; };
+		4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C21C17620EE2AEC0054F7AE /* Area.plist */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
@@ -282,6 +283,7 @@
 		4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAboutNet.h; sourceTree = "<group>"; };
 		4C21C17120EDBAFA0054F7AE /* UserAttentionOrFansVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAttentionOrFansVC.h; sourceTree = "<group>"; };
 		4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserAttentionOrFansVC.m; sourceTree = "<group>"; };
+		4C21C17620EE2AEC0054F7AE /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 				4C13E96620C67263009115C1 /* UIView+CZHExtension.h */,
 				4C13E96720C67263009115C1 /* UIButton+CZHExtension.h */,
 				4C13E96820C67263009115C1 /* CZHAddressPickerView.h */,
+				4C21C17620EE2AEC0054F7AE /* Area.plist */,
 				4C13E96920C67263009115C1 /* city.plist */,
 				4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */,
 				4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */,
@@ -1574,6 +1577,7 @@
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
+				4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
 				4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */,

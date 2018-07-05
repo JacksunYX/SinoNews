@@ -192,17 +192,18 @@ typedef NS_ENUM(NSInteger, CZHAddressPickerViewType) {
 
 //获取数据
 - (void)czh_getData {
-    NSString * path = [[NSBundle mainBundle] pathForResource:@"city" ofType:@"plist"];
+    NSString * path = [[NSBundle mainBundle] pathForResource:@"Area" ofType:@"plist"];
     self.dataSource = [NSArray arrayWithContentsOfFile:path];
     
     NSMutableArray * tempArray = [NSMutableArray array];
     
     for (NSDictionary * tempDic in self.dataSource) {
         
-        for (int i = 0; i < tempDic.allKeys.count; i ++) {
-            [tempArray addObject:tempDic.allKeys[i]];
-        }
-        
+//        for (int i = 0; i < tempDic.allKeys.count; i ++) {
+//            //获取所有省的名称
+//            [tempArray addObject:tempDic.allKeys[i]];
+//        }
+        [tempArray addObject:tempDic[@"areaName"]];
     }
     //省
     self.provinceArray = [tempArray copy];
@@ -268,25 +269,42 @@ typedef NS_ENUM(NSInteger, CZHAddressPickerViewType) {
 //获取plist区域数组
 - (NSArray *)getAreaNamesFromProvinceIndex:(NSInteger)provinceIndex cityIndex:(NSInteger)cityIndex
 {
-
+    
+    /*
+     NSArray * array = [NSArray array];
     NSDictionary * tempDic = [self.dataSource[provinceIndex] objectForKey:self.provinceArray[provinceIndex]];
-    NSArray * array = [NSArray array];
     
     NSDictionary * dic = tempDic.allValues[cityIndex];
     array = [dic objectForKey:self.cityArray[cityIndex]];
+    */
+    
+    NSMutableArray * array = [NSMutableArray new];
+    NSDictionary * tempDic = self.dataSource[provinceIndex];
+    NSArray *cityArr = tempDic[@"cities"];
+    NSDictionary *countryDic = cityArr[cityIndex];
+    for (NSDictionary *county in countryDic[@"counties"]) {
+        [array addObject:county[@"areaName"]];
+    }
     
     return array;
 }
 //获取plist城市数组
 - (NSArray *)getCityNamesFromProvinceIndex:(NSInteger)provinceIndex
 {
-    NSDictionary * tempDic = [self.dataSource[provinceIndex] objectForKey:self.provinceArray[provinceIndex]];
     NSMutableArray * cityArray = [NSMutableArray array];
+    /*
+    NSDictionary * tempDic = [self.dataSource[provinceIndex] objectForKey:self.provinceArray[provinceIndex]];
     for (NSDictionary * valueDic in tempDic.allValues) {
         
         for (int i = 0; i < valueDic.allKeys.count; i ++) {
             [cityArray addObject:valueDic.allKeys[i]];
         }
+    }
+     */
+    //获取市
+    NSDictionary * tempDic = self.dataSource[provinceIndex];
+    for (NSDictionary *city in tempDic[@"cities"]) {
+        [cityArray addObject:city[@"areaName"]];
     }
     return [cityArray copy];
 }

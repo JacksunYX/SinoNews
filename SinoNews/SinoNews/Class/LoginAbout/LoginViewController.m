@@ -12,16 +12,19 @@
 
 
 @interface LoginViewController ()<UITextFieldDelegate>
-{
-    TXLimitedTextField *username;
-    TXLimitedTextField *password;
-    UIButton *secureBtn;    //密码可视
-    UIButton *forgetBtn;
-    UIButton *confirmBtn;
-}
+@property (nonatomic,strong)TXLimitedTextField *username;
+@property (nonatomic,strong)TXLimitedTextField *password;
+@property (nonatomic,strong)UIButton *secureBtn;    //密码可视
+@property (nonatomic,strong)UIButton *forgetBtn;
+@property (nonatomic,strong)UIButton *confirmBtn;
 @end
 
 @implementation LoginViewController
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,36 +70,36 @@
     [registBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     UIImageView *logo = [UIImageView new];
     
-    username = [TXLimitedTextField new];
-    username.clearButtonMode = UITextFieldViewModeWhileEditing;
-    username.delegate = self;
+    self.username = [TXLimitedTextField new];
+    self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.username.delegate = self;
     
     UIView *passwordBackView = [UIView new];
     passwordBackView.backgroundColor = WhiteColor;
     
-    password = [TXLimitedTextField new];
-    password.clearButtonMode = UITextFieldViewModeWhileEditing;
-    password.secureTextEntry = YES;
-    password.delegate = self;
+    self.password = [TXLimitedTextField new];
+    self.password.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.password.secureTextEntry = YES;
+    self.password.delegate = self;
     
-    secureBtn = [UIButton new];
+    self.secureBtn = [UIButton new];
     
-    confirmBtn = [UIButton new];
-    [confirmBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-    confirmBtn.titleLabel.font = PFFontL(16);
+    self.confirmBtn = [UIButton new];
+    [self.confirmBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+    self.confirmBtn.titleLabel.font = PFFontL(16);
     
-    forgetBtn = [UIButton new];
-    [forgetBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
-    forgetBtn.titleLabel.font = PFFontL(12);
+    self.forgetBtn = [UIButton new];
+    [self.forgetBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    self.forgetBtn.titleLabel.font = PFFontL(12);
     
     [backImg sd_addSubviews:@[
                               closeBtn,
                               registBtn,
                               logo,
-                              username,
+                              self.username,
                               passwordBackView,
-                              forgetBtn,
-                              confirmBtn,
+                              self.forgetBtn,
+                              self.confirmBtn,
                               ]];
     closeBtn.sd_layout
     .leftSpaceToView(backImg, 15)
@@ -107,15 +110,9 @@
     [closeBtn setImage:UIImageNamed(@"login_close") forState:UIControlStateNormal];
     [[closeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
-        [self.view endEditing:YES];
-        if (self.normalBack) {
-            if (self.backHandleBlock) {
-                self.backHandleBlock();
-            }
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
+        [self popAction];
     }];
-    
+ 
     registBtn.sd_layout
     .rightSpaceToView(backImg, 15)
     .centerYEqualToView(closeBtn)
@@ -124,6 +121,7 @@
     ;
     [registBtn setTitle:@"注册" forState:UIControlStateNormal];
     [[registBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self);
         RegisterViewController *rVC = [RegisterViewController new];
         [self.navigationController pushViewController:rVC animated:YES];
     }];
@@ -139,81 +137,94 @@
     [logo setSd_cornerRadius:@(logoW/2)];
     logo.image = UIImageNamed(@"login_logo");
     
-    username.sd_layout
+    self.username.sd_layout
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
     .topSpaceToView(logo, 20)
     .heightIs(56)
     ;
-    [username updateLayout];
-    username.placeholder = @"请输入手机/邮箱";
-    [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+    [self.username updateLayout];
+    self.username.placeholder = @"请输入手机/邮箱";
+    [self.username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     passwordBackView.sd_layout
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
-    .topSpaceToView(username, 0)
+    .topSpaceToView(self.username, 0)
     .heightIs(56)
     ;
     [passwordBackView updateLayout];
     [passwordBackView addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+    
     [passwordBackView sd_addSubviews:@[
-                                       secureBtn,
-                                       password,
+                                       self.secureBtn,
+                                       self.password,
                                        
                                        ]];
     
-    secureBtn.sd_layout
+    self.secureBtn.sd_layout
     .centerYEqualToView(passwordBackView)
     .rightEqualToView(passwordBackView)
     .widthIs(22)
     .heightIs(15)
     ;
-    [secureBtn setImage:UIImageNamed(@"login_invisible") forState:UIControlStateNormal];
-    [secureBtn setImage:UIImageNamed(@"login_visible") forState:UIControlStateSelected];
-    [[secureBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        GGLog(@"x:%@",x);
-        self->secureBtn.selected = !self->secureBtn.selected;
-        self->password.secureTextEntry = !self->secureBtn.selected;
+    [self.secureBtn setImage:UIImageNamed(@"login_invisible") forState:UIControlStateNormal];
+    [self.secureBtn setImage:UIImageNamed(@"login_visible") forState:UIControlStateSelected];
+    [[self.secureBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        self.secureBtn.selected = !self.secureBtn.selected;
+        self.password.secureTextEntry = !self.secureBtn.selected;
         
     }];
     
-    password.sd_layout
+    self.password.sd_layout
     .leftEqualToView(passwordBackView)
     .topEqualToView(passwordBackView)
     .bottomEqualToView(passwordBackView)
-    .rightSpaceToView(secureBtn, 0)
+    .rightSpaceToView(self.self.secureBtn, 0)
     ;
-    password.placeholder = @"请输入密码";
+    self.password.placeholder = @"请输入密码";
     
-    forgetBtn.sd_layout
+    self.forgetBtn.sd_layout
     .rightSpaceToView(backImg, 30)
     .topSpaceToView(passwordBackView, 10)
     .widthIs(60)
     .heightIs(15)
     ;
-    [forgetBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
-    [[forgetBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [self.forgetBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
+    [[self.forgetBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self);
         ForgetPasswordViewController *fpVC = [ForgetPasswordViewController new];
         [self.navigationController pushViewController:fpVC animated:YES];
     }];
     
-    confirmBtn.sd_layout
+    self.confirmBtn.sd_layout
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
     .topSpaceToView(passwordBackView, 57)
     .heightIs(50)
     ;
-    [confirmBtn setSd_cornerRadius:@25];
-    [confirmBtn setTitle:@"登陆" forState:UIControlStateNormal];
-    [confirmBtn addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
-    [confirmBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
+    [self.confirmBtn setSd_cornerRadius:@25];
+    [self.confirmBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [self.confirmBtn addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.confirmBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
     
     //集合信号
-    RAC(confirmBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,password.rac_textSignal] reduce:^id(NSString *username,NSString *password){
+    RAC(self.confirmBtn,enabled) = [RACSignal combineLatest:@[self.username.rac_textSignal,self.password.rac_textSignal] reduce:^id(NSString *username,NSString *password){
         return @(username.length>=6&&password.length>=6);
     }];
     
+}
+
+-(void)popAction
+{
+    [self.view endEditing:YES];
+    if (self.normalBack) {
+        if (self.backHandleBlock) {
+            self.backHandleBlock();
+        }
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //收回键盘
@@ -225,41 +236,36 @@
 //确认登陆操作
 -(void)confirmAction
 {
-    if (kStringIsEmpty(username.text)) {
+    if (kStringIsEmpty(self.username.text)) {
         LRToast(@"账号不能为空！");
-    }else if (kStringIsEmpty(password.text)){
+    }else if (kStringIsEmpty(self.password.text)){
         LRToast(@"密码不能为空！");
     }else{
         //先检测帐号
         //先做邮箱判断
-        if ([username.text containsString:@"@"]) {
-            if (![username.text isValidEmail]) {
+        if ([self.username.text containsString:@"@"]) {
+            if (![self.username.text isValidEmail]) {
                 LRToast(@"邮箱有误！");
                 return;
             }
             
         }else{
-            if (![username.text isValidPhone]) {
+            if (![self.username.text isValidPhone]) {
                 LRToast(@"手机号有误！");
                 return;
             }
         }
         //再检测密码
-        if ([password.text checkPassWord]) {
+        if ([self.password.text checkPassWord]) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];
-            parameters[@"account"] = username.text;
-            parameters[@"password"] = password.text;
+            parameters[@"account"] = self.username.text;
+            parameters[@"password"] = self.password.text;
             
             [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
                 LRToast(@"登陆成功");
                 [YXHeader loginSuccessSaveWithData:response];
                 GCDAfterTime(1, ^{
-                    if (self.normalBack) {
-                        if (self.backHandleBlock) {
-                            self.backHandleBlock();
-                        }
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }
+                    [self popAction];
                 });
             } failure:nil  RefreshAction:nil];
         }else{
@@ -273,12 +279,12 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == username) {
-        [username resignFirstResponder];
-        [password becomeFirstResponder];
+    if (textField == self.username) {
+        [self.username resignFirstResponder];
+        [self.password becomeFirstResponder];
     }else{
-        [password resignFirstResponder];
-        [confirmBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+        [self.password resignFirstResponder];
+        [self.confirmBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
     }
     return NO;
 }

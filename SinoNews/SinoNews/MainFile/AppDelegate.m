@@ -19,6 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     //每次重启拉取用户信息
     [self requestToGetUserInfo];
     //百度移动统计
@@ -36,6 +37,7 @@
     
     return YES;
 }
+
 
 //设置主界面内容
 -(void)setMainVC

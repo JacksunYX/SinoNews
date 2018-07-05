@@ -21,6 +21,7 @@ PODS:
   - BGFMDB/BG (2.0.9):
     - BGFMDB/FMDB
   - BGFMDB/FMDB (2.0.9)
+  - FBRetainCycleDetector (0.1.4)
   - FCUUID (1.3.1):
     - UICKeyChainStore (~> 2.1.0)
   - GHConsole (1.3.0)
@@ -29,6 +30,8 @@ PODS:
   - MGSocialShareKit (1.1.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.15.3)
+  - MLeaksFinder (1.0.0):
+    - FBRetainCycleDetector
   - NSLayoutConstraint-SSLayout (1.2)
   - ReactiveObjC (3.1.0)
   - SDAutoLayout (2.1.9)
@@ -49,6 +52,7 @@ DEPENDENCIES:
   - MGSocialShareKit (~> 1.0)
   - MJExtension
   - MJRefresh
+  - MLeaksFinder
   - NSLayoutConstraint-SSLayout
   - ReactiveObjC
   - SDAutoLayout (~> 2.1.3)
@@ -60,6 +64,7 @@ SPEC REPOS:
     - AFNetworking
     - BaiduMobStat
     - BGFMDB
+    - FBRetainCycleDetector
     - FCUUID
     - GHConsole
     - IQKeyboardManager
@@ -67,6 +72,7 @@ SPEC REPOS:
     - MGSocialShareKit
     - MJExtension
     - MJRefresh
+    - MLeaksFinder
     - NSLayoutConstraint-SSLayout
     - ReactiveObjC
     - SDAutoLayout
@@ -78,6 +84,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BaiduMobStat: e84187c7057f87daac852e05692fd94c8d656bd3
   BGFMDB: e1cd91f5d06268e1db7c6028c338b6df6b3d5796
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
   GHConsole: 8fa768c1b30139e7baa192508ead18fd71f4b7db
   IQKeyboardManager: c390e612f4b98c8fd748016470138537dc163ead
@@ -85,6 +92,7 @@ SPEC CHECKSUMS:
   MGSocialShareKit: abffd0f9c513a63c07ed96af07a0cc9abcf43366
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   NSLayoutConstraint-SSLayout: 8cb9f316489c2af50ae4767073093754b3e290c9
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   SDAutoLayout: 6b6f4db0d009dfc46cef14ef710dbb164e86616c
@@ -92,6 +100,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
 
-PODFILE CHECKSUM: d57c781d50cab4906e486ea4cc474800341ff641
+PODFILE CHECKSUM: 6bb0f689b67218b85bf13f5625d2363272966406
 
 COCOAPODS: 1.5.3

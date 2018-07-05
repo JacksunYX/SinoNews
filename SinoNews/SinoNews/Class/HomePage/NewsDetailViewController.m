@@ -95,7 +95,7 @@
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-        .heightIs(47)
+        .heightIs(49)
         ;
         
         self.commentInput = [UITextField new];
@@ -151,39 +151,39 @@
                                           ]];
         
         shareBtn.sd_layout
-        .rightSpaceToView(self.bottomView, 14)
+        .rightSpaceToView(self.bottomView, 16)
         .centerYEqualToView(self.bottomView)
-        .widthIs(23)
-        .heightIs(19)
+        .widthIs(24)
+        .heightIs(20)
         ;
         [shareBtn setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
         
         _collectBtn.sd_layout
-        .rightSpaceToView(shareBtn, 12)
+        .rightSpaceToView(shareBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .widthIs(24)
-        .heightIs(23)
+        .widthIs(25)
+        .heightIs(24)
         ;
         [_collectBtn setImage:UIImageNamed(@"news_unCollect") forState:UIControlStateNormal];
         [_collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
         
         _praiseBtn.sd_layout
-        .rightSpaceToView(_collectBtn, 13)
+        .rightSpaceToView(_collectBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .widthIs(22)
-        .heightIs(20)
+        .widthIs(23)
+        .heightIs(21)
         ;
         [_praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
         [_praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
         
         self.commentInput.sd_layout
-        .leftSpaceToView(self.bottomView, 35)
-        .rightSpaceToView(_praiseBtn, 16)
+        .leftSpaceToView(self.bottomView, 37)
+        .rightSpaceToView(_praiseBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .heightIs(33)
+        .heightIs(34)
         ;
         self.commentInput.backgroundColor = RGBA(238, 238, 238, 1);
-        [self.commentInput setSd_cornerRadius:@16];
+        [self.commentInput setSd_cornerRadius:@17];
         NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
         NSDictionary *dic = @{
                               NSFontAttributeName : PFFontR(14),

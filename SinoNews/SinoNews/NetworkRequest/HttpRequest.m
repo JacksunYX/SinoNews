@@ -148,6 +148,7 @@
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
+
                         [YXHeader checkNormalBackLoginHandle:^{
                             if (RefreshAction) {
                                 GGLog(@"登陆成功回调");

@@ -93,7 +93,7 @@
     [detailBtn setTitleColor:RGBA(102, 102, 132, 1) forState:UIControlStateNormal];
     detailBtn.layer.borderWidth = 1;
     detailBtn.layer.borderColor = RGBA(102, 102, 132, 1).CGColor;
-    
+    detailBtn.userInteractionEnabled = NO;
     [self.contentView sd_addSubviews:@[
                                        crown,
                                        userIcon,

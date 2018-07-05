@@ -10,6 +10,7 @@
 #import "EditAddressViewController.h"
 #import "AddressTableViewCell.h"
 
+
 @interface AddressViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) BaseTableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -56,7 +57,7 @@
         @strongify(self)
         EditAddressViewController *eaVC = [EditAddressViewController new];
         eaVC.refreshBlock = ^{
-            
+            [self.tableView.mj_header beginRefreshing];
         };
         [self.navigationController pushViewController:eaVC animated:YES];
     }];
@@ -84,6 +85,12 @@
     [self.tableView updateLayout];
     
     [self.tableView registerClass:[AddressTableViewCell class] forCellReuseIdentifier:AddressTableViewCellID];
+
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        [self requestMall_listAddress];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 //显示或隐藏添加地址按钮
@@ -100,7 +107,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.dataArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,11 +135,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    @weakify(self)
+    /*
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"需要编辑此地址嘛?" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除该地址" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
-    @weakify(self)
+    
     UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"编辑该地址" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self)
         EditAddressViewController *eaVC = [EditAddressViewController new];
@@ -147,9 +156,32 @@
     [alertVC addAction:cancelAction];
     
     [self presentViewController:alertVC animated:YES completion:nil];
+     */
+    EditAddressViewController *eaVC = [EditAddressViewController new];
+    AddressModel *model = self.dataArray[indexPath.row];
+    eaVC.model = model;
+    eaVC.refreshBlock = ^{
+        @strongify(self)
+        [self.tableView.mj_header beginRefreshing];
+    };
+    [self.navigationController pushViewController:eaVC animated:YES];
 }
 
-
+#pragma mark ---- 请求发送
+//收获地址列表
+-(void)requestMall_listAddress
+{
+    [HttpRequest postWithURLString:Mall_listAddress parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        self.dataArray = [AddressModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        if (self.dataArray.count) {
+            [self showOrHiddenTheAddBtn:NO];
+        }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } RefreshAction:nil];
+}
 
 
 

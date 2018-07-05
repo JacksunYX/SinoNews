@@ -81,7 +81,7 @@
     .heightIs(16)
     ;
     [username setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    username.text = @"张小凡";
+//    username.text = @"张小凡";
     
     phoneNum.sd_layout
     .rightSpaceToView(fatherView, 10)
@@ -89,7 +89,7 @@
     .heightIs(16)
     ;
     [phoneNum setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    phoneNum.text = @"18772100992";
+//    phoneNum.text = @"18772100992";
     
     address.sd_layout
     .topSpaceToView(username, 20)
@@ -97,7 +97,7 @@
     .rightSpaceToView(fatherView, 15)
     .autoHeightRatio(0)
     ;
-    address.text = @"收货地址：湖北省武汉市洪山区关山大道清江山水 2#4单元602";
+//    address.text = @"收货地址：湖北省武汉市洪山区关山大道清江山水 2#4单元602";
     
     [self setupAutoHeightWithBottomView:address bottomMargin:10];
 }
@@ -106,6 +106,11 @@
 {
     _model = model;
     
+    username.text = GetSaveString(model.consignee);
+    
+    phoneNum.text = [NSString stringWithFormat:@"%ld",model.mobile];
+    
+    address.text = GetSaveString(model.fullAddress);
 }
 
 @end

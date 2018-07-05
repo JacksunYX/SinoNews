@@ -49,18 +49,20 @@
     iconImg = [UIImageView new];
     
     title = [UILabel new];
-    title.font = FontScale(15);
+    title.font = PFFontR(15);
+    title.textColor = RGBA(18, 130, 238, 1);
     
     subTitle = [UILabel new];
-    subTitle.font = FontScale(12);
+    subTitle.font = PFFontL(12);
     subTitle.textColor = RGBA(152, 152, 152, 1);
     
     bottomTitle = [UILabel new];
-    bottomTitle.font = FontScale(15);
+    bottomTitle.font = PFFontL(14);
+    bottomTitle.textColor = RGBA(136, 136, 136, 1);
     
     rightTitle = [UILabel new];
-    rightTitle.font = FontScale(15);
-    rightTitle.textColor = RGBA(18, 130, 238, 1);
+    rightTitle.font = PFFontR(15);
+    rightTitle.textColor = RGBA(255, 255, 255, 1);
     
     CGFloat lrMargin = 10; //左右间距
     [self.contentView addSubview:backImg];

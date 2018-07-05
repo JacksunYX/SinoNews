@@ -37,6 +37,8 @@
 
 //保存收获地址(post)
 #define Mall_saveAddress    @"/api/mall/saveAddress"
+//用户收获地址列表
+#define Mall_listAddress    @"/api/mall/listAddress"
 
 //获取某一用户的详情信息(get)
 #define GetUserInformation  @"/api/user/getUserInformation"

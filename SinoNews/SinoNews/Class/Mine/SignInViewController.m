@@ -561,6 +561,9 @@
         if ([self.data[@"statusCode"]integerValue] == 1) {
             [SignInPopView showWithData:self.data];
         }
+        UserModel *user = [UserModel getLocalUserModel];
+        user.integral = [self.data[@"totalPoints"] integerValue];
+        [UserModel coverUserData:user];
         [self addTableView];
         
         [self setHeadView];

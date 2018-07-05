@@ -127,6 +127,16 @@
     
 }
 
+//设置数据
+-(void)setViewWithAddressModel
+{
+    if (!self.model) {
+        return;
+    }
+    //有数据才填充
+    
+}
+
 //统一创建方法
 -(UIView *)getBackViewWithNum:(NSInteger)num
 {
@@ -220,14 +230,14 @@
 }
 
 //检测空格
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    NSString *tem = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]componentsJoinedByString:@""];
-//    if (![string isEqualToString:tem]) {
-//        return NO;
-//    }
-//    return YES;
-//}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSString *tem = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]componentsJoinedByString:@""];
+    if (![string isEqualToString:tem]) {
+        return NO;
+    }
+    return YES;
+}
 
 //禁止粘贴、全选
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender

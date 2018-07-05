@@ -25,16 +25,16 @@
 -(UIView *)getSexSelectView
 {
     if (!self.sexSelectView) {
-        self.sexSelectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 71, 17)];
+        self.sexSelectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 93, 24)];
         self.sexSelectView.backgroundColor = WhiteColor;
         
         UIButton *btn1 = [self getBtn];
-        btn1.frame = CGRectMake(0, 0, 34, 17);
+        btn1.frame = CGRectMake(0, 0, 45, 24);
         [btn1 setTitle:@"男" forState:UIControlStateNormal];
         btn1.tag = 10010 + 1;
         
         UIButton *btn2 = [self getBtn];
-        btn2.frame = CGRectMake(CGRectGetMaxX(btn1.frame) + 3, 0, 34, 17);
+        btn2.frame = CGRectMake(CGRectGetMaxX(btn1.frame) + 3, 0, 45, 24);
         [btn2 setTitle:@"女" forState:UIControlStateNormal];
         btn2.tag = 10010 + 0;
         
@@ -58,7 +58,7 @@
 -(UIButton *)getBtn
 {
     UIButton *btn = [UIButton new];
-    btn.titleLabel.font = PFFontL(13);
+    btn.titleLabel.font = PFFontL(14);
     [btn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     [btn setTitleColor:RGBA(255, 255, 255, 1) forState:UIControlStateSelected];
     [btn setBackgroundImage:[UIImage imageWithColor:RGBA(237, 246, 255, 1)] forState:UIControlStateNormal];

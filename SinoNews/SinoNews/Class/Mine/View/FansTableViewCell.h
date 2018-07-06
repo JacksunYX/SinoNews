@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyFansModel.h"
 
 #define FansTableViewCellID @"FansTableViewCellID"
 
 @interface FansTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) MyFansModel *model;
 
 @end

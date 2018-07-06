@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PraiseHistoryModel.h"
 
 #define PraiseTableViewCellID @"PraiseTableViewCellID"
 
 @interface PraiseTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) PraiseHistoryModel *model;
 
 @end

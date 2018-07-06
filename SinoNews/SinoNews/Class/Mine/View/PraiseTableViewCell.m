@@ -18,7 +18,7 @@
 @end
 
 @implementation PraiseTableViewCell
-
+NSInteger static maxNum = 6;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -73,33 +73,33 @@
     title.sd_layout
     .leftSpaceToView(father, 10)
     .topSpaceToView(father, 9)
-    .rightSpaceToView(father, 20)
-    .autoHeightRatio(0)
+    .rightSpaceToView(comment, 20)
+    .heightIs(16)
     ;
-    [title setMaxNumberOfLinesToShow:1];
     
     time.sd_layout
     .leftEqualToView(title)
     .rightEqualToView(title)
     .topSpaceToView(title, 10)
-    .autoHeightRatio(0)
+    .heightIs(12)
     ;
-    [time setMaxNumberOfLinesToShow:1];
     
-    CGFloat wid = 25 * 6 + 5 * 5;
+    CGFloat wid = 25 * maxNum + 5 * (maxNum - 1);
     iconView.sd_layout
     .leftSpaceToView(father, 10)
-    .bottomSpaceToView(father, 10)
+//    .bottomSpaceToView(father, 10)
+    .topSpaceToView(time, 10)
     .widthIs(wid)
     .heightIs(25)
     ;
+    [self setupAutoHeightWithBottomView:iconView bottomMargin:10];
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(PraiseHistoryModel *)model
 {
     _model = model;
-    NSArray *praise = model[@"praises"];
-    NSString *titleStr = @"";
+    NSArray *praise = model.praiseUserInfo;
+//    NSString *titleStr = @"";
     
     for (UIView *view in iconView.subviews) {
         [view removeFromSuperview];
@@ -107,17 +107,21 @@
     if (praise.count <= 0){
         
     }else{
-        if (praise.count > 1) {
-            NSDictionary *firstModel = [praise firstObject];
-            titleStr = [NSString stringWithFormat:@"%@等%ld人赞了你",GetSaveString(firstModel[@"name"]),praise.count];
-        }else{
-            NSDictionary *firstModel = [praise firstObject];
-            titleStr = [NSString stringWithFormat:@"%@赞了你",GetSaveString(firstModel[@"name"])];
-        }
+//        if (praise.count > 1) {
+//            NSDictionary *firstModel = [praise firstObject];
+//            titleStr = [NSString stringWithFormat:@"%@等%ld人赞了你",GetSaveString(firstModel[@"name"]),praise.count];
+//        }else{
+//            NSDictionary *firstModel = [praise firstObject];
+//            titleStr = [NSString stringWithFormat:@"%@赞了你",GetSaveString(firstModel[@"name"])];
+//        }
         //添加头像
         CGFloat wid = 25;
         CGFloat marginX = 5;
         for (int i = 0; i < praise.count; i ++) {
+            if (i == maxNum) {
+                //最多显示6张
+                break;
+            }
             UIImageView *icon = [UIImageView new];
             [iconView addSubview:icon];
             icon.sd_layout
@@ -127,16 +131,18 @@
             .heightEqualToWidth()
             ;
             [icon setSd_cornerRadius:@(wid/2)];
-            icon.image = UIImageNamed(GetSaveString(praise[i][@"icon"]));
+            UserModel *user = praise[i];
+//            icon.image = UIImageNamed(GetSaveString(praise[i][@"icon"]));
+            [icon sd_setImageWithURL:UrlWithStr(GetSaveString(user.avatar))];
         }
         
     }
     
-    title.text = titleStr;
+    title.text = GetSaveString(model.tipMessage);
     
-    time.text = GetSaveString(model[@"time"]);
+    time.text = GetSaveString(model.cutOffTime);
     
-    comment.text = GetSaveString(model[@"comment"]);
+    comment.text = GetSaveString(model.content);
     
 }
 

@@ -19,4 +19,7 @@
 @property(nonatomic,strong)NSString *signature; //描述
 @property(nonatomic,assign)NSInteger gender;    //性别
 @property(nonatomic,strong)NSString *createTime;//时间
+
+//用于展示粉丝列关注时间的
+@property(nonatomic,strong)NSString *cutOffTime;    //关注时距离现在的时间
 @end

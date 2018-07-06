@@ -7,6 +7,7 @@
 //
 
 #import "MessageFansViewController.h"
+#import "UserInfoViewController.h"
 #import "FansTableViewCell.h"
 
 @interface MessageFansViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -64,7 +65,7 @@
                                   @"sex"   :   sex[arc4random()%sex.count],
                                   
                                   };
-            [_dataSource addObject:dic];
+//            [_dataSource addObject:dic];
         }
     }
     return _dataSource;
@@ -100,6 +101,12 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     //注册
     [self.tableView registerClass:[FansTableViewCell class] forCellReuseIdentifier:FansTableViewCellID];
+    @weakify(self)
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        [self requestGetFansHistory];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -137,9 +144,27 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    MyFansModel *model = self.dataSource[indexPath.row];
+    UserInfoViewController *uiVC = [UserInfoViewController new];
+    uiVC.userId = model.userId;
+    [self.navigationController pushViewController:uiVC animated:YES];
 }
 
+#pragma mark ----- 请求发送
+//获取粉丝关注记录
+-(void)requestGetFansHistory
+{
+    
+    [HttpRequest postWithURLString:GetFansHistory parameters:nil isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        self.dataSource = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    } failure:^(NSError *erro) {
+        [self.tableView.mj_header endRefreshing];
+    } RefreshAction:^{
+        [self.tableView.mj_header endRefreshing];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
 @end

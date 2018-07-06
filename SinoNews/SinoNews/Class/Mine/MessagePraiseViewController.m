@@ -73,7 +73,7 @@
                 [praises addObject:dic];
             }
             model[@"praises"] = praises;
-            [_dataSource addObject:model];
+//            [_dataSource addObject:model];
         }
         
     }
@@ -110,6 +110,13 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     //注册
     [self.tableView registerClass:[PraiseTableViewCell class] forCellReuseIdentifier:PraiseTableViewCellID];
+    
+    @weakify(self)
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        [self requestGetPraiseHistory];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -132,7 +139,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88;
+//    return 88;
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -152,7 +160,22 @@
 }
 
 
-
+#pragma mark ----- 请求发送
+//获取点赞记录
+-(void)requestGetPraiseHistory
+{
+    
+    [HttpRequest postWithURLString:GetPraiseHistory parameters:nil isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        self.dataSource = [PraiseHistoryModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    } failure:^(NSError *erro) {
+        [self.tableView.mj_header endRefreshing];
+    } RefreshAction:^{
+        [self.tableView.mj_header endRefreshing];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
 
 

@@ -104,16 +104,16 @@
     attention.text = @"关注了你";
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(MyFansModel *)model
 {
     _model = model;
-    name.text = GetSaveString(model[@"name"]);
-    time.text = GetSaveString(model[@"time"]);
+    name.text = GetSaveString(model.username);
+    time.text = GetSaveString(model.cutOffTime);
     
-    icon.image = UIImageNamed(GetSaveString(model[@"icon"]));
+    [icon sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
     
     sex.hidden = NO;
-    switch ([model[@"sex"] integerValue]) {
+    switch (model.gender) {
         case 0: //无性别
         {
             sex.hidden = YES;

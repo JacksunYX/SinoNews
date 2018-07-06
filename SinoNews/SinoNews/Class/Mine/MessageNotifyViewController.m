@@ -9,11 +9,10 @@
 #import "MessageNotifyViewController.h"
 
 @interface MessageNotifyViewController ()<UITableViewDataSource,UITableViewDelegate>
-{
-    
-}
+
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) NSInteger page;
 
 @end
 
@@ -80,6 +79,19 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     
+    @weakify(self)
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        self.page = 1;
+        [self requestListReceivedMessages];
+    }];
+    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self)
+        self.page++;
+        [self requestListReceivedMessages];
+    }];
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -131,7 +143,18 @@
     
 }
 
-
+#pragma mark ----- 请求发送
+//获取粉丝关注记录
+-(void)requestListReceivedMessages
+{
+    [HttpRequest getWithURLString:ListReceivedMessages parameters:nil success:^(id responseObject) {
+        
+        [self.tableView.mj_header endRefreshing];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
 
 
 

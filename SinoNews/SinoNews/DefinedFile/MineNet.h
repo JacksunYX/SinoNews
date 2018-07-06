@@ -54,9 +54,11 @@
 //查询某一用户粉丝列表(get)
 #define ShowFollowUser      @"/api/showFollowUser"
 
-
-
-
-
+//我的获赞记录(post)
+#define GetPraiseHistory    @"/api/getPraiseHistory"
+//我的粉丝关注记录(post)
+#define GetFansHistory      @"/api/getFansHistory"
+//通知列表(私信)(get)
+#define ListReceivedMessages @"/api/message/listReceivedMessages"
 
 #endif /* MineNet_h */

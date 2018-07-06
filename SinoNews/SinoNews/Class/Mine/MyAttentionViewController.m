@@ -292,7 +292,8 @@
         [UserModel coverUserData:user];
         [self.tableView reloadData];
     } failure:nil RefreshAction:^{
-        [self requestAttentionList];
+//        [self requestAttentionList];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 }
 

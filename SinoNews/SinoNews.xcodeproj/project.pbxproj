@@ -30,6 +30,7 @@
 		4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B49D20E250C900470AEB /* IFMShareView.m */; };
 		4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C17B49E20E250C900470AEB /* IFMShareImage.bundle */; };
 		4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B4A220E250C900470AEB /* IFMShareItemCell.m */; };
+		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
 		4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE420E468D200637E2A /* SignInViewController.m */; };
 		4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */; };
@@ -253,6 +254,8 @@
 		4C17B4A020E250C900470AEB /* IFMShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareItem.h; sourceTree = "<group>"; };
 		4C17B4A120E250C900470AEB /* IFMShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareView.h; sourceTree = "<group>"; };
 		4C17B4A220E250C900470AEB /* IFMShareItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFMShareItemCell.m; sourceTree = "<group>"; };
+		4C1A29E220EEFD8D00D8A188 /* PraiseHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseHistoryModel.h; sourceTree = "<group>"; };
+		4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseHistoryModel.m; sourceTree = "<group>"; };
 		4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFourthCell.h; sourceTree = "<group>"; };
 		4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFourthCell.m; sourceTree = "<group>"; };
 		4C1C6DE320E468D200637E2A /* SignInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1223,6 +1226,8 @@
 				4CCCF02220EA1E14000EC6BD /* MyFansModel.m */,
 				4C1F0AE620ECF21500C3A2E7 /* UserInfoModel.h */,
 				4C1F0AE720ECF21500C3A2E7 /* UserInfoModel.m */,
+				4C1A29E220EEFD8D00D8A188 /* PraiseHistoryModel.h */,
+				4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1725,6 +1730,7 @@
 				4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
+				4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */,
 				4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */,
 				4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */,
 				4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */,

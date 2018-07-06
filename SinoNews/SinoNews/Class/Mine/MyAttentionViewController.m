@@ -66,15 +66,15 @@
 {
     [super viewWillAppear:animated];
     [self requestAttentionList];
-    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
-    [navi showNavigationDownLine];
+//    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
+//    [navi showNavigationDownLine];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
-    [navi hideNavigationDownLine];
+//    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
+//    [navi hideNavigationDownLine];
 }
 
 -(void)addViews
@@ -101,7 +101,12 @@
     ;
     [addAttention setSingleLineAutoResizeWithMaxWidth:200];
     addAttention.text = @"+ 添加关注";
-    [addAttention creatTapWithSelector:@selector(pushToAttentionRecommend)];
+    
+    @weakify(self)
+    [addAttention whenTap:^{
+        @strongify(self)
+        [self pushToAttentionRecommend];
+    }];
     
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];

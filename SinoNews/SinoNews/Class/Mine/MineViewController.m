@@ -116,6 +116,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
+    self.navigationController.navigationBar.hidden = YES;
     [self addViews];
 }
 
@@ -127,7 +128,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     if (CompareString(UserGet(@"isLogin"), @"YES")) {
         self.user = [UserModel getLocalUserModel];
         if (self.user) {
@@ -143,7 +144,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 //添加视图
@@ -246,7 +246,11 @@
     .heightEqualToWidth()
     ;
     [_userImg setSd_cornerRadius:@32];
-    [_userImg creatTapWithSelector:@selector(userTouch)];
+    @weakify(self)
+    [_userImg whenTap:^{
+        @strongify(self)
+        [self userTouch];
+    }];
     
     _userName.sd_layout
 //    .bottomSpaceToView(_userImg, -27)
@@ -277,7 +281,7 @@
     _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
     [self cutCornerradiusWithView:_signIn];
     _signIn.hidden = YES;
-    @weakify(self)
+    
     [[_signIn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
         SignInViewController *siVC = [SignInViewController new];
@@ -292,7 +296,11 @@
     ;
     [_publish updateLayout];
     [_publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
-    [_publish creatTapWithSelector:@selector(tapView:)];
+    
+    [_publish whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:0];
+    }];
     
     _attention.sd_layout
     .topEqualToView(_publish)
@@ -303,7 +311,11 @@
     ;
     [_attention updateLayout];
     [_attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
-    [_attention creatTapWithSelector:@selector(tapView:)];
+    
+    [_attention whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:1];
+    }];
     
     _fans.sd_layout
     .topEqualToView(_publish)
@@ -314,7 +326,11 @@
     ;
     [_fans updateLayout];
     [_fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
-    [_fans creatTapWithSelector:@selector(tapView:)];
+    
+    [_fans whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:2];
+    }];
     
     _praise.sd_layout
     .topEqualToView(_publish)
@@ -323,7 +339,10 @@
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
-    [_praise creatTapWithSelector:@selector(tapView:)];
+    [_praise whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:3];
+    }];
     
 }
 
@@ -355,12 +374,12 @@
     
 }
 
--(void)tapView:(UITapGestureRecognizer *)tap
+-(void)tapViewWithIndex:(NSInteger)index
 {
     if (![YXHeader checkNormalBackLogin]) {
         return;
     }
-    switch (tap.view.tag) {
+    switch (index) {
         case 0:
         {
             
@@ -537,8 +556,9 @@
         }
         
     }else if(indexPath.section == 1){
-        BaseNavigationVC *bvc = keyVC.viewControllers[3];
-        IntegralViewController *ivC = bvc.viewControllers[0];
+        RTRootNavigationController *bvc = keyVC.viewControllers[3];
+        IntegralViewController *ivC = (IntegralViewController *)bvc.rt_viewControllers[0];
+        
         if (CompareString(title, @"积分充值")){
             [keyVC setSelectedIndex:3];
             [ivC setSelectIndex:2];

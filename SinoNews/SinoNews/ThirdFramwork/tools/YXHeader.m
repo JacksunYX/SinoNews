@@ -15,7 +15,7 @@
     if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
         return YES;
     } else {
-        [[HttpRequest getCurrentVC] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
+        [[HttpRequest getCurrentVC] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
         return NO;
     }
     return YES;

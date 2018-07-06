@@ -274,7 +274,7 @@
     }
     
     self.searchBar.delegate = self;
-    
+    self.rt_navigationController.useSystemBackBarButtonItem = YES;
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
     

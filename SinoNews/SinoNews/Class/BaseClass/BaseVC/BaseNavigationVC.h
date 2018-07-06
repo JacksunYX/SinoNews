@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RTRootNavigationController.h"
 
-@interface BaseNavigationVC : UINavigationController
+@interface BaseNavigationVC : RTRootNavigationController
 
 /**
  显示导航栏下的横线

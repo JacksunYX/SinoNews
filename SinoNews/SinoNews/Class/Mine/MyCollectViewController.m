@@ -14,7 +14,7 @@
 #import "NewsDetailViewController.h"
 
 
-@interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 {
     NSInteger selectedIndex;    //选择的下标
 }
@@ -88,20 +88,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
-    [navi showNavigationDownLine];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
-    [navi hideNavigationDownLine];
-}
-
 -(void)setTitleView
 {
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"娱乐城",@"文章"] headStyle:0 layoutStyle:0];
@@ -115,22 +101,13 @@
     _segHead.maxTitles = 2;
     _segHead.bottomLineHeight = 0;
     _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
-    
+    _segHead.delegate = self;
     @weakify(self)
     [MLMSegmentManager associateHead:_segHead withScroll:nil completion:^{
         @strongify(self)
         self.navigationItem.titleView = self.segHead;
     }];
     
-    self.segHead.selectedIndex = ^(NSInteger index) {
-        //        GGLog(@"选择了下标为：%ld",index);
-        @strongify(self)
-        self->selectedIndex = index;
-        self.selectedBtn.hidden = !index;
-        [self showOrHiddenTheSelections:NO];
-        [self.tableView reloadData];
-        [self.tableView.mj_header beginRefreshing];
-    };
     self.selectedBtn.hidden = !selectedIndex;
 }
 
@@ -239,11 +216,13 @@
     self.tableView.editing = show;
     self.selectedBtn.selected = show;
     self.deleteBtn.hidden = !show;
+    [self.tableView reloadData];
     CGFloat hei = 0;
     if (show) {
         hei = 60;
     }else{
         [self.deleteArray removeAllObjects];
+        [self.deleteBtn setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
     }
     self.deleteBtn.sd_resetLayout
     .leftEqualToView(self.view)
@@ -259,9 +238,9 @@
 {
     NSMutableArray *arr;
     if (selectedIndex == 0) {
-        arr = self.articleArray;
-    }else if (selectedIndex == 1){
         arr = self.casinoArray;
+    }else if (selectedIndex == 1){
+        arr = self.articleArray;
     }
     if (arr.count) {
         btn.selected = !btn.selected;
@@ -405,17 +384,21 @@
 }
 
 //侧滑删除
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (selectedIndex == 0) {
-        return YES;
-    }
-    return NO;
-}
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return YES;
+////    if (selectedIndex == 0) {
+////        return YES;
+////    }
+////    return NO;
+//}
 
 // 定义编辑样式
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
+    if (selectedIndex == 0) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
+
 }
 
 // 进入编辑模式，按下出现的编辑按钮后,进行删除操作
@@ -437,6 +420,16 @@
 // 修改编辑按钮文字
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"删除";
+}
+
+#pragma mark ---- MLMSegmentHeadDelegate
+- (void)didSelectedIndex:(NSInteger)index
+{
+    selectedIndex = index;
+    self.selectedBtn.hidden = !index;
+    [self showOrHiddenTheSelections:NO];
+    [self.tableView reloadData];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 

@@ -35,12 +35,16 @@ PODS:
     - FBRetainCycleDetector
   - NSLayoutConstraint-SSLayout (1.2)
   - ReactiveObjC (3.1.0)
+  - RTRootNavigationController (0.6.7):
+    - RTRootNavigationController/Core (= 0.6.7)
+  - RTRootNavigationController/Core (0.6.7)
   - SDAutoLayout (2.1.9)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
   - Toast (4.0.0)
   - UICKeyChainStore (2.1.1)
+  - WRNavigationBar (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -57,9 +61,11 @@ DEPENDENCIES:
   - MLeaksFinder
   - NSLayoutConstraint-SSLayout
   - ReactiveObjC
+  - RTRootNavigationController
   - SDAutoLayout (~> 2.1.3)
   - SDWebImage
   - Toast
+  - WRNavigationBar
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -78,10 +84,12 @@ SPEC REPOS:
     - MLeaksFinder
     - NSLayoutConstraint-SSLayout
     - ReactiveObjC
+    - RTRootNavigationController
     - SDAutoLayout
     - SDWebImage
     - Toast
     - UICKeyChainStore
+    - WRNavigationBar
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -99,11 +107,13 @@ SPEC CHECKSUMS:
   MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   NSLayoutConstraint-SSLayout: 8cb9f316489c2af50ae4767073093754b3e290c9
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
   SDAutoLayout: 6b6f4db0d009dfc46cef14ef710dbb164e86616c
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
+  WRNavigationBar: dc952230effbb646785f962587caaac06c60f229
 
-PODFILE CHECKSUM: 0cde22eebf47f5d316e01073aa23f2e01c2460a1
+PODFILE CHECKSUM: c06098a018baffcdf213880ef35c24340d9c9e2c
 
 COCOAPODS: 1.5.3

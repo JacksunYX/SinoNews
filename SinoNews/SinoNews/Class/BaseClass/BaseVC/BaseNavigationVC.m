@@ -24,7 +24,7 @@
     [UINavigationBar appearance].translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     
-    [self hideNavigationDownLine];
+//    [self hideNavigationDownLine];
     
     [self.navigationBar setTitleTextAttributes:
      

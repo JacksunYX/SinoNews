@@ -28,5 +28,6 @@
 #import "NSString+FileSize.h"
 #import "NSString+AttText.h"
 #import "UIViewController+emptyView.h"
+#import "UIBarButtonItem+integration.h"
 
 #endif /* ToolsHeader_h */

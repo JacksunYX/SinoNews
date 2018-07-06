@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IntegralViewController : UIViewController
+@interface IntegralViewController : BaseViewController
 
 -(void)setSelectIndex:(NSInteger)index;
 

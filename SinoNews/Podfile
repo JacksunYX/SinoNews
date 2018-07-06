@@ -35,5 +35,9 @@ pod 'BGFMDB'
 pod 'ReactiveObjC'
 pod 'MLeaksFinder'
 pod 'EasyNavigation'
+pod 'WRNavigationBar'
+pod 'RTRootNavigationController'
+
+
 
 end

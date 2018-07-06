@@ -41,14 +41,21 @@
 
 -(void)setUI
 {
-    [self.view creatTapWithSelector:@selector(tap)];
+    @weakify(self)
+    [self.view whenTap:^{
+        @strongify(self)
+        [self tap];
+    }];
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(saveAdress) image:nil hightimage:nil andTitle:@"保存"];
     
     UIView *view0 = [self getBackViewWithNum:0];
     UIView *view1 = [self getBackViewWithNum:1];
     UIView *view2 = [self getBackViewWithNum:2];
-    [view2 creatTapWithSelector:@selector(showCitySelectView)];
+    [view2 whenTap:^{
+        @strongify(self)
+        [self showCitySelectView];
+    }];
     UIView *view3 = [self getBackViewWithNum:3];
     
     [self.view sd_addSubviews:@[

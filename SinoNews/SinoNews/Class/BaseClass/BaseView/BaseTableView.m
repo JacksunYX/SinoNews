@@ -22,6 +22,7 @@
         self.estimatedSectionHeaderHeight = 0;
         self.dataSource = self;
         self.delegate = self;
+        self.tableFooterView = [UIView new];
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.backgroundColor = BACKGROUND_COLOR;
         [self registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];

@@ -90,6 +90,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
+    self.navigationController.navigationBar.hidden = YES;
     [self addTableView];
     [self addHeadView];
     
@@ -100,18 +101,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 //添加上方的tableview
@@ -312,7 +301,10 @@
     .widthIs(ScreenW/4)
     ;
     [_publish updateLayout];
-    [_publish creatTapWithSelector:@selector(tapView:)];
+    [_publish whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:0];
+    }];
     [_publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
     
     _attention.sd_layout
@@ -323,7 +315,10 @@
     .widthIs(ScreenW/4)
     ;
     [_attention updateLayout];
-    [_attention creatTapWithSelector:@selector(tapView:)];
+    [_attention whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:1];
+    }];
     [_attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
     
     _fans.sd_layout
@@ -334,7 +329,10 @@
     .widthIs(ScreenW/4)
     ;
     [_fans updateLayout];
-    [_fans creatTapWithSelector:@selector(tapView:)];
+    [_fans whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:2];
+    }];
     [_fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
     
     _praise.sd_layout
@@ -345,7 +343,10 @@
     .widthIs(ScreenW/4)
     ;
     [_praise updateLayout];
-    [_praise creatTapWithSelector:@selector(tapView:)];
+    [_praise whenTap:^{
+        @strongify(self)
+        [self tapViewWithIndex:3];
+    }];
     
     [self setHeadView];
     
@@ -389,9 +390,9 @@
     return label;
 }
 
--(void)tapView:(UITapGestureRecognizer *)tap
+-(void)tapViewWithIndex:(NSInteger)index
 {
-    switch (tap.view.tag) {
+    switch (index) {
         case 0:
         {
             

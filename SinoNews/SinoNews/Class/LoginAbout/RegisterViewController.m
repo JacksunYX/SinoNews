@@ -50,7 +50,11 @@
     [backImg updateLayout];
     backImg.backgroundColor = WhiteColor;
     backImg.image = UIImageNamed(@"login_backgroundImg");
-    [backImg creatTapWithSelector:@selector(tap)];
+    
+    [backImg whenTap:^{
+        @strongify(self)
+        [self tap];
+    }];
     
     UIButton *popBtn = [UIButton new];
     

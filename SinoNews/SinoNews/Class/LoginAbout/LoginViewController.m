@@ -30,6 +30,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"登陆";
     self.view.backgroundColor = WhiteColor;
+    [self.navigationController setNavigationBarHidden:YES];
     [self setUI];
 }
 
@@ -41,7 +42,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 -(void)setUI
@@ -61,7 +61,10 @@
     [backImg updateLayout];
     backImg.backgroundColor = WhiteColor;
     backImg.image = UIImageNamed(@"login_backgroundImg");
-    [backImg creatTapWithSelector:@selector(tap)];
+    [backImg whenTap:^{
+        @strongify(self)
+        [self tap];
+    }];
     
     //其他控件
     UIButton *closeBtn = [UIButton new];

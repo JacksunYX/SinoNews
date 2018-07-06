@@ -10,13 +10,6 @@
 
 @implementation UIView (Gesture)
 
--(void)creatTapWithSelector:(SEL)sel
-{
-    self.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:[HttpRequest currentViewController] action:sel];
-    tap.numberOfTapsRequired = 1;
-    [self addGestureRecognizer:tap];
-}
 
 + (void)drawDashLine:(UIView *)lineView lineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor
 {
@@ -40,5 +33,20 @@
     //  把绘制好的虚线添加上来
     [lineView.layer addSublayer:shapeLayer];
 }
+
+//给视图添加点击事件
+-(void)whenTap:(void(^)(void))block
+{
+    UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
+    [[tap rac_gestureSignal]subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        if (block) {
+            block();
+        }
+    }];
+    self.userInteractionEnabled = YES;
+    [self addGestureRecognizer:tap];
+}
+
+
 
 @end

@@ -71,4 +71,6 @@
 
 #import <EasyNavigation.h>
 
+#import <RTRootNavigationController.h>
+
 #endif /* BaseConfiguration_pch */

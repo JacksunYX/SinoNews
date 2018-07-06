@@ -73,6 +73,8 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
     NSMutableArray *dataArr;
     
     if (!kArrayIsEmpty(findAlls)) {
+        //倒序一下
+        findAlls = (NSArray *)[[findAlls reverseObjectEnumerator] allObjects];
         dataArr = [NSMutableArray new];
         
         HomePageModel *sortModel = [findAlls firstObject];
@@ -96,6 +98,7 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
         }
         
     }
+    
     GGLog(@"dataArr:%@",dataArr);
     
     return dataArr;

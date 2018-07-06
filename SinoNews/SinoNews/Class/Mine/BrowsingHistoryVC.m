@@ -91,6 +91,12 @@
     
     [self addTableView];
     
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     self.dataSource = [[HomePageModel getSortedHistory] mutableCopy];
     [self.tableView reloadData];
 }
@@ -132,7 +138,18 @@
 //清空浏览历史
 -(void)clearAction
 {
-    GGLog(@"浏览历史已情况");
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"清空浏览历史？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"清空" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [HomePageModel clearLocaHistory];
+        LRToast(@"已清空浏览历史");
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:confirm];
+    [alertVC addAction:cancel];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -203,8 +220,12 @@
 {
     id model = self.dataSource[indexPath.section][indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model1 = (HomePageModel *)model;
+        //获取当前时间戳字符串作为存储时的标记
+        model1.saveTimeStr = [NSString currentTimeStr];
+        [HomePageModel saveWithModel:model1];
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
-        ndVC.newsId = [(HomePageModel *)model itemId];
+        ndVC.newsId = model1.itemId;
         [self.navigationController pushViewController:ndVC animated:YES];
     }
 }

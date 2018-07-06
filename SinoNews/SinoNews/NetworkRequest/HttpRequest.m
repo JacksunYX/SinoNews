@@ -562,6 +562,9 @@
         //根据不同的页面切换方式，逐步取得最上层的viewController
         if ([vc isKindOfClass:[UITabBarController class]]) {
             vc = ((UITabBarController*)vc).selectedViewController;
+            if ([vc isKindOfClass:[RTRootNavigationController class]]) {
+                vc = [(RTRootNavigationController *)vc rt_viewControllers][0];
+            }
         }
         if ([vc isKindOfClass:[UINavigationController class]]) {
             vc = ((UINavigationController*)vc).visibleViewController;

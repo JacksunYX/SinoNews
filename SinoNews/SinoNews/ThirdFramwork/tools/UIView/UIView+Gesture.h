@@ -13,11 +13,11 @@
 
 
 /**
- 快捷创建并添加手势
+ 给视图添加点击事件
 
- @param sel 手势封装的操作
+ @param block 点击事件回调
  */
--(void)creatTapWithSelector:(SEL)sel;
+-(void)whenTap:(void(^)(void))block;
 
 /**
  画虚线

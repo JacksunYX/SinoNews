@@ -50,7 +50,11 @@
     [backImg updateLayout];
     backImg.backgroundColor = WhiteColor;
     //    backImg.image = UIImageNamed(@"login_backgroundImg");
-    [backImg creatTapWithSelector:@selector(tap)];
+    @weakify(self)
+    [backImg whenTap:^{
+        @strongify(self)
+        [self tap];
+    }];
     
     //输入框
     oldPassword = [self getTextField];

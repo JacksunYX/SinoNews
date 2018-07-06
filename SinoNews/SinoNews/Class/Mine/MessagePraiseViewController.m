@@ -171,8 +171,8 @@
         [self.tableView reloadData];
     } failure:^(NSError *erro) {
         [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     } RefreshAction:^{
-        [self.tableView.mj_header endRefreshing];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 }

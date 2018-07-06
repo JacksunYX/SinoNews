@@ -7,6 +7,7 @@
 //
 
 #import "MessageNotifyViewController.h"
+#import "ReciveMessageModel.h"
 
 @interface MessageNotifyViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -43,7 +44,7 @@
                                   @"title"  :   title[arc4random()%title.count],
                                   @"subTitle"  :   subTitle[arc4random()%subTitle.count],
                                   };
-            [_dataSource addObject:dic];
+//            [_dataSource addObject:dic];
         }
     }
     return _dataSource;
@@ -82,12 +83,24 @@
     @weakify(self)
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
         self.page = 1;
         [self requestListReceivedMessages];
     }];
     self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self)
-        self.page++;
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (self.dataSource.count>0) {
+            self.page++;
+        }else{
+            self.page = 1;
+        }
         [self requestListReceivedMessages];
     }];
     
@@ -115,9 +128,9 @@
         cell.detailTextLabel.font = PFFontL(12);
         cell.detailTextLabel.textColor = RGBA(152, 152, 152, 1);
     }
-    
-    cell.textLabel.text = self.dataSource[indexPath.row][@"title"];
-    cell.detailTextLabel.text = self.dataSource[indexPath.row][@"subTitle"];
+    ReciveMessageModel *model = self.dataSource[indexPath.row];
+    cell.textLabel.text = GetSaveString(model.content);
+    cell.detailTextLabel.text = GetSaveString(model.time);
     
     return cell;
 }
@@ -148,11 +161,27 @@
 -(void)requestListReceivedMessages
 {
     [HttpRequest getWithURLString:ListReceivedMessages parameters:nil success:^(id responseObject) {
+        NSArray *arr = [ReciveMessageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (self.page==1) {
+            [self.tableView.mj_header endRefreshing];
+            if (arr.count>0) {
+                self.dataSource = [arr mutableCopy];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }else{
+            if (arr.count>0) {
+                [self.dataSource addObjectsFromArray:arr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
         
-        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 

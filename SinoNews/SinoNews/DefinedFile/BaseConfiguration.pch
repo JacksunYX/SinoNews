@@ -69,4 +69,6 @@
 
 #import <MGSocialShareKit/MGSocialShareKit.h>
 
+#import <EasyNavigation.h>
+
 #endif /* BaseConfiguration_pch */

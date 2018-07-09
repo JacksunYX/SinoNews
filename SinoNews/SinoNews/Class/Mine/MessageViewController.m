@@ -10,6 +10,7 @@
 #import "MessagePraiseViewController.h"
 #import "MessageFansViewController.h"
 #import "MessageNotifyViewController.h"
+#import "NewNotifyViewController.h"
 
 @interface MessageViewController ()
 
@@ -111,7 +112,7 @@
             break;
         case 2:
         {
-            MessageNotifyViewController *nvc = [MessageNotifyViewController new];
+            NewNotifyViewController *nvc = [NewNotifyViewController new];
             [self.navigationController pushViewController:nvc animated:YES];
         }
             break;

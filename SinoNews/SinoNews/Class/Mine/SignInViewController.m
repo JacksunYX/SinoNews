@@ -9,6 +9,7 @@
 #import "SignInViewController.h"
 #import "StoreChildCell.h"
 #import "SignInPopView.h"
+#import "SignInRuleWebView.h"
 
 @interface SignInViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -169,6 +170,9 @@
         UIButton *signInRaw = [UIButton new];
         signInRaw.titleLabel.font = PFFontL(14);
         [signInRaw setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+        [[signInRaw rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            [SignInRuleWebView showWithData:@{}];
+        }];
         
         [centerView sd_addSubviews:@[
                                      userIcon,

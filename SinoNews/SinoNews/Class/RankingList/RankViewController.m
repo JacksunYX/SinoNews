@@ -255,7 +255,7 @@
 //请求banner
 -(void)requestBanner
 {
-    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
+    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@7} success:^(id responseObject) {
         self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];

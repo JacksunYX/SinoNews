@@ -13,6 +13,7 @@
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
 
+#import "HomePageModel.h"
 #import "FontAndNightModeView.h"
 #import "ShareAndFunctionView.h"
 

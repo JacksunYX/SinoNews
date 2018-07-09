@@ -26,8 +26,8 @@
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *url;            //图片地址
 
-
-@property (nonatomic, strong) NSString *redirectType;//回调方式？
+//0.不跳转 1.新闻 2.专题 3.投票 4.问答 5.公司 6.App下载 7.外链
+@property (nonatomic, strong) NSString *redirectType;
 @property (nonatomic, strong) NSString *carousel;
 
 @property (nonatomic, assign) NSInteger itemType;   //3为广告

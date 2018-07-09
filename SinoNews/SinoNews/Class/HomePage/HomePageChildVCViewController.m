@@ -10,6 +10,8 @@
 #import "NewsDetailViewController.h"
 #import "TopicViewController.h"
 #import "PayNewsViewController.h"
+#import "RankDetailViewController.h"
+#import "TopicViewController.h"
 
 #import "HeadBannerView.h"
 #import "ADModel.h"
@@ -86,11 +88,11 @@
     }
     [headView setupUIWithImageUrls:imgs];
     
-    WEAK(weakSelf, self);
+    @weakify(self)
     headView.selectBlock = ^(NSInteger index) {
-        ADModel *model = weakSelf.adArr[index];
-        GGLog(@"跳转地址：%@",model.redirectUrl);
-        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
+        @strongify(self)
+        ADModel *model = self.adArr[index];
+        [self switchToJumpWithModel:model];
     };
     
     self.tableView.tableHeaderView = headView;
@@ -404,6 +406,41 @@
     //获取当前时间戳字符串作为存储时的标记
     model.saveTimeStr = [NSString currentTimeStr];
     [HomePageModel saveWithModel:model];
+}
+
+-(void)switchToJumpWithModel:(ADModel *)model
+{
+    switch ([model.redirectType integerValue]) {
+        case 1: //新闻
+        {
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = [model.advertsId integerValue];
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }
+            break;
+        case 2: //专题
+        {
+            TopicViewController *tVC = [TopicViewController new];
+            tVC.topicId = [model.advertsId integerValue];
+            [self.navigationController pushViewController:tVC animated:YES];
+        }
+            break;
+        case 5: //公司
+        {
+            RankDetailViewController *rdVC = [RankDetailViewController new];
+            rdVC.companyId = model.advertsId;
+            [self.navigationController pushViewController:rdVC animated:YES];
+        }
+            break;
+        case 7: //外链
+        {
+            [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

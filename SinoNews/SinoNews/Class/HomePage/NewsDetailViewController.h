@@ -8,9 +8,11 @@
 //新闻详情
 
 #import <UIKit/UIKit.h>
-
+@class HomePageModel;
 @interface NewsDetailViewController : UIViewController
 
 @property (nonatomic,assign) NSInteger newsId;
+
+@property (nonatomic,assign) HomePageModel *model;
 
 @end

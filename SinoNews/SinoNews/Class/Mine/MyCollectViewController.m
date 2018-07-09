@@ -37,6 +37,8 @@
 @property (nonatomic,strong) UIButton *selectedBtn;
 //删除按钮
 @property (nonatomic,strong) UIButton *deleteBtn;
+//下方视图
+@property (nonatomic,strong) UIView *bottomView;
 
 @end
 
@@ -78,7 +80,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"我的收藏";
     self.view.backgroundColor = WhiteColor;
-    [self getButton];
+    [self getButtonAndView];
     [self setTitleView];
     [self addTableViews];
 }
@@ -125,7 +127,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.deleteBtn, 0)
+    .bottomSpaceToView(self.bottomView, 0)
     ;
     self.tableView.backgroundColor = WhiteColor;
     self.tableView.dataSource = self;
@@ -177,7 +179,7 @@
 }
 
 //创建选择、删除按钮
-- (void)getButton
+- (void)getButtonAndView
 {
 #pragma mark 选择按钮
     UIButton *selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -191,23 +193,58 @@
     self.selectedBtn = selectedBtn;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:selectedBtn];
     
-#pragma mark 删除按钮
-    self.deleteBtn = [UIButton new];
-    self.deleteBtn.backgroundColor = WhiteColor;
-    self.deleteBtn.titleLabel.font = PFFontL(15);
-    self.deleteBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
-    self.deleteBtn.layer.borderWidth = 1;
-    [self.view addSubview:self.deleteBtn];
-    self.deleteBtn.sd_layout
+    //下方视图
+    self.bottomView = [UIView new];
+    self.bottomView.backgroundColor = RGBA(18, 130, 238, 1);
+    [self.view addSubview:self.bottomView];
+    self.bottomView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     .heightIs(0)
     ;
-    [self.deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
-    [self.deleteBtn setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
+    self.bottomView.hidden = YES;
+    
+#pragma mark 删除按钮
+    self.deleteBtn = [UIButton new];
+    self.deleteBtn.backgroundColor = RGBA(18, 130, 238, 1);
+    self.deleteBtn.titleLabel.font = PFFontL(14);
+    self.deleteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+//    self.deleteBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+//    self.deleteBtn.layer.borderWidth = 1;
+    [self.bottomView addSubview:self.deleteBtn];
+    self.deleteBtn.sd_layout
+//    .leftEqualToView(self.view)
+    .topEqualToView(self.bottomView)
+    .rightEqualToView(self.view)
+    .bottomEqualToView(self.bottomView)
+    .widthIs(100)
+//    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+//    .heightIs(0)
+    ;
+    [self.deleteBtn setTitle:@"删除(0)" forState:UIControlStateNormal];
+    [self.deleteBtn setTitleColor:RGBA(255, 255, 255, 1) forState:UIControlStateNormal];
+    [self.deleteBtn setImage:UIImageNamed(@"collect_trash") forState:UIControlStateNormal];
     [self.deleteBtn addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
     self.deleteBtn.hidden = YES;
+    
+    //全选/反选按钮
+    self.selectAllBtn = [UIButton new];
+    self.selectAllBtn.backgroundColor = RGBA(18, 130, 238, 1);
+    self.selectAllBtn.titleLabel.font = PFFontL(14);
+//    self.selectAllBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    [self.bottomView addSubview:self.selectAllBtn];
+    self.selectAllBtn.sd_layout
+    .topEqualToView(self.bottomView)
+    .leftEqualToView(self.bottomView)
+    .bottomEqualToView(self.bottomView)
+    .widthIs(50)
+    ;
+    [self.selectAllBtn setTitle:@"全选" forState:UIControlStateNormal];
+    [self.selectAllBtn setTitle:@"反选" forState:UIControlStateSelected];
+    [self.selectAllBtn setTitleColor:RGBA(255, 255, 255, 1) forState:UIControlStateNormal];
+    [self.selectAllBtn addTarget:self action:@selector(selecteAllAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.selectAllBtn.hidden = YES;
 }
 
 //显示或隐藏下方删除控件
@@ -215,16 +252,19 @@
 {
     self.tableView.editing = show;
     self.selectedBtn.selected = show;
+    self.selectAllBtn.selected = NO;
+    self.bottomView.hidden = !show;
+    self.selectAllBtn.hidden = !show;
     self.deleteBtn.hidden = !show;
     [self.tableView reloadData];
     CGFloat hei = 0;
     if (show) {
-        hei = 60;
+        hei = 44;
     }else{
         [self.deleteArray removeAllObjects];
-        [self.deleteBtn setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
+//        [self.deleteBtn setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
     }
-    self.deleteBtn.sd_resetLayout
+    self.bottomView.sd_resetLayout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
@@ -268,6 +308,31 @@
     
 }
 
+//全选/反选操作
+- (void)selecteAllAction:(UIButton *)btn
+{
+    btn.selected = ! btn.selected;
+    //无论全选还是反选都是先清除数组
+    if (self.deleteArray.count) {
+        [self.deleteArray removeAllObjects];
+    }
+    //先判断是全选还是反选
+    if (btn.selected) { //全选
+        //文章
+        if (selectedIndex == 1) {
+            [self.deleteArray addObjectsFromArray:self.articleArray];
+            for (int i = 0; i< self.articleArray.count; i++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+                [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+            }
+        }
+        
+    }else{
+        [self.tableView reloadData];
+    }
+    
+}
+
 //重置当前显示状态
 -(void)resetStatus
 {
@@ -281,6 +346,9 @@
     [arr removeObjectsInArray:self.deleteArray];
     //清空删除数组
     [self.deleteArray removeAllObjects];
+    
+    //重置按钮状态
+    self.selectAllBtn.selected = NO;
     
     [self.tableView reloadData];
     //恢复初始状态
@@ -346,6 +414,11 @@
             arr = self.casinoArray;
         }
         [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
+        if (self.deleteArray.count<arr.count) {
+            self.selectAllBtn.selected = NO;
+        }else{
+            self.selectAllBtn.selected = YES;
+        }
     }else{
         if (selectedIndex == 1) {
             HomePageModel *model = self.articleArray[indexPath.row];
@@ -362,7 +435,9 @@
             [self.navigationController pushViewController:rdVC animated:YES];
         }
     }
-    [self.deleteBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
+    [self.deleteBtn setTitle:[NSString stringWithFormat:@"删除(%ld)",self.deleteArray.count] forState:UIControlStateNormal];
+    
+//    [self.deleteBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -376,11 +451,16 @@
             arr = self.casinoArray;
         }
         [self.deleteArray removeObject:[arr objectAtIndex:indexPath.row]];
+        if (self.deleteArray.count<arr.count) {
+            self.selectAllBtn.selected = NO;
+        }else{
+            self.selectAllBtn.selected = YES;
+        }
     }
     if (!self.deleteArray.count) {
-        [self.deleteBtn setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
+//        [self.deleteBtn setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
     }
-    
+    [self.deleteBtn setTitle:[NSString stringWithFormat:@"删除(%ld)",self.deleteArray.count] forState:UIControlStateNormal];
 }
 
 //侧滑删除
@@ -419,7 +499,7 @@
 
 // 修改编辑按钮文字
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
+    return @"取消收藏";
 }
 
 #pragma mark ---- MLMSegmentHeadDelegate

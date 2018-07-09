@@ -81,8 +81,8 @@
         self.leaveTitleList = columnArr[1];
         [self reloadChildVCWithTitles:self.titleList];
     }
-    
-    [ADPopView showWithData:nil];
+    //广告弹框
+//    [ADPopView showWithData:nil];
     
     //监听登陆
     @weakify(self)
@@ -188,15 +188,21 @@
     [moreBtn setBackgroundColor:WhiteColor];
     [self.view addSubview:moreBtn];
     
-    [moreBtn activateConstraints:^{
-        moreBtn.right_attr = weakself.view.right_attr_safe;
-        moreBtn.top_attr = weakself.view.top_attr_safe;
-        moreBtn.width_attr.constant = 40;
-        moreBtn.height_attr.constant = 40;
-    }];
+//    [moreBtn activateConstraints:^{
+//        moreBtn.right_attr = weakself.view.right_attr_safe;
+//        moreBtn.top_attr = weakself.view.top_attr_safe;
+//        moreBtn.width_attr.constant = 40;
+//        moreBtn.height_attr.constant = 40;
+//    }];
+    moreBtn.sd_layout
+    .rightEqualToView(self.view)
+    .topEqualToView(self.view)
+    .widthIs(40)
+    .heightIs(40)
+    ;
     [moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
     moreBtn.layer.shadowColor = GrayColor.CGColor;
-    moreBtn.layer.shadowOffset = CGSizeMake(-1, 2);
+    moreBtn.layer.shadowOffset = CGSizeMake(0, 2);
     moreBtn.layer.shadowOpacity = 0.5;
     moreBtn.layer.shouldRasterize = NO;
     moreBtn.layer.shadowPath = [UIBezierPath bezierPathWithRect:moreBtn.bounds].CGPath;

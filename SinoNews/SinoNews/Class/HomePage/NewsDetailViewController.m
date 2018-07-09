@@ -43,6 +43,7 @@
 
 @implementation NewsDetailViewController
 
+CGFloat static titleViewHeight = 91;
 -(NSMutableArray *)commentsArr
 {
     if (!_commentsArr) {
@@ -224,7 +225,7 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 38, 0, 10);
-    _tableView.contentInset = UIEdgeInsetsMake(80, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
     _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
     _tableView.enableDirection = YES;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
@@ -295,7 +296,7 @@
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topEqualToView(self.view)
-        .heightIs(80)
+        .heightIs(titleViewHeight)
         ;
         
         UILabel *title = [UILabel new];
@@ -333,7 +334,7 @@
         .leftSpaceToView(self.titleView, 10)
         .rightSpaceToView(self.titleView, 10)
         .topEqualToView(self.titleView)
-        .heightIs(39)
+        .heightIs(50)
         ;
         title.text = GetSaveString(self.newsModel.newsTitle);
         
@@ -609,11 +610,11 @@
     int y = point.y;
     //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
     if (self.attentionBtn.enabled) {
-        if (self.tableView.contentOffset.y > -80) {
+        if (self.tableView.contentOffset.y > -titleViewHeight) {
             //            GGLog(@"不能点击");
         }else{
             //            GGLog(@"点击了关注周围");
-            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= 48 && y <= 68) {
+            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 2 - 20 && y <= titleViewHeight - 10 - 2) {
                 //                GGLog(@"点击了关注");
                 [self requestIsAttention];
             }
@@ -625,8 +626,8 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY >= -80&&offsetY <= 0) {
-        CGFloat alpha = MIN(1, fabs(offsetY)/(80));
+    if (offsetY >= - titleViewHeight&&offsetY <= 0) {
+        CGFloat alpha = MIN(1, fabs(offsetY)/(titleViewHeight));
         self.titleView.alpha = alpha;
         self.attentionBtn.enabled = alpha;
         if (offsetY >= -20) {
@@ -638,7 +639,7 @@
     
 }
 
-//禁止手势缩放s
+//禁止手势缩放
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     if(self.allowZoom){
@@ -665,6 +666,7 @@
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
             [self.webView loadRequest:request];
         }
+        [self setTitle];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
@@ -697,7 +699,7 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
         }
-        [self setTitle];
+        
         [self setBottomView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {

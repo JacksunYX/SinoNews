@@ -10,9 +10,17 @@
 
 @interface BaseNavigationVC ()
 
+@property (nonatomic, weak) UIImageView *lineView;
 @end
 
 @implementation BaseNavigationVC
+-(UIView *)lineView
+{
+    if (!_lineView) {
+        _lineView = [self getLineViewInNavigationBar:self.navigationBar];
+    }
+    return _lineView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,8 +32,6 @@
     [UINavigationBar appearance].translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     
-//    [self hideNavigationDownLine];
-    
     [self.navigationBar setTitleTextAttributes:
      
      @{NSFontAttributeName:PFFontL(16),
@@ -34,15 +40,33 @@
     
 }
 
+
+//找到导航栏最下面黑线视图
+- (UIImageView *)getLineViewInNavigationBar:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self getLineViewInNavigationBar:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    
+    return nil;
+}
+
 /**
  显示导航栏下的横线
  */
 -(void)showNavigationDownLine
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
-    
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forBarMetrics:UIBarMetricsDefault];
+//
+//    [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
+    self.lineView.hidden = NO;
 }
 
 
@@ -51,9 +75,10 @@
  */
 -(void)hideNavigationDownLine
 {
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc]init]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
+//
+//    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc]init]];
+    self.lineView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

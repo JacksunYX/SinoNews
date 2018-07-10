@@ -124,18 +124,22 @@
 {
     _model = model;
 
+    NSString *titletext;
     if (model.itemType < 200) {
         NSString *labelName = GetSaveString(model.labelName);
         if (kStringIsEmpty(labelName)) {
-            title.text = GetSaveString(model.itemTitle);
+            titletext = GetSaveString(model.itemTitle);
             typeLabel.hidden = YES;
         }else{
             typeLabel.hidden = NO;
-            title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+            titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
             typeLabel.text = GetSaveString(model.labelName);
             typeLabel.backgroundColor = WhiteColor;
             typeLabel.textColor = HexColor(#1282EE);
         }
+        
+        
+        
         NSString *str1 = @"";
         NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
         NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
@@ -146,11 +150,19 @@
         
     }else{
         typeLabel.text = @"专题";
-        title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
         bottomLabel.text = @"";
         typeLabel.backgroundColor = HexColor(#1282EE);
         typeLabel.textColor = WhiteColor;
         typeLabel.hidden = NO;
+    }
+    
+    if ([titletext containsString:@"<font"]) {
+        title.attributedText = [NSString analysisHtmlString:titletext];
+        //⚠️字体需要在这里重新设置才行，不然会变小
+        title.font = FontScale(17);
+    }else{
+        title.text = titletext;
     }
     
     //    NSDictionary *dic1 = @{

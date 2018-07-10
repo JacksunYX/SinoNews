@@ -469,6 +469,8 @@
 {
     GGLog(@"点击了第%ld条",indexPath.row);
     [self.searchBar resignFirstResponder];
+    [self.newsArr removeAllObjects];
+    [self.tableView reloadData];
     [self showWithStatus:1];
     if (indexPath.section == 0) {
         self.searchBar.text = self.hotNews[indexPath.row];

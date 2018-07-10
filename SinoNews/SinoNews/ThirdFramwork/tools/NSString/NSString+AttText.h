@@ -23,4 +23,19 @@
  */
 +(NSMutableAttributedString *)leadString:(NSString *)str1 tailString:(NSString *)str2 font:(UIFont *)font color:(UIColor *)color lineBreak:(BOOL)tab;
 
+
+/**
+ 解析带标签的字符串
+
+ @param string 需要解析的字符串
+ @return 返回的可变富文本字符串
+ */
++(NSMutableAttributedString *)analysisHtmlString:(NSString *)string;
+
+
+
+
+
+
+
 @end

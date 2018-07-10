@@ -108,16 +108,13 @@
         titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
         typeLabel.hidden = NO;
     }
-    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]
-                                           initWithData:[titletext dataUsingEncoding:
-                                                         NSUnicodeStringEncoding]
-                                           options:@{
-                                                     NSDocumentTypeDocumentAttribute:
-                                                         NSHTMLTextDocumentType,
-                                                     NSFontAttributeName:FontScale(17)
-                                                     }
-                                           documentAttributes:nil error:nil];
-    title.attributedText = attrStr;
+    if ([titletext containsString:@"<font"]) {
+        title.attributedText = [NSString analysisHtmlString:titletext];
+        //⚠️字体需要在这里重新设置才行，不然会变小
+        title.font = FontScale(17);
+    }else{
+        title.text = titletext;
+    }
     
     NSString *str1 = [@"" stringByAppendingString:@""];
     NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];

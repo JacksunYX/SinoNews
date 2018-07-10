@@ -155,14 +155,22 @@
 {
     _model = model;
     
-    
+    NSString *titletext;
     NSString *labelName = GetSaveString(model.labelName);
     if (kStringIsEmpty(labelName)) {
-        title.text = GetSaveString(model.itemTitle);
+        titletext = GetSaveString(model.itemTitle);
         typeLabel.hidden = YES;
     }else{
-        title.text = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
         typeLabel.hidden = NO;
+    }
+    
+    if ([titletext containsString:@"<font"]) {
+        title.attributedText = [NSString analysisHtmlString:titletext];
+        //⚠️字体需要在这里重新设置才行，不然会变小
+        title.font = FontScale(16);
+    }else{
+        title.text = titletext;
     }
     
     if (model.images.count>0) {

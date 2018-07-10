@@ -29,4 +29,21 @@
     return attStr;
 }
 
+
++(NSMutableAttributedString *)analysisHtmlString:(NSString *)string
+{
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]
+                                           initWithData:[string dataUsingEncoding:
+                                                         NSUnicodeStringEncoding]
+                                           options:@{
+                                                     NSDocumentTypeDocumentAttribute:
+                                                         NSHTMLTextDocumentType,
+                                                     }
+                                           documentAttributes:nil error:nil];
+    return attrStr;
+}
+
+
+
+
 @end

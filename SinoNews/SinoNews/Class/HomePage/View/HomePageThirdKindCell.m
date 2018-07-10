@@ -113,7 +113,14 @@
 -(void)setModel:(ADModel *)model
 {
     _model = model;
-    title.text = GetSaveString(model.itemTitle);
+    NSString *titletext = GetSaveString(model.itemTitle);
+    if ([titletext containsString:@"<font"]) {
+        title.attributedText = [NSString analysisHtmlString:titletext];
+        //⚠️字体需要在这里重新设置才行，不然会变小
+        title.font = FontScale(16);
+    }else{
+        title.text = titletext;
+    }
 }
 
 

@@ -47,10 +47,10 @@
 {
     if (!_adDatasource) {
         _adDatasource  = [NSMutableArray new];
-        for (int i = 0; i < 4; i ++) {
-            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
-            [_adDatasource addObject:imgStr];
-        }
+//        for (int i = 0; i < 4; i ++) {
+//            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
+//            [_adDatasource addObject:imgStr];
+//        }
     }
     return _adDatasource;
 }
@@ -118,6 +118,7 @@
     self.view.backgroundColor = WhiteColor;
     self.navigationController.navigationBar.hidden = YES;
     [self addViews];
+    [self requestBottomBanner];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,11 +140,6 @@
     }else{
         [self requestToGetUserInfo];
     }
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
 }
 
 //添加视图
@@ -462,7 +458,9 @@
         .rightEqualToView(cell.contentView)
         .bottomEqualToView(cell.contentView)
         ;
-        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
+        ADModel *model = self.adDatasource[indexPath.row];
+        //        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
+        [adImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
     }
     
     return cell;
@@ -470,7 +468,10 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (collectionView == self.adCollectionView) {
+        ADModel *model = self.adDatasource[indexPath.row];
+        [UniversalMethod jumpWithADModel:model];
+    }
 }
 
 
@@ -623,6 +624,13 @@
     }];
 }
 
-
+//请求下部广告
+-(void)requestBottomBanner
+{
+    [RequestGather requestBannerWithADId:9 success:^(id response) {
+        self.adDatasource = response;
+        [self.adCollectionView reloadData];
+    } failure:nil];
+}
 
 @end

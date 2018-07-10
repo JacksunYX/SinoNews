@@ -14,7 +14,6 @@
 #import "TopicViewController.h"
 
 #import "HeadBannerView.h"
-#import "ADModel.h"
 #import "XLChannelModel.h"
 
 #import "HomePageFirstKindCell.h"
@@ -66,7 +65,7 @@
     
 }
 
-//测试轮播图
+//轮播图
 -(void)creatBanner
 {
     HeadBannerView *headView = [HeadBannerView new];
@@ -92,7 +91,7 @@
     headView.selectBlock = ^(NSInteger index) {
         @strongify(self)
         ADModel *model = self.adArr[index];
-        [self switchToJumpWithModel:model];
+        [UniversalMethod jumpWithADModel:model];
     };
     
     self.tableView.tableHeaderView = headView;
@@ -308,12 +307,11 @@
 //请求banner
 -(void)requestBanner
 {
-    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@1} success:^(id responseObject) {
-        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
+    
+    [RequestGather requestBannerWithADId:1 success:^(id response) {
+        self.adArr = response;
         if (!kArrayIsEmpty(self.adArr)) {
-            //只有第一个才加载banner
             [self creatBanner];
-            
         }
         [self.tableView.mj_header endRefreshing];
     } failure:^(NSError *error) {
@@ -408,39 +406,5 @@
     [HomePageModel saveWithModel:model];
 }
 
--(void)switchToJumpWithModel:(ADModel *)model
-{
-    switch ([model.redirectType integerValue]) {
-        case 1: //新闻
-        {
-            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = [model.advertsId integerValue];
-            [self.navigationController pushViewController:ndVC animated:YES];
-        }
-            break;
-        case 2: //专题
-        {
-            TopicViewController *tVC = [TopicViewController new];
-            tVC.topicId = [model.advertsId integerValue];
-            [self.navigationController pushViewController:tVC animated:YES];
-        }
-            break;
-        case 5: //公司
-        {
-            RankDetailViewController *rdVC = [RankDetailViewController new];
-            rdVC.companyId = model.advertsId;
-            [self.navigationController pushViewController:rdVC animated:YES];
-        }
-            break;
-        case 7: //外链
-        {
-            [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
 
 @end

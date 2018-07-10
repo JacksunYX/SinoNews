@@ -82,10 +82,10 @@
 {
     if (!_adDatasource) {
         _adDatasource  = [NSMutableArray new];
-        for (int i = 0; i < 4; i ++) {
-            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
-            [_adDatasource addObject:imgStr];
-        }
+//        for (int i = 0; i < 4; i ++) {
+//            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
+//            [_adDatasource addObject:imgStr];
+//        }
     }
     return _adDatasource;
 }
@@ -94,7 +94,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     self.navigationItem.title = @"排行榜";
-    [self requestBanner];
+    
     [self addViews];
     
 }
@@ -135,11 +135,12 @@
     self.headView.type = NormalType;
     [self.headView setupUIWithImageUrls:imgs];
     
-    WEAK(weakSelf, self);
+    @weakify(self)
     self.headView.selectBlock = ^(NSInteger index) {
         GGLog(@"选择了下标为%ld的轮播图",index);
-        ADModel *model = weakSelf.adArr[index];
-        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
+        @strongify(self)
+        ADModel *model = self.adArr[index];
+        [UniversalMethod jumpWithADModel:model];
     };
 
 }
@@ -171,9 +172,12 @@
     _lineCollectionView.delegate = self;
     [_lineCollectionView registerClass:[LineCollectionViewCell class] forCellWithReuseIdentifier:LineCollectionViewCellID];
     
-    WeakSelf    
+    @weakify(self)
     self.lineCollectionView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf requestRanking];
+        @strongify(self)
+        [self requestRanking];
+        [self requestTopBanner];
+        [self requestBottomBanner];
     }];
     
     [self.lineCollectionView.mj_header beginRefreshing];
@@ -235,7 +239,9 @@
         .rightEqualToView(cell.contentView)
         .bottomEqualToView(cell.contentView)
         ;
-        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
+        ADModel *model = self.adDatasource[indexPath.row];
+//        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
+        [adImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
     }
     
     return cell;
@@ -249,20 +255,31 @@
         rlVC.rankingId = model.rankingId;
         rlVC.navigationItem.title = model.rankingName;
         [self.navigationController pushViewController:rlVC animated:YES];
+    }else if (collectionView == self.adCollectionView){
+        ADModel *model = self.adDatasource[indexPath.row];
+        [UniversalMethod jumpWithADModel:model];
     }
 }
 
-//请求banner
--(void)requestBanner
+#pragma mark ----- 请求发送
+//请求上部广告
+-(void)requestTopBanner
 {
-    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@7} success:^(id responseObject) {
-        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
+    [RequestGather requestBannerWithADId:7 success:^(id response) {
+        self.adArr = response;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
         }
-        
     } failure:nil];
-    
+}
+
+//请求下部广告
+-(void)requestBottomBanner
+{
+    [RequestGather requestBannerWithADId:5 success:^(id response) {
+        self.adDatasource = response;
+        [self.adCollectionView reloadData];
+    } failure:nil];
 }
 
 //请求排行榜

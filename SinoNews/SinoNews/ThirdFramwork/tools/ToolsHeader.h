@@ -29,5 +29,6 @@
 #import "NSString+AttText.h"
 #import "UIViewController+emptyView.h"
 #import "UIBarButtonItem+integration.h"
+#import "UniversalMethod.h"
 
 #endif /* ToolsHeader_h */

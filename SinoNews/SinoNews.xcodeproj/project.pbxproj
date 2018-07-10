@@ -170,6 +170,8 @@
 		4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEA20DE4C7A0040E348 /* NSDate+Extension.m */; };
 		4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */; };
 		4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFF120DE514E0040E348 /* BindingDataViewController.m */; };
+		4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EB20F43DEE00536E77 /* RequestGather.m */; };
+		4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EF20F445E000536E77 /* UniversalMethod.m */; };
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
@@ -549,6 +551,11 @@
 		4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		4C95FFF020DE514E0040E348 /* BindingDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindingDataViewController.h; sourceTree = "<group>"; };
 		4C95FFF120DE514E0040E348 /* BindingDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindingDataViewController.m; sourceTree = "<group>"; };
+		4CA141EA20F43DEE00536E77 /* RequestGather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestGather.h; sourceTree = "<group>"; };
+		4CA141EB20F43DEE00536E77 /* RequestGather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestGather.m; sourceTree = "<group>"; };
+		4CA141EE20F445E000536E77 /* UniversalMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversalMethod.h; sourceTree = "<group>"; };
+		4CA141EF20F445E000536E77 /* UniversalMethod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniversalMethod.m; sourceTree = "<group>"; };
+		4CA141F120F4485E00536E77 /* ModelHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelHeader.h; sourceTree = "<group>"; };
 		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
 		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
 		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
@@ -996,6 +1003,8 @@
 				4C3F901720BCFF01003EC4FC /* ToolsHeader.h */,
 				4C3F903520BD2D10003EC4FC /* YXHeader.h */,
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
+				4CA141EE20F445E000536E77 /* UniversalMethod.h */,
+				4CA141EF20F445E000536E77 /* UniversalMethod.m */,
 				4C4ED9E820E39B1500347974 /* UIViewController */,
 				4CB4196E20DA792A00EBF202 /* UIScrollView */,
 				4C3D111C20D8F01500480E03 /* UILabel */,
@@ -1094,6 +1103,8 @@
 			children = (
 				4C3F903920BD2EDF003EC4FC /* HttpRequest.h */,
 				4C3F903A20BD2EDF003EC4FC /* HttpRequest.m */,
+				4CA141EA20F43DEE00536E77 /* RequestGather.h */,
+				4CA141EB20F43DEE00536E77 /* RequestGather.m */,
 			);
 			path = NetworkRequest;
 			sourceTree = "<group>";
@@ -1472,6 +1483,7 @@
 			children = (
 				4CE9C92120C90B9B004550B9 /* UserModel.h */,
 				4CE9C92220C90B9B004550B9 /* UserModel.m */,
+				4CA141F120F4485E00536E77 /* ModelHeader.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1806,6 +1818,7 @@
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
+				4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
@@ -1906,6 +1919,7 @@
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
+				4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */,
 				4CCCF01620E9EE2B000EC6BD /* CLInputToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

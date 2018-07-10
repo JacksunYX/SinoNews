@@ -72,11 +72,12 @@
     self.headView.type = NormalType;
     [self.headView setupUIWithImageUrls:imgs];
     
-    WEAK(weakSelf, self);
+    @weakify(self)
     self.headView.selectBlock = ^(NSInteger index) {
         GGLog(@"选择了下标为%ld的轮播图",index);
-        ADModel *model = weakSelf.adArr[index];
-        [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
+        @strongify(self)
+        ADModel *model = self.adArr[index];
+        [UniversalMethod jumpWithADModel:model];
     };
 }
 
@@ -127,14 +128,12 @@
 //请求banner
 -(void)requestBanner
 {
-    [HttpRequest getWithURLString:Adverts parameters:@{@"advertsPositionId":@8} success:^(id responseObject) {
-        self.adArr = [NSMutableArray arrayWithArray:[ADModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"advertsList"]]];
+    [RequestGather requestBannerWithADId:8 success:^(id response) {
+        self.adArr = response;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
         }
-        
     } failure:nil];
-    
 }
 
 //请求商品分类

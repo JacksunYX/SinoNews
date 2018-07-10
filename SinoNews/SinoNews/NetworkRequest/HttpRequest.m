@@ -155,10 +155,9 @@
                                 RefreshAction();
                             }
                         }];
-                    }else{
-                        if (failure) {
-                            failure(nil);
-                        }
+                    }
+                    if (failure) {
+                        failure(nil);
                     }
                 });
             }

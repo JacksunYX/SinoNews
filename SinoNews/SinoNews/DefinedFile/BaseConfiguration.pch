@@ -21,6 +21,7 @@
 
 //请求封装
 #import "HttpRequest.h"
+#import "RequestGather.h"
 
 //接口
 #import "NetQuestList.h"
@@ -31,7 +32,8 @@
 //工具类
 #import "ToolsHeader.h"
 
-#import "UserModel.h"
+//模型集合
+#import "ModelHeader.h"
 
 //自定义的一些通用视图
 #import "BaseViewHead.h"

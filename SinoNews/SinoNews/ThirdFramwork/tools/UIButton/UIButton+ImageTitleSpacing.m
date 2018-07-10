@@ -76,4 +76,87 @@
     self.imageEdgeInsets = imageEdgeInsets;
 }
 
+
+#pragma mark ---- 修改文字
+//修改文字
+-(void)setBtnFont:(UIFont *)font;
+{
+    self.titleLabel.font = font;
+}
+
+//普通状态下的文字
+-(void)setNormalTitle:(NSString *)title
+{
+    [self setTitle:title forState:UIControlStateNormal];
+}
+
+//选中状态下的文字
+-(void)setSelectedTitle:(NSString *)title
+{
+    [self setTitle:title forState:UIControlStateSelected];
+}
+
+//高亮状态下的文字
+-(void)setHighLightTitle:(NSString *)title
+{
+    [self setTitle:title forState:UIControlStateHighlighted];
+}
+
+//普通状态下的文字颜色
+-(void)setNormalTitleColor:(UIColor *)color
+{
+    [self setTitleColor:color forState:UIControlStateNormal];
+}
+
+//选中状态下的文字
+-(void)setSelectedTitleColor:(UIColor *)color
+{
+    [self setTitleColor:color forState:UIControlStateSelected];
+}
+
+//高亮状态下的文字
+-(void)setHighLightTitleColor:(UIColor *)color
+{
+    [self setTitleColor:color forState:UIControlStateHighlighted];
+}
+
+#pragma mark ---- 修改图片
+//普通状态下的图片
+-(void)setNormalImage:(UIImage *)image
+{
+    [self setImage:image forState:UIControlStateNormal];
+}
+
+//选中状态下的图片
+-(void)setSelectedImage:(UIImage *)image
+{
+    [self setImage:image forState:UIControlStateSelected];
+}
+
+//高亮状态下的图片
+-(void)setHighLightImage:(UIImage *)image
+{
+    [self setImage:image forState:UIControlStateHighlighted];
+}
+
+//普通状态下的背景图片
+-(void)setNormalBackgroundImage:(UIImage *)image
+{
+    [self setBackgroundImage:image forState:UIControlStateNormal];
+}
+
+//选中状态下的背景图片
+-(void)setSelectedBackgroundImage:(UIImage *)image
+{
+    [self setBackgroundImage:image forState:UIControlStateSelected];
+}
+
+//高亮状态下的背景图片
+-(void)setHighLightBackgroundImage:(UIImage *)image
+{
+    [self setBackgroundImage:image forState:UIControlStateHighlighted];
+}
+
+
+
 @end

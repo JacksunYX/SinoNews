@@ -67,6 +67,7 @@
     viewCount.textColor = RGBA(152, 152, 152, 1);
     viewCount.font = PFFontL(10);
     viewCount.textAlignment = NSTextAlignmentCenter;
+    viewCount.numberOfLines = 2;
     
     newsCover = [UIImageView new];
     
@@ -147,7 +148,7 @@
     .widthIs(13)
     .heightIs(8)
     ;
-    popView.image = UIImageNamed(@"");
+    popView.image = UIImageNamed(@"publish_operate");
     
     viewCount.sd_layout
     .topSpaceToView(popView, 10)
@@ -174,7 +175,7 @@
     .heightIs(18)
     ;
     [share setTitle:@"分享" forState:UIControlStateNormal];
-    [share setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
+    [share setImage:UIImageNamed(@"publish_share") forState:UIControlStateNormal];
     share.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
     comment.sd_layout
@@ -184,7 +185,7 @@
     .heightIs(18)
     ;
     [comment setTitle:@"1" forState:UIControlStateNormal];
-    [comment setImage:UIImageNamed(@"mine_message") forState:UIControlStateNormal];
+    [comment setImage:UIImageNamed(@"publish_comment") forState:UIControlStateNormal];
     comment.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
     praise.sd_layout
@@ -194,7 +195,7 @@
     .heightIs(18)
     ;
     [praise setTitle:@"1" forState:UIControlStateNormal];
-    [praise setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
+    [praise setImage:UIImageNamed(@"publish_praise") forState:UIControlStateNormal];
     praise.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
 }
 
@@ -231,6 +232,13 @@
         @strongify(self)
         if (self.shareClick) {
             self.shareClick();
+        }
+    }];
+    
+    [popView whenTap:^{
+        @strongify(self)
+        if (self.moreClick) {
+            self.moreClick();
         }
     }];
 }

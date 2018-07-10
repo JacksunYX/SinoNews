@@ -177,6 +177,7 @@
 		4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141F920F4525F00536E77 /* CommentManagerViewController.m */; };
 		4CA141FD20F4528600536E77 /* PublishManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141FC20F4528600536E77 /* PublishManagerViewController.m */; };
 		4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141FF20F4596000536E77 /* PublishManagerCell.m */; };
+		4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA1420220F48A6900536E77 /* PublishArticleViewController.m */; };
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
@@ -571,6 +572,8 @@
 		4CA141FC20F4528600536E77 /* PublishManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishManagerViewController.m; sourceTree = "<group>"; };
 		4CA141FE20F4596000536E77 /* PublishManagerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishManagerCell.h; sourceTree = "<group>"; };
 		4CA141FF20F4596000536E77 /* PublishManagerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishManagerCell.m; sourceTree = "<group>"; };
+		4CA1420120F48A6900536E77 /* PublishArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishArticleViewController.h; sourceTree = "<group>"; };
+		4CA1420220F48A6900536E77 /* PublishArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishArticleViewController.m; sourceTree = "<group>"; };
 		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
 		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
 		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
@@ -964,6 +967,8 @@
 				4CA141F920F4525F00536E77 /* CommentManagerViewController.m */,
 				4CA141FB20F4528600536E77 /* PublishManagerViewController.h */,
 				4CA141FC20F4528600536E77 /* PublishManagerViewController.m */,
+				4CA1420120F48A6900536E77 /* PublishArticleViewController.h */,
+				4CA1420220F48A6900536E77 /* PublishArticleViewController.m */,
 				4C49F06220D0C74D009DC42B /* MyAttentionViewController.h */,
 				4C49F06320D0C74D009DC42B /* MyAttentionViewController.m */,
 				4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */,
@@ -1845,6 +1850,7 @@
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
+				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,

@@ -20,4 +20,6 @@
 @property (nonatomic ,copy) void(^newsClick)(void);
 
 @property (nonatomic ,copy) void(^shareClick)(void);
+
+@property (nonatomic ,copy) void(^moreClick)(void);
 @end

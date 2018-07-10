@@ -12,6 +12,7 @@
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
 #import "MyCollectViewController.h"
+#import "PublishPageViewController.h"
 #import "MyAttentionViewController.h"
 #import "MyFansViewController.h"
 #import "PersonalDataViewController.h"
@@ -378,7 +379,8 @@
     switch (index) {
         case 0:
         {
-            
+            PublishPageViewController *ppVC = [PublishPageViewController new];
+            [self.navigationController pushViewController:ppVC animated:YES];
         }
             break;
         case 1:

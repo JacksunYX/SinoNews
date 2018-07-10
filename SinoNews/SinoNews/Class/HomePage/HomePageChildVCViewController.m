@@ -79,13 +79,8 @@
     .heightIs(HeadViewHeight)
     ;
     [headView updateLayout];
-    
-    NSMutableArray *imgs = [NSMutableArray new];
-    for (int i = 0; i < self.adArr.count; i ++) {
-        ADModel *model = self.adArr[i];
-        [imgs addObject:model.url];
-    }
-    [headView setupUIWithImageUrls:imgs];
+    headView.showTitle = YES;
+    [headView setupUIWithModels:self.adArr];
     
     @weakify(self)
     headView.selectBlock = ^(NSInteger index) {

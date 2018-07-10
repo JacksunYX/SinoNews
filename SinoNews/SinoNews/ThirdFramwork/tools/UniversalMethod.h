@@ -17,4 +17,9 @@
  */
 +(void)jumpWithADModel:(ADModel *)model;
 
+
+
+
+
+
 @end

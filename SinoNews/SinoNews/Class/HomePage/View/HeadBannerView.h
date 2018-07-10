@@ -20,7 +20,8 @@ typedef void(^clickHandleBlock)(NSInteger index);
 
 @property (nonatomic,copy) clickHandleBlock selectBlock;
 @property (nonatomic,assign) BannerType type;
+@property (nonatomic,assign) BOOL showTitle;    //是否显示标题
 -(void)setupUIWithImageUrls:(NSArray *)imgs;
-
+-(void)setupUIWithModels:(NSArray <ADModel*> *)models;
 
 @end

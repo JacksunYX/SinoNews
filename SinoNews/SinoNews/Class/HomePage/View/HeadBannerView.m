@@ -17,6 +17,9 @@
 
 //图片数组
 @property (nonatomic, strong) NSMutableArray *imageArray;
+//标题数组
+@property (nonatomic, strong) NSMutableArray *titlesArray;
+
 
 @property (nonatomic, strong) LWDPageControl * pageControl;
 
@@ -35,6 +38,16 @@
 -(void)setupUIWithImageUrls:(NSArray *)imgs
 {
     [self.imageArray addObjectsFromArray:imgs];
+    [self setupUI];
+}
+
+-(void)setupUIWithModels:(NSArray <ADModel*> *)models
+{
+    for (int i = 0; i < models.count; i ++) {
+        ADModel *model = models[i];
+        [self.imageArray addObject:GetSaveString(model.url)];
+        [self.titlesArray addObject:GetSaveString(model.name)];
+    }
     [self setupUI];
 }
 
@@ -109,7 +122,8 @@
     [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(self.imageArray[index]) placeholderImage:nil];
     
 //    bannerView.mainImageView.image = UIImageNamed(self.imageArray[index]);
-//    bannerView.indexLabel.text = [NSString stringWithFormat:@"第%ld张图",(long)index + 1];
+    bannerView.indexLabel.hidden = !self.showTitle;
+    bannerView.indexLabel.text = self.titlesArray[index];
     return bannerView;
 }
 
@@ -121,6 +135,11 @@
     return _imageArray;
 }
 
-
+- (NSMutableArray *)titlesArray {
+    if (_titlesArray == nil) {
+        _titlesArray = [NSMutableArray array];
+    }
+    return _titlesArray;
+}
 
 @end

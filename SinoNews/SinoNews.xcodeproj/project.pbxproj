@@ -172,6 +172,11 @@
 		4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFF120DE514E0040E348 /* BindingDataViewController.m */; };
 		4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EB20F43DEE00536E77 /* RequestGather.m */; };
 		4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EF20F445E000536E77 /* UniversalMethod.m */; };
+		4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141F320F4517300536E77 /* PublishPageViewController.m */; };
+		4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141F620F4522A00536E77 /* PublishViewController.m */; };
+		4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141F920F4525F00536E77 /* CommentManagerViewController.m */; };
+		4CA141FD20F4528600536E77 /* PublishManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141FC20F4528600536E77 /* PublishManagerViewController.m */; };
+		4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141FF20F4596000536E77 /* PublishManagerCell.m */; };
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
@@ -556,6 +561,16 @@
 		4CA141EE20F445E000536E77 /* UniversalMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversalMethod.h; sourceTree = "<group>"; };
 		4CA141EF20F445E000536E77 /* UniversalMethod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniversalMethod.m; sourceTree = "<group>"; };
 		4CA141F120F4485E00536E77 /* ModelHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelHeader.h; sourceTree = "<group>"; };
+		4CA141F220F4517300536E77 /* PublishPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishPageViewController.h; sourceTree = "<group>"; };
+		4CA141F320F4517300536E77 /* PublishPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishPageViewController.m; sourceTree = "<group>"; };
+		4CA141F520F4522A00536E77 /* PublishViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishViewController.h; sourceTree = "<group>"; };
+		4CA141F620F4522A00536E77 /* PublishViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishViewController.m; sourceTree = "<group>"; };
+		4CA141F820F4525F00536E77 /* CommentManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentManagerViewController.h; sourceTree = "<group>"; };
+		4CA141F920F4525F00536E77 /* CommentManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentManagerViewController.m; sourceTree = "<group>"; };
+		4CA141FB20F4528600536E77 /* PublishManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishManagerViewController.h; sourceTree = "<group>"; };
+		4CA141FC20F4528600536E77 /* PublishManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishManagerViewController.m; sourceTree = "<group>"; };
+		4CA141FE20F4596000536E77 /* PublishManagerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishManagerCell.h; sourceTree = "<group>"; };
+		4CA141FF20F4596000536E77 /* PublishManagerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishManagerCell.m; sourceTree = "<group>"; };
 		4CB4196820D9F86A00EBF202 /* NormalNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NormalNewsModel.h; sourceTree = "<group>"; };
 		4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NormalNewsModel.m; sourceTree = "<group>"; };
 		4CB4196B20DA5ADF00EBF202 /* TopicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicModel.h; sourceTree = "<group>"; };
@@ -941,6 +956,14 @@
 				4C646C6A20F343E30053067A /* OfficialNotifyViewController.m */,
 				4C93497420CF77A300BD8F07 /* FeedbackViewController.h */,
 				4C93497520CF77A300BD8F07 /* FeedbackViewController.m */,
+				4CA141F220F4517300536E77 /* PublishPageViewController.h */,
+				4CA141F320F4517300536E77 /* PublishPageViewController.m */,
+				4CA141F520F4522A00536E77 /* PublishViewController.h */,
+				4CA141F620F4522A00536E77 /* PublishViewController.m */,
+				4CA141F820F4525F00536E77 /* CommentManagerViewController.h */,
+				4CA141F920F4525F00536E77 /* CommentManagerViewController.m */,
+				4CA141FB20F4528600536E77 /* PublishManagerViewController.h */,
+				4CA141FC20F4528600536E77 /* PublishManagerViewController.m */,
 				4C49F06220D0C74D009DC42B /* MyAttentionViewController.h */,
 				4C49F06320D0C74D009DC42B /* MyAttentionViewController.m */,
 				4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */,
@@ -1360,6 +1383,8 @@
 				4C646C6420F3129B0053067A /* SignInRuleWebView.m */,
 				4C646C6C20F346630053067A /* OfficialNotifyCell.h */,
 				4C646C6D20F346630053067A /* OfficialNotifyCell.m */,
+				4CA141FE20F4596000536E77 /* PublishManagerCell.h */,
+				4CA141FF20F4596000536E77 /* PublishManagerCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1760,6 +1785,7 @@
 				4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */,
 				4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */,
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
+				4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C6332C920E08E6500D80056 /* AddressViewController.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
@@ -1798,7 +1824,9 @@
 				4C93497F20CF953400BD8F07 /* MessageNotifyViewController.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
+				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
+				4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */,
 				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
 				4C95FFD520DDE8FA0040E348 /* CLSlider.m in Sources */,
 				4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */,
@@ -1827,6 +1855,7 @@
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4CCCF01720E9EE2B000EC6BD /* UIView+CLSetRect.m in Sources */,
+				4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */,
@@ -1904,6 +1933,7 @@
 				4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */,
 				4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */,
 				4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */,
+				4CA141FD20F4528600536E77 /* PublishManagerViewController.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C6332D620E0D11000D80056 /* CommentDetailViewController.m in Sources */,
 				4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */,

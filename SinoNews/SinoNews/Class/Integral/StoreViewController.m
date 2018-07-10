@@ -64,13 +64,8 @@
     ;
     [self.headView updateLayout];
     
-    NSMutableArray *imgs = [NSMutableArray new];
-    for (int i = 0; i < self.adArr.count; i ++) {
-        ADModel *model = self.adArr[i];
-        [imgs addObject:model.url];
-    }
     self.headView.type = NormalType;
-    [self.headView setupUIWithImageUrls:imgs];
+    [self.headView setupUIWithModels:self.adArr];
     
     @weakify(self)
     self.headView.selectBlock = ^(NSInteger index) {

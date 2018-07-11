@@ -47,6 +47,12 @@
     [secondBtn setNormalTitle:@"发布问答"];
     [secondBtn setNormalImage:UIImageNamed(@"publish_answer")];
     [secondBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:35];
+    [[secondBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        PublishArticleViewController *paVC = [PublishArticleViewController new];
+        paVC.editType = 1;
+        [self.navigationController pushViewController:paVC animated:YES];
+    }];
     
     UILabel *notice = [UILabel new];
     notice.textColor = RGBA(208, 208, 208, 1);

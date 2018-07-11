@@ -11,30 +11,43 @@
 #import "LMWordViewController.h"
 #import "LMWordView.h"
 #import "LMTextHTMLParser.h"
+#import "YBPopupMenu.h"
 
-@interface PublishArticleViewController ()
+@interface PublishArticleViewController ()<YBPopupMenuDelegate>
 @property (nonatomic, strong) LMWordViewController *wordViewController;
+@property (nonatomic, strong) UIView *channelChoose;
+@property (nonatomic, assign) CGFloat topViewH;
+@property (nonatomic, strong) NSMutableArray *channelArr;
 
-//@property (nonatomic, strong) RichEditorView *editorView;
-//@property (nonatomic, strong) KeyboardManager *keyboardManager;
 @end
 
 @implementation PublishArticleViewController
-//-(RichEditorView *)editorView
-//{
-//    if (!_editorView) {
-//        _editorView = [RichEditorView new];
-//        _editorView.backgroundColor = YellowColor;
-//        [self.view addSubview:_editorView];
-//        _editorView.sd_layout
-//        .topSpaceToView(self.view, 30)
-//        .leftSpaceToView(self.view, 10)
-//        .rightSpaceToView(self.view, 10)
-//        .bottomSpaceToView(self.view, BOTTOM_MARGIN + 44)
-//        ;
-//    }
-//    return _editorView;
-//}
+-(UIView *)channelChoose
+{
+    if (!_channelChoose) {
+        _channelChoose = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, self.topViewH)];
+        [_channelChoose addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+        [self.view addSubview:_channelChoose];
+        UIButton *change = [UIButton new];
+        [_channelChoose addSubview:change];
+        change.sd_layout
+        .leftSpaceToView(_channelChoose, 20)
+        .centerYEqualToView(_channelChoose)
+        .widthIs(100)
+        .heightIs(self.topViewH)
+        ;
+        [change setNormalTitleColor:RGB(50, 50, 50)];
+        [change setNormalTitle:@"请选择频道"];
+        [change addTarget:self action:@selector(chooseChannelAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _channelChoose;
+}
+
+-(void)chooseChannelAction:(UIButton *)sender
+{
+    [YBPopupMenu showRelyOnView:sender titles:@[@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试"] icons:nil menuWidth:120 delegate:self];
+}
 
 - (LMWordViewController *)wordViewController {
     
@@ -47,7 +60,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
-    self.navigationItem.title = @"发布文章";
+    NSString *title = @"发布文章";
+    self.topViewH = 50;
+    if (self.editType == 1) {
+        title = @"发布问答";
+        self.topViewH = 0;
+    }
+    self.navigationItem.title = title;
     [self setNavigation];
     [self setUI];
     
@@ -57,14 +76,12 @@
 {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
-//    [self.keyboardManager beginMonitoring];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [IQKeyboardManager sharedManager].enable = YES;
-//    [self.keyboardManager stopMonitoring];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,8 +91,11 @@
 
 -(void)setNavigation
 {
+    UIImageView *rightBtn = [UIImageView new];
+    rightBtn.frame = CGRectMake(0, 0, 40, 40);
+    
     UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    editBtn.frame = CGRectMake(0, 0, 40, 20);
+    editBtn.frame = CGRectMake(0, 15, 40, 20);
     editBtn.titleLabel.font = PFFontL(15);
     [editBtn setNormalTitleColor:RGBA(18, 130, 238, 1)];
     [editBtn setNormalTitle:@"发布"];
@@ -83,30 +103,25 @@
     editBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
     editBtn.layer.borderWidth = 1;
     [editBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:editBtn];
+    [rightBtn addSubview:editBtn];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
 }
 
 -(void)setUI
 {
     [self addChildViewController:self.wordViewController];
     [self.view addSubview:self.wordViewController.view];
-    self.wordViewController.textView.titleTextField.placeholder = @"请输入标题";
-    self.wordViewController.textView.titleTextField.placeholder = @"请输入标题";
-    self.wordViewController.view.frame = self.view.bounds;
-}
-
--(void)setUI2
-{
-//    self.editorView.delegate = self;
-//    self.editorView.placeholder = @"这里输入内容...";
+    NSString *placehold = @"请输入标题";
+    if (self.editType == 1) {
+        placehold = @"请输入问题";
+        self.wordViewController.view.frame = self.view.bounds;
+    }else{
+        self.channelChoose.backgroundColor = WhiteColor;
+        self.wordViewController.view.frame = CGRectMake(0, self.topViewH, self.view.bounds.size.width, self.view.bounds.size.height - self.topViewH);
+    }
+    self.wordViewController.textView.titleTextField.placeholder = placehold;
     
-//    self.keyboardManager = [[KeyboardManager alloc] initWithView:self.view];
-//    self.keyboardManager.toolbar.editor = self.editorView;
-//
-//    self.keyboardManager.toolbar.delegate = self;
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 100)];
-//    view.backgroundColor = RedColor;
-//    self.editorView.inputAccessoryView = view;
 }
 
 -(void)publishAction:(UIButton *)sender
@@ -119,37 +134,14 @@
         return;
     }
     [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
-//    [self requestPublishArticleWithContent:self.editorView.text];
 }
 
-//#pragma mark - RichEditorViewDelegate
-//
-//- (void)richEditor:(RichEditorView * __nonnull)editor contentDidChange:(NSString * __nonnull)content {
-//
-//    GGLog(@"content:%@",content);
-//}
+#pragma mark - YBPopupMenuDelegate
+- (void)ybPopupMenu:(YBPopupMenu *)ybPopupMenu didSelectedAtIndex:(NSInteger)index
+{
+    GGLog(@"点击了 %ld",index);
+}
 
-//插入图片
-//-(void)richEditorToolbarInsertImage:(RichEditorToolbar *)toolbar
-//{
-//    //处理图片
-//    [[ZZYPhotoHelper shareHelper] getPhotoWithResultBlock:^(id data) {
-//        //压缩
-////        NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
-////        UIImage *img = [UIImage imageWithData:imgData];
-//        //裁剪
-//        UIImage *dataImg = (UIImage *)data;
-//        CGFloat w = (ScreenW - 20);
-//        CGFloat h = w*dataImg.size.height/ dataImg.size.width;
-//        UIImage *img = [dataImg cutToSize:CGSizeMake(w, h)];
-//        [RequestGather uploadSingleImage:img Success:^(id response) {
-//            NSString *imgUrl = GetSaveString(response[@"data"]);
-//            if (toolbar.editor) {
-//                [toolbar.editor insertImage:imgUrl alt:@"Gravatar"];
-//            }
-//        } failure:nil];
-//    }];
-//}
 
 #pragma make ----- 请求发送
 -(void)requestPublishArticleWithContent:(NSString *)content
@@ -159,10 +151,15 @@
     parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
     parameters[@"channelId"] = @(64);
     parameters[@"content"] = GetSaveString(content);
-//    [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    } failure:nil RefreshAction:nil];
+    [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:nil RefreshAction:nil];
 }
 
+//请求所有频道
+-(void)requestChannels
+{
+    
+}
 
 @end

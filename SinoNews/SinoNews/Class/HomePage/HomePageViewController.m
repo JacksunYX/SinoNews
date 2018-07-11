@@ -75,11 +75,13 @@
     //先从缓存里查是否有保存
     NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
     if (kArrayIsEmpty(columnArr)) {
-        [self requestChnanel];
+        [self requestChnanel:NO];
     }else{
         self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
         self.leaveTitleList = columnArr[1];
         [self reloadChildVCWithTitles:self.titleList];
+        //比对是否有更新的频道
+        [self requestChnanel:YES];
     }
     //广告弹框
 //    [ADPopView showWithData:nil];
@@ -88,7 +90,7 @@
     @weakify(self)
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [self requestChnanel];
+        [self requestChnanel:NO];
     }];
 
 }
@@ -227,7 +229,7 @@
 //            [self requestUserAttentionChannels];
             [self saveColumnArr];
         }
-
+        
     } click:^(NSString *title) {
         @strongify(self)
         GGLog(@"返回单个点击");
@@ -272,23 +274,51 @@
 
 #pragma mark ---- 请求相关
 //请求栏目列表
--(void)requestChnanel
+-(void)requestChnanel:(BOOL)compare
 {
     [HttpRequest getWithURLString:Channel_listChannels parameters:nil success:^(id responseObject) {
-        NSArray *channelConcerned = responseObject[@"data"][@"concerned"];
-        NSArray *channelUnconcerned = responseObject[@"data"][@"unconcerned"];
-        if (!kArrayIsEmpty(channelConcerned)) {
-            self.titleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelConcerned]];
-        }
-        if (!kArrayIsEmpty(channelUnconcerned)) {
-            self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
-        }
-        //存储数据
-        [self saveColumnArr];
+        NSArray *channelConcerned = [XLChannelModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"concerned"]];
+        NSArray *channelUnconcerned = [XLChannelModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"unconcerned"]];
         
-        [self reloadChildVCWithTitles:self.titleList];
-        
+        if (compare) {
+            BOOL equal = [self compareArr1:[channelConcerned arrayByAddingObjectsFromArray:channelUnconcerned] arr2:[self.titleList arrayByAddingObjectsFromArray:self.leaveTitleList]];
+            if (equal) {    //相等
+                GGLog(@"暂无新的频道更新");
+            }else{  //不相等
+                LRToast(@"有新的频道变更哦");
+            }
+        }else{
+            if (!kArrayIsEmpty(channelConcerned)) {
+                self.titleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelConcerned]];
+            }
+            if (!kArrayIsEmpty(channelUnconcerned)) {
+                self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
+            }
+            //存储数据到本地
+            [self saveColumnArr];
+            
+            [self reloadChildVCWithTitles:self.titleList];
+        }
     } failure:nil];
+}
+
+//比对2个频道数组是否不同
+-(BOOL)compareArr1:(NSArray *)arr1 arr2:(NSArray *)arr2
+{
+    BOOL isEqual = NO;
+    if (arr1.count == arr2.count) {
+        for (int i = 0; i<arr1.count; i ++) {
+            XLChannelModel *model = arr1[i];
+            isEqual = NO;
+            for (XLChannelModel *model2 in arr2) {
+                if ([model.channelId isEqualToString:model2.channelId]) {
+                    isEqual = YES;
+                    break;
+                }
+            }
+        }
+    }
+    return isEqual;
 }
 
 //保存栏目设置到本地

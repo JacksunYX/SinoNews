@@ -11,4 +11,6 @@
 
 @interface PublishArticleViewController : UIViewController
 
+@property (nonatomic,assign) NSInteger editType;    //默认文章、1问答
+
 @end

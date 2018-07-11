@@ -69,6 +69,9 @@
 		4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3DE20F5937F00ACE380 /* LMTextStyle.m */; };
 		4C23B47720F5ED2700ACE380 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B47620F5ED2700ACE380 /* Test.swift */; };
 		4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B50C20F5F82C00ACE380 /* test2.swift */; };
+		4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C020F6387100ACE380 /* YBRectConst.m */; };
+		4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */; };
+		4C23B5C720F6387100ACE380 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C320F6387100ACE380 /* YBPopupMenu.m */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
@@ -368,6 +371,12 @@
 		4C23B47520F5ED2600ACE380 /* SinoNews-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SinoNews-Bridging-Header.h"; sourceTree = "<group>"; };
 		4C23B47620F5ED2700ACE380 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		4C23B50C20F5F82C00ACE380 /* test2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test2.swift; sourceTree = "<group>"; };
+		4C23B5BF20F6387100ACE380 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
+		4C23B5C020F6387100ACE380 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
+		4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
+		4C23B5C220F6387100ACE380 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
+		4C23B5C320F6387100ACE380 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		4C23B5C420F6387100ACE380 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
@@ -906,6 +915,19 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		4C23B5BE20F6387100ACE380 /* YBPopupMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B5BF20F6387100ACE380 /* YBPopupMenu.h */,
+				4C23B5C020F6387100ACE380 /* YBRectConst.m */,
+				4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */,
+				4C23B5C220F6387100ACE380 /* YBRectConst.h */,
+				4C23B5C320F6387100ACE380 /* YBPopupMenu.m */,
+				4C23B5C420F6387100ACE380 /* YBPopupMenuPath.h */,
+			);
+			path = YBPopupMenu;
+			sourceTree = "<group>";
+		};
 		4C3D111C20D8F01500480E03 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1254,6 +1276,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C23B5BE20F6387100ACE380 /* YBPopupMenu */,
 				4C23B39F20F5914600ACE380 /* ArticleEditor */,
 				4CCCF01120E9EE19000EC6BD /* CLInputToolbar */,
 				4C17B49B20E250C900470AEB /* IFMShare */,
@@ -1967,8 +1990,10 @@
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C6332CC20E08EAE00D80056 /* EditAddressViewController.m in Sources */,
+				4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */,
 				4C6332C620E07CBA00D80056 /* ChangePasswordViewController.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
+				4C23B5C720F6387100ACE380 /* YBPopupMenu.m in Sources */,
 				4C1F0AE520ECC45300C3A2E7 /* ProductDetailModel.m in Sources */,
 				4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */,
 				4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */,
@@ -2072,6 +2097,7 @@
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
+				4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */,
 				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,

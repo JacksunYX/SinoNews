@@ -23,6 +23,15 @@
                      failure:(void (^)(NSError *error))failure;
 
 
+/**
+ 上传单张图片至服务器
+ @param image   上传的图片
+ @param success 上传成功回调
+ @param failure 失败回调
+ */
++(void)uploadSingleImage:(UIImage *)image
+                 Success:(void (^)(id response))success
+                 failure:(void (^)(NSError *error))failure;
 
 
 @end

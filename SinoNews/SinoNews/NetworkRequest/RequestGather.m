@@ -30,4 +30,26 @@
     
 }
 
+//上传单张图片
++(void)uploadSingleImage:(UIImage *)image
+                 Success:(void (^)(id response))success
+                 failure:(void (^)(NSError *error))failure
+{
+    [HttpRequest uploadFileImage:FileUpload parameters:@{} uploadImage:image success:^(id response){
+        LRToast(@"上传图片成功");
+        if (success) {
+            success(response);
+        }
+        
+    } failure:nil RefreshAction:nil];
+}
+
+
+
+
+
+
+
+
+
 @end

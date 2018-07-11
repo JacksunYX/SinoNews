@@ -47,6 +47,28 @@
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
 		4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */; };
 		4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C21C17620EE2AEC0054F7AE /* Area.plist */; };
+		4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3A620F591E300ACE380 /* UIFont+LMText.m */; };
+		4C23B3AB20F591E400ACE380 /* NSTextAttachment+LMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3A920F591E400ACE380 /* NSTextAttachment+LMText.m */; };
+		4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3AC20F5924600ACE380 /* LMImageSettingsController.m */; };
+		4C23B3B820F5924800ACE380 /* LMWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3AF20F5924600ACE380 /* LMWordViewController.m */; };
+		4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3B120F5924700ACE380 /* LMStyleSettingsController.m */; };
+		4C23B3BA20F5924800ACE380 /* LMWord.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C23B3B320F5924700ACE380 /* LMWord.storyboard */; };
+		4C23B3BB20F5924800ACE380 /* LMWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3B420F5924700ACE380 /* LMWordView.m */; };
+		4C23B3BC20F5924800ACE380 /* LMImagePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3B620F5924800ACE380 /* LMImagePreviewController.m */; };
+		4C23B3C520F592AB00ACE380 /* LMTextHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3C020F592AA00ACE380 /* LMTextHTMLParser.m */; };
+		4C23B3C620F592AB00ACE380 /* LMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3C220F592AA00ACE380 /* LMSegmentedControl.m */; };
+		4C23B3C720F592AB00ACE380 /* LMColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3C320F592AA00ACE380 /* LMColorPickerView.m */; };
+		4C23B3C820F592AB00ACE380 /* LMFontSizePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3C420F592AB00ACE380 /* LMFontSizePickerView.m */; };
+		4C23B3D620F5935800ACE380 /* LMStyleFontStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3C920F5935500ACE380 /* LMStyleFontStyleCell.m */; };
+		4C23B3D720F5935800ACE380 /* LMStyleColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3CA20F5935500ACE380 /* LMStyleColorCell.m */; };
+		4C23B3D820F5935800ACE380 /* LMPhotoCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3CE20F5935600ACE380 /* LMPhotoCollectionCell.m */; };
+		4C23B3D920F5935800ACE380 /* LMStyleFormatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3D320F5935700ACE380 /* LMStyleFormatCell.m */; };
+		4C23B3DA20F5935800ACE380 /* LMStyleParagraphCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3D420F5935700ACE380 /* LMStyleParagraphCell.m */; };
+		4C23B3DB20F5935800ACE380 /* LMStyleFontSizeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3D520F5935700ACE380 /* LMStyleFontSizeCell.m */; };
+		4C23B3E020F5938000ACE380 /* LMParagraphConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3DC20F5937E00ACE380 /* LMParagraphConfig.m */; };
+		4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3DE20F5937F00ACE380 /* LMTextStyle.m */; };
+		4C23B47720F5ED2700ACE380 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B47620F5ED2700ACE380 /* Test.swift */; };
+		4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B50C20F5F82C00ACE380 /* test2.swift */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
@@ -303,6 +325,49 @@
 		4C21C17120EDBAFA0054F7AE /* UserAttentionOrFansVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAttentionOrFansVC.h; sourceTree = "<group>"; };
 		4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserAttentionOrFansVC.m; sourceTree = "<group>"; };
 		4C21C17620EE2AEC0054F7AE /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
+		4C23B3A620F591E300ACE380 /* UIFont+LMText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+LMText.m"; sourceTree = "<group>"; };
+		4C23B3A720F591E400ACE380 /* UIFont+LMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+LMText.h"; sourceTree = "<group>"; };
+		4C23B3A820F591E400ACE380 /* NSTextAttachment+LMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextAttachment+LMText.h"; sourceTree = "<group>"; };
+		4C23B3A920F591E400ACE380 /* NSTextAttachment+LMText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextAttachment+LMText.m"; sourceTree = "<group>"; };
+		4C23B3AC20F5924600ACE380 /* LMImageSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMImageSettingsController.m; sourceTree = "<group>"; };
+		4C23B3AD20F5924600ACE380 /* LMStyleSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleSettingsController.h; sourceTree = "<group>"; };
+		4C23B3AE20F5924600ACE380 /* LMWordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMWordView.h; sourceTree = "<group>"; };
+		4C23B3AF20F5924600ACE380 /* LMWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMWordViewController.m; sourceTree = "<group>"; };
+		4C23B3B020F5924700ACE380 /* LMWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMWordViewController.h; sourceTree = "<group>"; };
+		4C23B3B120F5924700ACE380 /* LMStyleSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMStyleSettingsController.m; sourceTree = "<group>"; };
+		4C23B3B220F5924700ACE380 /* LMImagePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMImagePreviewController.h; sourceTree = "<group>"; };
+		4C23B3B320F5924700ACE380 /* LMWord.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LMWord.storyboard; sourceTree = "<group>"; };
+		4C23B3B420F5924700ACE380 /* LMWordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMWordView.m; sourceTree = "<group>"; };
+		4C23B3B520F5924800ACE380 /* LMImageSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMImageSettingsController.h; sourceTree = "<group>"; };
+		4C23B3B620F5924800ACE380 /* LMImagePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMImagePreviewController.m; sourceTree = "<group>"; };
+		4C23B3BD20F592A900ACE380 /* LMFontSizePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFontSizePickerView.h; sourceTree = "<group>"; };
+		4C23B3BE20F592A900ACE380 /* LMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMSegmentedControl.h; sourceTree = "<group>"; };
+		4C23B3BF20F592AA00ACE380 /* LMTextHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextHTMLParser.h; sourceTree = "<group>"; };
+		4C23B3C020F592AA00ACE380 /* LMTextHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextHTMLParser.m; sourceTree = "<group>"; };
+		4C23B3C120F592AA00ACE380 /* LMColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMColorPickerView.h; sourceTree = "<group>"; };
+		4C23B3C220F592AA00ACE380 /* LMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMSegmentedControl.m; sourceTree = "<group>"; };
+		4C23B3C320F592AA00ACE380 /* LMColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMColorPickerView.m; sourceTree = "<group>"; };
+		4C23B3C420F592AB00ACE380 /* LMFontSizePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMFontSizePickerView.m; sourceTree = "<group>"; };
+		4C23B3C920F5935500ACE380 /* LMStyleFontStyleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMStyleFontStyleCell.m; sourceTree = "<group>"; };
+		4C23B3CA20F5935500ACE380 /* LMStyleColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMStyleColorCell.m; sourceTree = "<group>"; };
+		4C23B3CB20F5935600ACE380 /* LMStyleParagraphCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleParagraphCell.h; sourceTree = "<group>"; };
+		4C23B3CC20F5935600ACE380 /* LMPhotoCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMPhotoCollectionCell.h; sourceTree = "<group>"; };
+		4C23B3CD20F5935600ACE380 /* LMStyleFontSizeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleFontSizeCell.h; sourceTree = "<group>"; };
+		4C23B3CE20F5935600ACE380 /* LMPhotoCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMPhotoCollectionCell.m; sourceTree = "<group>"; };
+		4C23B3CF20F5935600ACE380 /* LMStyleSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleSettings.h; sourceTree = "<group>"; };
+		4C23B3D020F5935700ACE380 /* LMStyleFontStyleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleFontStyleCell.h; sourceTree = "<group>"; };
+		4C23B3D120F5935700ACE380 /* LMStyleColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleColorCell.h; sourceTree = "<group>"; };
+		4C23B3D220F5935700ACE380 /* LMStyleFormatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMStyleFormatCell.h; sourceTree = "<group>"; };
+		4C23B3D320F5935700ACE380 /* LMStyleFormatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMStyleFormatCell.m; sourceTree = "<group>"; };
+		4C23B3D420F5935700ACE380 /* LMStyleParagraphCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMStyleParagraphCell.m; sourceTree = "<group>"; };
+		4C23B3D520F5935700ACE380 /* LMStyleFontSizeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMStyleFontSizeCell.m; sourceTree = "<group>"; };
+		4C23B3DC20F5937E00ACE380 /* LMParagraphConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMParagraphConfig.m; sourceTree = "<group>"; };
+		4C23B3DD20F5937F00ACE380 /* LMTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextStyle.h; sourceTree = "<group>"; };
+		4C23B3DE20F5937F00ACE380 /* LMTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextStyle.m; sourceTree = "<group>"; };
+		4C23B3DF20F5937F00ACE380 /* LMParagraphConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMParagraphConfig.h; sourceTree = "<group>"; };
+		4C23B47520F5ED2600ACE380 /* SinoNews-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SinoNews-Bridging-Header.h"; sourceTree = "<group>"; };
+		4C23B47620F5ED2700ACE380 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		4C23B50C20F5F82C00ACE380 /* test2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test2.swift; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
@@ -746,6 +811,101 @@
 			path = LoginAbout;
 			sourceTree = "<group>";
 		};
+		4C23B39F20F5914600ACE380 /* ArticleEditor */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3A120F5919000ACE380 /* Categories */,
+				4C23B3A020F5918800ACE380 /* LMWordView */,
+			);
+			path = ArticleEditor;
+			sourceTree = "<group>";
+		};
+		4C23B3A020F5918800ACE380 /* LMWordView */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3A220F591B200ACE380 /* Views */,
+				4C23B3A520F591C300ACE380 /* Util */,
+				4C23B3A420F591BF00ACE380 /* Cells */,
+				4C23B3A320F591B800ACE380 /* Models */,
+			);
+			path = LMWordView;
+			sourceTree = "<group>";
+		};
+		4C23B3A120F5919000ACE380 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3A820F591E400ACE380 /* NSTextAttachment+LMText.h */,
+				4C23B3A920F591E400ACE380 /* NSTextAttachment+LMText.m */,
+				4C23B3A720F591E400ACE380 /* UIFont+LMText.h */,
+				4C23B3A620F591E300ACE380 /* UIFont+LMText.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		4C23B3A220F591B200ACE380 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3B220F5924700ACE380 /* LMImagePreviewController.h */,
+				4C23B3B620F5924800ACE380 /* LMImagePreviewController.m */,
+				4C23B3B520F5924800ACE380 /* LMImageSettingsController.h */,
+				4C23B3AC20F5924600ACE380 /* LMImageSettingsController.m */,
+				4C23B3AD20F5924600ACE380 /* LMStyleSettingsController.h */,
+				4C23B3B120F5924700ACE380 /* LMStyleSettingsController.m */,
+				4C23B3B320F5924700ACE380 /* LMWord.storyboard */,
+				4C23B3AE20F5924600ACE380 /* LMWordView.h */,
+				4C23B3B420F5924700ACE380 /* LMWordView.m */,
+				4C23B3B020F5924700ACE380 /* LMWordViewController.h */,
+				4C23B3AF20F5924600ACE380 /* LMWordViewController.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4C23B3A320F591B800ACE380 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3DF20F5937F00ACE380 /* LMParagraphConfig.h */,
+				4C23B3DC20F5937E00ACE380 /* LMParagraphConfig.m */,
+				4C23B3DD20F5937F00ACE380 /* LMTextStyle.h */,
+				4C23B3DE20F5937F00ACE380 /* LMTextStyle.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4C23B3A420F591BF00ACE380 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3CC20F5935600ACE380 /* LMPhotoCollectionCell.h */,
+				4C23B3CE20F5935600ACE380 /* LMPhotoCollectionCell.m */,
+				4C23B3D120F5935700ACE380 /* LMStyleColorCell.h */,
+				4C23B3CA20F5935500ACE380 /* LMStyleColorCell.m */,
+				4C23B3CD20F5935600ACE380 /* LMStyleFontSizeCell.h */,
+				4C23B3D520F5935700ACE380 /* LMStyleFontSizeCell.m */,
+				4C23B3D020F5935700ACE380 /* LMStyleFontStyleCell.h */,
+				4C23B3C920F5935500ACE380 /* LMStyleFontStyleCell.m */,
+				4C23B3D220F5935700ACE380 /* LMStyleFormatCell.h */,
+				4C23B3D320F5935700ACE380 /* LMStyleFormatCell.m */,
+				4C23B3CB20F5935600ACE380 /* LMStyleParagraphCell.h */,
+				4C23B3D420F5935700ACE380 /* LMStyleParagraphCell.m */,
+				4C23B3CF20F5935600ACE380 /* LMStyleSettings.h */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4C23B3A520F591C300ACE380 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B3C120F592AA00ACE380 /* LMColorPickerView.h */,
+				4C23B3C320F592AA00ACE380 /* LMColorPickerView.m */,
+				4C23B3BD20F592A900ACE380 /* LMFontSizePickerView.h */,
+				4C23B3C420F592AB00ACE380 /* LMFontSizePickerView.m */,
+				4C23B3BE20F592A900ACE380 /* LMSegmentedControl.h */,
+				4C23B3C220F592AA00ACE380 /* LMSegmentedControl.m */,
+				4C23B3BF20F592AA00ACE380 /* LMTextHTMLParser.h */,
+				4C23B3C020F592AA00ACE380 /* LMTextHTMLParser.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		4C3D111C20D8F01500480E03 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1092,6 +1252,9 @@
 			isa = PBXGroup;
 			children = (
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
+				4C23B47620F5ED2700ACE380 /* Test.swift */,
+				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C23B39F20F5914600ACE380 /* ArticleEditor */,
 				4CCCF01120E9EE19000EC6BD /* CLInputToolbar */,
 				4C17B49B20E250C900470AEB /* IFMShare */,
 				4C95FFE420DE4C7A0040E348 /* WSDatePickerView */,
@@ -1104,6 +1267,7 @@
 				4C8735E920BE8CC700B6A8B5 /* XLChannelControl */,
 				4C3F904020BD40D7003EC4FC /* NewPagedFlowView */,
 				4C3F902020BD1CD6003EC4FC /* MLMSegmentPageView */,
+				4C23B47520F5ED2600ACE380 /* SinoNews-Bridging-Header.h */,
 			);
 			path = otherframework;
 			sourceTree = "<group>";
@@ -1613,6 +1777,7 @@
 				TargetAttributes = {
 					4C3F8F9B20BCD893003EC4FC = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 0940;
 					};
 					4C3F8FB320BCD895003EC4FC = {
 						CreatedOnToolsVersion = 9.3.1;
@@ -1654,6 +1819,7 @@
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
+				4C23B3BA20F5924800ACE380 /* LMWord.storyboard in Resources */,
 				4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
@@ -1781,7 +1947,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C17413320C4D1C600AA6D57 /* StoreChildViewController.m in Sources */,
+				4C23B3D920F5935800ACE380 /* LMStyleFormatCell.m in Sources */,
 				4C54949920CE2E4600CB448E /* RecommendFirstCell.m in Sources */,
+				4C23B3BB20F5924800ACE380 /* LMWordView.m in Sources */,
 				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C17414720C5168600AA6D57 /* TXLimitedTextField.m in Sources */,
 				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
@@ -1816,6 +1984,9 @@
 				4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
+				4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */,
+				4C23B3C820F592AB00ACE380 /* LMFontSizePickerView.m in Sources */,
+				4C23B3D820F5935800ACE380 /* LMPhotoCollectionCell.m in Sources */,
 				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
 				4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */,
@@ -1827,6 +1998,7 @@
 				4C534F2420E1C37E00754695 /* UserInfoViewController.m in Sources */,
 				4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */,
 				4C93497F20CF953400BD8F07 /* MessageNotifyViewController.m in Sources */,
+				4C23B3DA20F5935800ACE380 /* LMStyleParagraphCell.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
@@ -1838,11 +2010,14 @@
 				4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */,
 				4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
+				4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */,
 				4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
+				4C23B3D720F5935800ACE380 /* LMStyleColorCell.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
+				4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */,
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,
 				4C646C6B20F343E30053067A /* OfficialNotifyViewController.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
@@ -1850,12 +2025,14 @@
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
+				4C23B3C520F592AB00ACE380 /* LMTextHTMLParser.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
+				4C23B3DB20F5935800ACE380 /* LMStyleFontSizeCell.m in Sources */,
 				4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */,
 				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
@@ -1864,9 +2041,11 @@
 				4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
+				4C23B3C620F592AB00ACE380 /* LMSegmentedControl.m in Sources */,
 				4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
+				4C23B47720F5ED2700ACE380 /* Test.swift in Sources */,
 				4C95FFDA20DDEEC80040E348 /* LQXSwitch.m in Sources */,
 				4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */,
 				4C534F2720E1C6E800754695 /* NSString+AttText.m in Sources */,
@@ -1884,6 +2063,7 @@
 				4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */,
 				4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
+				4C23B3AB20F591E400ACE380 /* NSTextAttachment+LMText.m in Sources */,
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C1551DF20E633720030670F /* IntegralModel.m in Sources */,
@@ -1896,6 +2076,7 @@
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */,
+				4C23B3C720F592AB00ACE380 /* LMColorPickerView.m in Sources */,
 				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,
 				4C6332D320E0985C00D80056 /* AddressModel.m in Sources */,
@@ -1908,6 +2089,7 @@
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
+				4C23B3B820F5924800ACE380 /* LMWordViewController.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */,
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
@@ -1922,10 +2104,12 @@
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
+				4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */,
 				4C1F0AE120ECA02A00C3A2E7 /* RecommendUserModel.m in Sources */,
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
+				4C23B3BC20F5924800ACE380 /* LMImagePreviewController.m in Sources */,
 				4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */,
 				4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
@@ -1934,6 +2118,7 @@
 				4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
+				4C23B3D620F5935800ACE380 /* LMStyleFontStyleCell.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,
 				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,
 				4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */,
@@ -1948,9 +2133,11 @@
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
+				4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */,
 				4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */,
 				4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
+				4C23B3E020F5938000ACE380 /* LMParagraphConfig.m in Sources */,
 				4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */,
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,
@@ -2126,8 +2313,10 @@
 			baseConfigurationReference = C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 95VLMCLGVQ;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2141,6 +2330,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sino.SinoNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2150,8 +2342,10 @@
 			baseConfigurationReference = 1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 95VLMCLGVQ;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2165,6 +2359,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sino.SinoNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2173,6 +2369,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3E31EC7E2B3BA1E8939B8FC /* Pods-SinoNewsTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsTests/Info.plist;
@@ -2192,6 +2389,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsTests/Info.plist;
@@ -2211,6 +2409,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2229,6 +2428,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

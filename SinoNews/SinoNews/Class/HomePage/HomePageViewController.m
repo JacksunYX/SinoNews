@@ -223,7 +223,8 @@
             self.titleList = [inUseTitles mutableCopy];
             [self reloadChildVCWithTitles:self.titleList];
             self.leaveTitleList = [unUseTitles mutableCopy];
-            [self requestUserAttentionChannels];
+            //目前不需要设置用户的频道了
+//            [self requestUserAttentionChannels];
             [self saveColumnArr];
         }
 

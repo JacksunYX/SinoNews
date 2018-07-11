@@ -41,7 +41,8 @@
 #define User_editPassword   @"/api/user/editPassword"
 
 
-
+//添加文章(发布文章)(post)
+#define News_create         @"/api/news/create"
 
 
 

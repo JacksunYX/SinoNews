@@ -17,4 +17,7 @@ typedef void (^ZZYPhotoHelperBlock) (id data);
 
 - (void)showImageViewSelcteWithResultBlock:(ZZYPhotoHelperBlock)selectImageBlock;
 
+//直接进入相册
+- (void)getPhotoWithResultBlock:(ZZYPhotoHelperBlock)selectImageBlock;
+
 @end

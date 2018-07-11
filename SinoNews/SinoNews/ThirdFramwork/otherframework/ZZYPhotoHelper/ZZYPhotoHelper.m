@@ -48,6 +48,12 @@ static ZZYPhotoHelper *picker = nil;
     [alertController addAction:carmare];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
+
+//直接进入相册
+- (void)getPhotoWithResultBlock:(ZZYPhotoHelperBlock)selectImageBlock
+{
+    [self creatWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary block:selectImageBlock];
+}
   
 
 

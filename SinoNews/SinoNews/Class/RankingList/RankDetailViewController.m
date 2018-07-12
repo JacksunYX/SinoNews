@@ -725,7 +725,7 @@
     sendCommentBtn.layer.borderWidth = 1;
     sendCommentBtn.layer.borderColor = RGBA(255, 196, 31, 1).CGColor;
     [sendCommentBtn setTitle:@"发评论" forState:UIControlStateNormal];
-    [sendCommentBtn addBottonTextColorTheme];
+    [sendCommentBtn addButtonTextColorTheme];
     
     collectBtn.sd_layout
     .rightSpaceToView(sendCommentBtn, 12)
@@ -745,7 +745,7 @@
         collectImg = UIImageNamed(@"game_unCollect");
     }
     [collectBtn setImage:collectImg forState:UIControlStateNormal];
-    [collectBtn addBottonTextColorTheme];
+    [collectBtn addButtonTextColorTheme];
     
     webserveBtn.sd_layout
     .leftSpaceToView(sendCommentBtn, 12)
@@ -757,7 +757,7 @@
     webserveBtn.layer.borderWidth = 1;
     webserveBtn.layer.borderColor = RGBA(236, 105, 65, 1).CGColor;
     [webserveBtn setTitle:@"官网" forState:UIControlStateNormal];
-    [webserveBtn addBottonTextColorTheme];
+    [webserveBtn addButtonTextColorTheme];
     
     [sendCommentBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
     [collectBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];

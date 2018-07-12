@@ -83,7 +83,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"赞";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTableView];
 }
 
@@ -103,7 +103,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -134,6 +134,7 @@
 {
     PraiseTableViewCell *cell = (PraiseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PraiseTableViewCellID];
     cell.model = self.dataSource[indexPath.row];
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

@@ -42,6 +42,7 @@
 {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self addBakcgroundColorTheme];
         [self setUI];
     }
     return self;
@@ -53,6 +54,7 @@
     
     username    = [UILabel new];
     username.font = PFFontL(16);
+    [username addTitleColorTheme];
     
     creatTime   = [UILabel new];
     creatTime.font = PFFontL(11);
@@ -60,6 +62,7 @@
     
     newTitle    = [UILabel new];
     newTitle.font = PFFontL(15);
+    [newTitle addTitleColorTheme];
     
     popView = [UIImageView new];
     

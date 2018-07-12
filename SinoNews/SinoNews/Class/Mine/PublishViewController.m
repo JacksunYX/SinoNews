@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
+    
     [self setUI];
 }
 
@@ -30,7 +30,8 @@
 {
     UIButton *firstBtn = [UIButton new];
     [firstBtn setBtnFont:PFFontL(18)];
-    [firstBtn setNormalTitleColor:RGBA(50, 50, 50, 1)];
+//    [firstBtn setNormalTitleColor:RGBA(50, 50, 50, 1)];
+    [firstBtn addButtonTextColorTheme];
     [firstBtn setNormalTitle:@"发布文章"];
     [firstBtn setNormalImage:UIImageNamed(@"publish_article")];
     [firstBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:35];
@@ -43,7 +44,8 @@
     
     UIButton *secondBtn = [UIButton new];
     [secondBtn setBtnFont:PFFontL(18)];
-    [secondBtn setNormalTitleColor:RGBA(50, 50, 50, 1)];
+    [secondBtn addButtonTextColorTheme];
+//    [secondBtn setNormalTitleColor:RGBA(50, 50, 50, 1)];
     [secondBtn setNormalTitle:@"发布问答"];
     [secondBtn setNormalImage:UIImageNamed(@"publish_answer")];
     [secondBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:35];

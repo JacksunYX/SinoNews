@@ -46,7 +46,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:[UserInfoCommentCell class] forCellReuseIdentifier:UserInfoCommentCellID];
@@ -111,7 +111,7 @@
 //        }
         
     };
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

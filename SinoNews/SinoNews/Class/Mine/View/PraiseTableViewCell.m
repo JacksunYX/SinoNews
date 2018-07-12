@@ -44,13 +44,16 @@ NSInteger static maxNum = 6;
     comment = [UILabel new];
     comment.font = PFFontL(14);
     comment.textAlignment = NSTextAlignmentRight;
+    [comment addContentColorTheme];
     
     title = [UILabel new];
     title.font = PFFontL(15);
+    [title addTitleColorTheme];
     
     time = [UILabel new];
     time.font = PFFontL(11);
-    time.textColor = RGBA(152, 152, 152, 1);
+//    time.textColor = RGBA(152, 152, 152, 1);
+    [title addContentColorTheme];
     
     iconView = [UIView new];
     

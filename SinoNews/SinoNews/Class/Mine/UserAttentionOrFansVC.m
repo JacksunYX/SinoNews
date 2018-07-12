@@ -33,7 +33,7 @@
     }else{
         self.navigationItem.title = @"他的粉丝";
     }
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTableview];
 }
 
@@ -52,7 +52,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -117,7 +117,7 @@
         @strongify(self)
         [self requestIsAttentionWithFansModel:model];
     };
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

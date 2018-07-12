@@ -52,7 +52,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的关注";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addViews];
     
 }
@@ -81,7 +81,7 @@
 {
 
     UIView *topView = [UIView new];
-    topView.backgroundColor = WhiteColor;
+    [topView addBakcgroundColorTheme];
     [self.view addSubview:topView];
     
     topView.sd_layout
@@ -93,6 +93,7 @@
     
     UILabel *addAttention = [UILabel new];
     addAttention.font = PFFontL(16);
+    [addAttention addTitleColorTheme];
     [topView addSubview:addAttention];
     addAttention.sd_layout
     .leftSpaceToView(topView, 10)
@@ -116,7 +117,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -171,7 +172,7 @@
         MyAttentionThirdCell *cell2 = (MyAttentionThirdCell *)[tableView dequeueReusableCellWithIdentifier:MyAttentionThirdCellID];
         cell = (UITableViewCell *)cell2;
     }
-
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -194,14 +195,16 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-
-    return 39;
+    if (section == 0&&self.attentionArr.count) {
+        return 39;
+    }
+    return 0;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = [UIView new];
-    headView.backgroundColor = WhiteColor;
+    [headView addBakcgroundColorTheme];
     
     if ((section == 0&&self.attentionArr.count>0)||(section == 1&&self.topicArr.count>0)||(section == 2&&self.channelArr.count>0)) {
         UIView *line = [UIView new];
@@ -221,6 +224,7 @@
         
         UILabel *title = [UILabel new];
         title.font = PFFontL(16);
+        [title addTitleColorTheme];
         
         [headView addSubview:title];
         title.sd_layout

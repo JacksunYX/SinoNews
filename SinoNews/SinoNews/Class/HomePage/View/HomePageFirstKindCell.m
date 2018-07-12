@@ -36,7 +36,7 @@
 //        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UIView *selectView = [UIView new];
-        selectView.backgroundColor = WhiteColor;
+        selectView.backgroundColor = ClearColor;
         self.selectedBackgroundView = selectView;
         [self setupUI];
     }

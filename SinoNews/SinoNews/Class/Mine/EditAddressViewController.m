@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"编辑地址";
-    self.view.backgroundColor = WhiteColor;
+    
     [self setUI];
 }
 
@@ -80,7 +80,22 @@
     .rightSpaceToView(view0, 10)
     .bottomEqualToView(view0)
     ;
-    receiver.placeholder = @"收件人姓名";
+//    receiver.placeholder = @"收件人姓名";
+    receiver.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        NSDictionary *dic;
+        if (UserGetBool(@"NightMode")) {
+            dic = @{
+                    NSForegroundColorAttributeName : WhiteColor,
+                    };
+        }else{
+            dic = @{
+                    NSForegroundColorAttributeName : GrayColor,
+                    };
+        }
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:@"收件人姓名" attributes:dic];
+        [(TXLimitedTextField *)item setAttributedPlaceholder:att];
+    });
+    
     
     [view1 addSubview:phoneNum];
     phoneNum.sd_layout
@@ -89,7 +104,21 @@
     .rightSpaceToView(view1, 10)
     .bottomEqualToView(view1)
     ;
-    phoneNum.placeholder = @"手机号";
+//    phoneNum.placeholder = @"手机号";
+    phoneNum.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        NSDictionary *dic;
+        if (UserGetBool(@"NightMode")) {
+            dic = @{
+                    NSForegroundColorAttributeName : WhiteColor,
+                    };
+        }else{
+            dic = @{
+                    NSForegroundColorAttributeName : GrayColor,
+                    };
+        }
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:@"手机号" attributes:dic];
+        [(TXLimitedTextField *)item setAttributedPlaceholder:att];
+    });
     
     UILabel *leftCity = [self getLabel];
     [view2 addSubview:leftCity];
@@ -159,7 +188,7 @@
         space = 45 * num;
     }
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, space, ScreenW, height)];
-    view.backgroundColor = WhiteColor;
+    [view addBakcgroundColorTheme];
     [view addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     return view;
 }

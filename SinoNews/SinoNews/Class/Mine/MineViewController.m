@@ -116,7 +116,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
+    
     self.navigationController.navigationBar.hidden = YES;
     [self addViews];
     [self requestBottomBanner];
@@ -163,7 +163,7 @@
     adLayout.itemSize = CGSizeMake(itemW, itemH);
     adLayout.minimumLineSpacing = 5;
     self.adCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:adLayout];
-    self.adCollectionView.backgroundColor = WhiteColor;
+    [self.adCollectionView addBakcgroundColorTheme];
     [self.view addSubview:self.adCollectionView];
     [self.adCollectionView activateConstraints:^{
         self.adCollectionView.bottom_attr = self.view.bottom_attr_safe;
@@ -188,7 +188,14 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.adCollectionView.top_attr;
     }];
-    self.tableView.backgroundColor = RGBA(196, 222, 247, 1);
+    
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(BaseTableView *)item setBackgroundColor:value];
+        }else{
+            [(BaseTableView *)item setBackgroundColor:RGBA(196, 222, 247, 1)];
+        }
+    });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -207,11 +214,13 @@
     
     _userName = [UILabel new];
     _userName.font = PFFontL(18);
-    _userName.textColor = RGBA(72, 72, 72, 1);
+//    _userName.textColor = RGBA(72, 72, 72, 1);
+    [_userName addTitleColorTheme];
     
     _integral = [UILabel new];
     _integral.font = PFFontL(14);
-    _integral.textColor = RGBA(50, 50, 50, 1);
+//    _integral.textColor = RGBA(50, 50, 50, 1);
+    [_integral addContentColorTheme];
     
     _signIn = [UIButton new];
     
@@ -270,10 +279,18 @@
     .heightIs(26)
     .widthIs(113 * ScaleW)
     ;
-    _signIn.backgroundColor = RGBA(178, 217, 249, 1);
+//    _signIn.backgroundColor = RGBA(178, 217, 249, 1);
+    _signIn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIButton *)item setBackgroundColor:HexColor(#0E2643)];
+        }else{
+            [(UIButton *)item setBackgroundColor:RGBA(178, 217, 249, 1)];
+        }
+    });
     [_signIn setTitle:@"签到领金币" forState:UIControlStateNormal];
     _signIn.titleLabel.font = FontScale(13);
-    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+//    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    [_signIn addButtonTextColorTheme];
     [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
     _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
     [self cutCornerradiusWithView:_signIn];
@@ -292,7 +309,16 @@
     .widthIs(ScreenW/4)
     ;
     [_publish updateLayout];
-    [_publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+    
+    _publish.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        if (UserGetBool(@"NightMode")) {
+            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+        }else{
+            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+        }
+    });
+    
     
     [_publish whenTap:^{
         @strongify(self)
@@ -307,7 +333,14 @@
     .widthIs(ScreenW/4)
     ;
     [_attention updateLayout];
-    [_attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+    _attention.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        if (UserGetBool(@"NightMode")) {
+            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+        }else{
+            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+        }
+    });
     
     [_attention whenTap:^{
         @strongify(self)
@@ -322,7 +355,14 @@
     .widthIs(ScreenW/4)
     ;
     [_fans updateLayout];
-    [_fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+    _fans.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        if (UserGetBool(@"NightMode")) {
+            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+        }else{
+            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+        }
+    });
     
     [_fans whenTap:^{
         @strongify(self)
@@ -419,7 +459,8 @@
 -(UILabel *)getLabel
 {
     UILabel *label = [UILabel new];
-    label.textColor = RGBA(50, 50, 50, 1);
+//    label.textColor = RGBA(50, 50, 50, 1);
+    [label addTitleColorTheme];
     label.font = PFFontL(16);
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
@@ -494,7 +535,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
         cell.textLabel.font = PFFontL(14);
-        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+        [cell.textLabel addTitleColorTheme];
         cell.detailTextLabel.font = PFFontL(14);
         cell.detailTextLabel.textColor = RGBA(188, 188, 188, 1);
         cell.accessoryType = 1;
@@ -509,6 +550,8 @@
     cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
     
     cell.imageView.image = UIImageNamed(GetSaveString(model[@"img"]));
+    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

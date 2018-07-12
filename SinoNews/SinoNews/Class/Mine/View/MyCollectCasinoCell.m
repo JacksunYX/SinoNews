@@ -31,7 +31,7 @@
 {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         UIView *backView = [UIView new];
-        backView.backgroundColor = WhiteColor;
+        backView.backgroundColor = ClearColor;
         self.selectedBackgroundView = backView;
         [self setUI];
     }
@@ -46,10 +46,12 @@
     
     title = [UILabel new];
     title.font = PFFontR(16);
+    [title addTitleColorTheme];
     
     introduce = [UILabel new];
     introduce.font = PFFontL(15);
-    introduce.textColor = RGBA(105, 105, 105, 1);
+//    introduce.textColor = RGBA(105, 105, 105, 1);
+    [introduce addContentColorTheme];
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[

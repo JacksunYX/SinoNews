@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"消息";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTopViews];
 }
 
@@ -66,7 +66,8 @@
         
         UIButton *btn = [UIButton new];
         btn.titleLabel.font = PFFontL(15);
-        [btn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+        [btn addButtonTextColorTheme];
+        
         [backView addSubview:btn];
         btn.sd_layout
         .centerYEqualToView(backView)

@@ -48,14 +48,17 @@
     
     name = [UILabel new];
     name.font = PFFontL(16);
+    [name addTitleColorTheme];
     
     time = [UILabel new];
     time.font = PFFontL(11);
-    time.textColor = RGBA(152, 152, 152, 1);
+//    time.textColor = RGBA(152, 152, 152, 1);
+    [time addContentColorTheme];
     time.textAlignment = NSTextAlignmentRight;
     
     UILabel *attention = [UILabel new];
     attention.font = PFFontL(16);
+    [attention addContentColorTheme];
     
     UIView *fatherView = self.contentView;
     

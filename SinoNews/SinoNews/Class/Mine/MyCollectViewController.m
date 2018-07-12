@@ -79,7 +79,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的收藏";
-    self.view.backgroundColor = WhiteColor;
+    
     [self getButtonAndView];
     [self setTitleView];
     [self addTableViews];
@@ -129,7 +129,7 @@
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.bottomView, 0)
     ;
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -369,18 +369,18 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (selectedIndex == 1) {
+    if (selectedIndex == 0){
+        MyCollectCasinoCell *cell1 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
+        cell1.model = self.casinoArray[indexPath.row];
+        cell = (MyCollectCasinoCell *)cell1;
+    }else if (selectedIndex == 1) {
         HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         
         cell1.model = self.articleArray[indexPath.row];
         cell = (UITableViewCell *)cell1;
         
-    }else if (selectedIndex == 0){
-        MyCollectCasinoCell *cell1 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
-        cell1.model = self.casinoArray[indexPath.row];
-        cell = (MyCollectCasinoCell *)cell1;
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

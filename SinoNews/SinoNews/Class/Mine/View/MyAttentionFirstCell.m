@@ -52,10 +52,12 @@
     
     title = [UILabel new];
     title.font = PFFontL(16);
+    [title addTitleColorTheme];
     
     subTitle = [UILabel new];
     subTitle.font = PFFontL(12);
     subTitle.textColor = HexColor(#888888);
+    [subTitle addContentColorTheme];
     
     [self.contentView sd_addSubviews:@[
                               img,

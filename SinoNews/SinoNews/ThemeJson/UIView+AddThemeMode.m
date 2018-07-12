@@ -29,7 +29,7 @@
 }
 
 //添加按钮label字体颜色主题
--(void)addBottonTextColorTheme
+-(void)addButtonTextColorTheme
 {
     self.lee_theme.LeeConfigButtonTitleColor(@"titleColor", UIControlStateNormal);
 }

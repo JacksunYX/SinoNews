@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"管理收货地址";
-    self.view.backgroundColor = WhiteColor;
+    
     [self configUI];
     [self showOrHiddenTheAddBtn:YES];
 }
@@ -70,7 +70,7 @@
     self.addAddress.layer.shadowPath = shadowPath.CGPath;
     
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -114,7 +114,7 @@
 {
     AddressTableViewCell *cell = (AddressTableViewCell *)[tableView dequeueReusableCellWithIdentifier:AddressTableViewCellID];
     cell.model = self.dataArray[indexPath.row];
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

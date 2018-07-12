@@ -78,7 +78,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
+    
     self.navigationItem.title = @"天天签到";
     
     [self requestSignIn];
@@ -100,7 +100,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:[StoreChildCell class] forCellReuseIdentifier:StoreChildCellID];
@@ -113,16 +113,16 @@
 {
     if (!self.headView) {
         self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 433)];
-        self.headView.backgroundColor = WhiteColor;
+        [self.headView addBakcgroundColorTheme];
         //最上面的广告
         UIImageView *topADImg = [UIImageView new];
         topADImg.backgroundColor = WhiteColor;
         //中间的用户信息
         UIView *centerView = [UIView new];
-        centerView.backgroundColor = WhiteColor;
+        [centerView addBakcgroundColorTheme];
         //下面的签到视图
         UIView *bottomView = [UIView new];
-        bottomView.backgroundColor = WhiteColor;
+        [bottomView addBakcgroundColorTheme];
         [self.headView sd_addSubviews:@[
                                         topADImg,
                                         centerView,
@@ -160,7 +160,8 @@
         
         UILabel *integral = [UILabel new];
         integral.font = PFFontL(13);
-        integral.textColor = RGBA(50, 50, 50, 1);
+//        integral.textColor = RGBA(50, 50, 50, 1);
+        [integral addTitleColorTheme];
         integral.isAttributedContent = YES;
         
         UILabel *signInDay = [UILabel new];
@@ -169,7 +170,8 @@
         
         UIButton *signInRaw = [UIButton new];
         signInRaw.titleLabel.font = PFFontL(14);
-        [signInRaw setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+//        [signInRaw setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+        [signInRaw addButtonTextColorTheme];
         [[signInRaw rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [SignInRuleWebView showWithData:@{}];
         }];
@@ -226,11 +228,12 @@
         //下面的签到视图
         UILabel *topNotice = [UILabel new];
         topNotice.font = PFFontR(16);
-        topNotice.textColor = RGBA(50, 50, 50, 1);
+//        topNotice.textColor = RGBA(50, 50, 50, 1);
+        [topNotice addTitleColorTheme];
         topNotice.isAttributedContent = YES;
         
         UIView *signInView = [UIView new];
-        signInView.backgroundColor = WhiteColor;
+        [signInView addBakcgroundColorTheme];
         
         UIImageView *bottomIcon = [UIImageView new];
         bottomIcon.contentMode = 4;

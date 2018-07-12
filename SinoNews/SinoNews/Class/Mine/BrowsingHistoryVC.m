@@ -85,7 +85,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"浏览历史";
-    self.view.backgroundColor = WhiteColor;
     
     [self addNavigationView];
     
@@ -125,7 +124,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -169,6 +168,7 @@
     HomePageFirstKindCell *cell = (HomePageFirstKindCell *)[tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
     HomePageModel *model = self.dataSource[indexPath.section][indexPath.row];
     cell.model = model;
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -195,10 +195,18 @@
     UIView *headView;
     if ([self.dataSource[section] count]) {
         headView = [UIView new];
-        headView.backgroundColor = HexColor(#f6f6f6);
+        
+        headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item setBackgroundColor:value];
+            }else{
+                [(UIView *)item setBackgroundColor:HexColor(#f6f6f6)];
+            }
+        });
         UILabel *title = [UILabel new];
         title.font = PFFontL(14);
-
+        [title addTitleColorTheme];
+        
         [headView addSubview:title];
         title.sd_layout
         .leftSpaceToView(headView, 10)

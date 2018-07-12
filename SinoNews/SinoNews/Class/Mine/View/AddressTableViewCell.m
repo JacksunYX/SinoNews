@@ -49,14 +49,17 @@
     
     username = [UILabel new];
     username.font = PFFontL(16);
+    [username addTitleColorTheme];
     
     phoneNum = [UILabel new];
     phoneNum.textAlignment = NSTextAlignmentRight;
     phoneNum.font = PFFontL(16);
+    [phoneNum addTitleColorTheme];
     
     address = [UILabel new];
     address.textColor = RGBA(136, 136, 136, 1);
     address.font = PFFontL(16);
+    [address addContentColorTheme];
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[

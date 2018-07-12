@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
+    
     [self reloadChildVCWithTitles:@[
                                     @"发布",
                                     @"评论管理",
@@ -55,7 +55,7 @@
     if (_segScroll) {
         [_segScroll removeFromSuperview];
     }
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self vcArr:titles.count]];
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - BOTTOM_MARGIN) vcOrViews:[self vcArr:titles.count]];
     _segScroll.countLimit = 0;
     
     WEAK(weakself, self);

@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserInfoViewController : BaseViewController
+@interface UserInfoViewController : UIViewController
 
 @property (nonatomic,assign) NSUInteger userId;
 

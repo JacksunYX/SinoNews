@@ -124,7 +124,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"个人资料";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTableView];
 }
 
@@ -143,7 +143,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -182,9 +182,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
         cell.textLabel.font = PFFontL(16);
-        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+//        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+        [cell addTitleColorTheme];
         cell.detailTextLabel.font = PFFontL(14);
-        cell.detailTextLabel.textColor = RGBA(50, 50, 50, 1);
+//        cell.detailTextLabel.textColor = RGBA(50, 50, 50, 1);
+        [cell.detailTextLabel addContentColorTheme];
         
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
@@ -221,7 +223,7 @@
     }else if (CompareString(title, @"修改密码")){
         cell.detailTextLabel.text = @"设置";
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

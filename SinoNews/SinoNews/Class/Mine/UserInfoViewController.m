@@ -63,7 +63,7 @@
 {
     if (!self.sectionView) {
         self.sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 34)];
-        self.sectionView.backgroundColor = WhiteColor;
+        [self.sectionView addBakcgroundColorTheme];
         
         self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"评论",@"文章"] headStyle:1 layoutStyle:1];
         //    _segHead.fontScale = .85;
@@ -71,7 +71,10 @@
         self.segHead.fontSize = 15;
         self.segHead.lineHeight = 2;
         self.segHead.lineColor = HexColor(#1282EE);
-        self.segHead.selectColor = HexColor(#323232);
+//        self.segHead.selectColor = HexColor(#323232);
+        _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+            [(MLMSegmentHead *)item setSelectColor:value];
+        });
         self.segHead.deSelectColor = HexColor(#989898);
         self.segHead.maxTitles = 2;
         self.segHead.bottomLineHeight = 1;
@@ -83,13 +86,15 @@
             @strongify(self)
             [self.sectionView addSubview:self.segHead];
         }];
+        [_segHead.titlesScroll addBakcgroundColorTheme];
+        
     }
     return self.sectionView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
+    
     self.navigationController.navigationBar.hidden = YES;
     [self addTableView];
     [self addHeadView];
@@ -114,7 +119,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:[UserInfoCommentCell class] forCellReuseIdentifier:UserInfoCommentCellID];
@@ -184,11 +189,13 @@
     
     _userName = [UILabel new];
     _userName.font = PFFontL(18);
-    _userName.textColor = RGBA(72, 72, 72, 1);
+//    _userName.textColor = RGBA(72, 72, 72, 1);
+    [_userName addTitleColorTheme];
     
     _integral = [UILabel new];
     _integral.font = PFFontL(14);
-    _integral.textColor = RGBA(50, 50, 50, 1);
+//    _integral.textColor = RGBA(50, 50, 50, 1);
+    [_integral addTitleColorTheme];
     
     _attentionBtn = [UIButton new];
     
@@ -305,7 +312,14 @@
         @strongify(self)
         [self tapViewWithIndex:0];
     }];
-    [_publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+    _publish.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        if (UserGetBool(@"NightMode")) {
+            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+        }else{
+            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+        }
+    });
     
     _attention.sd_layout
     .topEqualToView(_publish)
@@ -319,7 +333,14 @@
         @strongify(self)
         [self tapViewWithIndex:1];
     }];
-    [_attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+    _attention.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        if (UserGetBool(@"NightMode")) {
+            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+        }else{
+            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+        }
+    });
     
     _fans.sd_layout
     .topEqualToView(_publish)
@@ -333,7 +354,14 @@
         @strongify(self)
         [self tapViewWithIndex:2];
     }];
-    [_fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+    _fans.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        if (UserGetBool(@"NightMode")) {
+            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+        }else{
+            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+        }
+    });
     
     _praise.sd_layout
     .topEqualToView(_publish)
@@ -382,7 +410,8 @@
 -(UILabel *)getLabel
 {
     UILabel *label = [UILabel new];
-    label.textColor = RGBA(50, 50, 50, 1);
+//    label.textColor = RGBA(50, 50, 50, 1);
+    [label addTitleColorTheme];
     label.font = PFFontL(16);
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
@@ -473,6 +502,7 @@
         cell1.model = self.articlesArr[indexPath.row];
         cell = (UITableViewCell *)cell1;
     }
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

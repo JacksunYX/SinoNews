@@ -43,6 +43,7 @@
 {
     fansIcon = [UIImageView new];
     fansName = [UILabel new];
+    [fansName addTitleColorTheme];
     sex = [UIImageView new];
     attentionBtn = [UIButton new];
     

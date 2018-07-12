@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"通知";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTableView];
 }
 
@@ -42,7 +42,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -94,15 +94,18 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:3 reuseIdentifier:@"NotifyCell"];
         cell.textLabel.font = PFFontL(16);
-        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+//        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+        [cell.textLabel addTitleColorTheme];
         cell.detailTextLabel.font = PFFontL(13);
-        cell.detailTextLabel.textColor = RGBA(152, 152, 152, 1);
+//        cell.detailTextLabel.textColor = RGBA(152, 152, 152, 1);
+        [cell.detailTextLabel addContentColorTheme];
         
         UIView *accessView = [[UIView alloc]initWithFrame:CGRectMake(10, 0, 80, 65)];
         UILabel *time = [UILabel new];
         time.tag = 153;
         time.font = PFFontL(11);
-        time.textColor = RGBA(152, 152, 152, 1);
+//        time.textColor = RGBA(152, 152, 152, 1);
+        [time addContentColorTheme];
         time.textAlignment = NSTextAlignmentCenter;
         [accessView addSubview:time];
         time.sd_layout
@@ -120,7 +123,7 @@
         UILabel *time = [cell.accessoryView viewWithTag:153];
         time.text = @"下午 02:33";
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

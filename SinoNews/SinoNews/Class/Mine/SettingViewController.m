@@ -66,7 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"设置";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTableView];
 }
 
@@ -85,7 +85,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -109,10 +109,11 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
         cell.textLabel.font = PFFontL(16);
-        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+//        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
+        [cell.textLabel addTitleColorTheme];
         cell.detailTextLabel.font = PFFontL(14);
-        cell.detailTextLabel.textColor = RGBA(194, 194, 194, 1);
-        
+//        cell.detailTextLabel.textColor = RGBA(194, 194, 194, 1);
+        [cell.detailTextLabel addContentColorTheme];
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
     NSString *title = GetSaveString(model[@"title"]);
@@ -139,7 +140,7 @@
             cell.detailTextLabel.text = @"从不";
         }
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -172,8 +173,10 @@
     if (CompareString(title, @"夜间模式")) {
         if (UserGetBool(@"NightMode")) {
             UserSetBool(NO, @"NightMode")
+            [LEETheme startTheme:@"NormalTheme"];
         }else{
             UserSetBool(YES, @"NightMode")
+            [LEETheme startTheme:@"NightTheme"];
         }
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
     }else if (CompareString(title, @"字体大小")){

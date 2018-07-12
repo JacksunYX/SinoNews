@@ -30,6 +30,7 @@
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) NSInteger currPage;   //页码; //页面(起始为1)
 @property (nonatomic,strong) UIView *titleView;
+@property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIButton *attentionBtn;
 
 @property (nonatomic,strong) UIView *bottomView;
@@ -250,41 +251,8 @@ CGFloat static titleViewHeight = 91;
         [self requestComments];
     }];
     
-    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0]. appendChild(meta);";
+    [self setWebViewLoad];
     
-    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
-    [wkUController addUserScript:wkUScript];
-    
-    // 创建设置对象
-    WKPreferences *preference = [[WKPreferences alloc]init];
-    // 设置字体大小(最小的字体大小)
-//    preference.minimumFontSize = 12;
-    
-    //创建网页配置对象
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-//    config.userContentController = wkUController;
-    //    // 设置偏好设置对象
-    config.preferences = preference;
-    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
-    self.webView.navigationDelegate = self;
-
-    self.webView.scrollView.delegate = self;
-    
-    //KVO监听web的高度变化
-    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
-        @strongify(self)
-//        GGLog(@"x:%@",x);
-        CGFloat newHeight = self.webView.scrollView.contentSize.height;
-        if (newHeight != self->topWebHeight) {
-            self->topWebHeight = newHeight;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, self->topWebHeight);
-            //            GGLog(@"topWebHeight:%lf",topWebHeight);
-            [self.tableView beginUpdates];
-            self.tableView.tableHeaderView = self.webView;
-            [self.tableView endUpdates];
-        }
-    }];
 }
 
 -(void)setTitle
@@ -300,9 +268,9 @@ CGFloat static titleViewHeight = 91;
         .heightIs(titleViewHeight)
         ;
         
-        UILabel *title = [UILabel new];
-        title.font = PFFontR(16);
-        title.numberOfLines = 2;
+        _titleLabel = [UILabel new];
+        _titleLabel.font = PFFontL(16);
+        _titleLabel.numberOfLines = 2;
         
         UIImageView *icon = [UIImageView new];
 //        icon.backgroundColor = Arc4randomColor;
@@ -326,22 +294,22 @@ CGFloat static titleViewHeight = 91;
         _attentionBtn.titleLabel.font = PFFontR(13);
         
         [self.titleView sd_addSubviews:@[
-                                         title,
+                                         _titleLabel,
                                          icon,
                                          authorAndTime,
                                          _attentionBtn,
                                          ]];
-        title.sd_layout
+        _titleLabel.sd_layout
         .leftSpaceToView(self.titleView, 10)
         .rightSpaceToView(self.titleView, 10)
         .topEqualToView(self.titleView)
         .heightIs(50)
         ;
-        title.text = GetSaveString(self.newsModel.newsTitle);
+        _titleLabel.text = GetSaveString(self.newsModel.newsTitle);
         
         icon.sd_layout
-        .leftEqualToView(title)
-        .topSpaceToView(title, 7)
+        .leftEqualToView(_titleLabel)
+        .topSpaceToView(_titleLabel, 7)
         .widthIs(24)
         .heightEqualToWidth()
         ;
@@ -367,6 +335,8 @@ CGFloat static titleViewHeight = 91;
         [_attentionBtn setSd_cornerRadius:@8];
     }
     _attentionBtn.selected = self.newsModel.isAttention;
+    _titleLabel.font = [GetCurrentFont titleFont];
+    [_titleLabel updateLayout];
 }
 
 //刷新评论
@@ -409,8 +379,54 @@ CGFloat static titleViewHeight = 91;
                     break;
             }
             [self shareToPlatform:sharePlateform];
-        }else if (section==1&&row==2) {
-            [self requestCollectNews];
+        }else if (section==1) {
+            if (row == 0) {
+                [self fontsSelect];
+            }else if (row == 2) {
+                [self requestCollectNews];
+            }
+            
+        }
+    }];
+}
+
+//设置网页
+-(void)setWebViewLoad
+{
+    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0]. appendChild(meta);";
+    
+    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+    [wkUController addUserScript:wkUScript];
+    
+    // 创建设置对象
+    WKPreferences *preference = [[WKPreferences alloc]init];
+    // 设置字体大小(最小的字体大小)
+    preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+    
+    //创建网页配置对象
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    //    config.userContentController = wkUController;
+    //    // 设置偏好设置对象
+//    config.preferences = preference;
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
+    self.webView.navigationDelegate = self;
+    
+    self.webView.scrollView.delegate = self;
+    
+    //KVO监听web的高度变化
+    @weakify(self)
+    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        //        GGLog(@"x:%@",x);
+        CGFloat newHeight = self.webView.scrollView.contentSize.height;
+        if (newHeight != self->topWebHeight) {
+            self->topWebHeight = newHeight;
+            self.webView.frame = CGRectMake(0, 0, ScreenW, self->topWebHeight);
+            //            GGLog(@"topWebHeight:%lf",topWebHeight);
+            [self.tableView beginUpdates];
+            self.tableView.tableHeaderView = self.webView;
+            [self.tableView endUpdates];
         }
     }];
 }
@@ -418,8 +434,11 @@ CGFloat static titleViewHeight = 91;
 //字体
 -(void)fontsSelect
 {
+    @weakify(self)
     [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
-        
+        @strongify(self)
+        [self setTitle];
+        [self.webView reload];
     }];
 }
 
@@ -437,7 +456,20 @@ CGFloat static titleViewHeight = 91;
     }];
     
     //修改字体大小 300%
-    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'" completionHandler:nil];
+    NSString *fontStr = @"100%";
+    if ([GetCurrentFont contentFont].pointSize == 12) {
+        fontStr = @"80%";
+    }else if ([GetCurrentFont contentFont].pointSize == 13){
+        fontStr = @"90%";
+    }else if ([GetCurrentFont contentFont].pointSize == 14){
+        fontStr = @"100%";
+    }else if ([GetCurrentFont contentFont].pointSize == 15){
+        fontStr = @"120%";
+    }else if ([GetCurrentFont contentFont].pointSize == 16){
+        fontStr = @"150%";
+    }
+        
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
     
     //修改字体颜色  #9098b8
     //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#323232'"completionHandler:nil];
@@ -667,7 +699,7 @@ CGFloat static titleViewHeight = 91;
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
             [self.webView loadRequest:request];
         }
-        [self setTitle];
+        
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
@@ -700,7 +732,7 @@ CGFloat static titleViewHeight = 91;
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
         }
-        
+        [self setTitle];
         [self setBottomView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {

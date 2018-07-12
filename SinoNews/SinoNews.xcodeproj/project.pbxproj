@@ -72,6 +72,7 @@
 		4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C020F6387100ACE380 /* YBRectConst.m */; };
 		4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */; };
 		4C23B5C720F6387100ACE380 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C320F6387100ACE380 /* YBPopupMenu.m */; };
+		4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
@@ -377,6 +378,8 @@
 		4C23B5C220F6387100ACE380 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
 		4C23B5C320F6387100ACE380 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
 		4C23B5C420F6387100ACE380 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetCurrentFont.h; sourceTree = "<group>"; };
+		4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetCurrentFont.m; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
@@ -1215,6 +1218,8 @@
 				4C3F903620BD2D10003EC4FC /* YXHeader.m */,
 				4CA141EE20F445E000536E77 /* UniversalMethod.h */,
 				4CA141EF20F445E000536E77 /* UniversalMethod.m */,
+				4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */,
+				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
 				4C4ED9E820E39B1500347974 /* UIViewController */,
 				4CB4196E20DA792A00EBF202 /* UIScrollView */,
 				4C3D111C20D8F01500480E03 /* UILabel */,
@@ -2100,6 +2105,7 @@
 				4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */,
 				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
+				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */,
 				4C23B3C720F592AB00ACE380 /* LMColorPickerView.m in Sources */,

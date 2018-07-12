@@ -30,5 +30,6 @@
 #import "UIViewController+emptyView.h"
 #import "UIBarButtonItem+integration.h"
 #import "UniversalMethod.h"
+#import "GetCurrentFont.h"
 
 #endif /* ToolsHeader_h */

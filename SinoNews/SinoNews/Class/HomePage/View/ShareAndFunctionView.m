@@ -64,7 +64,7 @@ static bool isCollect = NO;
     [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];
     [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:RGBA(219, 219, 219, 1)];
     
-    [shareView showFromControlle:[HttpRequest currentViewController]];
+    [shareView showFromControlle:[HttpRequest getCurrentVC]];
     
     shareView.clickBlock = ^(NSInteger section, NSInteger row) {
         if (clickBlock) {
@@ -79,9 +79,9 @@ static bool isCollect = NO;
     
     NSMutableArray *functionArray = [NSMutableArray array];
     [functionArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_fonts") title:@"字体大小" action:^(IFMShareItem *item) {
-        [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
-            
-        }];
+//        [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
+//
+//        }];
     }]];
     NSString *title = @"夜间模式";
     UIImage *nightModelImg = UIImageNamed(@"share_nightMode");

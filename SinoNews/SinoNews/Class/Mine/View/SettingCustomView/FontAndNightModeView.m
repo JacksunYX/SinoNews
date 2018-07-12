@@ -72,6 +72,7 @@ static CGFloat anumationTime = 0.3;
         [fontSelect setSelectedIndex:[UserGet(@"fontSize") integerValue]];
     }else{
         [fontSelect setSelectedIndex:2];
+        UserSet(@"2",@"fontSize")
     }
     
     
@@ -173,6 +174,8 @@ static CGFloat anumationTime = 0.3;
   
         NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
         UserSet(fontSize, @"fontSize")
+        //发送修改了字体的通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
         
         if (handlBlock) {
             handlBlock(switchBtn.on,fontSelect.currentIdx);

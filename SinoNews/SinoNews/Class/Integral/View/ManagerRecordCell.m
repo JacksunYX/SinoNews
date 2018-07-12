@@ -82,7 +82,13 @@
     
     behavior = [UILabel new];
     behavior.font = Font(13);
-    behavior.textColor = RGBA(68, 68, 68, 1);
+    behavior.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UILabel *)item setTextColor:value];
+        }else{
+            [(UILabel *)item setTextColor:RGBA(68, 68, 68, 1)];
+        }
+    });
     behavior.textAlignment = NSTextAlignmentCenter;
     behavior.numberOfLines = 2;
     behavior.isAttributedContent = YES;

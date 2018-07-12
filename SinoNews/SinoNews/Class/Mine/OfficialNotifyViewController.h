@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OfficialNotifyViewController : UIViewController
+@interface OfficialNotifyViewController : BaseViewController
 
 @end

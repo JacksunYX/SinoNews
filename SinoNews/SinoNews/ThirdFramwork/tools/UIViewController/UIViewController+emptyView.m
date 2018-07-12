@@ -30,19 +30,20 @@ static int tags = 206118;
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
         ;
-        UIImage *img;
+        
         switch (pageType) {
             case 1: //首页
-                img = UIImageNamed(@"homePage_loadingImg");
+                loadingImg.lee_theme.LeeConfigImage(@"homeLoad");
+                
                 break;
             case 2: //普通新闻
-                img = UIImageNamed(@"newsDetail_loadingImg");
+                loadingImg.lee_theme.LeeConfigImage(@"articleLoad");
+                
                 break;
             default:
-                img = UIImageNamed(@"homePage_loadingImg");
+                loadingImg.lee_theme.LeeConfigImage(@"homeLoad");
                 break;
         }
-        loadingImg.image = img;
         
         [self show:show view:loadingImg];
     }

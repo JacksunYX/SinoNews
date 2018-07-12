@@ -27,10 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     self.navigationItem.title = @"评论详情";
     
-    [self addNavigationView];
+//    [self addNavigationView];
     [self addTableView];
 }
 
@@ -236,7 +235,7 @@
         
         cell = (CommentCell *)cell2;
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

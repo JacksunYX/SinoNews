@@ -70,6 +70,10 @@
     NSMutableArray *vcsArr = [NSMutableArray new];
     for (int i = 0; i < vcs.count; i ++) {
         BaseNavigationVC *navi = [[BaseNavigationVC alloc]initWithRootViewController:vcs[i]];
+        
+//        navi.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
+//            [(BaseNavigationVC *)item navigationBar].tintColor = HexColor(value);
+//        });
         UITabBarItem *item = [[UITabBarItem alloc]initWithTitle:tabTitles[i] image:[UIImageNamed(tabImgUnselect[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[UIImageNamed(tabImgSelected[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         navi.tabBarItem = item;
 //        navi.tabBarItem.title = tabTitles[i];
@@ -77,7 +81,8 @@
         
         [vcsArr addObject:navi];
     }
-    
+//    [UINavigationBar appearance].lee_theme.LeeConfigBarTintColor(@"backgroundColor");
+    [UITabBar appearance].lee_theme.LeeConfigBarTintColor(@"backgroundColor");
     self.viewControllers = vcsArr;
     self.selectedIndex = 0;
 }

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StoreChildViewController : UIViewController
+@interface StoreChildViewController : BaseViewController
 @property (nonatomic,assign) NSInteger categoryId;   //分类id
 @end

@@ -33,12 +33,13 @@ static CGFloat animation_time = .3;
  */
 @property (nonatomic, assign) MLMSegmentLayoutStyle layoutStyle;
 
+
 @end
 
 @implementation MLMSegmentHead
 {
     NSMutableArray *titlesArray;///标题数组
-    UIScrollView *titlesScroll;
+    
 
     NSMutableArray *buttonArray;//按钮数组
     NSMutableArray *backImgArray;//背景图数组
@@ -146,8 +147,8 @@ static CGFloat animation_time = .3;
     if (_equalSize) {
         self.width = sum_width+_moreButton_width;
         
-        if (titlesScroll) {
-            titlesScroll.width = SCREEN_WIDTH;
+        if (_titlesScroll) {
+            _titlesScroll.width = SCREEN_WIDTH;
         }
         
         if (slideScroll) {
@@ -223,14 +224,14 @@ static CGFloat animation_time = .3;
 - (void)createView {
 
     _fontScale = _headStyle==SegmentHeadStyleSlide?1:_fontScale;
-    titlesScroll = [self customScroll];
-    [self scrollViewSubviews:titlesScroll];
-    [self addSubview:titlesScroll];
+    _titlesScroll = [self customScroll];
+    [self scrollViewSubviews:_titlesScroll];
+    [self addSubview:_titlesScroll];
     
     
     if (_moreButton_width != 0) {
         _moreButton = [[UIView alloc] init];
-        _moreButton.frame = CGRectMake(CGRectGetMaxX(titlesScroll.frame), 0, _moreButton_width, titlesScroll.height);
+        _moreButton.frame = CGRectMake(CGRectGetMaxX(_titlesScroll.frame), 0, _moreButton_width, _titlesScroll.height);
         [self addSubview:_moreButton];
     }
     
@@ -243,7 +244,7 @@ static CGFloat animation_time = .3;
         case SegmentHeadStyleLine:
         {
             lineView = [self lineView];
-            [titlesScroll addSubview:lineView];
+            [_titlesScroll addSubview:lineView];
             
         }
             break;
@@ -253,7 +254,7 @@ static CGFloat animation_time = .3;
             _lineScale = 1;
             lineView = [self lineView];
             lineView.backgroundColor = [UIColor clearColor];
-            [titlesScroll addSubview:lineView];
+            [_titlesScroll addSubview:lineView];
             //arrow
             [self drawArrowLayer];
             arrow_layer.position = CGPointMake(lineView.width/2, lineView.height/2);
@@ -263,7 +264,7 @@ static CGFloat animation_time = .3;
         case SegmentHeadStyleSlide:
         {
             slideView = [self slideView];
-            [titlesScroll addSubview:slideView];
+            [_titlesScroll addSubview:slideView];
         }
             break;
         default:
@@ -304,7 +305,7 @@ static CGFloat animation_time = .3;
 
 #pragma mark - titlesScroll subviews - yes or slideScroll subviews - no
 - (void)scrollViewSubviews:(UIScrollView*)scroll {
-    BOOL titles = [scroll isEqual:titlesScroll];
+    BOOL titles = [scroll isEqual:_titlesScroll];
 
     CGFloat start_x = 0;
     
@@ -331,7 +332,7 @@ static CGFloat animation_time = .3;
 
 #pragma mark - createBtn
 - (void)createBtn:(NSArray *)titlesArr addScroll:(UIScrollView*)scroll startX:(CGFloat)start_x start_index:(NSInteger)start_index {
-    BOOL titles = [scroll isEqual:titlesScroll];
+    BOOL titles = [scroll isEqual:_titlesScroll];
     CGFloat width;
     for (NSInteger i = start_index; i < titlesArr.count; i ++) {
         width = CURRENT_WIDTH(i);
@@ -409,7 +410,7 @@ static CGFloat animation_time = .3;
     [self scrollViewSubviews:slideScroll];
     slideScroll.userInteractionEnabled = NO;
     slideScroll.backgroundColor = [UIColor clearColor];
-    CGRect convertRect = [slide convertRect:titlesScroll.frame fromView:titlesScroll.superview];
+    CGRect convertRect = [slide convertRect:_titlesScroll.frame fromView:_titlesScroll.superview];
     slideScroll.frame = CGRectMake(convertRect.origin.x, -(SCROLL_HEIGHT - _slideHeight)/2, SCROLL_WIDTH, SCROLL_HEIGHT);
     [slide addSubview:slideScroll];
     return slide;
@@ -481,11 +482,11 @@ static CGFloat animation_time = .3;
     if (sum_width > SCROLL_WIDTH) {
         UIButton *currentBtn = buttonArray[currentIndex];
         if (currentBtn.center.x<SCROLL_WIDTH/2) {
-            [titlesScroll setContentOffset:CGPointMake(0, 0) animated:YES];
+            [_titlesScroll setContentOffset:CGPointMake(0, 0) animated:YES];
         } else if (currentBtn.center.x > (sum_width-SCROLL_WIDTH/2)) {
-            [titlesScroll setContentOffset:CGPointMake(sum_width-SCROLL_WIDTH, 0) animated:YES];
+            [_titlesScroll setContentOffset:CGPointMake(sum_width-SCROLL_WIDTH, 0) animated:YES];
         } else {
-            [titlesScroll setContentOffset:CGPointMake(currentBtn.center.x - SCROLL_WIDTH/2, 0) animated:YES];
+            [_titlesScroll setContentOffset:CGPointMake(currentBtn.center.x - SCROLL_WIDTH/2, 0) animated:YES];
         }
     }
 }
@@ -517,7 +518,7 @@ static CGFloat animation_time = .3;
         slideView.width = select_btn.width*_slideScale;
         slideView.center = CGPointMake(select_btn.center.x, slideView.center.y);
         //偏移
-        CGRect convertRect = [slideView convertRect:titlesScroll.frame fromView:titlesScroll];
+        CGRect convertRect = [slideView convertRect:_titlesScroll.frame fromView:_titlesScroll];
         slideScroll.frame = CGRectMake(convertRect.origin.x, convertRect.origin.y, slideScroll.contentSize.width, slideScroll.contentSize.height);
     }
     
@@ -604,7 +605,7 @@ static CGFloat animation_time = .3;
             CGFloat center_x = [self centerChanegCurBtn:currentBtn nextBtn:nextBtn changeScale:change_scale];
             slideView.center = CGPointMake(center_x, slideView.center.y);
             //偏移
-            CGRect convertRect = [slideView convertRect:titlesScroll.frame fromView:titlesScroll];
+            CGRect convertRect = [slideView convertRect:_titlesScroll.frame fromView:_titlesScroll];
             slideScroll.frame = CGRectMake(convertRect.origin.x, convertRect.origin.y, slideScroll.contentSize.width, slideScroll.contentSize.height);
         }
             break;
@@ -718,7 +719,7 @@ static CGFloat animation_time = .3;
 }
 
 - (UIScrollView *)titlesScroll {
-    return titlesScroll;
+    return _titlesScroll;
 }
 
 - (NSArray *)buttons {

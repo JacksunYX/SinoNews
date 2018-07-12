@@ -35,7 +35,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"商城";
-    self.view.backgroundColor = WhiteColor;
     
     [self requestBanner];
     
@@ -89,7 +88,10 @@
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
-    _segHead.selectColor = HexColor(#323232);
+//    _segHead.selectColor = HexColor(#323232);
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+    });
     _segHead.deSelectColor = HexColor(#888888);
     _segHead.maxTitles = 4;
     _segHead.bottomLineHeight = 0;
@@ -106,7 +108,7 @@
         [weakself.view addSubview:weakself.segHead];
         [weakself.view addSubview:weakself.segScroll];
     }];
-    
+    [_segHead.titlesScroll addBakcgroundColorTheme];
 }
 
 - (NSArray *)vcArr:(NSInteger)count {

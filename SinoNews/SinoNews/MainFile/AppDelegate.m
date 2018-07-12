@@ -16,6 +16,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //配置主题
+    [GetCurrentFont configTheme];
     
     //每次重启拉取用户信息
     [self requestToGetUserInfo];

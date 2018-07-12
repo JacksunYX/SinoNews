@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyCollectViewController : UIViewController
+@interface MyCollectViewController : BaseViewController
 
 @end

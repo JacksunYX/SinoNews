@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     
     [self reloadChildVCWithTitles:@[
                                     @"商城",

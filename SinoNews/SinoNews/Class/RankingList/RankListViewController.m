@@ -100,8 +100,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
-//    self.navigationItem.title = @"xxx排行榜";
     
     [self addBaseViews];
     
@@ -121,7 +119,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.tableView];
-
+    self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    
     self.tableView.sd_layout
     .leftEqualToView(self.view)
     .topEqualToView(self.view)
@@ -173,6 +172,7 @@
     cell.toPlayBlock = ^{
         [[UIApplication sharedApplication] openURL:UrlWithStr(model.companyUrl)];
     };
+    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     return cell;
 }
 

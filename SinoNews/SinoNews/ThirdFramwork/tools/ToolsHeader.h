@@ -31,5 +31,6 @@
 #import "UIBarButtonItem+integration.h"
 #import "UniversalMethod.h"
 #import "GetCurrentFont.h"
+#import "UIView+AddThemeMode.h"
 
 #endif /* ToolsHeader_h */

@@ -67,8 +67,6 @@
     
     self.navigationItem.title = @"首页";
     
-    self.view.backgroundColor = WhiteColor;
-    
     [self showOrHideLoadView:YES page:1];
     
     [self addNavigationView];
@@ -93,6 +91,12 @@
         [self requestChnanel:NO];
     }];
 
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
 }
 
 //修改导航栏显示
@@ -154,12 +158,17 @@
     }
     
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:[self getTitlesArrFromArr:self.titleList] headStyle:1 layoutStyle:2];
+    
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.5;
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
-    _segHead.selectColor = HexColor(#5A5A5A);
+    
+//    _segHead.selectColor = HexColor(#5A5A5A);
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+    });
     _segHead.deSelectColor = HexColor(#5A5A5A);
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
@@ -182,12 +191,13 @@
         [weakself.view addSubview:weakself.segHead];
         [weakself.view addSubview:weakself.segScroll];
     }];
+    [_segHead.titlesScroll addBakcgroundColorTheme];
     
     //添加更多按钮
     UIButton *moreBtn = [[UIButton alloc]initWithFrame:CGRectZero];
     
     [moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setBackgroundColor:WhiteColor];
+    moreBtn.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:moreBtn];
     
 //    [moreBtn activateConstraints:^{

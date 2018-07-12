@@ -60,6 +60,7 @@
     bottomTitle.font = PFFontL(14);
     bottomTitle.textColor = RGBA(136, 136, 136, 1);
     
+    
     rightTitle = [UILabel new];
     rightTitle.font = PFFontR(15);
     rightTitle.textColor = RGBA(255, 255, 255, 1);

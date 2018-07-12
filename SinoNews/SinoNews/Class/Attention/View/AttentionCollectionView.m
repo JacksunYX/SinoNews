@@ -37,7 +37,7 @@
         layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
         
         _collectionView = [[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
-        _collectionView.backgroundColor = BACKGROUND_COLOR;
+        _collectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.scrollsToTop = YES;

@@ -92,11 +92,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     self.navigationItem.title = @"排行榜";
-    
     [self addViews];
-    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:BlackColor] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,7 +151,7 @@
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.lineCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    self.lineCollectionView.backgroundColor = WhiteColor;
+    self.lineCollectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:self.lineCollectionView];
     [self.lineCollectionView activateConstraints:^{
 //        self.lineCollectionView.top_attr = self.headView.bottom_attr;
@@ -190,7 +188,7 @@
     adLayout.itemSize = CGSizeMake(itemW, itemH);
     adLayout.minimumLineSpacing = 5;
     self.adCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:adLayout];
-    self.adCollectionView.backgroundColor = WhiteColor;
+    self.adCollectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:self.adCollectionView];
     [self.adCollectionView activateConstraints:^{
         self.adCollectionView.bottom_attr = self.view.bottom_attr_safe;

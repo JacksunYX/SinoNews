@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublishArticleViewController : UIViewController
+@interface PublishArticleViewController : BaseViewController
 
 @property (nonatomic,assign) NSInteger editType;    //默认文章、1问答
 

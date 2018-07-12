@@ -42,7 +42,8 @@
 {
     title = [UILabel new];
     title.font = FontScale(17);
-    title.textColor = HexColor(#323232);
+//    title.textColor = HexColor(#323232);
+    title.lee_theme.LeeConfigTextColor(@"titleColor");
     title.isAttributedContent = YES;
     
     bottomLabel = [UILabel new];

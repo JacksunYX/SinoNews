@@ -73,6 +73,9 @@
 		4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */; };
 		4C23B5C720F6387100ACE380 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C320F6387100ACE380 /* YBPopupMenu.m */; };
 		4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */; };
+		4C23B5D220F7023D00ACE380 /* NightTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C23B5D020F7023C00ACE380 /* NightTheme.json */; };
+		4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C23B5D120F7023D00ACE380 /* NormalTheme.json */; };
+		4C23B5D620F7480F00ACE380 /* UIView+AddThemeMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
@@ -380,6 +383,10 @@
 		4C23B5C420F6387100ACE380 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
 		4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetCurrentFont.h; sourceTree = "<group>"; };
 		4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetCurrentFont.m; sourceTree = "<group>"; };
+		4C23B5D020F7023C00ACE380 /* NightTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NightTheme.json; sourceTree = "<group>"; };
+		4C23B5D120F7023D00ACE380 /* NormalTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NormalTheme.json; sourceTree = "<group>"; };
+		4C23B5D420F7480F00ACE380 /* UIView+AddThemeMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AddThemeMode.h"; sourceTree = "<group>"; };
+		4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddThemeMode.m"; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
@@ -931,6 +938,17 @@
 			path = YBPopupMenu;
 			sourceTree = "<group>";
 		};
+		4C23B5CB20F6FD6600ACE380 /* ThemeJson */ = {
+			isa = PBXGroup;
+			children = (
+				4C23B5D020F7023C00ACE380 /* NightTheme.json */,
+				4C23B5D120F7023D00ACE380 /* NormalTheme.json */,
+				4C23B5D420F7480F00ACE380 /* UIView+AddThemeMode.h */,
+				4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */,
+			);
+			path = ThemeJson;
+			sourceTree = "<group>";
+		};
 		4C3D111C20D8F01500480E03 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -966,6 +984,7 @@
 			isa = PBXGroup;
 			children = (
 				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
+				4C23B5CB20F6FD6600ACE380 /* ThemeJson */,
 				4C3F903820BD2EBF003EC4FC /* NetworkRequest */,
 				4C3F8FD520BCDC13003EC4FC /* ThirdFramwork */,
 				4C3F8FD420BCDC0C003EC4FC /* Class */,
@@ -1842,6 +1861,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C23B5D220F7023D00ACE380 /* NightTheme.json in Resources */,
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
 				4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */,
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
@@ -1851,6 +1871,7 @@
 				4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
+				4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */,
 				4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */,
 				4C95FFD620DDE8FA0040E348 /* ReadMe.strings in Resources */,
 			);
@@ -1974,6 +1995,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C23B5D620F7480F00ACE380 /* UIView+AddThemeMode.m in Sources */,
 				4C17413320C4D1C600AA6D57 /* StoreChildViewController.m in Sources */,
 				4C23B3D920F5935800ACE380 /* LMStyleFormatCell.m in Sources */,
 				4C54949920CE2E4600CB448E /* RecommendFirstCell.m in Sources */,

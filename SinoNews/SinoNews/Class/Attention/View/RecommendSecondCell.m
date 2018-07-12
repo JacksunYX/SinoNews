@@ -55,21 +55,21 @@
 -(void)addViews
 {
     topView = [UIView new];
-    topView.backgroundColor = WhiteColor;
+    topView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
     topView.tag = 10010;
     UITapGestureRecognizer *topTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
     topTap.numberOfTapsRequired = 1;
     [topView addGestureRecognizer:topTap];
     
     centerView = [UIView new];
-    centerView.backgroundColor = WhiteColor;
+    centerView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
     centerView.tag = 10010 + 1;
     UITapGestureRecognizer *centerTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
     centerTap.numberOfTapsRequired = 1;
     [centerView addGestureRecognizer:centerTap];
     
     bottomView = [UIView new];
-    bottomView.backgroundColor = WhiteColor;
+    bottomView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
     bottomView.tag = 10010 + 2;
     UITapGestureRecognizer *bottomTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
     bottomTap.numberOfTapsRequired = 1;
@@ -120,6 +120,7 @@
     
     title1 = [UILabel new];
     title1.font = PFFontL(16);
+    title1.lee_theme.LeeConfigTextColor(@"titleColor");
     
     subTitle1 = [UILabel new];
     subTitle1.font = PFFontL(12);
@@ -195,6 +196,7 @@
     
     title2 = [UILabel new];
     title2.font = PFFontL(16);
+    title2.lee_theme.LeeConfigTextColor(@"titleColor");
     
     subTitle2 = [UILabel new];
     subTitle2.font = PFFontL(12);
@@ -276,6 +278,7 @@
     
     title3 = [UILabel new];
     title3.font = PFFontL(16);
+    title3.lee_theme.LeeConfigTextColor(@"titleColor");
     
     subTitle3 = [UILabel new];
     subTitle3.font = PFFontL(12);

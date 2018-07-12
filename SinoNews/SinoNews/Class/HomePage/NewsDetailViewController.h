@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 @class HomePageModel;
-@interface NewsDetailViewController : UIViewController
+@interface NewsDetailViewController : BaseViewController
 
 @property (nonatomic,assign) NSInteger newsId;
 

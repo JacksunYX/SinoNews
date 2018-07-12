@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessagePraiseViewController : UIViewController
+@interface MessagePraiseViewController : BaseViewController
 
 @end

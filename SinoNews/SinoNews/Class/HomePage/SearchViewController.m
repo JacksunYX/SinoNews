@@ -169,13 +169,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     
     [self addNavigationView];
     
-    self.collectionView.backgroundColor = WhiteColor;
-    self.tableView.backgroundColor = WhiteColor;
-    self.keyTableView.backgroundColor = WhiteColor;
+    self.collectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    self.keyTableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     
     [self requsetNewsKeys];
     
@@ -355,6 +354,7 @@
     }
     UILabel *titleLabel = [UILabel new];
     titleLabel.font = Font(15);
+    titleLabel.lee_theme.LeeConfigTextColor(@"titleColor");
     [cell.contentView addSubview:titleLabel];
     
     titleLabel.sd_layout
@@ -429,11 +429,12 @@
                 [subview removeFromSuperview];
             }
         }
+        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         
         UIImageView *img = [UIImageView new];
         UILabel *sectionTitle = [UILabel new];
         sectionTitle.font = Font(16);
-        
+        sectionTitle.lee_theme.LeeConfigTextColor(@"titleColor");
         [headView sd_addSubviews:@[
                                    img,
                                    sectionTitle,
@@ -575,7 +576,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"KeyCellID"];
         cell.textLabel.text = self.keyArr[indexPath.row];
     }
-    
+    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     return cell;
 }
 

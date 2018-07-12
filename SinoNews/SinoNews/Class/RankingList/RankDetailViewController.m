@@ -156,7 +156,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"启示录";
-    self.view.backgroundColor = WhiteColor;
     
     [self addTableView];
     [self setTextViewToolbar];
@@ -177,7 +176,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.backgroundColor = BACKGROUND_COLOR;
+    _tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
@@ -333,7 +332,7 @@
         
         cell = (CommentCell *)cell2;
     }
-
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -382,10 +381,11 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = [UIView new];
-    headView.backgroundColor = WhiteColor;
+    [headView addBakcgroundColorTheme];
     if (section == 2) {
         UILabel *title = [UILabel new];
         title.font = FontScale(16);
+        [title addTitleColorTheme];
         title.isAttributedContent = YES;
         UIImageView *icon = [UIImageView new];
         icon.backgroundColor = WhiteColor;
@@ -424,6 +424,7 @@
     }else if (section == 4){
         UILabel *title = [UILabel new];
         title.font = PFFontR(15);
+        [title addTitleColorTheme];
         [headView addSubview:title];
         //布局
         title.sd_layout
@@ -457,6 +458,7 @@
     
     UILabel *title = [UILabel new];
     title.font = FontScale(16);
+    [title addTitleColorTheme];
     
     UIButton *collectBtn = [UIButton new];
     collectBtn.titleLabel.font = FontScale(15);
@@ -543,6 +545,7 @@
     
     UIImageView *leftIcon = [UIImageView new];
     UILabel *descrip = [UILabel new];
+    [descrip addContentColorTheme];
     descrip.font = FontScale(15);
     
     [fatherView sd_addSubviews:@[
@@ -646,7 +649,12 @@
         NSDictionary *dic = modelArr[i];
         UILabel *title = [UILabel new];
         title.font = Font(15);
-        title.text = GetSaveString(dic[@"title"]);
+        [title addContentColorTheme];
+        NSString *titleStr = GetSaveString(dic[@"title"]);
+        if (titleStr.length<=3) {
+            titleStr = [titleStr stringByAppendingString:@"    "];
+        }
+        title.text = titleStr;
         [title sizeToFit];
         title.frame = CGRectMake(x, y, title.width, title.height);
 
@@ -717,6 +725,7 @@
     sendCommentBtn.layer.borderWidth = 1;
     sendCommentBtn.layer.borderColor = RGBA(255, 196, 31, 1).CGColor;
     [sendCommentBtn setTitle:@"发评论" forState:UIControlStateNormal];
+    [sendCommentBtn addBottonTextColorTheme];
     
     collectBtn.sd_layout
     .rightSpaceToView(sendCommentBtn, 12)
@@ -736,6 +745,7 @@
         collectImg = UIImageNamed(@"game_unCollect");
     }
     [collectBtn setImage:collectImg forState:UIControlStateNormal];
+    [collectBtn addBottonTextColorTheme];
     
     webserveBtn.sd_layout
     .leftSpaceToView(sendCommentBtn, 12)
@@ -747,6 +757,7 @@
     webserveBtn.layer.borderWidth = 1;
     webserveBtn.layer.borderColor = RGBA(236, 105, 65, 1).CGColor;
     [webserveBtn setTitle:@"官网" forState:UIControlStateNormal];
+    [webserveBtn addBottonTextColorTheme];
     
     [sendCommentBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];
     [collectBtn addTarget:self action:@selector(touchActions:) forControlEvents:UIControlEventTouchUpInside];

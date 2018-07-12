@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RankListViewController : UIViewController
+@interface RankListViewController : BaseViewController
 @property (nonatomic,strong) NSString *rankingId;
 @end

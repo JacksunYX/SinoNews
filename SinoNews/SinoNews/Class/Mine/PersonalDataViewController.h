@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PersonalDataViewController : UIViewController
+@interface PersonalDataViewController : BaseViewController
 
 @end

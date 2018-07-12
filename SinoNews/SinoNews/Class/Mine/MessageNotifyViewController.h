@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessageNotifyViewController : UIViewController
+@interface MessageNotifyViewController : BaseViewController
 
 @end

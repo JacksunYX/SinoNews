@@ -171,6 +171,11 @@ static CGFloat anumationTime = 0.3;
         GGLog(@"完成");
         //全局设置字体和夜间模式
         UserSetBool(switchBtn.on, @"NightMode")
+        if (switchBtn.on) {
+            [LEETheme startTheme:@"NightTheme"];
+        }else{
+            [LEETheme startTheme:@"NormalTheme"];
+        }
   
         NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
         UserSet(fontSize, @"fontSize")

@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AttentionRecommendVC : UIViewController
+@interface AttentionRecommendVC : BaseViewController
 
 @end

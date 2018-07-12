@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class TopicModel;
-@interface TopicViewController : UIViewController
+@interface TopicViewController : BaseViewController
 
 @property (nonatomic,assign) NSInteger topicId;
 @end

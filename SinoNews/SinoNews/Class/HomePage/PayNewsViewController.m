@@ -51,7 +51,6 @@ static CGFloat topHeight = 235;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     
     [self setTitle];
     

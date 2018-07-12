@@ -25,4 +25,7 @@
  */
 +(UIFont *)contentFont;
 
+//配置主题文件
++(void)configTheme;
+
 @end

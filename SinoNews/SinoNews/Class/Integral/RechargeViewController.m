@@ -80,7 +80,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"充值";
-    self.view.backgroundColor = WhiteColor;
+
     [self addViews];
     
     [self updatePayBtnStatus:0 endEdite:YES];
@@ -103,7 +103,7 @@
         self.scrollView.right_attr = self.view.right_attr_safe;
         self.scrollView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.scrollView.backgroundColor = WhiteColor;
+    [self.scrollView addBakcgroundColorTheme];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(endEditing)];
     tap.numberOfTapsRequired = 1;
@@ -125,8 +125,10 @@
     userIcon = [UIImageView new];
     userName = [UILabel new];
     userName.font = FontScale(15);
+    [userName addTitleColorTheme];
     integer = [UILabel new];
     integer.font = FontScale(15);
+    [integer addContentColorTheme];
     UIView *line = [UIView new];
     
     [self.scrollView sd_addSubviews:@[
@@ -174,6 +176,7 @@
 {
     UILabel *rechargeNotice = [UILabel new];
     rechargeNotice.font = FontScale(15);
+    [rechargeNotice addTitleColorTheme];
     [self.scrollView sd_addSubviews:@[
                                       rechargeNotice,
                                       ]];
@@ -203,7 +206,14 @@
         NSDictionary *dic = self.rechargeType[i];
         UIButton *title = [UIButton new];
         title.titleLabel.font = Font(15);
-        [title setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+        
+        title.lee_theme.LeeCustomConfig(@"title", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UIButton *)item setNormalTitleColor:value];
+            }else{
+                [(UIButton *)item setNormalTitleColor:RGBA(50, 50, 50, 1)];
+            }
+        });
         [title setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateSelected];
         [title setTitle:GetSaveString(dic[@"payTitle"]) forState:UIControlStateNormal];
         [title setImage:UIImageNamed(GetSaveString(dic[@"payImg"])) forState:UIControlStateNormal];
@@ -243,6 +253,7 @@
     UIButton *lastBtn = (UIButton *)[self.payBtnArr lastObject];
     UILabel *notice = [UILabel new];
     notice.font = FontScale(15);
+    [notice addTitleColorTheme];
     notice.isAttributedContent = YES;
     
     [self.scrollView addSubview:notice];
@@ -333,7 +344,14 @@
         UIButton *btn = [UIButton new];
         [btn setTitle:moneyArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateSelected];
-        [btn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+        
+        btn.lee_theme.LeeCustomConfig(@"title", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UIButton *)item setNormalTitleColor:value];
+            }else{
+                [(UIButton *)item setNormalTitleColor:RGBA(50, 50, 50, 1)];
+            }
+        });
         
         [self.scrollView addSubview:btn];
         btn.sd_layout

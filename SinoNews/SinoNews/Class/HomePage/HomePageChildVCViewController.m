@@ -56,7 +56,6 @@
     
     [self addTableView];
     
-    self.view.backgroundColor = WhiteColor;
 //    GGLog(@"news_id:%@",self.news_id);
 }
 
@@ -102,7 +101,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.backgroundColor = BACKGROUND_COLOR;
+    _tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     _tableView.dataSource = self;
     _tableView.delegate = self;
     //注册
@@ -209,7 +208,8 @@
         cell3.model = model;
         cell = (UITableViewCell *)cell3;
     }
-    
+    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    cell.selectedBackgroundView.backgroundColor = ClearColor;
     return cell;
 }
 

@@ -10,6 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentManagerViewController : UIViewController
+@interface CommentManagerViewController : BaseViewController
 
 @end

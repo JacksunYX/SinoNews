@@ -57,10 +57,12 @@
     
     username = [UILabel new];
     username.font = PFFontR(14);
+    [username addTitleColorTheme];
     
     comment = [UILabel new];
     comment.font = PFFontL(14);
     comment.numberOfLines = 0;
+    [comment addContentColorTheme];
     
     createTime = [UILabel new];
     createTime.font = PFFontL(11);
@@ -71,7 +73,8 @@
     [replyBtn setTitleColor:RGBA(137, 137, 137, 1) forState:UIControlStateNormal];
     
     bottomBackView = [UIView new];
-    bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
+//    bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
+    [bottomBackView addBakcgroundColorTheme];
     
     UIView *fatherView = self.contentView;
     @weakify(self);
@@ -162,11 +165,13 @@
     first = [UILabel new];
     first.isAttributedContent = YES;
     first.font = PFFontR(14);
+    [first addContentColorTheme];
     first.userInteractionEnabled = YES;
     
     second = [UILabel new];
     second.isAttributedContent = YES;
     second.font = PFFontR(14);
+    [first addContentColorTheme];
     second.userInteractionEnabled = YES;
     
     checkImg = [UIImageView new];

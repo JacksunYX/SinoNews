@@ -35,7 +35,6 @@
     return self;
 }
 
-
 -(void)setUI
 {
     self.attentionView = [[AttentionCollectionView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 140)];

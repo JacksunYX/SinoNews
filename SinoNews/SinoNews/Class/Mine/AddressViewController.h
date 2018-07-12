@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddressViewController : UIViewController
+@interface AddressViewController : BaseViewController
 
 @end

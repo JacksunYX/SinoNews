@@ -113,7 +113,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"推荐";
-    self.view.backgroundColor = WhiteColor;
     [self addNavigationView];
     
     [self addTableview];
@@ -148,6 +147,7 @@
     [self.tableView registerClass:[AttentionRecommendSecondCell class] forCellReuseIdentifier:AttentionRecommendSecondCellID];
     [self.tableView registerClass:[AttentionRecommendThirdCell class] forCellReuseIdentifier:AttentionRecommendThirdCellID];
     [self.view addSubview:self.tableView];
+    self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -216,7 +216,7 @@
         
         cell = (UITableViewCell *)cell2;
     }
-    
+    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     return cell;
 }
 
@@ -225,9 +225,9 @@
     if (indexPath.section == 0) {
         return 140;
     }else if (indexPath.section == 1){
-        return 205;
+        return 204;
     }else if (indexPath.section == 2){
-        return 205;
+        return 204;
     }
     return 0;
 }
@@ -235,7 +235,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section != 0) {
-        return 43;
+        if (self.recommendUserArr.count&&section == 1) {
+            return 43;
+        }else if (self.recommendChannelArr.count&&section == 2){
+            return 43;
+        }else{
+            return 0;
+        }
     }
     return 10;
 }
@@ -249,10 +255,10 @@
 {
     UIView *headView = [UIView new];
     if (section != 0) {
-        headView.backgroundColor = BACKGROUND_COLOR;
+        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
         UILabel *title = [UILabel new];
         title.font = PFFontL(15);
-        
+        title.lee_theme.LeeConfigTextColor(@"titleColor");
         [headView addSubview:title];
         title.sd_layout
         .leftSpaceToView(headView, 10)
@@ -261,10 +267,10 @@
         .autoHeightRatio(0)
         ;
         [title setMaxNumberOfLinesToShow:1];
-        if (section == 1) {
+        if (self.recommendUserArr.count&&section == 1) {
             title.text = @"大咖入驻";
-        }else if (section == 2){
-            title.text = @"热门频道 ";
+        }else if (self.recommendChannelArr.count&&section == 2){
+            title.text = @"热门频道";
         }
     }
     

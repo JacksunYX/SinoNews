@@ -115,7 +115,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"管理";
-    self.view.backgroundColor = WhiteColor;
     
     [self setupTopViews];
     [self addTableView];
@@ -132,9 +131,11 @@
     userIcon = [UIImageView new];
     userName = [UILabel new];
     userName.font = FontScale(15);
+    [userName addTitleColorTheme];
     integer = [UILabel new];
     integer.font = FontScale(15);
     integer.textAlignment = NSTextAlignmentRight;
+    [integer addContentColorTheme];
     UIView *line = [UIView new];
     
     [self.view sd_addSubviews:@[
@@ -209,7 +210,7 @@
     }];
 //    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 //    _tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    _tableView.backgroundColor = WhiteColor;
+    [_tableView addBakcgroundColorTheme];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     //注册
@@ -257,7 +258,7 @@
 {
     ManagerRecordCell *cell = (ManagerRecordCell *)[tableView dequeueReusableCellWithIdentifier:ManagerRecordCellID];
     cell.model = self.dataSource[indexPath.row];
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -286,6 +287,7 @@
     if (kArrayIsEmpty(self.dataSource)) {
         return nil;
     }
+    [headView addBakcgroundColorTheme];
     UIView *topLine = [UIView new];
     topLine.backgroundColor = RGBA(227, 227, 227, 1);
     UIView *leftLine = [UIView new];
@@ -344,6 +346,7 @@
     for (int i = 0; i < headTitle.count; i ++) {
         UILabel *label = [UILabel new];
         label.font = Font(15);
+        [label addTitleColorTheme];
         label.textAlignment = NSTextAlignmentCenter;
         label.text = GetSaveString(headTitle[i]);
         

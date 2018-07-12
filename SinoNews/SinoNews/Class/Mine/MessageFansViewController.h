@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessageFansViewController : UIViewController
+@interface MessageFansViewController : BaseViewController
 
 @end

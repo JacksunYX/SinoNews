@@ -37,7 +37,7 @@ pod 'MLeaksFinder'
 pod 'EasyNavigation'
 pod 'WRNavigationBar'
 pod 'RTRootNavigationController'
-
+pod 'LEETheme'
 
 
 end

@@ -25,9 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //统一设置navigationBar的样式
-    self.navigationBar.barTintColor = [UIColor whiteColor];
-    
     //设置导航栏不透明
     [UINavigationBar appearance].translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
@@ -37,7 +34,9 @@
      @{NSFontAttributeName:PFFontL(16),
        
        NSForegroundColorAttributeName:HexColor(#323232)}];
-    
+
+    //统一设置navigationBar的样式
+//    self.navigationBar.barTintColor = RedColor;
 }
 
 

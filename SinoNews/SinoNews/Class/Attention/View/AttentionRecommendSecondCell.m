@@ -38,7 +38,8 @@
 
 -(void)setUI
 {
-    self.attentionView = [[AttentionCollectionView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 205)];
+    self.attentionView = [[AttentionCollectionView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 204)];
+    self.attentionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.attentionView registerViewClass:[RecommendSecondCell class] ID:RecommendSecondCellID];
     self.attentionView.delegate = self;
     [self.contentView addSubview:self.attentionView];

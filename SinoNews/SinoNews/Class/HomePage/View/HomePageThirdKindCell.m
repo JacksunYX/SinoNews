@@ -41,7 +41,8 @@
 {
     title = [UILabel new];
     title.font = FontScale(16);
-    title.textColor = HexColor(#323232);
+//    title.textColor = HexColor(#323232);
+    title.lee_theme.LeeConfigTextColor(@"titleColor");
     
     img = [UIImageView new];
     img.userInteractionEnabled = YES;

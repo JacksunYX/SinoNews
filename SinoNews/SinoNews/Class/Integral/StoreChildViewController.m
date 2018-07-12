@@ -32,7 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     [self addTableView];
     [self.tableView.mj_header beginRefreshing];
 }
@@ -52,7 +51,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.backgroundColor = WhiteColor;
+    [_tableView addBakcgroundColorTheme];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     //注册
@@ -98,6 +97,7 @@
 {
     StoreChildCell *cell = (StoreChildCell *)[tableView dequeueReusableCellWithIdentifier:StoreChildCellID];
     cell.model = self.dataSource[indexPath.row];
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

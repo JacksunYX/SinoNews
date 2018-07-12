@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExchangeProductViewController : UIViewController
+@interface ExchangeProductViewController : BaseViewController
 
 @property (nonatomic,strong) NSString *productId;
 

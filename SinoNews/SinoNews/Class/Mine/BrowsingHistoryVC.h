@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BrowsingHistoryVC : UIViewController
+@interface BrowsingHistoryVC : BaseViewController
 
 @end

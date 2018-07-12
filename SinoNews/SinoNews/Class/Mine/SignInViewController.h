@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignInViewController : UIViewController
+@interface SignInViewController : BaseViewController
 
 @end

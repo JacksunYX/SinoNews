@@ -19,6 +19,7 @@
     //设置导航栏不透明
     [UINavigationBar appearance].translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
+    self.view.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
 }
 
 - (void)didReceiveMemoryWarning {

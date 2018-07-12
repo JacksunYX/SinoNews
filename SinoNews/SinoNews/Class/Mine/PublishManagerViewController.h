@@ -10,6 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublishManagerViewController : UIViewController
+@interface PublishManagerViewController : BaseViewController
 
 @end

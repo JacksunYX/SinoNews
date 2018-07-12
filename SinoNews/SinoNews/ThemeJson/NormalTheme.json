@@ -1,0 +1,15 @@
+{
+    "color": {
+        "titleColor"        : "#323232",
+        "contentColor"      : "#989898",
+        "backgroundColor"   : "#FFFFFF",
+        "navigationBarColor": "",
+    },
+    "image": {
+        "articleLoad"   : "newsDetail_loadingImg",
+        "homeLoad"      : "homePage_loadingImg",
+    },
+    "other": {
+        
+    }
+}

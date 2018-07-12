@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyFansViewController : UIViewController
+@interface MyFansViewController : BaseViewController
 
 @end

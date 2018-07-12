@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class AddressModel;
-@interface EditAddressViewController : UIViewController
+@interface EditAddressViewController : BaseViewController
 
 @property (nonatomic,strong) AddressModel *model;
 

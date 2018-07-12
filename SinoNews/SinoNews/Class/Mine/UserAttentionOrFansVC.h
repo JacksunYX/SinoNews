@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserAttentionOrFansVC : UIViewController
+@interface UserAttentionOrFansVC : BaseViewController
 
 @property (nonatomic,assign) NSInteger userId;  //用户id
 

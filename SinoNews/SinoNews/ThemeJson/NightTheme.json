@@ -1,0 +1,15 @@
+{
+    "color": {
+        "titleColor"        : "#cfd3d6",
+        "contentColor"      : "#cfd3d6",
+        "backgroundColor"   : "#1c2023",
+        "navigationBarColor": "#1c2023",
+    },
+    "image": {
+        "articleLoad"   : "night_article",
+        "homeLoad"      : "night_homePage",
+    },
+    "other": {
+        
+    }
+}

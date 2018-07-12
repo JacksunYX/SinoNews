@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
+
     self.navigationItem.title = @"商品兑换";
     
     [self requestGetProduct];
@@ -158,7 +158,8 @@
     }];
     
     UILabel *discountLabel = [UILabel new];
-    discountLabel.textColor = RGBA(50, 50, 50, 1);
+//    discountLabel.textColor = RGBA(50, 50, 50, 1);
+    [discountLabel addContentColorTheme];
     discountLabel.font = PFFontL(15);
     discountLabel.isAttributedContent = YES;
     
@@ -219,17 +220,20 @@
 {
     UITextField *pruductInfo1 = [self creatTextfield];
     UILabel *pruductInfo2 = [UILabel new];
-    pruductInfo2.textColor = RGBA(50, 50, 50, 1);
+//    pruductInfo2.textColor = RGBA(50, 50, 50, 1);
+    [pruductInfo2 addContentColorTheme];
     pruductInfo2.font = PFFontL(15);
     
     UITextField *validDate1 = [self creatTextfield];
     UILabel *validDate2 = [UILabel new];
-    validDate2.textColor = RGBA(50, 50, 50, 1);
+//    validDate2.textColor = RGBA(50, 50, 50, 1);
+    [validDate2 addContentColorTheme];
     validDate2.font = PFFontL(15);
     
     UITextField *useRaw1 = [self creatTextfield];
     UILabel *useRaw2 = [UILabel new];
-    useRaw2.textColor = RGBA(50, 50, 50, 1);
+//    useRaw2.textColor = RGBA(50, 50, 50, 1);
+    [useRaw2 addContentColorTheme];
     useRaw2.font = PFFontL(15);
     
     [fatherView sd_addSubviews:@[

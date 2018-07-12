@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RankDetailViewController : UIViewController
+@interface RankDetailViewController : BaseViewController
 @property (nonatomic,strong) NSString *companyId;
 @end

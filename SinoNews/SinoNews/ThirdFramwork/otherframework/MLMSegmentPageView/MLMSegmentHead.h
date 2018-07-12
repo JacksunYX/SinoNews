@@ -64,7 +64,7 @@ typedef enum : NSUInteger {
 
 @interface MLMSegmentHead : UIView
 
-
+@property (nonatomic, strong) UIScrollView *titlesScroll;
 /**
  *  初始化显示的下标。默认显示0
  */

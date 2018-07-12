@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ManagerViewController : UIViewController
+@interface ManagerViewController : BaseViewController
 
 @end

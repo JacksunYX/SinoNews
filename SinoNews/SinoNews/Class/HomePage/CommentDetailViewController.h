@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 @class CompanyCommentModel;
 
-@interface CommentDetailViewController : UIViewController
+@interface CommentDetailViewController : BaseViewController
 
 @property (nonatomic,strong) CompanyCommentModel *model;
 

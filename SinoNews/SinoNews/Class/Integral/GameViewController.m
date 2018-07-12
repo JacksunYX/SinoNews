@@ -48,7 +48,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"游戏";
-    self.view.backgroundColor = WhiteColor;
     
     [self requestBanner];
     
@@ -125,7 +124,7 @@
         }
     }
     [self setSection0WithData:@{@"imgStr":self.dataSource[indexPath.row]} onView:cell];
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

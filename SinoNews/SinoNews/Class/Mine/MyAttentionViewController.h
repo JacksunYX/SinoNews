@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyAttentionViewController : UIViewController
+@interface MyAttentionViewController : BaseViewController
 
 @end

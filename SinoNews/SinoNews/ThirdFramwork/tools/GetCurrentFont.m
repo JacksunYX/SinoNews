@@ -74,7 +74,22 @@
     return currentFont;
 }
 
-
++(void)configTheme
+{
+    NSString *dayJsonPath = [[NSBundle mainBundle] pathForResource:@"NormalTheme" ofType:@"json"];
+    
+    NSString *nightJsonPath = [[NSBundle mainBundle] pathForResource:@"NightTheme" ofType:@"json"];
+    
+    NSString *dayJson = [NSString stringWithContentsOfFile:dayJsonPath encoding:NSUTF8StringEncoding error:nil];
+    
+    NSString *nightJson = [NSString stringWithContentsOfFile:nightJsonPath encoding:NSUTF8StringEncoding error:nil];
+    
+    [LEETheme addThemeConfigWithJson:dayJson Tag:@"NormalTheme" ResourcesPath:nil];
+    
+    [LEETheme addThemeConfigWithJson:nightJson Tag:@"NightTheme" ResourcesPath:nil];
+    
+    [LEETheme defaultTheme:@"NormalTheme"];
+}
 
 
 

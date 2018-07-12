@@ -69,6 +69,7 @@
     
     title = [UILabel new];
     title.font = PFFontR(15);
+    title.lee_theme.LeeConfigTextColor(@"titleColor");
     
     subTitle = [UILabel new];
     subTitle.font = PFFontL(14);
@@ -90,7 +91,14 @@
     
     detailBtn = [UIButton new];
     detailBtn.titleLabel.font = PFFontL(14);
-    [detailBtn setTitleColor:RGBA(102, 102, 132, 1) forState:UIControlStateNormal];
+    detailBtn.lee_theme.LeeConfigButtonTitleColor(@"title", UIControlStateNormal);
+    detailBtn.lee_theme.LeeCustomConfig(@"title", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIButton *)item setNormalTitleColor:value];
+        }else{
+            [(UIButton *)item setNormalTitleColor:RGBA(102, 102, 132, 1)];
+        }
+    });
     detailBtn.layer.borderWidth = 1;
     detailBtn.layer.borderColor = RGBA(102, 102, 132, 1).CGColor;
     detailBtn.userInteractionEnabled = NO;
@@ -125,7 +133,6 @@
     userIcon.layer.borderWidth = 1;
     userIcon.layer.borderColor = ClearColor.CGColor;
     score.textColor = RGB(54, 54, 54);
-    title.textColor = RGB(50, 50, 50);
     if (self.tag == 1) {
 //        userIcon.layer.borderColor = HexColor(#ffc41f).CGColor;
 //        crown.image = UIImageNamed(@"crown_first");

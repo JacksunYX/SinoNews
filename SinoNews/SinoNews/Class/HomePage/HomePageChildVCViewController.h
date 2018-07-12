@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomePageChildVCViewController : UIViewController
+@interface HomePageChildVCViewController : BaseViewController
 
 @property (nonatomic, strong) NSString * news_id;
 

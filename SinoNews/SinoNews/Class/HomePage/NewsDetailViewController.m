@@ -61,7 +61,6 @@ CGFloat static titleViewHeight = 91;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WhiteColor;
     
     self.allowZoom = YES;
     
@@ -259,7 +258,7 @@ CGFloat static titleViewHeight = 91;
 {
     if (!self.titleView) {
         self.titleView = [UIView new];
-        self.titleView.backgroundColor = WhiteColor;
+        self.titleView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         [self.view insertSubview:self.titleView belowSubview:self.tableView];
         self.titleView.sd_layout
         .leftEqualToView(self.view)
@@ -271,7 +270,7 @@ CGFloat static titleViewHeight = 91;
         _titleLabel = [UILabel new];
         _titleLabel.font = PFFontL(16);
         _titleLabel.numberOfLines = 2;
-        
+        _titleLabel.lee_theme.LeeConfigTextColor(@"titleColor");
         UIImageView *icon = [UIImageView new];
 //        icon.backgroundColor = Arc4randomColor;
         
@@ -283,7 +282,7 @@ CGFloat static titleViewHeight = 91;
         _attentionBtn = [UIButton new];
         [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
         [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
-
+        
         [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
         [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -382,6 +381,8 @@ CGFloat static titleViewHeight = 91;
         }else if (section==1) {
             if (row == 0) {
                 [self fontsSelect];
+            }else if (row == 1) {
+                [self.webView reload];
             }else if (row == 2) {
                 [self requestCollectNews];
             }
@@ -471,10 +472,13 @@ CGFloat static titleViewHeight = 91;
         
     [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
     
-    //修改字体颜色  #9098b8
-    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#323232'"completionHandler:nil];
-    //修改背景色
-    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'" completionHandler:nil];
+    if (UserGetBool(@"NightMode")) {    //夜间模式
+        //修改字体颜色  #9098b8
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#FFFFFF'"completionHandler:nil];
+        //修改背景色
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
+    }
+    
     //防止缩放
 //    NSString *injectionJSString = @"var script = document.createElement('meta');"
 //    "script.name = 'viewport';"
@@ -507,6 +511,7 @@ CGFloat static titleViewHeight = 91;
     if (indexPath.section == 0) {
         HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         cell0.model = self.newsModel.relatedNews[indexPath.row];
+        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         cell = (UITableViewCell *)cell0;
     }else if (indexPath.section == 1){
         CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
@@ -568,13 +573,14 @@ CGFloat static titleViewHeight = 91;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView = [UIView new];
-    headView.backgroundColor = WhiteColor;
+    headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     if (section == 0&&self.newsModel.relatedNews.count) {
         UILabel *title = [UILabel new];
         title.font = PFFontR(16);
         title.textAlignment = NSTextAlignmentCenter;
+        title.lee_theme.LeeConfigTextColor(@"titleColor");
         UIView *line = [UIView new];
-        line.backgroundColor = RGBA(188, 213, 238, 1);
+        line.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         
         [headView sd_addSubviews:@[
                                    title,
@@ -598,6 +604,7 @@ CGFloat static titleViewHeight = 91;
     }else if (section == 1&&self.newsModel){
         UILabel *title = [UILabel new];
         title.font = PFFontR(13);
+        title.lee_theme.LeeConfigTextColor(@"titleColor");
         [headView addSubview:title];
         //布局
         title.sd_layout

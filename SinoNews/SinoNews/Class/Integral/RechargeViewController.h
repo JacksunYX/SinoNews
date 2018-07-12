@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RechargeViewController : UIViewController
+@interface RechargeViewController : BaseViewController
 
 @end

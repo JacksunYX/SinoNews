@@ -11,6 +11,7 @@
 #import "TopicModel.h"
 
 #import "HomePageFirstKindCell.h"
+#import "HomePageFourthCell.h"
 
 @interface TopicViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -60,6 +61,7 @@
     _tableView.delegate = self;
     //注册
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+    [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
 //    @weakify(self)
 //    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
@@ -155,10 +157,25 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomePageFirstKindCell *cell = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-    
-    HomePageModel *model = self.dataSource[indexPath.row];
-    cell.model = model;
+//    HomePageFirstKindCell *cell = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+//
+//    HomePageModel *model = self.dataSource[indexPath.row];
+//    cell.model = model;
+    UITableViewCell *cell;
+    id model = self.dataSource[indexPath.row];
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model1 = (HomePageModel *)model;
+        //暂时只分2种
+        if (model1.itemType == 100) {//无图
+            HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+            cell1.model = model1;
+            cell = (UITableViewCell *)cell1;
+        }else{//1图
+            HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+            cell1.model = model1;
+            cell = (UITableViewCell *)cell1;
+        }
+    }
     
     [cell addBakcgroundColorTheme];
     return cell;
@@ -185,7 +202,6 @@
     
     NewsDetailViewController *ndVC = [NewsDetailViewController new];
     ndVC.newsId = [(HomePageModel *)model itemId];
-    [HomePageModel saveWithModel:model];
     [self.navigationController pushViewController:ndVC animated:YES];
 }
 

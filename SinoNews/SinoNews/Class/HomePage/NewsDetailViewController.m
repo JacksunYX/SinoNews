@@ -12,6 +12,7 @@
 #import "HomePageFirstKindCell.h"
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
+#import "HomePageFourthCell.h"
 
 #import "HomePageModel.h"
 #import "FontAndNightModeView.h"
@@ -241,6 +242,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.enableDirection = YES;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
+    [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
@@ -520,10 +522,25 @@ CGFloat static titleViewHeight = 91;
 {
     UITableViewCell *cell;
     if (indexPath.section == 0) {
-        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-        cell0.model = self.newsModel.relatedNews[indexPath.row];
-        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-        cell = (UITableViewCell *)cell0;
+//        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+//        cell0.model = self.newsModel.relatedNews[indexPath.row];
+//        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+//        cell = (UITableViewCell *)cell0;
+        id model = self.newsModel.relatedNews[indexPath.row];
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            HomePageModel *model1 = (HomePageModel *)model;
+            //暂时只分2种
+            if (model1.itemType == 100) {//无图
+                HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }else{//1图
+                HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+        }
+        
     }else if (indexPath.section == 1){
         CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
         cell2.tag = indexPath.row;
@@ -641,7 +658,6 @@ CGFloat static titleViewHeight = 91;
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
         ndVC.newsId = [(HomePageModel *)model itemId];
-        [HomePageModel saveWithModel:model];
         [self.navigationController pushViewController:ndVC animated:YES];
     }else if (indexPath.section == 1) {
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
@@ -718,7 +734,7 @@ CGFloat static titleViewHeight = 91;
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
             [self.webView loadRequest:request];
         }
-        
+        [HomePageModel saveWithNewsModel:self.newsModel];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         

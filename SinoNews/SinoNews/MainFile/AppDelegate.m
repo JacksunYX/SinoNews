@@ -16,19 +16,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
     //配置主题
     [GetCurrentFont configTheme];
     
     //每次重启拉取用户信息
     [self requestToGetUserInfo];
     //百度移动统计
-    [self addBaiduMobStat];
+//    [self addBaiduMobStat];
     //全局调试
 //    [[GHConsole sharedConsole] startPrintLog];
     //键盘监听
     [IQKeyboardManager sharedManager].enable = YES;
     //集成友盟分享
-    [self initThirdShare];
+//    [self initThirdShare];
     //设置主页
     [self setMainVC];
     
@@ -37,6 +39,13 @@
     return YES;
 }
 
+void uncaughtExceptionHandler(NSException *exception) {
+    
+    NSLog(@"reason: %@", exception);
+    
+    // Internal error reporting
+    
+}
 
 //设置主界面内容
 -(void)setMainVC
@@ -55,7 +64,7 @@
 {
     BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
     statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-//    statTracker.enableDebugOn = YES;
+    statTracker.enableDebugOn = YES;
     // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
     [statTracker startWithAppId:@"565a224155"];
 }

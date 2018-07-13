@@ -247,8 +247,6 @@
     if ([model isKindOfClass:[HomePageModel class]]) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         ndVC.newsId = [(HomePageModel *)model itemId];
-        //保存
-        [HomePageModel saveWithModel:model];
         [self.navigationController pushViewController:ndVC animated:YES];
         
 //        PayNewsViewController *pnVC = [PayNewsViewController new];

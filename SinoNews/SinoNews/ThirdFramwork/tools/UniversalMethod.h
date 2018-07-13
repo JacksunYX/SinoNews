@@ -18,6 +18,14 @@
 +(void)jumpWithADModel:(ADModel *)model;
 
 
+/**
+ 拿本地缓存的频道数据与后台数据进行比对
+
+ @param serverData 后台频道数组
+ @param reason 回调block
+ */
++(void)compareChannels:(NSArray *)serverData
+          reasonAction:(void (^)(BOOL changed1 ,BOOL changed2 , NSArray *attentionArr, NSArray *unAttentionArr))reason;
 
 
 

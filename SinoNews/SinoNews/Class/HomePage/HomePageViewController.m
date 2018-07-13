@@ -295,12 +295,19 @@
         NSArray *channelUnconcerned = [XLChannelModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"unconcerned"]];
         
         if (compare) {
-            BOOL equal = [self compareArr1:[channelConcerned arrayByAddingObjectsFromArray:channelUnconcerned] arr2:[self.titleList arrayByAddingObjectsFromArray:self.leaveTitleList]];
-            if (equal) {    //相等
-                GGLog(@"暂无新的频道更新");
-            }else{  //不相等
-                LRToast(@"有新的频道变更哦");
-            }
+            //比对数据
+            [UniversalMethod compareChannels:[channelConcerned arrayByAddingObjectsFromArray:channelUnconcerned] reasonAction:^(BOOL changed1 ,BOOL changed2, NSArray *attentionArr, NSArray *unAttentionArr) {
+                //拿到了比对后的数据，根据情况判断是否要更新本地缓存
+                if (changed1) { //说明已关注的列表需要更新界面
+                    self.titleList = [attentionArr mutableCopy];
+                    [self reloadChildVCWithTitles:self.titleList];
+                }
+                if (changed2) {
+                    self.leaveTitleList = [unAttentionArr mutableCopy];
+                    //此处需要提醒用户有频道更新
+                }
+                [self saveColumnArr];
+            }];
         }else{
             if (!kArrayIsEmpty(channelConcerned)) {
                 self.titleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelConcerned]];

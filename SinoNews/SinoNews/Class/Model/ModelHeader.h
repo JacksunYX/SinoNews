@@ -12,5 +12,6 @@
 #import "UserModel.h"
 #import "ADModel.h"
 #import "HomePageModel.h"
+#import "NormalNewsModel.h"
 
 #endif /* ModelHeader_h */

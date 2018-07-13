@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RankViewController : BaseViewController
+@interface RankViewController : TopBaseViewController
 
 @end

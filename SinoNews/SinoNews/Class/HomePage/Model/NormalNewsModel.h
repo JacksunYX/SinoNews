@@ -34,4 +34,11 @@
 @property (nonatomic,strong) NSString *topicName;       //专题名称
 @property (nonatomic,assign) NSInteger userId;          //发布者id
 
+@property (nonatomic,assign) NSInteger viewCount;   //阅读量
+//这里暂时用来判断是哪种展示方式：100无图 101一图
+@property (nonatomic, assign) NSInteger itemType;   //1为普通新闻
+@property (nonatomic, assign) NSInteger itemId;     //条目id
+@property (nonatomic, strong) NSString *itemTitle;
+@property (nonatomic, strong) NSArray *images;      //包含的图片数组
+
 @end

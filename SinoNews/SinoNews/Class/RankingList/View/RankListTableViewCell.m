@@ -91,8 +91,7 @@
     
     detailBtn = [UIButton new];
     detailBtn.titleLabel.font = PFFontL(14);
-    detailBtn.lee_theme.LeeConfigButtonTitleColor(@"title", UIControlStateNormal);
-    detailBtn.lee_theme.LeeCustomConfig(@"title", ^(id item, id value) {
+    detailBtn.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
             [(UIButton *)item setNormalTitleColor:value];
         }else{

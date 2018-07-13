@@ -1,18 +1,18 @@
 //
-//  BaseViewController.m
+//  TopBaseViewController.m
 //  SinoNews
 //
-//  Created by Michael on 2018/5/29.
+//  Created by Michael on 2018/7/13.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "TopBaseViewController.h"
 
-@interface BaseViewController ()
+@interface TopBaseViewController ()
 
 @end
 
-@implementation BaseViewController
+@implementation TopBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,7 +26,6 @@
         self.navigationController.navigationBar.barTintColor = value;
     });
     
-    
     self.view.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
         @strongify(self)
         NSMutableDictionary *dic = [NSMutableDictionary new];
@@ -34,22 +33,13 @@
         if (UserGetBool(@"NightMode")) {
             dic[NSForegroundColorAttributeName] = HexColor(#FFFFFF);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
-            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left_night" hightimage:@"return_left_night" andTitle:@""];
         }else{
             dic[NSForegroundColorAttributeName] = HexColor(#323232);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
-            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left" hightimage:@"return_left" andTitle:@""];
         }
         [self.navigationController.navigationBar setTitleTextAttributes:dic];
     });
     self.rt_navigationController.useSystemBackBarButtonItem = YES;
-    
-    
-}
-
--(void)back{
-    
-    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
@@ -57,7 +47,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 /*
 #pragma mark - Navigation

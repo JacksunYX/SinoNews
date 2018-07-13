@@ -27,6 +27,22 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
     return @{@"news_id" : @"id"};
 }
 
++(void)saveWithNewsModel:(NormalNewsModel *)model
+{
+    //将新闻模型转换为首页列表的模型来保存
+    HomePageModel *model2 = [HomePageModel new];
+    model2.itemTitle = model.newsTitle;
+    model2.itemType = model.itemType;
+    model2.itemId = model.itemId;
+    model2.images = model.images;
+    
+    model2.username = model.author;
+    model2.commentCount = model.commentCount;
+    model2.viewCount = model.viewCount;
+    //保存
+    [self saveWithModel:model2];
+}
+
 //存储数据
 +(void)saveWithModel:(HomePageModel *)model
 {

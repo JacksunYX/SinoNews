@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomePageViewController : BaseViewController
+@interface HomePageViewController : TopBaseViewController
 
 @end

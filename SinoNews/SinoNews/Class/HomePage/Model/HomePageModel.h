@@ -8,7 +8,7 @@
 //文章列表或推荐文章列表的model
 
 #import <Foundation/Foundation.h>
-
+@class NormalNewsModel;
 @interface HomePageModel : NSObject
 @property (nonatomic,assign) NSInteger channelId;   //所属频道的id
 @property (nonatomic,strong) NSString *createStamp; //文章创建时间戳
@@ -41,6 +41,11 @@
 
 //存储数据
 +(void)saveWithModel:(HomePageModel *)model;
+
+//将新闻模型转换为首页列表的模型来保存
++(void)saveWithNewsModel:(NormalNewsModel *)model;
+
+
 //获取本书存储数据
 +(NSArray *)getCurrentHistory;
 //直接获取到已经排好序并分完组的数据

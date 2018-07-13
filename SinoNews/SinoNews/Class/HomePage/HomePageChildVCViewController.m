@@ -291,6 +291,10 @@
             }else if (itemType>=300&&itemType<400){     //广告
                 ADModel *model = [ADModel mj_objectWithKeyValues:dic];
                 [dataArr addObject:model];
+            }else if (itemType>=400&&itemType<500){     //投票
+                
+            }else if (itemType>=500&&itemType<600){     //问答
+                
             }
         }
         if (self.page == 1) {

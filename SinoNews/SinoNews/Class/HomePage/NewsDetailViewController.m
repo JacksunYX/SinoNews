@@ -641,6 +641,7 @@ CGFloat static titleViewHeight = 91;
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
         ndVC.newsId = [(HomePageModel *)model itemId];
+        [HomePageModel saveWithModel:model];
         [self.navigationController pushViewController:ndVC animated:YES];
     }else if (indexPath.section == 1) {
         CompanyCommentModel *model = self.commentsArr[indexPath.row];

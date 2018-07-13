@@ -172,7 +172,7 @@
     cell.toPlayBlock = ^{
         [[UIApplication sharedApplication] openURL:UrlWithStr(model.companyUrl)];
     };
-    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

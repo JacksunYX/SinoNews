@@ -57,11 +57,23 @@ static bool isCollect = NO;
     
     shareView.itemImageSize = CGSizeMake(56, 56);
     
-    shareView.containViewColor = WhiteColor;
+    shareView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(IFMShareView *)item setContainViewColor:value];
+        [(IFMShareView *)item cancleButton].backgroundColor = value;
+        if (UserGetBool(@"NightMode")) {
+            [(IFMShareView *)item setItemTitleColor:HexColor(#CFD3D6)];
+        }else{
+            [(IFMShareView *)item setItemTitleColor:RGBA(152, 152, 152, 1)];
+        }
+    });
+    
+//    shareView.containViewColor = WhiteColor;
     shareView.itemTitleFont = PFFontL(13);
-    shareView.itemTitleColor = RGBA(152, 152, 152, 1);
+//    shareView.itemTitleColor = RGBA(152, 152, 152, 1);
     shareView.cancleButton.titleLabel.font = PFFontR(17);
-    [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];
+    [shareView.cancleButton addButtonTextColorTheme];
+//    [shareView.cancleButton addBakcgroundColorTheme];
+//    [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];
     [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:RGBA(219, 219, 219, 1)];
     
     [shareView showFromControlle:[HttpRequest getCurrentVC]];

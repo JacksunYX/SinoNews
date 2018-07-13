@@ -3,7 +3,9 @@
         "titleColor"        : "#323232",
         "contentColor"      : "#989898",
         "backgroundColor"   : "#FFFFFF",
-        "navigationBarColor": "",
+        
+        "navigationBarColor": "#1c2023",
+        "tabbarColor"       : "#FFFFFF",
     },
     "image": {
         "articleLoad"   : "newsDetail_loadingImg",

@@ -71,14 +71,19 @@
     for (int i = 0; i < vcs.count; i ++) {
         RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:vcs[i]];
         
-//        navi.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
-//            [(BaseNavigationVC *)item navigationBar].tintColor = HexColor(value);
-//        });
-        UITabBarItem *item = [[UITabBarItem alloc]initWithTitle:tabTitles[i] image:[UIImageNamed(tabImgUnselect[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[UIImageNamed(tabImgSelected[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        navi.tabBarItem = item;
-//        navi.tabBarItem.title = tabTitles[i];
-//        navi.tabBarItem.image = UIImageNamed(tabImgUnselect[i]);
-        
+        navi.lee_theme.LeeCustomConfig(@"tabbarColor", ^(id item, id value) {
+//            GGLog(@"进入了");
+            NSString *imgStr = tabImgUnselect[i];
+            if (UserGetBool(@"NightMode")) {
+                imgStr = [imgStr stringByAppendingString:@"_night"];
+            }
+            [[(RTRootNavigationController *)item tabBarItem] setImage:[UIImageNamed(imgStr) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        });
+//        UITabBarItem *item = [[UITabBarItem alloc]initWithTitle:tabTitles[i] image:[UIImageNamed(tabImgUnselect[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[UIImageNamed(tabImgSelected[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//        navi.tabBarItem = item;
+        navi.tabBarItem.title = tabTitles[i];
+//        navi.tabBarItem.image = [UIImageNamed(tabImgUnselect[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        navi.tabBarItem.selectedImage = [UIImageNamed(tabImgSelected[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [vcsArr addObject:navi];
     }
 //    [UINavigationBar appearance].lee_theme.LeeConfigBarTintColor(@"backgroundColor");

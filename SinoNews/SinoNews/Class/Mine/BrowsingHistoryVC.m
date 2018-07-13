@@ -9,6 +9,7 @@
 #import "BrowsingHistoryVC.h"
 #import "BrowsingHistoryCell.h"
 #import "HomePageFirstKindCell.h"
+#import "HomePageFourthCell.h"
 #import "NewsDetailViewController.h"
 
 @interface BrowsingHistoryVC ()<UITableViewDataSource,UITableViewDelegate>
@@ -131,7 +132,7 @@
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     //注册
     [self.tableView registerClass:[BrowsingHistoryCell class] forCellReuseIdentifier:BrowsingHistoryCellID];
-    [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+    [self.tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
 }
 
 //清空浏览历史
@@ -165,9 +166,31 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomePageFirstKindCell *cell = (HomePageFirstKindCell *)[tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-    HomePageModel *model = self.dataSource[indexPath.section][indexPath.row];
-    cell.model = model;
+    UITableViewCell *cell;
+    id model = self.dataSource[indexPath.row];
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model1 = (HomePageModel *)model;
+        switch (model1.itemType) {
+            case 100:   //无图
+            {
+                HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+            case 101:   //1图
+            {
+                HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                
+        }
+    }
+    
+//    HomePageFirstKindCell *cell = (HomePageFirstKindCell *)[tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+//    HomePageModel *model = self.dataSource[indexPath.section][indexPath.row];
+//    cell.model = model;
     [cell addBakcgroundColorTheme];
     return cell;
 }

@@ -128,6 +128,7 @@
 		4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */; };
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
+		4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */; };
@@ -501,6 +502,8 @@
 		4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionThirdCell.m; sourceTree = "<group>"; };
 		4C49F07120D0F94B009DC42B /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
+		4C4DF4DF20F87CCB005E6197 /* TopBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopBaseViewController.h; sourceTree = "<group>"; };
+		4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopBaseViewController.m; sourceTree = "<group>"; };
 		4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareAndFunctionView.h; sourceTree = "<group>"; };
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
@@ -1214,6 +1217,8 @@
 				4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */,
 				4C3F8FFF20BCF7EB003EC4FC /* BaseViewController.h */,
 				4C3F900020BCF7EB003EC4FC /* BaseViewController.m */,
+				4C4DF4DF20F87CCB005E6197 /* TopBaseViewController.h */,
+				4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */,
 				4C3F901C20BD0190003EC4FC /* MainTabbarVC.h */,
 				4C3F901D20BD0190003EC4FC /* MainTabbarVC.m */,
 			);
@@ -2072,6 +2077,7 @@
 				4C646C6B20F343E30053067A /* OfficialNotifyViewController.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */,
+				4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */,
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,

@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AttentionViewController : BaseViewController
+@interface AttentionViewController : TopBaseViewController
 
 @end

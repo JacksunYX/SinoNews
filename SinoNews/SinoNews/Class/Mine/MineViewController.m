@@ -207,7 +207,8 @@
     UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
     headView.userInteractionEnabled = YES;
 //    headView.backgroundColor = RGBA(196, 222, 247, 1);
-    headView.image = UIImageNamed(@"mine_topBackImg");
+//    headView.image = UIImageNamed(@"mine_topBackImg");
+    headView.lee_theme.LeeConfigImage(@"mineBackImg");
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];
@@ -549,7 +550,16 @@
     
     cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
     
-    cell.imageView.image = UIImageNamed(GetSaveString(model[@"img"]));
+//    cell.imageView.image = UIImageNamed(GetSaveString(model[@"img"]));
+    
+    cell.imageView.lee_theme.LeeCustomConfig(@"mineBackImg", ^(id item, id value) {
+        NSString *imgStr = GetSaveString(model[@"img"]);
+        if (UserGetBool(@"NightMode")) {
+            imgStr = [GetSaveString(model[@"img"]) stringByAppendingString:@"_night"];
+        }
+        
+        [(UIImageView *)item setImage:UIImageNamed(imgStr)];
+    });
     
     [cell addBakcgroundColorTheme];
     return cell;

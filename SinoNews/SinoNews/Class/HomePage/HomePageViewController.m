@@ -166,9 +166,7 @@
     _segHead.lineColor = HexColor(#1282EE);
     
 //    _segHead.selectColor = HexColor(#5A5A5A);
-    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
-        [(MLMSegmentHead *)item setSelectColor:value];
-    });
+    
     _segHead.deSelectColor = HexColor(#5A5A5A);
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
@@ -192,6 +190,12 @@
         [weakself.view addSubview:weakself.segScroll];
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+        //来回滑动一次，解决显示问题
+        [(MLMSegmentHead *)item changeIndex:1 completion:YES];
+        [(MLMSegmentHead *)item changeIndex:0 completion:YES];
+    });
     
     //添加更多按钮
     UIButton *moreBtn = [[UIButton alloc]initWithFrame:CGRectZero];

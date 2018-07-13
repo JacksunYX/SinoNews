@@ -11,5 +11,6 @@
 
 #import "UserModel.h"
 #import "ADModel.h"
+#import "HomePageModel.h"
 
 #endif /* ModelHeader_h */

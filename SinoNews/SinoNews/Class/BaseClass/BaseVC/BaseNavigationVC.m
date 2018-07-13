@@ -29,16 +29,25 @@
     [UINavigationBar appearance].translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     
-    [self.navigationBar setTitleTextAttributes:
-     
-     @{NSFontAttributeName:PFFontL(16),
-       
-       NSForegroundColorAttributeName:HexColor(#323232)}];
-
+    @weakify(self)
+    self.navigationBar.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        dic[NSFontAttributeName] = PFFontL(16);
+        if (UserGetBool(@"NightMode")) {
+            dic[NSForegroundColorAttributeName] = HexColor(#FFFFFF);
+            UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+        }else{
+            dic[NSForegroundColorAttributeName] = HexColor(#323232);
+            UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+        }
+        [self.navigationBar setTitleTextAttributes:dic];
+    });
+    
     //统一设置navigationBar的样式
-//    self.navigationBar.barTintColor = RedColor;
+    //    self.navigationBar.barTintColor = RedColor;
+//    self.navigationBar.lee_theme.LeeConfigBarTintColor(@"backgroundColor");
 }
-
 
 //找到导航栏最下面黑线视图
 - (UIImageView *)getLineViewInNavigationBar:(UIView *)view
@@ -62,9 +71,9 @@
  */
 -(void)showNavigationDownLine
 {
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forBarMetrics:UIBarMetricsDefault];
-//
-//    [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
+    //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forBarMetrics:UIBarMetricsDefault];
+    //
+    //    [[UINavigationBar appearance] setShadowImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
     self.lineView.hidden = NO;
 }
 
@@ -74,9 +83,9 @@
  */
 -(void)hideNavigationDownLine
 {
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
-//
-//    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc]init]];
+    //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forBarMetrics:UIBarMetricsDefault];
+    //
+    //    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc]init]];
     self.lineView.hidden = YES;
 }
 
@@ -112,7 +121,7 @@
 
 //如果点击左边按钮就返回上级页面
 -(void)back{
-
+    
     [self popViewControllerAnimated:YES];
     
 }

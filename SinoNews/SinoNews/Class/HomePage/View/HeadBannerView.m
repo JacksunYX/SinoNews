@@ -30,7 +30,8 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self == [super initWithFrame:frame]) {
-        self.backgroundColor = WhiteColor;
+//        self.backgroundColor = WhiteColor;
+        [self addBakcgroundColorTheme];
     }
     return self;
 }

@@ -94,7 +94,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"排行榜";
     [self addViews];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:BlackColor] forBarMetrics:UIBarMetricsDefault];
+
 }
 
 - (void)didReceiveMemoryWarning {

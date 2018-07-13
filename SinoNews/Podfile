@@ -34,8 +34,6 @@ pod 'MGSocialShareKit', '~> 1.0'
 pod 'BGFMDB'
 pod 'ReactiveObjC'
 pod 'MLeaksFinder'
-pod 'EasyNavigation'
-pod 'WRNavigationBar'
 pod 'RTRootNavigationController'
 pod 'LEETheme'
 

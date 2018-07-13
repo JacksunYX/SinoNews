@@ -13,4 +13,13 @@
 {
     return @{@"descript" : @"description"};
 }
+
++(NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"topicNewsList" : [HomePageModel class],
+             };
+}
+
+
 @end

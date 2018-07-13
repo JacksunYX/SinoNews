@@ -20,9 +20,12 @@
 @property (nonatomic,strong) NSString *topicId;
 @property (nonatomic,strong) NSString *topicName;
 
-@property (nonatomic, assign) NSInteger itemType;    //2为专题
+//专题专属
+@property (nonatomic,strong) NSArray <HomePageModel *>*topicNewsList;//专题相关文章
+
+@property (nonatomic, assign) NSInteger itemType;   //2为专题
 @property (nonatomic, assign) NSInteger itemId;     //条目id
-@property (nonatomic, strong) NSString *itemTitle;
+@property (nonatomic, strong) NSString *itemTitle;  //条目标题
 @property (nonatomic, strong) NSArray *images;      //包含的图片数组
 
 @end

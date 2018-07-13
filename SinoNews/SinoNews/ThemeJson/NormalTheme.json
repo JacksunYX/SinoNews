@@ -8,6 +8,8 @@
     "image": {
         "articleLoad"   : "newsDetail_loadingImg",
         "homeLoad"      : "homePage_loadingImg",
+        
+        "mineBackImg"     : "mine_topBackImg",
     },
     "other": {
         

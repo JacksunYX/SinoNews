@@ -51,7 +51,14 @@
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
     _segHead.selectColor = HexColor(#1282EE);
-    _segHead.deSelectColor = HexColor(#7B7B7B);
+//    _segHead.deSelectColor = HexColor(#7B7B7B);
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(MLMSegmentHead *)item setDeSelectColor:value];
+        }else{
+            [(MLMSegmentHead *)item setDeSelectColor:HexColor(#7B7B7B)];
+        }
+    });
     _segHead.maxTitles = 4;
     _segHead.bottomLineHeight = 0;
     _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
@@ -68,7 +75,7 @@
         weakself.navigationItem.titleView = weakself.segHead;
         [weakself.view addSubview:weakself.segScroll];
     }];
-
+    [_segHead.titlesScroll addBakcgroundColorTheme];
 }
 
 -(void)setSelectIndex:(NSInteger)index

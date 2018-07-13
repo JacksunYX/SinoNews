@@ -81,9 +81,8 @@ CGFloat static titleViewHeight = 91;
 //修改导航栏显示
 -(void)addNavigationView
 {
-    UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
-    UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
-    self.navigationItem.rightBarButtonItems = @[more,fonts];
+    
+    
     
 }
 
@@ -223,6 +222,17 @@ CGFloat static titleViewHeight = 91;
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
+    _tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
+            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
+            self.navigationItem.rightBarButtonItems = @[more,fonts];
+        }else{
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
+            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
+            self.navigationItem.rightBarButtonItems = @[more,fonts];
+        }
+    });
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 38, 0, 10);
@@ -258,7 +268,7 @@ CGFloat static titleViewHeight = 91;
 {
     if (!self.titleView) {
         self.titleView = [UIView new];
-        self.titleView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        [self.titleView addBakcgroundColorTheme];
         [self.view insertSubview:self.titleView belowSubview:self.tableView];
         self.titleView.sd_layout
         .leftEqualToView(self.view)
@@ -270,7 +280,7 @@ CGFloat static titleViewHeight = 91;
         _titleLabel = [UILabel new];
         _titleLabel.font = PFFontL(16);
         _titleLabel.numberOfLines = 2;
-        _titleLabel.lee_theme.LeeConfigTextColor(@"titleColor");
+        [_titleLabel addTitleColorTheme];
         UIImageView *icon = [UIImageView new];
 //        icon.backgroundColor = Arc4randomColor;
         
@@ -382,6 +392,7 @@ CGFloat static titleViewHeight = 91;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
+                [self setTitle];
                 [self.webView reload];
             }else if (row == 2) {
                 [self requestCollectNews];

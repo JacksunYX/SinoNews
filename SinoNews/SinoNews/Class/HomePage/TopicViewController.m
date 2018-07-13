@@ -7,6 +7,7 @@
 //
 
 #import "TopicViewController.h"
+#import "NewsDetailViewController.h"
 #import "TopicModel.h"
 
 #import "HomePageFirstKindCell.h"
@@ -15,6 +16,7 @@
 
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) TopicModel *model;
 @property (nonatomic,strong) UIView *headView;
 @end
 
@@ -33,7 +35,9 @@
     
     [self addTableView];
     
-    [self addHeadView];
+    [self showOrHideLoadView:YES page:2];
+    
+    [self requestShowTopicDetail];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,20 +55,20 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.backgroundColor = BACKGROUND_COLOR;
+    [_tableView addBakcgroundColorTheme];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     //注册
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     
-    @weakify(self)
-    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self)
-//        if (self.tableView.mj_footer.isRefreshing) {
-//            [self.tableView.mj_header endRefreshing];
-//        }
-        [self requestShowTopicDetail];
-    }];
+//    @weakify(self)
+//    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+//        @strongify(self)
+////        if (self.tableView.mj_footer.isRefreshing) {
+////            [self.tableView.mj_header endRefreshing];
+////        }
+//        [self requestShowTopicDetail];
+//    }];
     
 //    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
 //        @strongify(self)
@@ -74,25 +78,33 @@
 //
 //    }];
     
-    [_tableView.mj_header beginRefreshing];
+//    [_tableView.mj_header beginRefreshing];
 }
 
 -(void)addHeadView
 {
     if (!self.headView) {
         self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 270)];
-        self.headView.backgroundColor = WhiteColor;
+        [self.headView addBakcgroundColorTheme];
         
         UIImageView *titltImg = [UIImageView new];
-        titltImg.backgroundColor = Arc4randomColor;
+//        titltImg.backgroundColor = Arc4randomColor;
         
         UILabel *title = [UILabel new];
         title.font = PFFontL(18);
+        [title addTitleColorTheme];
         title.numberOfLines = 1;
         
         UILabel *subTitle = [UILabel new];
         subTitle.font = PFFontL(15);
-        subTitle.textColor = RGBA(136, 136, 136, 1);
+//        subTitle.textColor = RGBA(136, 136, 136, 1);
+        subTitle.lee_theme.LeeCustomConfig(@"contentColor", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UILabel *)item setTextColor:value];
+            }else{
+                [(UILabel *)item setTextColor:RGBA(136, 136, 136, 1)];
+            }
+        });
         
         [self.headView sd_addSubviews:@[
                                         titltImg,
@@ -107,6 +119,7 @@
         .rightEqualToView(self.headView)
         .heightIs(125)
         ;
+        [titltImg sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.bigImage))];
         
         title.sd_layout
         .topSpaceToView(titltImg, 25)
@@ -137,17 +150,17 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.dataSource.count;
-    return 5;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomePageFirstKindCell *cell = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
     
-//    HomePageModel *model = self.dataSource[indexPath.row];
-//    cell.model = model;
+    HomePageModel *model = self.dataSource[indexPath.row];
+    cell.model = model;
     
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -168,7 +181,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    HomePageModel * model = self.dataSource[indexPath.row];
     
+    NewsDetailViewController *ndVC = [NewsDetailViewController new];
+    ndVC.newsId = [(HomePageModel *)model itemId];
+    [HomePageModel saveWithModel:model];
+    [self.navigationController pushViewController:ndVC animated:YES];
 }
 
 
@@ -177,7 +195,11 @@
 -(void)requestShowTopicDetail
 {
     [HttpRequest getWithURLString:ShowTopicDetails parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
-        
+        self.model = [TopicModel mj_objectWithKeyValues:responseObject[@"data"]];
+        self.dataSource = [self.model.topicNewsList mutableCopy];
+        [self addHeadView];
+        [self showOrHideLoadView:NO page:2];
+        [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];

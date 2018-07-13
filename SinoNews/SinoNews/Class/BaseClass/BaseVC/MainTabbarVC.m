@@ -69,7 +69,7 @@
     
     NSMutableArray *vcsArr = [NSMutableArray new];
     for (int i = 0; i < vcs.count; i ++) {
-        BaseNavigationVC *navi = [[BaseNavigationVC alloc]initWithRootViewController:vcs[i]];
+        RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:vcs[i]];
         
 //        navi.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
 //            [(BaseNavigationVC *)item navigationBar].tintColor = HexColor(value);

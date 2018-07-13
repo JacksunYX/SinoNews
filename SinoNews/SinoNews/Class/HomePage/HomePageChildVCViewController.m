@@ -101,7 +101,21 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    @weakify(self)
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        self.tableView.backgroundColor = value;
+//        if (UserGetBool(@"NightMode")) {
+//            self.tableView.separatorColor = WhiteColor;
+//        }else{
+//
+//        }
+        
+    });
+    self.tableView.separatorColor = HexColor(#E3E3E3);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+
     _tableView.dataSource = self;
     _tableView.delegate = self;
     //注册
@@ -110,7 +124,7 @@
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
-    @weakify(self)
+    
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_footer.isRefreshing) {
@@ -209,7 +223,6 @@
         cell = (UITableViewCell *)cell3;
     }
     cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-    cell.selectedBackgroundView.backgroundColor = ClearColor;
     return cell;
 }
 
@@ -234,7 +247,8 @@
     if ([model isKindOfClass:[HomePageModel class]]) {
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         ndVC.newsId = [(HomePageModel *)model itemId];
-        [self saveLocationHistoryBrowWithModel:model];
+        //保存
+        [HomePageModel saveWithModel:model];
         [self.navigationController pushViewController:ndVC animated:YES];
         
 //        PayNewsViewController *pnVC = [PayNewsViewController new];
@@ -393,13 +407,7 @@
     }];
 }
 
-//存储本地浏览历史
--(void)saveLocationHistoryBrowWithModel:(HomePageModel *)model
-{
-    //获取当前时间戳字符串作为存储时的标记
-    model.saveTimeStr = [NSString currentTimeStr];
-    [HomePageModel saveWithModel:model];
-}
+
 
 
 @end

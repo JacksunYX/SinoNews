@@ -19,7 +19,38 @@
     //设置导航栏不透明
     [UINavigationBar appearance].translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.view.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    @weakify(self)
+    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        self.view.backgroundColor = value;
+        self.navigationController.navigationBar.barTintColor = value;
+    });
+    
+    
+    self.view.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        @strongify(self)
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        dic[NSFontAttributeName] = PFFontL(16);
+        if (UserGetBool(@"NightMode")) {
+            dic[NSForegroundColorAttributeName] = HexColor(#FFFFFF);
+            UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left_night" hightimage:@"return_left_night" andTitle:@""];
+        }else{
+            dic[NSForegroundColorAttributeName] = HexColor(#323232);
+            UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left" hightimage:@"return_left" andTitle:@""];
+        }
+        [self.navigationController.navigationBar setTitleTextAttributes:dic];
+    });
+    self.rt_navigationController.useSystemBackBarButtonItem = YES;
+    
+    
+}
+
+-(void)back{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {

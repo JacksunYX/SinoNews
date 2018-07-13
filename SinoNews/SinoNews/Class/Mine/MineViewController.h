@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MineViewController : UIViewController
+@interface MineViewController : BaseViewController
 
 @end

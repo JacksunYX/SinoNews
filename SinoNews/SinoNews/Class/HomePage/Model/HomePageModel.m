@@ -30,6 +30,8 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
 //存储数据
 +(void)saveWithModel:(HomePageModel *)model
 {
+    //获取当前时间戳字符串作为存储时的标记
+    model.saveTimeStr = [NSString currentTimeStr];
     //先查找
     NSArray* findAlls = [self bg_findAll:nil];
     if (!kArrayIsEmpty(findAlls)) {

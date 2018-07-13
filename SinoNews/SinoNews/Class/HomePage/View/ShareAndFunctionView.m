@@ -94,8 +94,10 @@ static bool isCollect = NO;
         UserSetBool(!open, @"NightMode")
         if (open) {
             LRToast(@"夜间模式已关闭");
+            [LEETheme startTheme:@"NormalTheme"];
         }else{
             LRToast(@"夜间模式已开启");
+            [LEETheme startTheme:@"NightTheme"];
         }
     }]];
     

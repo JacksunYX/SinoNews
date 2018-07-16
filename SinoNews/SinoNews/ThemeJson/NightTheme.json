@@ -11,7 +11,12 @@
         "articleLoad"   : "night_article",
         "homeLoad"      : "night_homePage",
         
-        "mineBackImg"     : "mine_topBackImg_night",
+        "mineBackImg"   : "mine_topBackImg_night",
+        
+        "homePage_manageMenu" : "manageMenu_night",
+        "homePage_manageMenu_selected" : "manageMenu_new_night",
+        "homePage_search"   : "searchBar_icon_night",
+        
     },
     "other": {
         

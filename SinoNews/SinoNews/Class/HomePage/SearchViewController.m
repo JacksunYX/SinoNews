@@ -174,7 +174,17 @@
     
     self.collectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-    self.keyTableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+//    self.keyTableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    @weakify(self)
+    self.keyTableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        [(UITableView *)item setBackgroundColor:value];
+        if (UserGetBool(@"NightMode")) {
+            self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(popAction:) image:@"saerchClose_night" hightimage:nil andTitle:@""];
+        }else{
+            self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(popAction:) image:@"saerchClose" hightimage:nil andTitle:@""];
+        }
+    });
     
     [self requsetNewsKeys];
     
@@ -192,31 +202,16 @@
 {
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
-            UITextField *textField = (UITextField *)view;
-            //设置输入框的背景颜色
-            textField.clipsToBounds = YES;
-            textField.backgroundColor = HexColor(#EEEEEE);
-            //设置输入框边框的圆角以及颜色
-            textField.layer.cornerRadius = 17.0f;
-//            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
-//            textField.layer.borderWidth = 1;
-            //设置输入字体颜色
-//            textField.textColor = BlueColor;
-            //设置默认文字颜色
-            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{
-                                                                                                                    NSForegroundColorAttributeName:HexColor(#AEAEAE),
-                                                                                                                    NSFontAttributeName:Font(13),
-                                                                                                                    }];
-            self.searchField = textField;
+            self.searchField = (UITextField *)view;
         }
     }
     //加入输入监听(注意，如果信号没有被订阅，则会提示警告⚠️)
-    //先判断是否全是空格
-    //上次的值与本次的值不能相同
-    //节流1秒
-    //发送请求
-    //切入主线程
-    //更新UI
+    //1.先判断是否全是空格
+    //2.上次的值与本次的值不能相同
+    //3.节流1秒
+    //4.发送请求
+    //5.切入主线程
+    //6.更新UI
     @weakify(self)
     [[[[[[self.searchField.rac_textSignal filter:^BOOL(NSString *text) {
         return ![NSString isEmpty:text];
@@ -249,20 +244,36 @@
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;
     
+    // 设置搜索框放大镜图标
+    self.searchBar.lee_theme.LeeCustomConfig(@"homePage_search", ^(id item, id value) {
+        [(UISearchBar *)item setImage:value forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    });
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
             //设置输入框的背景颜色
             textField.clipsToBounds = YES;
-            textField.backgroundColor = HexColor(#EEEEEE);
+//            textField.backgroundColor = HexColor(#EEEEEE);
+            textField.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+                if (UserGetBool(@"NightMode")) {
+                    textField.backgroundColor = HexColor(#292D30);
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{
+                                                                                                                       NSForegroundColorAttributeName:HexColor(#4B4B4B),                                                    NSFontAttributeName:Font(13),
+                                                                                                                       }];
+                }else{
+                    textField.backgroundColor = HexColor(#f7f7f7);
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{
+                                                                                                                       NSForegroundColorAttributeName:HexColor(#E1E1E1),                                                    NSFontAttributeName:Font(13),
+                                                                                                                       }];
+                }
+            });
             //设置输入框边框的圆角以及颜色
             textField.layer.cornerRadius = 17.0f;
-            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
-            textField.layer.borderWidth = 1;
+//            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
+//            textField.layer.borderWidth = 1;
             //设置输入字体颜色
             textField.textColor = BlueColor;
-            //设置默认文字颜色
-            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{NSForegroundColorAttributeName:HexColor(#AEAEAE)}];
+            
             
         }
         if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
@@ -277,7 +288,6 @@
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(popAction:) image:@"saerchClose" hightimage:nil andTitle:@""];
 }
 
 -(void)popAction:(UIButton *)rightBtn

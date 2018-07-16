@@ -12,7 +12,7 @@
 #import "SearchViewController.h"    //搜索页面
 #import "ADPopView.h"
 
-@interface HomePageViewController ()
+@interface HomePageViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSMutableArray *titleList;
 @property (nonatomic, strong) NSMutableArray *leaveTitleList;
 @property (nonatomic, strong) UIImageView *userIcon;
+@property (nonatomic, strong) UIButton *moreBtn;
 @end
 
 @implementation HomePageViewController
@@ -109,26 +110,37 @@
     self.navigationItem.titleView = titleView;
 
     // 设置搜索框放大镜图标
-    UIImage *searchIcon = UIImageNamed(@"searchBar_icon");
-    [self.searchBar setImage:searchIcon forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    self.searchBar.lee_theme.LeeCustomConfig(@"homePage_search", ^(id item, id value) {
+        [(UISearchBar *)item setImage:value forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    });
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
             //设置输入框的背景颜色
             textField.clipsToBounds = YES;
-            textField.backgroundColor = HexColor(#f7f7f7);
+            
+            textField.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+                if (UserGetBool(@"NightMode")) {
+                    textField.backgroundColor = HexColor(#292D30);
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 搜个关键词试试看？" attributes:@{
+                                                                                                                            NSForegroundColorAttributeName:HexColor(#4B4B4B),
+                                                                                                                            NSFontAttributeName:Font(13),
+                                                                                                                            }];
+                }else{
+                    textField.backgroundColor = HexColor(#f7f7f7);
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 搜个关键词试试看？" attributes:@{
+                                                                                                                            NSForegroundColorAttributeName:HexColor(#E1E1E1),
+                                                                                                                            NSFontAttributeName:Font(13),
+                                                                                                                            }];
+                }
+            });
             //设置输入框边框的圆角以及颜色
             textField.layer.cornerRadius = 17.0f;
-            textField.layer.borderColor = HexColor(#f7f7f7).CGColor;
-            textField.layer.borderWidth = 1;
+//            textField.layer.borderColor = HexColor(#f7f7f7).CGColor;
+//            textField.layer.borderWidth = 1;
             //设置输入字体颜色
             textField.textColor = BlueColor;
-            //设置默认文字颜色
-            textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 搜个关键词试试看？" attributes:@{
-                                                                                                                    NSForegroundColorAttributeName:HexColor(#E1E1E1),
-                                                                                                                    NSFontAttributeName:Font(13),
-                                                                                                                    }];
-            
+            textField.delegate = self;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
             tap.numberOfTapsRequired = 1;
             [textField addGestureRecognizer:tap];
@@ -145,6 +157,13 @@
     LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
     _userIcon.image = UIImageNamed(@"homePage_logo");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
+    
+}
+
+//让输入框无法进入编辑
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    return NO;
     
 }
 
@@ -198,11 +217,14 @@
     });
     
     //添加更多按钮
-    UIButton *moreBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+    if (_moreBtn) {
+        return;
+    }
+    _moreBtn = [UIButton new];
     
-    [moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
-    moreBtn.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-    [self.view addSubview:moreBtn];
+    [_moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
+    _moreBtn.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [self.view addSubview:_moreBtn];
     
 //    [moreBtn activateConstraints:^{
 //        moreBtn.right_attr = weakself.view.right_attr_safe;
@@ -210,24 +232,29 @@
 //        moreBtn.width_attr.constant = 40;
 //        moreBtn.height_attr.constant = 40;
 //    }];
-    moreBtn.sd_layout
+    _moreBtn.sd_layout
     .rightEqualToView(self.view)
     .topEqualToView(self.view)
     .widthIs(40)
     .heightIs(40)
     ;
-    [moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
-    moreBtn.layer.shadowColor = GrayColor.CGColor;
-    moreBtn.layer.shadowOffset = CGSizeMake(0, 2);
-    moreBtn.layer.shadowOpacity = 0.5;
-    moreBtn.layer.shouldRasterize = NO;
-    moreBtn.layer.shadowPath = [UIBezierPath bezierPathWithRect:moreBtn.bounds].CGPath;
+//    [_moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
+    _moreBtn.lee_theme.LeeConfigButtonImage(@"homePage_manageMenu", UIControlStateNormal);
+    _moreBtn.lee_theme.LeeConfigButtonImage(@"homePage_manageMenu_selected", UIControlStateSelected);
+    _moreBtn.selected = UserGetBool(@"NewAttentionChannel");
+    _moreBtn.layer.shadowColor = GrayColor.CGColor;
+    _moreBtn.layer.shadowOffset = CGSizeMake(0, 2);
+    _moreBtn.layer.shadowOpacity = 0.5;
+    _moreBtn.layer.shouldRasterize = NO;
+    _moreBtn.layer.shadowPath = [UIBezierPath bezierPathWithRect:_moreBtn.bounds].CGPath;
 }
 
 //全部频道
 -(void)more:(UIButton *)btn
 {
-    
+    //点击一次后，取消红点提示
+    UserSetBool(NO, @"NewAttentionChannel");
+    btn.selected = NO;
     @weakify(self)
     [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
         @strongify(self)
@@ -298,14 +325,31 @@
             //比对数据
             [UniversalMethod compareChannels:[channelConcerned arrayByAddingObjectsFromArray:channelUnconcerned] reasonAction:^(BOOL changed1 ,BOOL changed2, NSArray *attentionArr, NSArray *unAttentionArr) {
                 //拿到了比对后的数据，根据情况判断是否要更新本地缓存
-                if (changed1) { //说明已关注的列表需要更新界面
-                    self.titleList = [attentionArr mutableCopy];
+                //如果本地没有缓存
+                if (changed1 == YES &&changed2 == YES &&!attentionArr.count&&!unAttentionArr.count) {
+                    if (!kArrayIsEmpty(channelConcerned)) {
+                        self.titleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelConcerned]];
+                    }
+                    if (!kArrayIsEmpty(channelUnconcerned)) {
+                        self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
+                    }
+                    //这里暂时不做新数据提醒
                     [self reloadChildVCWithTitles:self.titleList];
+                }else{
+                    if (changed1) {
+                        self.titleList = [attentionArr mutableCopy];
+                        [self reloadChildVCWithTitles:self.titleList];
+                    }
+                    if (changed2) {
+                        self.leaveTitleList = [unAttentionArr mutableCopy];
+                        //此处需要提醒用户有频道更新
+                        LRToast(@"未关注频道有更新哦");
+                        self.moreBtn.selected = YES;
+                        UserSetBool(YES, @"NewAttentionChannel");
+                    }
+                    
                 }
-                if (changed2) {
-                    self.leaveTitleList = [unAttentionArr mutableCopy];
-                    //此处需要提醒用户有频道更新
-                }
+                //存储数据到本地
                 [self saveColumnArr];
             }];
         }else{

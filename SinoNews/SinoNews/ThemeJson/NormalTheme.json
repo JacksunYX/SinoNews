@@ -11,7 +11,12 @@
         "articleLoad"   : "newsDetail_loadingImg",
         "homeLoad"      : "homePage_loadingImg",
         
-        "mineBackImg"     : "mine_topBackImg",
+        "mineBackImg"   : "mine_topBackImg",
+        
+        "homePage_manageMenu" : "manageMenu",
+        "homePage_manageMenu_selected" : "manageMenu_new",
+        "homePage_search"   : "searchBar_icon",
+        
     },
     "other": {
         

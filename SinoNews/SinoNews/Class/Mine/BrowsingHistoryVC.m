@@ -91,14 +91,16 @@
     
     [self addTableView];
     
-    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noHistory" title:@"暂无任何历史记录"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.tableView ly_startLoading];
     self.dataSource = [[HomePageModel getSortedHistory] mutableCopy];
     [self.tableView reloadData];
+    [self.tableView ly_endLoading];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,6 +141,10 @@
 //清空浏览历史
 -(void)clearAction
 {
+    if (!self.dataSource.count) {
+        LRToast(@"没有可以清空的历史哦");
+        return;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"清空浏览历史？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"清空" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [HomePageModel clearLocaHistory];

@@ -129,7 +129,7 @@
         .rightSpaceToView(self.headView, 10)
         .heightIs(18)
         ;
-        title.text = @"朝美领导人历史性会晤";
+        title.text = GetSaveString(self.model.itemTitle);
         
         subTitle.sd_layout
         .topSpaceToView(title, 10)
@@ -138,7 +138,7 @@
         .autoHeightRatio(0)
         ;
         [subTitle setMaxNumberOfLinesToShow:3];
-        subTitle.text = @"美国总统特朗普将于6月12日在新加坡会见朝鲜最高领 导人金正恩。这是朝美在任领导人历史上首次举行会 晤。";
+        subTitle.text = GetSaveString(self.model.descript);
     }
     
     self.tableView.tableHeaderView = self.headView;

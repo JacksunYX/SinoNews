@@ -83,6 +83,8 @@
     [self getButtonAndView];
     [self setTitleView];
     [self addTableViews];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,8 +111,15 @@
         @strongify(self)
         self.navigationItem.titleView = self.segHead;
     }];
-    
+    [_segHead.titlesScroll addBakcgroundColorTheme];
     self.selectedBtn.hidden = !selectedIndex;
+    
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+        //来回滑动一次，解决显示问题
+        [(MLMSegmentHead *)item changeIndex:1 completion:YES];
+        [(MLMSegmentHead *)item changeIndex:0 completion:YES];
+    });
 }
 
 -(void)addTableViews
@@ -517,18 +526,21 @@
 //收藏的游戏公司列表
 -(void)requestCompanyList
 {
+    [self.tableView ly_startLoading];
     @weakify(self)
     [HttpRequest getWithURLString:ListConcernedCompanyForUser parameters:nil success:^(id responseObject) {
         @strongify(self)
         self.casinoArray = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:nil];
 }
 
 //收藏的文章列表
 -(void)requestNewsList
 {
+    [self.tableView ly_startLoading];
     [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
@@ -545,9 +557,11 @@
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     } RefreshAction:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];

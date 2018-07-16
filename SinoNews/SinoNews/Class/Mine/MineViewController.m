@@ -120,6 +120,7 @@
     self.navigationController.navigationBar.hidden = YES;
     [self addViews];
     [self requestBottomBanner];
+    
 }
 
 - (void)didReceiveMemoryWarning {

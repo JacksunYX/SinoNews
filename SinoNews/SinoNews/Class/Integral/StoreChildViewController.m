@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTableView];
-    [self.tableView.mj_header beginRefreshing];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,6 +63,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
+        [self.tableView ly_startLoading];
         self.page = 1;
         [self requestProductsList];
     }];
@@ -79,7 +80,7 @@
         }
         [self requestProductsList];
     }];
-    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -151,9 +152,11 @@
             }
         }
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     }];
 }
 

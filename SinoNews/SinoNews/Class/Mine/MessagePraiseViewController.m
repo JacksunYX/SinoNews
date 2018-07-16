@@ -85,6 +85,9 @@
     self.navigationItem.title = @"赞";
     
     [self addTableView];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noPraise" title:@"暂无人点赞"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,7 +116,8 @@
     
     @weakify(self)
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self)
+        @strongify(self);
+        [self.tableView ly_startLoading];
         [self requestGetPraiseHistory];
     }];
     [self.tableView.mj_header beginRefreshing];
@@ -170,9 +174,11 @@
         self.dataSource = [PraiseHistoryModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *erro) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     } RefreshAction:^{
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];

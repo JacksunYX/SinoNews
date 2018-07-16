@@ -21,4 +21,6 @@
 
 #import "CLInputToolbar.h"  //输入框弹出
 
+#import "LYEmptyViewHeader.h"
+
 #endif /* OtherFrameworksHead_h */

@@ -40,7 +40,7 @@
     
     [self requestMallcCategory];
     
-    
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,12 +125,15 @@
 //请求banner
 -(void)requestBanner
 {
+    [self.view ly_startLoading];
     [RequestGather requestBannerWithADId:8 success:^(id response) {
         self.adArr = response;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
         }
-    } failure:nil];
+    } failure:^(NSError *error) {
+        [self.view ly_endLoading];
+    }];
 }
 
 //请求商品分类

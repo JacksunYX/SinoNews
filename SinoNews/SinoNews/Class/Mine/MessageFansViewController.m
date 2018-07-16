@@ -76,6 +76,8 @@
     self.navigationItem.title = @"我的粉丝";
     
     [self addTableView];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noFans" title:@"暂无粉丝关注你"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,7 +105,8 @@
     [self.tableView registerClass:[FansTableViewCell class] forCellReuseIdentifier:FansTableViewCellID];
     @weakify(self)
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self)
+        @strongify(self);
+        [self.tableView ly_startLoading];
         [self requestGetFansHistory];
     }];
     [self.tableView.mj_header beginRefreshing];
@@ -160,9 +163,11 @@
         self.dataSource = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *erro) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     } RefreshAction:^{
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];

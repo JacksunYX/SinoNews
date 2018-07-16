@@ -29,6 +29,8 @@
     [super viewDidLoad];
     
     [self addTableView];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noPublish" title:@"暂无发布的内容"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +63,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
+        [self.tableView ly_startLoading];
         self.currPage = 1;
         [self requestUserPushNews];
         
@@ -131,7 +134,7 @@
 //请求发布文章列表
 -(void)requestUserPushNews
 {
-    
+    [self.tableView ly_endLoading];
 }
 
 

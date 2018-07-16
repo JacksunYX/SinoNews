@@ -29,8 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"粉丝";
-    self.view.backgroundColor = WhiteColor;
+    
     [self addTableview];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noFans" title:@"暂无粉丝关注你"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,7 +50,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    self.tableView.backgroundColor = WhiteColor;
+    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -66,6 +68,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
+        [self.tableView ly_startLoading];
         self.currPage = 1;
         [self requestFansList];
     }];
@@ -164,10 +167,11 @@
         }
 
         [self.tableView reloadData];
-
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     } RefreshAction:nil];
 }
 

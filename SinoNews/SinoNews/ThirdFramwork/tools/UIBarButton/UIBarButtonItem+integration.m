@@ -49,7 +49,8 @@
         [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn addButtonTextColorTheme];
         
         [btn.titleLabel setTextAlignment:NSTextAlignmentRight];
         
@@ -69,7 +70,9 @@
         [btn setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:hightimage] forState:UIControlStateHighlighted];
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        [btn addButtonTextColorTheme];
         
         [btn.titleLabel setFont:PFR15Font];
         //设置尺寸

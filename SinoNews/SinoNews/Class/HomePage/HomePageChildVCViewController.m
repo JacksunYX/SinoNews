@@ -57,6 +57,8 @@
     [self addTableView];
     
 //    GGLog(@"news_id:%@",self.news_id);
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +132,7 @@
         if (self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_header endRefreshing];
         }
+        [self.tableView ly_startLoading];
         //有newsid，说明是首页的子页面
         self.page = 1;
         if ([self.news_id integerValue]) {
@@ -187,6 +190,7 @@
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = (HomePageModel *)model;
         switch (model1.itemType) {
+            case 400:
             case 100:   //无图
             {
                 HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
@@ -194,6 +198,8 @@
                 cell = (UITableViewCell *)cell1;
             }
                 break;
+            
+            case 401:
             case 101:   //1图
             {
                 HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
@@ -201,6 +207,7 @@
                 cell = (UITableViewCell *)cell1;
             }
                 break;
+            case 403:
             case 103:   //3图
             {
                 HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
@@ -245,9 +252,15 @@
 {
     id model = self.dataSource[indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
-        NewsDetailViewController *ndVC = [NewsDetailViewController new];
-        ndVC.newsId = [(HomePageModel *)model itemId];
-        [self.navigationController pushViewController:ndVC animated:YES];
+        HomePageModel *model1 = model;
+        if (model1.itemType>=400&&model1.itemType<500) { //投票
+            LRToast(@"投票文章还在加工中...");
+        }else{
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = model1.itemId;
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }
+        
         
 //        PayNewsViewController *pnVC = [PayNewsViewController new];
 //        [self.navigationController pushViewController:pnVC animated:YES];
@@ -290,7 +303,8 @@
                 ADModel *model = [ADModel mj_objectWithKeyValues:dic];
                 [dataArr addObject:model];
             }else if (itemType>=400&&itemType<500){     //投票
-                
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
             }else if (itemType>=500&&itemType<600){     //问答
                 
             }
@@ -307,10 +321,11 @@
             }
         }
         [self.tableView reloadData];
-        
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     }];
     
 }
@@ -361,9 +376,11 @@
             }
         }
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     } RefreshAction:nil];
 }
 
@@ -403,9 +420,11 @@
         
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     }];
 }
 

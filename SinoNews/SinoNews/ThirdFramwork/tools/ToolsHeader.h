@@ -32,5 +32,6 @@
 #import "UniversalMethod.h"
 #import "GetCurrentFont.h"
 #import "UIView+AddThemeMode.h"
+#import "MyEmptyView.h"
 
 #endif /* ToolsHeader_h */

@@ -9,8 +9,12 @@
 #import "ExchangeProductViewController.h"
 #import "ProductDetailModel.h"
 
-@interface ExchangeProductViewController ()
+@interface ExchangeProductViewController ()<WKNavigationDelegate,UIScrollViewDelegate>
+{
+    CGFloat topWebHeight;
+}
 @property(nonatomic,strong) ProductDetailModel *productModel;
+@property (nonatomic,strong) WKWebView *webView;
 @end
 
 @implementation ExchangeProductViewController
@@ -78,7 +82,8 @@
     
     [self addTopViewWithView:topView];
     [self addCenterViewWithView:centerView];
-    [self addBottomViewWithView:bottomView];
+//    [self addBottomViewWithView:bottomView];
+    [self setWebViewLoadWithView:bottomView];
     
     [scrollView setupAutoContentSizeWithBottomView:bottomView bottomMargin:20];
 }
@@ -307,6 +312,89 @@
     [leftView addSubview:colorview];
     textfield.leftView = leftView;
     return textfield;
+}
+
+//设置网页
+-(void)setWebViewLoadWithView:(UIView *)fatherView
+{
+    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0]. appendChild(meta);";
+    
+    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+    [wkUController addUserScript:wkUScript];
+    
+    // 创建设置对象
+    WKPreferences *preference = [[WKPreferences alloc]init];
+    // 设置字体大小(最小的字体大小)
+    preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+    
+    //创建网页配置对象
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    //    config.userContentController = wkUController;
+    //    // 设置偏好设置对象
+    //    config.preferences = preference;
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
+    self.webView.navigationDelegate = self;
+    self.webView.scrollView.delegate = self;
+    [fatherView addSubview:self.webView];
+    
+    self.webView.sd_layout
+    .topSpaceToView(fatherView, 10)
+    .leftSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(0)
+    ;
+    [fatherView setupAutoHeightWithBottomView:self.webView bottomMargin:0];
+    
+    //KVO监听web的高度变化
+    @weakify(self)
+    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        //        GGLog(@"x:%@",x);
+        CGFloat newHeight = self.webView.scrollView.contentSize.height;
+        if (newHeight != self->topWebHeight) {
+            self->topWebHeight = newHeight;
+            GGLog(@"webHeight:%lf",self->topWebHeight);
+//            self.webView.frame = CGRectMake(0, 0, ScreenW, self->topWebHeight);
+            self.webView.sd_layout
+//            .topSpaceToView(fatherView, 10)
+//            .leftSpaceToView(fatherView, 10)
+//            .rightSpaceToView(fatherView, 10)
+            .heightIs(self->topWebHeight)
+            ;
+            
+        }
+    }];
+    self.webView.userInteractionEnabled = NO;
+    //加载内容
+    [self.webView loadHTMLString:self.productModel.productDescription baseURL:nil];
+}
+
+#pragma mark ----- WKNavigationDelegate
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    //修改字体大小 300%
+    NSString *fontStr = @"100%";
+    if ([GetCurrentFont contentFont].pointSize == 12) {
+        fontStr = @"80%";
+    }else if ([GetCurrentFont contentFont].pointSize == 13){
+        fontStr = @"90%";
+    }else if ([GetCurrentFont contentFont].pointSize == 14){
+        fontStr = @"100%";
+    }else if ([GetCurrentFont contentFont].pointSize == 15){
+        fontStr = @"120%";
+    }else if ([GetCurrentFont contentFont].pointSize == 16){
+        fontStr = @"150%";
+    }
+    
+    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
+    
+    if (UserGetBool(@"NightMode")) {    //夜间模式
+        //修改字体颜色  #9098b8
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#FFFFFF'"completionHandler:nil];
+        //修改背景色
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
+    }
 }
 
 #pragma mark ---- 请求发送

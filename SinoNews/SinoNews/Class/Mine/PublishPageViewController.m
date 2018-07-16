@@ -63,7 +63,13 @@
         weakself.navigationItem.titleView = weakself.segHead;
         [weakself.view addSubview:weakself.segScroll];
     }];
-    
+    [_segHead.titlesScroll addBakcgroundColorTheme];
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+        //来回滑动一次，解决显示问题
+        [(MLMSegmentHead *)item changeIndex:1 completion:YES];
+        [(MLMSegmentHead *)item changeIndex:0 completion:YES];
+    });
 }
 
 

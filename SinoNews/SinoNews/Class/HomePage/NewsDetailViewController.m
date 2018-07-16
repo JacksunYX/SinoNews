@@ -22,7 +22,6 @@
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     CGFloat topWebHeight;
-    
 }
 @property (nonatomic,strong) UITextField *commentInput;
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -236,7 +235,7 @@ CGFloat static titleViewHeight = 91;
     });
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.separatorInset = UIEdgeInsetsMake(0, 38, 0, 10);
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
     _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
     _tableView.enableDirection = YES;
@@ -574,7 +573,7 @@ CGFloat static titleViewHeight = 91;
         
         cell = (CommentCell *)cell2;
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

@@ -163,6 +163,11 @@
 		4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4820EB04A700BA0534 /* SignInPopView.m */; };
 		4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4B20EB11A400BA0534 /* PraisePopView.m */; };
 		4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4E20EB155F00BA0534 /* ADPopView.m */; };
+		4C72345D20FC6E4200D5C5D4 /* LYEmptyBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72345420FC6E4200D5C5D4 /* LYEmptyBaseView.m */; };
+		4C72345E20FC6E4200D5C5D4 /* UIView+Empty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72345620FC6E4200D5C5D4 /* UIView+Empty.m */; };
+		4C72345F20FC6E4200D5C5D4 /* UIView+LYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72345720FC6E4200D5C5D4 /* UIView+LYExtension.m */; };
+		4C72346020FC6E4200D5C5D4 /* LYEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72345A20FC6E4200D5C5D4 /* LYEmptyView.m */; };
+		4C72346320FC6E8900D5C5D4 /* MyEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -572,6 +577,17 @@
 		4C6B4E4B20EB11A400BA0534 /* PraisePopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraisePopView.m; sourceTree = "<group>"; };
 		4C6B4E4D20EB155F00BA0534 /* ADPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADPopView.h; sourceTree = "<group>"; };
 		4C6B4E4E20EB155F00BA0534 /* ADPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADPopView.m; sourceTree = "<group>"; };
+		4C72345420FC6E4200D5C5D4 /* LYEmptyBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYEmptyBaseView.m; sourceTree = "<group>"; };
+		4C72345520FC6E4200D5C5D4 /* LYEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYEmptyView.h; sourceTree = "<group>"; };
+		4C72345620FC6E4200D5C5D4 /* UIView+Empty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Empty.m"; sourceTree = "<group>"; };
+		4C72345720FC6E4200D5C5D4 /* UIView+LYExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LYExtension.m"; sourceTree = "<group>"; };
+		4C72345820FC6E4200D5C5D4 /* LYEmptyBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYEmptyBaseView.h; sourceTree = "<group>"; };
+		4C72345920FC6E4200D5C5D4 /* LYEmptyViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYEmptyViewHeader.h; sourceTree = "<group>"; };
+		4C72345A20FC6E4200D5C5D4 /* LYEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYEmptyView.m; sourceTree = "<group>"; };
+		4C72345B20FC6E4200D5C5D4 /* UIView+LYExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LYExtension.h"; sourceTree = "<group>"; };
+		4C72345C20FC6E4200D5C5D4 /* UIView+Empty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Empty.h"; sourceTree = "<group>"; };
+		4C72346120FC6E8900D5C5D4 /* MyEmptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEmptyView.h; sourceTree = "<group>"; };
+		4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEmptyView.m; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1305,6 +1321,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C72345320FC6E4200D5C5D4 /* LYEmptyView */,
 				4C23B5BE20F6387100ACE380 /* YBPopupMenu */,
 				4C23B39F20F5914600ACE380 /* ArticleEditor */,
 				4CCCF01120E9EE19000EC6BD /* CLInputToolbar */,
@@ -1432,6 +1449,8 @@
 				4C51FFD420D2758A0018387B /* UIView+GFBorder.m */,
 				4C51FFD620D2758A0018387B /* UIView+GFCorner.h */,
 				4C51FFD720D2758A0018387B /* UIView+GFCorner.m */,
+				4C72346120FC6E8900D5C5D4 /* MyEmptyView.h */,
+				4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1511,6 +1530,22 @@
 				4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4C72345320FC6E4200D5C5D4 /* LYEmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				4C72345420FC6E4200D5C5D4 /* LYEmptyBaseView.m */,
+				4C72345520FC6E4200D5C5D4 /* LYEmptyView.h */,
+				4C72345620FC6E4200D5C5D4 /* UIView+Empty.m */,
+				4C72345720FC6E4200D5C5D4 /* UIView+LYExtension.m */,
+				4C72345820FC6E4200D5C5D4 /* LYEmptyBaseView.h */,
+				4C72345920FC6E4200D5C5D4 /* LYEmptyViewHeader.h */,
+				4C72345A20FC6E4200D5C5D4 /* LYEmptyView.m */,
+				4C72345B20FC6E4200D5C5D4 /* UIView+LYExtension.h */,
+				4C72345C20FC6E4200D5C5D4 /* UIView+Empty.h */,
+			);
+			path = LYEmptyView;
 			sourceTree = "<group>";
 		};
 		4C83E64020BFE30200C99AAB /* View */ = {
@@ -2005,6 +2040,7 @@
 				4C23B3BB20F5924800ACE380 /* LMWordView.m in Sources */,
 				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C17414720C5168600AA6D57 /* TXLimitedTextField.m in Sources */,
+				4C72346020FC6E4200D5C5D4 /* LYEmptyView.m in Sources */,
 				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
 				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
@@ -2014,6 +2050,7 @@
 				4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C6332C920E08E6500D80056 /* AddressViewController.m in Sources */,
+				4C72345D20FC6E4200D5C5D4 /* LYEmptyBaseView.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
 				4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */,
 				4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */,
@@ -2122,6 +2159,7 @@
 				4C23B3AB20F591E400ACE380 /* NSTextAttachment+LMText.m in Sources */,
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
+				4C72346320FC6E8900D5C5D4 /* MyEmptyView.m in Sources */,
 				4C1551DF20E633720030670F /* IntegralModel.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
@@ -2130,6 +2168,7 @@
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */,
 				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
+				4C72345F20FC6E4200D5C5D4 /* UIView+LYExtension.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
@@ -2159,6 +2198,7 @@
 				4C93497C20CF951800BD8F07 /* MessageFansViewController.m in Sources */,
 				4C646C6820F33E700053067A /* NewNotifyViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
+				4C72345E20FC6E4200D5C5D4 /* UIView+Empty.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,

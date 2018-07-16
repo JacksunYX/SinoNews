@@ -96,7 +96,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.backgroundColor = WhiteColor;
+    [_tableView addBakcgroundColorTheme];
     _tableView.dataSource = self;
     _tableView.delegate = self;
 

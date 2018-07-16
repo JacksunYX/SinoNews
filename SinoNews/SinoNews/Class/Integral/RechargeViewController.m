@@ -207,7 +207,7 @@
         UIButton *title = [UIButton new];
         title.titleLabel.font = Font(15);
         
-        title.lee_theme.LeeCustomConfig(@"title", ^(id item, id value) {
+        title.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             if (UserGetBool(@"NightMode")) {
                 [(UIButton *)item setNormalTitleColor:value];
             }else{
@@ -345,7 +345,7 @@
         [btn setTitle:moneyArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateSelected];
         
-        btn.lee_theme.LeeCustomConfig(@"title", ^(id item, id value) {
+        btn.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             if (UserGetBool(@"NightMode")) {
                 [(UIButton *)item setNormalTitleColor:value];
             }else{

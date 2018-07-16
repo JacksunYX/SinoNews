@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTableView];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noComment" title:@"暂无评论"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,6 +59,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
+        [self.tableView ly_startLoading];
         self.currPage = 1;
         [self requestUserComments];
         
@@ -139,7 +141,7 @@
 //获取用户评论
 -(void)requestUserComments
 {
-    
+    [self.tableView ly_endLoading];
 }
 
 

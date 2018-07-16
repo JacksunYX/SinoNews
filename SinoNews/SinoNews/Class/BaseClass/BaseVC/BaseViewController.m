@@ -35,10 +35,12 @@
             dic[NSForegroundColorAttributeName] = HexColor(#FFFFFF);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
             self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left_night" hightimage:@"return_left_night" andTitle:@""];
+            
         }else{
             dic[NSForegroundColorAttributeName] = HexColor(#323232);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
             self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left" hightimage:@"return_left" andTitle:@""];
+            
         }
         [self.navigationController.navigationBar setTitleTextAttributes:dic];
     });

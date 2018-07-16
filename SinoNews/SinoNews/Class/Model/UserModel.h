@@ -49,6 +49,9 @@
 //用户积分
 @property (nonatomic,assign) long integral;
 
+//新增
+@property (nonatomic,strong) NSString *email;   //邮箱
+@property (nonatomic,assign) long mobile;       //手机号
 
 /**
  清除本地保存的用户信息

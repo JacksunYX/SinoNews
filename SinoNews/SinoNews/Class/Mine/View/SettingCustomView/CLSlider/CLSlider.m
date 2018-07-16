@@ -270,10 +270,21 @@
     if (p.y>=0 && p.y <= CGRectGetHeight(self.frame)) {
         p.y = self.thumbLayer.position.y;
     }
+    GGLog(@"p.point:%@",NSStringFromCGPoint(p));
+    GGLog(@"self.thumbLayer.frame:%@",NSStringFromCGRect(self.thumbLayer.frame));
+    GGLog(@"self.layer.frame:%@",NSStringFromCGRect(self.layer.frame));
     if (CGRectContainsPoint(self.thumbLayer.frame, p)) {
         touchOnCircleLayer = YES;
         [self didSeleCtcircleLayer];
         return YES;
+    }else{
+        GGLog(@"在视图内");
+//        touchOnCircleLayer = YES;
+//        [self didSeleCtcircleLayer];
+//        return YES;
+        [self didSeleCtcircleLayer];
+        [self setValueWithPoint:p];
+        [self desSelectCircleLayer];
     }
     touchOnCircleLayer = NO;
     return NO;
@@ -283,34 +294,43 @@
     if (touchOnCircleLayer) {
         CGPoint point = [touch locationInView:self];
         
-        CGRect mRect = self.thumbLayer.frame;
-        CGFloat x = point.x-self.thumbDiameter*0.5;
-        mRect.origin.x = MAX(x, 0);
-        mRect.origin.x = MIN(mRect.origin.x, CGRectGetWidth(self.frame)-self.thumbDiameter);
-        [self setThumbLayerFrame:mRect animated:NO];
+        [self setValueWithPoint:point];
         
-        
-        CGFloat W = CGRectGetWidth(self.frame);
-        CGFloat oneW = (W-self.thumbDiameter)/self.scaleLineNumber;
-
-        CGFloat offX = point.x-self.thumbDiameter*0.5+oneW*0.5;
-        offX = MAX(0, offX);
-        offX = MIN(offX, CGRectGetWidth(self.frame));
-        
-        CGFloat idx = offX/oneW;
-        int cIdx = (int)idx;
-        cIdx = MIN(cIdx, (int)self.scaleLineNumber);
-        cIdx = MAX(cIdx, 0);
-        
-        
-        if (self.currentIdx != cIdx) {
-            self.currentIdx = cIdx;
-            [self sendActionsForControlEvents:UIControlEventValueChanged];
-        }
         return YES;
     }
     return NO;
 }
+
+//滑动过程
+-(void)setValueWithPoint:(CGPoint)point
+{
+    CGRect mRect = self.thumbLayer.frame;
+    CGFloat x = point.x-self.thumbDiameter*0.5;//便宜量
+    mRect.origin.x = MAX(x, 0);
+    mRect.origin.x = MIN(mRect.origin.x, CGRectGetWidth(self.frame)-self.thumbDiameter);
+    [self setThumbLayerFrame:mRect animated:NO];    //设置滑块的位置
+    
+    
+    CGFloat W = CGRectGetWidth(self.frame);
+    CGFloat oneW = (W-self.thumbDiameter)/self.scaleLineNumber;
+    
+    CGFloat offX = point.x-self.thumbDiameter*0.5+oneW*0.5;
+    offX = MAX(0, offX);
+    offX = MIN(offX, CGRectGetWidth(self.frame));
+    
+    CGFloat idx = offX/oneW;
+    int cIdx = (int)idx;
+    cIdx = MIN(cIdx, (int)self.scaleLineNumber);
+    cIdx = MAX(cIdx, 0);
+    
+    
+    if (self.currentIdx != cIdx) {
+        self.currentIdx = cIdx;
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
+    }
+}
+
+
 - (void)endTrackingWithTouch:(nullable UITouch *)touch withEvent:(nullable UIEvent *)event
 {
     [self desSelectCircleLayer];

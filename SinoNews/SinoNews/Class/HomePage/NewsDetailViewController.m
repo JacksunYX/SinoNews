@@ -245,7 +245,6 @@ CGFloat static titleViewHeight = 91;
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
-    
     @weakify(self);
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
@@ -260,8 +259,6 @@ CGFloat static titleViewHeight = 91;
         }
         [self requestComments];
     }];
-    
-    [self setWebViewLoad];
     
 }
 
@@ -419,9 +416,9 @@ CGFloat static titleViewHeight = 91;
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    //    config.userContentController = wkUController;
-    //    // 设置偏好设置对象
-//    config.preferences = preference;
+    config.userContentController = wkUController;
+    // 设置偏好设置对象
+    config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
     self.webView.navigationDelegate = self;
     
@@ -431,7 +428,7 @@ CGFloat static titleViewHeight = 91;
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
         @strongify(self)
-        //        GGLog(@"x:%@",x);
+//        GGLog(@"x:%@",x);
         CGFloat newHeight = self.webView.scrollView.contentSize.height;
         if (newHeight != self->topWebHeight) {
             self->topWebHeight = newHeight;
@@ -442,6 +439,14 @@ CGFloat static titleViewHeight = 91;
             [self.tableView endUpdates];
         }
     }];
+    
+    //加载页面
+    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    GGLog(@"文章h5：%@",urlStr);
+    NSURL *url = UrlWithStr(urlStr);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
+    [self.webView loadRequest:request];
+    [self showOrHideLoadView:YES page:2];
 }
 
 //字体
@@ -451,7 +456,7 @@ CGFloat static titleViewHeight = 91;
     [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
         @strongify(self)
         [self setTitle];
-        [self.webView reload];
+        [self setWebViewLoad];
     }];
 }
 
@@ -462,27 +467,28 @@ CGFloat static titleViewHeight = 91;
     [self refreshComments];
     [self showOrHideLoadView:NO page:2];
     [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
-        //        CGFloat height = [data floatValue];
+        CGFloat height = [data floatValue];
+        GGLog(@"height:%lf",height);
         //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
         //设置通知或者代理来传高度
         //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
     }];
     
     //修改字体大小 300%
-    NSString *fontStr = @"100%";
-    if ([GetCurrentFont contentFont].pointSize == 12) {
-        fontStr = @"80%";
-    }else if ([GetCurrentFont contentFont].pointSize == 13){
-        fontStr = @"90%";
-    }else if ([GetCurrentFont contentFont].pointSize == 14){
-        fontStr = @"100%";
-    }else if ([GetCurrentFont contentFont].pointSize == 15){
-        fontStr = @"120%";
-    }else if ([GetCurrentFont contentFont].pointSize == 16){
-        fontStr = @"150%";
-    }
-        
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
+//    NSString *fontStr = @"100%";
+//    if ([GetCurrentFont contentFont].pointSize == 12) {
+//        fontStr = @"80%";
+//    }else if ([GetCurrentFont contentFont].pointSize == 13){
+//        fontStr = @"90%";
+//    }else if ([GetCurrentFont contentFont].pointSize == 14){
+//        fontStr = @"100%";
+//    }else if ([GetCurrentFont contentFont].pointSize == 15){
+//        fontStr = @"120%";
+//    }else if ([GetCurrentFont contentFont].pointSize == 16){
+//        fontStr = @"150%";
+//    }
+//
+//    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
@@ -725,15 +731,11 @@ CGFloat static titleViewHeight = 91;
     
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
-        if (!self.webView.URL.absoluteString) {
-            NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
-            GGLog(@"文章h5：%@",urlStr);
-            NSURL *url = UrlWithStr(urlStr);
-//            NSURL *url = UrlWithStr(@"https://www.tmall.com");
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
-            [self.webView loadRequest:request];
-        }
+//        if (!self.webView.URL.absoluteString) {
+        [self setWebViewLoad];
+//        }
         [HomePageModel saveWithNewsModel:self.newsModel];
+        
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         

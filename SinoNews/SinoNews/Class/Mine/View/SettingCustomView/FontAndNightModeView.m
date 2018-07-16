@@ -169,22 +169,28 @@ static CGFloat anumationTime = 0.3;
     
     [[finishBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         GGLog(@"完成");
-        //全局设置字体和夜间模式
-        UserSetBool(switchBtn.on, @"NightMode")
-        if (switchBtn.on) {
-            [LEETheme startTheme:@"NightTheme"];
+        if (switchBtn.on == UserGetBool(@"NightMode") && [UserGet(@"fontSize") integerValue] == fontSelect.currentIdx) {
+            GGLog(@"没有任何变化，不需要回调");
+            
         }else{
-            [LEETheme startTheme:@"NormalTheme"];
+            //全局设置字体和夜间模式
+            UserSetBool(switchBtn.on, @"NightMode")
+            if (switchBtn.on) {
+                [LEETheme startTheme:@"NightTheme"];
+            }else{
+                [LEETheme startTheme:@"NormalTheme"];
+            }
+            
+            NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
+            UserSet(fontSize, @"fontSize")
+            //发送修改了字体的通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
+            //回调
+            if (handlBlock) {
+                handlBlock(switchBtn.on,fontSelect.currentIdx);
+            }
         }
-  
-        NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
-        UserSet(fontSize, @"fontSize")
-        //发送修改了字体的通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
         
-        if (handlBlock) {
-            handlBlock(switchBtn.on,fontSelect.currentIdx);
-        }
         STRONG(strongBackView, weakBackView)
         [UIView animateWithDuration:anumationTime animations:^{
             strongBackView.alpha = 0;

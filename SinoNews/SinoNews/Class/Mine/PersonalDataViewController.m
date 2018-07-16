@@ -26,7 +26,7 @@
 {
     if (!self.sexSelectView) {
         self.sexSelectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 93, 24)];
-        self.sexSelectView.backgroundColor = WhiteColor;
+        [self.sexSelectView addBakcgroundColorTheme];
         
         UIButton *btn1 = [self getBtn];
         btn1.frame = CGRectMake(0, 0, 45, 24);
@@ -217,9 +217,19 @@
     }else if (CompareString(title, @"收货地址")){
         cell.detailTextLabel.text = @"设置";
     }else if (CompareString(title, @"绑定手机")){
-        cell.detailTextLabel.text = @"设置";
+        if (!self.user.mobile) {
+            cell.detailTextLabel.text = @"设置";
+        }else{
+            cell.accessoryType = 0;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",self.user.mobile];
+        }
     }else if (CompareString(title, @"绑定邮箱")){
-        cell.detailTextLabel.text = @"设置";
+        if (kStringIsEmpty(self.user.email)) {
+            cell.detailTextLabel.text = @"设置";
+        }else{
+            cell.accessoryType = 0;
+            cell.detailTextLabel.text = GetSaveString(self.user.email);
+        }
     }else if (CompareString(title, @"修改密码")){
         cell.detailTextLabel.text = @"设置";
     }
@@ -310,12 +320,16 @@
         AddressViewController *aVC = [AddressViewController new];
         [self.navigationController pushViewController:aVC animated:YES];
     }else if (CompareString(title, @"绑定手机")){
-        BindingDataViewController *bdVC = [BindingDataViewController new];
-        bdVC.bindingType = 1;
-        [self.navigationController pushViewController:bdVC animated:YES];
+        if (!self.user.mobile) {
+            BindingDataViewController *bdVC = [BindingDataViewController new];
+            bdVC.bindingType = 1;
+            [self.navigationController pushViewController:bdVC animated:YES];
+        }
     }else if (CompareString(title, @"绑定邮箱")){
-        BindingDataViewController *bdVC = [BindingDataViewController new];
-        [self.navigationController pushViewController:bdVC animated:YES];
+        if (!GetSaveString(self.user.email)) {
+            BindingDataViewController *bdVC = [BindingDataViewController new];
+            [self.navigationController pushViewController:bdVC animated:YES];
+        }
     }else if (CompareString(title, @"修改密码")){
         ChangePasswordViewController *cpVC = [ChangePasswordViewController new];
         [self.navigationController pushViewController:cpVC animated:YES];

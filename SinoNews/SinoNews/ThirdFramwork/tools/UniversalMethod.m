@@ -171,4 +171,74 @@
 }
 
 
++(NSString *)getTopLoadTimeWithData:(NSArray *)data
+{
+    NSString *loadTime = @"";
+    if (data.count>0) {
+        int i = 0;
+        while (1) {
+            id model = data[i];
+            //先转换成字典
+            NSMutableDictionary *modelDic = [model mj_keyValues];
+            //如果是广告、专题、置顶就跳过
+            if ([model isKindOfClass:[ADModel class]]||[model isKindOfClass:[TopicModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
+                //防止越界
+                if (i == data.count - 1) {
+                    GGLog(@"没有更多数据了");
+                    break;
+                }else{
+                    i ++;
+                }
+            }else{  //不是广告，则拿到时间节点
+                
+                loadTime = modelDic[@"createStamp"];
+                break;
+            }
+        }
+    }
+    return loadTime;
+}
+
++(NSString *)getBottomLoadTimeWithData:(NSArray *)data
+{
+    NSString *loadTime = @"";
+    if (data.count>0) {
+        NSUInteger i = data.count - 1;
+        while (1) {
+            id model = data[i];
+            //先转换成字典
+            NSMutableDictionary *modelDic = [model mj_keyValues];
+            //如果是广告或者专题，就跳过
+            if ([model isKindOfClass:[ADModel class]]||[model isKindOfClass:[TopicModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
+                //防止越界
+                if (i == 0) {
+                    GGLog(@"没有更多数据了");
+                    break;
+                }else{
+                    i --;
+                }
+            }else{  //不是广告，则拿到时间节点
+                
+                loadTime = modelDic[@"createStamp"];
+                break;
+            }
+        }
+    }
+    return loadTime;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

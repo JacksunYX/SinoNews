@@ -133,7 +133,7 @@
             typeLabel.hidden = YES;
         }else{
             typeLabel.hidden = NO;
-            titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+            titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
             typeLabel.text = GetSaveString(model.labelName);
             typeLabel.backgroundColor = WhiteColor;
             typeLabel.textColor = HexColor(#1282EE);
@@ -151,7 +151,7 @@
         
     }else{
         typeLabel.text = @"专题";
-        titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
         bottomLabel.text = @"";
         typeLabel.backgroundColor = HexColor(#1282EE);
         typeLabel.textColor = WhiteColor;

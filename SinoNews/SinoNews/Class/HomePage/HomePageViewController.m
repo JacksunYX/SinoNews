@@ -230,7 +230,7 @@
     
     //添加更多按钮
     if (_moreBtn) {
-        return;
+        [_moreBtn removeFromSuperview];
     }
     _moreBtn = [UIButton new];
     

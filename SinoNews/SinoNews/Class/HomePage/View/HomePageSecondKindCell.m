@@ -162,7 +162,7 @@
         titletext = GetSaveString(model.itemTitle);
         typeLabel.hidden = YES;
     }else{
-        titletext = [@"        " stringByAppendingString:GetSaveString(model.itemTitle)];
+        titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
         typeLabel.hidden = NO;
     }
     

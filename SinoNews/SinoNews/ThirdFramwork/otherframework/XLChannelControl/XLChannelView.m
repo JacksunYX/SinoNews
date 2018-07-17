@@ -250,6 +250,7 @@ static CGFloat CellMarginY = 20.0f;
     
     item.isNew = model.isNew;
     
+    
     return  item;
 }
 

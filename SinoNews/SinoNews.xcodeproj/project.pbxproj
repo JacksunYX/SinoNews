@@ -177,6 +177,8 @@
 		4C72347E20FD8C6D00D5C5D4 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C72347220FD8C6D00D5C5D4 /* PYSearch.bundle */; };
 		4C72347F20FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72347320FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m */; };
 		4C72348020FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72347920FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m */; };
+		4C72348320FDD83800D5C5D4 /* delete_night@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348120FDD83700D5C5D4 /* delete_night@3x.png */; };
+		4C72348420FDD83800D5C5D4 /* delete_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348220FDD83800D5C5D4 /* delete_night@2x.png */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -615,6 +617,8 @@
 		4C72347720FD8C6D00D5C5D4 /* UIColor+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PYSearchExtension.h"; sourceTree = "<group>"; };
 		4C72347820FD8C6D00D5C5D4 /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
 		4C72347920FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PYSearchExtension.m"; sourceTree = "<group>"; };
+		4C72348120FDD83700D5C5D4 /* delete_night@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_night@3x.png"; sourceTree = "<group>"; };
+		4C72348220FDD83800D5C5D4 /* delete_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_night@2x.png"; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1653,6 +1657,8 @@
 				4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */,
 				4C8735F220BE8CC700B6A8B5 /* delete@2x.png */,
 				4C8735F320BE8CC700B6A8B5 /* delete@3x.png */,
+				4C72348220FDD83800D5C5D4 /* delete_night@2x.png */,
+				4C72348120FDD83700D5C5D4 /* delete_night@3x.png */,
 			);
 			path = XLChannelControl;
 			sourceTree = "<group>";
@@ -1966,6 +1972,7 @@
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
 				4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */,
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
+				4C72348320FDD83800D5C5D4 /* delete_night@3x.png in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
 				4C23B3BA20F5924800ACE380 /* LMWord.storyboard in Resources */,
@@ -1973,6 +1980,7 @@
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
 				4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */,
+				4C72348420FDD83800D5C5D4 /* delete_night@2x.png in Resources */,
 				4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */,
 				4C72347E20FD8C6D00D5C5D4 /* PYSearch.bundle in Resources */,
 				4C95FFD620DDE8FA0040E348 /* ReadMe.strings in Resources */,

@@ -39,7 +39,13 @@
     
 //    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(marginX, 0, labelWidth, self.bounds.size.height)];
     _titleLabel = [UILabel new];
-    _titleLabel.textColor = [UIColor blackColor];
+//    _titleLabel.textColor = [UIColor blackColor];
+    _titleLabel.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(UILabel *)item setTextColor:value];
+        if (UserGetBool(@"NightMode")) {
+            [(UILabel *)item setTextColor:HexColor(#CFD3D6)];
+        }
+    });
     _titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [self addSubview:_titleLabel];
     

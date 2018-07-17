@@ -52,7 +52,8 @@
     deleteImg.frame = CGRectMake(3, -3, 12, 12);
 //    deleteImg.backgroundColor = [UIColor redColor];
     deleteImg.hidden = YES;
-    [deleteImg setImage:[UIImage imageNamed:@"delete.png"]];
+//    [deleteImg setImage:[UIImage imageNamed:@"delete.png"]];
+    deleteImg.lee_theme.LeeConfigImage(@"channelManager_delete");
     [self addSubview:deleteImg];
     
     newLabel = [UILabel new];
@@ -124,14 +125,26 @@
     _isFixed = isFixed;
     if (isFixed) {
 //        _textLabel.textColor = [self lightTextColor];
-        _textLabel.textColor = [UIColor colorWithRed:18/255.0f green:130/255.0f blue:238/255.0f alpha:1.0f];
-        self.backgroundColor = [UIColor whiteColor];
+//        _textLabel.textColor = [UIColor colorWithRed:18/255.0f green:130/255.0f blue:238/255.0f alpha:1.0f];
+        _textLabel.textColor = HexColor(#1282EE);
+        if (UserGetBool(@"NightMode")) {
+            self.backgroundColor = HexColor(#1c2023);
+        }else{
+            self.backgroundColor = [UIColor whiteColor];
+        }
         _textLabel.layer.borderWidth = 1;
         _textLabel.layer.borderColor = [UIColor colorWithRed:227/255.0f green:227/255.0f blue:227/255.0f alpha:1.0f].CGColor;
         
     }else{
-        _textLabel.textColor = [self textColor];
-        self.backgroundColor = [self backgroundColor];
+        
+        
+        if (UserGetBool(@"NightMode")) {
+            self.backgroundColor = HexColor(#292D30);
+            _textLabel.textColor = HexColor(#CFD3D6);
+        }else{
+            self.backgroundColor = [self backgroundColor];
+            _textLabel.textColor = [self textColor];
+        }
         _textLabel.layer.borderWidth = 0;
         _textLabel.layer.borderColor = [UIColor colorWithRed:227/255.0f green:227/255.0f blue:227/255.0f alpha:1.0f].CGColor;
         

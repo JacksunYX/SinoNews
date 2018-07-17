@@ -8,7 +8,7 @@
 //专题模型
 
 #import <Foundation/Foundation.h>
-
+@class HomePageModel;
 @interface TopicModel : NSObject
 
 @property (nonatomic,strong) NSString *bigImage;

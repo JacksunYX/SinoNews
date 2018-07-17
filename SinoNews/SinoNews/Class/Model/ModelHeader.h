@@ -11,6 +11,7 @@
 
 #import "UserModel.h"
 #import "ADModel.h"
+#import "TopicModel.h"
 #import "HomePageModel.h"
 #import "NormalNewsModel.h"
 

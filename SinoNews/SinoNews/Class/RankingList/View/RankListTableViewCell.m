@@ -53,7 +53,7 @@
     num = [UIButton new];
     num.titleLabel.font = [UIFont fontWithName:@"DINCondensed-Bold" size:14];
     num.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [num setTitleColor:WhiteColor forState:UIControlStateNormal];
+    
     
     crown = [UIImageView new];
     userIcon = [UIImageView new];
@@ -62,18 +62,20 @@
     
     score = [UILabel new];
     score.font = PFFontL(14);
-    score.textColor = RGBA(69, 69, 69, 1);
+//    score.textColor = RGBA(69, 69, 69, 1);
+    [score addContentColorTheme];
     
     status = [UIImageView new];
     status.contentMode = 1;
     
     title = [UILabel new];
     title.font = PFFontR(15);
-    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    [title addTitleColorTheme];
     
     subTitle = [UILabel new];
     subTitle.font = PFFontL(14);
-    subTitle.textColor = RGBA(111, 111, 111, 1);
+//    subTitle.textColor = RGBA(111, 111, 111, 1);
+    [subTitle addContentColorTheme];
     
     toPlayBtn = [UIButton new];
     toPlayBtn.titleLabel.font = PFFontL(14);
@@ -122,7 +124,7 @@
     _model = model;
 //    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.companyLogo)];
     [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(model.companyLogo))];
-    [num setTitle:[NSString stringWithFormat:@"%lu",model.currentRank] forState:UIControlStateNormal];
+    [num setNormalTitle:[NSString stringWithFormat:@"%lu",model.currentRank]];
     score.text = [NSString stringWithFormat:@"%lu分",model.currentScore];
     title.text = GetSaveString(model.companyName);
     subTitle.text = GetSaveString(model.promos);
@@ -131,25 +133,29 @@
     UIImage *numImg = UIImageNamed(@"rank_flag");
     userIcon.layer.borderWidth = 1;
     userIcon.layer.borderColor = ClearColor.CGColor;
-    score.textColor = RGB(54, 54, 54);
-    if (self.tag == 1) {
+    
+    if (model.currentRank == 1) {
 //        userIcon.layer.borderColor = HexColor(#ffc41f).CGColor;
 //        crown.image = UIImageNamed(@"crown_first");
 //        title.textColor = HexColor(#ffc41f);
-        numImg = UIImageNamed(@"");
-    }else if (self.tag == 2){
+        numImg = UIImageNamed(@"crown_first");
+        [num setNormalTitleColor:HexColor(#b67700)];
+    }else if (model.currentRank == 2){
 //        userIcon.layer.borderColor = HexColor(#1282ee).CGColor;
 //        crown.image = UIImageNamed(@"crown_second");
 //        title.textColor = HexColor(#1282ee);
-        numImg = UIImageNamed(@"");
-    }else if (self.tag == 3){
+        numImg = UIImageNamed(@"crown_second");
+        [num setNormalTitleColor:HexColor(#727272)];
+    }else if (model.currentRank == 3){
 //        userIcon.layer.borderColor = HexColor(#f29f00).CGColor;
 //        crown.image = UIImageNamed(@"crown_third");
 //        title.textColor = HexColor(#f29f00);
-        numImg = UIImageNamed(@"");
+        numImg = UIImageNamed(@"crown_third");
+        [num setNormalTitleColor:HexColor(#a0715c)];
     }else{
 //        userIcon.layer.borderColor = HexColor(#dbdbdb).CGColor;
-        score.textColor = RGB(152, 152, 152);
+//        score.textColor = RGB(152, 152, 152);
+        [num setNormalTitleColor:WhiteColor];
     }
     [num setBackgroundImage:numImg forState:UIControlStateNormal];
     
@@ -191,7 +197,7 @@
         .widthIs(31)
         .heightIs(41)
         ;
-        num.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        num.titleEdgeInsets = UIEdgeInsetsMake(-5, 0, 0, 0);
         
         toPlayBtn.sd_resetLayout
         .widthIs(67 * ScaleW)

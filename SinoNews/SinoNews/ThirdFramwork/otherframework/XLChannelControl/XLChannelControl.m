@@ -46,6 +46,7 @@
     
     _channelView = [[XLChannelView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     __weak typeof(self) weakSelf = self;
+    [_channelView addBakcgroundColorTheme];
     _channelView.clickBlock = ^(NSString *clickTitle) {
 //        [weakSelf popView];
         [weakSelf backMethod];
@@ -53,7 +54,26 @@
     };
     
     _nav = [[UINavigationController alloc] initWithRootViewController:[UIViewController new]];
-    _nav.navigationBar.tintColor = [UIColor blackColor];
+    //设置不同模式下的样式
+    _nav.navigationBar.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
+        UINavigationBar *naviBar = (UINavigationBar *)item;
+        //导航栏背景色
+        naviBar.barTintColor = value;
+        //标题颜色
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        dic[NSFontAttributeName] = PFFontL(16);
+        if (UserGetBool(@"NightMode")) {
+            naviBar.tintColor = HexColor(#CFD3D6);
+            dic[NSForegroundColorAttributeName] = HexColor(#CFD3D6);
+            UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+        }else{
+            naviBar.tintColor = HexColor(#000000);
+            dic[NSForegroundColorAttributeName] = HexColor(#323232);
+            UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+        }
+        [naviBar setTitleTextAttributes:dic];
+    });
+    
     _nav.topViewController.title = @"全部频道";
     _nav.topViewController.view = _channelView;
     _nav.topViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@class ADModel;
+@class ADModel,TopicModel;
+
 @interface UniversalMethod : NSObject
 
 /**
@@ -27,7 +28,11 @@
 +(void)compareChannels:(NSArray *)serverData
           reasonAction:(void (^)(BOOL changed1 ,BOOL changed2 , NSArray *attentionArr, NSArray *unAttentionArr))reason;
 
+//获取上拉加载更多的时间节点
++(NSString *)getTopLoadTimeWithData:(NSArray *)data;
 
+//获取下拉加载更多的时间节点
++(NSString *)getBottomLoadTimeWithData:(NSArray *)data;
 
 
 @end

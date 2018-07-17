@@ -126,7 +126,7 @@
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
-    
+    self.page = 1;
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_footer.isRefreshing) {
@@ -134,7 +134,7 @@
         }
         [self.tableView ly_startLoading];
         //有newsid，说明是首页的子页面
-        self.page = 1;
+        
         if ([self.news_id integerValue]) {
             [self requestNews_list:0];
             if ([self.news_id integerValue] == 82) {
@@ -150,15 +150,12 @@
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self)
-        if (self.tableView.mj_header.isRefreshing) {
+        if (self.tableView.mj_header.isRefreshing||!self.dataSource.count) {
             [self.tableView.mj_footer endRefreshing];
         }
         
-        if (!self.dataSource.count) {
-            self.page = 1;
-        }else{
-            self.page++;
-        }
+        self.page++;
+        
         if ([self.news_id integerValue]) {
             [self requestNews_list:1];
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){
@@ -283,10 +280,15 @@
 //    parameters[@"channelId"] = @([GetSaveString(self.news_id) integerValue]);
 //    parameters[@"loadTime"] = @([[NSString currentTimeStr] longLongValue]);
     
-    parameters[@"page"] = @(self.page);
+    parameters[@"page"] = @(self.page);   //现在不需要这个参数,固定传1
     parameters[@"loadType"] = @(upOrDown);
     parameters[@"channelId"] = @([self.news_id integerValue]);
-    parameters[@"loadTime"] = @0;
+    if (upOrDown) {
+        parameters[@"loadTime"] = @([[UniversalMethod getBottomLoadTimeWithData:self.dataSource] integerValue]);
+    }else{
+        parameters[@"loadTime"] = @([[UniversalMethod getTopLoadTimeWithData:self.dataSource] integerValue]);
+    }
+    
     
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         
@@ -309,8 +311,18 @@
                 
             }
         }
-        if (self.page == 1) {
-            self.dataSource = [dataArr mutableCopy];
+        if (upOrDown == 0) {
+            //数组都有数据时，需要把本地数据中的置顶先删掉，因为后台默认每次返回都带置顶
+            if (self.dataSource.count>0&&dataArr.count>0) {
+                for (id model in [self.dataSource copy]) {
+                    //先转换成字典
+                    NSDictionary *modelDic = [model mj_keyValues];
+                    if (CompareString(modelDic[@"labelName"], @"置顶")) {
+                        [self.dataSource removeObject:model];
+                    }
+                }
+            }
+            self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];
         }else{
             if (dataArr.count) {

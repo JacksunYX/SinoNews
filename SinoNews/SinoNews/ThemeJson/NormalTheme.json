@@ -4,7 +4,7 @@
         "contentColor"      : "#989898",
         "backgroundColor"   : "#FFFFFF",
         
-        "navigationBarColor": "#1c2023",
+        "navigationBarColor": "#FFFFFF",
         "tabbarColor"       : "#FFFFFF",
     },
     "image": {
@@ -17,6 +17,7 @@
         "homePage_manageMenu_selected" : "manageMenu_new",
         "homePage_search"   : "searchBar_icon",
         
+        "channelManager_delete" : "delete"
     },
     "other": {
         

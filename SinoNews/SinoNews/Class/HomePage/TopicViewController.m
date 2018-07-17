@@ -13,6 +13,8 @@
 #import "HomePageFirstKindCell.h"
 #import "HomePageFourthCell.h"
 
+#define NAVBAR_CHANGE_POINT 50
+
 @interface TopicViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -35,10 +37,29 @@
     [super viewDidLoad];
     
     [self addTableView];
+    self.navigationController.navigationBar.translucent = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    //使用这句话设置导航栏颜色
+//    [self.navigationController.navigationBar setBarTintColor:RedColor];
+
     
     [self showOrHideLoadView:YES page:2];
     
     [self requestShowTopicDetail];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.tableView.delegate = self;
+    [self scrollViewDidScroll:self.tableView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.tableView.delegate = nil;
+    [self.navigationController.navigationBar lt_reset];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,14 +69,14 @@
 
 -(void)addTableView
 {
-    _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr_safe;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-    }];
+    self.tableView.sd_layout
+    .topSpaceToView(self.view, -NAVI_HEIGHT+StatusBarHeight)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    ;
     [_tableView addBakcgroundColorTheme];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -90,7 +111,7 @@
         [self.headView addBakcgroundColorTheme];
         
         UIImageView *titltImg = [UIImageView new];
-//        titltImg.backgroundColor = Arc4randomColor;
+        titltImg.backgroundColor = Arc4randomColor;
         
         UILabel *title = [UILabel new];
         title.font = PFFontL(18);
@@ -203,6 +224,23 @@
     NewsDetailViewController *ndVC = [NewsDetailViewController new];
     ndVC.newsId = [(HomePageModel *)model itemId];
     [self.navigationController pushViewController:ndVC animated:YES];
+}
+
+#pragma mark ----- UIScrollViewDelegat
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    UIColor * color = WhiteColor;
+    if (UserGetBool(@"NightMode")) {
+        color = HexColor(#1c2023);
+    }
+    
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY > NAVBAR_CHANGE_POINT) {
+        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
+        [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
+    } else {
+        [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
+    }
 }
 
 

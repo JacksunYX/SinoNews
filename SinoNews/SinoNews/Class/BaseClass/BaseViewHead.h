@@ -12,6 +12,7 @@
 #import "BaseTableView.h"
 #import "BaseNavigationVC.h"
 #import "BaseViewController.h"
+#import "Base2ViewController.h"
 #import "MainTabbarVC.h"
 #import "TopBaseViewController.h"
 

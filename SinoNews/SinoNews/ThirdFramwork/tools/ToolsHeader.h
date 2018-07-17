@@ -33,5 +33,6 @@
 #import "GetCurrentFont.h"
 #import "UIView+AddThemeMode.h"
 #import "MyEmptyView.h"
+#import "UINavigationBar+Awesome.h"
 
 #endif /* ToolsHeader_h */

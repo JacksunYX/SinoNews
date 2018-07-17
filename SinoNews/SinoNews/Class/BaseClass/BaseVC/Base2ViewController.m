@@ -1,39 +1,33 @@
 //
-//  BaseViewController.m
+//  Base2ViewController.m
 //  SinoNews
 //
-//  Created by Michael on 2018/5/29.
+//  Created by Michael on 2018/7/17.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "Base2ViewController.h"
 
-@interface BaseViewController ()
+@interface Base2ViewController ()
 
 @end
 
-@implementation BaseViewController
+@implementation Base2ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置导航栏不透明
-    [UINavigationBar appearance].translucent = NO;
-    self.automaticallyAdjustsScrollViewInsets = YES;
-    @weakify(self)
-    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        @strongify(self)
-        self.view.backgroundColor = value;
-        self.navigationController.navigationBar.barTintColor = value;
-    });
+//    [UINavigationBar appearance].translucent = YES;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    
+    [self.view addBakcgroundColorTheme];
+    @weakify(self);
     self.view.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
         @strongify(self)
         NSMutableDictionary *dic = [NSMutableDictionary new];
         dic[NSFontAttributeName] = PFFontL(16);
         if (UserGetBool(@"NightMode")) {
             dic[NSForegroundColorAttributeName] = HexColor(#FFFFFF);
-            //设置夜间模式的状态栏
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
             self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left_night" hightimage:@"return_left_night" andTitle:@""];
             
@@ -45,9 +39,7 @@
         }
         [self.navigationController.navigationBar setTitleTextAttributes:dic];
     });
-    //使用系统的返回键
     self.rt_navigationController.useSystemBackBarButtonItem = YES;
-    
 }
 
 -(void)back{
@@ -62,14 +54,5 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -326,7 +326,7 @@
             [self.navigationController pushViewController:bdVC animated:YES];
         }
     }else if (CompareString(title, @"绑定邮箱")){
-        if (!GetSaveString(self.user.email)) {
+        if (kStringIsEmpty(self.user.email)) {
             BindingDataViewController *bdVC = [BindingDataViewController new];
             [self.navigationController pushViewController:bdVC animated:YES];
         }

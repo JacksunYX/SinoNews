@@ -7,6 +7,7 @@
 //
 
 #import "EditAddressViewController.h"
+#import "AddressModel.h"
 
 @interface EditAddressViewController ()<UITextFieldDelegate>
 {
@@ -32,6 +33,8 @@
     self.navigationItem.title = @"编辑地址";
     
     [self setUI];
+    
+    [self setViewWithAddressModel];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -170,7 +173,20 @@
         return;
     }
     //有数据才填充
-    
+    receiver.text = GetSaveString(self.model.consignee);
+    phoneNum.text = [NSString stringWithFormat:@"%ld",self.model.mobile];
+    ;
+    NSString *addressStr;
+    self.province = self.model.province;
+    self.city = self.model.city;
+    self.area = self.model.area;
+    if (CompareString(_province, _city)) {
+        addressStr = [NSString stringWithFormat:@"%@ %@",_province,_area];
+    }else{
+        addressStr = [NSString stringWithFormat:@"%@ %@ %@",_province,_city,_area];
+    }
+    cityLabel.text = addressStr;
+    detailAddress.text = GetSaveString(self.model.fullAddress);
 }
 
 //统一创建方法
@@ -204,6 +220,7 @@
 -(TXLimitedTextField *)getTextField
 {
     TXLimitedTextField *textField = [TXLimitedTextField new];
+    [textField addTitleColorTheme];
     textField.font = PFFontL(15);
     textField.delegate = self;
     return textField;
@@ -293,8 +310,11 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"consignee"] = receiver.text;
     parameters[@"mobile"] = phoneNum.text;
-    //后台暂时没有地址库，只能先拼接了传过去
-    parameters[@"fullAddress"] = [cityLabel.text stringByAppendingString:detailAddress.text];
+    
+    parameters[@"province"] = GetSaveString(self.province);
+    parameters[@"city"] = GetSaveString(self.city);
+    parameters[@"area"] = GetSaveString(self.area);
+    parameters[@"fullAddress"] = GetSaveString(detailAddress.text);
     [HttpRequest postWithURLString:Mall_saveAddress parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"保存地址成功");
         GCDAfterTime(1.2, ^{

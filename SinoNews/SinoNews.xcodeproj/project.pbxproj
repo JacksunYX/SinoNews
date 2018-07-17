@@ -168,6 +168,8 @@
 		4C72345F20FC6E4200D5C5D4 /* UIView+LYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72345720FC6E4200D5C5D4 /* UIView+LYExtension.m */; };
 		4C72346020FC6E4200D5C5D4 /* LYEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72345A20FC6E4200D5C5D4 /* LYEmptyView.m */; };
 		4C72346320FC6E8900D5C5D4 /* MyEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */; };
+		4C72346720FCC28300D5C5D4 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72346620FCC28300D5C5D4 /* UINavigationBar+Awesome.m */; };
+		4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72346920FD740A00D5C5D4 /* Base2ViewController.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -588,6 +590,10 @@
 		4C72345C20FC6E4200D5C5D4 /* UIView+Empty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Empty.h"; sourceTree = "<group>"; };
 		4C72346120FC6E8900D5C5D4 /* MyEmptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEmptyView.h; sourceTree = "<group>"; };
 		4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEmptyView.m; sourceTree = "<group>"; };
+		4C72346520FCC28200D5C5D4 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
+		4C72346620FCC28300D5C5D4 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
+		4C72346820FD740A00D5C5D4 /* Base2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Base2ViewController.h; sourceTree = "<group>"; };
+		4C72346920FD740A00D5C5D4 /* Base2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Base2ViewController.m; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1233,6 +1239,8 @@
 				4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */,
 				4C3F8FFF20BCF7EB003EC4FC /* BaseViewController.h */,
 				4C3F900020BCF7EB003EC4FC /* BaseViewController.m */,
+				4C72346820FD740A00D5C5D4 /* Base2ViewController.h */,
+				4C72346920FD740A00D5C5D4 /* Base2ViewController.m */,
 				4C4DF4DF20F87CCB005E6197 /* TopBaseViewController.h */,
 				4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */,
 				4C3F901C20BD0190003EC4FC /* MainTabbarVC.h */,
@@ -1260,6 +1268,7 @@
 				4CA141EF20F445E000536E77 /* UniversalMethod.m */,
 				4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */,
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
+				4C72346420FCC26B00D5C5D4 /* UINavigationBar */,
 				4C4ED9E820E39B1500347974 /* UIViewController */,
 				4CB4196E20DA792A00EBF202 /* UIScrollView */,
 				4C3D111C20D8F01500480E03 /* UILabel */,
@@ -1546,6 +1555,15 @@
 				4C72345C20FC6E4200D5C5D4 /* UIView+Empty.h */,
 			);
 			path = LYEmptyView;
+			sourceTree = "<group>";
+		};
+		4C72346420FCC26B00D5C5D4 /* UINavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				4C72346520FCC28200D5C5D4 /* UINavigationBar+Awesome.h */,
+				4C72346620FCC28300D5C5D4 /* UINavigationBar+Awesome.m */,
+			);
+			path = UINavigationBar;
 			sourceTree = "<group>";
 		};
 		4C83E64020BFE30200C99AAB /* View */ = {
@@ -2231,7 +2249,9 @@
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
+				4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */,
 				4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */,
+				4C72346720FCC28300D5C5D4 /* UINavigationBar+Awesome.m in Sources */,
 				4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */,
 				4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,

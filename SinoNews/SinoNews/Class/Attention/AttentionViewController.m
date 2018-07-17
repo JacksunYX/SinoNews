@@ -33,8 +33,20 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:@"attention_search" hightimage:@"attention_search" andTitle:@""];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:@"manageMenu" hightimage:nil andTitle:@""];
+    
+    @weakify(self)
+    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        NSString *rightImg = @"manageMenu";
+        NSString *leftImg = @"attention_search";
+        if (UserGetBool(@"NightMode")) {
+            rightImg = [rightImg stringByAppendingString:@"_night"];
+            leftImg = [leftImg stringByAppendingString:@"_night"];
+        }
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:rightImg hightimage:nil andTitle:@""];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:leftImg hightimage:leftImg andTitle:@""];
+    });
+    
     if (CompareString(UserGet(@"isLogin"), @"YES")) {
         
     }

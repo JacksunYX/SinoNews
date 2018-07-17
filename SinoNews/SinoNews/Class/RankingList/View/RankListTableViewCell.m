@@ -175,8 +175,9 @@
     [super layoutSubviews];
     
     //布局
+    
     if (self.model.currentRank < 4) {
-        userIcon.sd_layout
+        userIcon.sd_resetLayout
         .leftSpaceToView(self.contentView, 30)
         .centerYEqualToView(self.contentView)
         .widthIs(80)
@@ -184,7 +185,7 @@
         ;
         [userIcon setSd_cornerRadius:@40];
         
-        num.sd_layout
+        num.sd_resetLayout
         .topSpaceToView(self.contentView, 9)
         .leftSpaceToView(self.contentView, 10)
         .widthIs(31)
@@ -192,7 +193,7 @@
         ;
         num.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         
-        toPlayBtn.sd_layout
+        toPlayBtn.sd_resetLayout
         .widthIs(67 * ScaleW)
         .heightIs(28)
         .rightSpaceToView(self.contentView, 15)
@@ -200,29 +201,30 @@
         ;
         
         detailBtn.hidden = NO;
-        detailBtn.sd_layout
+        detailBtn.sd_resetLayout
         .widthIs(67 * ScaleW)
         .heightIs(28)
         .rightSpaceToView(self.contentView, 15)
         .bottomSpaceToView(toPlayBtn, 8)
         ;
         
-        score.sd_layout
+        score.sd_resetLayout
         .leftSpaceToView(userIcon, 23 * ScaleW)
         .centerYEqualToView(self.contentView)
         .widthIs(60)
         .heightIs(14)
         ;
         
-        subTitle.sd_layout
+        subTitle.sd_resetLayout
         .leftEqualToView(score)
         .topSpaceToView(score, 11)
         .heightIs(14)
         ;
         [subTitle setSingleLineAutoResizeWithMaxWidth:150 * ScaleW];
+        subTitle.hidden = NO;
         
     }else{
-        userIcon.sd_layout
+        userIcon.sd_resetLayout
         .leftSpaceToView(self.contentView, 43)
         .centerYEqualToView(self.contentView)
         .widthIs(54)
@@ -230,7 +232,7 @@
         ;
         [userIcon setSd_cornerRadius:@27];
         
-        num.sd_layout
+        num.sd_resetLayout
         .topSpaceToView(self.contentView, 26)
         .leftSpaceToView(self.contentView, 14)
         .widthIs(24)
@@ -239,14 +241,14 @@
         num.titleEdgeInsets = UIEdgeInsetsMake(5, 0, 0, 0);
         
         detailBtn.hidden = YES;
-        toPlayBtn.sd_layout
+        toPlayBtn.sd_resetLayout
         .widthIs(67 * ScaleW)
         .heightIs(28)
         .rightSpaceToView(self.contentView, 15)
         .centerYEqualToView(self.contentView)
         ;
         
-        score.sd_layout
+        score.sd_resetLayout
         .leftSpaceToView(userIcon, 35 * ScaleW)
         .bottomSpaceToView(self.contentView, 15)
         .widthIs(60)
@@ -258,14 +260,14 @@
     [detailBtn setTitle:@"详情" forState:UIControlStateNormal];
     [toPlayBtn setTitle:@"去玩" forState:UIControlStateNormal];
     
-    title.sd_layout
+    title.sd_resetLayout
     .leftEqualToView(score)
     .bottomSpaceToView(score, 11)
     .heightIs(15)
     ;
     [title setSingleLineAutoResizeWithMaxWidth:120 * ScaleW];
     
-    status.sd_layout
+    status.sd_resetLayout
     .leftSpaceToView(score, 15)
     .centerYEqualToView(score)
     .widthIs(11)

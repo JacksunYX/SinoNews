@@ -23,4 +23,6 @@
 
 #import "LYEmptyViewHeader.h"
 
+#import "PYSearch.h"
+
 #endif /* OtherFrameworksHead_h */

@@ -354,8 +354,7 @@
         CGFloat newHeight = self.webView.scrollView.contentSize.height;
         if (newHeight != self->topWebHeight) {
             self->topWebHeight = newHeight;
-            GGLog(@"webHeight:%lf",self->topWebHeight);
-//            self.webView.frame = CGRectMake(0, 0, ScreenW, self->topWebHeight);
+//            GGLog(@"webHeight:%lf",self->topWebHeight);
             self.webView.sd_layout
             .topSpaceToView(fatherView, 10)
             .leftSpaceToView(fatherView, 10)

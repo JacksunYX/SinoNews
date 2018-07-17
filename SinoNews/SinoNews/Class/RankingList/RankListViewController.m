@@ -101,12 +101,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addBaseViews];
+    [self addNavigationView];
     
+    [self addBaseViews];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+}
+
+//修改导航栏显示
+-(void)addNavigationView
+{
+    
+    @weakify(self)
+    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        NSString *rightImg = @"attention_search";
+        
+        if (UserGetBool(@"NightMode")) {
+            rightImg = [rightImg stringByAppendingString:@"_night"];
+            
+        }
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:rightImg hightimage:nil andTitle:@""];
+    });
     
 }
 
@@ -130,7 +149,7 @@
     [self.tableView updateLayout];
     
     [self.tableView registerClass:[RankListTableViewCell class] forCellReuseIdentifier:RankListTableViewCellID];
-    
+    _currPage = 1;
     WEAK(weakSelf, self);
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         if (weakSelf.tableView.mj_footer.isRefreshing) {
@@ -138,7 +157,7 @@
             return ;
         }
         weakSelf.currPage = 1;
-        [weakSelf requestCompanyRanking];
+        [weakSelf requestCompanyRankingWithCompanyName:nil];
     }];
 //    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
 //        if (weakSelf.tableView.mj_header.isRefreshing) {
@@ -150,6 +169,18 @@
 //    }];
     
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)searchAction
+{
+    PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"输入要搜索的公司" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        //回调搜索
+        [searchViewController dismissViewControllerAnimated:NO completion:nil];
+        [self requestCompanyRankingWithCompanyName:searchText];
+    }];
+    // 3. present the searchViewController
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -179,7 +210,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
-    if (indexPath.row<3) {
+    RankingListModel *model = self.dataSource[indexPath.row];
+    if (model.currentRank<4) {
         return 100;
     }
     return 73;
@@ -261,11 +293,14 @@
 
 
 //请求详细榜单
--(void)requestCompanyRanking
+-(void)requestCompanyRankingWithCompanyName:(NSString *)companyname
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"rankingId"] = GetSaveString(self.rankingId);
 //    parameters[@"currPage"] = @(self.currPage);
+    if (!kStringIsEmpty(companyname)) {
+        parameters[@"companyName"] = GetSaveString(companyname);
+    }
    
     [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
         NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];

@@ -14,6 +14,7 @@
 
 @interface HomePageViewController ()<UITextFieldDelegate>
 
+@property (nonatomic, strong) UIView *topView;
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -176,6 +177,24 @@
         [_segHead removeFromSuperview];
     }
     
+    if (!self.topView) {
+        self.topView = [UIView new];
+        [self.view addSubview:self.topView];
+        self.topView.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .topEqualToView(self.view)
+        .heightIs(40)
+        ;
+        [self.topView updateLayout];
+        //添加下阴影
+        self.topView.layer.shadowColor = GrayColor.CGColor;
+        self.topView.layer.shadowOffset = CGSizeMake(-2, 2);
+        self.topView.layer.shadowOpacity = 0.5;
+        self.topView.layer.shouldRasterize = NO;
+        self.topView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topView.bounds].CGPath;
+    }
+    
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:[self getTitlesArrFromArr:self.titleList] headStyle:1 layoutStyle:2];
     
     //    _segHead.fontScale = .85;
@@ -189,13 +208,6 @@
     _segHead.deSelectColor = HexColor(#5A5A5A);
     _segHead.maxTitles = 7;
     _segHead.bottomLineHeight = 0;
-    //添加下阴影
-    _segHead.layer.shadowColor = GrayColor.CGColor;
-    _segHead.layer.shadowOffset = CGSizeMake(-2, 2);
-    _segHead.layer.shadowOpacity = 0.5;
-    _segHead.layer.shouldRasterize = NO;
-    _segHead.layer.shadowPath = [UIBezierPath bezierPathWithRect:_segHead.bounds].CGPath;
-//    _segHead.layer.shadowRadius = 1;
     
     if (_segScroll) {
         [_segScroll removeFromSuperview];
@@ -205,7 +217,7 @@
     
     WEAK(weakself, self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
-        [weakself.view addSubview:weakself.segHead];
+        [weakself.topView addSubview:weakself.segHead];
         [weakself.view addSubview:weakself.segScroll];
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
@@ -224,14 +236,8 @@
     
     [_moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
     _moreBtn.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-    [self.view addSubview:_moreBtn];
+    [self.topView addSubview:_moreBtn];
     
-//    [moreBtn activateConstraints:^{
-//        moreBtn.right_attr = weakself.view.right_attr_safe;
-//        moreBtn.top_attr = weakself.view.top_attr_safe;
-//        moreBtn.width_attr.constant = 40;
-//        moreBtn.height_attr.constant = 40;
-//    }];
     _moreBtn.sd_layout
     .rightEqualToView(self.view)
     .topEqualToView(self.view)
@@ -242,11 +248,6 @@
     _moreBtn.lee_theme.LeeConfigButtonImage(@"homePage_manageMenu", UIControlStateNormal);
     _moreBtn.lee_theme.LeeConfigButtonImage(@"homePage_manageMenu_selected", UIControlStateSelected);
     _moreBtn.selected = UserGetBool(@"NewAttentionChannel");
-    _moreBtn.layer.shadowColor = GrayColor.CGColor;
-    _moreBtn.layer.shadowOffset = CGSizeMake(0, 2);
-    _moreBtn.layer.shadowOpacity = 0.5;
-    _moreBtn.layer.shouldRasterize = NO;
-    _moreBtn.layer.shadowPath = [UIBezierPath bezierPathWithRect:_moreBtn.bounds].CGPath;
 }
 
 //全部频道

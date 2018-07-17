@@ -8,9 +8,13 @@
 
 
 #import "RankDetailViewController.h"
-#import "CompanyDetailModel.h"
-#import "CommentCell.h"
 #import "CommentDetailViewController.h"
+
+#import "CompanyDetailModel.h"
+
+#import "CommentCell.h"
+#import "RankScoreCell.h"
+
 
 
 @interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -184,7 +188,9 @@
     _tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    //注册
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
+    [_tableView registerClass:[RankScoreCell class] forCellReuseIdentifier:RankScoreCellID];
     
     @weakify(self)
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
@@ -300,7 +306,10 @@
                 [self setSection0OtherRowWithData:data[indexPath.row] onView:cell custom:NO];
             }
         }else if (indexPath.section == 2){
-            [self setSection2OtherRowWithDatas:data onView:cell];
+//            [self setSection2OtherRowWithDatas:data onView:cell];
+            RankScoreCell *cell2 = (RankScoreCell *)[tableView dequeueReusableCellWithIdentifier:RankScoreCellID];
+            cell2.modelArr = self.companyModel.rankings;
+            cell = cell2;
         }else if (indexPath.section == 3){
             [self setSection3RowWithData:data[indexPath.row] onView:cell];
         }
@@ -355,7 +364,8 @@
     }
     
     if (indexPath.section == 2) {
-        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+//        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+        return 220;
     }
     
     if (indexPath.section == 3) {
@@ -393,7 +403,7 @@
         [title addTitleColorTheme];
         title.isAttributedContent = YES;
         UIImageView *icon = [UIImageView new];
-        icon.backgroundColor = WhiteColor;
+        icon.backgroundColor = ClearColor;
         [headView sd_addSubviews:@[
                                    title,
                                    icon,
@@ -401,7 +411,8 @@
         //布局
         title.sd_layout
         .centerYEqualToView(headView)
-        .centerXEqualToView(headView)
+//        .centerXEqualToView(headView)
+        .leftSpaceToView(headView, 10)
         .autoHeightRatio(0)
         ;
         [title setSingleLineAutoResizeWithMaxWidth:100];

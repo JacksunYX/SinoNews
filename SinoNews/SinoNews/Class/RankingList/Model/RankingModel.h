@@ -12,6 +12,7 @@
 @interface RankingModel : NSObject
 @property (nonatomic,strong) NSString *rankingId;
 @property (nonatomic,strong) NSString *rankingLogo;
-@property (nonatomic,strong) NSString *rankingName;
+@property (nonatomic,strong) NSString *rankingName; //名称
 @property (nonatomic,strong) NSString *updateTime;
+@property (nonatomic,assign) NSInteger score;       //评分
 @end

@@ -21,8 +21,11 @@
 
 #import "CLInputToolbar.h"  //输入框弹出
 
-#import "LYEmptyViewHeader.h"
+#import "LYEmptyViewHeader.h"   //空视图
 
-#import "PYSearch.h"
+#import "PYSearch.h"        //搜索控制器
+
+#import "AAGlobalMacro.h"
+#import "AAChartKit.h"      //画图框架
 
 #endif /* OtherFrameworksHead_h */

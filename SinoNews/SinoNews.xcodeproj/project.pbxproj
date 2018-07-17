@@ -179,6 +179,41 @@
 		4C72348020FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72347920FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m */; };
 		4C72348320FDD83800D5C5D4 /* delete_night@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348120FDD83700D5C5D4 /* delete_night@3x.png */; };
 		4C72348420FDD83800D5C5D4 /* delete_night@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348220FDD83800D5C5D4 /* delete_night@2x.png */; };
+		4C72348720FDE8F000D5C5D4 /* RankScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72348620FDE8F000D5C5D4 /* RankScoreCell.m */; };
+		4C7234CD20FDEB1D00D5C5D4 /* AAHighchartsLib.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348A20FDEB1D00D5C5D4 /* AAHighchartsLib.js */; };
+		4C7234CE20FDEB1D00D5C5D4 /* AAHighchartsMore.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348B20FDEB1D00D5C5D4 /* AAHighchartsMore.js */; };
+		4C7234CF20FDEB1D00D5C5D4 /* AAFunnel.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348C20FDEB1D00D5C5D4 /* AAFunnel.js */; };
+		4C7234D020FDEB1D00D5C5D4 /* AAHighcharts-3d.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348D20FDEB1D00D5C5D4 /* AAHighcharts-3d.js */; };
+		4C7234D120FDEB1D00D5C5D4 /* AAChartView.html in Resources */ = {isa = PBXBuildFile; fileRef = 4C72348E20FDEB1D00D5C5D4 /* AAChartView.html */; };
+		4C7234D220FDEB1D00D5C5D4 /* AAAreaspline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349120FDEB1D00D5C5D4 /* AAAreaspline.m */; };
+		4C7234D320FDEB1D00D5C5D4 /* AALabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349320FDEB1D00D5C5D4 /* AALabels.m */; };
+		4C7234D420FDEB1D00D5C5D4 /* AASeries.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349620FDEB1D00D5C5D4 /* AASeries.m */; };
+		4C7234D520FDEB1D00D5C5D4 /* AAXAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349720FDEB1D00D5C5D4 /* AAXAxis.m */; };
+		4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349920FDEB1D00D5C5D4 /* AAPlotOptions.m */; };
+		4C7234D720FDEB1D00D5C5D4 /* AADataLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349A20FDEB1D00D5C5D4 /* AADataLabels.m */; };
+		4C7234D820FDEB1D00D5C5D4 /* AALine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349B20FDEB1D00D5C5D4 /* AALine.m */; };
+		4C7234D920FDEB1D00D5C5D4 /* AATooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72349E20FDEB1D00D5C5D4 /* AATooltip.m */; };
+		4C7234DA20FDEB1D00D5C5D4 /* AASubtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234A020FDEB1D00D5C5D4 /* AASubtitle.m */; };
+		4C7234DB20FDEB1D00D5C5D4 /* AAYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234A120FDEB1D00D5C5D4 /* AAYAxis.m */; };
+		4C7234DC20FDEB1D00D5C5D4 /* AACrosshair.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234A220FDEB1D00D5C5D4 /* AACrosshair.m */; };
+		4C7234DD20FDEB1D00D5C5D4 /* AAColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234A720FDEB1D00D5C5D4 /* AAColumn.m */; };
+		4C7234DE20FDEB1D00D5C5D4 /* AAPlotLinesElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234A820FDEB1D00D5C5D4 /* AAPlotLinesElement.m */; };
+		4C7234DF20FDEB1D00D5C5D4 /* AAOptions3d.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234AA20FDEB1D00D5C5D4 /* AAOptions3d.m */; };
+		4C7234E020FDEB1D00D5C5D4 /* AAStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234AC20FDEB1D00D5C5D4 /* AAStyle.m */; };
+		4C7234E120FDEB1D00D5C5D4 /* AABar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234AD20FDEB1D00D5C5D4 /* AABar.m */; };
+		4C7234E220FDEB1D00D5C5D4 /* AATitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234AE20FDEB1D00D5C5D4 /* AATitle.m */; };
+		4C7234E320FDEB1D00D5C5D4 /* AAArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234B120FDEB1D00D5C5D4 /* AAArea.m */; };
+		4C7234E420FDEB1D00D5C5D4 /* AAAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234B220FDEB1D00D5C5D4 /* AAAnimation.m */; };
+		4C7234E520FDEB1D00D5C5D4 /* AALegend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234B320FDEB1D00D5C5D4 /* AALegend.m */; };
+		4C7234E620FDEB1D00D5C5D4 /* AAMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234B520FDEB1D00D5C5D4 /* AAMarker.m */; };
+		4C7234E720FDEB1D00D5C5D4 /* AASpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234B920FDEB1D00D5C5D4 /* AASpline.m */; };
+		4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234BA20FDEB1D00D5C5D4 /* AAItemStyle.m */; };
+		4C7234E920FDEB1D00D5C5D4 /* AAPie.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234BB20FDEB1D00D5C5D4 /* AAPie.m */; };
+		4C7234EA20FDEB1D00D5C5D4 /* AAChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234C120FDEB1D00D5C5D4 /* AAChart.m */; };
+		4C7234EB20FDEB1D00D5C5D4 /* AAChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234C420FDEB1D00D5C5D4 /* AAChartView.m */; };
+		4C7234EC20FDEB1D00D5C5D4 /* AAChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234C720FDEB1D00D5C5D4 /* AAChartModel.m */; };
+		4C7234ED20FDEB1D00D5C5D4 /* AAOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234C920FDEB1D00D5C5D4 /* AAOptions.m */; };
+		4C7234EE20FDEB1D00D5C5D4 /* AASeriesElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234CA20FDEB1D00D5C5D4 /* AASeriesElement.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -619,6 +654,73 @@
 		4C72347920FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PYSearchExtension.m"; sourceTree = "<group>"; };
 		4C72348120FDD83700D5C5D4 /* delete_night@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_night@3x.png"; sourceTree = "<group>"; };
 		4C72348220FDD83800D5C5D4 /* delete_night@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_night@2x.png"; sourceTree = "<group>"; };
+		4C72348520FDE8F000D5C5D4 /* RankScoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankScoreCell.h; sourceTree = "<group>"; };
+		4C72348620FDE8F000D5C5D4 /* RankScoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankScoreCell.m; sourceTree = "<group>"; };
+		4C72348A20FDEB1D00D5C5D4 /* AAHighchartsLib.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsLib.js; sourceTree = "<group>"; };
+		4C72348B20FDEB1D00D5C5D4 /* AAHighchartsMore.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAHighchartsMore.js; sourceTree = "<group>"; };
+		4C72348C20FDEB1D00D5C5D4 /* AAFunnel.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AAFunnel.js; sourceTree = "<group>"; };
+		4C72348D20FDEB1D00D5C5D4 /* AAHighcharts-3d.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "AAHighcharts-3d.js"; sourceTree = "<group>"; };
+		4C72348E20FDEB1D00D5C5D4 /* AAChartView.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AAChartView.html; sourceTree = "<group>"; };
+		4C72349020FDEB1D00D5C5D4 /* AAArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAArea.h; sourceTree = "<group>"; };
+		4C72349120FDEB1D00D5C5D4 /* AAAreaspline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAAreaspline.m; sourceTree = "<group>"; };
+		4C72349220FDEB1D00D5C5D4 /* AATitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AATitle.h; sourceTree = "<group>"; };
+		4C72349320FDEB1D00D5C5D4 /* AALabels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AALabels.m; sourceTree = "<group>"; };
+		4C72349420FDEB1D00D5C5D4 /* AAStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAStyle.h; sourceTree = "<group>"; };
+		4C72349520FDEB1D00D5C5D4 /* AABar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABar.h; sourceTree = "<group>"; };
+		4C72349620FDEB1D00D5C5D4 /* AASeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AASeries.m; sourceTree = "<group>"; };
+		4C72349720FDEB1D00D5C5D4 /* AAXAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAXAxis.m; sourceTree = "<group>"; };
+		4C72349820FDEB1D00D5C5D4 /* AAOptions3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAOptions3d.h; sourceTree = "<group>"; };
+		4C72349920FDEB1D00D5C5D4 /* AAPlotOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPlotOptions.m; sourceTree = "<group>"; };
+		4C72349A20FDEB1D00D5C5D4 /* AADataLabels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AADataLabels.m; sourceTree = "<group>"; };
+		4C72349B20FDEB1D00D5C5D4 /* AALine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AALine.m; sourceTree = "<group>"; };
+		4C72349C20FDEB1D00D5C5D4 /* AAMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMarker.h; sourceTree = "<group>"; };
+		4C72349D20FDEB1D00D5C5D4 /* AALegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AALegend.h; sourceTree = "<group>"; };
+		4C72349E20FDEB1D00D5C5D4 /* AATooltip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATooltip.m; sourceTree = "<group>"; };
+		4C72349F20FDEB1D00D5C5D4 /* AAAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAAnimation.h; sourceTree = "<group>"; };
+		4C7234A020FDEB1D00D5C5D4 /* AASubtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AASubtitle.m; sourceTree = "<group>"; };
+		4C7234A120FDEB1D00D5C5D4 /* AAYAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAYAxis.m; sourceTree = "<group>"; };
+		4C7234A220FDEB1D00D5C5D4 /* AACrosshair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AACrosshair.m; sourceTree = "<group>"; };
+		4C7234A320FDEB1D00D5C5D4 /* AAPie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPie.h; sourceTree = "<group>"; };
+		4C7234A420FDEB1D00D5C5D4 /* AAItemStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAItemStyle.h; sourceTree = "<group>"; };
+		4C7234A520FDEB1D00D5C5D4 /* AASpline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AASpline.h; sourceTree = "<group>"; };
+		4C7234A620FDEB1D00D5C5D4 /* AAChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAChart.h; sourceTree = "<group>"; };
+		4C7234A720FDEB1D00D5C5D4 /* AAColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAColumn.m; sourceTree = "<group>"; };
+		4C7234A820FDEB1D00D5C5D4 /* AAPlotLinesElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPlotLinesElement.m; sourceTree = "<group>"; };
+		4C7234A920FDEB1D00D5C5D4 /* AAXAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAXAxis.h; sourceTree = "<group>"; };
+		4C7234AA20FDEB1D00D5C5D4 /* AAOptions3d.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAOptions3d.m; sourceTree = "<group>"; };
+		4C7234AB20FDEB1D00D5C5D4 /* AASeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AASeries.h; sourceTree = "<group>"; };
+		4C7234AC20FDEB1D00D5C5D4 /* AAStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAStyle.m; sourceTree = "<group>"; };
+		4C7234AD20FDEB1D00D5C5D4 /* AABar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AABar.m; sourceTree = "<group>"; };
+		4C7234AE20FDEB1D00D5C5D4 /* AATitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATitle.m; sourceTree = "<group>"; };
+		4C7234AF20FDEB1D00D5C5D4 /* AALabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AALabels.h; sourceTree = "<group>"; };
+		4C7234B020FDEB1D00D5C5D4 /* AAAreaspline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAAreaspline.h; sourceTree = "<group>"; };
+		4C7234B120FDEB1D00D5C5D4 /* AAArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAArea.m; sourceTree = "<group>"; };
+		4C7234B220FDEB1D00D5C5D4 /* AAAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAAnimation.m; sourceTree = "<group>"; };
+		4C7234B320FDEB1D00D5C5D4 /* AALegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AALegend.m; sourceTree = "<group>"; };
+		4C7234B420FDEB1D00D5C5D4 /* AATooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AATooltip.h; sourceTree = "<group>"; };
+		4C7234B520FDEB1D00D5C5D4 /* AAMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAMarker.m; sourceTree = "<group>"; };
+		4C7234B620FDEB1D00D5C5D4 /* AALine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AALine.h; sourceTree = "<group>"; };
+		4C7234B720FDEB1D00D5C5D4 /* AADataLabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AADataLabels.h; sourceTree = "<group>"; };
+		4C7234B820FDEB1D00D5C5D4 /* AAPlotOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPlotOptions.h; sourceTree = "<group>"; };
+		4C7234B920FDEB1D00D5C5D4 /* AASpline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AASpline.m; sourceTree = "<group>"; };
+		4C7234BA20FDEB1D00D5C5D4 /* AAItemStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAItemStyle.m; sourceTree = "<group>"; };
+		4C7234BB20FDEB1D00D5C5D4 /* AAPie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPie.m; sourceTree = "<group>"; };
+		4C7234BC20FDEB1D00D5C5D4 /* AACrosshair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AACrosshair.h; sourceTree = "<group>"; };
+		4C7234BD20FDEB1D00D5C5D4 /* AAYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAYAxis.h; sourceTree = "<group>"; };
+		4C7234BE20FDEB1D00D5C5D4 /* AASubtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AASubtitle.h; sourceTree = "<group>"; };
+		4C7234BF20FDEB1D00D5C5D4 /* AAPlotLinesElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPlotLinesElement.h; sourceTree = "<group>"; };
+		4C7234C020FDEB1D00D5C5D4 /* AAColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAColumn.h; sourceTree = "<group>"; };
+		4C7234C120FDEB1D00D5C5D4 /* AAChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAChart.m; sourceTree = "<group>"; };
+		4C7234C320FDEB1D00D5C5D4 /* AAOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAOptions.h; sourceTree = "<group>"; };
+		4C7234C420FDEB1D00D5C5D4 /* AAChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAChartView.m; sourceTree = "<group>"; };
+		4C7234C520FDEB1D00D5C5D4 /* AAGlobalMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAGlobalMacro.h; sourceTree = "<group>"; };
+		4C7234C620FDEB1D00D5C5D4 /* AASeriesElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AASeriesElement.h; sourceTree = "<group>"; };
+		4C7234C720FDEB1D00D5C5D4 /* AAChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAChartModel.m; sourceTree = "<group>"; };
+		4C7234C820FDEB1D00D5C5D4 /* AAChartKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAChartKit.h; sourceTree = "<group>"; };
+		4C7234C920FDEB1D00D5C5D4 /* AAOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAOptions.m; sourceTree = "<group>"; };
+		4C7234CA20FDEB1D00D5C5D4 /* AASeriesElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AASeriesElement.m; sourceTree = "<group>"; };
+		4C7234CB20FDEB1D00D5C5D4 /* AAChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAChartView.h; sourceTree = "<group>"; };
+		4C7234CC20FDEB1D00D5C5D4 /* AAChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAChartModel.h; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1355,6 +1457,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C72348820FDEB1D00D5C5D4 /* AAChartKitLib */,
 				4C72346B20FD8C6D00D5C5D4 /* PYSearch */,
 				4C72345320FC6E4200D5C5D4 /* LYEmptyView */,
 				4C23B5BE20F6387100ACE380 /* YBPopupMenu */,
@@ -1613,6 +1716,102 @@
 			path = PYSearch;
 			sourceTree = "<group>";
 		};
+		4C72348820FDEB1D00D5C5D4 /* AAChartKitLib */ = {
+			isa = PBXGroup;
+			children = (
+				4C72348920FDEB1D00D5C5D4 /* AAJSFiles */,
+				4C72348F20FDEB1D00D5C5D4 /* AAOptionsModel */,
+				4C7234C220FDEB1D00D5C5D4 /* AAChartConfiger */,
+			);
+			path = AAChartKitLib;
+			sourceTree = "<group>";
+		};
+		4C72348920FDEB1D00D5C5D4 /* AAJSFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4C72348A20FDEB1D00D5C5D4 /* AAHighchartsLib.js */,
+				4C72348B20FDEB1D00D5C5D4 /* AAHighchartsMore.js */,
+				4C72348C20FDEB1D00D5C5D4 /* AAFunnel.js */,
+				4C72348D20FDEB1D00D5C5D4 /* AAHighcharts-3d.js */,
+				4C72348E20FDEB1D00D5C5D4 /* AAChartView.html */,
+			);
+			path = AAJSFiles;
+			sourceTree = "<group>";
+		};
+		4C72348F20FDEB1D00D5C5D4 /* AAOptionsModel */ = {
+			isa = PBXGroup;
+			children = (
+				4C72349020FDEB1D00D5C5D4 /* AAArea.h */,
+				4C72349120FDEB1D00D5C5D4 /* AAAreaspline.m */,
+				4C72349220FDEB1D00D5C5D4 /* AATitle.h */,
+				4C72349320FDEB1D00D5C5D4 /* AALabels.m */,
+				4C72349420FDEB1D00D5C5D4 /* AAStyle.h */,
+				4C72349520FDEB1D00D5C5D4 /* AABar.h */,
+				4C72349620FDEB1D00D5C5D4 /* AASeries.m */,
+				4C72349720FDEB1D00D5C5D4 /* AAXAxis.m */,
+				4C72349820FDEB1D00D5C5D4 /* AAOptions3d.h */,
+				4C72349920FDEB1D00D5C5D4 /* AAPlotOptions.m */,
+				4C72349A20FDEB1D00D5C5D4 /* AADataLabels.m */,
+				4C72349B20FDEB1D00D5C5D4 /* AALine.m */,
+				4C72349C20FDEB1D00D5C5D4 /* AAMarker.h */,
+				4C72349D20FDEB1D00D5C5D4 /* AALegend.h */,
+				4C72349E20FDEB1D00D5C5D4 /* AATooltip.m */,
+				4C72349F20FDEB1D00D5C5D4 /* AAAnimation.h */,
+				4C7234A020FDEB1D00D5C5D4 /* AASubtitle.m */,
+				4C7234A120FDEB1D00D5C5D4 /* AAYAxis.m */,
+				4C7234A220FDEB1D00D5C5D4 /* AACrosshair.m */,
+				4C7234A320FDEB1D00D5C5D4 /* AAPie.h */,
+				4C7234A420FDEB1D00D5C5D4 /* AAItemStyle.h */,
+				4C7234A520FDEB1D00D5C5D4 /* AASpline.h */,
+				4C7234A620FDEB1D00D5C5D4 /* AAChart.h */,
+				4C7234A720FDEB1D00D5C5D4 /* AAColumn.m */,
+				4C7234A820FDEB1D00D5C5D4 /* AAPlotLinesElement.m */,
+				4C7234A920FDEB1D00D5C5D4 /* AAXAxis.h */,
+				4C7234AA20FDEB1D00D5C5D4 /* AAOptions3d.m */,
+				4C7234AB20FDEB1D00D5C5D4 /* AASeries.h */,
+				4C7234AC20FDEB1D00D5C5D4 /* AAStyle.m */,
+				4C7234AD20FDEB1D00D5C5D4 /* AABar.m */,
+				4C7234AE20FDEB1D00D5C5D4 /* AATitle.m */,
+				4C7234AF20FDEB1D00D5C5D4 /* AALabels.h */,
+				4C7234B020FDEB1D00D5C5D4 /* AAAreaspline.h */,
+				4C7234B120FDEB1D00D5C5D4 /* AAArea.m */,
+				4C7234B220FDEB1D00D5C5D4 /* AAAnimation.m */,
+				4C7234B320FDEB1D00D5C5D4 /* AALegend.m */,
+				4C7234B420FDEB1D00D5C5D4 /* AATooltip.h */,
+				4C7234B520FDEB1D00D5C5D4 /* AAMarker.m */,
+				4C7234B620FDEB1D00D5C5D4 /* AALine.h */,
+				4C7234B720FDEB1D00D5C5D4 /* AADataLabels.h */,
+				4C7234B820FDEB1D00D5C5D4 /* AAPlotOptions.h */,
+				4C7234B920FDEB1D00D5C5D4 /* AASpline.m */,
+				4C7234BA20FDEB1D00D5C5D4 /* AAItemStyle.m */,
+				4C7234BB20FDEB1D00D5C5D4 /* AAPie.m */,
+				4C7234BC20FDEB1D00D5C5D4 /* AACrosshair.h */,
+				4C7234BD20FDEB1D00D5C5D4 /* AAYAxis.h */,
+				4C7234BE20FDEB1D00D5C5D4 /* AASubtitle.h */,
+				4C7234BF20FDEB1D00D5C5D4 /* AAPlotLinesElement.h */,
+				4C7234C020FDEB1D00D5C5D4 /* AAColumn.h */,
+				4C7234C120FDEB1D00D5C5D4 /* AAChart.m */,
+			);
+			path = AAOptionsModel;
+			sourceTree = "<group>";
+		};
+		4C7234C220FDEB1D00D5C5D4 /* AAChartConfiger */ = {
+			isa = PBXGroup;
+			children = (
+				4C7234C320FDEB1D00D5C5D4 /* AAOptions.h */,
+				4C7234C420FDEB1D00D5C5D4 /* AAChartView.m */,
+				4C7234C520FDEB1D00D5C5D4 /* AAGlobalMacro.h */,
+				4C7234C620FDEB1D00D5C5D4 /* AASeriesElement.h */,
+				4C7234C720FDEB1D00D5C5D4 /* AAChartModel.m */,
+				4C7234C820FDEB1D00D5C5D4 /* AAChartKit.h */,
+				4C7234C920FDEB1D00D5C5D4 /* AAOptions.m */,
+				4C7234CA20FDEB1D00D5C5D4 /* AASeriesElement.m */,
+				4C7234CB20FDEB1D00D5C5D4 /* AAChartView.h */,
+				4C7234CC20FDEB1D00D5C5D4 /* AAChartModel.h */,
+			);
+			path = AAChartConfiger;
+			sourceTree = "<group>";
+		};
 		4C83E64020BFE30200C99AAB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1624,6 +1823,8 @@
 				4CE121DA20C0E14100A44782 /* RankListTableViewCell.m */,
 				4C3D112320D90BF900480E03 /* CommentCell.h */,
 				4C3D112420D90BF900480E03 /* CommentCell.m */,
+				4C72348520FDE8F000D5C5D4 /* RankScoreCell.h */,
+				4C72348620FDE8F000D5C5D4 /* RankScoreCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1968,10 +2169,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7234CE20FDEB1D00D5C5D4 /* AAHighchartsMore.js in Resources */,
 				4C23B5D220F7023D00ACE380 /* NightTheme.json in Resources */,
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
 				4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */,
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
+				4C7234D120FDEB1D00D5C5D4 /* AAChartView.html in Resources */,
 				4C72348320FDD83800D5C5D4 /* delete_night@3x.png in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
@@ -1980,10 +2183,13 @@
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
 				4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */,
+				4C7234CD20FDEB1D00D5C5D4 /* AAHighchartsLib.js in Resources */,
 				4C72348420FDD83800D5C5D4 /* delete_night@2x.png in Resources */,
 				4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */,
+				4C7234D020FDEB1D00D5C5D4 /* AAHighcharts-3d.js in Resources */,
 				4C72347E20FD8C6D00D5C5D4 /* PYSearch.bundle in Resources */,
 				4C95FFD620DDE8FA0040E348 /* ReadMe.strings in Resources */,
+				4C7234CF20FDEB1D00D5C5D4 /* AAFunnel.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2115,10 +2321,13 @@
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
 				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
 				4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */,
+				4C7234E420FDEB1D00D5C5D4 /* AAAnimation.m in Sources */,
 				4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */,
+				4C7234E520FDEB1D00D5C5D4 /* AALegend.m in Sources */,
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
+				4C7234E720FDEB1D00D5C5D4 /* AASpline.m in Sources */,
 				4C6332C920E08E6500D80056 /* AddressViewController.m in Sources */,
 				4C72345D20FC6E4200D5C5D4 /* LYEmptyBaseView.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
@@ -2127,6 +2336,7 @@
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C6332CC20E08EAE00D80056 /* EditAddressViewController.m in Sources */,
+				4C7234EB20FDEB1D00D5C5D4 /* AAChartView.m in Sources */,
 				4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */,
 				4C6332C620E07CBA00D80056 /* ChangePasswordViewController.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
@@ -2142,6 +2352,7 @@
 				4C17414620C5168600AA6D57 /* TXMatchConst.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
+				4C7234DD20FDEB1D00D5C5D4 /* AAColumn.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
@@ -2149,6 +2360,7 @@
 				4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */,
 				4C23B3C820F592AB00ACE380 /* LMFontSizePickerView.m in Sources */,
 				4C23B3D820F5935800ACE380 /* LMPhotoCollectionCell.m in Sources */,
+				4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */,
 				4C72347A20FD8C6D00D5C5D4 /* UIColor+PYSearchExtension.m in Sources */,
 				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
@@ -2170,12 +2382,17 @@
 				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
 				4C95FFD520DDE8FA0040E348 /* CLSlider.m in Sources */,
 				4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */,
+				4C7234E120FDEB1D00D5C5D4 /* AABar.m in Sources */,
+				4C7234DF20FDEB1D00D5C5D4 /* AAOptions3d.m in Sources */,
 				4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */,
 				4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */,
 				4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
+				4C7234D820FDEB1D00D5C5D4 /* AALine.m in Sources */,
+				4C7234D520FDEB1D00D5C5D4 /* AAXAxis.m in Sources */,
+				4C7234D220FDEB1D00D5C5D4 /* AAAreaspline.m in Sources */,
 				4C23B3D720F5935800ACE380 /* LMStyleColorCell.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
@@ -2198,6 +2415,7 @@
 				4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
 				4C23B3DB20F5935800ACE380 /* LMStyleFontSizeCell.m in Sources */,
+				4C7234D920FDEB1D00D5C5D4 /* AATooltip.m in Sources */,
 				4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */,
 				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
@@ -2216,7 +2434,9 @@
 				4C17414C20C52F7B00AA6D57 /* LXSegmentBtnView.m in Sources */,
 				4C534F2720E1C6E800754695 /* NSString+AttText.m in Sources */,
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
+				4C7234D420FDEB1D00D5C5D4 /* AASeries.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
+				4C7234E220FDEB1D00D5C5D4 /* AATitle.m in Sources */,
 				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
 				4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
@@ -2231,6 +2451,7 @@
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
 				4C23B3AB20F591E400ACE380 /* NSTextAttachment+LMText.m in Sources */,
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
+				4C7234ED20FDEB1D00D5C5D4 /* AAOptions.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C72346320FC6E8900D5C5D4 /* MyEmptyView.m in Sources */,
 				4C1551DF20E633720030670F /* IntegralModel.m in Sources */,
@@ -2255,11 +2476,16 @@
 				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
 				4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
+				4C7234E320FDEB1D00D5C5D4 /* AAArea.m in Sources */,
+				4C7234DA20FDEB1D00D5C5D4 /* AASubtitle.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */,
+				4C7234EC20FDEB1D00D5C5D4 /* AAChartModel.m in Sources */,
+				4C7234EA20FDEB1D00D5C5D4 /* AAChart.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,
+				4C7234D320FDEB1D00D5C5D4 /* AALabels.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
 				4C23B3B820F5924800ACE380 /* LMWordViewController.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
@@ -2267,14 +2493,17 @@
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
 				4C3D112520D90BF900480E03 /* CommentCell.m in Sources */,
 				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
+				4C7234DB20FDEB1D00D5C5D4 /* AAYAxis.m in Sources */,
 				4C3F8FF020BCEF1A003EC4FC /* AttentionViewController.m in Sources */,
 				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */,
+				4C7234DC20FDEB1D00D5C5D4 /* AACrosshair.m in Sources */,
 				4C93497C20CF951800BD8F07 /* MessageFansViewController.m in Sources */,
 				4C646C6820F33E700053067A /* NewNotifyViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C72345E20FC6E4200D5C5D4 /* UIView+Empty.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
+				4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
 				4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */,
@@ -2282,11 +2511,13 @@
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
+				4C7234D720FDEB1D00D5C5D4 /* AADataLabels.m in Sources */,
 				4C23B3BC20F5924800ACE380 /* LMImagePreviewController.m in Sources */,
 				4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */,
 				4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */,
+				4C7234EE20FDEB1D00D5C5D4 /* AASeriesElement.m in Sources */,
 				4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */,
 				4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
@@ -2299,20 +2530,25 @@
 				4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */,
 				4CA141FD20F4528600536E77 /* PublishManagerViewController.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
+				4C7234E620FDEB1D00D5C5D4 /* AAMarker.m in Sources */,
+				4C7234E020FDEB1D00D5C5D4 /* AAStyle.m in Sources */,
 				4C6332D620E0D11000D80056 /* CommentDetailViewController.m in Sources */,
 				4C72347D20FD8C6D00D5C5D4 /* PYSearchConst.m in Sources */,
 				4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
 				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
+				4C7234DE20FDEB1D00D5C5D4 /* AAPlotLinesElement.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */,
+				4C7234E920FDEB1D00D5C5D4 /* AAPie.m in Sources */,
 				4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */,
 				4C72346720FCC28300D5C5D4 /* UINavigationBar+Awesome.m in Sources */,
 				4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */,
 				4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,
+				4C72348720FDE8F000D5C5D4 /* RankScoreCell.m in Sources */,
 				4C23B3E020F5938000ACE380 /* LMParagraphConfig.m in Sources */,
 				4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */,
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,

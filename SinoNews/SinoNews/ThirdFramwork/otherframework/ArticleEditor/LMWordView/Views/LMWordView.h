@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) UITextField *titleTextField;
 
+@property (nonatomic, assign) BOOL showTitle;   //是否显示title
+
 @end

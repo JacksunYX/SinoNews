@@ -56,6 +56,7 @@
     _contentInputAccessoryView.changeSegmentManually = YES;
     
     _textView = [[LMWordView alloc] init];
+    _textView.showTitle = self.showTitle;
     _textView.delegate = self;
     _textView.titleTextField.delegate = self;
     [self.view addSubview:_textView];

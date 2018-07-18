@@ -1,14 +1,16 @@
 //
-//  CatechismSecondeViewController.h
+//  Q&APublishViewController.h
 //  SinoNews
 //
 //  Created by Michael on 2018/7/18.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//问答二级页面
+//添加问题或回复答主的界面
 
 #import "BaseViewController.h"
 
-@interface CatechismSecondeViewController : BaseViewController
+@interface Q_APublishViewController : BaseViewController
+
+
 
 @end

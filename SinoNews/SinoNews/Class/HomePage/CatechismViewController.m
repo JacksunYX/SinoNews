@@ -7,6 +7,9 @@
 //
 
 #import "CatechismViewController.h"
+#import "CatechismSecondeViewController.h"
+#import "Q_APublishViewController.h"
+
 #import "ShareAndFunctionView.h"
 #import "FontAndNightModeView.h"
 
@@ -62,7 +65,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 39)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 38)
     ;
     
     //加载页面
@@ -175,6 +178,12 @@
         [answerInput setBtnFont:PFFontL(15)];
         [answerInput setNormalTitleColor:HexColor(#1282EE)];
         [answerInput layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:8];
+        
+        [answerInput whenTap:^{
+            @strongify(self)
+            UINavigationController *rtVC = [[UINavigationController alloc]initWithRootViewController:[Q_APublishViewController new]];
+            [self presentViewController:rtVC animated:YES completion:nil];
+        }];
     }
     
     self.collectBtn.selected = YES;
@@ -223,6 +232,9 @@
                 [self.webView reload];
             }else if (row == 2) {
                 [self requestCollectNews];
+            }else if (row == 3){
+                CatechismSecondeViewController *csVC = [CatechismSecondeViewController new];
+                [self.navigationController pushViewController:csVC animated:YES];
             }
             
         }

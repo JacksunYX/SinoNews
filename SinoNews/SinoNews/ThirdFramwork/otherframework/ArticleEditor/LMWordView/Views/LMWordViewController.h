@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) LMWordView *textView;
 
+@property (nonatomic, assign) BOOL showTitle;   //是否显示title
+
 - (NSString *)exportHTML;
 
 @end

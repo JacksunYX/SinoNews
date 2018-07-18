@@ -216,6 +216,7 @@
 		4C7234EE20FDEB1D00D5C5D4 /* AASeriesElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234CA20FDEB1D00D5C5D4 /* AASeriesElement.m */; };
 		4C7234F120FED51800D5C5D4 /* CatechismViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F020FED51800D5C5D4 /* CatechismViewController.m */; };
 		4C7234F520FEEB8800D5C5D4 /* CatechismSecondeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F420FEEB8800D5C5D4 /* CatechismSecondeViewController.m */; };
+		4C7234F820FF0E6700D5C5D4 /* Q_APublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F720FF0E6700D5C5D4 /* Q_APublishViewController.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -728,6 +729,8 @@
 		4C7234F220FEDF5C00D5C5D4 /* PageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageHeader.h; sourceTree = "<group>"; };
 		4C7234F320FEEB8800D5C5D4 /* CatechismSecondeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatechismSecondeViewController.h; sourceTree = "<group>"; };
 		4C7234F420FEEB8800D5C5D4 /* CatechismSecondeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatechismSecondeViewController.m; sourceTree = "<group>"; };
+		4C7234F620FF0E6700D5C5D4 /* Q_APublishViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Q_APublishViewController.h; sourceTree = "<group>"; };
+		4C7234F720FF0E6700D5C5D4 /* Q_APublishViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Q_APublishViewController.m; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1247,6 +1250,8 @@
 				4C7234F020FED51800D5C5D4 /* CatechismViewController.m */,
 				4C7234F320FEEB8800D5C5D4 /* CatechismSecondeViewController.h */,
 				4C7234F420FEEB8800D5C5D4 /* CatechismSecondeViewController.m */,
+				4C7234F620FF0E6700D5C5D4 /* Q_APublishViewController.h */,
+				4C7234F720FF0E6700D5C5D4 /* Q_APublishViewController.m */,
 				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
@@ -2568,6 +2573,7 @@
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
+				4C7234F820FF0E6700D5C5D4 /* Q_APublishViewController.m in Sources */,
 				4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */,
 				4CCCF01620E9EE2B000EC6BD /* CLInputToolbar.m in Sources */,
 			);

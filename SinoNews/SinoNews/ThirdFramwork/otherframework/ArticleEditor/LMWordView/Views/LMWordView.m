@@ -53,10 +53,38 @@ static CGFloat const kLMWCommonSpacing = 16.f;
     self.autocorrectionType = UITextAutocorrectionTypeNo;
     self.spellCheckingType = UITextSpellCheckingTypeNo;    
     self.alwaysBounceVertical = YES;
-    self.textContainerInset = UIEdgeInsetsMake(kLMWMargin + kLMWTitleHeight + kLMWCommonSpacing,
-                                               kLMWCommonSpacing,
-                                               kLMWCommonSpacing,
-                                               kLMWCommonSpacing);
+    
+    if (self.showTitle) {
+        
+        self.textContainerInset = UIEdgeInsetsMake(kLMWMargin + kLMWTitleHeight + kLMWCommonSpacing,
+                                                   kLMWCommonSpacing,
+                                                   kLMWCommonSpacing,
+                                                   kLMWCommonSpacing);
+    }else{
+        self.textContainerInset = UIEdgeInsetsMake(kLMWCommonSpacing,
+                                                   kLMWCommonSpacing,
+                                                   0,
+                                                   kLMWCommonSpacing);
+    }
+}
+
+-(void)setShowTitle:(BOOL)showTitle
+{
+    _showTitle = showTitle;
+    _titleView.hidden = !self.showTitle;
+    if (self.showTitle) {
+        
+        self.textContainerInset = UIEdgeInsetsMake(kLMWMargin + kLMWTitleHeight + kLMWCommonSpacing,
+                                                   kLMWCommonSpacing,
+                                                   kLMWCommonSpacing,
+                                                   kLMWCommonSpacing);
+    }else{
+        self.textContainerInset = UIEdgeInsetsMake(kLMWCommonSpacing,
+                                                   kLMWCommonSpacing,
+                                                   0,
+                                                   kLMWCommonSpacing);
+    }
+    [self layoutSubviews];
 }
 
 - (void)layoutSubviews {

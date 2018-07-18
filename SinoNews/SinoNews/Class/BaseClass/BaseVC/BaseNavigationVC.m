@@ -47,6 +47,8 @@
     //统一设置navigationBar的样式
     //    self.navigationBar.barTintColor = RedColor;
 //    self.navigationBar.lee_theme.LeeConfigBarTintColor(@"backgroundColor");
+    //使用系统的返回键
+    self.rt_navigationController.useSystemBackBarButtonItem = YES;
 }
 
 //找到导航栏最下面黑线视图

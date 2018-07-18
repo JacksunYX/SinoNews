@@ -53,6 +53,7 @@
     
     if (!_wordViewController) {
         _wordViewController = [[LMWordViewController alloc] init];
+        _wordViewController.showTitle = YES;
     }
     return _wordViewController;
 }
@@ -111,6 +112,7 @@
 -(void)setUI
 {
     [self addChildViewController:self.wordViewController];
+    
     [self.view addSubview:self.wordViewController.view];
     NSString *placehold = @"请输入标题";
     if (self.editType == 1) {

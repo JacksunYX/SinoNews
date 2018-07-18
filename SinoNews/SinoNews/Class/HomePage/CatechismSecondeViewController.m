@@ -7,6 +7,8 @@
 //
 
 #import "CatechismSecondeViewController.h"
+
+#import "QACommentInputView.h"
 #import "ShareAndFunctionView.h"
 #import "FontAndNightModeView.h"
 
@@ -27,6 +29,18 @@
     [self showOrHideLoadView:YES page:2];
     
     [self setWebViewLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -162,6 +176,12 @@
         [answerInput setBtnFont:PFFontL(15)];
         [answerInput setNormalTitleColor:HexColor(#323232)];
         [answerInput layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:8];
+        
+        [answerInput whenTap:^{
+            [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+                LRToast([@"输入了:" stringByAppendingString:inputText]);
+            }];
+        }];
     }
     
     self.praiseBtn.selected = YES;

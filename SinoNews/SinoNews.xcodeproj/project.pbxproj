@@ -217,6 +217,9 @@
 		4C7234F120FED51800D5C5D4 /* CatechismViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F020FED51800D5C5D4 /* CatechismViewController.m */; };
 		4C7234F520FEEB8800D5C5D4 /* CatechismSecondeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F420FEEB8800D5C5D4 /* CatechismSecondeViewController.m */; };
 		4C7234F820FF0E6700D5C5D4 /* Q_APublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234F720FF0E6700D5C5D4 /* Q_APublishViewController.m */; };
+		4C7234FB20FF34C900D5C5D4 /* QACommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234FA20FF34C900D5C5D4 /* QACommentInputView.m */; };
+		4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234FE20FF373C00D5C5D4 /* JHTextField.m */; };
+		4C72350220FF373C00D5C5D4 /* JHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234FF20FF373C00D5C5D4 /* JHTextView.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
@@ -731,6 +734,12 @@
 		4C7234F420FEEB8800D5C5D4 /* CatechismSecondeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatechismSecondeViewController.m; sourceTree = "<group>"; };
 		4C7234F620FF0E6700D5C5D4 /* Q_APublishViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Q_APublishViewController.h; sourceTree = "<group>"; };
 		4C7234F720FF0E6700D5C5D4 /* Q_APublishViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Q_APublishViewController.m; sourceTree = "<group>"; };
+		4C7234F920FF34C900D5C5D4 /* QACommentInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QACommentInputView.h; sourceTree = "<group>"; };
+		4C7234FA20FF34C900D5C5D4 /* QACommentInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QACommentInputView.m; sourceTree = "<group>"; };
+		4C7234FD20FF373C00D5C5D4 /* JHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTextView.h; sourceTree = "<group>"; };
+		4C7234FE20FF373C00D5C5D4 /* JHTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTextField.m; sourceTree = "<group>"; };
+		4C7234FF20FF373C00D5C5D4 /* JHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTextView.m; sourceTree = "<group>"; };
+		4C72350020FF373C00D5C5D4 /* JHTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTextField.h; sourceTree = "<group>"; };
 		4C72D57320D10AAB00088149 /* MyCollectArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectArticleCell.h; sourceTree = "<group>"; };
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
@@ -1474,6 +1483,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C7234FC20FF373C00D5C5D4 /* InputView */,
 				4C72348820FDEB1D00D5C5D4 /* AAChartKitLib */,
 				4C72346B20FD8C6D00D5C5D4 /* PYSearch */,
 				4C72345320FC6E4200D5C5D4 /* LYEmptyView */,
@@ -1548,6 +1558,8 @@
 				4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */,
 				4C6B4E4D20EB155F00BA0534 /* ADPopView.h */,
 				4C6B4E4E20EB155F00BA0534 /* ADPopView.m */,
+				4C7234F920FF34C900D5C5D4 /* QACommentInputView.h */,
+				4C7234FA20FF34C900D5C5D4 /* QACommentInputView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1827,6 +1839,17 @@
 				4C7234CC20FDEB1D00D5C5D4 /* AAChartModel.h */,
 			);
 			path = AAChartConfiger;
+			sourceTree = "<group>";
+		};
+		4C7234FC20FF373C00D5C5D4 /* InputView */ = {
+			isa = PBXGroup;
+			children = (
+				4C7234FD20FF373C00D5C5D4 /* JHTextView.h */,
+				4C7234FE20FF373C00D5C5D4 /* JHTextField.m */,
+				4C7234FF20FF373C00D5C5D4 /* JHTextView.m */,
+				4C72350020FF373C00D5C5D4 /* JHTextField.h */,
+			);
+			path = InputView;
 			sourceTree = "<group>";
 		};
 		4C83E64020BFE30200C99AAB /* View */ = {
@@ -2417,6 +2440,7 @@
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
 				4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */,
 				4C72347B20FD8C6D00D5C5D4 /* PYSearchViewController.m in Sources */,
+				4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */,
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,
 				4C646C6B20F343E30053067A /* OfficialNotifyViewController.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
@@ -2456,6 +2480,7 @@
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C7234E220FDEB1D00D5C5D4 /* AATitle.m in Sources */,
 				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
+				4C72350220FF373C00D5C5D4 /* JHTextView.m in Sources */,
 				4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C646C6520F3129B0053067A /* SignInRuleWebView.m in Sources */,
@@ -2477,6 +2502,7 @@
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
 				4C7234F120FED51800D5C5D4 /* CatechismViewController.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
+				4C7234FB20FF34C900D5C5D4 /* QACommentInputView.m in Sources */,
 				4C72347C20FD8C6D00D5C5D4 /* PYSearchSuggestionViewController.m in Sources */,
 				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,

@@ -26,12 +26,12 @@
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
         NSArray *avatar = @[
-                           @"login_logo",
-                           @"user_icon",
-                           @"user_icon",
-                           @"user_icon",
-                           @"user_icon",
-                           ];
+                            @"login_logo",
+                            @"user_icon",
+                            @"user_icon",
+                            @"user_icon",
+                            @"user_icon",
+                            ];
         NSArray *content = @[
                              @"你好，欢迎来到启世录，我 是启世录小助手！在使用启世录的过程中有任何问题，都可以在这里进行咨询，我会第一时间帮助您解决，祝您在启世录玩的开心愉快！",
                              @"你好",
@@ -58,8 +58,8 @@
             model.avatar = avatar[i];
             model.content = content[i];
             model.time = time[i];
-            model.sendType = [sendType[i] integerValue];
-            [_dataSource addObject:model];
+            model.type = [sendType[i] integerValue];
+//            [_dataSource addObject:model];
         }
     }
     return _dataSource;
@@ -98,8 +98,13 @@
     UIButton *sendBtn = [UIButton new];
     sendBtn.titleLabel.font = PFFontL(15);
     sendBtn.backgroundColor = RGBA(29, 136, 245, 1);
-    [sendBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-    [sendBtn setTitle:@"发送" forState:UIControlStateNormal];
+    [sendBtn setNormalTitleColor:WhiteColor];
+    [sendBtn setNormalTitle:@"发送"];
+    @weakify(self)
+    [[sendBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self);
+        [self sendContent];
+    }];
     
     self.inputView = [UITextField new];
     self.inputView.delegate = self;
@@ -128,19 +133,14 @@
     [self.inputView setSd_cornerRadius:@19];
     self.inputView.layer.borderColor = RGBA(232, 236, 239, 1).CGColor;
     self.inputView.layer.borderWidth = 1;
-    @weakify(self)
+    
+    
     [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
         @strongify(self)
         GGLog(@"完成编辑");
         UITextField *field = x.first;
         GGLog(@"-----%@",field.text);
-        [field resignFirstResponder];
-        if ([NSString isEmpty:field.text]) {
-            LRToast(@"不能发送空文本哦");
-        }else{
-            //发送评论
-            field.text = @"";
-        }
+        [self sendContent];
     }];
     
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -155,35 +155,48 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:[OfficialNotifyCell class] forCellReuseIdentifier:OfficialNotifyCellID];
-    /*
-     @weakify(self)
-     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
-     @strongify(self)
-     if (self.tableView.mj_footer.isRefreshing) {
-     [self.tableView.mj_header endRefreshing];
-     return ;
-     }
-     self.page = 1;
-     
-     }];
-     self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-     @strongify(self)
-     if (self.tableView.mj_header.isRefreshing) {
-     [self.tableView.mj_footer endRefreshing];
-     return ;
-     }
-     if (self.dataSource.count>0) {
-     self.page++;
-     }else{
-     self.page = 1;
-     }
-     
-     }];
-     
-     [self.tableView.mj_header beginRefreshing];
-     */
     
     
+    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self)
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        self.page = 1;
+        [self requestListMessages];
+        
+    }];
+    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self)
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (self.dataSource.count>0) {
+            self.page++;
+        }else{
+            self.page = 1;
+        }
+        [self requestListMessages];
+    }];
+    
+    [self.tableView.mj_header beginRefreshing];
+    
+    
+}
+
+//发送文本
+-(void)sendContent
+{
+    [self.inputView resignFirstResponder];
+    if ([NSString isEmpty:self.inputView.text]) {
+        LRToast(@"不能发送空文本哦");
+    }else{
+        //发送评论
+        [self requestSendMessageToSystemWithContent:self.inputView.text];
+        self.inputView.text = @"";
+    }
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -221,8 +234,34 @@
 }
 
 
+#pragma mark ---- 请求发送
+//向系统发送私信
+-(void)requestSendMessageToSystemWithContent:(NSString *)content
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"messageContent"] = GetSaveString(content);
+    [HttpRequest postWithURLString:SendMessageToSystem parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+    } failure:nil RefreshAction:nil];
+}
 
-
-
+//获取私信列表
+-(void)requestListMessages
+{
+    [HttpRequest getWithURLString:ListMessages parameters:@{@"page":@(self.page)} success:^(id responseObject) {
+        NSArray *data = [OfficialNotifyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (self.page == 1) {
+            self.dataSource = [data mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            [self.dataSource addObjectsFromArray:data];
+            [self.tableView.mj_footer endRefreshing];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
 
 @end

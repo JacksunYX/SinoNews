@@ -99,7 +99,7 @@
     [time updateLayout];
     
     [fartherView insertSubview:contentBackView belowSubview:content];
-    if (self.model.sendType) {  //本人
+    if (self.model.type) {  //本人
         userIcon.sd_layout
         .topSpaceToView(time, 10)
         .rightSpaceToView(fartherView, 10)
@@ -178,7 +178,8 @@
     [contentBackView setSd_cornerRadius:@8];
     [contentBackView updateLayout];
     
-    userIcon.image = UIImageNamed(GetSaveString(self.model.avatar));
+//    userIcon.image = UIImageNamed(GetSaveString(self.model.avatar));
+    [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.avatar))];
 }
 
 

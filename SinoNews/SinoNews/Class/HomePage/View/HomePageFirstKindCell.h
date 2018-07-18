@@ -14,6 +14,9 @@
 #define HomePageFirstKindCellH (kScaelW(130)*80/130 + 20)
 
 @interface HomePageFirstKindCell : UITableViewCell
+
 @property (nonatomic,strong) HomePageModel *model;
+
+
 
 @end

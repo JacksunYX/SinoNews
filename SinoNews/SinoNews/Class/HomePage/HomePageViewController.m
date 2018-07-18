@@ -157,6 +157,12 @@
     _userIcon.backgroundColor = GrayColor;
     LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
     _userIcon.image = UIImageNamed(@"homePage_logo");
+    @weakify(self);
+    [_userIcon whenTap:^{
+        @strongify(self);
+        CatechismViewController *cVC = [CatechismViewController new];
+        [self.navigationController pushViewController:cVC animated:YES];
+    }];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
     
 }
@@ -232,18 +238,18 @@
     if (_moreBtn) {
         [_moreBtn removeFromSuperview];
     }
-    _moreBtn = [UIButton new];
+    _moreBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_segHead.frame), CGRectGetMinY(_segHead.frame), 40, 40)];
     
     [_moreBtn addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
     _moreBtn.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.topView addSubview:_moreBtn];
     
-    _moreBtn.sd_layout
-    .rightEqualToView(self.view)
-    .topEqualToView(self.view)
-    .widthIs(40)
-    .heightIs(40)
-    ;
+//    _moreBtn.sd_layout
+//    .rightEqualToView(self.view)
+//    .topEqualToView(self.view)
+//    .widthIs(40)
+//    .heightIs(40)
+//    ;
 //    [_moreBtn setImage:UIImageNamed(@"manageMenu") forState:UIControlStateNormal];
     _moreBtn.lee_theme.LeeConfigButtonImage(@"homePage_manageMenu", UIControlStateNormal);
     _moreBtn.lee_theme.LeeConfigButtonImage(@"homePage_manageMenu_selected", UIControlStateSelected);
@@ -287,6 +293,7 @@
         HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
         XLChannelModel *model = self.titleList[i];
         vc.news_id = model.channelId;
+        vc.channel_name = model.channelName;
         [arr addObject:vc];
     }
     return arr;

@@ -11,9 +11,12 @@
 
 @interface OfficialNotifyModel : NSObject
 
-@property (nonatomic,strong) NSString *avatar;
-@property (nonatomic,strong) NSString *content;
-@property (nonatomic,strong) NSString *time;
-@property (nonatomic,assign) NSInteger sendType;    //0官方 1本人
+@property (nonatomic,strong) NSString *avatar;      //头像
+@property (nonatomic,strong) NSString *content;     //内容
+@property (nonatomic,strong) NSString *time;        //时间
+@property (nonatomic,assign) NSInteger type;        //0官方 1本人
+@property (nonatomic,assign) NSInteger messageId;   //id
+@property (nonatomic,strong) NSString * senderName; //发送人名称
+
 
 @end

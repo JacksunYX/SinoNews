@@ -60,6 +60,7 @@ static int tags = 206118;
         }];
     }else{
         [view setHidden:NO];
+        [view.superview bringSubviewToFront:view];
     }
 }
 

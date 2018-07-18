@@ -10,8 +10,8 @@
 
 @interface HomePageChildVCViewController : BaseViewController
 
-@property (nonatomic, strong) NSString * news_id;
+@property (nonatomic, strong) NSString * news_id;       //频道id
 
-
+@property (nonatomic, strong) NSString * channel_name;  //频道名称
 
 @end

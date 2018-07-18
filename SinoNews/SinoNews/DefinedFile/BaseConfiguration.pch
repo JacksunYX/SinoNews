@@ -39,6 +39,9 @@
 #import "BaseViewHead.h"
 #import "UserInfoViewController.h"
 
+//首页跳转汇总
+#import "PageHeader.h"
+
 //通知名
 #import "NotifyList.h"
 

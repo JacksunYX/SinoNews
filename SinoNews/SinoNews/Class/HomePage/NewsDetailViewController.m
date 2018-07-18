@@ -64,8 +64,6 @@ CGFloat static titleViewHeight = 91;
     
     self.allowZoom = YES;
     
-    [self addNavigationView];
-    
     [self addTableView];
     
     [self showOrHideLoadView:YES page:2];
@@ -76,14 +74,6 @@ CGFloat static titleViewHeight = 91;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-//修改导航栏显示
--(void)addNavigationView
-{
-    
-    
-    
 }
 
 -(void)setBottomView
@@ -394,6 +384,8 @@ CGFloat static titleViewHeight = 91;
                 [self.webView reload];
             }else if (row == 2) {
                 [self requestCollectNews];
+            }else if (row == 3) {
+                LRToast(@"链接已复制");
             }
             
         }

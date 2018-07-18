@@ -44,8 +44,19 @@
 //添加文章(发布文章)(post)
 #define News_create         @"/api/news/create"
 
+//查看私信列表(get)
+#define ListMessages        @"/api/message/listMessages"
+//向系统发送私信(post)
+#define SendMessageToSystem @"/api/message/sendMessageToSystem"
+
 
 
 
 
 #endif /* UserAboutNet_h */
+
+
+
+
+
+

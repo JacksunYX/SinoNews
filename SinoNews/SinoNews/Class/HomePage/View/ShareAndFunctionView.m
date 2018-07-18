@@ -28,12 +28,12 @@ static bool isCollect = NO;
         [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qq") title:@"QQ好友" action:nil]];
         
         [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qqZone") title:@"QQ空间" action:nil]];
-
+        
         [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_sina") title:@"新浪微博" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc]initWithImage:UIImageNamed(@"share_email") title:@"邮件分享" actionName:IFMPlatformHandleEmail]];
+        //        [_shareArray addObject:[[IFMShareItem alloc]initWithImage:UIImageNamed(@"share_email") title:@"邮件分享" actionName:IFMPlatformHandleEmail]];
         
-//                [_shareArray addObject:IFMPlatformNameSms];
+        //                [_shareArray addObject:IFMPlatformNameSms];
         //        [_shareArray addObject:IFMPlatformNameAlipay];
         //        [_shareArray addObject:IFMPlatformNameEmail];
         //        [_shareArray addObject:IFMPlatformNameSina];
@@ -67,18 +67,58 @@ static bool isCollect = NO;
         }
     });
     
-//    shareView.containViewColor = WhiteColor;
+    //    shareView.containViewColor = WhiteColor;
     shareView.itemTitleFont = PFFontL(13);
-//    shareView.itemTitleColor = RGBA(152, 152, 152, 1);
+    //    shareView.itemTitleColor = RGBA(152, 152, 152, 1);
     shareView.cancleButton.titleLabel.font = PFFontR(17);
     [shareView.cancleButton addButtonTextColorTheme];
-//    [shareView.cancleButton addBakcgroundColorTheme];
-//    [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];
+    //    [shareView.cancleButton addBakcgroundColorTheme];
+    //    [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];
     [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:RGBA(219, 219, 219, 1)];
     
     [shareView showFromControlle:[HttpRequest getCurrentVC]];
     
     shareView.clickBlock = ^(NSInteger section, NSInteger row) {
+        if (section == 0 && row!=5) {
+            NSUInteger sharePlateform = 0;
+            switch (row) {
+                    //微信
+                case 0:
+                case 1:
+                {
+                    if (![MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]||![MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
+                        LRToast(@"请先安装微信");
+                        return ;
+                    }
+                    
+                }
+                    break;
+                    //qq
+                case 2:
+                case 3:
+                {
+                    if (![MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]||![MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                        LRToast(@"请先安装QQ");
+                        return ;
+                    }
+                }
+                    break;
+                    //微博
+                case 4:
+                {
+                    if (![MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
+                        LRToast(@"请先安装微博");
+                        return ;
+                    }
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        
         if (clickBlock) {
             clickBlock(section,row);
         }
@@ -91,9 +131,9 @@ static bool isCollect = NO;
     
     NSMutableArray *functionArray = [NSMutableArray array];
     [functionArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_fonts") title:@"字体大小" action:^(IFMShareItem *item) {
-//        [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
-//
-//        }];
+        //        [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
+        //
+        //        }];
     }]];
     NSString *title = @"夜间模式";
     UIImage *nightModelImg = UIImageNamed(@"share_nightMode");

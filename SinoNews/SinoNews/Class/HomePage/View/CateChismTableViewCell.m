@@ -58,7 +58,8 @@
     praise.titleLabel.font = PFFontL(12);
     
     content = [UILabel new];
-    content.textColor = HexColor(#323232);
+//    content.textColor = HexColor(#323232);
+    [content addContentColorTheme];
     content.font = PFFontL(15);
     
     imgL = [UIImageView new];
@@ -126,6 +127,13 @@
 -(void)setImageType:(NSInteger)imageType
 {
     _imageType = imageType;
+    [self layoutSubviews];
+}
+
+-(void)setModel:(AnswerModel *)model
+{
+    _model = model;
+    
     [self layoutSubviews];
 }
 

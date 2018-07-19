@@ -189,6 +189,7 @@
         HomePageModel *model1 = (HomePageModel *)model;
         switch (model1.itemType) {
             case 400:
+            case 500:
             case 100:   //无图
             {
                 HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
@@ -198,6 +199,7 @@
                 break;
             
             case 401:
+            case 501:
             case 101:   //1图
             {
                 HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
@@ -206,6 +208,7 @@
             }
                 break;
             case 403:
+            case 503:
             case 103:   //3图
             {
                 HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
@@ -253,6 +256,10 @@
         HomePageModel *model1 = model;
         if (model1.itemType>=400&&model1.itemType<500) { //投票
             LRToast(@"投票文章还在加工中...");
+        }else if (model1.itemType>=500&&model1.itemType<600) { //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = model1.itemId;
+            [self.navigationController pushViewController:cVC animated:YES];
         }else{
             NewsDetailViewController *ndVC = [NewsDetailViewController new];
             ndVC.newsId = model1.itemId;
@@ -309,7 +316,8 @@
                 HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
                 [dataArr addObject:model];
             }else if (itemType>=500&&itemType<600){     //问答
-                
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
             }
         }
         if (upOrDown == 0) {

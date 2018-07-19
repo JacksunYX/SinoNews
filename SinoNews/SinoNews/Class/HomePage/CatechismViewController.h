@@ -11,4 +11,6 @@
 
 @interface CatechismViewController : BaseViewController
 
+@property (nonatomic,assign) NSInteger news_id;
+
 @end

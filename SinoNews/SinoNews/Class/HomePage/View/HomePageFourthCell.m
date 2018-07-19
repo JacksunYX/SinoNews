@@ -48,7 +48,6 @@
     
     bottomLabel = [UILabel new];
     bottomLabel.font = FontScale(11);
-    bottomLabel.textColor = HexColor(#989898);
     bottomLabel.isAttributedContent = YES;
     
     typeLabel = [UILabel new];
@@ -102,13 +101,35 @@
     
     NSString *labelName = GetSaveString(model.labelName);
     NSString *titletext ;
-    if (kStringIsEmpty(labelName)) {
+    typeLabel.hidden = YES;
+    bottomLabel.textColor = HexColor(#989898);
+    if (model.itemType >=500 && model.itemType < 600){
         titletext = GetSaveString(model.itemTitle);
-        typeLabel.hidden = YES;
-    }else{
-        titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
-        typeLabel.hidden = NO;
+        bottomLabel.textColor = HexColor(#1282EE);
+        bottomLabel.text = [NSString stringWithFormat:@"%ld 问答",model.commentCount];
+    }else {
+        if (kStringIsEmpty(labelName)) {
+            titletext = GetSaveString(model.itemTitle);
+        }else{
+            titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
+            typeLabel.hidden = NO;
+        }
+        NSString *str1 = [@"" stringByAppendingString:@""];
+        NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
+        NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
+        NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
+        NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
+        NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
+        //    NSDictionary *dic1 = @{
+        //                           NSForegroundColorAttributeName:HexColor(#1282EE),
+        //                           NSFontAttributeName:FontScale(11),
+        //                           };
+        //    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
+        bottomLabel.attributedText = attString;
+        
+        typeLabel.text = GetSaveString(model.labelName);
     }
+    
     if ([titletext containsString:@"<font"]) {
         title.attributedText = [NSString analysisHtmlString:titletext];
         //⚠️字体需要在这里重新设置才行，不然会变小
@@ -117,22 +138,7 @@
         title.text = titletext;
     }
     
-    NSString *str1 = [@"" stringByAppendingString:@""];
-    NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
-    NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
-    NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
-    NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
-    //    NSDictionary *dic1 = @{
-    //                           NSForegroundColorAttributeName:HexColor(#1282EE),
-    //                           NSFontAttributeName:FontScale(11),
-    //                           };
-    //    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
-    bottomLabel.attributedText = attString;
-    
-    typeLabel.text = GetSaveString(model.labelName);
 }
-
 
 
 

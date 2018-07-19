@@ -8,11 +8,14 @@
 //问答详情列表cell
 
 #import <UIKit/UIKit.h>
+#import "AnswerModel.h"
 
 #define CateChismTableViewCellID    @"CateChismTableViewCellID"
 
 @interface CateChismTableViewCell : UITableViewCell
 
 @property (nonatomic,assign) NSInteger imageType;   //暂定，是否显示图片
+
+@property (nonatomic,strong) AnswerModel *model;
 
 @end

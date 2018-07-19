@@ -46,7 +46,7 @@
 //是否关注用户(post)
 #define IsAttention             @"/api/isAttention"
 
-//搜索相关接口
+#pragma mark ---- 搜索相关接口
 //热搜关键词(get)
 #define News_getNewsKeys        @"/api/news/getNewsKeys"
 //搜索文章(get)
@@ -56,6 +56,14 @@
 
 //展示专题详情(get)
 #define ShowTopicDetails        @"/api/topic/showTopicDetails"
+
+#pragma mark ---- 问答相关接口
+//回答列表(post)
+#define News_listAnswer         @"/api/news/listAnswer"
+//回答提问(post)
+#define News_answer             @"/api/news/answer"
+//查看回答(post)
+#define News_browseAnswer       @"/api/news/browseAnswer"
 
 
 

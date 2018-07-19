@@ -11,6 +11,8 @@
 
 @interface Q_APublishViewController : BaseViewController
 
-
+@property (nonatomic,assign) NSInteger news_id;
+//提交回调
+@property (nonatomic,copy) void(^submitBlock)(void);
 
 @end

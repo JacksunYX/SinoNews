@@ -28,7 +28,7 @@
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
 @property (nonatomic,strong) NormalNewsModel *newsModel;    //新闻模型
 @property (nonatomic,strong) WKWebView *webView;
-@property (nonatomic,assign) NSInteger currPage;   //页码; //页面(起始为1)
+@property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIButton *attentionBtn;
@@ -38,8 +38,6 @@
 @property (nonatomic,strong) UIButton *collectBtn;
 
 @property (nonatomic,assign) NSInteger parentId;
-
-@property (nonatomic,assign) BOOL allowZoom;    //是否允许缩放
 
 @end
 
@@ -62,8 +60,6 @@ CGFloat static titleViewHeight = 91;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.allowZoom = YES;
-    
     [self addTableView];
     
     [self showOrHideLoadView:YES page:2];
@@ -74,6 +70,21 @@ CGFloat static titleViewHeight = 91;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)setNavigationBtns
+{
+    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
+            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
+            self.navigationItem.rightBarButtonItems = @[more,fonts];
+        }else{
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
+            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
+            self.navigationItem.rightBarButtonItems = @[more,fonts];
+        }
+    });
 }
 
 -(void)setBottomView
@@ -212,17 +223,7 @@ CGFloat static titleViewHeight = 91;
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
-    _tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        if (UserGetBool(@"NightMode")) {
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
-            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
-            self.navigationItem.rightBarButtonItems = @[more,fonts];
-        }else{
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
-            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
-            self.navigationItem.rightBarButtonItems = @[more,fonts];
-        }
-    });
+
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -380,7 +381,6 @@ CGFloat static titleViewHeight = 91;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
-                [self setTitle];
                 [self.webView reload];
             }else if (row == 2) {
                 [self requestCollectNews];
@@ -415,7 +415,7 @@ CGFloat static titleViewHeight = 91;
     self.webView.navigationDelegate = self;
     
     self.webView.scrollView.delegate = self;
-    
+    self.webView.userInteractionEnabled = NO;
     //KVO监听web的高度变化
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
@@ -448,7 +448,6 @@ CGFloat static titleViewHeight = 91;
     @weakify(self)
     [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
         @strongify(self)
-        [self setTitle];
         [self setWebViewLoad];
     }];
 }
@@ -456,9 +455,19 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    self.allowZoom = NO;    //加载完禁止缩放
+    
     [self refreshComments];
+    
     [self showOrHideLoadView:NO page:2];
+    
+    [self setBottomView];
+    
+    [self setNavigationBtns];
+    
+    GCDAfterTime(0.5, ^{
+        [self setTitle];
+    });
+    
 //    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
 //        CGFloat height = [data floatValue];
 //        GGLog(@"height:%lf",height);
@@ -485,7 +494,7 @@ CGFloat static titleViewHeight = 91;
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#FFFFFF'"completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#cfd3d6'"completionHandler:nil];
         //修改背景色
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
     }
@@ -705,16 +714,6 @@ CGFloat static titleViewHeight = 91;
     
 }
 
-//禁止手势缩放
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    if(self.allowZoom){
-        return nil;
-    }else{
-        return self.webView.scrollView.subviews.firstObject;
-    }
-}
-
 #pragma mark ----- 发送请求
 //获取文章详情
 -(void)requestNewData
@@ -761,7 +760,7 @@ CGFloat static titleViewHeight = 91;
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
         }
-        [self setTitle];
+        
         [self setBottomView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -831,12 +830,13 @@ CGFloat static titleViewHeight = 91;
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.newsId);
     [HttpRequest postWithTokenURLString:Favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        self.newsModel.isCollection = !self.newsModel.isCollection;
-        if (self.newsModel.isCollection) {
-            LRToast(@"收藏成功～");
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
+            LRToast(@"收藏成功");
         }else{
             LRToast(@"已取消收藏");
         }
+        self.newsModel.isCollection = status;
         [self setBottomView];
     } failure:nil RefreshAction:^{
         [self requestNewData];
@@ -849,27 +849,22 @@ CGFloat static titleViewHeight = 91;
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"userId"] = @(self.newsModel.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        self.newsModel.isAttention = !self.newsModel.isAttention;
         UserModel *user = [UserModel getLocalUserModel];
-        if (self.newsModel.isAttention) {
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
             user.followCount ++;
-            LRToast(@"关注成功～");
+            LRToast(@"关注成功");
         }else{
             user.followCount --;
             LRToast(@"已取消关注");
         }
+        self.newsModel.isAttention = status;
         //覆盖之前保存的信息
         [UserModel coverUserData:user];
         [self setTitle];
     } failure:nil RefreshAction:^{
         [self requestNewData];
     }];
-}
-
-//分享
--(void)shareView
-{
-    
 }
 
 -(void)getIsFavorAndIsPraise

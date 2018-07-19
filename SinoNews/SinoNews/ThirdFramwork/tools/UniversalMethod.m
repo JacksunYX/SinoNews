@@ -32,24 +32,25 @@
         case 1: //新闻
         {
             NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = [model.advertsId integerValue];
+            ndVC.newsId = model.redirectParameter;
             vc = ndVC;
         }
             break;
         case 2: //专题
         {
             TopicViewController *tVC = [TopicViewController new];
-            tVC.topicId = [model.advertsId integerValue];
+            tVC.topicId = model.redirectParameter;
             vc = tVC;
         }
             break;
         case 5: //公司
         {
             RankDetailViewController *rdVC = [RankDetailViewController new];
-            rdVC.companyId = model.advertsId;
+            rdVC.companyId = [NSString stringWithFormat:@"%ld",model.redirectParameter];
             vc = rdVC;
         }
             break;
+        case 6: //app下载地址
         case 7: //外链
         {
             [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];

@@ -171,7 +171,7 @@
     second = [UILabel new];
     second.isAttributedContent = YES;
     second.font = PFFontR(14);
-    [first addContentColorTheme];
+    [second addContentColorTheme];
     second.userInteractionEnabled = YES;
     
     checkImg = [UIImageView new];

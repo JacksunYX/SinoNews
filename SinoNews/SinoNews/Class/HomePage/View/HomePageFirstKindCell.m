@@ -33,7 +33,7 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+//        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UIView *selectView = [UIView new];
         selectView.backgroundColor = ClearColor;
@@ -57,7 +57,6 @@
     
     bottomLabel = [UILabel new];
     bottomLabel.font = FontScale(11);
-    bottomLabel.textColor = HexColor(#989898);
     //    bottomLabel.backgroundColor = Arc4randomColor;
     bottomLabel.isAttributedContent = YES;
     
@@ -126,11 +125,13 @@
     _model = model;
 
     NSString *titletext;
+    typeLabel.hidden = YES;
+    bottomLabel.textColor = HexColor(#989898);
     if (model.itemType < 200) {
         NSString *labelName = GetSaveString(model.labelName);
         if (kStringIsEmpty(labelName)) {
             titletext = GetSaveString(model.itemTitle);
-            typeLabel.hidden = YES;
+            
         }else{
             typeLabel.hidden = NO;
             titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
@@ -138,8 +139,6 @@
             typeLabel.backgroundColor = WhiteColor;
             typeLabel.textColor = HexColor(#1282EE);
         }
-        
-        
         
         NSString *str1 = @"";
         NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
@@ -149,6 +148,10 @@
         NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
         bottomLabel.attributedText = attString;
         
+    }else if (model.itemType >=500 && model.itemType < 600){
+        titletext = GetSaveString(model.itemTitle);
+        bottomLabel.textColor = HexColor(#1282EE);
+        bottomLabel.text = [NSString stringWithFormat:@"%ld 问答",model.commentCount];
     }else{
         typeLabel.text = @"专题";
         titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];

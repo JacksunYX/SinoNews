@@ -18,6 +18,7 @@
 @property(nonatomic,strong) NSString *imageUrl;
 @property(nonatomic,assign) NSInteger price;
 @property(nonatomic,strong) NSString *productDescription;   //商品说明的html
+@property(nonatomic,strong) NSString *descriptionUrl;       //商品说明的url
 @property(nonatomic,assign) NSInteger productId;
 @property(nonatomic,strong) NSString *productName;
 @property(nonatomic,assign) NSInteger productType;

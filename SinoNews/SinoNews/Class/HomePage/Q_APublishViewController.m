@@ -55,6 +55,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)setUI
+{
+    [self addChildViewController:self.wordViewController];
+    
+    [self.view addSubview:self.wordViewController.view];
+    
+    self.wordViewController.view.frame = self.view.bounds;
+    
+}
+
 //设置导航栏按钮
 -(void)addNavigationBtns
 {
@@ -79,19 +89,24 @@
 //提交
 -(void)submitAction
 {
-    GGLog(@"提交");
+    [self.view endEditing:YES];
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(self.news_id);
+    parameters[@"content"] = [self.wordViewController exportHTML];
+    [HttpRequest postWithURLString:News_answer parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"回答成功");
+        if (self.submitBlock) {
+            self.submitBlock();
+        }
+        GCDAfterTime(1, ^{
+            [self cancelAction];
+        });
+    } failure:^(NSError *error) {
+        [self cancelAction];
+    } RefreshAction:nil];
 }
 
--(void)setUI
-{
-    [self addChildViewController:self.wordViewController];
-    
-    [self.view addSubview:self.wordViewController.view];
 
-    self.wordViewController.view.frame = self.view.bounds;
-    
-    
-}
 
 
 

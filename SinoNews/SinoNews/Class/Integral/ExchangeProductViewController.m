@@ -366,28 +366,17 @@
     }];
     self.webView.userInteractionEnabled = NO;
     //加载内容
-    [self.webView loadHTMLString:self.productModel.productDescription baseURL:nil];
+//    [self.webView loadHTMLString:self.productModel.productDescription baseURL:nil];
+    NSString *urlStr = AppendingString(DefaultDomainName, self.productModel.descriptionUrl);
+    GGLog(@"文章h5：%@",urlStr);
+    NSURL *url = UrlWithStr(urlStr);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
+    [self.webView loadRequest:request];
 }
 
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    //修改字体大小 300%
-    NSString *fontStr = @"100%";
-    if ([GetCurrentFont contentFont].pointSize == 12) {
-        fontStr = @"80%";
-    }else if ([GetCurrentFont contentFont].pointSize == 13){
-        fontStr = @"90%";
-    }else if ([GetCurrentFont contentFont].pointSize == 14){
-        fontStr = @"100%";
-    }else if ([GetCurrentFont contentFont].pointSize == 15){
-        fontStr = @"120%";
-    }else if ([GetCurrentFont contentFont].pointSize == 16){
-        fontStr = @"150%";
-    }
-    
-    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
-    
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#FFFFFF'"completionHandler:nil];

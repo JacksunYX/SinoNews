@@ -12,6 +12,7 @@
 #import "RankDetailViewController.h"
 #import "HomePageFirstKindCell.h"
 #import "NewsDetailViewController.h"
+#import "CatechismViewController.h"
 
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
@@ -195,7 +196,7 @@
     selectedBtn.frame = CGRectMake(0, 0, 40, 30);
     selectedBtn.titleLabel.font = PFFontL(15);
     selectedBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
-    [selectedBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    [selectedBtn addButtonTextColorTheme];
     [selectedBtn setTitle:@"编辑" forState:UIControlStateNormal];
     [selectedBtn setTitle:@"取消" forState:UIControlStateSelected];
     [selectedBtn addTarget:self action:@selector(selectedAction:) forControlEvents:UIControlEventTouchUpInside];

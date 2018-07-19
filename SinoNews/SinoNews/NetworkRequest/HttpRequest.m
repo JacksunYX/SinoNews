@@ -129,12 +129,11 @@
         //把网络请求返回数据转换成json数据
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
+        GGLog(@"resultdic-----%@",resultdic);
         //隐藏loding
         HiddenHudOnly;
         //取出返回数据
         if (success&&resultdic) {
-            
-            GGLog(@"resultdic-----%@",resultdic);
             
             //成功返回服务器数据
             if ([resultdic[@"success"] integerValue] == 1) {
@@ -148,7 +147,7 @@
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
-
+                        
                         [YXHeader checkNormalBackLoginHandle:^{
                             if (RefreshAction) {
                                 GGLog(@"登陆成功回调");

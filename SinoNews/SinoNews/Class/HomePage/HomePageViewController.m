@@ -157,12 +157,7 @@
     _userIcon.backgroundColor = GrayColor;
     LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
     _userIcon.image = UIImageNamed(@"homePage_logo");
-    @weakify(self);
-    [_userIcon whenTap:^{
-        @strongify(self);
-        CatechismViewController *cVC = [CatechismViewController new];
-        [self.navigationController pushViewController:cVC animated:YES];
-    }];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
     
 }

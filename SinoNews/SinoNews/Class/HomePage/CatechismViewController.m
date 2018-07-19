@@ -10,6 +10,8 @@
 #import "CatechismSecondeViewController.h"
 #import "Q_APublishViewController.h"
 
+#import "NormalNewsModel.h"
+
 #import "CateChismTableViewCell.h"
 
 #import "ShareAndFunctionView.h"
@@ -18,8 +20,13 @@
 @interface CatechismViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic,strong) NSMutableArray *answersArr;    //回答数组
+@property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
+
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) CGFloat topWebHeight;
+
+@property (nonatomic,strong) NormalNewsModel *newsModel;    //新闻模型
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
@@ -33,6 +40,14 @@
 
 @implementation CatechismViewController
 CGFloat static titleViewHeight = 91;
+-(NSMutableArray *)answersArr
+{
+    if (!_answersArr) {
+        _answersArr = [NSMutableArray new];
+    }
+    return _answersArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -40,7 +55,7 @@ CGFloat static titleViewHeight = 91;
     
     [self showOrHideLoadView:YES page:2];
     
-    [self setWebViewLoad];
+    [self requestNewData];
     
 }
 
@@ -79,7 +94,12 @@ CGFloat static titleViewHeight = 91;
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
-        
+        if (!self.answersArr.count) {
+            self.currPage = 1;
+        }else{
+            self.currPage ++;
+        }
+        [self requestNews_listAnswer];
     }];
     
 }
@@ -134,8 +154,7 @@ CGFloat static titleViewHeight = 91;
         .topEqualToView(self.titleView)
         .heightIs(50)
         ;
-//        _titleLabel.text = GetSaveString(self.newsModel.newsTitle);
-        _titleLabel.text = @"发家致富的道路上，你觉得什么会成为你效率的绊脚石？";
+        _titleLabel.text = GetSaveString(self.newsModel.newsTitle);
         
         icon.sd_layout
         .leftEqualToView(_titleLabel)
@@ -144,7 +163,7 @@ CGFloat static titleViewHeight = 91;
         .heightEqualToWidth()
         ;
         [icon setSd_cornerRadius:@12];
-//        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
+        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
         
         authorAndTime.sd_layout
         .leftSpaceToView(icon, 3)
@@ -152,8 +171,7 @@ CGFloat static titleViewHeight = 91;
         .heightIs(12)
         ;
         [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
-//        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
-        authorAndTime.text = @"环球国际时报 05/23 16:28";
+        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
@@ -167,7 +185,7 @@ CGFloat static titleViewHeight = 91;
         
     }
     
-//    _attentionBtn.selected = self.newsModel.isAttention;
+    _attentionBtn.selected = self.newsModel.isAttention;
     _titleLabel.font = [GetCurrentFont titleFont];
     [_titleLabel updateLayout];
 }
@@ -195,7 +213,7 @@ CGFloat static titleViewHeight = 91;
     self.webView.navigationDelegate = self;
     
     self.webView.scrollView.delegate = self;
-    
+    self.webView.userInteractionEnabled = NO;
     [self.view addSubview:self.webView];
     
     //KVO监听web的高度变化
@@ -215,7 +233,7 @@ CGFloat static titleViewHeight = 91;
     }];
     
     //加载页面
-    NSString *urlStr = @"https://www.youku.com";
+    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
@@ -263,9 +281,9 @@ CGFloat static titleViewHeight = 91;
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             if (self.praiseBtn.selected) {
-                LRToast(@"已经点过赞啦~");
+                LRToast(@"已经点过赞啦");
             }else{
-//                [self requestPraiseWithPraiseType:3 praiseId:self.newsId commentNum:0];
+                [self requestPraiseWithPraiseType:3 praiseId:self.news_id commentNum:0];
             }
         }];
         
@@ -331,13 +349,19 @@ CGFloat static titleViewHeight = 91;
         
         [answerInput whenTap:^{
             @strongify(self)
-            UINavigationController *rtVC = [[UINavigationController alloc]initWithRootViewController:[Q_APublishViewController new]];
+            Q_APublishViewController *qapVc = [Q_APublishViewController new];
+            qapVc.submitBlock = ^{
+                self.currPage = 1;
+                [self requestNews_listAnswer];
+            };
+            qapVc.news_id = self.newsModel.newsId;
+            UINavigationController *rtVC = [[UINavigationController alloc]initWithRootViewController:qapVc];
             [self presentViewController:rtVC animated:YES completion:nil];
         }];
     }
     
-    self.collectBtn.selected = YES;
-    self.praiseBtn.selected = YES;
+    self.collectBtn.selected = self.newsModel.isCollection;
+    self.praiseBtn.selected = self.newsModel.hasPraised;
     
 }
 
@@ -560,7 +584,7 @@ CGFloat static titleViewHeight = 91;
         .heightIs(12)
         ;
         [leftTitle setSingleLineAutoResizeWithMaxWidth:100];
-        leftTitle.text = @"243回答";
+        leftTitle.text = [NSString stringWithFormat:@"%ld 回答",self.newsModel.commentCount];
         
         self.sortView.sd_layout
         .rightSpaceToView(headView, 10)
@@ -610,7 +634,7 @@ CGFloat static titleViewHeight = 91;
         self.titleView.alpha = alpha;
         self.attentionBtn.enabled = alpha;
         if (offsetY >= -20) {
-//            self.navigationItem.title = GetSaveString(self.newsModel.author);
+            self.navigationItem.title = GetSaveString(self.newsModel.author);
         }else{
             self.navigationItem.title = @"";
         }
@@ -620,18 +644,126 @@ CGFloat static titleViewHeight = 91;
 
 
 #pragma mark ---- 请求发送
+//获取文章详情
+-(void)requestNewData
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(self.news_id);
+    
+    [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
+        self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        [self setWebViewLoad];
+        //本地存储
+        [HomePageModel saveWithNewsModel:self.newsModel];
+        
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+        [self.tableView.mj_header endRefreshing];
+    }];
+}
+
+//获取回答列表
+-(void)requestNews_listAnswer
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(self.news_id);
+    parameters[@"pageNo"] = @(self.currPage);
+    [HttpRequest postWithURLString:News_listAnswer parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        if (self.currPage == 1) {
+            self.answersArr = [data mutableCopy];
+            
+        }else{
+            [self.answersArr addObjectsFromArray:data];
+        }
+        if (data.count>0) {
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_footer endRefreshing];
+    } RefreshAction:nil];
+}
 
 //收藏/取消收藏
 -(void)requestCollectNews
 {
-    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"newsId"] = @(self.news_id);
+    [HttpRequest postWithTokenURLString:Favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
+            LRToast(@"收藏成功");
+        }else{
+            LRToast(@"已取消收藏");
+        }
+        self.newsModel.isCollection = status;
+
+        [self setBottomView];
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
 }
 
 //关注/取关
 -(void)requestIsAttention
 {
-    GGLog(@"发送关注请求");
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(self.newsModel.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        UserModel *user = [UserModel getLocalUserModel];
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
+            user.followCount ++;
+            LRToast(@"关注成功");
+        }else{
+            user.followCount --;
+            LRToast(@"已取消关注");
+        }
+        self.newsModel.isAttention = status;
+        //覆盖之前保存的信息
+        [UserModel coverUserData:user];
+        [self setTitle];
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
 }
+
+//点赞文章/评论
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(praiseType);
+    parameters[@"id"] = @(ID);
+    [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        if (praiseType == 3) {  //新闻
+            LRToast(@"点赞成功");
+            self.newsModel.hasPraised = !self.newsModel.hasPraised;
+            [self setBottomView];
+        }else if (praiseType == 2) {
+//            CompanyCommentModel *model = self.commentsArr[row];
+//            model.isPraise = !model.isPraise;
+//
+//            if (model.isPraise) {
+//                LRToast(@"点赞成功");
+//                model.likeNum ++;
+//            }else{
+//                LRToast(@"点赞已取消");
+//                model.likeNum --;
+//            }
+            [self.tableView reloadData];
+        }
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
+}
+
 
 
 @end

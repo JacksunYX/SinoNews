@@ -7,14 +7,28 @@
 //
 
 #import "CatechismSecondeViewController.h"
+#import "AnswerDetailModel.h"
 
 #import "QACommentInputView.h"
 #import "ShareAndFunctionView.h"
 #import "FontAndNightModeView.h"
 
-@interface CatechismSecondeViewController ()<WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
+#import "CommentCell.h"
+
+@interface CatechismSecondeViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
+
+@property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic,strong) NSMutableArray *commentArr;    //回答数组
+@property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
+
+@property (nonatomic,strong) AnswerDetailModel *answerModel;//回答模型
+
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) CGFloat topWebHeight;
+
+@property (nonatomic,strong) UIView *titleView;
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIButton *attentionBtn;
 
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
@@ -23,12 +37,23 @@
 @end
 
 @implementation CatechismSecondeViewController
+CGFloat static titleViewHeight = 91;
+-(NSMutableArray *)commentArr
+{
+    if (!_commentArr) {
+        _commentArr = [NSMutableArray new];
+    }
+    return _commentArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self addTableView];
+    
     [self showOrHideLoadView:YES page:2];
     
-    [self setWebViewLoad];
+    [self requestNews_browseAnswer];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -46,6 +71,147 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+-(void)addTableView
+{
+    _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self.view addSubview:_tableView];
+    
+    self.tableView.sd_layout
+    .topEqualToView(self.view)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 38)
+    ;
+    [_tableView updateLayout];
+    _tableView.backgroundColor = ClearColor;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
+    _tableView.enableDirection = YES;
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    //注册
+    [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
+    
+    @weakify(self);
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.webView.loading) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (!self.commentArr.count) {
+            self.currPage = 1;
+        }else{
+            self.currPage ++;
+        }
+        [self requestShowAnswerComment];
+    }];
+    
+}
+
+-(void)setTitle
+{
+    if (!self.titleView) {
+        self.titleView = [UIView new];
+        [self.titleView addBakcgroundColorTheme];
+        [self.view insertSubview:self.titleView belowSubview:self.tableView];
+        self.titleView.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .topEqualToView(self.view)
+        .heightIs(titleViewHeight)
+        ;
+        
+        _titleLabel = [UILabel new];
+        _titleLabel.font = [GetCurrentFont titleFont];
+        _titleLabel.numberOfLines = 2;
+        [_titleLabel addTitleColorTheme];
+        UIImageView *icon = [UIImageView new];
+        icon.backgroundColor = Arc4randomColor;
+        
+        UILabel *authorAndTime = [UILabel new];
+        authorAndTime.font = PFFontR(12);
+        authorAndTime.textColor = RGBA(152, 152, 152, 1);
+        
+        @weakify(self);
+        _attentionBtn = [UIButton new];
+        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
+        
+        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
+        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
+        [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            [self requestIsAttention];
+        }];
+        
+        _attentionBtn.titleLabel.font = PFFontR(13);
+        
+        [self.titleView sd_addSubviews:@[
+                                         _titleLabel,
+                                         icon,
+                                         authorAndTime,
+                                         _attentionBtn,
+                                         ]];
+        _titleLabel.sd_layout
+        .leftSpaceToView(self.titleView, 10)
+        .rightSpaceToView(self.titleView, 10)
+        .topEqualToView(self.titleView)
+        .heightIs(50)
+        ;
+        _titleLabel.text = GetSaveString(self.answerModel.newsTitle);
+        
+        icon.sd_layout
+        .leftEqualToView(_titleLabel)
+        .topSpaceToView(_titleLabel, 7)
+        .widthIs(24)
+        .heightEqualToWidth()
+        ;
+        [icon setSd_cornerRadius:@12];
+        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.answerModel.avatar))];
+        
+        authorAndTime.sd_layout
+        .leftSpaceToView(icon, 3)
+        .centerYEqualToView(icon)
+        .heightIs(12)
+        ;
+        [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
+        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.answerModel.username),GetSaveString(self.answerModel.createTime)];
+        
+        _attentionBtn.sd_layout
+        .rightSpaceToView(_titleView, 10)
+        .centerYEqualToView(icon)
+        .widthIs(58)
+        .heightIs(20)
+        ;
+        [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
+        [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
+        [_attentionBtn setSd_cornerRadius:@8];
+        
+    }
+    
+    _attentionBtn.selected = self.answerModel.hasFollow;
+    _titleLabel.font = [GetCurrentFont titleFont];
+    [_titleLabel updateLayout];
+}
+
+-(void)setNavigationBtns
+{
+    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
+            
+            self.navigationItem.rightBarButtonItems = @[more];
+        }else{
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
+            
+            self.navigationItem.rightBarButtonItems = @[more];
+        }
+    });
 }
 
 //设置网页
@@ -71,34 +237,32 @@
     self.webView.navigationDelegate = self;
     
     self.webView.scrollView.delegate = self;
-    
+    self.webView.userInteractionEnabled = NO;
     [self.view addSubview:self.webView];
-    self.webView.sd_layout
-    .topEqualToView(self.view)
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 38)
-    ;
+    
+    //KVO监听web的高度变化
+    @weakify(self)
+    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        //        GGLog(@"x:%@",x);
+        CGFloat newHeight = self.webView.scrollView.contentSize.height;
+        if (newHeight != self.topWebHeight) {
+            self.topWebHeight = newHeight;
+            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+            //            GGLog(@"topWebHeight:%lf",topWebHeight);
+            [self.tableView beginUpdates];
+            self.tableView.tableHeaderView = self.webView;
+            [self.tableView endUpdates];
+        }
+    }];
     
     //加载页面
-    NSString *urlStr = @"https://www.youku.com";
+    NSString *urlStr = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
     [self showOrHideLoadView:YES page:2];
-    
-    self.webView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        if (UserGetBool(@"NightMode")) {
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
-            
-            self.navigationItem.rightBarButtonItems = @[more];
-        }else{
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
-            
-            self.navigationItem.rightBarButtonItems = @[more];
-        }
-    });
 }
 
 -(void)setBottomView
@@ -127,13 +291,14 @@
             if (self.praiseBtn.selected) {
                 LRToast(@"已经点过赞啦~");
             }else{
-                //                [self requestPraiseWithPraiseType:3 praiseId:self.newsId commentNum:0];
+                [self requestPraiseWithPraiseType:4 praiseId:self.answer_id commentNum:0];
             }
         }];
         
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            
+            @strongify(self);
+            [self moreSelect];
         }];
         
         [self.bottomView sd_addSubviews:@[
@@ -184,7 +349,7 @@
         }];
     }
     
-    self.praiseBtn.selected = YES;
+    self.praiseBtn.selected = self.answerModel.hasPraise;
     
 }
 
@@ -273,6 +438,12 @@
     
     [self setBottomView];
     
+    [self setNavigationBtns];
+    
+    GCDAfterTime(0.5, ^{
+        [self setTitle];
+    });
+    
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#FFFFFF'"completionHandler:nil];
@@ -281,10 +452,221 @@
     }
 }
 
+#pragma mark ----- UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.commentArr.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:CommentCellID];
+    CompanyCommentModel *model = self.commentArr[indexPath.row];
+    cell.model = model;
+    @weakify(self)
+    //点赞
+    cell.praiseBlock = ^(NSInteger row) {
+        @strongify(self)
+        if (model.isPraise) {
+            LRToast(@"已经点过赞啦");
+        }else{
+            [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:indexPath.row];
+        }
+    };
+    
+    [cell addBakcgroundColorTheme];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 30;
+    }
+    return 0.01;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headView;
+    if (section == 0) {
+        headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 42)];
+        UILabel *title = [UILabel new];
+        title.font = PFFontR(13);
+        title.lee_theme.LeeConfigTextColor(@"titleColor");
+        [headView addSubview:title];
+        //布局
+        title.sd_layout
+        .centerYEqualToView(headView)
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .autoHeightRatio(0)
+        ;
+//        if (self.newsModel) {
+//            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.newsModel.commentCount];
+//        }else{
+            title.text = @"全部评论";
+//        }
+    }
+    
+    return headView;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    //    GGLog(@"touchesBegan点击了");
+    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
+    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
+    CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
+    int x = point.x;
+    int y = point.y;
+    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
+    if (self.attentionBtn.enabled) {
+        if (self.tableView.contentOffset.y > -titleViewHeight) {
+            //            GGLog(@"不能点击");
+        }else{
+            //            GGLog(@"点击了关注周围");
+            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 2 - 20 && y <= titleViewHeight - 10 - 2) {
+                //                GGLog(@"点击了关注");
+                [self requestIsAttention];
+            }
+        }
+    }
+}
+
+#pragma mark ----- UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY >= - titleViewHeight&&offsetY <= 0) {
+        CGFloat alpha = MIN(1, fabs(offsetY)/(titleViewHeight));
+        self.titleView.alpha = alpha;
+        self.attentionBtn.enabled = alpha;
+        if (offsetY >= -20) {
+//            self.navigationItem.title = GetSaveString(self.newsModel.author);
+        }else{
+            self.navigationItem.title = @"";
+        }
+    }
+    
+}
+
+
 #pragma mark ---- 请求发送
+//查看回答
+-(void)requestNews_browseAnswer
+{
+    [HttpRequest postWithURLString:News_browseAnswer parameters:@{@"answerId":@(self.answer_id)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        self.answerModel = [AnswerDetailModel mj_objectWithKeyValues:response[@"data"]];
+        
+        [self setWebViewLoad];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+    } RefreshAction:nil];
+}
 
+//关注/取关
+-(void)requestIsAttention
+{
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(self.answerModel.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        UserModel *user = [UserModel getLocalUserModel];
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
+            user.followCount ++;
+            LRToast(@"关注成功");
+        }else{
+            user.followCount --;
+            LRToast(@"已取消关注");
+        }
+        self.answerModel.hasFollow = status;
+        //覆盖之前保存的信息
+        [UserModel coverUserData:user];
+        [self setTitle];
+    } failure:nil RefreshAction:^{
+        [self requestNews_browseAnswer];
+    }];
+    
+}
 
+//点赞文章/评论
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
+{
+    /*
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(praiseType);
+    parameters[@"id"] = @(ID);
+    [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        if (praiseType == 3) {  //新闻
+            LRToast(@"点赞成功");
+            self.newsModel.hasPraised = !self.newsModel.hasPraised;
+            [self setBottomView];
+        }else if (praiseType == 4) {
+            AnswerModel *model = self.answersArr[row];
+            
+            NSInteger status = [res[@"data"][@"success"] integerValue];
+            if (status) {
+                LRToast(@"点赞成功");
+                model.hasPraise = YES;
+                model.favorCount ++;
+            }
+            [self.tableView reloadData];
+        }
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
+     */
+}
 
+//评论列表
+-(void)requestShowAnswerComment
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"answerId"] = @(self.answer_id);
+    parameters[@"currPage"] = @(self.currPage);
+    [HttpRequest postWithURLString:ShowAnswerComment parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+//        NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+//        if (self.currPage == 1) {
+//            self.commentArr = [data mutableCopy];
+//
+//        }else{
+//            [self.commentArr addObjectsFromArray:data];
+//        }
+//        if (data.count>0) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }else{
+//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_footer endRefreshing];
+    } RefreshAction:nil];
+}
 
 
 

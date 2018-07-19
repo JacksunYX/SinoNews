@@ -12,9 +12,15 @@
 @interface AnswerModel : NSObject
 
 @property (nonatomic,assign) NSInteger answerId;
-@property (nonatomic,strong) NSString *avatar;
-@property (nonatomic,assign) NSInteger favorCount;
-@property (nonatomic,assign) NSInteger hasFollow;
+@property (nonatomic,assign) NSInteger userId;
+
 @property (nonatomic,strong) NSString *username;
+@property (nonatomic,strong) NSString *avatar;
+@property (nonatomic,strong) NSString *html;        //回答纯文本
+@property (nonatomic,strong) NSArray *images;       //图片集
+
+@property (nonatomic,assign) BOOL hasPraise;        //是否点赞
+@property (nonatomic,assign) NSInteger favorCount;  //点赞数
+@property (nonatomic,assign) NSInteger hasFollow;
 
 @end

@@ -64,7 +64,8 @@
 #define News_answer             @"/api/news/answer"
 //查看回答(post)
 #define News_browseAnswer       @"/api/news/browseAnswer"
-
+//回答的评论列表(post)
+#define ShowAnswerComment       @"/api/showAnswerComment"
 
 
 

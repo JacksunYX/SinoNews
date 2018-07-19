@@ -107,8 +107,8 @@
 //    praise.backgroundColor = Arc4randomColor;
     praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -50);
     praise.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    [praise setImage:UIImageNamed(@"company_unPraise") forState:UIControlStateNormal];
-    [praise setImage:UIImageNamed(@"company_praised") forState:UIControlStateSelected];
+    [praise setNormalImage:UIImageNamed(@"company_unPraise")];
+    [praise setSelectedImage:UIImageNamed(@"company_praised")];
     
     username.sd_layout
     .centerYEqualToView(avatar)
@@ -230,8 +230,13 @@
     
     comment.text = GetSaveString(model.comment);
     
-    [praise setTitle:[NSString stringWithFormat:@"%lu",model.likeNum] forState:UIControlStateNormal];
     praise.selected = model.isPraise;
+    NSString *count = [NSString stringWithFormat:@"%ld",model.likeNum];
+    if (praise.selected) {
+        [praise setNormalTitle:count];
+    }else{
+        [praise setSelectedTitle:count];
+    }
     
     [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);

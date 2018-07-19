@@ -14,8 +14,8 @@
 
 @interface CateChismTableViewCell : UITableViewCell
 
-@property (nonatomic,assign) NSInteger imageType;   //暂定，是否显示图片
-
 @property (nonatomic,strong) AnswerModel *model;
+
+@property (nonatomic,copy) void(^praiseBlock)(void);
 
 @end

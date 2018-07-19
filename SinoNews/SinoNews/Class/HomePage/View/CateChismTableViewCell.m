@@ -97,7 +97,6 @@
     .heightIs(12)
     ;
     [username setSingleLineAutoResizeWithMaxWidth:80];
-    username.text = @"╰☆叶枫〆";
     
     praise.sd_layout
     .rightSpaceToView(self.contentView, 20)
@@ -106,10 +105,10 @@
     .heightIs(20)
     ;
     //    praise.backgroundColor = Arc4randomColor;
-    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -50);
-    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -40);
+    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
     [praise setNormalImage:UIImageNamed(@"company_unPraise")];
-    [praise setSelectedImage:UIImageNamed(@"company_unPraise")];
+    [praise setSelectedImage:UIImageNamed(@"company_praised")];
     
     content.sd_layout
     .leftEqualToView(avatar)
@@ -119,20 +118,32 @@
     ;
     //最多显示5行
     [content setMaxNumberOfLinesToShow:5];
-    content.text = @"法国本场排出4231阵型，吉鲁单箭头，姆巴佩、格列兹曼和马图伊迪身后埋伏，博格巴和坎特双后腰。后卫线上，瓦拉内和乌姆蒂蒂搭档中卫，埃尔南德斯和帕瓦尔一左一右，门将还是洛里斯。曼朱基雷比奇和佩里西奇两翼齐飞，立即底气、莫德里奇和部落立即底气、莫德里奇和部落立即底气、莫德里奇和部落立即底气、莫德里奇和部落";
     
     [self setupAutoHeightWithBottomView:imgL bottomMargin:10];
-}
-
--(void)setImageType:(NSInteger)imageType
-{
-    _imageType = imageType;
-    [self layoutSubviews];
 }
 
 -(void)setModel:(AnswerModel *)model
 {
     _model = model;
+    
+    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
+    username.text = GetSaveString(model.username);
+    content.text = GetSaveString(model.html);
+    praise.selected = model.hasPraise;
+    NSString *count = [NSString stringWithFormat:@"%ld",model.favorCount];
+    if (praise.selected) {
+        [praise setNormalTitle:count];
+    }else{
+        [praise setSelectedTitle:count];
+    }
+    
+    @weakify(self)
+    [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        if (self.praiseBlock) {
+            self.praiseBlock();
+        }
+    }];
     
     [self layoutSubviews];
 }
@@ -147,31 +158,24 @@
     CGFloat imgWL = 0;
     CGFloat imgWC = 0;
     CGFloat imgWR = 0;
-    if (self.imageType != 0) {
+    if (self.model.images.count != 0) {
         tbMargin = 10;
     }
-    switch (self.imageType) {
-        case 1:
-        {
-            imgWL = (ScreenW - lrMargin*2 - imgMargin*2)/3;
-        }
-            break;
-        case 2:
-        {
-            imgWL = (ScreenW - lrMargin*2 - imgMargin*2)/3;
-            imgWC = imgWL;
-        }
-            break;
-        case 3:
-        {
-            imgWL = (ScreenW - lrMargin*2 - imgMargin*2)/3;
-            imgWC = imgWL;
-            imgWR = imgWL;
-        }
-            break;
-            
-        default:
-            break;
+    if (self.model.images.count == 1) {
+        imgWL = (ScreenW - lrMargin*2 - imgMargin*2)/3;
+        [imgL sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.images[0]))];
+    }else if (self.model.images.count == 2){
+        imgWL = (ScreenW - lrMargin*2 - imgMargin*2)/3;
+        imgWC = imgWL;
+        [imgL sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.images[0]))];
+        [imgC sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.images[1]))];
+    }else if (self.model.images.count >=3){
+        imgWL = (ScreenW - lrMargin*2 - imgMargin*2)/3;
+        imgWC = imgWL;
+        imgWR = imgWL;
+        [imgL sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.images[0]))];
+        [imgC sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.images[1]))];
+        [imgR sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.images[2]))];
     }
     
     imgL.sd_layout

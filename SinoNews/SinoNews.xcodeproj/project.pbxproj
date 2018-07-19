@@ -32,6 +32,7 @@
 		4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B4A220E250C900470AEB /* IFMShareItemCell.m */; };
 		4C17BC7D21002D2A0021055B /* CateChismTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */; };
 		4C17BC80210076500021055B /* AnswerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC7F210076500021055B /* AnswerModel.m */; };
+		4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC822100B47F0021055B /* AnswerDetailModel.m */; };
 		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
@@ -361,6 +362,8 @@
 		4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CateChismTableViewCell.m; sourceTree = "<group>"; };
 		4C17BC7E210076500021055B /* AnswerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerModel.h; sourceTree = "<group>"; };
 		4C17BC7F210076500021055B /* AnswerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerModel.m; sourceTree = "<group>"; };
+		4C17BC812100B47F0021055B /* AnswerDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnswerDetailModel.h; sourceTree = "<group>"; };
+		4C17BC822100B47F0021055B /* AnswerDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnswerDetailModel.m; sourceTree = "<group>"; };
 		4C1A29E220EEFD8D00D8A188 /* PraiseHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseHistoryModel.h; sourceTree = "<group>"; };
 		4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseHistoryModel.m; sourceTree = "<group>"; };
 		4C1A29E820EF425500D8A188 /* ReciveMessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReciveMessageModel.h; sourceTree = "<group>"; };
@@ -1598,6 +1601,8 @@
 				4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */,
 				4C17BC7E210076500021055B /* AnswerModel.h */,
 				4C17BC7F210076500021055B /* AnswerModel.m */,
+				4C17BC812100B47F0021055B /* AnswerDetailModel.h */,
+				4C17BC822100B47F0021055B /* AnswerDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2457,6 +2462,7 @@
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */,
 				4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */,
+				4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */,
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,

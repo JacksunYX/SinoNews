@@ -293,7 +293,8 @@ CGFloat static titleViewHeight = 91;
         }];
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            
+            @strongify(self);
+            [self moreSelect];
         }];
         
         [self.bottomView sd_addSubviews:@[
@@ -534,13 +535,25 @@ CGFloat static titleViewHeight = 91;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.answersArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CateChismTableViewCell *cell = (CateChismTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CateChismTableViewCellID];
-    cell.imageType = indexPath.row;
+    AnswerModel *model = self.answersArr[indexPath.row];
+    cell.model = model;
+    @weakify(self)
+    //点赞
+    cell.praiseBlock = ^{
+        @strongify(self)
+        if (model.hasPraise) {
+            LRToast(@"已经点过赞啦");
+        }else{
+            [self requestPraiseWithPraiseType:4 praiseId:model.answerId commentNum:indexPath.row];
+        }
+    };
+    
     [cell addBakcgroundColorTheme];
     return cell;
 }
@@ -599,7 +612,9 @@ CGFloat static titleViewHeight = 91;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AnswerModel *model = self.answersArr[indexPath.row];
     CatechismSecondeViewController *csVC = [CatechismSecondeViewController new];
+    csVC.answer_id = model.answerId;
     [self.navigationController pushViewController:csVC animated:YES];
 }
 
@@ -644,7 +659,7 @@ CGFloat static titleViewHeight = 91;
 
 
 #pragma mark ---- 请求发送
-//获取文章详情
+//获取回答详情
 -(void)requestNewData
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
@@ -746,17 +761,15 @@ CGFloat static titleViewHeight = 91;
             LRToast(@"点赞成功");
             self.newsModel.hasPraised = !self.newsModel.hasPraised;
             [self setBottomView];
-        }else if (praiseType == 2) {
-//            CompanyCommentModel *model = self.commentsArr[row];
-//            model.isPraise = !model.isPraise;
-//
-//            if (model.isPraise) {
-//                LRToast(@"点赞成功");
-//                model.likeNum ++;
-//            }else{
-//                LRToast(@"点赞已取消");
-//                model.likeNum --;
-//            }
+        }else if (praiseType == 4) {
+            AnswerModel *model = self.answersArr[row];
+            
+            NSInteger status = [res[@"data"][@"success"] integerValue];
+            if (status) {
+                LRToast(@"点赞成功");
+                model.hasPraise = YES;
+                model.favorCount ++;
+            }
             [self.tableView reloadData];
         }
     } failure:nil RefreshAction:^{

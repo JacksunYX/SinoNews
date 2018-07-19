@@ -11,4 +11,6 @@
 
 @interface CatechismSecondeViewController : BaseViewController
 
+@property (nonatomic,assign) NSInteger answer_id;
+
 @end

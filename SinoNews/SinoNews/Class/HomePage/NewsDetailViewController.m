@@ -138,11 +138,13 @@ CGFloat static titleViewHeight = 91;
         }];
         
         [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
             [self requestCollectNews];
         }];
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            
+            @strongify(self);
+            [self moreSelect];
         }];
         
         [self.bottomView sd_addSubviews:@[

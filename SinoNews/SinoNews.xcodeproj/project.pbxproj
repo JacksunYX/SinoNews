@@ -30,6 +30,7 @@
 		4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B49D20E250C900470AEB /* IFMShareView.m */; };
 		4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C17B49E20E250C900470AEB /* IFMShareImage.bundle */; };
 		4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17B4A220E250C900470AEB /* IFMShareItemCell.m */; };
+		4C17BC7D21002D2A0021055B /* CateChismTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */; };
 		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
@@ -355,6 +356,8 @@
 		4C17B4A020E250C900470AEB /* IFMShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareItem.h; sourceTree = "<group>"; };
 		4C17B4A120E250C900470AEB /* IFMShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFMShareView.h; sourceTree = "<group>"; };
 		4C17B4A220E250C900470AEB /* IFMShareItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFMShareItemCell.m; sourceTree = "<group>"; };
+		4C17BC7B21002D2A0021055B /* CateChismTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CateChismTableViewCell.h; sourceTree = "<group>"; };
+		4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CateChismTableViewCell.m; sourceTree = "<group>"; };
 		4C1A29E220EEFD8D00D8A188 /* PraiseHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraiseHistoryModel.h; sourceTree = "<group>"; };
 		4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseHistoryModel.m; sourceTree = "<group>"; };
 		4C1A29E820EF425500D8A188 /* ReciveMessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReciveMessageModel.h; sourceTree = "<group>"; };
@@ -1560,6 +1563,8 @@
 				4C6B4E4E20EB155F00BA0534 /* ADPopView.m */,
 				4C7234F920FF34C900D5C5D4 /* QACommentInputView.h */,
 				4C7234FA20FF34C900D5C5D4 /* QACommentInputView.m */,
+				4C17BC7B21002D2A0021055B /* CateChismTableViewCell.h */,
+				4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2394,6 +2399,7 @@
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
 				4C7234DD20FDEB1D00D5C5D4 /* AAColumn.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
+				4C17BC7D21002D2A0021055B /* CateChismTableViewCell.m in Sources */,
 				4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,

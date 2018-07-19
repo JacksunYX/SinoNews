@@ -16,6 +16,9 @@
 #import "RankDetailViewController.h"
 
 @interface UniversalMethod ()
+//标记
+@property (nonatomic,assign) BOOL change1;
+@property (nonatomic,assign) BOOL change2;
 
 @end
 
@@ -65,9 +68,11 @@
 +(void)compareChannels:(NSArray *)serverData
           reasonAction:(void (^)(BOOL changed1 ,BOOL changed2, NSArray *attentionArr, NSArray *unAttentionArr))reason
 {
+    UniversalMethod *manager = [UniversalMethod new];
+    
     //标记
-    BOOL changed1 = NO;
-    BOOL changed2 = NO;
+//    BOOL changed1 = NO;
+//    BOOL changed2 = NO;
     
     NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
     NSMutableArray *finalAttentionArr = [NSMutableArray new];
@@ -79,31 +84,32 @@
         NSMutableArray *unAttentionArr = columnArr[1];
         GGLog(@"1.开始比对频道数组");
         //1⃣️先拿已关注数组与后台数组比对
-        finalAttentionArr = [self compareAttentionArr1:attentionArr arr2:serverData changed:changed1];
+        finalAttentionArr = [self compareAttentionArr1:attentionArr arr2:serverData changed:manager];
+        
         //获取除去已关注频道，剩余的频道
         NSMutableArray *residuumArr = [serverData mutableCopy];
         [residuumArr removeObjectsInArray:finalAttentionArr];
         //2⃣️再拿未关注数组与剩余频道数组比对
-        finalUnattentionArr = [self compareUnattentionArr1:unAttentionArr arr2:residuumArr changed:changed2];
+        finalUnattentionArr = [self compareUnattentionArr1:unAttentionArr arr2:residuumArr changed:manager];
         
         GGLog(@"4.比对完毕~");
     }else{
         //2.本地无缓存，直接丢弃
         GGLog(@"本地缓存频道数组为空！");
-        changed1 = YES;
-        changed2 = YES;
+        manager.change1 = YES;
+        manager.change2 = YES;
     }
     
     //回调
     if (reason) {
-        reason(changed1,changed2,finalAttentionArr,finalUnattentionArr);
+        reason(manager.change1,manager.change2,finalAttentionArr,finalUnattentionArr);
     }
 }
 
 //比对已关注数组
 +(NSMutableArray *)compareAttentionArr1:(NSArray <XLChannelModel *>*)arr1
                                    arr2:(NSArray <XLChannelModel *>*)arr2
-                                changed:(BOOL)change
+                                changed:(UniversalMethod *)manager
 {
     NSMutableArray *finalArr = [NSMutableArray new];
     //先拿已关注数组与后台数组比对
@@ -111,20 +117,23 @@
     for (int i = 0; i< arr1.count; i ++) {
         XLChannelModel *model = arr1[i];
         //1.与总数据比对
-        for (XLChannelModel *model2 in arr2) {
+        for (int j = 0; j < arr2.count; j ++) {
+            XLChannelModel *model2 = arr2[j];
             //2.如果id相同,说明这个频道本地有缓存
             if (CompareString(model.channelId, model2.channelId)) {
                 //直接替换成后台最新的
                 if (!CompareString(model.channelName, model2.channelName)) {
-                    change = YES;   //说明有更新
+                    manager.change1 = YES;   //如果有名称不同的标记为有变化
                 }
                 [finalArr addObject:model2];
                 break;
+            }else if (j == arr2.count - 1){ //某个对象在arr2中没有找到相同id的，标记为有变化
+                manager.change1 = YES;
             }
-            
         }
         
     }
+
     GGLog(@"2.关注数组比对完毕~");
     //最后得到的就是比对后的已关注数组了
     return finalArr;
@@ -133,7 +142,7 @@
 //比对未关注数组
 +(NSMutableArray *)compareUnattentionArr1:(NSArray <XLChannelModel *>*)arr1
                                      arr2:(NSArray <XLChannelModel *>*)arr2
-                                  changed:(BOOL)change
+                                  changed:(UniversalMethod *)manager
 {
     NSMutableArray *finalArr = [NSMutableArray new];
     //~~遍历后台的未关注频道
@@ -141,7 +150,7 @@
         XLChannelModel *model = arr2[i];
         //每次循环，重置标记
         model.isNew = YES;
-        change = YES;
+        manager.change2 = YES;
         //1.与本地数组比对
         for (XLChannelModel *model2 in arr1) {
             //2.如果id相同,说明这个频道本地有缓存
@@ -150,7 +159,7 @@
                 //3.如果名称也未变化，撤销new的记号
                 if (CompareString(model.channelName, model2.channelName)) {
                     model.isNew = NO;
-                    change = NO;    //只有当id和名称都无变化才算
+                    manager.change2 = NO;    //只有当id和名称都无变化才算
                 }
                 
                 break;
@@ -162,9 +171,9 @@
         
     }
     //~~还有一种情况，未关注数组只是在个数上减少了
-    if (change == NO&&arr2.count!=finalArr.count) {
+    if (manager.change2 == NO&&arr2.count!=finalArr.count) {
         GGLog(@"未关注频道个数减少了");
-        change = YES;   //暂时也划定为变化了，提醒用户
+        manager.change2 = YES;   //暂时也划定为变化了，提醒用户
     }
     GGLog(@"3.未关注数组比对完毕~");
     return finalArr;

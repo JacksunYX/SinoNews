@@ -254,6 +254,9 @@
             self.dataSource = [data mutableCopy];
             [self.tableView.mj_header endRefreshing];
         }else{
+            if (!data.count) {
+                self.page -- ;
+            }
             [self.dataSource addObjectsFromArray:data];
             [self.tableView.mj_footer endRefreshing];
         }

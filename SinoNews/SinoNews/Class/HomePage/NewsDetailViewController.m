@@ -266,7 +266,7 @@ CGFloat static titleViewHeight = 91;
         ;
         
         _titleLabel = [UILabel new];
-        _titleLabel.font = PFFontL(16);
+        _titleLabel.font = [GetCurrentFont titleFont];
         _titleLabel.numberOfLines = 2;
         [_titleLabel addTitleColorTheme];
         UIImageView *icon = [UIImageView new];

@@ -106,7 +106,7 @@
         @strongify(self)
         [self requestIsAttentionWithFansModel:model];
     };
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

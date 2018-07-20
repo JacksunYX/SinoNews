@@ -52,7 +52,8 @@
     
     rightImg = [UIImageView new];
     rightImg.userInteractionEnabled = YES;
-    rightImg.backgroundColor = Arc4randomColor;
+    rightImg.contentMode = 2;
+//    rightImg.backgroundColor = Arc4randomColor;
     
     bottomLabel = [UILabel new];
     bottomLabel.font = FontScale(11);
@@ -168,15 +169,21 @@
         title.text = titletext;
     }
     
-    //    NSDictionary *dic1 = @{
-    //                           NSForegroundColorAttributeName:HexColor(#1282EE),
-    //                           NSFontAttributeName:FontScale(11),
-    //                           };
-    //    [attString addAttributes:dic1 range:NSMakeRange(0, str1.length)];
+    if (model.itemType >=200 && model.itemType < 300) {
+        //⚠️如果文本前面有空格，进过h5编码后，空格会消失，需要重新拼接空格
+        NSDictionary *dic1 = @{
+                               NSForegroundColorAttributeName:HexColor(#1282EE),
+                               NSFontAttributeName:FontScale(17),
+                               };
+        NSMutableAttributedString *spaceStr = [[NSMutableAttributedString alloc]initWithString:@"      " attributes:dic1];
+        [spaceStr appendAttributedString:title.attributedText];
+        title.attributedText = spaceStr;
+    }
+    
     
     if (model.images.count>0) {
         NSString *imgStr = [model.images firstObject];
-        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr))];
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     }else{
         rightImg.image = nil;
     }

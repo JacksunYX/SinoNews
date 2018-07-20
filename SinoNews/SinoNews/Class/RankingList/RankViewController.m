@@ -236,7 +236,7 @@
 //        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
         [adImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
     }
-    
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 

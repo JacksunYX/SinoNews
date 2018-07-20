@@ -594,6 +594,9 @@ CGFloat static titleViewHeight = 91;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (section == 1&&self.commentsArr.count<=0){
+        return 90;
+    }
     return 0.01;
 }
 
@@ -651,12 +654,35 @@ CGFloat static titleViewHeight = 91;
         .autoHeightRatio(0)
         ;
         if (self.newsModel) {
-            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.newsModel.commentCount];
+            NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
+            title.text = [NSString stringWithFormat:@"全部评论（%ld）",count];
         }else{
             title.text = @"全部评论";
         }
     }
     return headView;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footView;
+    if (section == 1&&self.commentsArr.count<=0) {
+        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
+        footView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        
+        UIImageView *imgV = [UIImageView new];
+        [footView addSubview:imgV];
+        imgV.sd_layout
+        .centerXEqualToView(footView)
+        .topEqualToView(footView)
+        .bottomEqualToView(footView)
+        .widthIs(156)
+        ;
+        imgV.lee_theme.LeeConfigImage(@"noCommentFoot");
+        
+    }
+    
+    return footView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -783,7 +809,7 @@ CGFloat static titleViewHeight = 91;
         LRToast(@"评论成功~");
         //        self.parentId = 0;
         [self refreshComments];
-        [self requestNewData];
+//        [self requestNewData];
         //        CompanyCommentModel *commentModel = [CompanyCommentModel new];
         //        commentModel.avatar = UserGet(@"avatar");
         //        commentModel.username = UserGet(@"username");

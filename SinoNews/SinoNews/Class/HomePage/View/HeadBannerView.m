@@ -56,7 +56,7 @@
     
     CGFloat Width = self.frame.size.width;
     NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, Width,self.frame.size.height - 15)];
-    pageFlowView.backgroundColor = [UIColor whiteColor];
+    [pageFlowView addBakcgroundColorTheme];
     pageFlowView.delegate = self;
     pageFlowView.dataSource = self;
     pageFlowView.minimumPageAlpha = 0.1;
@@ -120,7 +120,7 @@
 //    NSLog(@"图片地址:%@",self.imageArray[index]);
     //在这里下载网络图片
 //    NSString *imgstr = [NSString stringWithFormat:@"%@%@",defaultUrl,self.imageArray[index]];
-    [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(self.imageArray[index]) placeholderImage:nil];
+    [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(self.imageArray[index]) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     
 //    bannerView.mainImageView.image = UIImageNamed(self.imageArray[index]);
     bannerView.indexLabel.hidden = !self.showTitle;

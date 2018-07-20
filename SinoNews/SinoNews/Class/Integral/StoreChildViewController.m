@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTableView];
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"暂无商品"];
 }
 
 - (void)didReceiveMemoryWarning {

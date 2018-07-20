@@ -22,6 +22,7 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *answersArr;    //回答数组
 @property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
+@property (nonatomic,assign) NSInteger orderBy;             //排序，0热度、1最新
 
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) CGFloat topWebHeight;
@@ -428,27 +429,25 @@ CGFloat static titleViewHeight = 91;
         UIButton *btn1 = [self getBtn];
         btn1.frame = CGRectMake(0, 0, 45, height);
         [btn1 setTitle:@"热度" forState:UIControlStateNormal];
-        btn1.tag = 10010 + 1;
+        btn1.tag = 10010 + 0;
         [btn1 addBorderTo:BorderTypeRight borderColor:HexColor(#3280C7)];
         
         UIButton *btn2 = [self getBtn];
         btn2.frame = CGRectMake(CGRectGetMaxX(btn1.frame) + 3, 0, 45, height);
         [btn2 setTitle:@"最新" forState:UIControlStateNormal];
-        btn2.tag = 10010 + 0;
+        btn2.tag = 10010 + 1;
         
         [self.sortView sd_addSubviews:@[btn1,btn2]];
     }
-    UIButton *btn1 = [self.sortView viewWithTag:10010 + 1];
-    UIButton *btn2 = [self.sortView viewWithTag:10010 + 0];
-    btn1.selected = NO;
-    btn2.selected = NO;
-//    if (self.user.gender==0) {  //女
-//        btn1.selected = NO;
-//        btn2.selected = YES;
-//    }else if (self.user.gender==1){ //男
-//        btn1.selected = YES;
-//        btn2.selected = NO;
-//    }
+    UIButton *btn1 = [self.sortView viewWithTag:10010 + 0];
+    UIButton *btn2 = [self.sortView viewWithTag:10010 + 1];
+    if (self.orderBy) {
+        btn1.selected = NO;
+        btn2.selected = YES;
+    }else{
+        btn1.selected = YES;
+        btn2.selected = NO;
+    }
     
     return self.sortView;
 }
@@ -457,8 +456,8 @@ CGFloat static titleViewHeight = 91;
 {
     UIButton *btn = [UIButton new];
     btn.titleLabel.font = PFFontL(12);
-    [btn setNormalTitleColor:HexColor(#1282EE)];
-    [btn setSelectedTitleColor:HexColor(#929697)];
+    [btn setNormalTitleColor:HexColor(#929697)];
+    [btn setSelectedTitleColor:HexColor(#1282EE)];
     [btn addTarget:self action:@selector(sortSelectedAction:) forControlEvents:UIControlEventTouchUpInside];
     return btn;
 }
@@ -467,12 +466,12 @@ CGFloat static titleViewHeight = 91;
 -(void)sortSelectedAction:(UIButton *)sender
 {
     NSInteger index = sender.tag - 10010;
-    if (index==1) {
-        LRToast(@"热度排序");
-    }else{
-        LRToast(@"最新排序");
+    if (index == self.orderBy) {    //重复点击了
+        return;
     }
+    self.orderBy = index;
     
+    [self requestNews_listAnswer];
 }
 
 //分享方法
@@ -597,7 +596,8 @@ CGFloat static titleViewHeight = 91;
         .heightIs(12)
         ;
         [leftTitle setSingleLineAutoResizeWithMaxWidth:100];
-        leftTitle.text = [NSString stringWithFormat:@"%ld 回答",self.newsModel.commentCount];
+        NSInteger count = MAX(self.newsModel.commentCount, self.answersArr.count);
+        leftTitle.text = [NSString stringWithFormat:@"%ld 回答",count];
         
         self.sortView.sd_layout
         .rightSpaceToView(headView, 10)
@@ -683,6 +683,7 @@ CGFloat static titleViewHeight = 91;
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.news_id);
     parameters[@"pageNo"] = @(self.currPage);
+    parameters[@"orderBy"] = @(self.orderBy);
     [HttpRequest postWithURLString:News_listAnswer parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         if (self.currPage == 1) {

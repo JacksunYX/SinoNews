@@ -54,13 +54,16 @@
     
     imgL = [UIImageView new];
     imgL.userInteractionEnabled = YES;
-    imgL.backgroundColor = Arc4randomColor;
+    imgL.contentMode = 2;
+//    imgL.backgroundColor = Arc4randomColor;
     imgC = [UIImageView new];
     imgC.userInteractionEnabled = YES;
-    imgC.backgroundColor = Arc4randomColor;
+    imgC.contentMode = 2;
+//    imgC.backgroundColor = Arc4randomColor;
     imgR = [UIImageView new];
     imgR.userInteractionEnabled = YES;
-    imgR.backgroundColor = Arc4randomColor;
+    imgR.contentMode = 2;
+//    imgR.backgroundColor = Arc4randomColor;
     
     
     bottomLabel = [UILabel new];
@@ -176,21 +179,21 @@
     
     if (model.images.count>0) {
         NSString *imgStr = GetSaveString(model.images[0]);
-        [imgL sd_setImageWithURL:UrlWithStr(imgStr)];
+        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     }else{
         imgL.image = nil;
     }
     
     if (model.images.count>1) {
         NSString *imgStr = GetSaveString(model.images[1]);
-        [imgC sd_setImageWithURL:UrlWithStr(imgStr)];
+        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     }else{
         imgC.image = nil;
     }
     
     if (model.images.count>2) {
         NSString *imgStr = GetSaveString(model.images[2]);
-        [imgR sd_setImageWithURL:UrlWithStr(imgStr)];
+        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     }else{
         imgR.image = nil;
     }

@@ -176,9 +176,10 @@
 -(void)addHeadView
 {
     UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
-    headView.backgroundColor = RGBA(196, 222, 247, 1);
+//    headView.backgroundColor = RGBA(196, 222, 247, 1);
     headView.userInteractionEnabled = YES;
-    headView.image = UIImageNamed(@"mine_topBackImg");
+//    headView.image = UIImageNamed(@"mine_topBackImg");
+    headView.lee_theme.LeeConfigImage(@"mineBackImg");
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];

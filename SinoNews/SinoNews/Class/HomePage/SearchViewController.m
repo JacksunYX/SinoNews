@@ -547,6 +547,8 @@
         if ([model isKindOfClass:[HomePageModel class]]) {
             HomePageModel *model1 = (HomePageModel *)model;
             switch (model1.itemType) {
+                case 400:
+                case 500:
                 case 100:   //无图
                 {
                     HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
@@ -554,6 +556,9 @@
                     cell = (UITableViewCell *)cell1;
                 }
                     break;
+                    
+                case 401:
+                case 501:
                 case 101:   //1图
                 {
                     HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
@@ -561,6 +566,8 @@
                     cell = (UITableViewCell *)cell1;
                 }
                     break;
+                case 403:
+                case 503:
                 case 103:   //3图
                 {
                     HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
@@ -587,6 +594,7 @@
         cell.textLabel.text = self.keyArr[indexPath.row];
     }
     cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -675,6 +683,12 @@
                 [dataArr addObject:model];
             }else if (itemType>=300&&itemType<400){     //广告
                 ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=400&&itemType<500){     //投票
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=500&&itemType<600){     //问答
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
                 [dataArr addObject:model];
             }
         }

@@ -384,6 +384,12 @@
             }else if (itemType>=300&&itemType<400){     //广告
                 ADModel *model = [ADModel mj_objectWithKeyValues:dic];
                 [dataArr addObject:model];
+            }else if (itemType>=400&&itemType<500){     //投票
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=500&&itemType<600){     //问答
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
             }
         }
         if (self.page == 1) {
@@ -439,9 +445,39 @@
     parameters[@"channelIds"] = str;
     
     [HttpRequest getWithURLString:ListForFollow parameters:parameters success:^(id responseObject) {
+        NSMutableArray *dataArr = [NSMutableArray new];
+        for (NSDictionary *dic in responseObject[@"data"]) {
+            NSInteger itemType = [dic[@"itemType"] integerValue];
+            if (itemType>=100&&itemType<200) {  //新闻
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=200&&itemType<300) {    //专题
+                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=300&&itemType<400){     //广告
+                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=400&&itemType<500){     //投票
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }else if (itemType>=500&&itemType<600){     //问答
+                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+                [dataArr addObject:model];
+            }
+        }
+        if (self.page == 1) {
+            self.dataSource = [dataArr mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            if (dataArr.count) {
+                [self.dataSource addObjectsFromArray:dataArr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        [self.tableView reloadData];
         
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];

@@ -17,7 +17,9 @@
         "homePage_manageMenu_selected" : "manageMenu_new",
         "homePage_search"   : "searchBar_icon",
         
-        "channelManager_delete" : "delete"
+        "channelManager_delete" : "delete",
+        
+        "noCommentFoot" :"noComment1",
     },
     "other": {
         

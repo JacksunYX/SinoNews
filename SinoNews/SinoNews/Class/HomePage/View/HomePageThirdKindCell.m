@@ -46,7 +46,7 @@
     
     img = [UIImageView new];
     img.userInteractionEnabled = YES;
-    img.backgroundColor = Arc4randomColor;
+//    img.backgroundColor = Arc4randomColor;
     
     UILabel *label1 = [UILabel new];
     label1.font = FontScale(11);

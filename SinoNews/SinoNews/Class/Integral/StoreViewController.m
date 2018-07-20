@@ -40,7 +40,7 @@
     
     [self requestMallcCategory];
     
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"无数据"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -73,8 +73,8 @@
     [replyBtn setTitleColor:RGBA(137, 137, 137, 1) forState:UIControlStateNormal];
     
     bottomBackView = [UIView new];
-//    bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
-    [bottomBackView addBakcgroundColorTheme];
+    bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
+//    [bottomBackView addBakcgroundColorTheme];
     
     UIView *fatherView = self.contentView;
     @weakify(self);
@@ -152,7 +152,7 @@
     checkAllReplayLabel = [UILabel new];
     checkAllReplayLabel.font = PFFontR(11);
     checkAllReplayLabel.textColor = RGBA(152, 152, 152, 1);
-    checkAllReplayLabel.userInteractionEnabled = YES;
+//    checkAllReplayLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
     [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         @strongify(self);
@@ -160,19 +160,19 @@
             self.checkAllReplay(self.tag);
         }
     }];
-    [checkAllReplayLabel addGestureRecognizer:tap];
+//    [checkAllReplayLabel addGestureRecognizer:tap];
     
     first = [UILabel new];
     first.isAttributedContent = YES;
     first.font = PFFontR(14);
     [first addContentColorTheme];
-    first.userInteractionEnabled = YES;
+//    first.userInteractionEnabled = YES;
     
     second = [UILabel new];
     second.isAttributedContent = YES;
     second.font = PFFontR(14);
     [second addContentColorTheme];
-    second.userInteractionEnabled = YES;
+//    second.userInteractionEnabled = YES;
     
     checkImg = [UIImageView new];
     
@@ -233,9 +233,9 @@
     praise.selected = model.isPraise;
     NSString *count = [NSString stringWithFormat:@"%ld",model.likeNum];
     if (praise.selected) {
-        [praise setNormalTitle:count];
-    }else{
         [praise setSelectedTitle:count];
+    }else{
+        [praise setNormalTitle:count];
     }
     
     [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -358,7 +358,7 @@
     [[tapB rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         
     }];
-    [bottomBackView addGestureRecognizer:tapB];
+//    [bottomBackView addGestureRecognizer:tapB];
 }
 
 

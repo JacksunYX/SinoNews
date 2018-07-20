@@ -211,13 +211,15 @@
         cell2.praiseBlock = ^(NSInteger row) {
             @strongify(self)
             if (model.isPraise) {
-                LRToast(@"已经点过赞啦~");
+                LRToast(@"已经点过赞啦");
             }else{
                 NSInteger type = 0;
-                if (!kStringIsEmpty(self.model.newsId)) { //存在，说明是新闻相关的回复
-                    type = 1;
-                }else{
+                if (self.pushType == 1) {       //公司
                     type = 5;
+                }else if (self.pushType == 2){  //回答
+                    type = 8;
+                }else{  //新闻
+                    type = 1;
                 }
                 [self requestPraiseWithPraiseType:type praiseId:[model.commentId integerValue] commentNum:row];
             }
@@ -271,17 +273,27 @@
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     NSString *requestUrl;
-    if (!kStringIsEmpty(self.model.newsId)) { //存在，说明是新闻相关的回复
-        parameters[@"newsId"] = @([self.model.newsId integerValue]);
-        requestUrl = ShowReply;
-    }else{
+    
+    if (self.pushType == 1) {       //公司
         parameters[@"companyId"] = @([self.model.companyId integerValue]);
         requestUrl = CompanyShowReply;
+    }else if (self.pushType == 2){  //回答
+        parameters[@"answerId"] = @(self.answerId);
+        requestUrl = ShowAnswerReply;
+    }else{  //新闻
+        parameters[@"newsId"] = @([self.model.newsId integerValue]);
+        requestUrl = ShowReply;
     }
+    
     parameters[@"commentId"] = @([self.model.commentId integerValue]);
     parameters[@"currPage"] = @(self.currPage);
     [HttpRequest getWithURLString:requestUrl parameters:parameters success:^(id responseObject) {
-        NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        NSArray *arr;
+        if (self.pushType == 2) {
+            arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        }else{
+            arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        }
         
         if (self.currPage == 1) {
             [self.tableView.mj_header endRefreshing];
@@ -312,13 +324,18 @@
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     NSString *requestUrl;
-    if (!kStringIsEmpty(self.model.newsId)) { //存在，说明是新闻相关的回复
-        parameters[@"newsId"] = @([self.model.newsId integerValue]);
-        requestUrl = Comments;
-    }else{
+    
+    if (self.pushType == 1) {       //公司
         parameters[@"companyId"] = @([self.model.companyId integerValue]);
         requestUrl = CompanyComments;
+    }else if (self.pushType == 2){  //回答
+        parameters[@"answerId"] = @(self.answerId);
+        requestUrl = AnswerComment;
+    }else{  //新闻
+        parameters[@"newsId"] = @([self.model.newsId integerValue]);
+        requestUrl = Comments;
     }
+    
     parameters[@"comment"] = comment;
     parameters[@"parentId"] = @([self.model.commentId integerValue]);
     
@@ -337,18 +354,14 @@
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        if (praiseType == 1||praiseType == 5) {
+        if ([res[@"data"][@"success"] integerValue] == 1) {
             CompanyCommentModel *model = self.commentsArr[row];
-            model.isPraise = !model.isPraise;
-            
-            if (model.isPraise) {
-                LRToast(@"点赞成功");
-                model.likeNum ++;
-            }else{
-                LRToast(@"点赞已取消");
-                model.likeNum --;
-            }
+            model.isPraise = YES;
+            LRToast(@"点赞成功");
+            model.likeNum = [res[@"data"][@"num"] integerValue];
             [self.tableView reloadData];
+        }else{
+            LRToast(@"已经点赞过了");
         }
         
     } failure:nil RefreshAction:^{

@@ -211,7 +211,7 @@ CGFloat static titleViewHeight = 91;
     config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:config];
     self.webView.navigationDelegate = self;
-    
+    [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
     [self.view addSubview:self.webView];
@@ -669,8 +669,6 @@ CGFloat static titleViewHeight = 91;
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
         
         [self setWebViewLoad];
-        //本地存储
-        [HomePageModel saveWithNewsModel:self.newsModel];
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {

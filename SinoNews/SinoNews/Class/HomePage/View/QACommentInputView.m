@@ -72,7 +72,7 @@ static CGFloat anumationTime = 0.3;
     JHTextView *textView = [JHTextView new];
     
 //    textView.limitLength = 10;
-    textView.placeholder = @"回复xxx";
+    textView.placeholder = @"回复答主...";
     textView.backgroundColor = RGBA(50, 50, 50, 0.1);
     
     
@@ -90,6 +90,7 @@ static CGFloat anumationTime = 0.3;
     [sendBtn setSd_cornerRadius:@20];
     [sendBtn setNormalTitle:@"发送"];
     [sendBtn setBtnFont:PFFontL(14)];
+    [sendBtn setNormalTitleColor:GrayColor];
     sendBtn.backgroundColor = RGBA(50, 50, 50, 0.1);
     
     textView.sd_layout
@@ -129,7 +130,7 @@ static CGFloat anumationTime = 0.3;
         CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
         
         [UIView animateWithDuration:anumationTime animations:^{
-            bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame) - keyboardSize.height - bottomViewHeight, ScreenW, bottomViewHeight);
+            bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame) - keyboardSize.height - bottomViewHeight + BOTTOM_MARGIN, ScreenW, bottomViewHeight);
         }];
     }];
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(NSNotification * _Nullable x) {

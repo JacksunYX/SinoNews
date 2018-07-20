@@ -461,6 +461,7 @@
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         CommentDetailViewController *cdVC = [CommentDetailViewController new];
         cdVC.model = model;
+        cdVC.pushType = 1;
         [self.navigationController pushViewController:cdVC animated:YES];
     }
 }

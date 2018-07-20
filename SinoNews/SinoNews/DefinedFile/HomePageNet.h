@@ -66,6 +66,10 @@
 #define News_browseAnswer       @"/api/news/browseAnswer"
 //回答的评论列表(post)
 #define ShowAnswerComment       @"/api/showAnswerComment"
+//查看回答的评论的回复列表(get)
+#define ShowAnswerReply         @"/api/showAnswerReply"
+//添加回答的评论或回复(post)
+#define AnswerComment           @"/api/answerComment"
 
 
 

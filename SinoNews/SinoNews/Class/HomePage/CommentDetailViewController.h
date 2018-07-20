@@ -11,7 +11,9 @@
 @class CompanyCommentModel;
 
 @interface CommentDetailViewController : BaseViewController
-
+//0.新闻 1.公司 2.回答
+@property (nonatomic,assign) NSInteger pushType;
+@property (nonatomic,assign) NSInteger answerId;
 @property (nonatomic,strong) CompanyCommentModel *model;
 
 @end

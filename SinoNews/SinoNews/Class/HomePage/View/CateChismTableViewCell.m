@@ -129,12 +129,13 @@
     [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
     username.text = GetSaveString(model.username);
     content.text = GetSaveString(model.html);
+    
     praise.selected = model.hasPraise;
     NSString *count = [NSString stringWithFormat:@"%ld",model.favorCount];
     if (praise.selected) {
-        [praise setNormalTitle:count];
-    }else{
         [praise setSelectedTitle:count];
+    }else{
+        [praise setNormalTitle:count];
     }
     
     @weakify(self)

@@ -7,6 +7,7 @@
 //
 
 #import "CatechismSecondeViewController.h"
+#import "CommentDetailViewController.h"
 #import "AnswerDetailModel.h"
 
 #import "QACommentInputView.h"
@@ -235,7 +236,7 @@ CGFloat static titleViewHeight = 91;
     config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:config];
     self.webView.navigationDelegate = self;
-    
+    [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
     [self.view addSubview:self.webView];
@@ -343,8 +344,13 @@ CGFloat static titleViewHeight = 91;
         [answerInput layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:8];
         
         [answerInput whenTap:^{
+            @strongify(self)
             [QACommentInputView showAndSendHandle:^(NSString *inputText) {
-                LRToast([@"输入了:" stringByAppendingString:inputText]);
+                if (![NSString isEmpty:inputText]) {
+                    [self requestAnswerCommentWithComment:inputText];
+                }else{
+                    LRToast(@"请输入有效的内容");
+                }
             }];
         }];
     }
@@ -475,7 +481,7 @@ CGFloat static titleViewHeight = 91;
         if (model.isPraise) {
             LRToast(@"已经点过赞啦");
         }else{
-            [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:indexPath.row];
+            [self requestPraiseWithPraiseType:7 praiseId:[model.commentId integerValue] commentNum:indexPath.row];
         }
     };
     
@@ -517,11 +523,11 @@ CGFloat static titleViewHeight = 91;
         .rightSpaceToView(headView, 10)
         .autoHeightRatio(0)
         ;
-//        if (self.newsModel) {
-//            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.newsModel.commentCount];
-//        }else{
+        if (self.answerModel) {
+            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.answerModel.commentCount];
+        }else{
             title.text = @"全部评论";
-//        }
+        }
     }
     
     return headView;
@@ -529,7 +535,11 @@ CGFloat static titleViewHeight = 91;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    CommentDetailViewController *cdVC = [CommentDetailViewController new];
+    cdVC.model = self.commentArr[indexPath.row];
+    cdVC.pushType = 2;
+    cdVC.answerId = self.answer_id;
+    [self.navigationController pushViewController:cdVC animated:YES];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -563,7 +573,7 @@ CGFloat static titleViewHeight = 91;
         self.titleView.alpha = alpha;
         self.attentionBtn.enabled = alpha;
         if (offsetY >= -20) {
-//            self.navigationItem.title = GetSaveString(self.newsModel.author);
+            self.navigationItem.title = GetSaveString(self.answerModel.username);
         }else{
             self.navigationItem.title = @"";
         }
@@ -578,7 +588,8 @@ CGFloat static titleViewHeight = 91;
 {
     [HttpRequest postWithURLString:News_browseAnswer parameters:@{@"answerId":@(self.answer_id)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
         self.answerModel = [AnswerDetailModel mj_objectWithKeyValues:response[@"data"]];
-        
+        self.commentArr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:self.answerModel.comments];
+        self.currPage = 1;
         [self setWebViewLoad];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -616,31 +627,27 @@ CGFloat static titleViewHeight = 91;
 //点赞文章/评论
 -(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
 {
-    /*
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         
-        if (praiseType == 3) {  //新闻
-            LRToast(@"点赞成功");
-            self.newsModel.hasPraised = !self.newsModel.hasPraised;
-            [self setBottomView];
-        }else if (praiseType == 4) {
-            AnswerModel *model = self.answersArr[row];
+        if (praiseType == 7) {
+            CompanyCommentModel *model = self.commentArr[row];
             
             NSInteger status = [res[@"data"][@"success"] integerValue];
             if (status) {
                 LRToast(@"点赞成功");
-                model.hasPraise = YES;
-                model.favorCount ++;
+                model.isPraise = YES;
+                model.likeNum ++;
             }
             [self.tableView reloadData];
         }
     } failure:nil RefreshAction:^{
-        [self requestNewData];
+        [self requestNews_browseAnswer];
     }];
-     */
+    
 }
 
 //评论列表
@@ -650,25 +657,39 @@ CGFloat static titleViewHeight = 91;
     parameters[@"answerId"] = @(self.answer_id);
     parameters[@"currPage"] = @(self.currPage);
     [HttpRequest postWithURLString:ShowAnswerComment parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-//        NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
-//        if (self.currPage == 1) {
-//            self.commentArr = [data mutableCopy];
-//
-//        }else{
-//            [self.commentArr addObjectsFromArray:data];
-//        }
-//        if (data.count>0) {
-//            [self.tableView.mj_footer endRefreshing];
-//        }else{
-//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//        }
+        NSArray *data = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        if (self.currPage == 1) {
+            self.commentArr = [data mutableCopy];
+
+        }else{
+            [self.commentArr addObjectsFromArray:data];
+        }
+        if (data.count>0) {
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_footer endRefreshing];
     } RefreshAction:nil];
 }
 
-
+//添加回答评论
+-(void)requestAnswerCommentWithComment:(NSString *)comment
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"comment"] = comment;
+    parameters[@"answerId"] = @(self.answer_id);
+    parameters[@"parentId"] = @(0);
+    [HttpRequest postWithTokenURLString:AnswerComment parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        CompanyCommentModel *addComment = [CompanyCommentModel mj_objectWithKeyValues:res[@"data"]];
+        [self.commentArr insertObject:addComment atIndex:0];
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:^{
+        [self requestNews_browseAnswer];
+    }];
+}
 
 
 @end

@@ -432,10 +432,14 @@
     }else{
         if (selectedIndex == 1) {
             HomePageModel *model = self.articleArray[indexPath.row];
-            if ([model.newsType intValue]==0) {
+            if ([model.newsType intValue]==0) { //新闻
                 NewsDetailViewController *ndVC = [NewsDetailViewController new];
                 ndVC.newsId = [(HomePageModel *)model itemId];
                 [self.navigationController pushViewController:ndVC animated:YES];
+            }else if ([model.newsType intValue]==2){    //问答
+                CatechismViewController *cVC = [CatechismViewController new];
+                cVC.news_id = model.itemId;
+                [self.navigationController pushViewController:cVC animated:YES];
             }
         }else if (selectedIndex == 0){
             //跳转到公司详情

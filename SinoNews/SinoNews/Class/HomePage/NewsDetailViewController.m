@@ -415,7 +415,7 @@ CGFloat static titleViewHeight = 91;
     config.preferences = preference;
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
     self.webView.navigationDelegate = self;
-    
+    [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
     //KVO监听web的高度变化

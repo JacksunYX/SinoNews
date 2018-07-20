@@ -216,12 +216,12 @@ CGFloat static titleViewHeight = 91;
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
     [self.view addSubview:self.webView];
-    
+    self.topWebHeight = 1;  //默认给1，防止网页纯图片无法撑开
     //KVO监听web的高度变化
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
         @strongify(self)
-        //        GGLog(@"x:%@",x);
+//        GGLog(@"x:%@",x);
         CGFloat newHeight = self.webView.scrollView.contentSize.height;
         if (newHeight != self.topWebHeight) {
             self.topWebHeight = newHeight;
@@ -237,7 +237,8 @@ CGFloat static titleViewHeight = 91;
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
+    NSURLRequest *request= [NSURLRequest requestWithURL:url];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:MAXFLOAT];
     [self.webView loadRequest:request];
     [self showOrHideLoadView:YES page:2];
     
@@ -507,6 +508,14 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
+    
+    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
+//        CGFloat height = [data floatValue];
+//        GGLog(@"height:%lf",height);
+//    ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
+//        设置通知或者代理来传高度
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
+    }];
     
     [self showOrHideLoadView:NO page:2];
     

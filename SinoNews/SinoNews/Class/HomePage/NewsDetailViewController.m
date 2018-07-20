@@ -427,6 +427,7 @@ CGFloat static titleViewHeight = 91;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
+    topWebHeight = 1;  //默认给1，防止网页纯图片无法撑开
     //KVO监听web的高度变化
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
@@ -699,10 +700,16 @@ CGFloat static titleViewHeight = 91;
     //    GGLog(@"tableView点击了");
     [self.view endEditing:YES];
     if (indexPath.section == 0) {
-        NewsDetailViewController *ndVC = [NewsDetailViewController new];
         HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
-        ndVC.newsId = [(HomePageModel *)model itemId];
-        [self.navigationController pushViewController:ndVC animated:YES];
+        if (model.itemType>=500&&model.itemType<600) { //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = model.itemId;
+            [self.navigationController pushViewController:cVC animated:YES];
+        }else{
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = [(HomePageModel *)model itemId];
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }
     }else if (indexPath.section == 1) {
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         CommentDetailViewController *cdVC = [CommentDetailViewController new];

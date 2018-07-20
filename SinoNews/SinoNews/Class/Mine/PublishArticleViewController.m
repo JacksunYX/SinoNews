@@ -11,13 +11,16 @@
 #import "LMWordViewController.h"
 #import "LMWordView.h"
 #import "LMTextHTMLParser.h"
+#import "XLChannelModel.h"
 #import "YBPopupMenu.h"
 
 @interface PublishArticleViewController ()<YBPopupMenuDelegate>
 @property (nonatomic, strong) LMWordViewController *wordViewController;
 @property (nonatomic, strong) UIView *channelChoose;
+@property (nonatomic, strong) UIButton *channelBtn;
 @property (nonatomic, assign) CGFloat topViewH;
 @property (nonatomic, strong) NSMutableArray *channelArr;
+@property (nonatomic, strong) XLChannelModel *channelModel;
 
 @end
 
@@ -28,17 +31,18 @@
         _channelChoose = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, self.topViewH)];
         [_channelChoose addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
         [self.view addSubview:_channelChoose];
-        UIButton *change = [UIButton new];
-        [_channelChoose addSubview:change];
-        change.sd_layout
+        _channelBtn = [UIButton new];
+        _channelBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [_channelChoose addSubview:_channelBtn];
+        _channelBtn.sd_layout
         .leftSpaceToView(_channelChoose, 20)
         .centerYEqualToView(_channelChoose)
         .widthIs(100)
         .heightIs(self.topViewH)
         ;
-        [change setNormalTitleColor:RGB(50, 50, 50)];
-        [change setNormalTitle:@"请选择频道"];
-        [change addTarget:self action:@selector(chooseChannelAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_channelBtn setNormalTitleColor:RGB(50, 50, 50)];
+        [_channelBtn setNormalTitle:@"请选择频道"];
+        [_channelBtn addTarget:self action:@selector(chooseChannelAction:) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _channelChoose;
@@ -46,7 +50,12 @@
 
 -(void)chooseChannelAction:(UIButton *)sender
 {
-    [YBPopupMenu showRelyOnView:sender titles:@[@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试",@"1",@"asdjlas;",@"测试"] icons:nil menuWidth:120 delegate:self];
+    NSMutableArray *titleArr = [NSMutableArray new];
+    self.channelArr = [self getAllChannels];
+    for (XLChannelModel *model in self.channelArr) {
+        [titleArr addObject:model.channelName];
+    }
+    [YBPopupMenu showRelyOnView:sender titles:titleArr icons:nil menuWidth:80 delegate:self];
 }
 
 - (LMWordViewController *)wordViewController {
@@ -128,7 +137,10 @@
 
 -(void)publishAction:(UIButton *)sender
 {
-    if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
+    if (!self.channelModel&&self.editType==0){
+        LRToast(@"请选择频道");
+        return;
+    }else if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
         LRToast(@"请输入标题");
         return;
     }else if (self.wordViewController.textView.attributedText.length<=0){
@@ -142,8 +154,9 @@
 - (void)ybPopupMenu:(YBPopupMenu *)ybPopupMenu didSelectedAtIndex:(NSInteger)index
 {
     GGLog(@"点击了 %ld",index);
+    self.channelModel = self.channelArr[index];
+    [_channelBtn setNormalTitle:self.channelModel.channelName];
 }
-
 
 #pragma make ----- 请求发送
 -(void)requestPublishArticleWithContent:(NSString *)content
@@ -151,17 +164,36 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
     parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
-    parameters[@"channelId"] = @(64);
+    if (self.editType) {
+        //问答频道的id固定是85
+        parameters[@"channelId"] = @(85);
+        parameters[@"newsType"] = @(2);
+    }else{
+       parameters[@"channelId"] = self.channelModel.channelId;
+        parameters[@"newsType"] = @(1);
+    }
+    
     parameters[@"content"] = GetSaveString(content);
+    
     [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         [self.navigationController popViewControllerAnimated:YES];
     } failure:nil RefreshAction:nil];
 }
 
-//请求所有频道
--(void)requestChannels
+//获取本地保存的所有频道
+-(NSMutableArray *)getAllChannels
 {
-    
+    NSArray* columnArr = [NSArray bg_arrayWithName:@"columnArr"];
+    NSArray *arr1 = [NSMutableArray arrayWithArray:columnArr[0]];
+    NSArray *arr2 = columnArr[1];
+    NSMutableArray *totalArr = [[arr1 arrayByAddingObjectsFromArray:arr2] mutableCopy];
+    for (XLChannelModel *channel in [arr1 arrayByAddingObjectsFromArray:arr2]) {
+        //过滤掉最新和问答频道
+        if (CompareString(channel.channelId, @"82")||CompareString(channel.channelName, @"最新")||CompareString(channel.channelName, @"问答")) {
+            [totalArr removeObject:channel];
+        }
+    }
+    return totalArr;
 }
 
 @end

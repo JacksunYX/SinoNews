@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96420C67263009115C1 /* CZHAddressPickerView.m */; };
 		4C13E96D20C67263009115C1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C13E96920C67263009115C1 /* city.plist */; };
 		4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */; };
@@ -271,8 +272,6 @@
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
-		4CCCF01620E9EE2B000EC6BD /* CLInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01220E9EE2B000EC6BD /* CLInputToolbar.m */; };
-		4CCCF01720E9EE2B000EC6BD /* UIView+CLSetRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01320E9EE2B000EC6BD /* UIView+CLSetRect.m */; };
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
@@ -311,6 +310,8 @@
 /* Begin PBXFileReference section */
 		1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.release.xcconfig"; sourceTree = "<group>"; };
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C03F52E2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		4C13E96420C67263009115C1 /* CZHAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHAddressPickerView.m; sourceTree = "<group>"; };
 		4C13E96520C67263009115C1 /* AddressPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerHeader.h; sourceTree = "<group>"; };
 		4C13E96620C67263009115C1 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
@@ -844,10 +845,6 @@
 		4CB4196C20DA5ADF00EBF202 /* TopicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicModel.m; sourceTree = "<group>"; };
 		4CB4196F20DA793A00EBF202 /* UIScrollView+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Direction.h"; sourceTree = "<group>"; };
 		4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Direction.m"; sourceTree = "<group>"; };
-		4CCCF01220E9EE2B000EC6BD /* CLInputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLInputToolbar.m; sourceTree = "<group>"; };
-		4CCCF01320E9EE2B000EC6BD /* UIView+CLSetRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CLSetRect.m"; sourceTree = "<group>"; };
-		4CCCF01420E9EE2B000EC6BD /* CLInputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLInputToolbar.h; sourceTree = "<group>"; };
-		4CCCF01520E9EE2B000EC6BD /* UIView+CLSetRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CLSetRect.h"; sourceTree = "<group>"; };
 		4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansViewController.h; sourceTree = "<group>"; };
 		4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansViewController.m; sourceTree = "<group>"; };
 		4CCCF01E20EA1D2E000EC6BD /* MyFansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewCell.h; sourceTree = "<group>"; };
@@ -912,6 +909,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C03F52D2101BE9F00574136 /* FDFullscreenPopGesture */ = {
+			isa = PBXGroup;
+			children = (
+				4C03F52E2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.h */,
+				4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */,
+			);
+			path = FDFullscreenPopGesture;
+			sourceTree = "<group>";
+		};
 		4C13E96320C67263009115C1 /* AddressPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1492,13 +1498,13 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C03F52D2101BE9F00574136 /* FDFullscreenPopGesture */,
 				4C7234FC20FF373C00D5C5D4 /* InputView */,
 				4C72348820FDEB1D00D5C5D4 /* AAChartKitLib */,
 				4C72346B20FD8C6D00D5C5D4 /* PYSearch */,
 				4C72345320FC6E4200D5C5D4 /* LYEmptyView */,
 				4C23B5BE20F6387100ACE380 /* YBPopupMenu */,
 				4C23B39F20F5914600ACE380 /* ArticleEditor */,
-				4CCCF01120E9EE19000EC6BD /* CLInputToolbar */,
 				4C17B49B20E250C900470AEB /* IFMShare */,
 				4C95FFE420DE4C7A0040E348 /* WSDatePickerView */,
 				4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */,
@@ -2025,17 +2031,6 @@
 			path = UIScrollView;
 			sourceTree = "<group>";
 		};
-		4CCCF01120E9EE19000EC6BD /* CLInputToolbar */ = {
-			isa = PBXGroup;
-			children = (
-				4CCCF01420E9EE2B000EC6BD /* CLInputToolbar.h */,
-				4CCCF01220E9EE2B000EC6BD /* CLInputToolbar.m */,
-				4CCCF01520E9EE2B000EC6BD /* UIView+CLSetRect.h */,
-				4CCCF01320E9EE2B000EC6BD /* UIView+CLSetRect.m */,
-			);
-			path = CLInputToolbar;
-			sourceTree = "<group>";
-		};
 		4CE121D020C0148700A44782 /* DLogName_Line */ = {
 			isa = PBXGroup;
 			children = (
@@ -2381,6 +2376,7 @@
 				4C7234E520FDEB1D00D5C5D4 /* AALegend.m in Sources */,
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */,
+				4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C7234E720FDEB1D00D5C5D4 /* AASpline.m in Sources */,
 				4C6332C920E08E6500D80056 /* AddressViewController.m in Sources */,
@@ -2479,7 +2475,6 @@
 				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
-				4CCCF01720E9EE2B000EC6BD /* UIView+CLSetRect.m in Sources */,
 				4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
@@ -2619,7 +2614,6 @@
 				4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */,
 				4C7234F820FF0E6700D5C5D4 /* Q_APublishViewController.m in Sources */,
 				4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */,
-				4CCCF01620E9EE2B000EC6BD /* CLInputToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

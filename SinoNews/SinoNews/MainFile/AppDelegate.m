@@ -28,7 +28,7 @@
     //全局调试
 //    [[GHConsole sharedConsole] startPrintLog];
     //键盘监听
-    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enable = NO;
     //集成友盟分享
     [self initThirdShare];
     //设置主页

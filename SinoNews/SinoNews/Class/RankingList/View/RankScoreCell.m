@@ -84,6 +84,7 @@
 
 -(void)setModelArr:(NSArray *)modelArr
 {
+    NSInteger maxNum = 10;
     NSArray *dataArr = [RankingModel mj_objectArrayWithKeyValuesArray:modelArr];
     NSMutableArray *categories = [NSMutableArray new];
     NSMutableArray *data = [NSMutableArray new];
@@ -95,7 +96,7 @@
         
         //分数
         [data addObject:@(model.score)];
-        [backdata addObject:@(100)];
+        [backdata addObject:@(maxNum)];
     }
     
     //mark样式
@@ -124,14 +125,14 @@
     //    .tooltipValueSuffixSet(@"分")//设置浮动提示框单位后缀
     .legendEnabledSet(NO)       //不显示下方的可选图例
     .yAxisMinSet(@0)
-    .yAxisMaxSet(@100)
+    .yAxisMaxSet(@(maxNum))
     //x轴文字属性
     .xAxisLabelsFontSizeSet(@11)
     .xAxisLabelsFontWeightSet(@"80")
     .xAxisLabelsFontColorSet(@"#989898")
     .markerRadiusSet(@3)    //折线连接点的半径
     .colorsThemeSet(@[@"#B2C5FA",@"#248AED"])//设置主体颜色数组
-    .yAxisTickPositionsSet(@[@(0), @(100/3*2) , @(100)])
+    .yAxisTickPositionsSet(@[@(0), @(maxNum/3*2) , @(maxNum)])
     .categoriesSet(categories)
     .seriesSet(@[
                  AAObject(AASeriesElement)

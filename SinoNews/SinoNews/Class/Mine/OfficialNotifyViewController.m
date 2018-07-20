@@ -241,7 +241,9 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"messageContent"] = GetSaveString(content);
     [HttpRequest postWithURLString:SendMessageToSystem parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        
+        if (response[@"success"]) {
+            [self requestListMessages];
+        }
     } failure:nil RefreshAction:nil];
 }
 

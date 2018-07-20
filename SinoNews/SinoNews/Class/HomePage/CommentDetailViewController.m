@@ -21,9 +21,17 @@
 @property (nonatomic,strong) UIButton *praiseBtn;
 @property (nonatomic,strong) UIButton *collectBtn;
 
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation CommentDetailViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -82,7 +90,9 @@
         self.commentInput = [UITextField new];
         self.commentInput.delegate = self;
         self.commentInput.returnKeyType = UIReturnKeySend;
+        @weakify(self)
         [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+            @strongify(self)
             UITextField *field = x.first;
             GGLog(@"-----%@",field.text);
             [field resignFirstResponder];
@@ -122,6 +132,10 @@
         self.commentInput.leftViewMode = UITextFieldViewModeAlways;
         self.commentInput.leftView = leftView;
         
+        [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+            @strongify(self);
+            [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.bottomView, nil];
+        }];
     }
     
 }

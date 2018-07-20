@@ -15,6 +15,8 @@
 #import "CommentCell.h"
 #import "RankScoreCell.h"
 
+#import "QACommentInputView.h"
+
 
 
 @interface RankDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -22,8 +24,6 @@
     NSInteger sectionNum;   //总的分区数量
 }
 @property (nonatomic,strong) BaseTableView *tableView;
-@property (nonatomic, strong) CLInputToolbar *inputToolbar;
-@property (nonatomic, strong) UIView *maskView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,strong) CompanyDetailModel *companyModel;
@@ -162,7 +162,7 @@
     self.navigationItem.title = @"启示录";
     
     [self addTableView];
-    [self setTextViewToolbar];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -219,33 +219,6 @@
     
     
     [self.tableView.mj_header beginRefreshing];
-}
-
--(void)setTextViewToolbar {
-    
-    self.maskView = [[UIView alloc] initWithFrame:self.view.bounds];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapActions:)];
-    [self.maskView addGestureRecognizer:tap];
-    [self.view addSubview:self.maskView];
-    self.maskView.hidden = YES;
-    self.inputToolbar = [[CLInputToolbar alloc] init];
-    self.inputToolbar.textViewMaxLine = 3;
-    self.inputToolbar.fontSize = 18;
-    self.inputToolbar.placeholder = @"说点什么吧...";
-    __weak __typeof(self) weakSelf = self;
-    [self.inputToolbar inputToolbarSendText:^(NSString *text) {
-        __typeof(&*weakSelf) strongSelf = weakSelf;
-        // 清空输入框文字
-        [strongSelf.inputToolbar bounceToolbar];
-        strongSelf.maskView.hidden = YES;
-        if ([NSString isEmpty:text]) {
-            LRToast(@"评论不能为空哦~");
-        }else{
-           [self requestCommentWithComment:text];
-        }
-    }];
-    [self.maskView addSubview:self.inputToolbar];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -795,16 +768,20 @@
     if ([btnTitle isEqualToString:@"官网"]) {
         [self openUrlWithString:GetSaveString(self.companyModel.website)];
     }else if ([btnTitle isEqualToString:@"发评论"]){
-        self.maskView.hidden = NO;
-        [self.inputToolbar popToolbar];
+        [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+            if (![NSString isEmpty:inputText]) {
+                [self requestCommentWithComment:inputText];
+            }else{
+                LRToast(@"请输入有效的内容");
+            }
+        }];
     }else{
         [self requestConcernCompany];
     }
 }
 
 -(void)tapActions:(UITapGestureRecognizer *)tap {
-    [self.inputToolbar bounceToolbar];
-    self.maskView.hidden = YES;
+    
 }
 
 #pragma mark ----- 发送请求

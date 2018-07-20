@@ -52,6 +52,8 @@
 //部分第三方库
 #import <IQKeyboardManager.h>
 
+#import <ZYKeyboardUtil.h>
+
 #import <MBProgressHUD.h>
 
 #import <MJExtension.h>

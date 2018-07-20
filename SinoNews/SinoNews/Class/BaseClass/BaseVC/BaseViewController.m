@@ -14,6 +14,11 @@
 
 @implementation BaseViewController
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置导航栏不透明

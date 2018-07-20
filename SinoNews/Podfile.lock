@@ -14,22 +14,22 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - BaiduMobStat (4.7.2)
-  - BGFMDB (2.0.9):
-    - BGFMDB/BG (= 2.0.9)
-    - BGFMDB/FMDB (= 2.0.9)
-  - BGFMDB/BG (2.0.9):
+  - BaiduMobStat (4.8.1)
+  - BGFMDB (2.0.12):
+    - BGFMDB/BG (= 2.0.12)
+    - BGFMDB/FMDB (= 2.0.12)
+  - BGFMDB/BG (2.0.12):
     - BGFMDB/FMDB
-  - BGFMDB/FMDB (2.0.9)
+  - BGFMDB/FMDB (2.0.12)
   - FBRetainCycleDetector (0.1.4)
   - FCUUID (1.3.1):
     - UICKeyChainStore (~> 2.1.0)
   - GHConsole (1.3.0)
-  - IQKeyboardManager (6.0.3)
+  - IQKeyboardManager (6.1.1)
   - LEETheme (1.1.7)
   - MBProgressHUD (1.1.0)
   - MGSocialShareKit (1.1.0)
-  - MJExtension (3.0.13)
+  - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.3)
   - MLeaksFinder (1.0.0):
     - FBRetainCycleDetector
@@ -39,11 +39,12 @@ PODS:
     - RTRootNavigationController/Core (= 0.6.7)
   - RTRootNavigationController/Core (0.6.7)
   - SDAutoLayout (2.1.9)
-  - SDWebImage (4.3.3):
-    - SDWebImage/Core (= 4.3.3)
-  - SDWebImage/Core (4.3.3)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - Toast (4.0.0)
   - UICKeyChainStore (2.1.1)
+  - ZYKeyboardUtil (1.0.7)
 
 DEPENDENCIES:
   - AFNetworking
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - SDAutoLayout (~> 2.1.3)
   - SDWebImage
   - Toast
+  - ZYKeyboardUtil
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -87,29 +89,31 @@ SPEC REPOS:
     - SDWebImage
     - Toast
     - UICKeyChainStore
+    - ZYKeyboardUtil
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  BaiduMobStat: e84187c7057f87daac852e05692fd94c8d656bd3
-  BGFMDB: e1cd91f5d06268e1db7c6028c338b6df6b3d5796
+  BaiduMobStat: 4104ba9d7ce7308dbed3c78fe6131eea1ec232c5
+  BGFMDB: cd5e468218d4c7345862d814d313c0888db3a66a
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
   GHConsole: 8fa768c1b30139e7baa192508ead18fd71f4b7db
-  IQKeyboardManager: c390e612f4b98c8fd748016470138537dc163ead
+  IQKeyboardManager: 79c57795f5c2408d259d37b9da2ed07efcbb5225
   LEETheme: e5dc623fe58ee9f2b973e9a7445267e3e972deb4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSocialShareKit: abffd0f9c513a63c07ed96af07a0cc9abcf43366
-  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   NSLayoutConstraint-SSLayout: 8cb9f316489c2af50ae4767073093754b3e290c9
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
   SDAutoLayout: 6b6f4db0d009dfc46cef14ef710dbb164e86616c
-  SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
+  ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: e24546ec0a8a21abc539fb41a7e194f12dc17495
+PODFILE CHECKSUM: 1e917390dc13b11004a73b12a5f71bf3b95b8c69
 
 COCOAPODS: 1.5.3

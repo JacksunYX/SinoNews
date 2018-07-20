@@ -72,7 +72,7 @@ static CGFloat anumationTime = 0.3;
     JHTextView *textView = [JHTextView new];
     
 //    textView.limitLength = 10;
-    textView.placeholder = @"回复答主...";
+    textView.placeholder = @"写点什么吧";
     textView.backgroundColor = RGBA(50, 50, 50, 0.1);
     
     

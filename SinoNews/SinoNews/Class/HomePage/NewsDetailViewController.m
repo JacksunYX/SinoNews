@@ -39,22 +39,27 @@
 
 @property (nonatomic,assign) NSInteger parentId;
 
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
+
 @end
 
 @implementation NewsDetailViewController
 
 CGFloat static titleViewHeight = 91;
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
+
 -(NSMutableArray *)commentsArr
 {
     if (!_commentsArr) {
         _commentsArr = [NSMutableArray new];
     }
     return _commentsArr;
-}
-
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -204,6 +209,10 @@ CGFloat static titleViewHeight = 91;
         self.commentInput.leftViewMode = UITextFieldViewModeAlways;
         self.commentInput.leftView = leftView;
         
+        [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+            @strongify(self);
+            [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.bottomView, nil];
+        }];
     }
     
     self.collectBtn.selected = self.newsModel.isCollection;

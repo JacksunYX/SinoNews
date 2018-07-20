@@ -8,12 +8,13 @@
 //发布管理cell
 
 #import <UIKit/UIKit.h>
+#import "ArticleModel.h"
 
 #define PublishManagerCellID @"PublishManagerCellID"
 
 @interface PublishManagerCell : UITableViewCell
 
-@property (nonatomic ,strong) NSDictionary *model;
+@property (nonatomic ,strong) ArticleModel *model;
 
 @property (nonatomic ,copy) void(^avatarClick)(void);
 

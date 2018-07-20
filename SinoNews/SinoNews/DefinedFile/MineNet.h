@@ -59,6 +59,19 @@
 //我的粉丝关注记录(post)
 #define GetFansHistory      @"/api/getFansHistory"
 //通知列表(私信)(get)
-#define ListReceivedMessages @"/api/message/listReceivedMessages"
+#define ListReceivedMessages    @"/api/message/listReceivedMessages"
+
+//查看当前用户发表的评论列表(get)
+#define GetCurrentUserComments  @"/api/user/getCurrentUserComments"
+//查看当前用户发表的文章列表(get)
+#define GetCurrentUserNews  @"/api/user/getCurrentUserNews"
+
+//删除一篇文章(post)
+#define RemoveArticle       @"/api/news/remove"
+
+
+
+
+
 
 #endif /* MineNet_h */

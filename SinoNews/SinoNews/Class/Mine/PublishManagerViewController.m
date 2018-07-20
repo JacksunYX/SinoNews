@@ -7,6 +7,8 @@
 //
 
 #import "PublishManagerViewController.h"
+#import "NewsDetailViewController.h"
+
 #import "PublishManagerCell.h"
 
 @interface PublishManagerViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -89,6 +91,21 @@
     
 }
 
+//显示删除提示
+-(void)showDeleteViewWith:(NSInteger)index
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"删除此篇文章？" message:@"请确认" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self requestRemoveArticleWith:index];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertVC addAction:confirm];
+    [alertVC addAction:cancel];
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -97,16 +114,20 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.articlesArr.count;
-    return 5;
+    return self.articlesArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PublishManagerCell *cell = (PublishManagerCell *)[tableView dequeueReusableCellWithIdentifier:PublishManagerCellID];
-    //    CompanyCommentModel *model = self.commentsArr[indexPath.row];
-    //    cell.model = model;
-    
+    ArticleModel *model = self.articlesArr[indexPath.row];
+    cell.model = model;
+    @weakify(self)
+    cell.moreClick = ^{
+        @strongify(self)
+        [self showDeleteViewWith:indexPath.row];
+    };
+    [cell addBakcgroundColorTheme];
     return cell;
 }
 
@@ -127,15 +148,61 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    ArticleModel *model = self.articlesArr[indexPath.row];
+    if (model.itemType>=400&&model.itemType<500) { //投票
+        LRToast(@"投票文章还在加工中...");
+    }else if (model.itemType>=500&&model.itemType<600) { //问答
+        CatechismViewController *cVC = [CatechismViewController new];
+        cVC.news_id = model.itemId;
+        [self.navigationController pushViewController:cVC animated:YES];
+    }else{
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = model.itemId;
+        [self.navigationController pushViewController:ndVC animated:YES];
+    }
 }
 
 #pragma mark ----请求发送
 //请求发布文章列表
 -(void)requestUserPushNews
 {
-    [self.tableView ly_endLoading];
+    [HttpRequest getWithURLString:GetCurrentUserNews parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
+        NSArray *data = [ArticleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (self.currPage == 1) {
+            self.articlesArr = [data mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            [self.articlesArr addObjectsFromArray:data];
+            if (data.count) {
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        
+        [self.tableView reloadData];
+        
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
+    }];
 }
 
+//删除一篇文章
+-(void)requestRemoveArticleWith:(NSInteger)index
+{
+    ArticleModel *model = self.articlesArr[index];
+    
+    [HttpRequest postWithURLString:RemoveArticle parameters:@{@"newsId":@(model.itemId)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+        [self.articlesArr removeObject:model];
+        [self.tableView reloadData];
+        
+    } failure:nil RefreshAction:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
 
 @end

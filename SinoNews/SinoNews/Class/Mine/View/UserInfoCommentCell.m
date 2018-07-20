@@ -89,7 +89,7 @@
     .heightEqualToWidth()
     ;
     [avatar setSd_cornerRadius:@12];
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     
     praise.sd_layout
     .rightSpaceToView(fatherView, 16)
@@ -142,7 +142,7 @@
     
     //下半部分
     articleImg = [UIImageView new];
-    articleImg.backgroundColor = Arc4randomColor;
+//    articleImg.backgroundColor = Arc4randomColor;
     
     articleTitle = [UILabel new];
     articleTitle.font = PFFontL(11);
@@ -175,7 +175,7 @@
 {
     _model = model;
     
-    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
+    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     username.text = GetSaveString(model.username);
     
     UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
@@ -196,7 +196,7 @@
 
     if (model.newsImages.count) {
         NSString *imgStr = model.newsImages[0];
-        [articleImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr))];
+        [articleImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     }
     articleTitle.text = GetSaveString(model.title);
 }

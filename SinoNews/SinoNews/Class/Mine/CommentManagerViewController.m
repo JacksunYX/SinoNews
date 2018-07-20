@@ -93,24 +93,23 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.commentsArr.count;
-    return 5;
+    return self.commentsArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserInfoCommentCell *cell = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
-//    CompanyCommentModel *model = self.commentsArr[indexPath.row];
-//    cell.model = model;
+    CompanyCommentModel *model = self.commentsArr[indexPath.row];
+    cell.model = model;
     
     @weakify(self)
     cell.clickNewBlock = ^{
         @strongify(self)
-//        if (model.newsType == 0) {
-//            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-//            ndVC.newsId = [model.newsId integerValue];
-//            [self.navigationController pushViewController:ndVC animated:YES];
-//        }
+        if (model.newsType == 0) {
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = [model.newsId integerValue];
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }
         
     };
     [cell addBakcgroundColorTheme];
@@ -141,8 +140,30 @@
 //获取用户评论
 -(void)requestUserComments
 {
-    [self.tableView ly_endLoading];
+    [HttpRequest getWithURLString:GetCurrentUserComments parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
+        NSArray *data = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (self.currPage == 1) {
+            self.commentsArr = [data mutableCopy];
+            [self.tableView.mj_header endRefreshing];
+        }else{
+            [self.commentsArr addObjectsFromArray:data];
+            if (data.count) {
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
+        
+        [self.tableView reloadData];
+        
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
+    }];
 }
+
 
 
 

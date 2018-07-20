@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
+		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
 		4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96420C67263009115C1 /* CZHAddressPickerView.m */; };
 		4C13E96D20C67263009115C1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C13E96920C67263009115C1 /* city.plist */; };
 		4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */; };
@@ -312,6 +313,8 @@
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C03F52E2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
+		4C03F5342101DE5900574136 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
+		4C03F5352101DE5900574136 /* ArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
 		4C13E96420C67263009115C1 /* CZHAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHAddressPickerView.m; sourceTree = "<group>"; };
 		4C13E96520C67263009115C1 /* AddressPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerHeader.h; sourceTree = "<group>"; };
 		4C13E96620C67263009115C1 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
@@ -1716,6 +1719,8 @@
 				4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */,
 				4C646C6F20F34E0E0053067A /* OfficialNotifyModel.h */,
 				4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */,
+				4C03F5342101DE5900574136 /* ArticleModel.h */,
+				4C03F5352101DE5900574136 /* ArticleModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2453,6 +2458,7 @@
 				4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */,
 				4C72347B20FD8C6D00D5C5D4 /* PYSearchViewController.m in Sources */,
 				4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */,
+				4C03F5362101DE5900574136 /* ArticleModel.m in Sources */,
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,
 				4C646C6B20F343E30053067A /* OfficialNotifyViewController.m in Sources */,
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,

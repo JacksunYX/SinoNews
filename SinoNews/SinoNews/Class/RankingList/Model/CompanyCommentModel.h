@@ -30,6 +30,6 @@
 
 //用户信息页专用，展示新闻图片数组
 @property (nonatomic, strong) NSArray *newsImages;
-@property (nonatomic,assign) NSInteger newsType;    //新闻类型：0普通 1收费
+@property (nonatomic, assign) NSInteger newsType;    //新闻类型：0普通 1收费
 
 @end

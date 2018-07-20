@@ -73,6 +73,7 @@
     viewCount.numberOfLines = 2;
     
     newsCover = [UIImageView new];
+    newsCover.contentMode = 3;
     
     share   = [UIButton new];
     share.titleLabel.font = PFFontL(12);
@@ -127,15 +128,15 @@
     .heightIs(16)
     ;
     [username setSingleLineAutoResizeWithMaxWidth:100];
-    username.text = @"赠许诺";
+//    username.text = @"赠许诺";
     
     creatTime.sd_layout
     .leftEqualToView(username)
     .topSpaceToView(username, 6)
     .heightIs(12)
     ;
-    [creatTime setSingleLineAutoResizeWithMaxWidth:100];
-    creatTime.text = @"18-06-04";
+    [creatTime setSingleLineAutoResizeWithMaxWidth:150];
+//    creatTime.text = @"18-06-04";
     
     newTitle.sd_layout
     .topSpaceToView(avatar, 10)
@@ -143,7 +144,7 @@
     .rightSpaceToView(fatherView, 10)
     .autoHeightRatio(0)
     ;
-    newTitle.text = @"习近平总书记两院士大会重要讲话激励香港科学家";
+//    newTitle.text = @"习近平总书记两院士大会重要讲话激励香港科学家";
     
     popView.sd_layout
     .topSpaceToView(fatherView, 10)
@@ -159,7 +160,7 @@
     .widthIs(60)
     .heightIs(30)
     ;
-    viewCount.text = @"690\n阅读";
+//    viewCount.text = @"690\n阅读";
     viewCount.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
     viewCount.layer.borderWidth = 1;
     
@@ -169,7 +170,7 @@
     .rightSpaceToView(fatherView, 10)
     .heightIs((ScreenW - 20)*150/355)
     ;
-    newsCover.backgroundColor = Arc4randomColor;
+//    newsCover.backgroundColor = Arc4randomColor;
     
     share.sd_layout
     .leftSpaceToView(fatherView, 25)
@@ -187,7 +188,7 @@
     .widthIs(60)
     .heightIs(18)
     ;
-    [comment setTitle:@"1" forState:UIControlStateNormal];
+//    [comment setTitle:@"1" forState:UIControlStateNormal];
     [comment setImage:UIImageNamed(@"publish_comment") forState:UIControlStateNormal];
     comment.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
@@ -197,39 +198,48 @@
     .widthIs(60)
     .heightIs(18)
     ;
-    [praise setTitle:@"1" forState:UIControlStateNormal];
+//    [praise setTitle:@"1" forState:UIControlStateNormal];
     [praise setImage:UIImageNamed(@"publish_praise") forState:UIControlStateNormal];
     praise.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(ArticleModel *)model
 {
     _model = model;
     
     [self tapViews];
+    UserModel *user = [UserModel getLocalUserModel];
+    if (user) {
+        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(user.avatar)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    }
+    username.text = GetSaveString(model.username);
+    creatTime.text = GetSaveString(model.createTime);
+    viewCount.text = [NSString stringWithFormat:@"%ld\n阅读",model.viewCount];
+    newTitle.text = GetSaveString(model.itemTitle);
+    if (model.images.count>0) {
+        [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[0])) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    }
+    [comment setNormalTitle:[NSString stringWithFormat:@"%ld",model.commentCount]];
     
-    
-    
-    
-    
+    [praise setNormalTitle:[NSString stringWithFormat:@"%ld",model.praiseCount]];
 }
 
 -(void)tapViews
 {
     @weakify(self)
-    [avatar whenTap:^{
-        @strongify(self)
-        if (self.avatarClick) {
-            self.avatarClick();
-        }
-    }];
+//    [avatar whenTap:^{
+//        @strongify(self)
+//        if (self.avatarClick) {
+//            self.avatarClick();
+//        }
+//    }];
     
-    [newsCover whenTap:^{
-        @strongify(self)
-        if (self.newsClick) {
-            self.newsClick();
-        }
-    }];
+//    [newsCover whenTap:^{
+//        @strongify(self)
+//        if (self.newsClick) {
+//            self.newsClick();
+//        }
+//    }];
     
     [share whenTap:^{
         @strongify(self)

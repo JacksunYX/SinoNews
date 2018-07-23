@@ -37,8 +37,6 @@
     
     [self setADLoadView];
     
-//    GGLog(@"UUID-----%@-----",[[UIDevice currentDevice] uuid]);
-    
     return YES;
 }
 
@@ -128,7 +126,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 //设置广告加载框架
 -(void)setADLoadView
 {
-    [XHLaunchAd setLaunchSourceType:SourceTypeLaunchScreen];
+    [XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
     //注意:请求广告数据前,必须设置此属性,否则会先进入window的的根控制器
     [XHLaunchAd setWaitDataDuration:3];
     
@@ -139,7 +137,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             ADModel *model = adArr[0];
             XHLaunchImageAdConfiguration *imageAdconfiguration = [XHLaunchImageAdConfiguration new];
             //广告frame
-            imageAdconfiguration.frame = CGRectMake(0, 0, ScreenW, ScreenH - 104 - BOTTOM_MARGIN);
+            imageAdconfiguration.frame = CGRectMake(0, 0, ScreenW, ScreenH - 104);
             //广告图片URLString/或本地图片名(.jpg/.gif请带上后缀)
             imageAdconfiguration.imageNameOrURLString = model.url;
             //设置GIF动图是否只循环播放一次(仅对动图设置有效)

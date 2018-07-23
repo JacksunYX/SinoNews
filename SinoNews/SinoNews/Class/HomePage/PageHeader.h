@@ -12,6 +12,7 @@
 
 
 #import "CatechismViewController.h"
+#import "WebViewController.h"
 
 
 #endif /* PageHeader_h */

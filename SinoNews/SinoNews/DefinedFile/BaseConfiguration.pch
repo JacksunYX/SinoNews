@@ -73,6 +73,7 @@
 #import <GHConsole.h>
 
 #import <UIDevice+FCUUID.h>
+#import <FCUUID.h>
 
 #import <BaiduMobStat.h>
 

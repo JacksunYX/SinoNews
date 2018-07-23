@@ -147,23 +147,23 @@
 
 
 //获取系统版本
-#define IOS_VERSION ［[UIDevice currentDevice] systemVersion] floatValue]
-#define CurrentSystemVersion ［UIDevice currentDevice] systemVersion]
+#define IOS_VERSION [[UIDevice currentDevice] systemVersion] floatValue]
+#define CurrentSystemVersion [[UIDevice currentDevice] systemVersion]
 
 
 //获取当前语言
-#define CurrentLanguage (［NSLocale preferredLanguages] objectAtIndex:0])
+#define CurrentLanguage ([NSLocale preferredLanguages] objectAtIndex:0])
 
 //判断是否 Retina屏、设备是否iphone 5、是否是iPad
-#define is_Retina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), ［UIScreen mainScreen] currentMode].size) : NO)
-#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), ［UIScreen mainScreen] currentMode].size) : NO)
+#define is_Retina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [UIScreen mainScreen] currentMode].size) : NO)
 #define is_Pad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
 //判断设备的操做系统是不是ios7
-#define IOS7 (［[UIDevice currentDevice].systemVersion doubleValue] >= 7.0]
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0]
 
 //判断当前设备是不是iphone5
-#define kScreenIphone5 ((［UIScreen mainScreen] bounds].size.height)>=568)
+#define kScreenIphone5 (([UIScreen mainScreen] bounds].size.height)>=568)
 
 
 //定义一个define函数
@@ -179,11 +179,11 @@
 #endif
 
 //检查系统版本
-#define SYSTEM_VERSION_EQUAL_TO(v) (［[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v) (［[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) (［[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN(v) (［[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v) (［[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+#define SYSTEM_VERSION_EQUAL_TO(v) ([[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v) ([[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v) ([[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v) ([[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 
 //----------------------系统----------------------------
@@ -214,7 +214,7 @@
 //----------------------图片----------------------------
 
 //读取本地图片
-#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:［NSBundle mainBundle]pathForResource:file ofType:ext］
+#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[NSBundle mainBundle]pathForResource:file ofType:ext］
 
 //定义UIImage对象
 #define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
@@ -289,7 +289,7 @@ static classname *shared##classname = nil; \
 { \
 if (shared##classname == nil) \
 { \
-shared##classname = ［self alloc] init]; \
+shared##classname = [self alloc] init]; \
 } \
 } \
 \

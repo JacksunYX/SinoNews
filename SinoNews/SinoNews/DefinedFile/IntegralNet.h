@@ -22,7 +22,8 @@
 //用户积分管理(get)
 #define PointsBalanceSheet  @"/api/points/viewPointsBalanceSheet"
 
-
+//积分充值(post)
+#define Mall_recharge   @"/api/mall/recharge"
 
 
 #endif /* IntegralNet_h */

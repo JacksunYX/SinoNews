@@ -83,7 +83,7 @@
 
     [self addViews];
     
-    [self updatePayBtnStatus:0 endEdite:YES];
+//    [self updatePayBtnStatus:0 endEdite:YES];
     
     [self requestToGetUserInfo];
 }
@@ -110,7 +110,7 @@
     [self.scrollView addGestureRecognizer:tap];
     
     [self setupTopViews];
-    [self setupCenterViews];
+//    [self setupCenterViews];
     [self setupBottomViews];
 }
 
@@ -144,7 +144,7 @@
     .heightEqualToWidth()
     ;
     [userIcon setSd_cornerRadius:@22];
-    userIcon.image = UIImageNamed(@"userIcon");
+//    userIcon.image = UIImageNamed(@"userIcon");
     
     userName.sd_layout
     .leftSpaceToView(userIcon, 7)
@@ -152,7 +152,7 @@
     .heightIs(kScaelW(15))
     ;
     [userName setSingleLineAutoResizeWithMaxWidth:150];
-    userName.text = @"春风十里不如你";
+//    userName.text = @"春风十里不如你";
     
     integer.sd_layout
     .rightSpaceToView(_scrollView, 10)
@@ -160,7 +160,7 @@
     .heightIs(kScaelW(14))
     ;
     [integer setSingleLineAutoResizeWithMaxWidth:150];
-    integer.text = @"1000000积分";
+//    integer.text = @"1000000积分";
     
     line.sd_layout
     .topSpaceToView(userIcon, 10)
@@ -169,6 +169,8 @@
     .heightIs(1)
     ;
     line.backgroundColor = RGBA(227, 227, 227, 1);
+    
+    [self.payBtnArr addObject:line];
 }
 
 //中部分
@@ -250,7 +252,8 @@
 //下部分
 -(void)setupBottomViews
 {
-    UIButton *lastBtn = (UIButton *)[self.payBtnArr lastObject];
+//    UIButton *lastBtn = (UIButton *)[self.payBtnArr lastObject];
+    UIView *lastBtn = (UIView *)[self.payBtnArr lastObject];
     UILabel *notice = [UILabel new];
     notice.font = FontScale(15);
     [notice addTitleColorTheme];
@@ -264,9 +267,9 @@
     .autoHeightRatio(0)
     ;
 
-    NSString *str1 = @"充值金额： 1元=";
+    NSString *str1 = @"充值金额： 1元 = ";
     NSString *integer = @"100";
-    NSString *str2 = @"分";
+    NSString *str2 = @"积分";
     NSString *totalStr = [[str1 stringByAppendingString:integer] stringByAppendingString:str2];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:totalStr];
     NSDictionary *dic = @{
@@ -437,9 +440,10 @@
 -(void)goToPay:(UIButton *)btn
 {
     if (!kStringIsEmpty(moneyInput.text)) {
-        NSDictionary *dic = self.rechargeType[payType];
-        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
-        LRToast(str);
+//        NSDictionary *dic = self.rechargeType[payType];
+//        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
+//        LRToast(str);
+        [self requestMall_rechargeWithAmount:[moneyInput.text doubleValue]];
     }else{
         LRToast(@"请选择需要的金额再进行充值~");
     }
@@ -471,7 +475,7 @@
     [payBtn setTitle:payStr forState:UIControlStateNormal];
 }
 
-
+#pragma mark ---- 请求发送
 //获取用户信息
 -(void)requestToGetUserInfo
 {
@@ -496,6 +500,21 @@
     } failure:nil];
 }
 
-
+//积分充值
+-(void)requestMall_rechargeWithAmount:(double)amount
+{
+    [HttpRequest postWithURLString:Mall_recharge parameters:@{@"amount":@(amount)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        NSString *rechargeUrl = response[@"data"][@"rechargeUrl"];
+        GGLog(@"充值地址：%@",rechargeUrl);
+        
+        WebViewController *wVC = [WebViewController new];
+        wVC.baseUrl = rechargeUrl;
+        [self.navigationController pushViewController:wVC animated:YES];
+    } failure:^(NSError *error) {
+        
+    } RefreshAction:^{
+        
+    }];
+}
 
 @end

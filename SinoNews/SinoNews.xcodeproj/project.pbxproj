@@ -273,6 +273,8 @@
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
+		4CC2898C2105A21D00BC4D92 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2898B2105A21D00BC4D92 /* WebViewController.m */; };
+		4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289922105AFA300BC4D92 /* UIDevice+Version.m */; };
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
@@ -848,6 +850,10 @@
 		4CB4196C20DA5ADF00EBF202 /* TopicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicModel.m; sourceTree = "<group>"; };
 		4CB4196F20DA793A00EBF202 /* UIScrollView+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Direction.h"; sourceTree = "<group>"; };
 		4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Direction.m"; sourceTree = "<group>"; };
+		4CC2898A2105A21D00BC4D92 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		4CC2898B2105A21D00BC4D92 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		4CC289912105AFA300BC4D92 /* UIDevice+Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Version.h"; sourceTree = "<group>"; };
+		4CC289922105AFA300BC4D92 /* UIDevice+Version.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Version.m"; sourceTree = "<group>"; };
 		4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansViewController.h; sourceTree = "<group>"; };
 		4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansViewController.m; sourceTree = "<group>"; };
 		4CCCF01E20EA1D2E000EC6BD /* MyFansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewCell.h; sourceTree = "<group>"; };
@@ -1330,6 +1336,8 @@
 				4C17412F20C4C83200AA6D57 /* ManagerViewController.m */,
 				4C149CB920E4FCC500D57D12 /* ExchangeProductViewController.h */,
 				4C149CBA20E4FCC500D57D12 /* ExchangeProductViewController.m */,
+				4CC2898A2105A21D00BC4D92 /* WebViewController.h */,
+				4CC2898B2105A21D00BC4D92 /* WebViewController.m */,
 				4C1D503020E5C8110002C53E /* Model */,
 				4C17413420C4D92500AA6D57 /* View */,
 			);
@@ -1439,6 +1447,7 @@
 				4CA141EF20F445E000536E77 /* UniversalMethod.m */,
 				4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */,
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
+				4CC2898D2105AF6D00BC4D92 /* UIDevice */,
 				4C72346420FCC26B00D5C5D4 /* UINavigationBar */,
 				4C4ED9E820E39B1500347974 /* UIViewController */,
 				4CB4196E20DA792A00EBF202 /* UIScrollView */,
@@ -2036,6 +2045,15 @@
 			path = UIScrollView;
 			sourceTree = "<group>";
 		};
+		4CC2898D2105AF6D00BC4D92 /* UIDevice */ = {
+			isa = PBXGroup;
+			children = (
+				4CC289912105AFA300BC4D92 /* UIDevice+Version.h */,
+				4CC289922105AFA300BC4D92 /* UIDevice+Version.m */,
+			);
+			path = UIDevice;
+			sourceTree = "<group>";
+		};
 		4CE121D020C0148700A44782 /* DLogName_Line */ = {
 			isa = PBXGroup;
 			children = (
@@ -2457,6 +2475,7 @@
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
 				4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */,
 				4C72347B20FD8C6D00D5C5D4 /* PYSearchViewController.m in Sources */,
+				4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */,
 				4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */,
 				4C03F5362101DE5900574136 /* ArticleModel.m in Sources */,
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,
@@ -2551,6 +2570,7 @@
 				4C7234D320FDEB1D00D5C5D4 /* AALabels.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
 				4C23B3B820F5924800ACE380 /* LMWordViewController.m in Sources */,
+				4CC2898C2105A21D00BC4D92 /* WebViewController.m in Sources */,
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */,
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,

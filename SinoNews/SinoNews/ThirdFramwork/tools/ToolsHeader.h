@@ -34,5 +34,6 @@
 #import "UIView+AddThemeMode.h"
 #import "MyEmptyView.h"
 #import "UINavigationBar+Awesome.h"
+#import "UIDevice+Version.h"
 
 #endif /* ToolsHeader_h */

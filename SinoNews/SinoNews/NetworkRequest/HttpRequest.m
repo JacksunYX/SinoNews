@@ -49,6 +49,9 @@
     NSString *token = GetSaveString(UserGet(@"token"));
     //    if (!kStringIsEmpty(token)) {
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"device_no"];
+    [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"app_version"];
+    [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"os_version"];
     //    }
     return manager;
 }

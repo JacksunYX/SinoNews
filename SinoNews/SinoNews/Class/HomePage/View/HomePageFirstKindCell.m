@@ -154,7 +154,7 @@
         bottomLabel.text = [NSString stringWithFormat:@"%ld 问答",model.commentCount];
     }else{
         typeLabel.text = @"专题";
-        titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
+        titletext = [@"" stringByAppendingString:GetSaveString(model.itemTitle)];
         bottomLabel.text = @"";
         typeLabel.backgroundColor = HexColor(#1282EE);
         typeLabel.textColor = WhiteColor;

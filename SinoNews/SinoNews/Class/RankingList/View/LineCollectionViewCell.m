@@ -33,6 +33,7 @@
 -(void)setupUI
 {
     backImg = [UIImageView new];
+    
 //    backImg.backgroundColor = Arc4randomColor;
     
     title = [UILabel new];
@@ -79,7 +80,7 @@
     _model = model;
 //    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.rankingLogo)];
 //    GGLog(@"imgStr：%@",imgStr);
-    [backImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.rankingLogo))];
+    [backImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.rankingLogo)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
     title.text = GetSaveString(model.rankingName);
     updateTime.text = GetSaveString(model.updateTime);
 }

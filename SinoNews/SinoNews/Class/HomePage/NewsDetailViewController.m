@@ -18,6 +18,8 @@
 #import "FontAndNightModeView.h"
 #import "ShareAndFunctionView.h"
 
+//未付费标记
+#define NoPayedNews (self.newsModel.isToll&&self.newsModel.hasPaid==0)
 
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 
@@ -36,6 +38,8 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
 @property (nonatomic,strong) UIButton *collectBtn;
+
+@property (nonatomic,strong) UIView *bottomView2;
 
 @property (nonatomic,assign) NSInteger parentId;
 
@@ -90,6 +94,90 @@ CGFloat static titleViewHeight = 91;
             self.navigationItem.rightBarButtonItems = @[more,fonts];
         }
     });
+}
+
+-(void)setTitle
+{
+    if (!self.titleView) {
+        self.titleView = [UIView new];
+        [self.titleView addBakcgroundColorTheme];
+        [self.view insertSubview:self.titleView belowSubview:self.tableView];
+        self.titleView.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .topEqualToView(self.view)
+        .heightIs(titleViewHeight)
+        ;
+        
+        _titleLabel = [UILabel new];
+        _titleLabel.font = [GetCurrentFont titleFont];
+        _titleLabel.numberOfLines = 2;
+        [_titleLabel addTitleColorTheme];
+        UIImageView *icon = [UIImageView new];
+        //        icon.backgroundColor = Arc4randomColor;
+        
+        UILabel *authorAndTime = [UILabel new];
+        authorAndTime.font = PFFontR(11);
+        authorAndTime.textColor = RGBA(152, 152, 152, 1);
+        
+        @weakify(self);
+        _attentionBtn = [UIButton new];
+        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
+        
+        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
+        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
+        [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            [self requestIsAttention];
+        }];
+        
+        _attentionBtn.titleLabel.font = PFFontR(13);
+        
+        [self.titleView sd_addSubviews:@[
+                                         _titleLabel,
+                                         icon,
+                                         authorAndTime,
+                                         _attentionBtn,
+                                         ]];
+        _titleLabel.sd_layout
+        .leftSpaceToView(self.titleView, 10)
+        .rightSpaceToView(self.titleView, 10)
+        .topEqualToView(self.titleView)
+        .heightIs(50)
+        ;
+        _titleLabel.text = GetSaveString(self.newsModel.newsTitle);
+        
+        icon.sd_layout
+        .leftEqualToView(_titleLabel)
+        .topSpaceToView(_titleLabel, 7)
+        .widthIs(24)
+        .heightEqualToWidth()
+        ;
+        [icon setSd_cornerRadius:@12];
+        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
+        
+        authorAndTime.sd_layout
+        .leftSpaceToView(icon, 3)
+        .centerYEqualToView(icon)
+        .heightIs(12)
+        ;
+        [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
+        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
+        
+        _attentionBtn.sd_layout
+        .rightSpaceToView(_titleView, 10)
+        .centerYEqualToView(icon)
+        .widthIs(58)
+        .heightIs(20)
+        ;
+        [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
+        [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
+        [_attentionBtn setSd_cornerRadius:@8];
+    }
+    _attentionBtn.selected = self.newsModel.isAttention;
+    _titleLabel.font = [GetCurrentFont titleFont];
+    [_titleLabel updateLayout];
 }
 
 -(void)setBottomView
@@ -217,7 +305,91 @@ CGFloat static titleViewHeight = 91;
     
     self.collectBtn.selected = self.newsModel.isCollection;
     self.praiseBtn.selected = self.newsModel.hasPraised;
-    
+    self.bottomView.hidden = NO;
+}
+
+-(void)setBottomView2
+{
+    if (!self.bottomView2) {
+        self.bottomView2 = [UIView new];
+        self.bottomView2.backgroundColor = WhiteColor;
+        [self.view addSubview:self.bottomView2];
+        self.bottomView2.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+        .heightIs(49)
+        ;
+        [self.bottomView2 updateLayout];
+        
+        UIButton *payBtn = [UIButton new];
+        payBtn.backgroundColor = RGBA(18, 130, 238, 1);
+        payBtn.titleLabel.font = PFFontL(15);
+        [payBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+        [payBtn setTitle:@"购买" forState:UIControlStateNormal];
+        @weakify(self)
+        [[payBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self)
+            [self requestPayForNews];
+        }];
+        
+        UILabel *priceLabel = [UILabel new];
+        priceLabel.font = PFFontR(16);
+        priceLabel.textColor = RGBA(18, 130, 238, 1);
+        priceLabel.text = [NSString stringWithFormat:@"  %ld积分",self.newsModel.points];
+        
+        [self.bottomView2 sd_addSubviews:@[
+                                          payBtn,
+                                          priceLabel,
+                                          ]];
+        payBtn.sd_layout
+        .topEqualToView(self.bottomView2)
+        .rightEqualToView(self.bottomView2)
+        .bottomEqualToView(self.bottomView2)
+        .widthIs(95)
+        ;
+        [payBtn updateLayout];
+        
+        priceLabel.sd_layout
+        .topEqualToView(self.bottomView2)
+        .leftEqualToView(self.bottomView2)
+        .rightSpaceToView(payBtn, 0)
+        .bottomEqualToView(self.bottomView2)
+        ;
+        [priceLabel updateLayout];
+        [priceLabel addBorderTo:BorderTypeTop borderColor:RGBA(227, 227, 227, 1)];
+    }
+    self.bottomView2.hidden = NO;
+}
+
+//下方视图具体显示哪一个
+-(void)showBottomView
+{
+    //收费文章，但是未付费,未付费时不显示评论
+    if (NoPayedNews) {
+        [self setBottomView2];
+        self.bottomView.hidden = YES;
+        _tableView.mj_footer = nil;
+    }else{
+        [self setBottomView];
+        self.bottomView2.hidden = YES;
+        
+        @weakify(self);
+        _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+            @strongify(self);
+            if (self.webView.loading) {
+                [self.tableView.mj_footer endRefreshing];
+                return ;
+            }
+            if (!self.commentsArr.count) {
+                self.currPage = 1;
+            }else{
+                self.currPage++;
+            }
+            [self requestComments];
+        }];
+        [self refreshComments];
+    }
 }
 
 -(void)addTableView
@@ -229,8 +401,7 @@ CGFloat static titleViewHeight = 91;
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    //    .bottomSpaceToView(self.bottomView, 0)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 48)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 49)
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
@@ -247,105 +418,7 @@ CGFloat static titleViewHeight = 91;
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
-    @weakify(self);
-    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-        @strongify(self);
-        if (self.webView.loading) {
-            [self.tableView.mj_footer endRefreshing];
-            return ;
-        }
-        if (!self.commentsArr.count) {
-            self.currPage = 1;
-        }else{
-            self.currPage++;
-        }
-        [self requestComments];
-    }];
     
-}
-
--(void)setTitle
-{
-    if (!self.titleView) {
-        self.titleView = [UIView new];
-        [self.titleView addBakcgroundColorTheme];
-        [self.view insertSubview:self.titleView belowSubview:self.tableView];
-        self.titleView.sd_layout
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .topEqualToView(self.view)
-        .heightIs(titleViewHeight)
-        ;
-        
-        _titleLabel = [UILabel new];
-        _titleLabel.font = [GetCurrentFont titleFont];
-        _titleLabel.numberOfLines = 2;
-        [_titleLabel addTitleColorTheme];
-        UIImageView *icon = [UIImageView new];
-//        icon.backgroundColor = Arc4randomColor;
-        
-        UILabel *authorAndTime = [UILabel new];
-        authorAndTime.font = PFFontR(11);
-        authorAndTime.textColor = RGBA(152, 152, 152, 1);
-        
-        @weakify(self);
-        _attentionBtn = [UIButton new];
-        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
-        
-        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
-        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
-        [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            @strongify(self);
-            [self requestIsAttention];
-        }];
-        
-        _attentionBtn.titleLabel.font = PFFontR(13);
-        
-        [self.titleView sd_addSubviews:@[
-                                         _titleLabel,
-                                         icon,
-                                         authorAndTime,
-                                         _attentionBtn,
-                                         ]];
-        _titleLabel.sd_layout
-        .leftSpaceToView(self.titleView, 10)
-        .rightSpaceToView(self.titleView, 10)
-        .topEqualToView(self.titleView)
-        .heightIs(50)
-        ;
-        _titleLabel.text = GetSaveString(self.newsModel.newsTitle);
-        
-        icon.sd_layout
-        .leftEqualToView(_titleLabel)
-        .topSpaceToView(_titleLabel, 7)
-        .widthIs(24)
-        .heightEqualToWidth()
-        ;
-        [icon setSd_cornerRadius:@12];
-        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
-        
-        authorAndTime.sd_layout
-        .leftSpaceToView(icon, 3)
-        .centerYEqualToView(icon)
-        .heightIs(12)
-        ;
-        [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
-        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
-        
-        _attentionBtn.sd_layout
-        .rightSpaceToView(_titleView, 10)
-        .centerYEqualToView(icon)
-        .widthIs(58)
-        .heightIs(20)
-        ;
-        [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
-        [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
-        [_attentionBtn setSd_cornerRadius:@8];
-    }
-    _attentionBtn.selected = self.newsModel.isAttention;
-    _titleLabel.font = [GetCurrentFont titleFont];
-    [_titleLabel updateLayout];
 }
 
 //刷新评论
@@ -353,6 +426,16 @@ CGFloat static titleViewHeight = 91;
 {
     self.currPage = 0;
     [self.tableView.mj_footer beginRefreshing];
+}
+
+//字体
+-(void)fontsSelect
+{
+    @weakify(self)
+    [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
+        @strongify(self)
+        [self setWebViewLoad];
+    }];
 }
 
 //更多
@@ -426,7 +509,9 @@ CGFloat static titleViewHeight = 91;
     
     
     //加载页面
+    
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
@@ -434,25 +519,14 @@ CGFloat static titleViewHeight = 91;
     [self showOrHideLoadView:YES page:2];
 }
 
-//字体
--(void)fontsSelect
-{
-    @weakify(self)
-    [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
-        @strongify(self)
-        [self setWebViewLoad];
-    }];
-}
 
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     
-    [self refreshComments];
-    
     [self showOrHideLoadView:NO page:2];
     
-    [self setBottomView];
+    [self showBottomView];
     
     [self setNavigationBtns];
     
@@ -574,6 +648,7 @@ CGFloat static titleViewHeight = 91;
         cell = (CommentCell *)cell2;
     }
     [cell addBakcgroundColorTheme];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -584,7 +659,7 @@ CGFloat static titleViewHeight = 91;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 1&&self.commentsArr.count<=0){
+    if (section == 1&&self.commentsArr.count<=0&&!NoPayedNews){
         return 90;
     }
     return 0.01;
@@ -595,6 +670,9 @@ CGFloat static titleViewHeight = 91;
     if (section == 0&&self.newsModel.relatedNews.count) {
         return 30;
     }else if (section == 1){
+        if (NoPayedNews) {
+            return 230;
+        }
         return 30;
     }
     return 0.01;
@@ -602,9 +680,10 @@ CGFloat static titleViewHeight = 91;
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headView = [UIView new];
-    headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    UIView *headView;
     if (section == 0&&self.newsModel.relatedNews.count) {
+        headView = [UIView new];
+        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         UILabel *title = [UILabel new];
         title.font = PFFontR(16);
         title.textAlignment = NSTextAlignmentCenter;
@@ -631,32 +710,81 @@ CGFloat static titleViewHeight = 91;
         .widthIs(14)
         ;
         [line setSd_cornerRadius:@1];
-    }else if (section == 1&&self.newsModel){
-        UILabel *title = [UILabel new];
-        title.font = PFFontR(13);
-        title.lee_theme.LeeConfigTextColor(@"titleColor");
-        [headView addSubview:title];
-        //布局
-        title.sd_layout
-        .centerYEqualToView(headView)
-        .leftSpaceToView(headView, 10)
-        .rightSpaceToView(headView, 10)
-        .autoHeightRatio(0)
-        ;
-        if (self.newsModel) {
-            NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
-            title.text = [NSString stringWithFormat:@"全部评论（%ld）",count];
-        }else{
-            title.text = @"全部评论";
+    }else if (section == 1){
+        headView = [UIView new];
+        if (NoPayedNews) {
+            //添加文本和提示
+            UILabel *noticeLabel = [UILabel new];
+            noticeLabel.font = PFFontR(15);
+            noticeLabel.textColor = RGBA(50, 50, 50, 1);
+            noticeLabel.numberOfLines = 0;
+            
+            UIImageView *lockImg = [UIImageView new];
+            
+            UILabel *moreNotice = [UILabel new];
+            moreNotice.textColor = RGBA(136, 136, 136, 1);
+            moreNotice.font = PFFontL(14);
+            moreNotice.textAlignment = NSTextAlignmentCenter;
+            
+            [headView sd_addSubviews:@[
+                                       noticeLabel,
+                                       moreNotice,
+                                       lockImg,
+                                       ]];
+            noticeLabel.sd_layout
+            .leftSpaceToView(headView, 10)
+            .rightSpaceToView(headView, 10)
+            .topSpaceToView(headView, 10)
+            .autoHeightRatio(0)
+            ;
+            [noticeLabel setMaxNumberOfLinesToShow:4];
+            noticeLabel.text = @"本文来自启世录资讯付费文章，覆盖投资精英必读核心资讯，请付费阅读。欢迎关注环球国际时报，实时了解最新资讯。";
+            
+            moreNotice.sd_layout
+            .bottomSpaceToView(headView, 50)
+            .leftSpaceToView(headView, 10)
+            .rightSpaceToView(headView, 10)
+            .heightIs(14)
+            ;
+            moreNotice.text = @"还有更多精彩内容 付费解锁全文";
+            
+            lockImg.sd_layout
+            .centerXEqualToView(headView)
+            .bottomSpaceToView(moreNotice, 10)
+            .widthIs(55)
+            .heightEqualToWidth()
+            ;
+            lockImg.image = UIImageNamed(@"new_locked");
+            
+        }else if(self.newsModel){
+            UILabel *title = [UILabel new];
+            title.font = PFFontR(13);
+            title.lee_theme.LeeConfigTextColor(@"titleColor");
+            [headView addSubview:title];
+            //布局
+            title.sd_layout
+            .centerYEqualToView(headView)
+            .leftSpaceToView(headView, 10)
+            .rightSpaceToView(headView, 10)
+            .autoHeightRatio(0)
+            ;
+            if (self.newsModel) {
+                NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
+                title.text = [NSString stringWithFormat:@"全部评论（%ld）",count];
+            }else{
+                title.text = @"全部评论";
+            }
         }
+        
     }
+    
     return headView;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
-    if (section == 1&&self.commentsArr.count<=0) {
+    if (section == 1&&self.commentsArr.count<=0&&!NoPayedNews) {
         footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
         footView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         
@@ -681,13 +809,21 @@ CGFloat static titleViewHeight = 91;
     [self.view endEditing:YES];
     if (indexPath.section == 0) {
         HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
-        if (model.itemType>=500&&model.itemType<600) { //问答
+        if (model.itemType>=400&&model.itemType<500) { //投票
+            VoteViewController *vVC = [VoteViewController new];
+            vVC.newsId = model.itemId;
+            [self.navigationController pushViewController:vVC animated:YES];
+        }else if (model.itemType>=500&&model.itemType<600) { //问答
             CatechismViewController *cVC = [CatechismViewController new];
             cVC.news_id = model.itemId;
             [self.navigationController pushViewController:cVC animated:YES];
+        }else if (model.itemType>=200&&model.itemType<300) {    //专题
+            TopicViewController *tVC = [TopicViewController new];
+            tVC.topicId = model.itemId;
+            [self.navigationController pushViewController:tVC animated:YES];
         }else{
             NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = [(HomePageModel *)model itemId];
+            ndVC.newsId = model.itemId;
             [self.navigationController pushViewController:ndVC animated:YES];
         }
     }else if (indexPath.section == 1) {
@@ -747,9 +883,9 @@ CGFloat static titleViewHeight = 91;
     
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
-//        if (!self.webView.URL.absoluteString) {
+
         [self setWebViewLoad];
-//        }
+        
         [HomePageModel saveWithNewsModel:self.newsModel];
         
         [self.tableView reloadData];
@@ -953,6 +1089,20 @@ CGFloat static titleViewHeight = 91;
         LRToast(@"分享成功");
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
+    }];
+}
+
+//支付一篇付费文章
+-(void)requestPayForNews
+{
+    [HttpRequest postWithURLString:PayForNews parameters:@{@"newsId":@(self.newsId)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"支付成功");
+        self.newsModel.hasPaid = YES;
+        [self setWebViewLoad];
+    } failure:^(NSError *error) {
+        
+    } RefreshAction:^{
+        
     }];
 }
 

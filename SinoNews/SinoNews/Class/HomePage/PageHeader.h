@@ -14,5 +14,6 @@
 #import "CatechismViewController.h"
 #import "WebViewController.h"
 #import "VoteViewController.h"
+#import "TopicViewController.h"
 
 #endif /* PageHeader_h */

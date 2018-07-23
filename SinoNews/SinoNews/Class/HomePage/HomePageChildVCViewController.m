@@ -231,7 +231,7 @@
         cell3.model = model;
         cell = (UITableViewCell *)cell3;
     }
-    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [cell addBakcgroundColorTheme];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

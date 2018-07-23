@@ -210,13 +210,14 @@ CGFloat static titleViewHeight = 91;
     config.userContentController = wkUController;
     // 设置偏好设置对象
     config.preferences = preference;
-    self.webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:config];
+    //默认高度给1，防止网页是纯图片时无法撑开
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
     [self.view addSubview:self.webView];
-    self.topWebHeight = 1;  //默认给1，防止网页纯图片无法撑开
+    
     //KVO监听web的高度变化
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {

@@ -37,6 +37,6 @@ pod 'ReactiveObjC'
 pod 'MLeaksFinder'
 pod 'RTRootNavigationController'
 pod 'LEETheme'
-
+pod 'XHLaunchAd'
 
 end

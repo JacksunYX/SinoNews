@@ -20,15 +20,15 @@
 
 
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
-{
-    CGFloat topWebHeight;
-}
+
+
 @property (nonatomic,strong) UITextField *commentInput;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
 @property (nonatomic,strong) NormalNewsModel *newsModel;    //新闻模型
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
+@property (nonatomic,assign) CGFloat topWebHeight;
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIButton *attentionBtn;
@@ -422,21 +422,22 @@ CGFloat static titleViewHeight = 91;
     config.userContentController = wkUController;
     // 设置偏好设置对象
     config.preferences = preference;
-    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
+    //默认高度给1，防止网页是纯图片时无法撑开
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
     self.webView.userInteractionEnabled = NO;
-    topWebHeight = 1;  //默认给1，防止网页纯图片无法撑开
+    
     //KVO监听web的高度变化
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
         @strongify(self)
 //        GGLog(@"x:%@",x);
         CGFloat newHeight = self.webView.scrollView.contentSize.height;
-        if (newHeight != self->topWebHeight) {
-            self->topWebHeight = newHeight;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, self->topWebHeight);
+        if (newHeight != self.topWebHeight) {
+            self.topWebHeight = newHeight;
+            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
 //            GGLog(@"topWebHeight:%lf",topWebHeight);
             [self.tableView beginUpdates];
             self.tableView.tableHeaderView = self.webView;

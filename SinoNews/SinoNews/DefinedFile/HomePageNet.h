@@ -71,6 +71,16 @@
 //添加回答的评论或回复(post)
 #define AnswerComment           @"/api/answerComment"
 
+#pragma mark ---- 投票相关接口
+
+
+
+//支付一篇付费文章(post)
+#define PayForNews              @"/api/news/payForNews"
+
+
+
+
 
 
 

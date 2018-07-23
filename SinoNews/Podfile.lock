@@ -24,6 +24,7 @@ PODS:
   - FBRetainCycleDetector (0.1.4)
   - FCUUID (1.3.1):
     - UICKeyChainStore (~> 2.1.0)
+  - FLAnimatedImage (1.0.12)
   - GHConsole (1.3.0)
   - IQKeyboardManager (6.1.1)
   - LEETheme (1.1.7)
@@ -44,6 +45,8 @@ PODS:
   - SDWebImage/Core (4.4.2)
   - Toast (4.0.0)
   - UICKeyChainStore (2.1.1)
+  - XHLaunchAd (3.9.7):
+    - FLAnimatedImage (~> 1.0.12)
   - ZYKeyboardUtil (1.0.7)
 
 DEPENDENCIES:
@@ -65,6 +68,7 @@ DEPENDENCIES:
   - SDAutoLayout (~> 2.1.3)
   - SDWebImage
   - Toast
+  - XHLaunchAd
   - ZYKeyboardUtil
 
 SPEC REPOS:
@@ -74,6 +78,7 @@ SPEC REPOS:
     - BGFMDB
     - FBRetainCycleDetector
     - FCUUID
+    - FLAnimatedImage
     - GHConsole
     - IQKeyboardManager
     - LEETheme
@@ -89,6 +94,7 @@ SPEC REPOS:
     - SDWebImage
     - Toast
     - UICKeyChainStore
+    - XHLaunchAd
     - ZYKeyboardUtil
 
 SPEC CHECKSUMS:
@@ -97,6 +103,7 @@ SPEC CHECKSUMS:
   BGFMDB: cd5e468218d4c7345862d814d313c0888db3a66a
   FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GHConsole: 8fa768c1b30139e7baa192508ead18fd71f4b7db
   IQKeyboardManager: 79c57795f5c2408d259d37b9da2ed07efcbb5225
   LEETheme: e5dc623fe58ee9f2b973e9a7445267e3e972deb4
@@ -112,8 +119,9 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
+  XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 1e917390dc13b11004a73b12a5f71bf3b95b8c69
+PODFILE CHECKSUM: 3a0d8d0e1907208d3906dbdf36bde2f996f00777
 
 COCOAPODS: 1.5.3

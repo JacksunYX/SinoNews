@@ -275,6 +275,7 @@
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
 		4CC2898C2105A21D00BC4D92 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2898B2105A21D00BC4D92 /* WebViewController.m */; };
 		4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289922105AFA300BC4D92 /* UIDevice+Version.m */; };
+		4CC289962105BD5F00BC4D92 /* VoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289952105BD5F00BC4D92 /* VoteViewController.m */; };
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
@@ -854,6 +855,8 @@
 		4CC2898B2105A21D00BC4D92 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		4CC289912105AFA300BC4D92 /* UIDevice+Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Version.h"; sourceTree = "<group>"; };
 		4CC289922105AFA300BC4D92 /* UIDevice+Version.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Version.m"; sourceTree = "<group>"; };
+		4CC289942105BD5F00BC4D92 /* VoteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoteViewController.h; sourceTree = "<group>"; };
+		4CC289952105BD5F00BC4D92 /* VoteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoteViewController.m; sourceTree = "<group>"; };
 		4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansViewController.h; sourceTree = "<group>"; };
 		4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansViewController.m; sourceTree = "<group>"; };
 		4CCCF01E20EA1D2E000EC6BD /* MyFansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewCell.h; sourceTree = "<group>"; };
@@ -1285,6 +1288,8 @@
 				4C7234F420FEEB8800D5C5D4 /* CatechismSecondeViewController.m */,
 				4C7234F620FF0E6700D5C5D4 /* Q_APublishViewController.h */,
 				4C7234F720FF0E6700D5C5D4 /* Q_APublishViewController.m */,
+				4CC289942105BD5F00BC4D92 /* VoteViewController.h */,
+				4CC289952105BD5F00BC4D92 /* VoteViewController.m */,
 				4C3F905620BD70E8003EC4FC /* Model */,
 				4C3F903C20BD4092003EC4FC /* View */,
 			);
@@ -2585,6 +2590,7 @@
 				4C646C6820F33E700053067A /* NewNotifyViewController.m in Sources */,
 				4C3F8FA120BCD893003EC4FC /* AppDelegate.m in Sources */,
 				4C72345E20FC6E4200D5C5D4 /* UIView+Empty.m in Sources */,
+				4CC289962105BD5F00BC4D92 /* VoteViewController.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,

@@ -14,13 +14,14 @@
 +(NSString *)appVersion
 {
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-    CFShow((__bridge CFTypeRef)(info));
+//    CFShow((__bridge CFTypeRef)(info));
     
     // app名称
 //    NSString *app_Name = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     
     // app版本
     NSString *app_version = info[@"CFBundleShortVersionString"];
+//    GGLog(@"app版本号：%@",app_version);
     // app build版本
 //    NSString *app_build = infoDictionary[@"CFBundleVersion"];
     

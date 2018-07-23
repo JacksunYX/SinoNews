@@ -14,6 +14,6 @@
 /**
  显示
  */
-+(void)showWithCollect:(BOOL)collect returnBlock:(void(^)(NSInteger section,NSInteger row)) clickBlock;
++(void)showWithCollect:(BOOL)collect returnBlock:(void(^)(NSInteger section,NSInteger row, MGShareToPlateform sharePlateform)) clickBlock;
 
 @end

@@ -35,6 +35,10 @@
 @property (nonatomic,assign) NSInteger userId;          //发布者id
 
 @property (nonatomic,assign) NSInteger viewCount;   //阅读量
+
+//新增,投票网页地址
+@property (nonatomic,strong) NSString *voteUrl;
+
 //这里暂时用来判断是哪种展示方式：100无图 101一图
 @property (nonatomic, assign) NSInteger itemType;   //1为普通新闻
 @property (nonatomic, assign) NSInteger itemId;     //条目id

@@ -21,15 +21,23 @@ static bool isCollect = NO;
     if (!_shareArray) {
         _shareArray = [NSMutableArray array];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechat") title:@"微信好友" action:nil]];
+        if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
+            [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechat") title:@"微信好友" action:nil]];
+            
+            [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechatFriend") title:@"微信朋友圈" action:nil]];
+        }
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechatFriend") title:@"微信朋友圈" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qq") title:@"QQ好友" action:nil]];
+        if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+            [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qq") title:@"QQ好友" action:nil]];
+            
+            [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qqZone") title:@"QQ空间" action:nil]];
+        }
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_qqZone") title:@"QQ空间" action:nil]];
         
-        [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_sina") title:@"新浪微博" action:nil]];
+        if ([MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
+            [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_sina") title:@"新浪微博" action:nil]];
+        }
         
         //        [_shareArray addObject:[[IFMShareItem alloc]initWithImage:UIImageNamed(@"share_email") title:@"邮件分享" actionName:IFMPlatformHandleEmail]];
         
@@ -44,7 +52,7 @@ static bool isCollect = NO;
     return _shareArray;
 }
 
-+(void)showWithCollect:(BOOL)collect returnBlock:(void (^)(NSInteger, NSInteger))clickBlock
++(void)showWithCollect:(BOOL)collect returnBlock:(void (^)(NSInteger, NSInteger , MGShareToPlateform))clickBlock
 {
     isCollect = collect;
     IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[[self new] shareArray] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];
@@ -78,49 +86,61 @@ static bool isCollect = NO;
     
     [shareView showFromControlle:[HttpRequest getCurrentVC]];
     
+    __block MGShareToPlateform sharePlateform;
     shareView.clickBlock = ^(NSInteger section, NSInteger row) {
         if (section == 0 && row!=5) {
-            NSUInteger sharePlateform = 0;
-            switch (row) {
-                    //微信
-                case 0:
-                case 1:
-                {
-                    if (![MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]||![MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
-                        LRToast(@"请先安装微信");
-                        return ;
-                    }
+            //1先判断是否有微信
+            
+            if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
+                //有微信
+                if (row == 0) {
+                    sharePlateform = MGShareToWechatSession;
+                }else if (row == 1){
+                    sharePlateform = MGShareToWechatTimeline;
+                }else{
                     
-                }
-                    break;
-                    //qq
-                case 2:
-                case 3:
-                {
-                    if (![MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]||![MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
-                        LRToast(@"请先安装QQ");
-                        return ;
+                    //2.超过2个了,需要先判断有没有qq
+                    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                        //有
+                        if (row == 2) {
+                            sharePlateform = MGShareToQQ;
+                        }else if (row == 3){
+                            sharePlateform = MGShareToQzone;
+                        }else if (row == 4){
+                            sharePlateform = MGShareToSina;
+                        }
+                    }else{
+                        //没有
+                        if (row == 2) {
+                            sharePlateform = MGShareToSina;
+                        }
                     }
                 }
-                    break;
-                    //微博
-                case 4:
-                {
-                    if (![MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
-                        LRToast(@"请先安装微博");
-                        return ;
+                
+            }else{
+                //没有微信
+                //先判断是否有qq
+                if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                    //有
+                    if (row == 0) {
+                        sharePlateform = MGShareToQQ;
+                    }else if (row == 1){
+                        sharePlateform = MGShareToQzone;
+                    }else if (row == 2){
+                        sharePlateform = MGShareToSina;
+                    }
+                }else{
+                    //没有
+                    if (row == 0) {
+                        sharePlateform = MGShareToSina;
                     }
                 }
-                    break;
-                    
-                default:
-                    break;
             }
             
         }
         
         if (clickBlock) {
-            clickBlock(section,row);
+            clickBlock(section,row,sharePlateform);
         }
     };
 }

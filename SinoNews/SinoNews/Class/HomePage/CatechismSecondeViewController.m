@@ -362,33 +362,10 @@ CGFloat static titleViewHeight = 91;
 //更多
 -(void)moreSelect
 {
-    
     @weakify(self)
-    [ShareAndFunctionView showWithCollect:YES returnBlock:^(NSInteger section, NSInteger row) {
+    [ShareAndFunctionView showWithCollect:YES returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self)
-        //        GGLog(@"点击了第%lu行第%lu个",section,row);
-        if (section == 0 && row!=5) {
-            NSUInteger sharePlateform = 0;
-            switch (row) {
-                case 0:
-                    sharePlateform = MGShareToWechatSession;
-                    break;
-                case 1:
-                    sharePlateform = MGShareToWechatTimeline;
-                    break;
-                case 2:
-                    sharePlateform = MGShareToQQ;
-                    break;
-                case 3:
-                    sharePlateform = MGShareToQzone;
-                    break;
-                case 4:
-                    sharePlateform = MGShareToSina;
-                    break;
-                    
-                default:
-                    break;
-            }
+        if (section == 0) {
             [self shareToPlatform:sharePlateform];
         }else if (section==1) {
             if (row == 0) {
@@ -444,7 +421,7 @@ CGFloat static titleViewHeight = 91;
     
     [self setBottomView];
     
-    [self setNavigationBtns];
+//    [self setNavigationBtns];
     
     GCDAfterTime(0.5, ^{
         [self setTitle];

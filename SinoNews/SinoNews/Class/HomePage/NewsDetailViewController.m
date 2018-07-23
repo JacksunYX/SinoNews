@@ -362,31 +362,9 @@ CGFloat static titleViewHeight = 91;
         return;
     }
     @weakify(self)
-    [ShareAndFunctionView showWithCollect:self.newsModel.isCollection returnBlock:^(NSInteger section, NSInteger row) {
+    [ShareAndFunctionView showWithCollect:YES returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self)
-        //        GGLog(@"点击了第%lu行第%lu个",section,row);
-        if (section == 0 && row!=5) {
-            NSUInteger sharePlateform = 0;
-            switch (row) {
-                case 0:
-                    sharePlateform = MGShareToWechatSession;
-                    break;
-                case 1:
-                    sharePlateform = MGShareToWechatTimeline;
-                    break;
-                case 2:
-                    sharePlateform = MGShareToQQ;
-                    break;
-                case 3:
-                    sharePlateform = MGShareToQzone;
-                    break;
-                case 4:
-                    sharePlateform = MGShareToSina;
-                    break;
-                    
-                default:
-                    break;
-            }
+        if (section == 0) {
             [self shareToPlatform:sharePlateform];
         }else if (section==1) {
             if (row == 0) {
@@ -401,6 +379,7 @@ CGFloat static titleViewHeight = 91;
             
         }
     }];
+    
 }
 
 //设置网页
@@ -960,16 +939,20 @@ CGFloat static titleViewHeight = 91;
         shareModel.contentType = MGShareContentTypeWebPage;
         shareModel.title = self.newsModel.newsTitle;
         shareModel.url = urlStr;
-        shareModel.content = @"";
-        shareModel.thumbImage = [UIImage imageNamed:@""];
+        shareModel.content = self.newsModel.author;
+        shareModel.thumbImage = UIImageNamed(@"AppIcon");
+        
+        if (self.newsModel.images.count>0) {
+            shareModel.image = self.newsModel.images[0];
+        }
+        
     }
     
     //分享
     [[MGSocialShareHelper defaultShareHelper]  shareMode:shareModel toSharePlatform:type showInController:self successBlock:^{
-        GGLog(@"分享成功");
+        LRToast(@"分享成功");
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
-        
     }];
 }
 

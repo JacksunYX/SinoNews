@@ -65,8 +65,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 {
     BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
     statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    statTracker.enableDebugOn = YES;
-    statTracker.enableExceptionLog = NO;
+    statTracker.enableDebugOn = NO;
+    statTracker.enableExceptionLog = YES;
     // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
     [statTracker startWithAppId:@"565a224155"];
 }

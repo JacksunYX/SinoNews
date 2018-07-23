@@ -158,6 +158,7 @@
         self.page++;
         
         if ([self.news_id integerValue]) {
+            self.page = 1;
             [self requestNews_list:1];
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){
             [self requestAttentionNews];
@@ -256,7 +257,9 @@
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = model;
         if (model1.itemType>=400&&model1.itemType<500) { //投票
-            LRToast(@"投票文章还在加工中...");
+            VoteViewController *vVC = [VoteViewController new];
+            vVC.newsId = model1.itemId;
+            [self.navigationController pushViewController:vVC animated:YES];
         }else if (model1.itemType>=500&&model1.itemType<600) { //问答
             CatechismViewController *cVC = [CatechismViewController new];
             cVC.news_id = model1.itemId;

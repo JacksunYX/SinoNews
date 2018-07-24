@@ -1,0 +1,17 @@
+//
+//  DefinedColorHeader.h
+//  SinoNews
+//
+//  Created by Michael on 2018/7/24.
+//  Copyright © 2018年 Sino. All rights reserved.
+//
+//项目通用颜色等
+
+#ifndef DefinedColorHeader_h
+#define DefinedColorHeader_h
+
+//首页标题文字颜色
+#define NewsTitle_homePage  @"#1a1a1a"
+
+
+#endif /* DefinedColorHeader_h */

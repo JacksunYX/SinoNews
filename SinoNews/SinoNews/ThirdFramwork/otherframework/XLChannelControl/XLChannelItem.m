@@ -40,8 +40,10 @@
     _textLabel = [UILabel new];
     _textLabel.frame = self.bounds;
     _textLabel.textAlignment = NSTextAlignmentCenter;
-    _textLabel.textColor = [self textColor];
+//    _textLabel.textColor = [self textColor];
+    [_textLabel addContentColorTheme];
     _textLabel.adjustsFontSizeToFitWidth = true;
+    _textLabel.font = PFFontL(15);
 //    _textLabel.userInteractionEnabled = true;
     [self addSubview:_textLabel];
     

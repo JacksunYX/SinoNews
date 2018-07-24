@@ -203,6 +203,8 @@ CGFloat static titleViewHeight = 91;
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
         .heightIs(49)
         ;
+        [self.bottomView updateLayout];
+        [self.bottomView addBorderTo:BorderTypeTop borderColor:HexColor(#F2F2F2)];
         
         self.commentInput = [UITextField new];
         self.commentInput.delegate = self;
@@ -431,7 +433,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
-    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
+//    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
     _tableView.enableDirection = YES;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册

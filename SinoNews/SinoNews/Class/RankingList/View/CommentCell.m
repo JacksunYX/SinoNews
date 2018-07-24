@@ -62,7 +62,7 @@
     comment = [UILabel new];
     comment.font = PFFontL(14);
     comment.numberOfLines = 0;
-    [comment addContentColorTheme];
+    [comment addTitleColorTheme];
     
     createTime = [UILabel new];
     createTime.font = PFFontL(11);
@@ -76,6 +76,9 @@
     bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
 //    [bottomBackView addBakcgroundColorTheme];
     
+    UIView *sepLine = [UIView new];
+    sepLine.backgroundColor = HexColor(#E3E3E3);
+    
     UIView *fatherView = self.contentView;
     @weakify(self);
     
@@ -87,6 +90,7 @@
                                  createTime,
                                  replyBtn,
                                  bottomBackView,
+                                 sepLine,
                                  ]];
     
     avatar.sd_layout
@@ -106,7 +110,7 @@
     ;
 //    praise.backgroundColor = Arc4randomColor;
     praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -50);
-    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
     [praise setNormalImage:UIImageNamed(@"company_unPraise")];
     [praise setSelectedImage:UIImageNamed(@"company_praised")];
     
@@ -175,6 +179,13 @@
 //    second.userInteractionEnabled = YES;
     
     checkImg = [UIImageView new];
+    
+    sepLine.sd_layout
+    .leftEqualToView(comment)
+    .rightSpaceToView(fatherView, 10)
+    .bottomEqualToView(fatherView)
+    .heightIs(1)
+    ;
     
     [bottomBackView sd_addSubviews:@[
                                      first,

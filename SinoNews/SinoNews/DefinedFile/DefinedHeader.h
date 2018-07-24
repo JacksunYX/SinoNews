@@ -237,6 +237,8 @@
 #define PFFontL(F) [UIFont fontWithName:@"PingFangSC-Light" size:F]
 //苹方Regular
 #define PFFontR(F) [UIFont fontWithName:@"PingFangSC-Regular" size:F]
+//苹方Medium
+#define PFFontM(F) [UIFont fontWithName:@"PingFangSC-Medium" size:F]
 
 #define Font(F) [UIFont systemFontOfSize:F]
 

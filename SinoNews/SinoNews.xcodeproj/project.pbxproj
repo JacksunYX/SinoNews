@@ -381,6 +381,7 @@
 		4C1B5ADB2106D84600A47563 /* PopNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopNoticeView.m; sourceTree = "<group>"; };
 		4C1B5ADD2107268E00A47563 /* UIBarButtonItem+SXCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SXCreate.h"; sourceTree = "<group>"; };
 		4C1B5ADE2107268E00A47563 /* UIBarButtonItem+SXCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+SXCreate.m"; sourceTree = "<group>"; };
+		4C1B5AE021072E6000A47563 /* DefinedColorHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefinedColorHeader.h; sourceTree = "<group>"; };
 		4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFourthCell.h; sourceTree = "<group>"; };
 		4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFourthCell.m; sourceTree = "<group>"; };
 		4C1C6DE320E468D200637E2A /* SignInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1258,6 +1259,7 @@
 			children = (
 				4C3F8FD720BCDCE8003EC4FC /* BaseConfiguration.pch */,
 				4C3F903120BD1D23003EC4FC /* DefinedHeader.h */,
+				4C1B5AE021072E6000A47563 /* DefinedColorHeader.h */,
 				4C3F8FE420BCE5D1003EC4FC /* NetQuestList.h */,
 				4C3F8FE520BCE625003EC4FC /* HomePageNet.h */,
 				4C3F8FE620BCE63B003EC4FC /* AttentionNet.h */,

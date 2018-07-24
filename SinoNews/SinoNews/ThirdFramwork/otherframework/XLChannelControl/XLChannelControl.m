@@ -76,7 +76,9 @@
     
     _nav.topViewController.title = @"全部频道";
     _nav.topViewController.view = _channelView;
-    _nav.topViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];
+    UIBarButtonItem *item = [UIBarButtonItem fixedSpaceWithWidth:10];
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];
+    _nav.topViewController.navigationItem.rightBarButtonItems = @[item,item2];
 }
 
 -(void)backMethod

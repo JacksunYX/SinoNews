@@ -204,7 +204,7 @@
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:[self getTitlesArrFromArr:self.titleList] headStyle:1 layoutStyle:2];
     
     //    _segHead.fontScale = .85;
-    _segHead.lineScale = 0.5;
+    _segHead.lineScale = 0.4;
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
@@ -227,6 +227,8 @@
         [weakself.view addSubview:weakself.segScroll];
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
+    _segHead.getLineView.layer.cornerRadius = 2.0f;
+    
     _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         [(MLMSegmentHead *)item setSelectColor:value];
         //来回滑动一次，解决显示问题

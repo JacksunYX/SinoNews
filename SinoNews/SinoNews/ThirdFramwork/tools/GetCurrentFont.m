@@ -16,19 +16,19 @@
     if (UserGet(@"fontSize")) {
         switch ([UserGet(@"fontSize") integerValue]) {
             case 0:
-                currentFont = PFFontL(16);
+                currentFont = PFFontM(16);
                 break;
             case 1:
-                currentFont = PFFontL(18);
+                currentFont = PFFontM(18);
                 break;
             case 2:
-                currentFont = PFFontL(20);
+                currentFont = PFFontM(20);
                 break;
             case 3:
-                currentFont = PFFontL(22);
+                currentFont = PFFontM(22);
                 break;
             case 4:
-                currentFont = PFFontL(24);
+                currentFont = PFFontM(24);
                 break;
                 
             default:

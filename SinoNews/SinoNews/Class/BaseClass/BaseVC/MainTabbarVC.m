@@ -25,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addChildVC];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,7 +89,17 @@
         [vcsArr addObject:navi];
     }
 //    [UINavigationBar appearance].lee_theme.LeeConfigBarTintColor(@"backgroundColor");
-    [UITabBar appearance].lee_theme.LeeConfigBarTintColor(@"backgroundColor");
+//    [UITabBar appearance].lee_theme.LeeConfigBarTintColor(@"backgroundColor");
+    @weakify(self)
+    self.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        [self.tabBar setBackgroundImage:[UIImage imageWithColor:HexColor(#FFFFFF)]];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:HexColor(#F2F2F2)]];
+        if (UserGetBool(@"NightMode")) {
+            [self.tabBar setBackgroundImage:[UIImage imageWithColor:HexColor(#1c2023)]];
+            
+        }
+    });
     self.viewControllers = vcsArr;
     self.selectedIndex = 0;
 }
@@ -122,6 +134,7 @@
     animation.toValue = [NSNumber numberWithFloat:1.0];     //结束伸缩倍数
     [layer addAnimation:animation forKey:nil];
 }
+
 
 
 @end

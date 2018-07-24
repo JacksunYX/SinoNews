@@ -46,7 +46,7 @@
             [(UILabel *)item setTextColor:HexColor(#CFD3D6)];
         }
     });
-    _titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    _titleLabel.font = PFFontR(16);
     [self addSubview:_titleLabel];
     
     longLine = [UIView new];
@@ -69,7 +69,7 @@
     [editBtn setTitleColor:[UIColor colorWithRed:18/255.0f green:130/255.0f blue:238/255.0f alpha:1.0f] forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(clickEdit:) forControlEvents:UIControlEventTouchUpInside];
     editBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    editBtn.frame = CGRectMake(self.bounds.size.width - 17 - 38, 10, 38, 20);
+    editBtn.frame = CGRectMake(self.bounds.size.width - 17 - 38, 17, 38, 20);
     editBtn.layer.cornerRadius = 10;
     editBtn.layer.masksToBounds = YES;
     editBtn.layer.borderColor = [UIColor colorWithRed:18/255.0f green:130/255.0f blue:238/255.0f alpha:1.0f].CGColor;
@@ -83,7 +83,8 @@
     _title = title;
     _titleLabel.text = title;
     [_titleLabel sizeToFit];
-    _titleLabel.frame = CGRectMake(10, 0, _titleLabel.frame.size.width, self.bounds.size.height);
+//    _titleLabel.frame = CGRectMake(10, 0, _titleLabel.frame.size.width, self.bounds.size.height);
+    _titleLabel.frame = CGRectMake(15, self.bounds.size.height - _titleLabel.frame.size.height, _titleLabel.frame.size.width, _titleLabel.frame.size.height);
     shortLine.frame = CGRectMake(10, self.bounds.size.height - 3, _titleLabel.frame.size.width, 3);
 }
 
@@ -92,7 +93,8 @@
     _subTitle = subTitle;
     _subtitleLabel.text = subTitle;
     [_subtitleLabel sizeToFit];
-    _subtitleLabel.frame = CGRectMake(CGRectGetMaxX(_titleLabel.frame) + 10, 0, _subtitleLabel.frame.size.width, self.bounds.size.height);
+//    _subtitleLabel.frame = CGRectMake(CGRectGetMaxX(_titleLabel.frame) + 10, 0, _subtitleLabel.frame.size.width, self.bounds.size.height);
+    _subtitleLabel.frame = CGRectMake(CGRectGetMaxX(_titleLabel.frame) + 10, CGRectGetMidY(_titleLabel.frame) - _subtitleLabel.frame.size.height/2, _subtitleLabel.frame.size.width, _subtitleLabel.frame.size.height);
 }
 
 //编辑按钮点击事件

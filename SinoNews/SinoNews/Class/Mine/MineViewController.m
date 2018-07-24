@@ -194,14 +194,14 @@
     CGFloat itemH = itemW * 60 / 85;
     CGFloat collectionViewH = 0;
     [self.view addSubview:self.adCollectionView];
-    if (self.adDatasource.count) {
+    if (self.adDatasource.count>0) {
         collectionViewH = 30 + itemH;
     }
     
     self.adCollectionView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, TAB_HEIGHT)
+    .bottomEqualToView(self.view)
     .heightIs(collectionViewH)
     ;
     [self.adCollectionView reloadData];

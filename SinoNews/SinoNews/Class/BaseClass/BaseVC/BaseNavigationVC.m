@@ -10,7 +10,7 @@
 
 @interface BaseNavigationVC ()
 
-@property (nonatomic, weak) UIImageView *lineView;
+@property (nonatomic, strong) UIImageView *lineView;
 @end
 
 @implementation BaseNavigationVC

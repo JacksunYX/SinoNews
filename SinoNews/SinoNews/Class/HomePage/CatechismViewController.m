@@ -131,11 +131,13 @@ CGFloat static titleViewHeight = 91;
         
         @weakify(self);
         _attentionBtn = [UIButton new];
-        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
+        [_attentionBtn setNormalTitleColor:WhiteColor];
+        [_attentionBtn setSelectedTitleColor:WhiteColor];
+        [_attentionBtn setNormalTitle:@" 关注"];
+        [_attentionBtn setSelectedTitle:@"已关注"];
         
-        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
-        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
+        [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
+        [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             [self requestIsAttention];
@@ -180,13 +182,18 @@ CGFloat static titleViewHeight = 91;
         .widthIs(58)
         .heightIs(20)
         ;
-        [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
-        [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
+        
         [_attentionBtn setSd_cornerRadius:@8];
         
     }
     
     _attentionBtn.selected = self.newsModel.isAttention;
+    if (_attentionBtn.selected) {
+        [_attentionBtn setNormalImage:nil];
+        [_attentionBtn setSelectedImage:nil];
+    }else{
+        [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
+    }
     _titleLabel.font = [GetCurrentFont titleFont];
     [_titleLabel updateLayout];
 }

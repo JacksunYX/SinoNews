@@ -195,7 +195,7 @@
     UIButton *selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     selectedBtn.frame = CGRectMake(0, 0, 40, 30);
     selectedBtn.titleLabel.font = PFFontL(15);
-    selectedBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
+    selectedBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     [selectedBtn addButtonTextColorTheme];
     [selectedBtn setTitle:@"编辑" forState:UIControlStateNormal];
     [selectedBtn setTitle:@"取消" forState:UIControlStateSelected];

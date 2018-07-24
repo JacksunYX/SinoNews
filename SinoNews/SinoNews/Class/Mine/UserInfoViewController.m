@@ -230,12 +230,21 @@
                                ]];
     @weakify(self)
     closeBtn.sd_layout
-    .leftSpaceToView(headView, 15)
+    .leftSpaceToView(headView, 10)
     .topSpaceToView(headView, 10)
     .widthIs(40)
     .heightEqualToWidth()
     ;
-    [closeBtn setImage:UIImageNamed(@"return_left") forState:UIControlStateNormal];
+    
+    @weakify(closeBtn);
+    closeBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(closeBtn)
+        if (UserGetBool(@"NightMode")) {
+            [closeBtn setNormalImage:UIImageNamed(@"return_left_night")];
+        }else{
+            [closeBtn setNormalImage:UIImageNamed(@"return_left")];
+        }
+    });
     [[closeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
         [self.navigationController popViewControllerAnimated:YES];
@@ -293,12 +302,14 @@
     ;
     [_attentionBtn setSd_cornerRadius:@15];
     _attentionBtn.titleLabel.font = PFFontR(14);
-    [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
-    [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
-    [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-    [_attentionBtn setTitleColor:RGBA(218, 218, 218, 1)forState:UIControlStateSelected];
-    [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(54, 136, 247, 1)] forState:UIControlStateNormal];
-    [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(245, 245, 245, 1)] forState:UIControlStateSelected];
+    [_attentionBtn setNormalTitleColor:WhiteColor];
+    [_attentionBtn setSelectedTitleColor:RGBA(218, 218, 218, 1)];
+    [_attentionBtn setNormalTitle:@" 关注"];
+    [_attentionBtn setSelectedTitle:@"已关注"];
+    
+    [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(54, 136, 247, 1)]];
+    [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:RGBA(245, 245, 245, 1)]];
+    
     [_attentionBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     _attentionBtn.hidden = YES;
     
@@ -588,6 +599,12 @@
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         NSInteger status = [response[@"data"][@"status"] integerValue];
         self.attentionBtn.selected = status;
+        if (self.attentionBtn.selected) {
+            [self.attentionBtn setNormalImage:nil];
+            [self.attentionBtn setSelectedImage:nil];
+        }else{
+            [self.attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
+        }
         UserModel *user = [UserModel getLocalUserModel];
         if (status) {
             user.followCount ++;

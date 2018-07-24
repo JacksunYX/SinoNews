@@ -38,5 +38,6 @@ pod 'MLeaksFinder'
 pod 'RTRootNavigationController'
 pod 'LEETheme'
 pod 'XHLaunchAd'
+pod 'UINavigation-SXFixSpace'
 
 end

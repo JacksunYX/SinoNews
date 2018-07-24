@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSMutableArray *titleList;
 @property (nonatomic, strong) NSMutableArray *leaveTitleList;
-@property (nonatomic, strong) UIImageView *userIcon;
+@property (nonatomic, strong) UIButton *userIcon;
 @property (nonatomic, strong) UIButton *moreBtn;
 @end
 
@@ -157,13 +157,14 @@
         }
     }
     
-    _userIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    _userIcon.backgroundColor = GrayColor;
-    LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
-    _userIcon.image = UIImageNamed(@"homePage_logo");
+    _userIcon = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [_userIcon setNormalImage:UIImageNamed(@"homePage_logo")];
+    _userIcon.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+//    LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
+    _userIcon.layer.cornerRadius = 17;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
-    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:nil image:[UIImage imageNamed:@"homePage_logo"]];
 }
 
 //让输入框无法进入编辑

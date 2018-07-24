@@ -134,7 +134,7 @@
             
         }else{
             typeLabel.hidden = NO;
-            titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
+            titletext = [@"" stringByAppendingString:GetSaveString(model.itemTitle)];
             typeLabel.text = GetSaveString(model.labelName);
             typeLabel.backgroundColor = WhiteColor;
             typeLabel.textColor = HexColor(#1282EE);
@@ -184,11 +184,12 @@
         title.attributedText = [NSString analysisHtmlString:titletext];
         //⚠️字体需要在这里重新设置才行，不然会变小
         title.font = FontScale(17);
+        
     }else{
         title.text = titletext;
     }
     
-    if (model.itemType >=200 && model.itemType < 300) {
+    if (typeLabel.text.length&&typeLabel.hidden == NO) {
         //⚠️如果文本前面有空格，进过h5编码后，空格会消失，需要重新拼接空格
         NSDictionary *dic1 = @{
                                NSForegroundColorAttributeName:HexColor(#1282EE),

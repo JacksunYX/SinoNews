@@ -112,6 +112,7 @@
 -(void)addNavigationView
 {
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(clearAction) image:nil hightimage:nil andTitle:@"清空"];
+//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(clearAction) title:@"清空"];
 }
 
 //添加tableview

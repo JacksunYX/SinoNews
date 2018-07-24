@@ -111,7 +111,7 @@
         if (kStringIsEmpty(labelName)) {
             titletext = GetSaveString(model.itemTitle);
         }else{
-            titletext = [@"      " stringByAppendingString:GetSaveString(model.itemTitle)];
+            titletext = [@"" stringByAppendingString:GetSaveString(model.itemTitle)];
             typeLabel.hidden = NO;
         }
         NSString *str1 = [@"" stringByAppendingString:@""];
@@ -152,10 +152,21 @@
         title.attributedText = [NSString analysisHtmlString:titletext];
         //⚠️字体需要在这里重新设置才行，不然会变小
         title.font = FontScale(17);
+  
     }else{
         title.text = titletext;
     }
     
+    if (typeLabel.text.length&&typeLabel.hidden == NO) {
+        //⚠️如果文本前面有空格，进过h5编码后，空格会消失，需要重新拼接空格
+        NSDictionary *dic1 = @{
+                               NSForegroundColorAttributeName:HexColor(#1282EE),
+                               NSFontAttributeName:FontScale(17),
+                               };
+        NSMutableAttributedString *spaceStr = [[NSMutableAttributedString alloc]initWithString:@"      " attributes:dic1];
+        [spaceStr appendAttributedString:title.attributedText];
+        title.attributedText = spaceStr;
+    }
 }
 
 

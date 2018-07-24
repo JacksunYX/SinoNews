@@ -38,6 +38,7 @@
 		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */; };
 		4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B5ADB2106D84600A47563 /* PopNoticeView.m */; };
+		4C1B5ADF2107268E00A47563 /* UIBarButtonItem+SXCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B5ADE2107268E00A47563 /* UIBarButtonItem+SXCreate.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
 		4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE420E468D200637E2A /* SignInViewController.m */; };
 		4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */; };
@@ -378,6 +379,8 @@
 		4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReciveMessageModel.m; sourceTree = "<group>"; };
 		4C1B5ADA2106D84600A47563 /* PopNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopNoticeView.h; sourceTree = "<group>"; };
 		4C1B5ADB2106D84600A47563 /* PopNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopNoticeView.m; sourceTree = "<group>"; };
+		4C1B5ADD2107268E00A47563 /* UIBarButtonItem+SXCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SXCreate.h"; sourceTree = "<group>"; };
+		4C1B5ADE2107268E00A47563 /* UIBarButtonItem+SXCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+SXCreate.m"; sourceTree = "<group>"; };
 		4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFourthCell.h; sourceTree = "<group>"; };
 		4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFourthCell.m; sourceTree = "<group>"; };
 		4C1C6DE320E468D200637E2A /* SignInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1499,6 +1502,8 @@
 			children = (
 				4C3F900B20BCFC3F003EC4FC /* UIBarButtonItem+integration.h */,
 				4C3F900C20BCFC3F003EC4FC /* UIBarButtonItem+integration.m */,
+				4C1B5ADD2107268E00A47563 /* UIBarButtonItem+SXCreate.h */,
+				4C1B5ADE2107268E00A47563 /* UIBarButtonItem+SXCreate.m */,
 			);
 			path = UIBarButton;
 			sourceTree = "<group>";
@@ -2552,6 +2557,7 @@
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C7234FB20FF34C900D5C5D4 /* QACommentInputView.m in Sources */,
 				4C72347C20FD8C6D00D5C5D4 /* PYSearchSuggestionViewController.m in Sources */,
+				4C1B5ADF2107268E00A47563 /* UIBarButtonItem+SXCreate.m in Sources */,
 				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */,

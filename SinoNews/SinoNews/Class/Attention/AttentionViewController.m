@@ -44,7 +44,8 @@
             leftImg = [leftImg stringByAppendingString:@"_night"];
         }
         self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:rightImg hightimage:nil andTitle:@""];
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:leftImg hightimage:leftImg andTitle:@""];
+//        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:leftImg hightimage:leftImg andTitle:@""];
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(leftImg)];
     });
     
     if (CompareString(UserGet(@"isLogin"), @"YES")) {

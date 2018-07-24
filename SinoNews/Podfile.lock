@@ -45,6 +45,7 @@ PODS:
   - SDWebImage/Core (4.4.2)
   - Toast (4.0.0)
   - UICKeyChainStore (2.1.1)
+  - UINavigation-SXFixSpace (1.0.7)
   - XHLaunchAd (3.9.7):
     - FLAnimatedImage (~> 1.0.12)
   - ZYKeyboardUtil (1.0.7)
@@ -68,6 +69,7 @@ DEPENDENCIES:
   - SDAutoLayout (~> 2.1.3)
   - SDWebImage
   - Toast
+  - UINavigation-SXFixSpace
   - XHLaunchAd
   - ZYKeyboardUtil
 
@@ -94,6 +96,7 @@ SPEC REPOS:
     - SDWebImage
     - Toast
     - UICKeyChainStore
+    - UINavigation-SXFixSpace
     - XHLaunchAd
     - ZYKeyboardUtil
 
@@ -119,9 +122,10 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
+  UINavigation-SXFixSpace: 02323ab6d50f3719bf0829afa22995acb9b2486b
   XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 3a0d8d0e1907208d3906dbdf36bde2f996f00777
+PODFILE CHECKSUM: 0a7900be36b819f990c515b1442f878177f79884
 
 COCOAPODS: 1.5.3

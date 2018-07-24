@@ -41,13 +41,13 @@
             dic[NSForegroundColorAttributeName] = HexColor(#FFFFFF);
             //设置夜间模式的状态栏
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
-            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left_night" hightimage:@"return_left_night" andTitle:@""];
-            
+//            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left_night" hightimage:@"return_left_night" andTitle:@""];
+            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left_night"]];
         }else{
             dic[NSForegroundColorAttributeName] = HexColor(#323232);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
-            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left" hightimage:@"return_left" andTitle:@""];
-            
+//            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(back) image:@"return_left" hightimage:@"return_left" andTitle:@""];
+            self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
         }
         [self.navigationController.navigationBar setTitleTextAttributes:dic];
     });

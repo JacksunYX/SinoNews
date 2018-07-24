@@ -16,4 +16,6 @@
 #import "VoteViewController.h"
 #import "TopicViewController.h"
 
+#import "QACommentInputView.h"
+
 #endif /* PageHeader_h */

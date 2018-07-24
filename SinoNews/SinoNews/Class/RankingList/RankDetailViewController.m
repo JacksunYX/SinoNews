@@ -338,7 +338,7 @@
     
     if (indexPath.section == 2) {
 //        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
-        return 220;
+        return 260;
     }
     
     if (indexPath.section == 3) {
@@ -608,9 +608,11 @@
             
         }
     }else{
-        descrip.text = GetSaveString(model[@"title"]);
+//        descrip.text = GetSaveString(model[@"title"]);
+        //解析标签文字
+        descrip.attributedText = [NSString analysisHtmlString:GetSaveString(model[@"title"])];
     }
-    
+    descrip.font = FontScale(15);
     
 //    if (cell.sd_indexPath.row == 1) {
 //        descrip.text = [NSString stringWithFormat:@"优惠：%@",self.companyModel.promos];

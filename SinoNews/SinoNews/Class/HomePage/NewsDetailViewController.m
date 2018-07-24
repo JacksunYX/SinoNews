@@ -18,6 +18,7 @@
 #import "FontAndNightModeView.h"
 #import "ShareAndFunctionView.h"
 
+
 //未付费标记
 #define NoPayedNews (self.newsModel.isToll&&self.newsModel.hasPaid==0)
 
@@ -197,18 +198,28 @@ CGFloat static titleViewHeight = 91;
         self.commentInput.delegate = self;
         self.commentInput.returnKeyType = UIReturnKeySend;
         @weakify(self)
-        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+//        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+//            @strongify(self)
+//            GGLog(@"完成编辑");
+//            UITextField *field = x.first;
+//            GGLog(@"-----%@",field.text);
+//            [field resignFirstResponder];
+//            if ([NSString isEmpty:field.text]) {
+//                LRToast(@"评论不能为空哦~");
+//            }else{
+//                [self requestCommentWithComment:field.text];
+//                field.text = @"";
+//            }
+//        }];
+        [self.commentInput whenTap:^{
             @strongify(self)
-            GGLog(@"完成编辑");
-            UITextField *field = x.first;
-            GGLog(@"-----%@",field.text);
-            [field resignFirstResponder];
-            if ([NSString isEmpty:field.text]) {
-                LRToast(@"评论不能为空哦~");
-            }else{
-                [self requestCommentWithComment:field.text];
-                field.text = @"";
-            }
+            [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+                if (![NSString isEmpty:inputText]) {
+                    [self requestCommentWithComment:inputText];
+                }else{
+                    LRToast(@"请输入有效的内容");
+                }
+            }];
         }];
         
         //        [[self rac_signalForSelector:@selector(textFieldDidEndEditing:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
@@ -519,6 +530,12 @@ CGFloat static titleViewHeight = 91;
     [self showOrHideLoadView:YES page:2];
 }
 
+//让输入框无法进入编辑
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    return NO;
+    
+}
 
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
@@ -689,7 +706,8 @@ CGFloat static titleViewHeight = 91;
         title.textAlignment = NSTextAlignmentCenter;
         title.lee_theme.LeeConfigTextColor(@"titleColor");
         UIView *line = [UIView new];
-        line.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+//        line.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        line.backgroundColor = HexColor(#BCD5EE);
         
         [headView sd_addSubviews:@[
                                    title,

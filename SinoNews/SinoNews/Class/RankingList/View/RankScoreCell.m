@@ -9,7 +9,7 @@
 #import "RankScoreCell.h"
 #import "RankingModel.h"
 
-@interface RankScoreCell ()
+@interface RankScoreCell ()<AAChartViewDidFinishLoadDelegate>
 @property (nonatomic, strong) AAChartModel *aaChartModel;
 @property (nonatomic, strong) AAChartView  *aaChartView;
 @end
@@ -40,13 +40,13 @@
 {
     
     CGFloat chartViewWidth  = ScreenW;
-    CGFloat chartViewHeight = 220;
+    CGFloat chartViewHeight = 260;
     self.aaChartView = [[AAChartView alloc]init];
     self.aaChartView.frame = CGRectMake((ScreenW - chartViewWidth)/2, 0, chartViewWidth, chartViewHeight);
-    //    self.aaChartView.delegate = self;
+    self.aaChartView.delegate = self;
     self.aaChartView.scrollEnabled = NO;//禁用 AAChartView 滚动效果
     //    设置aaChartVie 的内容高度(content height)
-    //    self.aaChartView.contentHeight = chartViewHeight*2;
+//    self.aaChartView.contentHeight = chartViewHeight*2;
     //    设置aaChartVie 的内容宽度(content  width)
     //    self.aaChartView.contentWidth = chartViewWidth*2;
     [self.contentView addSubview:self.aaChartView];
@@ -54,10 +54,6 @@
     
     //设置 AAChartView 的背景色是否为透明
     self.aaChartView.isClearBackgroundColor = YES;
-    
-    GCDAfterTime(1.2, ^{
-        [self addDashCircle];
-    });
     
 }
 
@@ -74,7 +70,12 @@
     [line setLineDashPattern:@[@3, @1]];
     CGFloat diameter = 44;
 //        CGPathAddEllipseInRect(path, nil, CGRectMake((ScreenW - diameter)/2, (220-diameter)/2 - 15, diameter, diameter));
-    CGPathAddEllipseInRect(path, nil, CGRectMake(self.aaChartView.centerX - diameter/2, self.aaChartView.centerY - diameter/5 * 4, diameter, diameter));
+    CGFloat x = self.aaChartView.centerX - diameter/2;
+    CGFloat y = self.aaChartView.centerY - diameter*3/5;
+    if (IPHONE_X) {
+        y = self.aaChartView.centerY - diameter*4/5;
+    }
+    CGPathAddEllipseInRect(path, nil, CGRectMake( x, y, diameter, diameter));
     line.path = path;
     CGPathRelease(path);
 
@@ -84,14 +85,14 @@
 
 -(void)setModelArr:(NSArray *)modelArr
 {
-    NSInteger maxNum = 10;
+    double maxNum = 10;
     NSArray *dataArr = [RankingModel mj_objectArrayWithKeyValuesArray:modelArr];
     NSMutableArray *categories = [NSMutableArray new];
     NSMutableArray *data = [NSMutableArray new];
     NSMutableArray *backdata = [NSMutableArray new];
     for (RankingModel *model in dataArr) {
         //分类
-        NSString *categoryStr = [GetSaveString(model.rankingName) stringByAppendingString:[NSString stringWithFormat:@" %ld  分",model.score]];
+        NSString *categoryStr = [GetSaveString(model.rankingName) stringByAppendingString:[NSString stringWithFormat:@" %.1f  分",model.score]];
         [categories addObject:categoryStr];
         
         //分数
@@ -127,7 +128,7 @@
     .yAxisMinSet(@0)
     .yAxisMaxSet(@(maxNum))
     //x轴文字属性
-    .xAxisLabelsFontSizeSet(@11)
+    .xAxisLabelsFontSizeSet(@10)
     .xAxisLabelsFontWeightSet(@"80")
     .xAxisLabelsFontColorSet(@"#989898")
     .markerRadiusSet(@3)    //折线连接点的半径
@@ -143,6 +144,7 @@
                  .lineWidthSet(@0.8)
                  .fillOpacitySet(@0)
                  .markerSet(aaMarker)
+                 .allowPointSelectSet(false)
                  ,
                  
                  AAObject(AASeriesElement)
@@ -158,7 +160,12 @@
 }
 
 
-
+#pragma mark ---- AAChartViewDidFinishLoadDelegate
+//图标视图渲染完毕
+-(void)AAChartViewDidFinishLoad
+{
+    [self addDashCircle];
+}
 
 
 

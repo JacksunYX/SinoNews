@@ -253,7 +253,7 @@
 //        }
 //    }];
     
-    createTime.text = @"1小时前";
+    createTime.text = GetSaveString(model.createTime);
     
     checkAllReplayLabel.text = [NSString stringWithFormat:@"查看全部%@条评论",model.replyNum];
     

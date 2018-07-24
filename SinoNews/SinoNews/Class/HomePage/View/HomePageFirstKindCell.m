@@ -144,6 +144,25 @@
         NSString *str2 = [GetSaveString(model.username) stringByAppendingString:@"  "];
         NSString *str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
         NSString *str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
+        
+        if (model.viewCount<=0) {
+            str3 = @"";
+        }else{
+            if (model.viewCount/10000) {
+                str3 = [[NSString stringWithFormat:@"%.1f",model.viewCount/10000.0] stringByAppendingString:@" 阅  "];
+            }else{
+                str3 = [[NSString stringWithFormat:@"%ld",model.viewCount] stringByAppendingString:@" 阅  "];
+            }
+        }
+        if (model.commentCount<=0) {
+            str4 = @"";
+        }else{
+            if (model.commentCount/10000) {
+                str4 = [[NSString stringWithFormat:@"%.1f",model.commentCount/10000.0] stringByAppendingString:@" 评"];
+            }else{
+                str4 = [[NSString stringWithFormat:@"%ld",model.commentCount] stringByAppendingString:@" 评"];
+            }
+        }
         NSString *totalStr = [[[str1 stringByAppendingString:str2] stringByAppendingString:str3] stringByAppendingString:str4];
         NSMutableAttributedString *attString = [[NSMutableAttributedString alloc]initWithString:totalStr];
         bottomLabel.attributedText = attString;

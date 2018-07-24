@@ -92,7 +92,7 @@
         @strongify(self)
         [self requestChnanel:NO];
     }];
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -189,11 +189,11 @@
         ;
         [self.topView updateLayout];
         //添加下阴影
-        self.topView.layer.shadowColor = GrayColor.CGColor;
-        self.topView.layer.shadowOffset = CGSizeMake(-2, 2);
-        self.topView.layer.shadowOpacity = 0.5;
-        self.topView.layer.shouldRasterize = NO;
-        self.topView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topView.bounds].CGPath;
+//        self.topView.layer.shadowColor = GrayColor.CGColor;
+//        self.topView.layer.shadowOffset = CGSizeMake(-2, 2);
+//        self.topView.layer.shadowOpacity = 0.5;
+//        self.topView.layer.shouldRasterize = NO;
+//        self.topView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.topView.bounds].CGPath;
     }
     
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 40, 40) titles:[self getTitlesArrFromArr:self.titleList] headStyle:1 layoutStyle:2];

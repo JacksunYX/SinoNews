@@ -14,5 +14,5 @@
 @property (nonatomic,strong) NSString *rankingLogo;
 @property (nonatomic,strong) NSString *rankingName; //名称
 @property (nonatomic,strong) NSString *updateTime;
-@property (nonatomic,assign) NSInteger score;       //评分
+@property (nonatomic,assign) double score;       //评分
 @end

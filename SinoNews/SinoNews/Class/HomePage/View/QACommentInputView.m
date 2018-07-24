@@ -73,7 +73,7 @@ static CGFloat anumationTime = 0.3;
     
 //    textView.limitLength = 10;
     textView.placeholder = @"写点什么吧";
-    textView.backgroundColor = RGBA(50, 50, 50, 0.1);
+    textView.backgroundColor = HexColor(#f5f5f5);
     
     
     UIButton *sendBtn = [UIButton new];

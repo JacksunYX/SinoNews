@@ -164,18 +164,35 @@
     adLayout.itemSize = CGSizeMake(itemW, itemH);
     adLayout.minimumLineSpacing = 5;
     self.adCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:adLayout];
+    self.adCollectionView.showsHorizontalScrollIndicator = NO;
     [self.adCollectionView addBakcgroundColorTheme];
     [self.view addSubview:self.adCollectionView];
-    [self.adCollectionView activateConstraints:^{
-        self.adCollectionView.bottom_attr = self.view.bottom_attr_safe;
-        self.adCollectionView.left_attr = self.view.left_attr_safe;
-        self.adCollectionView.right_attr = self.view.right_attr_safe;
-        self.adCollectionView.height_attr.constant = 30 + itemH;
-    }];
+
+    [self setBottomView];
     
     self.adCollectionView.dataSource = self;
     self.adCollectionView.delegate = self;
     [self.adCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ADCellID"];
+    
+}
+
+-(void)setBottomView
+{
+    CGFloat itemW = (ScreenW - 35)/4;
+    CGFloat itemH = itemW * 60 / 85;
+    CGFloat collectionViewH = 0;
+    [self.view addSubview:self.adCollectionView];
+    if (self.adDatasource.count) {
+        collectionViewH = 30 + itemH;
+    }
+    
+    self.adCollectionView.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, TAB_HEIGHT)
+    .heightIs(collectionViewH)
+    ;
+    [self.adCollectionView reloadData];
 }
 
 //添加上方的tableview
@@ -183,24 +200,25 @@
 {
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr_safe;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.adCollectionView.top_attr;
-    }];
+
+    self.tableView.sd_layout
+    .topEqualToView(self.view)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.adCollectionView, 0)
+    ;
     
     self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
             [(BaseTableView *)item setBackgroundColor:value];
         }else{
-            [(BaseTableView *)item setBackgroundColor:RGBA(196, 222, 247, 1)];
+            [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
         }
     });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
 }
 
 -(void)addHeadView
@@ -470,7 +488,6 @@
     return label;
 }
 
-
 //给view添加指定圆角
 -(void)cutCornerradiusWithView:(UIView *)view
 {
@@ -685,7 +702,7 @@
 {
     [RequestGather requestBannerWithADId:9 success:^(id response) {
         self.adDatasource = response;
-        [self.adCollectionView reloadData];
+        [self setBottomView];
     } failure:nil];
 }
 

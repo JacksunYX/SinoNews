@@ -27,7 +27,7 @@
 //            CGFloat insetLeft = 20 - backimg.size.width/2;
             //当没有hlightimg时默认是右按钮，缩进相反,暂定
             if (!kStringIsEmpty(hightimage)) {
-                btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
             }else{
                 btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -20);
             }

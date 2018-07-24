@@ -12,7 +12,7 @@
 
 static CGFloat anumationTime = 0.3;
 
-+(void)showWithData:(NSDictionary *)data
++(void)showWithData:(ADModel *)model
 {
     //背景视图
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];
@@ -94,11 +94,13 @@ static CGFloat anumationTime = 0.3;
     .rightEqualToView(centerView)
     .bottomSpaceToView(toSee, 0)
     ;
-    topImgV.image = UIImageNamed(@"adPopImg");
+//    topImgV.image = UIImageNamed(@"adPopImg");
+    [topImgV sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
     
     [[toSee rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         
-        [[UIApplication sharedApplication] openURL:UrlWithStr(@"https://www.baidu.com")];
+//        [[UIApplication sharedApplication] openURL:UrlWithStr(@"https://www.baidu.com")];
+        [UniversalMethod jumpWithADModel:model];
         
         @strongify(backView)
         [UIView animateWithDuration:anumationTime animations:^{

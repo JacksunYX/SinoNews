@@ -16,6 +16,7 @@
 
 -(void)dealloc
 {
+    GGLog(@"%@释放了",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

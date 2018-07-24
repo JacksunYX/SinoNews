@@ -16,4 +16,9 @@
 //设置字体的通知
 #define ChangeFontNotify    @"ChangeFontNotify"
 
+//首页提示
+#define HomePageNotice  @"HomePageNotice"
+//我的提示
+#define MineNotice      @"MineNotice"
+
 #endif /* NotifyList_h */

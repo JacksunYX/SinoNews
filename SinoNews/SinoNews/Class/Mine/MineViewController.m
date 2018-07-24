@@ -121,6 +121,18 @@
     [self addViews];
     [self requestBottomBanner];
     
+    if (!UserGetBool(MineNotice)) {
+        [PopNoticeView showWithData:@[
+                                      @"mineNotice_0",
+                                      @"mineNotice_1",
+                                      @"mineNotice_2",
+                                      @"mineNotice_3",
+                                      @"mineNotice_4",
+                                      @"mineNotice_5",
+                                      ]];
+        UserSetBool(YES, MineNotice);
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

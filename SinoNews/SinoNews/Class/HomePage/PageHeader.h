@@ -17,5 +17,6 @@
 #import "TopicViewController.h"
 
 #import "QACommentInputView.h"
+#import "PopNoticeView.h"
 
 #endif /* PageHeader_h */

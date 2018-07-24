@@ -10,6 +10,6 @@
 
 @interface ADPopView : UIView
 
-+(void)showWithData:(NSDictionary *)data;
++(void)showWithData:(ADModel *)model;
 
 @end

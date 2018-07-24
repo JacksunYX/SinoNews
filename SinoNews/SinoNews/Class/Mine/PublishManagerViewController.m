@@ -149,16 +149,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ArticleModel *model = self.articlesArr[indexPath.row];
-    if (model.itemType>=400&&model.itemType<500) { //投票
-        LRToast(@"投票文章还在加工中...");
+    if (model.itemType>=100&&model.itemType<200) {  //普通文章
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = model.itemId;
+        [self.navigationController pushViewController:ndVC animated:YES];
     }else if (model.itemType>=500&&model.itemType<600) { //问答
         CatechismViewController *cVC = [CatechismViewController new];
         cVC.news_id = model.itemId;
         [self.navigationController pushViewController:cVC animated:YES];
     }else{
-        NewsDetailViewController *ndVC = [NewsDetailViewController new];
-        ndVC.newsId = model.itemId;
-        [self.navigationController pushViewController:ndVC animated:YES];
+        LRToast(@"未知文章");
     }
 }
 

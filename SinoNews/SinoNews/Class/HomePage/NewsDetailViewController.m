@@ -84,7 +84,9 @@ CGFloat static titleViewHeight = 91;
 
 -(void)setNavigationBtns
 {
+    @weakify(self)
     self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
         if (UserGetBool(@"NightMode")) {
             UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
             UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
@@ -654,13 +656,13 @@ CGFloat static titleViewHeight = 91;
         //            [self.commentInput becomeFirstResponder];
         //        };
         //点击回复
-        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
-            GGLog(@"点击了第%ld条回复",index);
-        };
+//        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
+//            GGLog(@"点击了第%ld条回复",index);
+//        };
         //查看全部评论
-        cell2.checkAllReplay = ^(NSInteger row) {
-            GGLog(@"点击了查看全部回复");
-        };
+//        cell2.checkAllReplay = ^(NSInteger row) {
+//            GGLog(@"点击了查看全部回复");
+//        };
         
         cell = (CommentCell *)cell2;
     }

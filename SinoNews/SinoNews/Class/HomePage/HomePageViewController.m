@@ -83,8 +83,6 @@
         //比对是否有更新的频道
         [self requestChnanel:YES];
     }
-    //广告弹框
-//    [ADPopView showWithData:nil];
     
     //监听登陆
     @weakify(self)
@@ -93,6 +91,12 @@
         [self requestChnanel:NO];
     }];
     
+    if (!UserGetBool(HomePageNotice)) {
+        [PopNoticeView showWithData:@[@"homePage_0",@"homePage_1",@"homePage_2"]];
+        UserSetBool(YES, HomePageNotice);
+    }else{
+        [self requestADPop];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -421,8 +425,16 @@
     } failure:nil RefreshAction:nil];
 }
 
-
-
+//首页广告弹框
+-(void)requestADPop
+{
+    [RequestGather requestBannerWithADId:4 success:^(id response) {
+        NSArray *popArr = response;
+        if (popArr.count>0) {
+//            [ADPopView showWithData:[popArr lastObject]];
+        }
+    } failure:nil];
+}
 
 
 

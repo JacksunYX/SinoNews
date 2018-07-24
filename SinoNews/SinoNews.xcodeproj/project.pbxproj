@@ -37,6 +37,7 @@
 		4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC822100B47F0021055B /* AnswerDetailModel.m */; };
 		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */; };
+		4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B5ADB2106D84600A47563 /* PopNoticeView.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
 		4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE420E468D200637E2A /* SignInViewController.m */; };
 		4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */; };
@@ -375,6 +376,8 @@
 		4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseHistoryModel.m; sourceTree = "<group>"; };
 		4C1A29E820EF425500D8A188 /* ReciveMessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReciveMessageModel.h; sourceTree = "<group>"; };
 		4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReciveMessageModel.m; sourceTree = "<group>"; };
+		4C1B5ADA2106D84600A47563 /* PopNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopNoticeView.h; sourceTree = "<group>"; };
+		4C1B5ADB2106D84600A47563 /* PopNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopNoticeView.m; sourceTree = "<group>"; };
 		4C1C2E0020DBD64C00F0ABED /* HomePageFourthCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageFourthCell.h; sourceTree = "<group>"; };
 		4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageFourthCell.m; sourceTree = "<group>"; };
 		4C1C6DE320E468D200637E2A /* SignInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -1594,6 +1597,8 @@
 				4C7234FA20FF34C900D5C5D4 /* QACommentInputView.m */,
 				4C17BC7B21002D2A0021055B /* CateChismTableViewCell.h */,
 				4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */,
+				4C1B5ADA2106D84600A47563 /* PopNoticeView.h */,
+				4C1B5ADB2106D84600A47563 /* PopNoticeView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2493,6 +2498,7 @@
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C23B3C520F592AB00ACE380 /* LMTextHTMLParser.m in Sources */,
+				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */,

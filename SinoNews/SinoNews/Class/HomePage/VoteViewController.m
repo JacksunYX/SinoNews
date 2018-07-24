@@ -46,7 +46,7 @@
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    config.userContentController = wkUController;   
+//    config.userContentController = wkUController;
     // 设置偏好设置对象
     config.preferences = preference;
     //默认高度给1，防止网页是纯图片时无法撑开
@@ -55,7 +55,7 @@
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
-    
+//    self.webView.allowsBackForwardNavigationGestures = NO;
     
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.voteUrl);
@@ -80,11 +80,11 @@
     }
     
     //防止缩放
-    NSString *injectionJSString = @"var script = document.createElement('meta');"
-    "script.name = 'viewport';"
-    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
-    "document.getElementsByTagName('head')[0].appendChild(script);";
-    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
+//    NSString *injectionJSString = @"var script = document.createElement('meta');"
+//    "script.name = 'viewport';"
+//    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+//    "document.getElementsByTagName('head')[0].appendChild(script);";
+//    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
     
 }
 

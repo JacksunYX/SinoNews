@@ -32,8 +32,11 @@
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
 @property (nonatomic,assign) CGFloat topWebHeight;
+
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIImageView *avatar;
+@property (nonatomic,strong) UILabel *authorAndTime;
 @property (nonatomic,strong) UIButton *attentionBtn;
 
 @property (nonatomic,strong) UIView *bottomView;
@@ -109,19 +112,20 @@ CGFloat static titleViewHeight = 91;
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topEqualToView(self.view)
-        .heightIs(titleViewHeight)
+//        .heightIs(titleViewHeight)
+        
         ;
         
         _titleLabel = [UILabel new];
         _titleLabel.font = [GetCurrentFont titleFont];
-        _titleLabel.numberOfLines = 2;
+        _titleLabel.numberOfLines = 0;
         [_titleLabel addTitleColorTheme];
-        UIImageView *icon = [UIImageView new];
-        //        icon.backgroundColor = Arc4randomColor;
         
-        UILabel *authorAndTime = [UILabel new];
-        authorAndTime.font = PFFontR(11);
-        authorAndTime.textColor = RGBA(152, 152, 152, 1);
+        _avatar = [UIImageView new];
+        
+        _authorAndTime = [UILabel new];
+        _authorAndTime.font = PFFontR(11);
+        _authorAndTime.textColor = RGBA(152, 152, 152, 1);
         
         @weakify(self);
         _attentionBtn = [UIButton new];
@@ -142,44 +146,52 @@ CGFloat static titleViewHeight = 91;
         
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,
-                                         icon,
-                                         authorAndTime,
+                                         _avatar,
+                                         _authorAndTime,
                                          _attentionBtn,
                                          ]];
         _titleLabel.sd_layout
         .leftSpaceToView(self.titleView, 10)
         .rightSpaceToView(self.titleView, 10)
         .topEqualToView(self.titleView)
-        .heightIs(50)
+        //    .heightIs(50)
+        .autoHeightRatio(0)
         ;
         _titleLabel.text = GetSaveString(self.newsModel.newsTitle);
         
-        icon.sd_layout
+        CGFloat wid = 24;
+        if (kStringIsEmpty(self.newsModel.avatar)) {
+            wid = 0;
+        }
+        _avatar.sd_layout
         .leftEqualToView(_titleLabel)
         .topSpaceToView(_titleLabel, 7)
-        .widthIs(24)
-        .heightEqualToWidth()
+        .widthIs(wid)
+        .heightIs(24)
         ;
-        [icon setSd_cornerRadius:@12];
-        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
+        [_avatar setSd_cornerRadius:@12];
+        [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
         
-        authorAndTime.sd_layout
-        .leftSpaceToView(icon, 3)
-        .centerYEqualToView(icon)
+        _authorAndTime.sd_layout
+        .leftSpaceToView(_avatar, 3)
+        .centerYEqualToView(_avatar)
         .heightIs(12)
         ;
-        [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
-        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
+        [_authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
+        _authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
-        .centerYEqualToView(icon)
+        .centerYEqualToView(_avatar)
         .widthIs(58)
         .heightIs(20)
         ;
         
         [_attentionBtn setSd_cornerRadius:@8];
+        
+        [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:10];
     }
+    
     _attentionBtn.selected = self.newsModel.isAttention;
     if (_attentionBtn.selected) {
         [_attentionBtn setNormalImage:nil];
@@ -188,7 +200,14 @@ CGFloat static titleViewHeight = 91;
         [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
     }
     _titleLabel.font = [GetCurrentFont titleFont];
-    [_titleLabel updateLayout];
+
+    //获取上部分的高度
+    [self.titleView updateLayout];
+    titleViewHeight = self.titleView.height;
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+//    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
+    
+    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
 }
 
 -(void)setBottomView
@@ -659,6 +678,13 @@ CGFloat static titleViewHeight = 91;
                 [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:row];
             }
         };
+        //点击头像
+        cell2.avatarBlock = ^(NSInteger row) {
+            @strongify(self)
+            UserInfoViewController *uiVC = [UserInfoViewController new];
+            uiVC.userId = [model.userId integerValue];
+            [self.navigationController pushViewController:uiVC animated:YES];
+        };
         //回复TA
         //        cell2.replayBlock = ^(NSInteger row) {
         //            @strongify(self)
@@ -868,33 +894,47 @@ CGFloat static titleViewHeight = 91;
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     //    GGLog(@"touchesBegan点击了");
-//    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
-//    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
-//    CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
-//    int x = point.x;
-//    int y = point.y;
-//    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
-//    if (self.attentionBtn.enabled) {
-//        if (self.tableView.contentOffset.y > -titleViewHeight) {
-//            //            GGLog(@"不能点击");
-//        }else{
-//            //            GGLog(@"点击了关注周围");
-//            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 2 - 20 && y <= titleViewHeight - 10 - 2) {
-//                //                GGLog(@"点击了关注");
-//                [self requestIsAttention];
-//            }
-//        }
-//    }
+    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
+    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
+    CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
+    int x = point.x;
+    int y = point.y;
+    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
+//    GGLog(@"y：%lf",self.tableView.contentOffset.y);
+//    GGLog(@"-titleViewHeight：%lf",-titleViewHeight);
+    
+    if (self.attentionBtn.enabled) {
+        //如果大于，说明tableView便宜量已经看不到头像等信息了
+        if (self.tableView.contentOffset.y + titleViewHeight >=10 + 24) {
+            GGLog(@"不能点击");
+        }else{
+
+            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 24/2 - 20/2 && y <= titleViewHeight - 10 - 24/2 + 20/2) {
+                GGLog(@"点击了关注");
+                [self requestIsAttention];
+            }else if (x >= 10&&x<= (100+10) && y >= titleViewHeight - 10 - 24 && y <= titleViewHeight - 10) {
+                GGLog(@"点击用户部分");
+                UserInfoViewController *uiVC = [UserInfoViewController new];
+                uiVC.userId = self.newsModel.userId;
+                [self.navigationController pushViewController:uiVC animated:YES];
+            }
+        }
+    }
+    
+    //点击用户部分
+    
 }
 
 #pragma mark ----- UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+//    GGLog(@"y:%lf",scrollView.contentOffset.y);
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY >= - titleViewHeight&&offsetY <= 0) {
         CGFloat alpha = MIN(1, fabs(offsetY)/(titleViewHeight));
         self.titleView.alpha = alpha;
         self.attentionBtn.enabled = alpha;
+        
         if (offsetY >= -20) {
             self.navigationItem.title = GetSaveString(self.newsModel.author);
         }else{

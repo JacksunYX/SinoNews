@@ -215,7 +215,7 @@
     
     [headView sd_addSubviews:@[
                                closeBtn,
-                               registBtn,
+//                               registBtn,
                                
                                _userImg,
                                _isApproved,
@@ -542,9 +542,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.selectedIndex == 1) {
-        NewsDetailViewController *ndVC = [NewsDetailViewController new];
-        ndVC.newsId = [(HomePageModel *)self.articlesArr[indexPath.row] itemId];
-        [self.navigationController pushViewController:ndVC animated:YES];
+        HomePageModel *model = self.articlesArr[indexPath.row];
+        if (model.itemType>=500&&model.itemType<600) { //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = model.itemId;
+            [self.navigationController pushViewController:cVC animated:YES];
+        }else{
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = model.itemId;
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }
     }
     
 }

@@ -237,6 +237,13 @@
 //    NSString *avaterStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.avatar)];
     [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
     
+    [avatar whenTap:^{
+        @strongify(self)
+        if (self.avatarBlock) {
+            self.avatarBlock(self.tag);
+        }
+    }];
+    
     username.text = GetSaveString(model.username);
     
     comment.text = GetSaveString(model.comment);

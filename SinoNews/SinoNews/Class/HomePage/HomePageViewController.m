@@ -207,9 +207,10 @@
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topEqualToView(self.view)
-        .heightIs(40)
+        .heightIs(42)
         ;
         [self.topView updateLayout];
+        [self.topView addBorderTo:BorderTypeBottom borderColor:HexColor(#e3e3e3)];
         //添加下阴影
 //        self.topView.layer.shadowColor = GrayColor.CGColor;
 //        self.topView.layer.shadowOffset = CGSizeMake(-2, 2);

@@ -15,6 +15,8 @@
 @interface CommentCell : UITableViewCell
 
 @property (nonatomic,strong) CompanyCommentModel *model;
+//点击头像
+@property (nonatomic,copy) void(^avatarBlock)(NSInteger row);
 //点赞
 @property (nonatomic,copy) void(^praiseBlock)(NSInteger row);
 //回复

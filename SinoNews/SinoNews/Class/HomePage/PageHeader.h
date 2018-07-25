@@ -15,6 +15,7 @@
 #import "WebViewController.h"
 #import "VoteViewController.h"
 #import "TopicViewController.h"
+#import "UserInfoViewController.h"
 
 #import "QACommentInputView.h"
 #import "PopNoticeView.h"

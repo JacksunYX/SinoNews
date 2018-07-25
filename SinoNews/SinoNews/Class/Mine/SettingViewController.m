@@ -27,7 +27,7 @@
                            @"夜间模式",
                            @"字体大小",
                            @"视频自动播放",
-                           @"检查更新",
+//                           @"检查更新",
                            @"清除缓存",
                            @"关于",
                            @"隐私协议",
@@ -38,7 +38,7 @@
                                 @"",
                                 @"",
                                 @"",
-                                @"",
+//                                @"",
                                 @"",
                                 @"",
                                 @"",
@@ -51,7 +51,7 @@
             dic[@"title"] = title[i];
             dic[@"rightTitle"] = rightTitle[i];
             
-            if (i < 5) {
+            if (i < 4) {
                 [section0 addObject:dic];
             }else{
                 [section1 addObject:dic];

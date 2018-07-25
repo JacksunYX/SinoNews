@@ -16,6 +16,8 @@
 
 @property (nonatomic,strong) AnswerModel *model;
 
+@property (nonatomic,copy) void(^avatarBlock)(void);
+
 @property (nonatomic,copy) void(^praiseBlock)(void);
 
 @end

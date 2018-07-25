@@ -921,8 +921,6 @@ CGFloat static titleViewHeight = 91;
         }
     }
     
-    //点击用户部分
-    
 }
 
 #pragma mark ----- UIScrollViewDelegate

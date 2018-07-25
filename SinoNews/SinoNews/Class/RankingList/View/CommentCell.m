@@ -249,7 +249,10 @@
     comment.text = GetSaveString(model.comment);
     
     praise.selected = model.isPraise;
-    NSString *count = [NSString stringWithFormat:@"%ld",model.likeNum];
+    NSString *count = @"";
+    if (model.likeNum) {
+        count = [NSString stringWithFormat:@"%ld",model.likeNum];
+    }
     if (praise.selected) {
         [praise setSelectedTitle:count];
     }else{

@@ -241,6 +241,14 @@
                 [self requestPraiseWithPraiseType:type praiseId:[model.commentId integerValue] commentNum:row];
             }
         };
+        //头像
+        cell2.avatarBlock = ^(NSInteger row) {
+            @strongify(self)
+            UserInfoViewController *uiVC = [UserInfoViewController new];
+            uiVC.userId = [model.userId integerValue];
+            [self.navigationController pushViewController:uiVC animated:YES];
+        };
+        
         //回复TA
 //        cell2.replayBlock = ^(NSInteger row) {
 ////            GGLog(@"点击了回复TA");

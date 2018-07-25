@@ -131,7 +131,11 @@
     content.text = GetSaveString(model.html);
     
     praise.selected = model.hasPraise;
-    NSString *count = [NSString stringWithFormat:@"%ld",model.favorCount];
+    
+    NSString *count = @"";
+    if (model.favorCount) {
+        count = [NSString stringWithFormat:@"%ld",model.favorCount];
+    }
     if (praise.selected) {
         [praise setSelectedTitle:count];
     }else{
@@ -143,6 +147,13 @@
         @strongify(self)
         if (self.praiseBlock) {
             self.praiseBlock();
+        }
+    }];
+    
+    [avatar whenTap:^{
+       @strongify(self)
+        if (self.avatarBlock) {
+            self.avatarBlock();
         }
     }];
     

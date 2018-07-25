@@ -29,6 +29,8 @@
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UIImageView *avatar;
+@property (nonatomic,strong) UILabel *authorAndTime;
 @property (nonatomic,strong) UIButton *attentionBtn;
 
 @property (nonatomic,strong) UIView *bottomView;
@@ -124,80 +126,101 @@ CGFloat static titleViewHeight = 91;
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topEqualToView(self.view)
-        .heightIs(titleViewHeight)
+        //        .heightIs(titleViewHeight)
+        
         ;
         
         _titleLabel = [UILabel new];
         _titleLabel.font = [GetCurrentFont titleFont];
-        _titleLabel.numberOfLines = 2;
+        _titleLabel.numberOfLines = 0;
         [_titleLabel addTitleColorTheme];
-        UIImageView *icon = [UIImageView new];
-        icon.backgroundColor = Arc4randomColor;
         
-        UILabel *authorAndTime = [UILabel new];
-        authorAndTime.font = PFFontR(12);
-        authorAndTime.textColor = RGBA(152, 152, 152, 1);
+        _avatar = [UIImageView new];
+        
+        _authorAndTime = [UILabel new];
+        _authorAndTime.font = PFFontR(11);
+        _authorAndTime.textColor = RGBA(152, 152, 152, 1);
         
         @weakify(self);
         _attentionBtn = [UIButton new];
-        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
-        [_attentionBtn setTitleColor:WhiteColor forState:UIControlStateSelected];
+        [_attentionBtn setNormalTitleColor:WhiteColor];
+        [_attentionBtn setSelectedTitleColor:WhiteColor];
+        [_attentionBtn setNormalTitle:@" 关注"];
+        [_attentionBtn setSelectedTitle:@"已关注"];
         
-        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
-        [_attentionBtn setBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)] forState:UIControlStateSelected];
+        [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
+        [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
+        
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             [self requestIsAttention];
         }];
         
-        _attentionBtn.titleLabel.font = PFFontR(13);
+        [_attentionBtn setBtnFont:PFFontR(14)];
         
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,
-                                         icon,
-                                         authorAndTime,
+                                         _avatar,
+                                         _authorAndTime,
                                          _attentionBtn,
                                          ]];
         _titleLabel.sd_layout
         .leftSpaceToView(self.titleView, 10)
         .rightSpaceToView(self.titleView, 10)
         .topEqualToView(self.titleView)
-        .heightIs(50)
+        //    .heightIs(50)
+        .autoHeightRatio(0)
         ;
         _titleLabel.text = GetSaveString(self.answerModel.newsTitle);
         
-        icon.sd_layout
+        CGFloat wid = 24;
+        if (kStringIsEmpty(self.answerModel.avatar)) {
+            wid = 0;
+        }
+        _avatar.sd_layout
         .leftEqualToView(_titleLabel)
         .topSpaceToView(_titleLabel, 7)
-        .widthIs(24)
-        .heightEqualToWidth()
+        .widthIs(wid)
+        .heightIs(24)
         ;
-        [icon setSd_cornerRadius:@12];
-        [icon sd_setImageWithURL:UrlWithStr(GetSaveString(self.answerModel.avatar))];
+        [_avatar setSd_cornerRadius:@12];
+        [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.answerModel.avatar))];
         
-        authorAndTime.sd_layout
-        .leftSpaceToView(icon, 3)
-        .centerYEqualToView(icon)
+        _authorAndTime.sd_layout
+        .leftSpaceToView(_avatar, 3)
+        .centerYEqualToView(_avatar)
         .heightIs(12)
         ;
-        [authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
-        authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.answerModel.username),GetSaveString(self.answerModel.createTime)];
+        [_authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
+        _authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.answerModel.username),GetSaveString(self.answerModel.createTime)];
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
-        .centerYEqualToView(icon)
+        .centerYEqualToView(_avatar)
         .widthIs(58)
         .heightIs(20)
         ;
-        [_attentionBtn setTitle:@"+ 关注" forState:UIControlStateNormal];
-        [_attentionBtn setTitle:@"已关注" forState:UIControlStateSelected];
+        
         [_attentionBtn setSd_cornerRadius:@8];
         
+        [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:10];
     }
     
     _attentionBtn.selected = self.answerModel.hasFollow;
+    if (_attentionBtn.selected) {
+        [_attentionBtn setNormalImage:nil];
+        [_attentionBtn setSelectedImage:nil];
+    }else{
+        [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
+    }
     _titleLabel.font = [GetCurrentFont titleFont];
-    [_titleLabel updateLayout];
+    
+    //获取上部分的高度
+    [self.titleView updateLayout];
+    titleViewHeight = self.titleView.height;
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    
+    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
 }
 
 -(void)setNavigationBtns
@@ -461,6 +484,14 @@ CGFloat static titleViewHeight = 91;
             [self requestPraiseWithPraiseType:7 praiseId:[model.commentId integerValue] commentNum:indexPath.row];
         }
     };
+    //头像
+    cell.avatarBlock = ^(NSInteger row) {
+        @strongify(self)
+        UserInfoViewController *uiVC = [UserInfoViewController new];
+        uiVC.userId = [model.userId integerValue];
+        [self.navigationController pushViewController:uiVC animated:YES];
+    };
+    
     
     [cell addBakcgroundColorTheme];
     return cell;
@@ -527,15 +558,21 @@ CGFloat static titleViewHeight = 91;
     CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
     int x = point.x;
     int y = point.y;
-    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
+    
     if (self.attentionBtn.enabled) {
-        if (self.tableView.contentOffset.y > -titleViewHeight) {
-            //            GGLog(@"不能点击");
+        //如果大于，说明tableView便宜量已经看不到头像等信息了
+        if (self.tableView.contentOffset.y + titleViewHeight >=10 + 24) {
+            GGLog(@"不能点击");
         }else{
-            //            GGLog(@"点击了关注周围");
-            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 2 - 20 && y <= titleViewHeight - 10 - 2) {
-                //                GGLog(@"点击了关注");
+            
+            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 24/2 - 20/2 && y <= titleViewHeight - 10 - 24/2 + 20/2) {
+                GGLog(@"点击了关注");
                 [self requestIsAttention];
+            }else if (x >= 10&&x<= (100+10) && y >= titleViewHeight - 10 - 24 && y <= titleViewHeight - 10) {
+                GGLog(@"点击用户部分");
+                UserInfoViewController *uiVC = [UserInfoViewController new];
+                uiVC.userId = self.answerModel.userId;
+                [self.navigationController pushViewController:uiVC animated:YES];
             }
         }
     }

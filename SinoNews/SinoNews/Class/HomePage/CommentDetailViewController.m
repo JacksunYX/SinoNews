@@ -39,6 +39,8 @@
     
 //    [self addNavigationView];
     [self addTableView];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noComment" title:@"暂无评论"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -158,7 +160,7 @@
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 38, 0, 10);
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
+//    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
     _tableView.enableDirection = YES;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
@@ -171,6 +173,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
+        [self.tableView ly_startLoading];
         [self refreshComments];
     }];
     
@@ -327,9 +330,11 @@
         }
         [self setBottomView];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     }];
 }
 

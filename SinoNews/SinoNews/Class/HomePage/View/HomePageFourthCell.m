@@ -58,11 +58,14 @@
     typeLabel.layer.borderColor = HexColor(#1282EE).CGColor;
     typeLabel.layer.borderWidth = 1;
     
+    UIView *sepLine = [UIView new];
+    sepLine.backgroundColor = HexColor(#E3E3E3);
+    
     [self.contentView sd_addSubviews:@[
                                        title,
                                        bottomLabel,
                                        typeLabel,
-                                       
+                                       sepLine,
                                        ]];
     
     title.sd_layout
@@ -92,6 +95,13 @@
     [typeLabel  setSd_cornerRadius:@4];
 //    [typeLabel cornerWithRadius:2];
    
+    sepLine.sd_layout
+    .leftSpaceToView(self.contentView, 10)
+    .rightSpaceToView(self.contentView, 10)
+    .bottomEqualToView(self.contentView)
+    .heightIs(1)
+    ;
+    
     [self setupAutoHeightWithBottomView:bottomLabel bottomMargin:15];
 }
 

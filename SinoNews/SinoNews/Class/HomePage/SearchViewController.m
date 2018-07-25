@@ -261,9 +261,9 @@
                                                                                                                        NSForegroundColorAttributeName:HexColor(#4B4B4B),                                                    NSFontAttributeName:Font(13),
                                                                                                                        }];
                 }else{
-                    textField.backgroundColor = HexColor(#f7f7f7);
+                    textField.backgroundColor = HexColor(#f2f2f2);
                     textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 热门搜索" attributes:@{
-                                                                                                                       NSForegroundColorAttributeName:HexColor(#E1E1E1),                                                    NSFontAttributeName:Font(13),
+                                                                                                                       NSForegroundColorAttributeName:HexColor(#959b9f),                                                    NSFontAttributeName:Font(13),
                                                                                                                        }];
                 }
             });

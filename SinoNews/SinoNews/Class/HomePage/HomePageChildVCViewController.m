@@ -114,9 +114,9 @@
 //        }
         
     });
-    self.tableView.separatorColor = HexColor(#E3E3E3);
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+//    self.tableView.separatorColor = HexColor(#E3E3E3);
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
 
     _tableView.dataSource = self;
     _tableView.delegate = self;

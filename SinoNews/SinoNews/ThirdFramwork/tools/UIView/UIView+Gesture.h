@@ -29,4 +29,14 @@
  */
 + (void)drawDashLine:(UIView *)lineView lineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor;
 
+
+/**
+ 查找某个视图上是否存在某个类的视图
+
+ @param className 类名
+ @return 查找到的结果
+ */
+- (UIView*)subViewOfClassName:(NSString*)className;
+
+
 @end

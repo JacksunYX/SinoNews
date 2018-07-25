@@ -68,12 +68,15 @@
     typeLabel.layer.borderColor = HexColor(#1282EE).CGColor;
     typeLabel.layer.borderWidth = 1;
     
+    UIView *sepLine = [UIView new];
+    sepLine.backgroundColor = HexColor(#E3E3E3);
+    
     [self.contentView sd_addSubviews:@[
                                        rightImg,
                                        title,
                                        bottomLabel,
                                        typeLabel,
-                                       
+                                       sepLine,
                                        ]];
     //布局
     rightImg.sd_layout
@@ -116,6 +119,13 @@
     
     //    [typeLabel updateLayout];
     //    typeLabel.frame = CGRectMake(typeLabel.frame.origin.x, typeLabel.frame.origin.y, typeLabel.frame.size.width + kScaelW(10), typeLabel.frame.size.height + kScaelW(10));
+    
+    sepLine.sd_layout
+    .leftSpaceToView(self.contentView, 10)
+    .rightSpaceToView(self.contentView, 10)
+    .bottomEqualToView(self.contentView)
+    .heightIs(1)
+    ;
     
     [self setupAutoHeightWithBottomView:rightImg bottomMargin:15];
 }

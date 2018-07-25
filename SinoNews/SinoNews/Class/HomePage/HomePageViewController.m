@@ -110,14 +110,29 @@
 {
     //需要把searchbar作为导航栏的titleview时，不要直接设置，因为直接创建的searchbar高度时固定为44的，这样会把导航栏的高度撑高，不再是44，可以使用下面的方法来创建
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300 * ScaleW, 34)];
+    
     self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;
-
+    
     // 设置搜索框放大镜图标
     self.searchBar.lee_theme.LeeCustomConfig(@"homePage_search", ^(id item, id value) {
         [(UISearchBar *)item setImage:value forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     });
+    
+    
+//    UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
+//    if (searchField) {
+//        [searchField setBackgroundColor:HexColor(#f2f2f2)];
+//        searchField.layer.cornerRadius = 17.0f;
+//        searchField.layer.masksToBounds = YES;
+//
+//        searchField.delegate = self;
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+//        tap.numberOfTapsRequired = 1;
+//        [searchField addGestureRecognizer:tap];
+//    }
+    
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
@@ -132,9 +147,9 @@
                                                                                                                             NSFontAttributeName:Font(13),
                                                                                                                             }];
                 }else{
-                    textField.backgroundColor = HexColor(#f7f7f7);
+                    textField.backgroundColor = HexColor(#f2f2f2);
                     textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 搜个关键词试试看？" attributes:@{
-                                                                                                                            NSForegroundColorAttributeName:HexColor(#E1E1E1),
+                                                                                                                            NSForegroundColorAttributeName:HexColor(#959b9f),
                                                                                                                             NSFontAttributeName:Font(13),
                                                                                                                             }];
                 }
@@ -155,7 +170,9 @@
             //            [cancel setTitle:@"取消" forState:UIControlStateNormal];
             
         }
+        
     }
+    
     
     _userIcon = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [_userIcon setNormalImage:UIImageNamed(@"homePage_logo")];

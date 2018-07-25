@@ -76,6 +76,9 @@
     typeLabel.textColor = WhiteColor;
     typeLabel.textAlignment = NSTextAlignmentCenter;
     
+    UIView *sepLine = [UIView new];
+    sepLine.backgroundColor = HexColor(#E3E3E3);
+    
     [self.contentView sd_addSubviews:@[
                                        title,
                                        imgL,
@@ -83,7 +86,7 @@
                                        imgR,
                                        bottomLabel,
                                        typeLabel,
-                                       
+                                       sepLine,
                                        ]];
     title.sd_layout
     .leftSpaceToView(self.contentView, lrMargin)
@@ -150,6 +153,13 @@
 //    [typeLabel setSd_cornerRadius:@2];
     [typeLabel cornerWithRadius:2];
 //    typeLabel.text = @"专题";
+    
+    sepLine.sd_layout
+    .leftSpaceToView(self.contentView, 10)
+    .rightSpaceToView(self.contentView, 10)
+    .bottomEqualToView(self.contentView)
+    .heightIs(1)
+    ;
     
     [self setupAutoHeightWithBottomView:bottomLabel bottomMargin:10];
     

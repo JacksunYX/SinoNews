@@ -138,7 +138,7 @@ CGFloat static titleViewHeight = 91;
             [self requestIsAttention];
         }];
         
-        _attentionBtn.titleLabel.font = PFFontR(13);
+        [_attentionBtn setBtnFont:PFFontR(14)];
         
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,

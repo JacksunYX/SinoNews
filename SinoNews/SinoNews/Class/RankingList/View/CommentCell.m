@@ -134,7 +134,7 @@
     .topSpaceToView(comment, 20)
     .heightIs(11)
     ;
-    [createTime setSingleLineAutoResizeWithMaxWidth:50];
+    [createTime setSingleLineAutoResizeWithMaxWidth:80];
     
     replyBtn.sd_layout
     .centerYEqualToView(createTime)

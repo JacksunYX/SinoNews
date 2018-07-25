@@ -58,12 +58,15 @@
     label2.textColor = HexColor(#1282EE);
     label2.textAlignment = NSTextAlignmentCenter;
     
+    UIView *sepLine = [UIView new];
+    sepLine.backgroundColor = HexColor(#E3E3E3);
+    
     [self.contentView sd_addSubviews:@[
                                        title,
                                        img,
                                        label1,
 //                                       label2,
-                                       
+                                       sepLine,
                                        ]];
     
     CGFloat lrMargin = 10;  //左右间距
@@ -107,6 +110,13 @@
     ;
     LRViewBorderRadius(label2, 2, 1, HexColor(#1282EE));
     label2.text = @"立即下载";
+    
+    sepLine.sd_layout
+    .leftSpaceToView(self.contentView, 10)
+    .rightSpaceToView(self.contentView, 10)
+    .bottomEqualToView(self.contentView)
+    .heightIs(1)
+    ;
     
     [self setupAutoHeightWithBottomView:label1 bottomMargin:tbMargin];
 }

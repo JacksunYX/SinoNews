@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BindingDataViewController : UIViewController
+@interface BindingDataViewController : BaseViewController
 
 @property (nonatomic,assign) NSInteger bindingType;
 

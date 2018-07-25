@@ -39,6 +39,7 @@
 @property (nonatomic ,strong) UILabel *praise;      //获赞
 
 @property (nonatomic ,strong) UserModel *user;
+@property (nonatomic ,strong) NSDictionary *tipsDic;    //保存提示信息
 
 @end
 
@@ -154,6 +155,8 @@
     }else{
         [self requestToGetUserInfo];
     }
+    
+    [self requestUser_tips];
 }
 
 //添加视图
@@ -566,19 +569,44 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
         cell.textLabel.font = PFFontL(14);
-        [cell.textLabel addTitleColorTheme];
+//        [cell.textLabel addTitleColorTheme];
         cell.detailTextLabel.font = PFFontL(14);
         cell.detailTextLabel.textColor = RGBA(188, 188, 188, 1);
         cell.accessoryType = 1;
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        cell.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+    if (indexPath.section == 0 && indexPath.row == 0&&UserGetBool(@"MessageNotice")) {
+        cell.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+            UITableViewCell *cell1 = (UITableViewCell *)item;
+            cell1.textLabel.textColor = value;
+            cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+        });
     }else{
         cell.textLabel.text = GetSaveString(model[@"title"]);
+        [cell addTitleColorTheme];
     }
     
-    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
+//    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
+    if (!kStringIsEmpty(self.tipsDic[@"messageTip"])) {
+        if (indexPath.section == 0 && indexPath.row == 0) {
+            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"messageTip"]);
+        }
+    }
+    if (!kStringIsEmpty(self.tipsDic[@"shareTip"])) {
+        if (indexPath.section == 0 && indexPath.row == 3) {
+            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"shareTip"]);
+        }
+    }
+    if (!kStringIsEmpty(self.tipsDic[@"pointRechargeTip"])) {
+        if (indexPath.section == 1 && indexPath.row == 0) {
+            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"pointRechargeTip"]);
+        }
+    }
+    if (!kStringIsEmpty(self.tipsDic[@"pointGameTip"])) {
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"pointGameTip"]);
+        }
+    }
     
 //    cell.imageView.image = UIImageNamed(GetSaveString(model[@"img"]));
     
@@ -717,5 +745,17 @@
         [self setBottomView];
     } failure:nil];
 }
+
+//获取用户提示信息
+-(void)requestUser_tips
+{
+    [HttpRequest getWithURLString:User_tips parameters:nil success:^(id responseObject) {
+        self.tipsDic = responseObject[@"data"];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 @end

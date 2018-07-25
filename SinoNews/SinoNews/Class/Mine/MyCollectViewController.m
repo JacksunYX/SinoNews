@@ -80,7 +80,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的收藏";
-    
+    [self showTopLine];
     [self getButtonAndView];
     [self setTitleView];
     [self addTableViews];

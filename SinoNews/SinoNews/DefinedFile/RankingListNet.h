@@ -29,6 +29,8 @@
 //关注/取关游戏公司(post)//目前前端作为关注和取关的接口来使用
 #define ConcernCompany  @"/api/company/concernCompany"
 
+//排行规则
+#define News_rankRule   @"/api/news/rankRule"
 
 
 

@@ -168,9 +168,14 @@
     @weakify(self)
     self.lineCollectionView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
+        if (self.adArr.count<=0) {
+            [self requestTopBanner];
+        }
+        if (self.adDatasource.count<=0) {
+            [self requestBottomBanner];
+        }
         [self requestRanking];
-        [self requestTopBanner];
-        [self requestBottomBanner];
+        
     }];
     
     [self.lineCollectionView.mj_header beginRefreshing];

@@ -11,6 +11,15 @@
 static int tags = 206118;
 @implementation UIViewController (emptyView)
 
+-(void)showTopLine
+{
+    [[self getLineViewInNavigationBar:self.navigationController.navigationBar] setHidden:NO];
+}
+-(void)hiddenTopLine
+{
+    [[self getLineViewInNavigationBar:self.navigationController.navigationBar] setHidden:YES];
+}
+
 //显隐加载背景
 -(void)showOrHideLoadView:(BOOL)show page:(NSInteger)pageType
 {
@@ -63,5 +72,26 @@ static int tags = 206118;
         [view.superview bringSubviewToFront:view];
     }
 }
+
+
+//找到导航栏最下面黑线视图
+- (UIImageView *)getLineViewInNavigationBar:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self getLineViewInNavigationBar:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    
+    return nil;
+}
+
+
+
 
 @end

@@ -16,6 +16,7 @@
 #import "RankScoreCell.h"
 
 #import "QACommentInputView.h"
+#import "SignInRuleWebView.h"
 
 
 
@@ -410,6 +411,11 @@
         [icon setSd_cornerRadius:@10];
         icon.layer.borderColor = RGBA(204, 204, 204, 1).CGColor;
         icon.layer.borderWidth = 1;
+        
+        //点击事件
+        [icon whenTap:^{
+            [SignInRuleWebView showWithWebString:News_rankRule];
+        }];
     }else if (section == 4){
         UILabel *title = [UILabel new];
         title.font = PFFontR(15);

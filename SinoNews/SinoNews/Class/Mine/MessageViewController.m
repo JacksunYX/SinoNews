@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"消息";
-    
+    [self showTopLine];
     [self addTopViews];
 }
 

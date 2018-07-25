@@ -11,6 +11,7 @@
 
 @interface UIViewController (emptyView)
 
+
 /**
  显隐加载背景
 
@@ -18,5 +19,9 @@
  @param pageType 哪种界面
  */
 -(void)showOrHideLoadView:(BOOL)show page:(NSInteger)pageType;
+
+//显隐导航栏下方横线
+-(void)showTopLine;
+-(void)hiddenTopLine;
 
 @end

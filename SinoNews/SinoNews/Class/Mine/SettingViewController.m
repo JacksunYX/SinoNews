@@ -11,6 +11,7 @@
 #import "VideoAutoPlaySelectView.h"
 #import "LogoutNoticeView.h"
 #import "HomePageModel.h"
+#import "SignInRuleWebView.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -215,6 +216,10 @@
         [alertVC addAction:action1];
         [alertVC addAction:action2];
         [self presentViewController:alertVC animated:YES completion:nil];
+    }else if (CompareString(title, @"关于")){
+        [SignInRuleWebView showWithWebString:News_aboutUs];
+    }else if (CompareString(title, @"隐私协议")){
+        [SignInRuleWebView showWithWebString:News_statement];
     }else if (CompareString(title, @"退出登录")){
         
         [LogoutNoticeView show:^{

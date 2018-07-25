@@ -12,6 +12,6 @@
 
 @interface SignInRuleWebView : UIView
 
-+(void)showWithData:(NSDictionary *)data;
++(void)showWithWebString:(NSString *)webStr;
 
 @end

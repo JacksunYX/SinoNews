@@ -136,7 +136,7 @@
 //宽度比例
 #define ScaleW (ScreenW/375.0)
 //根据屏幕宽度调整字体比例
-#define FontScale(f) PFFontL(ScaleW * f)
+#define FontScale(f) PFFontR(ScaleW * f)
 
 //-------------------获取设备大小-------------------------
 

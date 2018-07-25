@@ -15,7 +15,7 @@
 @implementation SignInRuleWebView
 static CGFloat anumationTime = 0.3;
 
-+(void)showWithData:(NSDictionary *)data
++(void)showWithWebString:(NSString *)webStr
 {
     //背景视图
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];
@@ -75,9 +75,9 @@ static CGFloat anumationTime = 0.3;
     //    config.userContentController = wkUController;
     //    // 设置偏好设置对象
     config.preferences = preference;
-    WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 0) configuration:config];
+    WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
     
-//    [centerView addSubview:webView];
+    [centerView addSubview:webView];
     webView.sd_layout
     .leftEqualToView(centerView)
     .rightEqualToView(centerView)
@@ -86,11 +86,10 @@ static CGFloat anumationTime = 0.3;
     ;
     //加载网页
     NSString *urlStr;
-    if ([data allKeys].count>0) {
-        urlStr = AppendingString(DefaultDomainName, data[@"webUrl"]);
-    }else{
-        urlStr = @"https://www.tmall.com";
+    if (!kStringIsEmpty(webStr)) {
+        urlStr = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, webStr)];
     }
+    
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];

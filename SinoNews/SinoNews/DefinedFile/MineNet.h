@@ -69,9 +69,12 @@
 //删除一篇文章(post)
 #define RemoveArticle       @"/api/news/remove"
 
-
-
-
+//签到规则
+#define News_signRule       @"/api/news/signRule"
+//关于我们
+#define News_aboutUs        @"/api/news/aboutUs"
+//隐私协议
+#define News_statement      @"/api/news/statement"
 
 
 #endif /* MineNet_h */

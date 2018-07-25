@@ -65,8 +65,7 @@
     typeLabel.backgroundColor = WhiteColor;
     typeLabel.textColor = HexColor(#1282EE);
     typeLabel.textAlignment = NSTextAlignmentCenter;
-    typeLabel.layer.borderColor = HexColor(#1282EE).CGColor;
-    typeLabel.layer.borderWidth = 1;
+    
     
     UIView *sepLine = [UIView new];
     sepLine.backgroundColor = HexColor(#E3E3E3);
@@ -135,6 +134,8 @@
     _model = model;
 
     NSString *titletext;
+    typeLabel.layer.borderColor = HexColor(#1282EE).CGColor;
+    typeLabel.layer.borderWidth = 1;
     typeLabel.hidden = YES;
     bottomLabel.textColor = HexColor(#989898);
     if (model.itemType < 200) {
@@ -178,16 +179,22 @@
         bottomLabel.attributedText = attString;
         
     }else if (model.itemType >=500 && model.itemType < 600){
+        typeLabel.text = @"问答";
+        typeLabel.backgroundColor = OrangeColor;
+        typeLabel.textColor = WhiteColor;
+        typeLabel.hidden = NO;
+        typeLabel.layer.borderColor = ClearColor.CGColor;
+        typeLabel.layer.borderWidth = 0;
         titletext = GetSaveString(model.itemTitle);
         bottomLabel.textColor = HexColor(#1282EE);
-        bottomLabel.text = [NSString stringWithFormat:@"%ld 问答",model.commentCount];
+        bottomLabel.text = [NSString stringWithFormat:@"%ld 回答",model.commentCount];
     }else{
         typeLabel.text = @"专题";
-        titletext = [@"" stringByAppendingString:GetSaveString(model.itemTitle)];
-        bottomLabel.text = @"";
         typeLabel.backgroundColor = HexColor(#1282EE);
         typeLabel.textColor = WhiteColor;
         typeLabel.hidden = NO;
+        titletext = [@"" stringByAppendingString:GetSaveString(model.itemTitle)];
+        bottomLabel.text = @"";
     }
     
     if ([titletext containsString:@"<font"]) {

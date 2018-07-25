@@ -868,23 +868,23 @@ CGFloat static titleViewHeight = 91;
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     //    GGLog(@"touchesBegan点击了");
-    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
-    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
-    CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
-    int x = point.x;
-    int y = point.y;
-    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
-    if (self.attentionBtn.enabled) {
-        if (self.tableView.contentOffset.y > -titleViewHeight) {
-            //            GGLog(@"不能点击");
-        }else{
-            //            GGLog(@"点击了关注周围");
-            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 2 - 20 && y <= titleViewHeight - 10 - 2) {
-                //                GGLog(@"点击了关注");
-                [self requestIsAttention];
-            }
-        }
-    }
+//    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
+//    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
+//    CGPoint point = [touch locationInView:self.view]; //返回触摸点在视图中的当前坐标
+//    int x = point.x;
+//    int y = point.y;
+//    //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
+//    if (self.attentionBtn.enabled) {
+//        if (self.tableView.contentOffset.y > -titleViewHeight) {
+//            //            GGLog(@"不能点击");
+//        }else{
+//            //            GGLog(@"点击了关注周围");
+//            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 2 - 20 && y <= titleViewHeight - 10 - 2) {
+//                //                GGLog(@"点击了关注");
+//                [self requestIsAttention];
+//            }
+//        }
+//    }
 }
 
 #pragma mark ----- UIScrollViewDelegate

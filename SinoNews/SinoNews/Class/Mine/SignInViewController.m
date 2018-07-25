@@ -173,7 +173,7 @@
 //        [signInRaw setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
         [signInRaw addButtonTextColorTheme];
         [[signInRaw rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            [SignInRuleWebView showWithData:@{}];
+            [SignInRuleWebView showWithWebString:News_signRule];
         }];
         
         [centerView sd_addSubviews:@[

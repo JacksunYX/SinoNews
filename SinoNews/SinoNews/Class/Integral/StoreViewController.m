@@ -59,7 +59,7 @@
     .topSpaceToView(self.view, 10)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(WIDTH_SCALE * 108 + 15)
+    .heightIs(WIDTH_SCALE * 108 + 30)
     ;
     [self.headView updateLayout];
     
@@ -82,7 +82,7 @@
     if (_segHead) {
         [_segHead removeFromSuperview];
     }
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, WIDTH_SCALE * 108 + 15, SCREEN_WIDTH, 42) titles:titles headStyle:1 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, WIDTH_SCALE * 108 + 30 , SCREEN_WIDTH, 42) titles:titles headStyle:1 layoutStyle:0];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;
@@ -94,8 +94,8 @@
     });
     _segHead.deSelectColor = HexColor(#888888);
     _segHead.maxTitles = 4;
-    _segHead.bottomLineHeight = 0;
-    _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
+    _segHead.bottomLineHeight = 1;
+    _segHead.bottomLineColor = HexColor(#E3E3E3);
     
     if (_segScroll) {
         [_segScroll removeFromSuperview];

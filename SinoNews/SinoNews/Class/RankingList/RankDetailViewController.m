@@ -478,7 +478,7 @@
     .widthIs(54)
     .heightIs(61)
     ;
-    star.image = UIImageNamed(@"game_sixStar");
+//    star.image = UIImageNamed(@"game_sixStar");
     
     icon.sd_layout
     .centerYEqualToView(star)

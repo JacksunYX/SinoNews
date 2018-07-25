@@ -164,7 +164,7 @@
     
     UILabel *discountLabel = [UILabel new];
 //    discountLabel.textColor = RGBA(50, 50, 50, 1);
-    [discountLabel addContentColorTheme];
+    [discountLabel addTitleColorTheme];
     discountLabel.font = PFFontL(15);
     discountLabel.isAttributedContent = YES;
     
@@ -200,7 +200,8 @@
     NSMutableAttributedString *att2 = [[NSMutableAttributedString alloc]initWithString:str3];
     
     NSString *str4 = [NSString stringWithFormat:@"原价%ld积分",self.productModel.price];
-    NSMutableAttributedString *att3 = [[NSMutableAttributedString alloc]initWithString:str4];
+    NSMutableAttributedString *att3 = [NSString leadString:@"" tailString:str4 font:PFFontL(15) color:RGBA(152, 152, 152, 1) lineBreak:NO];
+    
     NSDictionary *dic = @{
                           //下划线
                           NSStrikethroughStyleAttributeName : @1,

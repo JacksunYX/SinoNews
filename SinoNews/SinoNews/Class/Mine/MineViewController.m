@@ -157,6 +157,7 @@
     }
     
     [self requestUser_tips];
+    [self requestGetCountOfUnreadMessage];
 }
 
 //添加视图
@@ -247,6 +248,9 @@
     
     _userImg = [UIImageView new];
     
+    UIView *backView = [UIView new];
+    backView.backgroundColor = ClearColor;
+    
     _userName = [UILabel new];
     _userName.font = PFFontL(18);
 //    _userName.textColor = RGBA(72, 72, 72, 1);
@@ -255,7 +259,7 @@
     _integral = [UILabel new];
     _integral.font = PFFontL(14);
 //    _integral.textColor = RGBA(50, 50, 50, 1);
-    [_integral addContentColorTheme];
+    [_integral addTitleColorTheme];
     
     _signIn = [UIButton new];
     
@@ -270,8 +274,8 @@
     
     [headView sd_addSubviews:@[
                                _userImg,
-                               _userName,
-                               _integral,
+                               backView,
+                               
                                _signIn,
                                
                                _publish,
@@ -293,20 +297,36 @@
         [self userTouch];
     }];
     
+    backView.sd_layout
+    .leftSpaceToView(_userImg, 15)
+    .centerYEqualToView(_userImg)
+    .heightIs(40)
+    ;
+    [backView sd_addSubviews:@[
+                               _userName,
+                               _integral,
+                               ]];
+    
     _userName.sd_layout
 //    .bottomSpaceToView(_userImg, -27)
-    .centerYEqualToView(self.userImg)
-    .leftSpaceToView(_userImg, 18 * ScaleW)
+//    .centerYEqualToView(self.userImg)
+//    .leftSpaceToView(_userImg, 18 * ScaleW)
+    .topEqualToView(backView)
+    .leftEqualToView(backView)
     .heightIs(20)
     ;
     [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
     
     _integral.sd_layout
-    .topSpaceToView(_userName, 10)
-    .leftEqualToView(_userName)
-    .heightIs(20)
+//    .topSpaceToView(_userName, 10)
+//    .leftEqualToView(_userName)
+    .leftEqualToView(backView)
+    .bottomEqualToView(backView)
+    .heightIs(14)
     ;
     [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    
+    [backView setupAutoWidthWithRightView:_userName rightMargin:10];
     
     _signIn.sd_layout
     .rightEqualToView(headView)
@@ -618,6 +638,9 @@
         
         [(UIImageView *)item setImage:UIImageNamed(imgStr)];
     });
+    if (indexPath.section == 0 && indexPath.row == 0){
+        
+    }
     
     [cell addBakcgroundColorTheme];
     return cell;
@@ -756,6 +779,23 @@
         
     }];
 }
+
+//获取用户未读消息数量
+-(void)requestGetCountOfUnreadMessage
+{
+    [HttpRequest getWithURLString:GetCountOfUnreadMessage parameters:nil success:^(id responseObject) {
+        if ([responseObject[@"data"][@"count"] integerValue]) {
+            UserSetBool(YES, @"MessageNotice");
+        }else{
+            UserSetBool(NO, @"MessageNotice");
+        }
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
 
 
 @end

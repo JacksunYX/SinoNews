@@ -142,11 +142,12 @@
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+
     //允许支持同时多选多行
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    self.tableView.separatorColor = RGBA(227, 227, 227, 1);
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+//    self.tableView.separatorColor = RGBA(227, 227, 227, 1);
     //注册
     [self.tableView registerClass:[MyCollectArticleCell class] forCellReuseIdentifier:MyCollectArticleCellID];
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];

@@ -86,11 +86,12 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    [self.tableView addBakcgroundColorTheme];
+//    [self.tableView addBakcgroundColorTheme];
+    self.tableView.backgroundColor = BACKGROUND_COLOR;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -115,6 +116,16 @@
         cell.detailTextLabel.font = PFFontL(14);
 //        cell.detailTextLabel.textColor = RGBA(194, 194, 194, 1);
         [cell.detailTextLabel addContentColorTheme];
+        
+        UIView *sepLine = [UIView new];
+        sepLine.backgroundColor = HexColor(#e3e3e3);
+        [cell.contentView addSubview:sepLine];
+        sepLine.sd_layout
+        .leftSpaceToView(cell.contentView, 10)
+        .widthIs(ScreenW - 20)
+        .bottomEqualToView(cell.contentView)
+        .heightIs(1)
+        ;
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
     NSString *title = GetSaveString(model[@"title"]);
@@ -158,10 +169,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section != 0) {
-        return 10;
-    }
-    return 0.01;
+    return 10;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

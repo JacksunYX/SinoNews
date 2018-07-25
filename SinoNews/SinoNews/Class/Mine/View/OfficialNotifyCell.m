@@ -174,7 +174,7 @@
         ;
         
     }
-    
+    [userIcon setSd_cornerRadius:@20];
     [contentBackView setSd_cornerRadius:@8];
     [contentBackView updateLayout];
     

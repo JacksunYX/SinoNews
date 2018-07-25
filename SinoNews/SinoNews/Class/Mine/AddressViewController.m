@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"管理收货地址";
-    
+    [self showTopLine];
     [self configUI];
     [self showOrHiddenTheAddBtn:YES];
 }

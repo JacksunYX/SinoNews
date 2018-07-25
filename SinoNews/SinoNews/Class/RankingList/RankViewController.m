@@ -121,7 +121,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(WIDTH_SCALE * 108 + 15)
+    .heightIs(WIDTH_SCALE * 108 + 30)
     ;
     [self.headView updateLayout];
     
@@ -155,7 +155,7 @@
     [self.view addSubview:self.lineCollectionView];
     [self.lineCollectionView activateConstraints:^{
 //        self.lineCollectionView.top_attr = self.headView.bottom_attr;
-        [self.lineCollectionView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 15];
+        [self.lineCollectionView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 30];
         self.lineCollectionView.left_attr = self.view.left_attr_safe;
         self.lineCollectionView.right_attr = self.view.right_attr_safe;
         self.lineCollectionView.bottom_attr = self.adCollectionView.top_attr;

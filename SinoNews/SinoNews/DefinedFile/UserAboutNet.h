@@ -40,7 +40,7 @@
 //修改用户密码(post)
 #define User_editPassword   @"/api/user/editPassword"
 
-//获取用户提示信息
+//获取用户提示信息(get)
 #define User_tips           @"/api/user/tips"
 
 //添加文章(发布文章)(post)

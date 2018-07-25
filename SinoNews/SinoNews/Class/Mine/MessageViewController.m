@@ -80,6 +80,19 @@
         [btn setImage:UIImageNamed(GetSaveString(img[i])) forState:UIControlStateNormal];
         [btn setTitle:GetSaveString(title[i]) forState:UIControlStateNormal];
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
+        
+        if (i==2&&UserGetBool(@"MessageNotice")) {
+            UIView *redTip = [UIView new];
+            redTip.backgroundColor = RedColor;
+            [btn addSubview:redTip];
+            redTip.sd_layout
+            .topSpaceToView(btn, -2)
+            .leftSpaceToView(btn, 25)
+            .widthIs(4)
+            .heightEqualToWidth()
+            ;
+            [redTip setSd_cornerRadius:@2];
+        }
     }
     
     UIView *line1 = [UIView new];
@@ -113,8 +126,12 @@
             break;
         case 2:
         {
+            UserSetBool(NO, @"MessageNotice");
             NewNotifyViewController *nvc = [NewNotifyViewController new];
-            [self.navigationController pushViewController:nvc animated:YES];
+
+            [self.rt_navigationController pushViewController:nvc animated:YES complete:^(BOOL finished) {
+                [self.rt_navigationController removeViewController:self];
+            }];
         }
             break;
             

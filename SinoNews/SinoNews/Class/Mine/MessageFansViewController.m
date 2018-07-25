@@ -74,7 +74,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的粉丝";
-    
+    [self showTopLine];
     [self addTableView];
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noFans" title:@"暂无粉丝关注你"];

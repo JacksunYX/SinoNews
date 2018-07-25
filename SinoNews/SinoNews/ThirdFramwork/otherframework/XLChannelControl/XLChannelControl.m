@@ -55,30 +55,35 @@
     
     _nav = [[UINavigationController alloc] initWithRootViewController:[UIViewController new]];
     //设置不同模式下的样式
+    @weakify(self)
     _nav.navigationBar.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
+        @strongify(self)
         UINavigationBar *naviBar = (UINavigationBar *)item;
         //导航栏背景色
         naviBar.barTintColor = value;
         //标题颜色
         NSMutableDictionary *dic = [NSMutableDictionary new];
         dic[NSFontAttributeName] = PFFontL(16);
+        
         if (UserGetBool(@"NightMode")) {
             naviBar.tintColor = HexColor(#CFD3D6);
             dic[NSForegroundColorAttributeName] = HexColor(#CFD3D6);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+            self->_nav.topViewController.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(backMethod) image:@"saerchClose_night" hightimage:nil andTitle:@""];
         }else{
             naviBar.tintColor = HexColor(#000000);
             dic[NSForegroundColorAttributeName] = HexColor(#323232);
             UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+            self->_nav.topViewController.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(backMethod) image:@"saerchClose" hightimage:nil andTitle:@""];
         }
         [naviBar setTitleTextAttributes:dic];
     });
     
     _nav.topViewController.title = @"全部频道";
     _nav.topViewController.view = _channelView;
-    UIBarButtonItem *item = [UIBarButtonItem fixedSpaceWithWidth:10];
-    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];
-    _nav.topViewController.navigationItem.rightBarButtonItems = @[item,item2];
+//    UIBarButtonItem *item = [UIBarButtonItem fixedSpaceWithWidth:10];
+//    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backMethod)];
+//    _nav.topViewController.navigationItem.rightBarButtonItems = @[item,item2];
 }
 
 -(void)backMethod

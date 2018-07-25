@@ -76,7 +76,8 @@
 //隐私协议
 #define News_statement      @"/api/news/statement"
 
-
+//查看未读私信数量(get)
+#define GetCountOfUnreadMessage @"/api/message/getCountOfUnreadMessage"
 
 
 

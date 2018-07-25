@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"通知";
-    
+    [self showTopLine];
     [self addTableView];
 }
 
@@ -45,8 +45,8 @@
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 75, 0, 10);
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 75, 0, 10);
     
     /*
     @weakify(self)
@@ -109,12 +109,22 @@
         time.textAlignment = NSTextAlignmentCenter;
         [accessView addSubview:time];
         time.sd_layout
-        .topSpaceToView(accessView, 17)
+        .topSpaceToView(accessView, 15)
         .rightEqualToView(accessView)
         .heightIs(12)
         ;
         [time setSingleLineAutoResizeWithMaxWidth:80];
         cell.accessoryView = accessView;
+        
+        UIView *sepLine = [UIView new];
+        sepLine.backgroundColor = HexColor(#e3e3e3);
+        [cell.contentView addSubview:sepLine];
+        sepLine.sd_layout
+        .leftSpaceToView(cell.contentView, 75)
+        .widthIs(ScreenW - 75)
+        .bottomEqualToView(cell.contentView)
+        .heightIs(1)
+        ;
     }
     cell.imageView.image = UIImageNamed(@"notify_logo");
     cell.textLabel.text = @"启世录官方通知";

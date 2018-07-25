@@ -83,7 +83,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"赞";
-    
+    [self showTopLine];
     [self addTableView];
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noPraise" title:@"暂无人点赞"];

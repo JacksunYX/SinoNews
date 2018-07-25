@@ -92,7 +92,7 @@ static CGFloat anumationTime = 0.3;
     UILabel *nightMode = [UILabel new];
     nightMode.font = PFFontL(16);
     
-    LQXSwitch *switchBtn = [[LQXSwitch alloc] initWithFrame:CGRectMake(ScreenW - 59, 13, 49, 20) onColor:RGBA(18, 130, 238, 1) offColor:RGBA(204, 227, 249, 1) font:[UIFont systemFontOfSize:25] ballSize:13];
+    LQXSwitch *switchBtn = [[LQXSwitch alloc] initWithFrame:CGRectMake(ScreenW - 59, 13, 49, 30) onColor:RGBA(18, 130, 238, 1) offColor:RGBA(204, 227, 249, 1) font:[UIFont systemFontOfSize:25] ballSize:14];
     [switchBtn setOn:UserGetBool(@"NightMode") animated:YES];
     
     [bottomView sd_addSubviews:@[
@@ -164,7 +164,7 @@ static CGFloat anumationTime = 0.3;
     .rightSpaceToView(bottomView, 10)
     .centerYEqualToView(nightMode)
     .widthIs(49)
-    .heightIs(20)
+    .heightIs(24)
     ;
     
     [[finishBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

@@ -133,8 +133,31 @@
         isAttention.layer.borderColor = HexColor(#1282EE).CGColor;
     }
     
+    subTitle.hidden = NO;
+    if (!model.signature.length||[NSString isEmpty:model.signature]) {
+        title.sd_resetLayout
+        .centerYEqualToView(img)
+        .leftSpaceToView(img, 10)
+        .rightSpaceToView(isAttention, 10)
+        .heightIs(16)
+        ;
+        subTitle.hidden = YES;
+    }else{
+        title.sd_layout
+        .leftSpaceToView(img, 10)
+        .topSpaceToView(self.contentView, 23)
+        .rightSpaceToView(isAttention, 10)
+        .heightIs(16)
+        ;
+        subTitle.sd_layout
+        .leftEqualToView(title)
+        .topSpaceToView(title, 9)
+        .rightSpaceToView(isAttention, 10)
+        .autoHeightRatio(0)
+        ;
+        subTitle.text = GetSaveString(model.signature);
+    }
     title.text = GetSaveString(model.username);
-    subTitle.text = GetSaveString(model.signature);
 }
 
 

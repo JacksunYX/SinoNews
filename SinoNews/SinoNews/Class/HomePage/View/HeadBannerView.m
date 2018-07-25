@@ -55,7 +55,7 @@
 - (void)setupUI {
     
     CGFloat Width = self.frame.size.width;
-    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, Width,self.frame.size.height - 15)];
+    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, Width,self.frame.size.height - 30)];
     [pageFlowView addBakcgroundColorTheme];
     pageFlowView.delegate = self;
     pageFlowView.dataSource = self;
@@ -71,7 +71,7 @@
     [self addSubview:pageFlowView];
     
     //初始化pageControl
-    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(pageFlowView.frame) + 3, Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
+    _pageControl = [[LWDPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(pageFlowView.frame) + 10, Width, 10) indicatorMargin:5.f indicatorWidth:5.f currentIndicatorWidth:12.f indicatorHeight:5];
     _pageControl.numberOfPages = self.imageArray.count;
     
     [self addSubview:_pageControl];

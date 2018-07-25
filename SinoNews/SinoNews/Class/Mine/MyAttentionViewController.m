@@ -53,6 +53,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"我的关注";
     
+    [self showTopLine];
+    
     [self addViews];
     
 }
@@ -111,12 +113,14 @@
     
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = topView.bottom_attr;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-    }];
+    
+    self.tableView.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .topSpaceToView(topView, 0)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    ;
+    
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -198,7 +202,7 @@
     if (section == 0&&self.attentionArr.count) {
         return 39;
     }
-    return 0;
+    return 0.01;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

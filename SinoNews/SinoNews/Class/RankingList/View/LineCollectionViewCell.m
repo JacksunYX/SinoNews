@@ -37,12 +37,12 @@
 //    backImg.backgroundColor = Arc4randomColor;
     
     title = [UILabel new];
-    title.font = FontScale(14);
+    title.font = PFFontM(30);
     title.textColor = WhiteColor;
     title.textAlignment = NSTextAlignmentCenter;
     
     updateTime = [UILabel new];
-    updateTime.font = FontScale(14);
+    updateTime.font = PFFontM(14);
     updateTime.textColor = WhiteColor;
     updateTime.textAlignment = NSTextAlignmentCenter;
     

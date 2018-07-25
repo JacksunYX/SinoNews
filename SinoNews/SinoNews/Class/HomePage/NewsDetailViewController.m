@@ -824,8 +824,8 @@ CGFloat static titleViewHeight = 91;
             .rightSpaceToView(headView, 10)
             .autoHeightRatio(0)
             ;
-            if (self.newsModel) {
-                NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
+            NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
+            if (count) {
                 title.text = [NSString stringWithFormat:@"全部评论（%ld）",count];
             }else{
                 title.text = @"全部评论";
@@ -935,8 +935,10 @@ CGFloat static titleViewHeight = 91;
         
         if (offsetY >= -20) {
             self.navigationItem.title = GetSaveString(self.newsModel.author);
+            [self showTopLine];
         }else{
             self.navigationItem.title = @"";
+            [self hiddenTopLine];
         }
     }
     

@@ -21,7 +21,7 @@
 #import "HomePageThirdKindCell.h"
 #import "HomePageFourthCell.h"
 
-#define HeadViewHeight (ScreenW * 9 / 16 + 15)
+#define HeadViewHeight (ScreenW * 9 / 16 + 30)
 
 @interface HomePageChildVCViewController ()<UITableViewDataSource,UITableViewDelegate>
 

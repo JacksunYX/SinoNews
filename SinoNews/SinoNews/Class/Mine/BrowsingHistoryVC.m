@@ -131,8 +131,8 @@
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     //注册
     [self.tableView registerClass:[BrowsingHistoryCell class] forCellReuseIdentifier:BrowsingHistoryCellID];
     [self.tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];

@@ -124,7 +124,7 @@ static CGFloat anumationTime = 0.3;
     [btn2 setImage:UIImageNamed(@"setting_nightModeUnSelected") forState:UIControlStateNormal];
     [btn2 setImage:UIImageNamed(@"setting_nightModeSelected") forState:UIControlStateSelected];
     //button文字的偏移量
-    btn2.titleEdgeInsets = UIEdgeInsetsMake(0,  -(btn2.imageView.frame.origin.x + btn2.imageView.frame.size.width), 0, 0);
+    btn2.titleEdgeInsets = UIEdgeInsetsMake(0,  -(btn2.imageView.frame.origin.x + btn2.imageView.frame.size.width) - 33, 0, 0);
     //button图片的偏移量
     btn2.imageEdgeInsets = UIEdgeInsetsMake(0, -(btn2.imageView.frame.origin.x), 0, btn2.imageView.frame.origin.x);
     

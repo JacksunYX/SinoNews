@@ -18,9 +18,19 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UITextField *inputView;
 
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
+
 @end
 
 @implementation OfficialNotifyViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
+
 -(NSMutableArray *)dataSource
 {
     if (!_dataSource) {
@@ -94,13 +104,19 @@
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     .heightIs(55)
     ;
+    [self.bottomView updateLayout];
+    @weakify(self)
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        @strongify(self);
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.bottomView, nil];
+    }];
     
     UIButton *sendBtn = [UIButton new];
     sendBtn.titleLabel.font = PFFontL(15);
     sendBtn.backgroundColor = RGBA(29, 136, 245, 1);
     [sendBtn setNormalTitleColor:WhiteColor];
     [sendBtn setNormalTitle:@"发送"];
-    @weakify(self)
+    
     [[sendBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
         [self sendContent];

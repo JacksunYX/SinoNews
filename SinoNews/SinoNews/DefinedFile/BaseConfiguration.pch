@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 //通用宏
 #import "DefinedHeader.h"
+#import "DefinedColorHeader.h"
 
 //请求封装
 #import "HttpRequest.h"

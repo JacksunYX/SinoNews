@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) UIFont *itemTitleFont; //标题字体大小
 @property (nullable, nonatomic, strong) UIColor *itemTitleColor; //标题字体颜色
 @property (nullable, nonatomic, strong) UIColor *middleLineColor;//分割线颜色
+//新增
+@property (nonatomic, strong) UIColor *cellimageBackgroundColor;  //展示的图标的背景色
+@property (nonatomic, strong) UIColor *cellimageBordColor;  //展示的图标的边框色
 
 @property (nonatomic) CGSize itemSize; //item大小
 @property (nonatomic) CGSize itemImageSize; //item中image大小

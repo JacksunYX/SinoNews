@@ -17,7 +17,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _fontSize = [UIFont systemFontSize];
+//        _fontSize = [UIFont systemFontSize];
+        _fontSize = 16.0f;  //设置默认文字大小
         _textColor = [UIColor blackColor];
     }
     return self;

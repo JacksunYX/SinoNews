@@ -13,5 +13,8 @@
 //首页标题文字颜色
 #define NewsTitle_homePage  @"#1a1a1a"
 
+//分割线颜色
+#define CutLineColor  HexColor(#e3e3e3)
+#define CutLineColorNight  HexColorAlpha(#e3e3e3,0.13)
 
 #endif /* DefinedColorHeader_h */

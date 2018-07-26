@@ -51,6 +51,7 @@
     title = [UILabel new];
     title.font = PFFontR(15);
     title.textColor = RGBA(18, 130, 238, 1);
+    title.numberOfLines = 0;
     
     subTitle = [UILabel new];
     subTitle.font = PFFontL(12);
@@ -93,10 +94,12 @@
     title.sd_layout
     .leftSpaceToView(iconImg, 5)
     .topEqualToView(iconImg)
-    .heightIs(15)
+    .widthIs(180 * ScaleW)
+//    .heightIs(15)
+    .bottomEqualToView(iconImg)
     ;
 
-    [title setSingleLineAutoResizeWithMaxWidth:180 * ScaleW];
+//    [title setSingleLineAutoResizeWithMaxWidth:180 * ScaleW];
 //    title.text = @"优酷VIP会员卡";
     
     subTitle.sd_layout
@@ -133,10 +136,15 @@
     _model = model;
     [iconImg sd_setImageWithURL:UrlWithStr(model.imageUrl)];
     title.text = GetSaveString(model.productName);
-    if (model.price) {
-        bottomTitle.text = [NSString stringWithFormat:@"价值%@元",model.price];
+//    if (model.price) {
+//        bottomTitle.text = [NSString stringWithFormat:@"价值%@元",model.price];
+//    }
+    if (model.specialPrice) {
+        rightTitle.text = [NSString stringWithFormat:@"%@\n积分兑换",model.specialPrice];
+    }else{
+        rightTitle.text = @"0积分兑换";
     }
-    rightTitle.text = [NSString stringWithFormat:@"%@\n积分兑换",model.specialPrice];
+    
 }
 
 

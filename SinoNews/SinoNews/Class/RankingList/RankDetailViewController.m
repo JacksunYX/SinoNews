@@ -541,7 +541,6 @@
     
     UIImageView *leftIcon = [UIImageView new];
     UILabel *descrip = [UILabel new];
-    [descrip addContentColorTheme];
     descrip.font = FontScale(15);
     
     [fatherView sd_addSubviews:@[
@@ -619,7 +618,7 @@
         descrip.attributedText = [NSString analysisHtmlString:GetSaveString(model[@"title"])];
     }
     descrip.font = FontScale(15);
-    
+    [descrip addContentColorTheme];
 //    if (cell.sd_indexPath.row == 1) {
 //        descrip.text = [NSString stringWithFormat:@"优惠：%@",self.companyModel.promos];
 //    }else if (cell.sd_indexPath.row == 2){

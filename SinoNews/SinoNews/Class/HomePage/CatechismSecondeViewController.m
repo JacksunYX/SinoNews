@@ -95,7 +95,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
-    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.enableDirection = YES;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
@@ -146,12 +146,22 @@ CGFloat static titleViewHeight = 91;
         @weakify(self);
         _attentionBtn = [UIButton new];
         [_attentionBtn setNormalTitleColor:WhiteColor];
-        [_attentionBtn setSelectedTitleColor:WhiteColor];
+        
         [_attentionBtn setNormalTitle:@" 关注"];
         [_attentionBtn setSelectedTitle:@"已关注"];
         
         [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
-        [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
+        
+        _attentionBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#1C1F2C)]];
+                [(UIButton *)item setSelectedTitleColor:HexColor(#4E4F53)];
+            }else{
+                [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
+                [(UIButton *)item setSelectedTitleColor:WhiteColor];
+            }
+        });
         
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
@@ -337,21 +347,20 @@ CGFloat static titleViewHeight = 91;
         shareBtn.sd_layout
         .rightSpaceToView(self.bottomView, 16)
         .centerYEqualToView(self.bottomView)
-        .widthIs(24)
-        .heightIs(20)
+        .widthIs(21)
+        .heightIs(21)
         ;
         [shareBtn updateLayout];
-        [shareBtn setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
-        
+        [shareBtn addButtonNormalImage:@"news_share"];
         
         _praiseBtn.sd_layout
         .rightSpaceToView(shareBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .widthIs(23)
+        .widthIs(22)
         .heightIs(21)
         ;
         [_praiseBtn updateLayout];
-        [_praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
+        [_praiseBtn addButtonNormalImage:@"news_unPraise"];
         [_praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
         
         answerInput.sd_layout

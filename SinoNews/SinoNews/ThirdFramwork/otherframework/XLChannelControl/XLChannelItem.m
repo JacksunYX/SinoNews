@@ -135,7 +135,7 @@
             self.backgroundColor = [UIColor whiteColor];
         }
         _textLabel.layer.borderWidth = 1;
-        _textLabel.layer.borderColor = [UIColor colorWithRed:227/255.0f green:227/255.0f blue:227/255.0f alpha:1.0f].CGColor;
+        _textLabel.layer.borderColor = HexColor(#cfd3d6).CGColor;
         
     }else{
         

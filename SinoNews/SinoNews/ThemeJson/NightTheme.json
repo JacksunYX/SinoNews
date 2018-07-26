@@ -17,6 +17,10 @@
         "homePage_manageMenu_selected" : "manageMenu_new_night",
         "homePage_search"   : "searchBar_icon_night",
         
+        "news_share"        :   "news_share_night",
+        "news_unCollect"    :   "news_unCollect_night",
+        "news_unPraise"     :   "news_unpraise_night",
+        
         "channelManager_delete" : "delete_night",
         
         "noCommentFoot" :"noComment1_night",

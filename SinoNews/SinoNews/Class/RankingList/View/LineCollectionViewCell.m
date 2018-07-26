@@ -80,7 +80,7 @@
     _model = model;
 //    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.rankingLogo)];
 //    GGLog(@"imgStr：%@",imgStr);
-    [backImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.rankingLogo)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    [backImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.rankingLogo)) placeholderImage:UIImageNamed(@"placeholder_logo_big")];
     title.text = GetSaveString(model.rankingName);
     updateTime.text = GetSaveString(model.updateTime);
 }

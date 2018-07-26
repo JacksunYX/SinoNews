@@ -17,6 +17,10 @@
         "homePage_manageMenu_selected" : "manageMenu_new",
         "homePage_search"   : "searchBar_icon",
         
+        "news_share"        :   "news_share",
+        "news_unCollect"    :   "news_unCollect",
+        "news_unPraise"     :   "news_unpraise",
+        
         "channelManager_delete" : "delete",
         
         "noCommentFoot" :"noComment1",

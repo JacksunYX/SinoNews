@@ -34,6 +34,18 @@
     self.lee_theme.LeeConfigButtonTitleColor(@"titleColor", UIControlStateNormal);
 }
 
+//添加按钮normal模式的图片
+-(void)addButtonNormalImage:(NSString *)identify
+{
+    self.lee_theme.LeeConfigButtonImage(identify, UIControlStateNormal);
+}
+
+//添加按钮selected模式的图片
+-(void)addButtonSelectedImage:(NSString *)identify
+{
+    self.lee_theme.LeeConfigButtonImage(identify, UIControlStateSelected);
+}
+
 
 
 

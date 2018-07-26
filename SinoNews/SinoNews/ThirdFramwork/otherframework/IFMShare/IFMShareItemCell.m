@@ -60,10 +60,11 @@ NSString *const  kCellIdentifier_IFMShareItemCell = @"IFMShareItemCell";
     
     _imageView.frame = CGRectMake(0, 0 ,_itemImageSize.width, _itemImageSize.height);
     //定制一下，价格圆角边框
-    _imageView.backgroundColor = WhiteColor;
+//    _imageView.backgroundColor = WhiteColor;
     _imageView.contentMode = 4;
     _imageView.layer.cornerRadius = _itemImageSize.width/2;
     _imageView.layer.masksToBounds = YES;
+    
     _imageView.layer.borderColor = RGBA(219, 219, 219, 1).CGColor;
     _imageView.layer.borderWidth = 1;
     

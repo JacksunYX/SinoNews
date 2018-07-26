@@ -77,7 +77,13 @@
 //    [bottomBackView addBakcgroundColorTheme];
     
     UIView *sepLine = [UIView new];
-    sepLine.backgroundColor = HexColor(#E3E3E3);
+    sepLine.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }else{
+            [(UIView *)item setBackgroundColor:CutLineColor];
+        }
+    });
     
     UIView *fatherView = self.contentView;
     @weakify(self);

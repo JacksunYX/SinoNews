@@ -309,12 +309,22 @@
     [_attentionBtn setSd_cornerRadius:@15];
     _attentionBtn.titleLabel.font = PFFontR(14);
     [_attentionBtn setNormalTitleColor:WhiteColor];
-    [_attentionBtn setSelectedTitleColor:RGBA(218, 218, 218, 1)];
+    
     [_attentionBtn setNormalTitle:@" 关注"];
     [_attentionBtn setSelectedTitle:@"已关注"];
     
-    [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(54, 136, 247, 1)]];
-    [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:RGBA(245, 245, 245, 1)]];
+    [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
+    
+    _attentionBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        
+        if (UserGetBool(@"NightMode")) {
+            [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#1C1F2C)]];
+            [(UIButton *)item setSelectedTitleColor:HexColor(#4E4F53)];
+        }else{
+            [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
+            [(UIButton *)item setSelectedTitleColor:WhiteColor];
+        }
+    });
     
     [_attentionBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     _attentionBtn.hidden = YES;

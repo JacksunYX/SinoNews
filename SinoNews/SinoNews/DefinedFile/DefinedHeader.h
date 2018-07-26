@@ -60,6 +60,8 @@
 
 //16进制颜色
 #define HexColor(hexstring) [UIColor colorWithHexString:@#hexstring]
+//16进制颜色带透明度
+#define HexColorAlpha(hexStr,a) [UIColor colorWithHexString:@#hexStr alpha:a]
 
 //随机色
 #define Arc4randomColor RGB(arc4random_uniform(256),arc4random_uniform(256),arc4random_uniform(256))

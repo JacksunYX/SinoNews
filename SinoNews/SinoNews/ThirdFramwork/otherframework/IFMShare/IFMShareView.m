@@ -357,6 +357,13 @@
     shareItemCell.itemImageSize = _itemImageSize;
     shareItemCell.showBorderLine = _showBorderLine;
     
+    if (self.cellimageBackgroundColor) {
+        shareItemCell.imageView.backgroundColor = self.cellimageBackgroundColor;
+    }
+    if (self.cellimageBordColor) {
+        shareItemCell.imageView.layer.borderColor = self.cellimageBordColor.CGColor;
+    }
+    
     if (collectionView == self.shareCollectionView) {
         if ([self.shareItems[indexPath.row] isKindOfClass:[NSString class]]) {
            shareItemCell.shareItem = [[IFMShareItem alloc] initWithPlatformName:self.shareItems[indexPath.row]];

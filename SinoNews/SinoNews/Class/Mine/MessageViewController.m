@@ -87,7 +87,7 @@
             [btn addSubview:redTip];
             redTip.sd_layout
             .topSpaceToView(btn, -2)
-            .leftSpaceToView(btn, 25)
+            .leftSpaceToView(btn, 35)
             .widthIs(4)
             .heightEqualToWidth()
             ;

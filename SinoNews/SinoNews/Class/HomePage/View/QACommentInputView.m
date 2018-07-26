@@ -70,7 +70,7 @@ static CGFloat anumationTime = 0.3;
     
     //添加输入框和其他控件
     JHTextView *textView = [JHTextView new];
-    
+    textView.font = PFFontL(16);
 //    textView.limitLength = 10;
     textView.placeholder = @"写点什么吧";
     textView.backgroundColor = HexColor(#f5f5f5);

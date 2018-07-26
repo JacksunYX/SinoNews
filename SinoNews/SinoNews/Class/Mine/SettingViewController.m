@@ -86,8 +86,14 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-//    [self.tableView addBakcgroundColorTheme];
-    self.tableView.backgroundColor = BACKGROUND_COLOR;
+
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(BaseTableView *)item setBackgroundColor:value];
+        }else{
+            [(BaseTableView *)item setBackgroundColor:BACKGROUND_COLOR];
+        }
+    });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -118,7 +124,13 @@
         [cell.detailTextLabel addContentColorTheme];
         
         UIView *sepLine = [UIView new];
-        sepLine.backgroundColor = HexColor(#e3e3e3);
+        sepLine.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item setBackgroundColor:CutLineColorNight];
+            }else{
+                [(UIView *)item setBackgroundColor:CutLineColor];
+            }
+        });
         [cell.contentView addSubview:sepLine];
         sepLine.sd_layout
         .leftSpaceToView(cell.contentView, 10)

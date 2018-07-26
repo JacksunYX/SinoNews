@@ -23,9 +23,11 @@
 //添加按钮label字体颜色主题
 -(void)addButtonTextColorTheme;
 
+//添加按钮normal模式的图片
+-(void)addButtonNormalImage:(NSString *)identify;
 
-
-
+//添加按钮selected模式的图片
+-(void)addButtonSelectedImage:(NSString *)identify;
 
 
 

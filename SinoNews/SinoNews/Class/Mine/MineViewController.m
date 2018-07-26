@@ -218,7 +218,8 @@
     [self.view addSubview:_tableView];
 
     self.tableView.sd_layout
-    .topEqualToView(self.view)
+//    .topEqualToView(self.view)
+    .topSpaceToView(self.view, StatusBarHeight)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.adCollectionView, 0)
@@ -595,11 +596,16 @@
         cell.accessoryType = 1;
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
-    if (indexPath.section == 0 && indexPath.row == 0&&UserGetBool(@"MessageNotice")) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        
         cell.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             UITableViewCell *cell1 = (UITableViewCell *)item;
             cell1.textLabel.textColor = value;
-            cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+            if (UserGetBool(@"MessageNotice")) {
+                cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+            }else{
+                cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@"" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
+            }
         });
     }else{
         cell.textLabel.text = GetSaveString(model[@"title"]);

@@ -38,8 +38,8 @@
                           @"gameAd_1",
                           @"gameAd_2",
                           ];
-        for (int i = 0; i < 10; i ++) {
-            [_dataSource addObject:imgs[arc4random()%imgs.count]];
+        for (int i = 0; i < 3; i ++) {
+            [_dataSource addObject:imgs[i]];
         }
     }
     return _dataSource;
@@ -145,7 +145,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GGLog(@"点击了第%ld个",indexPath.row);
+    LRToast(@"敬请期待");
 }
 
 //设置0区0行内容

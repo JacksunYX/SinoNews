@@ -17,6 +17,9 @@
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     if (self == [super initWithFrame:frame style:style]) {
+        if (@available(iOS 11.0, *)) {
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
         self.estimatedRowHeight = 0;
         self.estimatedSectionFooterHeight = 0;
         self.estimatedSectionHeaderHeight = 0;

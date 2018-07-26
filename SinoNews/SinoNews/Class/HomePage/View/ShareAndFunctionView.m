@@ -67,6 +67,7 @@ static bool isCollect = NO;
     
     shareView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         [(IFMShareView *)item setContainViewColor:value];
+        [(IFMShareView *)item setCellimageBackgroundColor:value];
         [(IFMShareView *)item cancleButton].backgroundColor = value;
         if (UserGetBool(@"NightMode")) {
             [(IFMShareView *)item setItemTitleColor:HexColor(#CFD3D6)];

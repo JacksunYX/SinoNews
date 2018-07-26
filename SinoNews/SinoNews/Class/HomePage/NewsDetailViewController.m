@@ -132,12 +132,23 @@ CGFloat static titleViewHeight = 91;
         @weakify(self);
         _attentionBtn = [UIButton new];
         [_attentionBtn setNormalTitleColor:WhiteColor];
-        [_attentionBtn setSelectedTitleColor:WhiteColor];
+        
         [_attentionBtn setNormalTitle:@" 关注"];
         [_attentionBtn setSelectedTitle:@"已关注"];
         
         [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
-        [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
+        
+        
+        _attentionBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#1C1F2C)]];
+                [(UIButton *)item setSelectedTitleColor:HexColor(#4E4F53)];
+            }else{
+                [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
+                [(UIButton *)item setSelectedTitleColor:WhiteColor];
+            }
+        });
         
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
@@ -294,50 +305,57 @@ CGFloat static titleViewHeight = 91;
         shareBtn.sd_layout
         .rightSpaceToView(self.bottomView, 16)
         .centerYEqualToView(self.bottomView)
-        .widthIs(24)
-        .heightIs(20)
+        .widthIs(21)
+        .heightIs(21)
         ;
-        [shareBtn setImage:UIImageNamed(@"news_share") forState:UIControlStateNormal];
+        [shareBtn addButtonNormalImage:@"news_share"];
         
         _collectBtn.sd_layout
         .rightSpaceToView(shareBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .widthIs(25)
-        .heightIs(24)
+        .widthIs(22)
+        .heightIs(22)
         ;
-        [_collectBtn setImage:UIImageNamed(@"news_unCollect") forState:UIControlStateNormal];
+        [_collectBtn addButtonNormalImage:@"news_unCollect"];
         [_collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
         
         _praiseBtn.sd_layout
         .rightSpaceToView(_collectBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .widthIs(23)
+        .widthIs(22)
         .heightIs(21)
         ;
-        [_praiseBtn setImage:UIImageNamed(@"news_unpraise") forState:UIControlStateNormal];
+        [_praiseBtn addButtonNormalImage:@"news_unPraise"];
         [_praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
         
         self.commentInput.sd_layout
-        .leftSpaceToView(self.bottomView, 37)
+        .leftSpaceToView(self.bottomView, 23)
         .rightSpaceToView(_praiseBtn, 30)
         .centerYEqualToView(self.bottomView)
         .heightIs(34)
         ;
-        self.commentInput.backgroundColor = RGBA(238, 238, 238, 1);
+        
+        self.commentInput.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UITextField *)item setBackgroundColor:HexColor(#292D30)];
+            }else{
+                [(UITextField *)item setBackgroundColor:RGBA(244, 244, 244, 1)];
+            }
+        });
         [self.commentInput setSd_cornerRadius:@17];
-        NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
+        NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"有何高见，展开讲讲"];
         NSDictionary *dic = @{
-                              NSFontAttributeName : PFFontR(14),
-                              NSForegroundColorAttributeName : RGBA(53, 53, 53, 1),
+                              NSFontAttributeName : PFFontL(15),
+                              NSForegroundColorAttributeName : RGBA(148, 152, 153, 1),
                               };
         [placeholder addAttributes:dic range:NSMakeRange(0, placeholder.length)];
         self.commentInput.attributedPlaceholder = placeholder;
         
-        UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 33)];
-        UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
-        [leftView addSubview:leftImg];
-        leftImg.center = leftView.center;
-        leftImg.image = UIImageNamed(@"news_comment");
+        UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 34)];
+//        UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
+//        [leftView addSubview:leftImg];
+//        leftImg.center = leftView.center;s
+//        leftImg.image = UIImageNamed(@"news_comment");
         self.commentInput.leftViewMode = UITextFieldViewModeAlways;
         self.commentInput.leftView = leftView;
         
@@ -432,7 +450,8 @@ CGFloat static titleViewHeight = 91;
             }
             [self requestComments];
         }];
-        [self refreshComments];
+        [_tableView.mj_footer beginRefreshing];
+//        [self refreshComments];
     }
 }
 
@@ -488,7 +507,7 @@ CGFloat static titleViewHeight = 91;
         return;
     }
     @weakify(self)
-    [ShareAndFunctionView showWithCollect:YES returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
+    [ShareAndFunctionView showWithCollect:self.newsModel.isCollection returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self)
         if (section == 0) {
             [self shareToPlatform:sharePlateform];
@@ -578,6 +597,7 @@ CGFloat static titleViewHeight = 91;
     [self setNavigationBtns];
     
     [self setTitle];
+    
     [self showOrHideLoadView:NO page:2];
     
     
@@ -771,7 +791,8 @@ CGFloat static titleViewHeight = 91;
             //添加文本和提示
             UILabel *noticeLabel = [UILabel new];
             noticeLabel.font = PFFontR(15);
-            noticeLabel.textColor = RGBA(50, 50, 50, 1);
+//            noticeLabel.textColor = RGBA(50, 50, 50, 1);
+            [noticeLabel addTitleColorTheme];
             noticeLabel.numberOfLines = 0;
             
             UIImageView *lockImg = [UIImageView new];

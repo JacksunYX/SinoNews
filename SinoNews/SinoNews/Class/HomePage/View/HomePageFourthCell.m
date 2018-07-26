@@ -58,7 +58,14 @@
     
     
     UIView *sepLine = [UIView new];
-    sepLine.backgroundColor = HexColor(#E3E3E3);
+    //设置不同环境下的颜色
+    sepLine.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }else{
+            [(UIView *)item setBackgroundColor:CutLineColor];
+        }
+    });
     
     [self.contentView sd_addSubviews:@[
                                        title,

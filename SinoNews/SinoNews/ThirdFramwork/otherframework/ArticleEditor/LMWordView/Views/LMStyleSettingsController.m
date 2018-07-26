@@ -70,7 +70,7 @@
     if (!self.textStyle) {
         return 0;
     }
-    return 4;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,10 +82,14 @@
             case 3:
                 return 180.f;
             case 4:
-                return 120.f;
+//                return 120.f;
+                return 0;
             default:
                 break;
         }
+    }
+    if (indexPath.row == 1||indexPath.row == 4) {
+        return 0;
     }
     return 60.f;
 }

@@ -474,10 +474,10 @@
 }
 
 - (void)lm_didChangedParagraphType:(NSInteger)type {
-//    self.currentParagraphConfig.type = type;
-//    
-//    [self updateParagraphTypingAttributes];
-//    [self updateParagraphForSelectionWithKey:LMParagraphTypeName];
+    self.currentParagraphConfig.type = type;
+    
+    [self updateParagraphTypingAttributes];
+    [self updateParagraphForSelectionWithKey:LMParagraphTypeName];
 }
 
 #pragma mark - <LMImageSettingsControllerDelegate>

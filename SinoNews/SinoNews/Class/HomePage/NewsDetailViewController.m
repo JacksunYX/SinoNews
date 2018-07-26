@@ -77,6 +77,8 @@ CGFloat static titleViewHeight = 91;
     
     [self showOrHideLoadView:YES page:2];
     
+    [self hiddenTopLine];
+    
     [self requestNewData];
 }
 
@@ -207,7 +209,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
 //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     
-    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
+    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];//这里+1是防止文字大小没变时，网页重载，而titleView的显隐是靠tableview的滚动来牵制的，可能会出现不显示的bug
 }
 
 -(void)setBottomView
@@ -575,10 +577,9 @@ CGFloat static titleViewHeight = 91;
     
     [self setNavigationBtns];
     
-    GCDAfterTime(0.5, ^{
-        [self setTitle];
-        [self showOrHideLoadView:NO page:2];
-    });
+    [self setTitle];
+    [self showOrHideLoadView:NO page:2];
+    
     
 //    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
 //        CGFloat height = [data floatValue];

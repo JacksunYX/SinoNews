@@ -56,6 +56,8 @@ CGFloat static titleViewHeight = 91;
     
     [self showOrHideLoadView:YES page:2];
     
+    [self hiddenTopLine];
+    
     [self requestNews_browseAnswer];
 }
 
@@ -220,7 +222,7 @@ CGFloat static titleViewHeight = 91;
     titleViewHeight = self.titleView.height;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
     
-    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
+    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
 }
 
 -(void)setNavigationBtns
@@ -444,10 +446,8 @@ CGFloat static titleViewHeight = 91;
     
 //    [self setNavigationBtns];
     
-    GCDAfterTime(0.5, ^{
-        [self setTitle];
-        [self showOrHideLoadView:NO page:2];
-    });
+    [self setTitle];
+    [self showOrHideLoadView:NO page:2];
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8

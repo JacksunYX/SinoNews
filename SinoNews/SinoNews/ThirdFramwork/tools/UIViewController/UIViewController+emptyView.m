@@ -62,14 +62,17 @@ static int tags = 206118;
 -(void)show:(BOOL)show view:(UIView *)view
 {
     if (!show) {
+        HiddenHudOnly
         [UIView animateWithDuration:0.3 animations:^{
             view.alpha = 0;
         } completion:^(BOOL finished) {
             [view removeFromSuperview];
         }];
+        
     }else{
         [view setHidden:NO];
         [view.superview bringSubviewToFront:view];
+        ShowHudOnly
     }
 }
 

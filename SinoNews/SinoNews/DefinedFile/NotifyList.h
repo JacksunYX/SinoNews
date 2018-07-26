@@ -10,7 +10,7 @@
 #ifndef NotifyList_h
 #define NotifyList_h
 
-//用户登陆的通知
+//用户登录的通知
 #define UserLoginSuccess    @"UserLoginSuccess"
 
 //设置字体的通知

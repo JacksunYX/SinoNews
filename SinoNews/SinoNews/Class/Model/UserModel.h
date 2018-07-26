@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 
 @interface UserModel : NSObject
-//用户登陆使用账号
+//用户登录使用账号
 @property (nonatomic,strong) NSString *account;
 //用户昵称
 @property (nonatomic,strong) NSString *username;

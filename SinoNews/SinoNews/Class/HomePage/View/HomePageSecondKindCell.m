@@ -201,21 +201,21 @@
     
     if (model.images.count>0) {
         NSString *imgStr = GetSaveString(model.images[0]);
-        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     }else{
         imgL.image = nil;
     }
     
     if (model.images.count>1) {
         NSString *imgStr = GetSaveString(model.images[1]);
-        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     }else{
         imgC.image = nil;
     }
     
     if (model.images.count>2) {
         NSString *imgStr = GetSaveString(model.images[2]);
-        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     }else{
         imgR.image = nil;
     }

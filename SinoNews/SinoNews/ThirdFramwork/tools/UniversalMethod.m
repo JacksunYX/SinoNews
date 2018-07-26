@@ -238,9 +238,64 @@
 }
 
 
++(NSMutableArray *)getProcessNewsData:(id)response
+{
+    NSMutableArray *dataArr = [NSMutableArray new];
+    for (NSDictionary *dic in response) {
+        NSInteger itemType = [dic[@"itemType"] integerValue];
+        if (itemType>=100&&itemType<200) {  //新闻
+            HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+            [dataArr addObject:model];
+        }else if (itemType>=200&&itemType<300) {    //专题
+            TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
+            [dataArr addObject:model];
+        }else if (itemType>=300&&itemType<400){     //广告
+            ADModel *model = [ADModel mj_objectWithKeyValues:dic];
+            [dataArr addObject:model];
+        }else if (itemType>=400&&itemType<500){     //投票
+            HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+            [dataArr addObject:model];
+        }else if (itemType>=500&&itemType<600){     //问答
+            HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
+            [dataArr addObject:model];
+        }
+    }
+    return dataArr;
+}
 
 
-
++(void)pushToAssignVCWithNewmodel:(id)model
+{
+    UIViewController *pushVC;
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model1 = model;
+        if (model1.itemType>=400&&model1.itemType<500) { //投票
+            VoteViewController *vVC = [VoteViewController new];
+            vVC.newsId = model1.itemId;
+            pushVC = vVC;
+        }else if (model1.itemType>=500&&model1.itemType<600) { //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = model1.itemId;
+            pushVC = cVC;
+        }else{
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = model1.itemId;
+            pushVC = ndVC;
+        }
+        
+        
+        //        PayNewsViewController *pnVC = [PayNewsViewController new];
+        //        [self.navigationController pushViewController:pnVC animated:YES];
+        
+    }else if ([model isKindOfClass:[TopicModel class]]){
+        TopicViewController *tVC = [TopicViewController new];
+        tVC.topicId = [(TopicModel *)model itemId];
+        pushVC = tVC;
+    }else if ([model isKindOfClass:[ADModel class]]){
+        
+    }
+    [[HttpRequest currentViewController].navigationController pushViewController:pushVC animated:YES];
+}
 
 
 

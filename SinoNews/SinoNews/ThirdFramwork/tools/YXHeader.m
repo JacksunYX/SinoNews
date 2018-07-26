@@ -34,7 +34,7 @@
     }
 }
 
-//新增一个带回调的登陆检测
+//新增一个带回调的登录检测
 + (BOOL)checkNormalBackLoginHandle:(void (^)(void))backHandle
 {
     if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
@@ -51,7 +51,7 @@
     return YES;
 }
 
-//登陆成功，保存数据
+//登录成功，保存数据
 +(void)loginSuccessSaveWithData:(NSDictionary *)response
 {
     UserSet(@"YES", @"isLogin");

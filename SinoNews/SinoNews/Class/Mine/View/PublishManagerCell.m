@@ -217,7 +217,7 @@
     viewCount.text = [NSString stringWithFormat:@"%ld\n阅读",model.viewCount];
     newTitle.text = GetSaveString(model.itemTitle);
     if (model.images.count>0) {
-        [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[0])) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+        [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[0])) placeholderImage:UIImageNamed(@"placeholder_logo_big")];
     }
     [comment setNormalTitle:[NSString stringWithFormat:@"%ld",model.commentCount]];
     

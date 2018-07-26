@@ -483,7 +483,7 @@
     [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
         @strongify(self)
         NSDictionary *data = responseObject[@"data"];
-        //后台目前的逻辑是，如果没有登陆，只给默认头像这一个字段,只能靠这个来判断
+        //后台目前的逻辑是，如果没有登录，只给默认头像这一个字段,只能靠这个来判断
         if ([data allKeys].count>1) {
             UserModel *model = [UserModel mj_objectWithKeyValues:data];
             //覆盖之前保存的信息

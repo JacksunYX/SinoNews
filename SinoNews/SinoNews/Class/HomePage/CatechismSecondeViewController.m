@@ -440,14 +440,13 @@ CGFloat static titleViewHeight = 91;
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     
-    [self showOrHideLoadView:NO page:2];
-    
     [self setBottomView];
     
 //    [self setNavigationBtns];
     
     GCDAfterTime(0.5, ^{
         [self setTitle];
+        [self showOrHideLoadView:NO page:2];
     });
     
     if (UserGetBool(@"NightMode")) {    //夜间模式

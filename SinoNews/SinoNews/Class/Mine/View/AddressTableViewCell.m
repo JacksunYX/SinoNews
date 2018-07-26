@@ -113,7 +113,7 @@
     
     phoneNum.text = [NSString stringWithFormat:@"%ld",model.mobile];
     
-    address.text = GetSaveString(model.fullAddress);
+    address.text = [NSString stringWithFormat:@"收货地址：%@",GetSaveString(model.fullAddress)];
 }
 
 @end

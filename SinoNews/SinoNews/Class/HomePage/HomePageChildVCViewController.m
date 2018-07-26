@@ -254,34 +254,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id model = self.dataSource[indexPath.row];
-    if ([model isKindOfClass:[HomePageModel class]]) {
-        HomePageModel *model1 = model;
-        if (model1.itemType>=400&&model1.itemType<500) { //投票
-            VoteViewController *vVC = [VoteViewController new];
-            vVC.newsId = model1.itemId;
-            [self.navigationController pushViewController:vVC animated:YES];
-        }else if (model1.itemType>=500&&model1.itemType<600) { //问答
-            CatechismViewController *cVC = [CatechismViewController new];
-            cVC.news_id = model1.itemId;
-            [self.navigationController pushViewController:cVC animated:YES];
-        }else{
-            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = model1.itemId;
-            [self.navigationController pushViewController:ndVC animated:YES];
-        }
-        
-        
-//        PayNewsViewController *pnVC = [PayNewsViewController new];
-//        [self.navigationController pushViewController:pnVC animated:YES];
-        
-    }else if ([model isKindOfClass:[TopicModel class]]){
-        TopicViewController *tVC = [TopicViewController new];
-        tVC.topicId = [(TopicModel *)model itemId];
-        [self.navigationController pushViewController:tVC animated:YES];
-    }else if ([model isKindOfClass:[ADModel class]]){
-        
-    }
-
+    [UniversalMethod pushToAssignVCWithNewmodel:model];
 }
 
 #pragma mark ---- 请求方法
@@ -304,26 +277,8 @@
     
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         
-        NSMutableArray *dataArr = [NSMutableArray new];
-        for (NSDictionary *dic in responseObject[@"data"]) {
-            NSInteger itemType = [dic[@"itemType"] integerValue];
-            if (itemType>=100&&itemType<200) {  //新闻
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=200&&itemType<300) {    //专题
-                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=300&&itemType<400){     //广告
-                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=400&&itemType<500){     //投票
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=500&&itemType<600){     //问答
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }
-        }
+        NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
+        
         if (upOrDown == 0) {
             //数组都有数据时，需要把本地数据中的置顶先删掉，因为后台默认每次返回都带置顶
             if (self.dataSource.count>0&&dataArr.count>0) {

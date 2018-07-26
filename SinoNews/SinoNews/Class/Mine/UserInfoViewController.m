@@ -14,6 +14,9 @@
 
 #import "UserInfoCommentCell.h"
 #import "HomePageFirstKindCell.h"
+#import "HomePageSecondKindCell.h"
+#import "HomePageThirdKindCell.h"
+#import "HomePageFourthCell.h"
 #import "UserInfoModel.h"
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
@@ -124,6 +127,9 @@
     self.tableView.delegate = self;
     [self.tableView registerClass:[UserInfoCommentCell class] forCellReuseIdentifier:UserInfoCommentCellID];
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+    [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
+    [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+    [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
     
@@ -510,10 +516,55 @@
         
         cell = (UITableViewCell *)cell0;
     }else if (_selectedIndex == 1){
-        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-        cell1.model = self.articlesArr[indexPath.row];
-        cell = (UITableViewCell *)cell1;
+        
+        id model = self.articlesArr[indexPath.row];
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            HomePageModel *model1 = (HomePageModel *)model;
+            switch (model1.itemType) {
+                case 400:
+                case 500:
+                case 100:   //无图
+                {
+                    HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                    
+                case 401:
+                case 501:
+                case 101:   //1图
+                {
+                    HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                case 403:
+                case 503:
+                case 103:   //3图
+                {
+                    HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }else if ([model isKindOfClass:[TopicModel class]]){
+            HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+            cell2.model = model;
+            cell = (UITableViewCell *)cell2;
+        }else if ([model isKindOfClass:[ADModel class]]){
+            HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+            cell3.model = model;
+            cell = (UITableViewCell *)cell3;
+        }
     }
+    cell.selectedBackgroundView.backgroundColor = ClearColor;
     [cell addBakcgroundColorTheme];
     return cell;
 }
@@ -542,16 +593,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.selectedIndex == 1) {
-        HomePageModel *model = self.articlesArr[indexPath.row];
-        if (model.itemType>=500&&model.itemType<600) { //问答
-            CatechismViewController *cVC = [CatechismViewController new];
-            cVC.news_id = model.itemId;
-            [self.navigationController pushViewController:cVC animated:YES];
-        }else{
-            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = model.itemId;
-            [self.navigationController pushViewController:ndVC animated:YES];
-        }
+        id model = self.articlesArr[indexPath.row];
+        [UniversalMethod pushToAssignVCWithNewmodel:model];
     }
     
 }
@@ -671,8 +714,8 @@
     parameters[@"page"] = @(self.currPage1);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:GetUserNews parameters:parameters success:^(id responseObject) {
-        NSArray *arr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        
+//        NSArray *arr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *arr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         if (self.currPage1 == 1) {
             [self.tableView.mj_header endRefreshing];
             if (arr.count) {

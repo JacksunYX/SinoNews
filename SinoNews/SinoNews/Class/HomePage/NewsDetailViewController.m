@@ -407,7 +407,7 @@ CGFloat static titleViewHeight = 91;
 //下方视图具体显示哪一个
 -(void)showBottomView
 {
-    //收费文章，但是未付费,未付费时不显示评论
+    //收费文章，但是未付费时不显示评论
     if (NoPayedNews) {
         [self setBottomView2];
         self.bottomView.hidden = YES;
@@ -445,7 +445,7 @@ CGFloat static titleViewHeight = 91;
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN + 49)
     ;
-    [_tableView updateLayout];
+//    [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
 
     _tableView.dataSource = self;
@@ -459,7 +459,6 @@ CGFloat static titleViewHeight = 91;
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
-    
     
 }
 
@@ -572,14 +571,13 @@ CGFloat static titleViewHeight = 91;
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     
-    [self showOrHideLoadView:NO page:2];
-    
     [self showBottomView];
     
     [self setNavigationBtns];
     
     GCDAfterTime(0.5, ^{
         [self setTitle];
+        [self showOrHideLoadView:NO page:2];
     });
     
 //    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
@@ -826,7 +824,7 @@ CGFloat static titleViewHeight = 91;
             ;
             NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
             if (count) {
-                title.text = [NSString stringWithFormat:@"全部评论（%ld）",count];
+                title.text = [NSString stringWithFormat:@"全部评论(%ld)",count];
             }else{
                 title.text = @"全部评论";
             }

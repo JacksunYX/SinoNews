@@ -28,7 +28,9 @@
     self.navigationItem.title = @"管理收货地址";
     [self showTopLine];
     [self configUI];
-    [self showOrHiddenTheAddBtn:YES];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noAddress" title:@"暂无收货地址"];
+//    [self showOrHiddenTheAddBtn:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,6 +90,7 @@
 
     self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
+        [self.tableView ly_startLoading];
         [self requestMall_listAddress];
     }];
     [self.tableView.mj_header beginRefreshing];
@@ -96,7 +99,12 @@
 //显示或隐藏添加地址按钮
 -(void)showOrHiddenTheAddBtn:(BOOL)show
 {
-    self.tableView.hidden = show;
+//    self.tableView.hidden = show;
+    if (show) {
+        [self.view bringSubviewToFront:self.addAddress];
+    }else{
+        [self.view bringSubviewToFront:self.tableView];
+    }
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -171,13 +179,12 @@
 //收获地址列表
 -(void)requestMall_listAddress
 {
-    [HttpRequest postWithURLString:Mall_listAddress parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:Mall_listAddress parameters:nil isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         self.dataArray = [AddressModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
-        if (self.dataArray.count) {
-            [self showOrHiddenTheAddBtn:NO];
-        }
+        [self showOrHiddenTheAddBtn:!self.dataArray.count];
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     } RefreshAction:nil];

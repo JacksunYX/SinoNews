@@ -35,4 +35,20 @@
 +(NSString *)getBottomLoadTimeWithData:(NSArray *)data;
 
 
+/**
+ 将新闻数据处理成为数组并返回
+
+ @param response 需要处理的数据
+ @return 返回的数据数组
+ */
++(NSMutableArray *)getProcessNewsData:(id)response;
+
+
+/**
+ 根据不同的文章模型，跳转到指定的界面
+
+ @param model 文章模型
+ */
++(void)pushToAssignVCWithNewmodel:(id)model;
+
 @end

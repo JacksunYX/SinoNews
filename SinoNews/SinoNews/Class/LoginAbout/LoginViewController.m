@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"登陆";
+    self.navigationItem.title = @"登录";
     self.view.backgroundColor = WhiteColor;
     [self.navigationController setNavigationBarHidden:YES];
     [self setUI];
@@ -208,7 +208,7 @@
     .heightIs(50)
     ;
     [self.confirmBtn setSd_cornerRadius:@25];
-    [self.confirmBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [self.confirmBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.confirmBtn addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
     [self.confirmBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
     
@@ -236,7 +236,7 @@
     [self.view endEditing:YES];
 }
 
-//确认登陆操作
+//确认登录操作
 -(void)confirmAction
 {
     if (kStringIsEmpty(self.username.text)) {
@@ -265,7 +265,7 @@
             parameters[@"password"] = self.password.text;
             
             [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-                LRToast(@"登陆成功");
+                LRToast(@"登录成功");
                 [YXHeader loginSuccessSaveWithData:response];
                 GCDAfterTime(1, ^{
                     [self popAction];

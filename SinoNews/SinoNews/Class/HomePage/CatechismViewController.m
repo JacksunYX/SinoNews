@@ -522,7 +522,7 @@ CGFloat static titleViewHeight = 91;
 //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
     }];
     
-    [self showOrHideLoadView:NO page:2];
+    
     
     [self setBottomView];
     
@@ -530,6 +530,7 @@ CGFloat static titleViewHeight = 91;
     
     GCDAfterTime(0.5, ^{
         [self setTitle];
+        [self showOrHideLoadView:NO page:2];
     });
     
     if (UserGetBool(@"NightMode")) {    //夜间模式

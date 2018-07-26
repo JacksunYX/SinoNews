@@ -220,7 +220,7 @@
     
     if (model.images.count>0) {
         NSString *imgStr = [model.images firstObject];
-        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     }else{
         rightImg.image = nil;
     }

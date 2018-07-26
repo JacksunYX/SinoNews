@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/6/15.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//登陆
+//登录
 
 #import <UIKit/UIKit.h>
 

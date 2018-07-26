@@ -84,7 +84,7 @@
         [self requestChnanel:YES];
     }
     
-    //监听登陆
+    //监听登录
     @weakify(self)
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
@@ -452,7 +452,7 @@
     [RequestGather requestBannerWithADId:4 success:^(id response) {
         NSArray *popArr = response;
         if (popArr.count>0) {
-//            [ADPopView showWithData:[popArr lastObject]];
+            [ADPopView showWithData:[popArr lastObject]];
         }
     } failure:nil];
 }

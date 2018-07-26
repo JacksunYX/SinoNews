@@ -14,7 +14,7 @@
 #define SendValidCode   @"/api/sendValidCode"
 //注册(post)
 #define DoRegister      @"/api/doRegister"
-//登陆(post)
+//登录(post)
 #define Login           @"/api/login"
 //重制密码(post)
 #define ResetPassword   @"/api/resetPassword"

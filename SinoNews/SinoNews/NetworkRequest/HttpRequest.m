@@ -153,7 +153,7 @@
                         
                         [YXHeader checkNormalBackLoginHandle:^{
                             if (RefreshAction) {
-                                GGLog(@"登陆成功回调");
+                                GGLog(@"登录成功回调");
                                 RefreshAction();
                             }
                         }];
@@ -233,7 +233,7 @@
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
                         [YXHeader checkNormalBackLoginHandle:^{
-                            GGLog(@"登陆成功回调");
+                            GGLog(@"登录成功回调");
                             RefreshAction();
                         }];
                     }else{
@@ -316,7 +316,7 @@
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
                         [YXHeader checkNormalBackLoginHandle:^{
-                            GGLog(@"登陆成功回调");
+                            GGLog(@"登录成功回调");
                             RefreshAction();
                         }];
                     }

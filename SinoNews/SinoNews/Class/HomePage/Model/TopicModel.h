@@ -15,6 +15,8 @@
 @property (nonatomic,strong) NSString *channelId;
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic,strong) NSString *descript;
+@property (nonatomic,strong) NSString *tipName;     //左上角标签
+@property (nonatomic,strong) NSString *labelName;   //左下角标签
 
 @property (nonatomic,strong) NSString *smallImage;
 @property (nonatomic,strong) NSString *topicId;

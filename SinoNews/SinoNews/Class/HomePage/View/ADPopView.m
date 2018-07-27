@@ -71,7 +71,7 @@ static CGFloat anumationTime = 0.3;
     [toSee setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
     
     UIImageView *topImgV = [UIImageView new];
-    topImgV.backgroundColor = RedColor;
+//    topImgV.backgroundColor = RedColor;
     
     [centerView sd_addSubviews:@[
                                  toSee,

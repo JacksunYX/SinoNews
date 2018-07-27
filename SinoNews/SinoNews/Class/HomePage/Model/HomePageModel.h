@@ -14,7 +14,8 @@
 @property (nonatomic,strong) NSString *createStamp; //文章创建时间戳
 @property (nonatomic,strong) NSString *createTime;  //文章创建时间
 @property (nonatomic,assign) NSInteger news_id;     //文章id
-@property (nonatomic,strong) NSString *labelName;   //左上角标签
+@property (nonatomic,strong) NSString *tipName;     //左上角标签
+@property (nonatomic,strong) NSString *labelName;   //左下角标签
 @property (nonatomic,strong) NSString *newsTitle;
 
 @property (nonatomic,assign) NSInteger topicId;     //专题id，为0则代表无

@@ -180,7 +180,7 @@
     return finalArr;
 }
 
-
+////获取上拉加载更多的时间节点
 +(NSString *)getTopLoadTimeWithData:(NSArray *)data
 {
     NSString *loadTime = @"";
@@ -209,6 +209,7 @@
     return loadTime;
 }
 
+////获取下拉加载更多的时间节点
 +(NSString *)getBottomLoadTimeWithData:(NSArray *)data
 {
     NSString *loadTime = @"";
@@ -237,7 +238,7 @@
     return loadTime;
 }
 
-
+//将新闻数据处理成为数组并返回
 +(NSMutableArray *)getProcessNewsData:(id)response
 {
     NSMutableArray *dataArr = [NSMutableArray new];
@@ -263,7 +264,7 @@
     return dataArr;
 }
 
-
+//根据不同的文章模型，跳转到指定的界面
 +(void)pushToAssignVCWithNewmodel:(id)model
 {
     UIViewController *pushVC;
@@ -297,10 +298,50 @@
     [[HttpRequest currentViewController].navigationController pushViewController:pushVC animated:YES];
 }
 
+//根据传入字符串来给标签设置对应的字体颜色，边框色和背景色
++(void)processLabel:(UILabel *)label top:(BOOL)yesOrNo text:(NSString *)string
+{
+    //先判断是上还是下
+    if (yesOrNo) {
+        label.textColor = WhiteColor;
+        label.layer.borderColor = ClearColor.CGColor;
+        label.layer.borderWidth = 0;
+        if (CompareString(string, @"专题")) {
+            //蓝色背景，白色字体，无边框色
+            label.backgroundColor = HexColor(#1282EE);
+            
+        }else if (CompareString(string, @"问答")){
+            //橘色背景，白色字体，无边框色
+            label.backgroundColor = OrangeColor;
+            
+        }else{
+            //白色背景，蓝色字体，蓝色边框
+            label.backgroundColor = WhiteColor;
+            label.textColor = HexColor(#1282EE);
+            label.layer.borderColor = HexColor(#1282EE).CGColor;
+            label.layer.borderWidth = 1;
+        }
+        label.text = string;
+    }else{
+        //下方的，统一蓝色字体，无边框色
+        label.textColor = HexColor(#1282EE);
+    }
+}
 
-
-
-
+//根据数量来判断具体怎么展示label
++(NSString *)processNumShow:(NSInteger)num insertString:(NSString *)insert
+{
+    NSString *string = @"";
+    if (num > 0) {
+        //大于10000
+        if (num/10000) {
+            string = [[NSString stringWithFormat:@"%.1fw",num/10000.0] stringByAppendingString:[NSString stringWithFormat:@" %@ ",insert]];
+        }else{
+            string = [[NSString stringWithFormat:@"%ld",num] stringByAppendingString:[NSString stringWithFormat:@" %@ ",insert]];
+        }
+    }
+    return string;
+}
 
 
 

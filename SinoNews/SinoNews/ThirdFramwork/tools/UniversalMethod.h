@@ -51,4 +51,28 @@
  */
 +(void)pushToAssignVCWithNewmodel:(id)model;
 
+
+
+/**
+ 根据传入字符串来给标签设置对应的字体颜色，边框色和背景色
+
+ @param label 标签
+ @param yesOrNo 是否是上部分的标签
+ @param string 字符串
+ */
++(void)processLabel:(UILabel *)label top:(BOOL)yesOrNo text:(NSString *)string;
+
+
+/**
+ 根据数量来判断具体怎么展示label
+
+ @param num 数量
+ @return 返回的字符串
+ */
++(NSString *)processNumShow:(NSInteger)num insertString:(NSString *)insert;
+
+
+
+
+
 @end

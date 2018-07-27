@@ -97,7 +97,7 @@
         [self.tabBar setShadowImage:[UIImage imageWithColor:HexColor(#F2F2F2)]];
         if (UserGetBool(@"NightMode")) {
             [self.tabBar setBackgroundImage:[UIImage imageWithColor:HexColor(#1c2023)]];
-            
+            [self.tabBar setShadowImage:[UIImage imageWithColor:CutLineColorNight]];
         }
     });
     self.viewControllers = vcsArr;

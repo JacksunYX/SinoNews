@@ -33,12 +33,22 @@
     self.layer.cornerRadius = 9.0f;
     self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1;
-    self.layer.borderColor = HexColor(#E3E3E3).CGColor;
-    self.backgroundColor = WhiteColor;
+//    self.layer.borderColor = HexColor(#E3E3E3).CGColor;
+    
+    self.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UICollectionViewCell *)item setBackgroundColor:value];
+        if (UserGetBool(@"NightMode")) {
+            [[(UICollectionViewCell *)item layer] setBorderColor:ClearColor.CGColor];
+            [(UICollectionViewCell *)item setBackgroundColor:HexColor(#292D30)];
+        }else{
+            [[(UICollectionViewCell *)item layer] setBorderColor:CutLineColor.CGColor];
+        }
+    });
 //    [self cornerWithRadius:9];
     
     title = [UILabel new];
     title.font = PFFontL(16);
+    [title addTitleColorTheme];
     
     fansNum = [UILabel new];
     fansNum.font = PFFontL(12);
@@ -46,6 +56,7 @@
     
     subTitle = [UILabel new];
     subTitle.font = PFFontL(12);
+    [subTitle addTitleColorTheme];
     
     isAttention = [UIButton new];
     isAttention.titleLabel.font = PFFontL(14);
@@ -63,7 +74,8 @@
     .widthIs(50)
     .heightIs(22)
     ;
-    isAttention.backgroundColor = WhiteColor;
+    [isAttention setSd_cornerRadius:@2];
+    [isAttention addBakcgroundColorTheme];
     [isAttention setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention setTitle:@"已关注" forState:UIControlStateSelected];
     

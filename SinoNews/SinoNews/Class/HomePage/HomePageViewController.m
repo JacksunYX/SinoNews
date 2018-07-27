@@ -210,7 +210,15 @@
         .heightIs(42)
         ;
         [self.topView updateLayout];
-        [self.topView addBorderTo:BorderTypeBottom borderColor:HexColor(#e3e3e3)];
+        
+        self.topView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
+            }else{
+                [(UIView *)item addBorderTo:BorderTypeBottom borderColor:CutLineColor];
+            }
+        });
         //添加下阴影
 //        self.topView.layer.shadowColor = GrayColor.CGColor;
 //        self.topView.layer.shadowOffset = CGSizeMake(-2, 2);

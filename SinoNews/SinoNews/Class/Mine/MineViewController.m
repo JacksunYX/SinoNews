@@ -228,8 +228,10 @@
     self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
             [(BaseTableView *)item setBackgroundColor:value];
+            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
         }else{
             [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
+            [(BaseTableView *)item setSeparatorColor:CutLineColor];
         }
     });
     self.tableView.dataSource = self;

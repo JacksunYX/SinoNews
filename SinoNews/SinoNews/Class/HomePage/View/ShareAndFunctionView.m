@@ -67,12 +67,14 @@ static bool isCollect = NO;
     
     shareView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         [(IFMShareView *)item setContainViewColor:value];
-        [(IFMShareView *)item setCellimageBackgroundColor:value];
+        
         [(IFMShareView *)item cancleButton].backgroundColor = value;
         if (UserGetBool(@"NightMode")) {
             [(IFMShareView *)item setItemTitleColor:HexColor(#CFD3D6)];
+            [(IFMShareView *)item setCellimageBackgroundColor:HexColor(#3A4146)];
         }else{
             [(IFMShareView *)item setItemTitleColor:RGBA(152, 152, 152, 1)];
+            [(IFMShareView *)item setCellimageBackgroundColor:WhiteColor];
         }
     });
     

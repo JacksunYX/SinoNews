@@ -128,7 +128,18 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:@"attention_search" hightimage:nil andTitle:@""];
+    
+    
+    @weakify(self)
+    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        NSString *rightImg = @"attention_search";
+        if (UserGetBool(@"NightMode")) {
+            rightImg = [rightImg stringByAppendingString:@"_night"];
+        }
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:rightImg hightimage:nil andTitle:@""];
+
+    });
     
 }
 
@@ -216,7 +227,7 @@
         
         cell = (UITableViewCell *)cell2;
     }
-    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+//    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     return cell;
 }
 

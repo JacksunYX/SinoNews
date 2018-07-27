@@ -45,8 +45,17 @@
     self.layer.cornerRadius = 9.0f;
     self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1;
-    self.layer.borderColor = HexColor(#E3E3E3).CGColor;
-    self.backgroundColor = WhiteColor;
+//    self.layer.borderColor = CutLineColor.CGColor;
+    
+    self.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UICollectionViewCell *)item setBackgroundColor:value];
+        if (UserGetBool(@"NightMode")) {
+            [[(UICollectionViewCell *)item layer] setBorderColor:ClearColor.CGColor];
+            [(UICollectionViewCell *)item setBackgroundColor:HexColor(#292D30)];
+        }else{
+            [[(UICollectionViewCell *)item layer] setBorderColor:CutLineColor.CGColor];
+        }
+    });
 //    [self cornerWithRadius:9];
     
     [self addViews];
@@ -55,21 +64,21 @@
 -(void)addViews
 {
     topView = [UIView new];
-    topView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
+//    topView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     topView.tag = 10010;
     UITapGestureRecognizer *topTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
     topTap.numberOfTapsRequired = 1;
     [topView addGestureRecognizer:topTap];
     
     centerView = [UIView new];
-    centerView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
+//    centerView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     centerView.tag = 10010 + 1;
     UITapGestureRecognizer *centerTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
     centerTap.numberOfTapsRequired = 1;
     [centerView addGestureRecognizer:centerTap];
     
     bottomView = [UIView new];
-    bottomView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");;
+//    bottomView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     bottomView.tag = 10010 + 2;
     UITapGestureRecognizer *bottomTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
     bottomTap.numberOfTapsRequired = 1;
@@ -150,7 +159,8 @@
     .widthIs(50)
     .heightIs(22)
     ;
-    isAttention1.backgroundColor = WhiteColor;
+    [isAttention1 setSd_cornerRadius:@2];
+    [isAttention1 addBakcgroundColorTheme];
     [isAttention1 setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention1 setTitle:@"已关注" forState:UIControlStateSelected];
     
@@ -184,7 +194,14 @@
 -(void)addCenterView
 {
     UIView *line1 = [UIView new];
-    line1.backgroundColor = HexColor(#E3E3E3);
+    
+    line1.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }else{
+            [(UIView *)item setBackgroundColor:CutLineColor];
+        }
+    });
     
     img2 = [UIImageView new];
     img2.userInteractionEnabled = YES;
@@ -234,7 +251,8 @@
     .widthIs(50)
     .heightIs(22)
     ;
-    isAttention2.backgroundColor = WhiteColor;
+    [isAttention2 setSd_cornerRadius:@2];
+    [isAttention2 addBakcgroundColorTheme];
     [isAttention2 setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention2 setTitle:@"已关注" forState:UIControlStateSelected];
     
@@ -266,7 +284,13 @@
 -(void)addBottomView
 {
     UIView *line2 = [UIView new];
-    line2.backgroundColor = HexColor(#E3E3E3);
+    line2.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }else{
+            [(UIView *)item setBackgroundColor:CutLineColor];
+        }
+    });
     
     img3 = [UIImageView new];
     img3.userInteractionEnabled = YES;
@@ -316,7 +340,8 @@
     .widthIs(50)
     .heightIs(22)
     ;
-    isAttention3.backgroundColor = WhiteColor;
+    [isAttention3 setSd_cornerRadius:@2];
+    [isAttention3 addBakcgroundColorTheme];
     [isAttention3 setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention3 setTitle:@"已关注" forState:UIControlStateSelected];
     

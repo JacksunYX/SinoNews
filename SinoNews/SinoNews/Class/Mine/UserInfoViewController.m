@@ -188,6 +188,9 @@
     headView.lee_theme.LeeConfigImage(@"mineBackImg");
     self.tableView.tableHeaderView = headView;
     
+    UIView *backView = [UIView new];
+    backView.backgroundColor = ClearColor;
+    
     _userImg = [UIImageView new];
     //    _userImg.backgroundColor = Arc4randomColor;
     
@@ -224,9 +227,11 @@
 //                               registBtn,
                                
                                _userImg,
+                               
+                               backView,
                                _isApproved,
-                               _userName,
-                               _integral,
+//                               _userName,
+//                               _integral,
                                _attentionBtn,
                                
                                _publish,
@@ -277,6 +282,7 @@
     _userImg.image = UIImageNamed(@"userIcon");
     //    [_userImg creatTapWithSelector:@selector(userTouch)];
     
+    
     _isApproved.sd_layout
     .bottomEqualToView(_userImg)
     .leftSpaceToView(_userImg, -32)
@@ -285,20 +291,37 @@
     ;
     //    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
     
+    backView.sd_layout
+    .leftSpaceToView(_userImg, 15)
+    .centerYEqualToView(_userImg)
+    .heightIs(40)
+    ;
+    [backView sd_addSubviews:@[
+                               _userName,
+                               _integral,
+                               ]];
+    
     _userName.sd_layout
     //    .bottomSpaceToView(_userImg, -27)
-    .centerYEqualToView(self.userImg)
-    .leftSpaceToView(_userImg, 18 * ScaleW)
+//    .centerYEqualToView(self.userImg)
+//    .leftSpaceToView(_userImg, 18 * ScaleW)
+//    .heightIs(20)
+    .topEqualToView(backView)
+    .leftEqualToView(backView)
     .heightIs(20)
     ;
     [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
     
     _integral.sd_layout
-    .topSpaceToView(_userName, 10)
-    .leftEqualToView(_userName)
-    .heightIs(20)
+//    .topSpaceToView(_userName, 10)
+//    .leftEqualToView(_userName)
+    .leftEqualToView(backView)
+    .bottomEqualToView(backView)
+    .heightIs(14)
     ;
     [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    
+    [backView setupAutoWidthWithRightView:_userName rightMargin:10];
     
     _attentionBtn.sd_layout
     .rightSpaceToView(headView, 11)

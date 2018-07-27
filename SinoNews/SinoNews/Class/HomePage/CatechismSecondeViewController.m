@@ -88,7 +88,7 @@ CGFloat static titleViewHeight = 91;
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 38)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 49)
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
@@ -358,7 +358,7 @@ CGFloat static titleViewHeight = 91;
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-        .heightIs(38)
+        .heightIs(49)
         ;
         [self.bottomView updateLayout];
         [self.bottomView addBorderTo:BorderTypeTop borderColor:HexColor(#E3E3E3)];

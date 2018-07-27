@@ -203,6 +203,7 @@
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             self.searchField = (UITextField *)view;
+
         }
     }
     //加入输入监听(注意，如果信号没有被订阅，则会提示警告⚠️)
@@ -272,8 +273,15 @@
 //            textField.layer.borderColor = HexColor(#EEEEEE).CGColor;
 //            textField.layer.borderWidth = 1;
             //设置输入字体颜色
-            textField.textColor = BlueColor;
-            
+//            textField.textColor = BlueColor;
+            if (UserGetBool(@"NightMode")) {
+                //文字颜色和光标颜色
+                textField.textColor = HexColor(#cfd3d6);
+                textField.tintColor = HexColor(#cfd3d6);
+            }else{
+                textField.textColor = BlackColor;
+                textField.tintColor = BlackColor;
+            }
             
         }
         if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {

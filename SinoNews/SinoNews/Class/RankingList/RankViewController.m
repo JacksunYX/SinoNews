@@ -25,6 +25,8 @@
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
 @property (nonatomic ,strong) NSMutableArray *adDatasource;
+
+@property (nonatomic,strong) UIView *naviTitle;
 @end
 
 @implementation RankViewController
@@ -92,7 +94,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"排行榜";
+//    self.navigationItem.title = @"排行榜";
+    
+    [self setNaviTitle];
+    
     [self addViews];
 
 }
@@ -206,6 +211,46 @@
     self.adCollectionView.delegate = self;
     [self.adCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ADCellID"];
 }
+
+-(void)setNaviTitle
+{
+    if (!_naviTitle) {
+        _naviTitle = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
+        self.navigationItem.titleView = _naviTitle;
+        [_naviTitle addBakcgroundColorTheme];
+        
+        UIImageView *avatar = [UIImageView new];
+        UILabel *username = [UILabel new];
+        [username addTitleColorTheme];
+        
+        [_naviTitle sd_addSubviews:@[
+                                     avatar,
+                                     username,
+                                     ]];
+        CGFloat wid = 30;
+
+        avatar.sd_layout
+        .leftEqualToView(_naviTitle)
+        .centerYEqualToView(_naviTitle)
+        .widthIs(wid)
+        .heightIs(30)
+        ;
+        [avatar setSd_cornerRadius:@(wid/2)];
+        [avatar setImage:UIImageNamed(@"homePage_logo")];
+        
+        username.sd_layout
+        .leftSpaceToView(avatar, 5)
+        .centerYEqualToView(_naviTitle)
+        .heightIs(30)
+        ;
+        [username setSingleLineAutoResizeWithMaxWidth:120];
+        username.text = @"启世录TOPS";
+        
+        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
+        
+    }
+}
+
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (collectionView == self.lineCollectionView) {

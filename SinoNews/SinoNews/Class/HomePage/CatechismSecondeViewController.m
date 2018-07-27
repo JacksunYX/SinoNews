@@ -36,6 +36,7 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
 
+@property (nonatomic,strong) UIView *naviTitle;
 
 @end
 
@@ -233,6 +234,52 @@ CGFloat static titleViewHeight = 91;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
     
     [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
+}
+
+-(void)setNaviTitle
+{
+    if (!_naviTitle) {
+        _naviTitle = [UIView new];
+        _naviTitle.alpha = 0;
+        self.navigationItem.titleView = _naviTitle;
+        [_naviTitle addBakcgroundColorTheme];
+        
+        _naviTitle.sd_layout
+        .heightIs(30)
+        ;
+        
+        UIImageView *avatar = [UIImageView new];
+        UILabel *username = [UILabel new];
+        [username addTitleColorTheme];
+        
+        [_naviTitle sd_addSubviews:@[
+                                     avatar,
+                                     username,
+                                     ]];
+        CGFloat wid = 0;
+        if (self.answerModel.avatar.length>0) {
+            wid = 30;
+        }
+        avatar.sd_layout
+        .leftEqualToView(_naviTitle)
+        .centerYEqualToView(_naviTitle)
+        .widthIs(wid)
+        .heightIs(30)
+        ;
+        [avatar setSd_cornerRadius:@(wid/2)];
+        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.answerModel.avatar))];
+        
+        username.sd_layout
+        .leftSpaceToView(avatar, 5)
+        .centerYEqualToView(_naviTitle)
+        .heightIs(30)
+        ;
+        [username setSingleLineAutoResizeWithMaxWidth:150];
+        username.text = GetSaveString(self.answerModel.username);
+        
+        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
+        
+    }
 }
 
 -(void)setNavigationBtns
@@ -456,6 +503,9 @@ CGFloat static titleViewHeight = 91;
 //    [self setNavigationBtns];
     
     [self setTitle];
+    
+    [self setNaviTitle];
+    
     [self showOrHideLoadView:NO page:2];
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
@@ -590,14 +640,23 @@ CGFloat static titleViewHeight = 91;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY >= - titleViewHeight&&offsetY <= 0) {
-        CGFloat alpha = MIN(1, fabs(offsetY)/(titleViewHeight));
-        self.titleView.alpha = alpha;
-        self.attentionBtn.enabled = alpha;
-        if (offsetY >= -20) {
-            self.navigationItem.title = GetSaveString(self.answerModel.username);
-        }else{
-            self.navigationItem.title = @"";
+    if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
+        //计算透明度比例
+        CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
+        NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
+        GGLog(@"min:%@",process);
+        self.titleView.alpha = 1 - [process floatValue];
+        self.attentionBtn.enabled = 1 - [process floatValue];
+        self.naviTitle.alpha = [process floatValue];
+        
+        [self hiddenTopLine];
+        
+    }else{
+        if (offsetY>0) {
+            [self showTopLine];
+            self.naviTitle.alpha = 1;
+            self.titleView.alpha = 0;
+            self.attentionBtn.enabled = NO;
         }
     }
     

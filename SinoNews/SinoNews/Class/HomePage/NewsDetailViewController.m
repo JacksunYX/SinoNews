@@ -49,6 +49,7 @@
 
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 
+@property (nonatomic,strong) UIView *naviTitle;
 @end
 
 @implementation NewsDetailViewController
@@ -221,6 +222,52 @@ CGFloat static titleViewHeight = 91;
 //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     
     [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];//这里+1是防止文字大小没变时，网页重载，而titleView的显隐是靠tableview的滚动来牵制的，可能会出现不显示的bug
+}
+
+-(void)setNaviTitle
+{
+    if (!_naviTitle) {
+        _naviTitle = [UIView new];
+        _naviTitle.alpha = 0;
+        self.navigationItem.titleView = _naviTitle;
+        [_naviTitle addBakcgroundColorTheme];
+        
+        _naviTitle.sd_layout
+        .heightIs(30)
+        ;
+        
+        UIImageView *avatar = [UIImageView new];
+        UILabel *username = [UILabel new];
+        [username addTitleColorTheme];
+        
+        [_naviTitle sd_addSubviews:@[
+                                     avatar,
+                                     username,
+                                     ]];
+        CGFloat wid = 0;
+        if (self.newsModel.avatar.length>0) {
+            wid = 30;
+        }
+        avatar.sd_layout
+        .leftEqualToView(_naviTitle)
+        .centerYEqualToView(_naviTitle)
+        .widthIs(wid)
+        .heightIs(30)
+        ;
+        [avatar setSd_cornerRadius:@(wid/2)];
+        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
+        
+        username.sd_layout
+        .leftSpaceToView(avatar, 5)
+        .centerYEqualToView(_naviTitle)
+        .heightIs(30)
+        ;
+        [username setSingleLineAutoResizeWithMaxWidth:150];
+        username.text = GetSaveString(self.newsModel.author);
+        
+        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
+        
+    }
 }
 
 -(void)setBottomView
@@ -598,6 +645,8 @@ CGFloat static titleViewHeight = 91;
     
     [self setTitle];
     
+    [self setNaviTitle];
+    
     [self showOrHideLoadView:NO page:2];
     
     
@@ -946,22 +995,37 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+
+    [self processViewAlphaWithView:scrollView];
+    
+}
+
+//处理滚动视图时其他视图的显隐
+-(void)processViewAlphaWithView:(UIScrollView *)scrollView
+{
 //    GGLog(@"y:%lf",scrollView.contentOffset.y);
+    
     CGFloat offsetY = scrollView.contentOffset.y;
-    if (offsetY >= - titleViewHeight&&offsetY <= 0) {
-        CGFloat alpha = MIN(1, fabs(offsetY)/(titleViewHeight));
-        self.titleView.alpha = alpha;
-        self.attentionBtn.enabled = alpha;
+    
+    if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
+        //计算透明度比例
+        CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
+        NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
+        GGLog(@"min:%@",process);
+        self.titleView.alpha = 1 - [process floatValue];
+        self.attentionBtn.enabled = 1 - [process floatValue];
+        self.naviTitle.alpha = [process floatValue];
         
-        if (offsetY >= -20) {
-            self.navigationItem.title = GetSaveString(self.newsModel.author);
+        [self hiddenTopLine];
+        
+    }else{
+        if (offsetY>0) {
             [self showTopLine];
-        }else{
-            self.navigationItem.title = @"";
-            [self hiddenTopLine];
+            self.naviTitle.alpha = 1;
+            self.titleView.alpha = 0;
+            self.attentionBtn.enabled = NO;
         }
     }
-    
 }
 
 #pragma mark ----- 发送请求

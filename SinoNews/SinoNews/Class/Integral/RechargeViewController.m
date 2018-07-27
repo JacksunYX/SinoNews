@@ -126,10 +126,19 @@
     userName = [UILabel new];
     userName.font = FontScale(15);
     [userName addTitleColorTheme];
+    
     integer = [UILabel new];
     integer.font = FontScale(15);
-    [integer addContentColorTheme];
+//    [integer addContentColorTheme];
+    integer.textColor = HexColor(#1282EE);
+    
     UIView *line = [UIView new];
+    line.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UIView *)item setBackgroundColor:CutLineColor];
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }
+    });
     
     [self.scrollView sd_addSubviews:@[
                                       userIcon,
@@ -168,7 +177,7 @@
     .rightSpaceToView(_scrollView, 10)
     .heightIs(1)
     ;
-    line.backgroundColor = RGBA(227, 227, 227, 1);
+    
     
     [self.payBtnArr addObject:line];
 }
@@ -239,6 +248,13 @@
     }
     
     UIView *line = [UIView new];
+    line.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UIView *)item setBackgroundColor:CutLineColor];
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }
+    });
+    
     [self.scrollView addSubview:line];
     line.sd_layout
     .topSpaceToView(_scrollView, y + 15)
@@ -246,7 +262,7 @@
     .rightSpaceToView(_scrollView, 10)
     .heightIs(1)
     ;
-    line.backgroundColor = RGBA(227, 227, 227, 1);
+    
 }
 
 //下部分
@@ -269,7 +285,7 @@
 
     NSString *str1 = @"充值金额： 1元 = ";
     NSString *integer = @"100";
-    NSString *str2 = @"积分";
+    NSString *str2 = @" 积分";
     NSString *totalStr = [[str1 stringByAppendingString:integer] stringByAppendingString:str2];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:totalStr];
     NSDictionary *dic = @{
@@ -285,7 +301,13 @@
     moneyInput.delegate = self;
     moneyInput.font = Font(21);
     moneyInput.textColor = RGBA(18, 130, 238, 1);
-    moneyInput.backgroundColor = HexColor(#f6f6f6);
+    
+    moneyInput.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(TXLimitedTextField *)item setBackgroundColor:HexColor(#f6f6f6)];
+        if (UserGetBool(@"NightMode")) {
+            [(TXLimitedTextField *)item setBackgroundColor:HexColor(#292D30)];
+        }
+    });
     // 自定义输入限制类型
     moneyInput.limitedType = TXLimitedTextFieldTypePrice;
     // 限制输入长度
@@ -315,6 +337,7 @@
     moneyInput.attributedPlaceholder = placeholderAtt;
     
     UIImageView *leftImg = [[UIImageView alloc]initWithImage:UIImageNamed(@"input_money")];
+    leftImg.lee_theme.LeeConfigImage(@"integral_input_money");
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     leftImg.center = leftView.center;
     [leftView addSubview:leftImg];
@@ -381,7 +404,14 @@
     .heightIs(45)
     ;
     [payBtn setTitleColor:RGBA(255, 254, 254, 1) forState:UIControlStateNormal];
-    [payBtn setBackgroundColor:RGBA(144, 194, 243, 1)];
+    
+    payBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UIButton *)item setBackgroundColor:RGBA(144, 194, 243, 1)];
+        if (UserGetBool(@"NightMode")) {
+            [(UIButton *)item setBackgroundColor:HexColor(#0063C3)];
+        }
+    });
+    
     payBtn.titleLabel.font = Font(16);
     [payBtn setSd_cornerRadius:@20];
     [payBtn setTitle:@"立即充值" forState:UIControlStateNormal];

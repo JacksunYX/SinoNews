@@ -102,12 +102,28 @@
     if (!_gradient) {
         _gradient = [CAGradientLayer layer];
         _gradient.frame = CGRectMake(0, 0, (ScreenW - 20)/3, 45);
-        _gradient.colors = [NSArray arrayWithObjects:
-                           (id)RGBA(79, 160, 238, 1).CGColor,
-                           (id)RGBA(173, 208, 241, 1).CGColor, nil];
-        _gradient.startPoint = CGPointMake(0, 0.5);
-        _gradient.endPoint = CGPointMake(1, 0.5);
-        _gradient.locations = @[@0.0, @1];
+        _gradient.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            [(CAGradientLayer *)item setColors:[NSArray arrayWithObjects:
+                                                (id)RGBA(79, 160, 238, 1).CGColor,
+                                                (id)RGBA(173, 208, 241, 1).CGColor, nil]];
+            if (UserGetBool(@"NightMode")) {
+                [(CAGradientLayer *)item setColors:[NSArray arrayWithObjects:
+                                                    (id)RGBA(41, 45, 48, 1).CGColor,
+                                                    (id)RGBA(106, 112, 116, 1).CGColor, nil]];
+            }
+            //分界
+            [(CAGradientLayer *)item setStartPoint:CGPointMake(0, 0.5)];
+            [(CAGradientLayer *)item setEndPoint:CGPointMake(1, 0.5)];
+            [(CAGradientLayer *)item setLocations:@[@0.0, @1]];
+            
+        });
+        
+//        _gradient.colors = [NSArray arrayWithObjects:
+//                           (id)RGBA(79, 160, 238, 1).CGColor,
+//                           (id)RGBA(173, 208, 241, 1).CGColor, nil];
+//        _gradient.startPoint = CGPointMake(0, 0.5);
+//        _gradient.endPoint = CGPointMake(1, 0.5);
+//        _gradient.locations = @[@0.0, @1];
     }
     return _gradient;
 }
@@ -135,7 +151,8 @@
     integer = [UILabel new];
     integer.font = FontScale(15);
     integer.textAlignment = NSTextAlignmentRight;
-    [integer addContentColorTheme];
+//    [integer addContentColorTheme];
+    integer.textColor = HexColor(#1282EE);
     UIView *line = [UIView new];
     
     [self.view sd_addSubviews:@[
@@ -177,8 +194,19 @@
     ;
     
     [_segmentView updateLayout];
-    _segmentView.btnTitleSelectColor = RGBA(18, 130, 238, 1);
-    _segmentView.btnTitleNormalColor = RGBA(136, 136, 136, 1);
+    _segmentView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        LXSegmentBtnView *item2 = (LXSegmentBtnView *)item;
+        item2.btnTitleSelectColor = RGBA(18, 130, 238, 1);
+        item2.btnTitleNormalColor = RGBA(136, 136, 136, 1);
+        item2.btnBackgroundNormalColor = value;
+        item2.btnBackgroundSelectColor = value;
+        if (UserGetBool(@"NightMode")) {
+            item2.btnTitleSelectColor = RGBA(207, 211, 214, 1);
+            item2.btnTitleNormalColor = RGBA(136, 136, 136, 1);
+        }
+    });
+    
+    
     WeakSelf
     _segmentView.lxSegmentBtnSelectIndexBlock = ^(NSInteger index, UIButton *btn) {
         [weakSelf setColorWithBtn:btn];
@@ -289,13 +317,26 @@
     }
     [headView addBakcgroundColorTheme];
     UIView *topLine = [UIView new];
-    topLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
     UIView *leftLine = [UIView new];
-    leftLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
     UIView *rightLine = [UIView new];
-    rightLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
     UIView *bottomLine = [UIView new];
-    bottomLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
+    headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UIView *)item setBackgroundColor:value];
+        topLine.backgroundColor = CutLineColor;
+        leftLine.backgroundColor = CutLineColor;
+        rightLine.backgroundColor = CutLineColor;
+        bottomLine.backgroundColor = CutLineColor;
+        if (UserGetBool(@"NightMode")) {
+            topLine.backgroundColor = CutLineColorNight;
+            leftLine.backgroundColor = CutLineColorNight;
+            rightLine.backgroundColor = CutLineColorNight;
+            bottomLine.backgroundColor = CutLineColorNight;
+        }
+    });
     
     [headView sd_addSubviews:@[
                                topLine,

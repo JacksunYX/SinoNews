@@ -26,6 +26,9 @@
         "noCommentFoot" :"noComment1",
         
         "checkAllReplay" : "company_checkAllReplay",
+        
+        "integral_storeProductImg" : "store_backImg",
+        "integral_input_money" : "input_money",
     },
     "other": {
         

@@ -43,11 +43,24 @@
 -(void)setupUI
 {
     UIView *leftLine = [UIView new];
-    leftLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
     UIView *rightLine = [UIView new];
-    rightLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
     UIView *bottomLine = [UIView new];
-    bottomLine.backgroundColor = RGBA(227, 227, 227, 1);
+    
+    self.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        [(UITableViewCell *)item setBackgroundColor:value];
+        
+        leftLine.backgroundColor = CutLineColor;
+        rightLine.backgroundColor = CutLineColor;
+        bottomLine.backgroundColor = CutLineColor;
+        if (UserGetBool(@"NightMode")) {
+            
+            leftLine.backgroundColor = CutLineColorNight;
+            rightLine.backgroundColor = CutLineColorNight;
+            bottomLine.backgroundColor = CutLineColorNight;
+        }
+    });
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -101,7 +114,7 @@
     
     integerChange = [UILabel new];
     integerChange.font = Font(12);
-    integerChange.textColor = RGBA(118, 179, 239, 1);
+    
     integerChange.textAlignment = NSTextAlignmentCenter;
     integerChange.numberOfLines = 2;
     
@@ -166,6 +179,11 @@
     behavior.text = GetSaveString(model.pointsType);
     time.text = GetSaveString(model.time);
     integerChange.text = GetSaveString(model.pointsChange);
+    if ([model.pointsChange containsString:@"-"]) {
+        integerChange.textColor = RGBA(152, 152, 152, 1);
+    }else{
+        integerChange.textColor = RGBA(118, 179, 239, 1);
+    }
     balance.text = [NSString stringWithFormat:@"%ld",model.remialPoints];
 }
 

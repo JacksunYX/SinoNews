@@ -95,6 +95,37 @@
     
 }
 
+-(void)setBtnTitleNormalColor:(UIColor *)btnTitleNormalColor
+{
+    _btnTitleNormalColor = btnTitleNormalColor;
+    for (UIButton *btn in self.btnArray) {
+        [btn setTitleColor:btnTitleNormalColor forState:UIControlStateNormal];
+    }
+}
+
+-(void)setBtnTitleSelectColor:(UIColor *)btnTitleSelectColor
+{
+    _btnTitleSelectColor = btnTitleSelectColor;
+    for (UIButton *btn in self.btnArray) {
+        [btn setTitleColor:btnTitleSelectColor forState:UIControlStateSelected];
+    }
+}
+
+-(void)setBtnBackgroundNormalColor:(UIColor *)btnBackgroundNormalColor
+{
+    _btnBackgroundNormalColor = btnBackgroundNormalColor;
+    for (UIButton *btn in self.btnArray) {
+        [btn setBackgroundImage:[self lx_imageWithColor:btnBackgroundNormalColor] forState:UIControlStateNormal];
+    }
+}
+
+-(void)setBtnBackgroundSelectColor:(UIColor *)btnBackgroundSelectColor
+{
+    _btnBackgroundSelectColor = btnBackgroundSelectColor;
+    for (UIButton *btn in self.btnArray) {
+        [btn setBackgroundImage:[self lx_imageWithColor:btnBackgroundSelectColor] forState:UIControlStateSelected];
+    }
+}
 
 #pragma mark ---init---
 -(UIButton *)getBtn{
@@ -131,5 +162,7 @@
     
     return image;
 }
+
+
 
 @end

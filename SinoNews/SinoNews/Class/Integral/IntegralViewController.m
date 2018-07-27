@@ -53,16 +53,18 @@
     _segHead.selectColor = HexColor(#1282EE);
 //    _segHead.deSelectColor = HexColor(#7B7B7B);
     _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setBottomLineColor:CutLineColor];
         if (UserGetBool(@"NightMode")) {
             [(MLMSegmentHead *)item setDeSelectColor:value];
+            [(MLMSegmentHead *)item setBottomLineColor:CutLineColorNight];
         }else{
             [(MLMSegmentHead *)item setDeSelectColor:HexColor(#7B7B7B)];
         }
     });
     _segHead.maxTitles = 4;
-    _segHead.bottomLineHeight = 0;
-    _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
     _segHead.showIndex = self.selectedIndex;
+    
+    _segHead.bottomLineHeight = 0;
     
     if (_segScroll) {
         [_segScroll removeFromSuperview];

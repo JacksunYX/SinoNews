@@ -75,6 +75,7 @@
     .heightIs((ScreenW - 2 * lrMargin) * 70 / 355)
     ;
     [backImg setImage:UIImageNamed(@"store_backImg")];
+    backImg.lee_theme.LeeConfigImage(@"integral_storeProductImg");
     
     [backImg sd_addSubviews:@[
                               iconImg,

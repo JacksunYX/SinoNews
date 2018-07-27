@@ -434,7 +434,7 @@
         }
     }
     if (array.count<=0) {
-        LRToast(@"没有关注更多频道~");
+        LRToast(@"没有关注更多频道");
         return;
     }
     
@@ -442,7 +442,7 @@
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     [HttpRequest postWithURLString:SetConcernedChannels parameters:@{@"channelIds":jsonString} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        LRToast(@"频道已设置完毕~");
+        LRToast(@"频道已设置完毕");
     } failure:nil RefreshAction:nil];
 }
 

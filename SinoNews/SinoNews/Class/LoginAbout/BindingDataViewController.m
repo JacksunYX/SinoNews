@@ -259,7 +259,7 @@
     }
     parameters[@"validCode"] = seccode.text;
     [HttpRequest postWithURLString:urlStr parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"绑定成功~");
+        LRToast(@"绑定成功");
         GCDAfterTime(1, ^{
             [self.navigationController popToRootViewControllerAnimated:YES];
         });

@@ -405,7 +405,7 @@
     parameters[@"productId"] = @(self.productModel.productId);
     @weakify(self)
     [HttpRequest postWithURLString:Mall_buy parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"购买成功~");
+        LRToast(@"购买成功");
         @strongify(self)
         GCDAfterTime(1, ^{
             [self.navigationController popViewControllerAnimated:YES];

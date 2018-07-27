@@ -391,7 +391,7 @@
         if (str.length>0) {
             [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
         }else{
-            LRToast(@"先去关注点其他的频道吧~");
+            LRToast(@"先去关注点其他的频道吧");
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
             return;

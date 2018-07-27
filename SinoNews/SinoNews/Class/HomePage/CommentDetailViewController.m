@@ -99,7 +99,7 @@
             GGLog(@"-----%@",field.text);
             [field resignFirstResponder];
             if ([NSString isEmpty:field.text]) {
-                LRToast(@"评论不能为空哦~");
+                LRToast(@"评论不能为空哦");
             }else{
                 [self requestCommentWithComment:field.text];
                 field.text = @"";
@@ -367,7 +367,7 @@
     parameters[@"parentId"] = @([self.model.commentId integerValue]);
     
     [HttpRequest postWithTokenURLString:requestUrl parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"评论成功~");
+        LRToast(@"评论成功");
         [self refreshComments];
     } failure:nil RefreshAction:^{
         

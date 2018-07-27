@@ -297,7 +297,7 @@
         btn.selected = !btn.selected;
         [self showOrHiddenTheSelections:btn.selected];
     }else{
-        LRToast(@"先去收藏点东西吧~");
+        LRToast(@"先去收藏点东西吧");
     }
     
 }

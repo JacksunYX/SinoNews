@@ -160,7 +160,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"启示录";
+    self.navigationItem.title = @"启世录";
     
     [self addTableView];
     
@@ -887,7 +887,7 @@
     parameters[@"parentId"] = @(0);
     
     [HttpRequest postWithTokenURLString:CompanyComments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"评论成功~");
+        LRToast(@"评论成功");
         [self requestCompanyCommentList];
     } failure:nil RefreshAction:^{
         [self.tableView.mj_header beginRefreshing];

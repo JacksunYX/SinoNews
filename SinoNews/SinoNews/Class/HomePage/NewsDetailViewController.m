@@ -119,7 +119,7 @@ CGFloat static titleViewHeight = 91;
         ;
         
         _titleLabel = [UILabel new];
-        _titleLabel.font = [GetCurrentFont titleFont];
+        _titleLabel.font = PFFontM(22);
         _titleLabel.numberOfLines = 0;
         [_titleLabel addTitleColorTheme];
         
@@ -212,7 +212,7 @@ CGFloat static titleViewHeight = 91;
     }else{
         [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
     }
-    _titleLabel.font = [GetCurrentFont titleFont];
+//    _titleLabel.font = [GetCurrentFont titleFont];
 
     //获取上部分的高度
     [self.titleView updateLayout];
@@ -279,7 +279,7 @@ CGFloat static titleViewHeight = 91;
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             if (self.praiseBtn.selected) {
-                LRToast(@"已经点过赞啦~");
+                LRToast(@"已经点过赞啦");
             }else{
                 [self requestPraiseWithPraiseType:3 praiseId:self.newsId commentNum:0];
             }
@@ -1028,7 +1028,7 @@ CGFloat static titleViewHeight = 91;
     parameters[@"parentId"] = @(self.parentId);
     
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"评论成功~");
+        LRToast(@"评论成功");
         //        self.parentId = 0;
         [self refreshComments];
 //        [self requestNewData];

@@ -325,7 +325,7 @@ CGFloat static titleViewHeight = 91;
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
             if (self.praiseBtn.selected) {
-                LRToast(@"已经点过赞啦~");
+                LRToast(@"已经点过赞啦");
             }else{
                 [self requestPraiseWithPraiseType:4 praiseId:self.answer_id commentNum:0];
             }

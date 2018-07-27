@@ -92,7 +92,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotifyCell"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:3 reuseIdentifier:@"NotifyCell"];
+        cell = [[UITableViewCell alloc]initWithStyle:0 reuseIdentifier:@"NotifyCell"];
         cell.textLabel.font = PFFontL(16);
 //        cell.textLabel.textColor = RGBA(50, 50, 50, 1);
         [cell.textLabel addTitleColorTheme];
@@ -128,10 +128,10 @@
     }
     cell.imageView.image = UIImageNamed(@"notify_logo");
     cell.textLabel.text = @"启世录官方通知";
-    cell.detailTextLabel.text = @"你好";
+//    cell.detailTextLabel.text = @"你好";
     if (cell.accessoryView) {
         UILabel *time = [cell.accessoryView viewWithTag:153];
-        time.text = @"下午 02:33";
+//        time.text = @"下午 02:33";
     }
     [cell addBakcgroundColorTheme];
     return cell;

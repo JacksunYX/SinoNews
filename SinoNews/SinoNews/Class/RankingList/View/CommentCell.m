@@ -160,7 +160,7 @@
     ;
     
     checkAllReplayLabel = [UILabel new];
-    checkAllReplayLabel.font = PFFontR(11);
+    checkAllReplayLabel.font = PFFontR(12);
     checkAllReplayLabel.textColor = RGBA(152, 152, 152, 1);
 //    checkAllReplayLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -225,10 +225,11 @@
     checkImg.sd_layout
     .leftSpaceToView(checkAllReplayLabel, 10)
     .centerYEqualToView(checkAllReplayLabel)
-    .widthIs(8)
+    .widthIs(11)
     .heightEqualToWidth()
     ;
-    checkImg.image = UIImageNamed(@"company_checkAllReplay");
+//    checkImg.image = UIImageNamed(@"company_checkAllReplay");
+    checkImg.lee_theme.LeeConfigImage(@"checkAllReplay");
     
     [bottomBackView setupAutoHeightWithBottomView:checkAllReplayLabel bottomMargin:0];
     

@@ -445,7 +445,7 @@
 //        LRToast(str);
         [self requestMall_rechargeWithAmount:[moneyInput.text doubleValue]];
     }else{
-        LRToast(@"请选择需要的金额再进行充值~");
+        LRToast(@"请选择需要的金额再进行充值");
     }
     
 }

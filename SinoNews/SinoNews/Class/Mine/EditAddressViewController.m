@@ -231,13 +231,13 @@
 {
     
     if (kStringIsEmpty(receiver.text)||[NSString isEmpty:receiver.text]) {
-        LRToast(@"请输入收件人姓名~");
+        LRToast(@"请输入收件人姓名");
     }else if (kStringIsEmpty(phoneNum.text)||[NSString isEmpty:phoneNum.text]||![GetSaveString(phoneNum.text) isValidPhone]){
-        LRToast(@"请输入正确的手机号~");
+        LRToast(@"请输入正确的手机号");
     }else if (kStringIsEmpty(cityLabel.text)){
-        LRToast(@"请选择省/市/行政区～");
+        LRToast(@"请选择省/市/行政区");
     }else if (kStringIsEmpty(detailAddress.text)||[NSString isEmpty:detailAddress.text]){
-        LRToast(@"请输入详细地址～");
+        LRToast(@"请输入详细地址");
     }else{
         [self requestSaveAddress];
     }

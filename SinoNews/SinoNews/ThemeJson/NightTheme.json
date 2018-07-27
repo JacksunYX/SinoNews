@@ -24,6 +24,8 @@
         "channelManager_delete" : "delete_night",
         
         "noCommentFoot" :"noComment1_night",
+        
+        "checkAllReplay" : "company_checkAllReplay_night",
     },
     "other": {
         

@@ -84,7 +84,7 @@
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-        .heightIs(47)
+        .heightIs(49)
         ;
         [self.bottomView updateLayout];
         [self.bottomView addBorderTo:BorderTypeTop borderColor:RGBA(219, 219, 219, 1)];
@@ -152,7 +152,7 @@
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     //    .bottomSpaceToView(self.bottomView, 0)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 48)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 49)
     ;
     [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;

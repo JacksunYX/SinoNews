@@ -179,8 +179,7 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
-        self.page = 1;
-        [self requestListMessages];
+        [self requestListMessagesWithLoadType:0];
         
     }];
     self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -189,12 +188,7 @@
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
-        if (self.dataSource.count>0) {
-            self.page++;
-        }else{
-            self.page = 1;
-        }
-        [self requestListMessages];
+        [self requestListMessagesWithLoadType:1];
     }];
     
     [self.tableView.mj_header beginRefreshing];
@@ -258,23 +252,23 @@
     parameters[@"messageContent"] = GetSaveString(content);
     [HttpRequest postWithURLString:SendMessageToSystem parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
         if (response[@"success"]) {
-            [self requestListMessages];
+            [self requestListMessagesWithLoadType:1];
         }
     } failure:nil RefreshAction:nil];
 }
 
-//获取私信列表
--(void)requestListMessages
+//获取私信列表(0loadTime之前的，1之后的)
+-(void)requestListMessagesWithLoadType:(NSInteger)loadType
 {
-    [HttpRequest getWithURLString:ListMessages parameters:@{@"page":@(self.page)} success:^(id responseObject) {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"loadTime"] = [self getLoadTimeWithLoadType:loadType];
+    parameters[@"loadType"] = @(loadType);
+    [HttpRequest getWithURLString:ListMessages parameters:parameters success:^(id responseObject) {
         NSArray *data = [OfficialNotifyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        if (self.page == 1) {
-            self.dataSource = [data mutableCopy];
+        if (loadType == 0) {
+            self.dataSource = [[data arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];
         }else{
-            if (!data.count) {
-                self.page -- ;
-            }
             [self.dataSource addObjectsFromArray:data];
             [self.tableView.mj_footer endRefreshing];
         }
@@ -284,5 +278,24 @@
         [self.tableView.mj_footer endRefreshing];
     }];
 }
+
+//根据loadType来获取loadTime
+-(NSString *)getLoadTimeWithLoadType:(NSInteger)loadType
+{
+    NSString *loadTime = @"";
+    //前提是已经有数据了
+    if (self.dataSource.count>0) {
+        NSUInteger i = 0;
+        if (loadType) {
+            //取最后一个
+            i = self.dataSource.count - 1;
+        }
+        OfficialNotifyModel *model = self.dataSource[i];
+        loadTime = model.plainTime;
+    }
+    
+    return loadTime;
+}
+
 
 @end

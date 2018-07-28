@@ -29,6 +29,10 @@
 //
 //    self.refreshingTitleHidden = NO;
 //    self.ignoredScrollViewContentInsetBottom = 40;
+    
+    //每次拖拽只调用一次
+    self.onlyRefreshPerDrag = YES;
+    
     /*
      // 设置颜色
      

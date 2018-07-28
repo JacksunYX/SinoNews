@@ -109,14 +109,14 @@
     avatar.backgroundColor = Arc4randomColor;
     
     praise.sd_layout
-    .rightSpaceToView(fatherView, 20)
+    .rightSpaceToView(fatherView, 10)
     .centerYEqualToView(avatar)
     .widthIs(60)
     .heightIs(20)
     ;
 //    praise.backgroundColor = Arc4randomColor;
-    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -50);
-    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -35);
+    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
     [praise setNormalImage:UIImageNamed(@"company_unPraise")];
     [praise setSelectedImage:UIImageNamed(@"company_praised")];
     

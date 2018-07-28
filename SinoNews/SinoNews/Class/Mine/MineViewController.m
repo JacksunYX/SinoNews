@@ -31,6 +31,7 @@
 //用户信息
 @property (nonatomic ,strong) UIImageView *userImg;
 @property (nonatomic ,strong) UILabel *userName;
+@property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic ,strong) UILabel *integral;
 @property (nonatomic ,strong) UIButton *signIn;
 @property (nonatomic ,strong) UILabel *publish;     //文章
@@ -259,6 +260,11 @@
 //    _userName.textColor = RGBA(72, 72, 72, 1);
     [_userName addTitleColorTheme];
     
+    _idView = [UIView new];
+    _idView.backgroundColor = ClearColor;
+//    [_idView addBakcgroundColorTheme];
+    
+    
     _integral = [UILabel new];
     _integral.font = PFFontL(14);
 //    _integral.textColor = RGBA(50, 50, 50, 1);
@@ -277,6 +283,7 @@
     
     [headView sd_addSubviews:@[
                                _userImg,
+                               
                                backView,
                                
                                _signIn,
@@ -307,6 +314,7 @@
     ;
     [backView sd_addSubviews:@[
                                _userName,
+                               _idView,
                                _integral,
                                ]];
     
@@ -319,6 +327,12 @@
     .heightIs(20)
     ;
     [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
+    
+    _idView.sd_layout
+    .heightIs(20)
+    .centerYEqualToView(_userName)
+    .leftSpaceToView(_userName, 10)
+    ;
     
     _integral.sd_layout
 //    .topSpaceToView(_userName, 10)
@@ -451,7 +465,9 @@
     _userName.text = @"登 陆";
     _integral.text = @"";
     _signIn.hidden = YES;
+    _idView.hidden = YES;
     if (login) {
+        
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar)];
         _userName.text = GetSaveString(self.user.username);
         _integral.text = [NSString stringWithFormat:@"%ld 积分",self.user.integral];
@@ -460,13 +476,52 @@
         fan = [NSString stringWithFormat:@"%lu",self.user.fansCount];
         pra = [NSString stringWithFormat:@"%lu",self.user.praisedCount];
         _signIn.hidden = NO;
+        _idView.hidden = NO;
     }
+    
+    [self setIdViewWithIDs];
     
     _publish.attributedText = [NSString leadString:pub tailString:@"发表" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
     _attention.attributedText = [NSString leadString:att tailString:@"关注" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     _fans.attributedText = [NSString leadString:fan tailString:@"粉丝" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     _praise.attributedText = [NSString leadString:pra tailString:@"获赞" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
     
+}
+
+//设置标签视图
+-(void)setIdViewWithIDs
+{
+    //先清除
+    for (UIView *subview in _idView.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (self.user.identifications.count>0) {
+        CGFloat wid = 20;
+        CGFloat hei = 20;
+        CGFloat spaceX = 5;
+        
+        for (int i = 0; i < self.user.identifications.count; i ++) {
+            NSDictionary *model = self.user.identifications[i];
+            UIImageView *approveView = [UIImageView new];
+            [_idView addSubview:approveView];
+            approveView.sd_layout
+            .topEqualToView(_idView)
+            .leftSpaceToView(_idView, (spaceX + wid)*i)
+            .widthIs(wid)
+            .heightIs(hei)
+            ;
+            [approveView setSd_cornerRadius:@(wid/2)];
+            if (CompareString(model[@"text"], @"官方账号")) {
+                approveView.image = UIImageNamed(@"id_official");
+            }else if (CompareString(model[@"text"], @"认证用户")) {
+                approveView.image = UIImageNamed(@"id_company");
+            }
+//            approveView.backgroundColor = Arc4randomColor;
+            if (i == self.user.identifications.count - 1) {
+                [_idView setupAutoWidthWithRightView:approveView rightMargin:0];
+            }
+        }
+    }
 }
 
 -(void)tapViewWithIndex:(NSInteger)index

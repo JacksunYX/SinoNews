@@ -27,6 +27,8 @@
 @property (nonatomic,strong) NSString *loginTime;
 //用户已关注频道
 @property (nonatomic,strong) NSArray *concernedChannels;
+//认证类型
+@property (nonatomic,strong) NSArray *identifications;
 
 //用户id
 @property (nonatomic,assign) NSUInteger userId;

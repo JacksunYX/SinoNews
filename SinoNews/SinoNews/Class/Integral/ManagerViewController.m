@@ -252,7 +252,7 @@
             return ;
         }
         self.page = 1;
-        [self requestPointsList];
+        [self requestPointsListWithLoadType:0];
         [self requestToGetUserInfo];
     }];
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -266,7 +266,7 @@
         }else{
             self.page++;
         }
-        [self requestPointsList];
+        [self requestPointsListWithLoadType:1];
     }];
     [_tableView.mj_header beginRefreshing];
 }
@@ -412,27 +412,19 @@
 
 #pragma mark ---- 请求发送
 //请求积分列表
--(void)requestPointsList
+-(void)requestPointsListWithLoadType:(NSInteger)loadType
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.page);
+    parameters[@"loadType"] = @(loadType);
+    parameters[@"loadTime"] = [self getLoadTimeWithLoadType:loadType];
     [HttpRequest getWithURLString:PointsBalanceSheet parameters:parameters success:^(id responseObject) {
         NSArray *data = [IntegralModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        if (self.page == 1) {
-            self.dataSource = [data mutableCopy];
-            if (data.count) {
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
+        if (loadType == 0) {
+            self.dataSource = [[data arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];
         }else{
-            if (data.count) {
-                [self.dataSource addObjectsFromArray:data];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
+            [self.dataSource addObjectsFromArray:data];
+            [self.tableView.mj_footer endRefreshing];
         }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -465,7 +457,23 @@
     } failure:nil];
 }
 
-
+//根据loadType来获取loadTime
+-(NSString *)getLoadTimeWithLoadType:(NSInteger)loadType
+{
+    NSString *loadTime = @"";
+    //前提是已经有数据了
+    if (self.dataSource.count>0) {
+        NSUInteger i = 0;
+        if (loadType) {
+            //取最后一个
+            i = self.dataSource.count - 1;
+        }
+        IntegralModel *model = self.dataSource[i];
+        loadTime = model.time;
+    }
+    
+    return loadTime;
+}
 
 
 

@@ -116,6 +116,15 @@ CGFloat static titleViewHeight = 91;
         [self requestNews_listAnswer];
     }];
     
+    [self refreshComments];
+    
+}
+
+//刷新评论
+-(void)refreshComments
+{
+    self.currPage = 1;
+    [self requestNews_listAnswer];
 }
 
 -(void)setTitle

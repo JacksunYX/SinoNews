@@ -97,15 +97,15 @@
                                  
                                  newsCover,
                                  
-                                 share,
-                                 comment,
-                                 praise,
+//                                 share,
+//                                 comment,
+//                                 praise,
                                  
                                  ]];
     
     [self sdLoadViews];
     
-    [self setupAutoHeightWithBottomViewsArray:@[share,comment,praise] bottomMargin:10];
+    [self setupAutoHeightWithBottomViewsArray:@[newsCover] bottomMargin:10];
 }
 
 //布局

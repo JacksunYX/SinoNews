@@ -105,8 +105,8 @@
     .heightIs(20)
     ;
     //    praise.backgroundColor = Arc4randomColor;
-    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -40);
-    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 0);
+    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -35);
+    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
     [praise setNormalImage:UIImageNamed(@"company_unPraise")];
     [praise setSelectedImage:UIImageNamed(@"company_praised")];
     

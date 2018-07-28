@@ -27,6 +27,41 @@ PODS:
   - FLAnimatedImage (1.0.12)
   - GHConsole (1.3.0)
   - IQKeyboardManager (6.1.1)
+  - KafkaRefresh (1.2.0):
+    - KafkaRefresh/Category (= 1.2.0)
+    - KafkaRefresh/Configuration (= 1.2.0)
+    - KafkaRefresh/Core (= 1.2.0)
+    - KafkaRefresh/Default (= 1.2.0)
+    - KafkaRefresh/Style (= 1.2.0)
+    - KafkaRefresh/UIKit (= 1.2.0)
+  - KafkaRefresh/Category (1.2.0)
+  - KafkaRefresh/Configuration (1.2.0):
+    - KafkaRefresh/UIKit/FootKit
+    - KafkaRefresh/UIKit/HeadKit
+  - KafkaRefresh/Core (1.2.0):
+    - KafkaRefresh/Category
+  - KafkaRefresh/Default (1.2.0):
+    - KafkaRefresh/Style
+  - KafkaRefresh/Style (1.2.0)
+  - KafkaRefresh/UIKit (1.2.0):
+    - KafkaRefresh/UIKit/FootKit (= 1.2.0)
+    - KafkaRefresh/UIKit/HeadKit (= 1.2.0)
+    - KafkaRefresh/UIKit/LayerKit (= 1.2.0)
+  - KafkaRefresh/UIKit/FootKit (1.2.0):
+    - KafkaRefresh/Category
+    - KafkaRefresh/Core
+    - KafkaRefresh/Default
+    - KafkaRefresh/Style
+    - KafkaRefresh/UIKit/LayerKit
+  - KafkaRefresh/UIKit/HeadKit (1.2.0):
+    - KafkaRefresh/Category
+    - KafkaRefresh/Core
+    - KafkaRefresh/Default
+    - KafkaRefresh/Style
+    - KafkaRefresh/UIKit/LayerKit
+  - KafkaRefresh/UIKit/LayerKit (1.2.0):
+    - KafkaRefresh/Category
+    - KafkaRefresh/Default
   - LEETheme (1.1.7)
   - MBProgressHUD (1.1.0)
   - MGSocialShareKit (1.1.0)
@@ -57,6 +92,7 @@ DEPENDENCIES:
   - FCUUID
   - GHConsole
   - IQKeyboardManager
+  - KafkaRefresh
   - LEETheme
   - MBProgressHUD
   - MGSocialShareKit (~> 1.0)
@@ -83,6 +119,7 @@ SPEC REPOS:
     - FLAnimatedImage
     - GHConsole
     - IQKeyboardManager
+    - KafkaRefresh
     - LEETheme
     - MBProgressHUD
     - MGSocialShareKit
@@ -109,6 +146,7 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GHConsole: 8fa768c1b30139e7baa192508ead18fd71f4b7db
   IQKeyboardManager: 79c57795f5c2408d259d37b9da2ed07efcbb5225
+  KafkaRefresh: 20d69e508dfe6b6ffcabe4c3273d7f33bd34ff03
   LEETheme: e5dc623fe58ee9f2b973e9a7445267e3e972deb4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSocialShareKit: abffd0f9c513a63c07ed96af07a0cc9abcf43366
@@ -126,6 +164,6 @@ SPEC CHECKSUMS:
   XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 0a7900be36b819f990c515b1442f878177f79884
+PODFILE CHECKSUM: f36e0724a1e62ce17403b9dc869c2de766a49485
 
 COCOAPODS: 1.5.3

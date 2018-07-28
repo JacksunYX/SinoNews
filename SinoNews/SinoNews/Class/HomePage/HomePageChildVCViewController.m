@@ -134,7 +134,7 @@
         }
         [self.tableView ly_startLoading];
         //有newsid，说明是首页的子页面
-        
+
         if ([self.news_id integerValue]) {
             [self requestNews_list:0];
             //只有最新频道存在轮播图
@@ -146,7 +146,7 @@
         }else if(CompareString(GetSaveString(self.news_id), @"频道")){
             [self requestAttentionChannelNews];
         }
-        
+
     }];
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -154,9 +154,9 @@
         if (self.tableView.mj_header.isRefreshing||!self.dataSource.count) {
             [self.tableView.mj_footer endRefreshing];
         }
-        
+
         self.page++;
-        
+
         if ([self.news_id integerValue]) {
             self.page = 1;
             [self requestNews_list:1];
@@ -165,10 +165,45 @@
         }else if(CompareString(GetSaveString(self.news_id), @"频道")){
             [self requestAttentionChannelNews];
         }
-        
+
     }];
     
     [_tableView.mj_header beginRefreshing];
+    
+//    [_tableView bindGlobalStyleForFootRefreshHandler:^{
+//        @strongify(self);
+//        self.page++;
+//
+//        if ([self.news_id integerValue]) {
+//            self.page = 1;
+//            [self requestNews_list:1];
+//        }else if(CompareString(GetSaveString(self.news_id), @"作者")){
+//            [self requestAttentionNews];
+//        }else if(CompareString(GetSaveString(self.news_id), @"频道")){
+//            [self requestAttentionChannelNews];
+//        }
+//    }];
+//
+//    [_tableView bindGlobalStyleForHeadRefreshHandler:^{
+//        @strongify(self)
+//        [self.tableView ly_startLoading];
+//        //有newsid，说明是首页的子页面
+//
+//        if ([self.news_id integerValue]) {
+//            [self requestNews_list:0];
+//            //只有最新频道存在轮播图
+//            if ([self.news_id integerValue] == 82||CompareString(self.channel_name, @"最新")) {
+//                [self requestBanner];
+//            }
+//        }else if(CompareString(GetSaveString(self.news_id), @"作者")){  //反之则是关注子页面
+//            [self requestAttentionNews];
+//        }else if(CompareString(GetSaveString(self.news_id), @"频道")){
+//            [self requestAttentionChannelNews];
+//        }
+//    }];
+//    self.tableView.footRefreshControl.autoRefreshOnFoot = YES;
+//
+//    [self.tableView.headRefreshControl beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -292,12 +327,15 @@
             }
             self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];
+//            [self.tableView.headRefreshControl endRefreshing];
         }else{
             if (dataArr.count) {
                 [self.dataSource addObjectsFromArray:dataArr];
                 [self.tableView.mj_footer endRefreshing];
+//                [self.tableView.footRefreshControl endRefreshing];
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//                [self.tableView.footRefreshControl endRefreshingAndNoLongerRefreshingWithAlertText:@"没有更多了"];
             }
         }
         [self.tableView reloadData];
@@ -305,6 +343,10 @@
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        
+//        [self.tableView.headRefreshControl endRefreshing];
+//        [self.tableView.footRefreshControl endRefreshing];
+        
         [self.tableView ly_endLoading];
     }];
     

@@ -78,11 +78,11 @@
     tlLabel.textAlignment = NSTextAlignmentCenter;
     
     blLabel = [UILabel new];
-    blLabel.font = FontScale(11);
+    blLabel.font = FontScale(12);
     blLabel.textColor = HexColor(#1282EE);
     
     bottomLabel = [UILabel new];
-    bottomLabel.font = FontScale(11);
+    bottomLabel.font = FontScale(12);
     
     UIView *sepLine = [UIView new];
     //设置不同环境下的颜色
@@ -157,7 +157,7 @@
 -(void)setModel:(HomePageModel *)model
 {
     _model = model;
-    bottomLabel.textColor = HexColor(#989898);
+    bottomLabel.textColor = HexColor(#889199);
     
     NSString *titletext = titletext = GetSaveString(model.itemTitle);;
     

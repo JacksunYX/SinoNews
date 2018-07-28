@@ -335,9 +335,9 @@
     if (num > 0) {
         //大于10000
         if (num/10000) {
-            string = [[NSString stringWithFormat:@"%.1fw",num/10000.0] stringByAppendingString:[NSString stringWithFormat:@" %@ ",insert]];
+            string = [[NSString stringWithFormat:@"%.1fw",num/10000.0] stringByAppendingString:[NSString stringWithFormat:@"%@  ",insert]];
         }else{
-            string = [[NSString stringWithFormat:@"%ld",num] stringByAppendingString:[NSString stringWithFormat:@" %@ ",insert]];
+            string = [[NSString stringWithFormat:@"%ld",num] stringByAppendingString:[NSString stringWithFormat:@"%@  ",insert]];
         }
     }
     return string;

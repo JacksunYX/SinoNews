@@ -123,6 +123,9 @@
 {
     _model = model;
     
+    //暂时不允许操作
+    isAttention.userInteractionEnabled = NO;
+    
     [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
     
     isAttention.selected = model.isFollow;

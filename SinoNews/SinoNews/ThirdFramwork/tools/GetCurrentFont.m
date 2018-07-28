@@ -51,15 +51,12 @@
                 currentFont = PFFontL(14);
                 break;
             case 1:
-                currentFont = PFFontL(16);
-                break;
-            case 2:
                 currentFont = PFFontL(18);
                 break;
-            case 3:
+            case 2:
                 currentFont = PFFontL(20);
                 break;
-            case 4:
+            case 3:
                 currentFont = PFFontL(22);
                 break;
                 
@@ -68,7 +65,7 @@
         }
     }else{
         //没有的话就默认是中间字体
-        UserSet(@"2",@"fontSize")
+        UserSet(@"1",@"fontSize")
         [self contentFont];
     }
     return currentFont;

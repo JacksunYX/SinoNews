@@ -162,11 +162,12 @@
         MyAttentionFirstCell *cell0 = (MyAttentionFirstCell *)[tableView dequeueReusableCellWithIdentifier:MyAttentionFirstCellID];
         MyFansModel *model = self.attentionArr[indexPath.row];
         cell0.model = model;
-        @weakify(self)
-        cell0.attentionIndex = ^(NSInteger row) {
-            @strongify(self)
-            [self requestIsAttentionWithFansModel:model];
-        };
+        //不允许操作
+//        @weakify(self)
+//        cell0.attentionIndex = ^(NSInteger row) {
+//            @strongify(self)
+//            [self requestIsAttentionWithFansModel:model];
+//        };
         
         cell = (UITableViewCell *)cell0;
     }else if (indexPath.section == 1) {

@@ -20,6 +20,10 @@
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     [UINavigationConfig shared].sx_disableFixSpace = NO;//默认为NO  可以修改
     [UINavigationConfig shared].sx_defaultFixSpace = 5;//默认为0 可以修改
+    //配置全局刷新参数
+    [[KafkaRefreshDefaults standardRefreshDefaults] setHeadDefaultStyle:KafkaRefreshStyleAnimatableArrow];
+    [[KafkaRefreshDefaults standardRefreshDefaults] setFootDefaultStyle:KafkaRefreshStyleAnimatableArrow];
+    
     //配置主题
     [GetCurrentFont configTheme];
     

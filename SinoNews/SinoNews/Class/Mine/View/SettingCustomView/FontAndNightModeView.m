@@ -67,12 +67,12 @@ static CGFloat anumationTime = 0.3;
     fontSelect.scaleLineColor = [UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1];
     fontSelect.scaleLineWidth = 1.0f;
     fontSelect.scaleLineHeight = 14;
-    fontSelect.scaleLineNumber = 4;
+    fontSelect.scaleLineNumber = 3;
     if (UserGet(@"fontSize")) {
         [fontSelect setSelectedIndex:[UserGet(@"fontSize") integerValue]];
     }else{
-        [fontSelect setSelectedIndex:2];
-        UserSet(@"2",@"fontSize")
+        [fontSelect setSelectedIndex:1];
+        UserSet(@"1",@"fontSize")
     }
     
     

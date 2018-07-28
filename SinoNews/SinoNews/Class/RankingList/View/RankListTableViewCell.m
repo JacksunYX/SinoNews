@@ -125,7 +125,7 @@
 //    NSString *imgStr = [NSString stringWithFormat:@"%@%@",defaultUrl,GetSaveString(model.companyLogo)];
     [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(model.companyLogo))];
     [num setNormalTitle:[NSString stringWithFormat:@"%lu",model.currentRank]];
-    score.text = [NSString stringWithFormat:@"%lu分",model.currentScore];
+    score.text = [NSString stringWithFormat:@"%.1f分",model.currentScore];
     title.text = GetSaveString(model.companyName);
     subTitle.text = GetSaveString(model.promos);
     

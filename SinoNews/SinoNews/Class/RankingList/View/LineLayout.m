@@ -42,7 +42,7 @@
         center = proposedContentOffset.x + self.collectionView.bounds.size.width / 2;
         targetRect = CGRectMake(proposedContentOffset.x, 0, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
     }else{
-        center = proposedContentOffset.y + self.collectionView.bounds.size.height / 2;
+        center = proposedContentOffset.y;
         targetRect = CGRectMake(0, proposedContentOffset.y, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
     }
     
@@ -58,7 +58,7 @@
             }
             
         }else{
-            CGFloat currentCenterY = attributes.center.y;
+            CGFloat currentCenterY = attributes.frame.origin.y;
             
             if (ABS(currentCenterY - center) < ABS(offSetAdjustment)) {
                 offSetAdjustment = currentCenterY - center;
@@ -74,6 +74,7 @@
     return CGPointMake(proposedContentOffset.x, proposedContentOffset.y + offSetAdjustment);
 }
 
+//返回布局大小
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
     
     NSArray *original = [super layoutAttributesForElementsInRect:rect];
@@ -92,14 +93,16 @@
                 distance  =  CGRectGetMidX(self.collectionView.bounds) - attributes.center.x;
                 
             }else{
-                distance  =  CGRectGetMidY(self.collectionView.bounds) - attributes.center.y;
+                distance  =  CGRectGetMinY(self.collectionView.bounds) - attributes.frame.origin.y;
                 
             }
-            CGFloat  normalizedDistance = distance / 200;
-            if (ABS(distance) < 200) {
-                CGFloat zoom = 1 + 0.4 * (1 - ABS(normalizedDistance));
-                attributes.transform3D = CATransform3DMakeScale(zoom, zoom, 1);
+            CGFloat  normalizedDistance = distance / (WIDTH_SCALE * 120);
+            if (ABS(distance) <= WIDTH_SCALE * 120) {
+                CGFloat zoom = 1 + 0.5 * (1 - ABS(normalizedDistance));
+//                attributes.transform3D = CATransform3DMakeScale(zoom, zoom, 1);
                 attributes.zIndex = 1;
+                //改成2d的，只对高度进行缩放
+                attributes.transform = CGAffineTransformMakeScale(1, zoom);
             }
             
         }

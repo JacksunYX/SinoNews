@@ -654,6 +654,9 @@ CGFloat static titleViewHeight = 91;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (section == 0&&self.answersArr.count<=0){
+        return 90;
+    }
     return 0.01;
 }
 
@@ -699,6 +702,28 @@ CGFloat static titleViewHeight = 91;
         
     return headView;
 }
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footView;
+    if (section == 0&&self.answersArr.count<=0) {
+        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
+        footView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        
+        UIImageView *imgV = [UIImageView new];
+        [footView addSubview:imgV];
+        imgV.sd_layout
+        .centerXEqualToView(footView)
+        .topEqualToView(footView)
+        .bottomEqualToView(footView)
+        .widthIs(156)
+        ;
+        imgV.lee_theme.LeeConfigImage(@"noCommentFoot");
+        
+    }
+    return footView;
+}
+    
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

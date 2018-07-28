@@ -152,7 +152,7 @@
     .heightIs(56)
     ;
     [password updateLayout];
-    password.placeholder = @"设置密码（6-16位）";
+    password.placeholder = @"设置密码6-16位数字、字母";
     [password addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     seccodeBackView.sd_layout

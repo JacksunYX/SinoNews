@@ -63,8 +63,9 @@
     
     
     rightTitle = [UILabel new];
-    rightTitle.font = PFFontR(15);
+    rightTitle.font = PFFontR(16);
     rightTitle.textColor = RGBA(255, 255, 255, 1);
+    rightTitle.textAlignment = NSTextAlignmentCenter;
     
     CGFloat lrMargin = 10; //左右间距
     [self.contentView addSubview:backImg];
@@ -143,7 +144,7 @@
     if (model.specialPrice) {
         rightTitle.text = [NSString stringWithFormat:@"%@\n积分兑换",model.specialPrice];
     }else{
-        rightTitle.text = @"0积分兑换";
+        rightTitle.text = [NSString stringWithFormat:@"%@\n积分兑换",model.price];
     }
     
 }

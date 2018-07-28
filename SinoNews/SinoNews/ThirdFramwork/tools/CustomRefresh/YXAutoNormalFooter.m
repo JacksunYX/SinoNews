@@ -25,7 +25,10 @@
     self.stateLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];
     self.stateLabel.textColor = RGB(183, 183, 183);
     // 设置自动切换透明度(在导航栏下面自动隐藏)
-    self.automaticallyChangeAlpha = YES;
+//    self.automaticallyChangeAlpha = YES;
+//
+//    self.refreshingTitleHidden = NO;
+//    self.ignoredScrollViewContentInsetBottom = 40;
     /*
      // 设置颜色
      

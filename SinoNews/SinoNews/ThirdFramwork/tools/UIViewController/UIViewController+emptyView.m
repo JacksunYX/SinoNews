@@ -8,7 +8,8 @@
 
 #import "UIViewController+emptyView.h"
 
-static int tags = 206118;
+static int tag1 = 206118;
+
 @implementation UIViewController (emptyView)
 
 -(void)showTopLine
@@ -23,13 +24,13 @@ static int tags = 206118;
 //显隐加载背景
 -(void)showOrHideLoadView:(BOOL)show page:(NSInteger)pageType
 {
-    if ([[self.view viewWithTag:tags] isKindOfClass:[UIImageView class]]) {
+    if ([[self.view viewWithTag:tag1] isKindOfClass:[UIImageView class]]) {
 
-        [self show:show view:[self.view viewWithTag:tags]];
+        [self show:show view:[self.view viewWithTag:tag1]];
         
     }else{
         UIImageView *loadingImg = [UIImageView new];
-        loadingImg.tag = tags;
+        loadingImg.tag = tag1;
         loadingImg.userInteractionEnabled = YES;
         [self.view addSubview:loadingImg];
         [self.view bringSubviewToFront:loadingImg];
@@ -39,6 +40,22 @@ static int tags = 206118;
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
         ;
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [loadingImg addSubview:activityIndicator];
+        activityIndicator.sd_layout
+        .centerXEqualToView(loadingImg)
+        .centerYEqualToView(loadingImg)
+        .widthIs(100)
+        .heightEqualToWidth()
+        ;
+        
+        //设置小菊花颜色
+        activityIndicator.color = [UIColor grayColor];
+        //设置背景颜色
+        activityIndicator.backgroundColor = ClearColor;
+        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
+        activityIndicator.hidesWhenStopped = NO;
+        [activityIndicator startAnimating];
         
         switch (pageType) {
             case 1: //首页
@@ -62,7 +79,7 @@ static int tags = 206118;
 -(void)show:(BOOL)show view:(UIView *)view
 {
     if (!show) {
-        HiddenHudOnly
+
         [UIView animateWithDuration:0.3 animations:^{
             view.alpha = 0;
         } completion:^(BOOL finished) {
@@ -72,7 +89,7 @@ static int tags = 206118;
     }else{
         [view setHidden:NO];
         [view.superview bringSubviewToFront:view];
-        ShowHudOnly
+
     }
 }
 

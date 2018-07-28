@@ -89,17 +89,10 @@
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
 //    _segHead.selectColor = HexColor(#323232);
-    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
-        [(MLMSegmentHead *)item setSelectColor:value];
-        [(MLMSegmentHead *)item setBottomLineColor:CutLineColor];
-        if (UserGetBool(@"NightMode")) {
-            [(MLMSegmentHead *)item setBottomLineColor:CutLineColorNight];
-        }
-    });
+    
     _segHead.bottomLineHeight = 1;
     _segHead.deSelectColor = HexColor(#888888);
     _segHead.maxTitles = 4;
-    
     
     
     if (_segScroll) {
@@ -114,6 +107,16 @@
         [weakself.view addSubview:weakself.segScroll];
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+        [(MLMSegmentHead *)item setBottomLineColor:CutLineColor];
+        if (UserGetBool(@"NightMode")) {
+            [(MLMSegmentHead *)item setBottomLineColor:CutLineColorNight];
+        }
+        //来回滑动一次，解决显示问题
+        [(MLMSegmentHead *)item changeIndex:1 completion:YES];
+        [(MLMSegmentHead *)item changeIndex:0 completion:YES];
+    });
 }
 
 - (NSArray *)vcArr:(NSInteger)count {

@@ -193,24 +193,30 @@
     ;
     [discountLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 60];
     NSString *str1 = @"优惠价：";
-    NSString *str2 = [NSString stringWithFormat:@"%ld",self.productModel.specialPrice];
+    NSString *str2 ;
+    if (self.productModel.specialPrice) {
+        str2 = [NSString stringWithFormat:@"%ld",self.productModel.specialPrice];
+    }else{
+        str2 = [NSString stringWithFormat:@"%ld",self.productModel.price];
+    }
     NSMutableAttributedString *att1 = [NSString leadString:str1 tailString:str2 font:PFFontL(15) color:RGBA(250, 84, 38, 1) lineBreak:NO];
-    
     NSString *str3 = @" 积分  ";
-    NSMutableAttributedString *att2 = [[NSMutableAttributedString alloc]initWithString:str3];
     
+    NSMutableAttributedString *att2 = [[NSMutableAttributedString alloc]initWithString:str3];
     NSString *str4 = [NSString stringWithFormat:@"原价%ld积分",self.productModel.price];
     NSMutableAttributedString *att3 = [NSString leadString:@"" tailString:str4 font:PFFontL(15) color:RGBA(152, 152, 152, 1) lineBreak:NO];
     
     NSDictionary *dic = @{
-                          //下划线
+                          //删除线
                           NSStrikethroughStyleAttributeName : @1,
                           NSStrikethroughColorAttributeName : RGBA(133, 133, 133, 1),
                           };
     [att3 addAttributes:dic range:NSMakeRange(0, att3.length)];
     
     [att1 appendAttributedString:att2];
-    [att1 appendAttributedString:att3];
+    if (self.productModel.specialPrice) {
+        [att1 appendAttributedString:att3];
+    }
     
     discountLabel.attributedText = att1;
     

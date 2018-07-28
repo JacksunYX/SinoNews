@@ -45,7 +45,7 @@
         loginVC.backHandleBlock = ^{
             backHandle();
         };
-        [[HttpRequest getCurrentVC] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+        [[HttpRequest currentViewController] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }
     return YES;

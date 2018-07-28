@@ -283,7 +283,14 @@ CGFloat static titleViewHeight = 91;
         .heightIs(49)
         ;
         [self.bottomView updateLayout];
-        [self.bottomView addBorderTo:BorderTypeTop borderColor:HexColor(#F2F2F2)];
+        self.bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
+            }else{
+                [(UIView *)item addBorderTo:BorderTypeBottom borderColor:CutLineColor];
+            }
+        });
         
         self.commentInput = [UITextField new];
         self.commentInput.delegate = self;
@@ -1011,7 +1018,7 @@ CGFloat static titleViewHeight = 91;
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
-        GGLog(@"min:%@",process);
+//        GGLog(@"min:%@",process);
         self.titleView.alpha = 1 - [process floatValue];
         self.attentionBtn.enabled = 1 - [process floatValue];
         self.naviTitle.alpha = [process floatValue];

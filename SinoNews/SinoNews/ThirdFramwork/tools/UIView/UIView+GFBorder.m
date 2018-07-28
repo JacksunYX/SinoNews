@@ -9,26 +9,35 @@
 #import "UIView+GFBorder.h"
 
 @implementation UIView (GFBorder)
-
+static int tag = 1238129;
 - (void)addBorderTo:(BorderDirectionType)borderType borderColor:(UIColor*) color {
-    CGFloat width = self.layer.bounds.size.width;
-    CGFloat height = self.layer.bounds.size.height;
+    CGFloat width = self.bounds.size.width;
+    CGFloat height = self.bounds.size.height;
     
-    CALayer *borderLayer = [CALayer layer];
-    borderLayer.backgroundColor = color.CGColor;
-    [self.layer addSublayer:borderLayer];
+    for (UIView *subView in self.subviews) {
+        if (subView.tag == tag) {
+            [subView removeFromSuperview];
+            break;
+        }
+    }
+    
+    UIView *lineView = [UIView new];
+    lineView.backgroundColor = color;
+    lineView.tag = tag;
+    [self addSubview:lineView];
+    
     switch (borderType) {
         case BorderTypeTop:
-            borderLayer.frame = CGRectMake(0, 0, width, 1);
+            lineView.frame = CGRectMake(0, 0, width, 1);
             break;
         case BorderTypeLeft:
-            borderLayer.frame = CGRectMake(0, 0, 1, height);
+            lineView.frame = CGRectMake(0, 0, 1, height);
             break;
         case BorderTypeRight:
-            borderLayer.frame = CGRectMake(width - 1, 0, 1, height);
+            lineView.frame = CGRectMake(width - 1, 0, 1, height);
             break;
         case BorderTypeBottom:
-            borderLayer.frame = CGRectMake(0, height - 1, width, 1);
+            lineView.frame = CGRectMake(0, height - 1, width, 1);
             break;
         default:
             break;

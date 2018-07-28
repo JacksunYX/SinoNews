@@ -134,7 +134,7 @@ CGFloat static titleViewHeight = 91;
         ;
         
         _titleLabel = [UILabel new];
-        _titleLabel.font = [GetCurrentFont titleFont];
+        _titleLabel.font = PFFontM(22);
         _titleLabel.numberOfLines = 0;
         [_titleLabel addTitleColorTheme];
         
@@ -644,7 +644,7 @@ CGFloat static titleViewHeight = 91;
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
-        GGLog(@"min:%@",process);
+//        GGLog(@"min:%@",process);
         self.titleView.alpha = 1 - [process floatValue];
         self.attentionBtn.enabled = 1 - [process floatValue];
         self.naviTitle.alpha = [process floatValue];

@@ -395,6 +395,12 @@ static CGFloat animation_time = .3;
     return line;
 }
 
+-(void)setBottomLineColor:(UIColor *)bottomLineColor
+{
+    _bottomLineColor = bottomLineColor;
+    bottomLineView.backgroundColor = bottomLineColor;
+}
+
 #pragma mark - create slide
 - (UIView *)slideView {
     CGFloat slide_w = CURRENT_WIDTH(currentIndex);

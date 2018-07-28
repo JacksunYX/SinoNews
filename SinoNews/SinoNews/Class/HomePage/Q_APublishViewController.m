@@ -102,8 +102,10 @@
             [self cancelAction];
         });
     } failure:^(NSError *error) {
-        [self cancelAction];
-    } RefreshAction:nil];
+//        [self cancelAction];
+    } RefreshAction:^{
+        
+    }];
 }
 
 

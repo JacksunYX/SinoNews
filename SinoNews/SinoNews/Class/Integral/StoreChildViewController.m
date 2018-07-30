@@ -135,22 +135,24 @@
     parameters[@"page"] = @(self.page);
     [HttpRequest getWithURLString:Mall_products parameters:parameters success:^(id responseObject) {
         NSArray *data = [ProductModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        if (self.page == 1) {
-            self.dataSource = [data mutableCopy];
-            if (data.count) {
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            if (data.count) {
-                [self.dataSource addObjectsFromArray:data];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.dataSource = [self.tableView pullWithPage:self.page data:data dataSource:self.dataSource];
+        
+//        if (self.page == 1) {
+//            self.dataSource = [data mutableCopy];
+//            if (data.count) {
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            if (data.count) {
+//                [self.dataSource addObjectsFromArray:data];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {

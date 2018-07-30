@@ -168,17 +168,19 @@
 {
     [HttpRequest getWithURLString:GetCurrentUserNews parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
         NSArray *data = [ArticleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        if (self.currPage == 1) {
-            self.articlesArr = [data mutableCopy];
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            [self.articlesArr addObjectsFromArray:data];
-            if (data.count) {
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.articlesArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.articlesArr];
+        
+//        if (self.currPage == 1) {
+//            self.articlesArr = [data mutableCopy];
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            [self.articlesArr addObjectsFromArray:data];
+//            if (data.count) {
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         
         [self.tableView reloadData];
         

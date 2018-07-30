@@ -102,7 +102,7 @@ static CGFloat anumationTime = 0.3;
     .rightEqualToView(centerView)
     .heightIs(43)
     ;
-    bottonLabel.text = @"连续签到可获得额外积分";
+    bottonLabel.text = [NSString stringWithFormat:@"明日签到最少可获得%@积分",data[@"minPoints"]];
     
     goldBtn.sd_layout
     .bottomSpaceToView(bottonLabel, 30)

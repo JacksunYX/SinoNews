@@ -304,17 +304,20 @@
    
     [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
         NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        if (self.currPage == 1) {
-            self.dataSource = [data mutableCopy];
-            [self endRefresh];
-        }else{
-            if (data.count) {
-                [self.dataSource addObjectsFromArray:data];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        
+        self.dataSource = [self.tableView pullWithPage:self.currPage data:data dataSource:self.dataSource];
+        
+//        if (self.currPage == 1) {
+//            self.dataSource = [data mutableCopy];
+//            [self endRefresh];
+//        }else{
+//            if (data.count) {
+//                [self.dataSource addObjectsFromArray:data];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self endRefresh];

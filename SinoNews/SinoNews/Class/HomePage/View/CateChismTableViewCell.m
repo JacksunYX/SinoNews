@@ -145,6 +145,7 @@
     @weakify(self)
     [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
+        [self addanimation];
         if (self.praiseBlock) {
             self.praiseBlock();
         }
@@ -216,5 +217,15 @@
     
 }
 
+//点赞的动画
+- (void)addanimation
+{
+    //放大动画
+    CAKeyframeAnimation *k = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    k.values = @[@(0.5),@(1.0),@(1.5),@(1.0)];
+    k.keyTimes = @[@(0.0),@(0.5),@(0.8),@(1.0)];
+    k.calculationMode = kCAAnimationLinear;
+    [praise.layer addAnimation:k forKey:@"SHOW"];
+}
 
 @end

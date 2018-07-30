@@ -121,6 +121,7 @@
         [(MLMSegmentHead *)item changeIndex:1 completion:YES];
         [(MLMSegmentHead *)item changeIndex:0 completion:YES];
     });
+    
 }
 
 -(void)addTableViews
@@ -187,6 +188,8 @@
         }
     }];
     [self.tableView.mj_header beginRefreshing];
+    
+    [self.tableView.mj_footer setHidden:YES];
 }
 
 //创建选择、删除按钮
@@ -523,6 +526,8 @@
     selectedIndex = index;
     self.selectedBtn.hidden = !index;
     [self showOrHiddenTheSelections:NO];
+    [self.tableView.mj_footer setHidden:!index];
+    
     [self.tableView reloadData];
     [self.tableView.mj_header beginRefreshing];
 }
@@ -550,18 +555,19 @@
     [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
-        if (self.currPage == 1) {
-            self.articleArray = [dataArr mutableCopy];
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            [self.articleArray addObjectsFromArray:dataArr];
-        }
-        
-        if (dataArr.count) {
-            [self.tableView.mj_footer endRefreshing];
-        }else{
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        }
+        self.articleArray = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.articleArray];
+//        if (self.currPage == 1) {
+//            self.articleArray = [dataArr mutableCopy];
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            [self.articleArray addObjectsFromArray:dataArr];
+//        }
+//
+//        if (dataArr.count) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }else{
+//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        }
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {

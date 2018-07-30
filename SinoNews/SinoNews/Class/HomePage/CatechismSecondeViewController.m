@@ -119,6 +119,13 @@ CGFloat static titleViewHeight = 91;
     
 }
 
+//刷新评论
+-(void)refreshComments
+{
+    self.currPage = 1;
+    [self requestShowAnswerComment];
+}
+
 -(void)setTitle
 {
     if (!self.titleView) {
@@ -232,7 +239,7 @@ CGFloat static titleViewHeight = 91;
     [self.titleView updateLayout];
     titleViewHeight = self.titleView.height;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
-    
+    GGLog(@"titleViewHeight:%f",titleViewHeight);
     [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
 }
 
@@ -361,7 +368,14 @@ CGFloat static titleViewHeight = 91;
         .heightIs(49)
         ;
         [self.bottomView updateLayout];
-        [self.bottomView addBorderTo:BorderTypeTop borderColor:HexColor(#E3E3E3)];
+        self.bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+            }else{
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColor];
+            }
+        });
         
         _praiseBtn = [UIButton new];
         
@@ -502,6 +516,8 @@ CGFloat static titleViewHeight = 91;
     
 //    [self setNavigationBtns];
     
+    [self refreshComments];
+    
     [self setTitle];
     
     [self setNaviTitle];
@@ -640,6 +656,7 @@ CGFloat static titleViewHeight = 91;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY = scrollView.contentOffset.y;
+    GGLog(@"contentOffset.y:%f",offsetY);
     if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
@@ -739,17 +756,19 @@ CGFloat static titleViewHeight = 91;
     parameters[@"currPage"] = @(self.currPage);
     [HttpRequest postWithURLString:ShowAnswerComment parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSArray *data = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
-        if (self.currPage == 1) {
-            self.commentArr = [data mutableCopy];
-
-        }else{
-            [self.commentArr addObjectsFromArray:data];
-        }
-        if (data.count>0) {
-            [self.tableView.mj_footer endRefreshing];
-        }else{
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        }
+        
+        self.commentArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.commentArr];
+//        if (self.currPage == 1) {
+//            self.commentArr = [data mutableCopy];
+//
+//        }else{
+//            [self.commentArr addObjectsFromArray:data];
+//        }
+//        if (data.count>0) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }else{
+//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_footer endRefreshing];

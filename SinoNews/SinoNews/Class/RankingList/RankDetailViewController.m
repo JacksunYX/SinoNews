@@ -300,7 +300,7 @@
             GGLog(@"点赞的commendId:%@",model.commentId);
             @strongify(self)
             if (model.isPraise) {
-                LRToast(@"已经点过赞啦～");
+                LRToast(@"已经点过赞啦");
             }else{
                 [self requestPraiseWithPraiseType:6 praiseId:[model.commentId integerValue] commentNum:row];
             }
@@ -819,17 +819,19 @@
     [HttpRequest getWithURLString:CompanyShowComment parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-        if (self.currPage == 1) {
-            self.commentsArr = [arr mutableCopy];
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            if (arr.count) {
-                [self.commentsArr addObjectsFromArray:arr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.commentsArr = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.commentsArr];
+        
+//        if (self.currPage == 1) {
+//            self.commentsArr = [arr mutableCopy];
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            if (arr.count) {
+//                [self.commentsArr addObjectsFromArray:arr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {

@@ -372,7 +372,14 @@ CGFloat static titleViewHeight = 91;
         .heightIs(49)
         ;
         [self.bottomView updateLayout];
-        [self.bottomView addBorderTo:BorderTypeTop borderColor:HexColor(#E3E3E3)];
+        self.bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+            }else{
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColor];
+            }
+        });
         
         _praiseBtn = [UIButton new];
         _collectBtn = [UIButton new];
@@ -774,6 +781,7 @@ CGFloat static titleViewHeight = 91;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY = scrollView.contentOffset.y;
+    GGLog(@"contentOffset.y:%f",offsetY);
     if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
@@ -825,17 +833,19 @@ CGFloat static titleViewHeight = 91;
     parameters[@"orderBy"] = @(self.orderBy);
     [HttpRequest postWithURLString:News_listAnswer parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
-        if (self.currPage == 1) {
-            self.answersArr = [data mutableCopy];
-            
-        }else{
-            [self.answersArr addObjectsFromArray:data];
-        }
-        if (data.count>0) {
-            [self.tableView.mj_footer endRefreshing];
-        }else{
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        }
+        self.answersArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.answersArr];
+        
+//        if (self.currPage == 1) {
+//            self.answersArr = [data mutableCopy];
+//
+//        }else{
+//            [self.answersArr addObjectsFromArray:data];
+//        }
+//        if (data.count>0) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }else{
+//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//        }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_footer endRefreshing];

@@ -138,6 +138,7 @@
 		4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
+		4C51B166210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */; };
 		4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */; };
 		4C51FFD820D2758A0018387B /* UIView+GFBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD420D2758A0018387B /* UIView+GFBorder.m */; };
 		4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD720D2758A0018387B /* UIView+GFCorner.m */; };
@@ -588,6 +589,8 @@
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
 		4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+emptyView.m"; sourceTree = "<group>"; };
+		4C51B164210EAFD4007EF10B /* UIScrollView+PullUpOrDown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+PullUpOrDown.h"; sourceTree = "<group>"; };
+		4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+PullUpOrDown.m"; sourceTree = "<group>"; };
 		4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		4C51FFD420D2758A0018387B /* UIView+GFBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GFBorder.m"; sourceTree = "<group>"; };
@@ -2058,6 +2061,8 @@
 			children = (
 				4CB4196F20DA793A00EBF202 /* UIScrollView+Direction.h */,
 				4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */,
+				4C51B164210EAFD4007EF10B /* UIScrollView+PullUpOrDown.h */,
+				4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */,
 			);
 			path = UIScrollView;
 			sourceTree = "<group>";
@@ -2591,6 +2596,7 @@
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,
 				4C7234D320FDEB1D00D5C5D4 /* AALabels.m in Sources */,
+				4C51B166210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m in Sources */,
 				4C17414F20C545EF00AA6D57 /* ManagerRecordCell.m in Sources */,
 				4C23B3B820F5924800ACE380 /* LMWordViewController.m in Sources */,
 				4CC2898C2105A21D00BC4D92 /* WebViewController.m in Sources */,

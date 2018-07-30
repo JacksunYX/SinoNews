@@ -142,17 +142,20 @@
 {
     [HttpRequest getWithURLString:GetCurrentUserComments parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
         NSArray *data = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        if (self.currPage == 1) {
-            self.commentsArr = [data mutableCopy];
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            [self.commentsArr addObjectsFromArray:data];
-            if (data.count) {
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        
+        self.commentsArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.commentsArr];
+        
+//        if (self.currPage == 1) {
+//            self.commentsArr = [data mutableCopy];
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            [self.commentsArr addObjectsFromArray:data];
+//            if (data.count) {
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         
         [self.tableView reloadData];
         

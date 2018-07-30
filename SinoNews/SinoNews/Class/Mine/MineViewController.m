@@ -511,12 +511,13 @@
             .heightIs(hei)
             ;
             [approveView setSd_cornerRadius:@(wid/2)];
-            if (CompareString(model[@"text"], @"官方账号")) {
-                approveView.image = UIImageNamed(@"id_official");
-            }else if (CompareString(model[@"text"], @"认证用户")) {
-                approveView.image = UIImageNamed(@"id_company");
-            }
+//            if (CompareString(model[@"text"], @"官方账号")) {
+//                approveView.image = UIImageNamed(@"id_official");
+//            }else if (CompareString(model[@"text"], @"认证用户")) {
+//                approveView.image = UIImageNamed(@"id_company");
+//            }
 //            approveView.backgroundColor = Arc4randomColor;
+            [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
             if (i == self.user.identifications.count - 1) {
                 [_idView setupAutoWidthWithRightView:approveView rightMargin:0];
             }

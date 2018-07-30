@@ -36,5 +36,6 @@
 #import "UINavigationBar+Awesome.h"
 #import "UIDevice+Version.h"
 #import "UIBarButtonItem+SXCreate.h"
+#import "UIScrollView+PullUpOrDown.h"
 
 #endif /* ToolsHeader_h */

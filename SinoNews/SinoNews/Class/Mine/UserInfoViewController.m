@@ -761,22 +761,24 @@
     [HttpRequest getWithURLString:GetUserComments parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
-        if (self.currPage0 == 1) {
-            [self.tableView.mj_header endRefreshing];
-            if (arr.count) {
-                self.commentsArr = [arr mutableCopy];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }else{
-            if (arr.count) {
-                [self.commentsArr addObjectsFromArray:arr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.commentsArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.commentsArr];
+        
+//        if (self.currPage0 == 1) {
+//            [self.tableView.mj_header endRefreshing];
+//            if (arr.count) {
+//                self.commentsArr = [arr mutableCopy];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }else{
+//            if (arr.count) {
+//                [self.commentsArr addObjectsFromArray:arr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -794,22 +796,24 @@
     [HttpRequest getWithURLString:GetUserNews parameters:parameters success:^(id responseObject) {
 //        NSArray *arr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         NSMutableArray *arr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
-        if (self.currPage1 == 1) {
-            [self.tableView.mj_header endRefreshing];
-            if (arr.count) {
-                self.articlesArr = [arr mutableCopy];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }else{
-            if (arr.count) {
-                [self.articlesArr addObjectsFromArray:arr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        
+        self.articlesArr = [self.tableView pullWithPage:self.currPage1 data:arr dataSource:self.articlesArr];
+//        if (self.currPage1 == 1) {
+//            [self.tableView.mj_header endRefreshing];
+//            if (arr.count) {
+//                self.articlesArr = [arr mutableCopy];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }else{
+//            if (arr.count) {
+//                [self.articlesArr addObjectsFromArray:arr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {

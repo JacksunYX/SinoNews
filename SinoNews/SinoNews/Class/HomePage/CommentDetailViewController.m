@@ -87,7 +87,14 @@
         .heightIs(49)
         ;
         [self.bottomView updateLayout];
-        [self.bottomView addBorderTo:BorderTypeTop borderColor:RGBA(219, 219, 219, 1)];
+        self.bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            
+            if (UserGetBool(@"NightMode")) {
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+            }else{
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColor];
+            }
+        });
         
         self.commentInput = [UITextField new];
         self.commentInput.delegate = self;
@@ -320,22 +327,24 @@
             arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         }
         
-        if (self.currPage == 1) {
-            [self.tableView.mj_header endRefreshing];
-            if (arr.count) {
-                self.commentsArr = [arr mutableCopy];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }else{
-            if (arr.count) {
-                [self.commentsArr addObjectsFromArray:arr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.commentsArr = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.commentsArr];
+        
+//        if (self.currPage == 1) {
+//            [self.tableView.mj_header endRefreshing];
+//            if (arr.count) {
+//                self.commentsArr = [arr mutableCopy];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }else{
+//            if (arr.count) {
+//                [self.commentsArr addObjectsFromArray:arr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
         [self setBottomView];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];

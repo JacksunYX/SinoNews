@@ -56,11 +56,11 @@
     praise.titleLabel.font = PFFontR(14);
     
     username = [UILabel new];
-    username.font = PFFontR(14);
+    username.font = PFFontR(16);
     [username addTitleColorTheme];
     
     comment = [UILabel new];
-    comment.font = PFFontL(14);
+    comment.font = PFFontL(15);
     comment.numberOfLines = 0;
     [comment addTitleColorTheme];
     
@@ -102,10 +102,10 @@
     avatar.sd_layout
     .topSpaceToView(fatherView, 4)
     .leftSpaceToView(fatherView, 9)
-    .widthIs(24)
+    .widthIs(28)
     .heightEqualToWidth()
     ;
-    [avatar setSd_cornerRadius:@12];
+    [avatar setSd_cornerRadius:@14];
     avatar.backgroundColor = Arc4randomColor;
     
     praise.sd_layout
@@ -174,13 +174,13 @@
     
     first = [UILabel new];
     first.isAttributedContent = YES;
-    first.font = PFFontR(14);
+    first.font = PFFontR(15);
     [first addContentColorTheme];
 //    first.userInteractionEnabled = YES;
     
     second = [UILabel new];
     second.isAttributedContent = YES;
-    second.font = PFFontR(14);
+    second.font = PFFontR(15);
     [second addContentColorTheme];
 //    second.userInteractionEnabled = YES;
     
@@ -268,6 +268,8 @@
     
     [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
+        
+        [self addanimation];
         if (self.praiseBlock) {
             self.praiseBlock(self.tag);
         }
@@ -280,6 +282,7 @@
 //            self.replayBlock(self.tag);
 //        }
 //    }];
+    replyBtn.userInteractionEnabled = NO;
     
     createTime.text = GetSaveString(model.createTime);
     
@@ -389,7 +392,16 @@
 //    [bottomBackView addGestureRecognizer:tapB];
 }
 
-
+//点赞的动画
+- (void)addanimation
+{
+    //放大动画
+    CAKeyframeAnimation *k = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    k.values = @[@(0.5),@(1.0),@(1.5),@(1.0)];
+    k.keyTimes = @[@(0.0),@(0.5),@(0.8),@(1.0)];
+    k.calculationMode = kCAAnimationLinear;
+    [praise.layer addAnimation:k forKey:@"SHOW"];
+}
 
 
 

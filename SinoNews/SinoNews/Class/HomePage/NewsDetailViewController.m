@@ -286,9 +286,9 @@ CGFloat static titleViewHeight = 91;
         self.bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
             
             if (UserGetBool(@"NightMode")) {
-                [(UIView *)item addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
             }else{
-                [(UIView *)item addBorderTo:BorderTypeBottom borderColor:CutLineColor];
+                [(UIView *)item addBorderTo:BorderTypeTop borderColor:CutLineColor];
             }
         });
         
@@ -540,8 +540,8 @@ CGFloat static titleViewHeight = 91;
 //刷新评论
 -(void)refreshComments
 {
-    self.currPage = 0;
-    [self.tableView.mj_footer beginRefreshing];
+    self.currPage = 1;
+    [self requestComments];
 }
 
 //字体
@@ -748,7 +748,7 @@ CGFloat static titleViewHeight = 91;
             GGLog(@"点赞的commendId:%@",model.commentId);
             @strongify(self)
             if (model.isPraise) {
-                LRToast(@"已经点过赞啦～");
+                LRToast(@"已经点过赞啦");
             }else{
                 [self requestPraiseWithPraiseType:2 praiseId:[model.commentId integerValue] commentNum:row];
             }
@@ -803,7 +803,7 @@ CGFloat static titleViewHeight = 91;
         if (NoPayedNews) {
             return 230;
         }
-        return 30;
+        return 40;
     }
     return 0.01;
 }
@@ -1065,23 +1065,25 @@ CGFloat static titleViewHeight = 91;
     [HttpRequest getWithURLString:ShowComment parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-        if (self.currPage == 1) {
-            //            [self.tableView.mj_header endRefreshing];
-            if (arr.count) {
-                self.commentsArr = [arr mutableCopy];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }else{
-            if (arr.count) {
-                [self.commentsArr addObjectsFromArray:arr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.commentsArr = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.commentsArr];
         
+//        if (self.currPage == 1) {
+//            //            [self.tableView.mj_header endRefreshing];
+//            if (arr.count) {
+//                self.commentsArr = [arr mutableCopy];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }else{
+//            if (arr.count) {
+//                [self.commentsArr addObjectsFromArray:arr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
+//
         [self setBottomView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {

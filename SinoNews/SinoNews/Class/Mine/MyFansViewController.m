@@ -149,22 +149,24 @@
         
         NSArray *arr = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
-        if (self.currPage == 1) {
-            [self.tableView.mj_header endRefreshing];
-            if (arr.count) {
-                self.dataSource = [arr mutableCopy];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }else{
-            if (arr.count) {
-                [self.dataSource addObjectsFromArray:arr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+        self.dataSource = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.dataSource];
+        
+//        if (self.currPage == 1) {
+//            [self.tableView.mj_header endRefreshing];
+//            if (arr.count) {
+//                self.dataSource = [arr mutableCopy];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }else{
+//            if (arr.count) {
+//                [self.dataSource addObjectsFromArray:arr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
 
         [self.tableView reloadData];
         [self.tableView ly_endLoading];

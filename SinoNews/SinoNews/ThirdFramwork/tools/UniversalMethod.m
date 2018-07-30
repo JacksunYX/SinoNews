@@ -268,8 +268,10 @@
 +(void)pushToAssignVCWithNewmodel:(id)model
 {
     UIViewController *pushVC;
+    NSInteger itemId = 0;
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = model;
+        itemId = model1.itemId;
         if (model1.itemType>=400&&model1.itemType<500) { //投票
             VoteViewController *vVC = [VoteViewController new];
             vVC.newsId = model1.itemId;
@@ -291,11 +293,59 @@
     }else if ([model isKindOfClass:[TopicModel class]]){
         TopicViewController *tVC = [TopicViewController new];
         tVC.topicId = [(TopicModel *)model itemId];
+        itemId = [(TopicModel *)model itemId];
         pushVC = tVC;
     }else if ([model isKindOfClass:[ADModel class]]){
         
     }
+    //将看过的新闻的id保存起来
+    [self saveBrowsNewsId:itemId];
+    
     [[HttpRequest currentViewController].navigationController pushViewController:pushVC animated:YES];
+}
+
+//记录浏览过的文章id
++(void)saveBrowsNewsId:(NSInteger)itemId
+{
+    NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+    NSMutableArray* columnArr;
+    if (!kArrayIsEmpty(newsIdArr)) {
+        columnArr = [newsIdArr mutableCopy];
+    }else{
+        columnArr = [NSMutableArray new];
+    }
+    
+    [columnArr addObject:@(itemId)];
+    [columnArr bg_saveArrayWithName:@"newsIdArr"];
+    GGLog(@"文章id已记录");
+}
+
+//清除浏览过的文章id
++(void)clearBrowsNewsIdArr
+{
+    [NSArray bg_clearArrayWithName:@"newsIdArr"];
+}
+
+//判断是否为已浏览过的文章
++(BOOL)isBrowsNewId:(NSInteger)itemId
+{
+    BOOL brows = NO;
+    
+    //先获取浏览过的newid记录
+    NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+    if (!kArrayIsEmpty(newsIdArr)) {
+        for (int i = 0; i < newsIdArr.count; i ++) {
+            NSInteger newsId = [newsIdArr[i] integerValue];
+            //有记录
+            if (newsId == itemId) {
+                GGLog(@"已经浏览过的文章");
+                brows = YES;
+                break;
+            }
+        }
+    }
+    
+    return brows;
 }
 
 //根据传入字符串来给标签设置对应的字体颜色，边框色和背景色

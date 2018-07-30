@@ -28,6 +28,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+    
     // Configure the view for the selected state
 }
 
@@ -45,7 +46,7 @@
     title = [UILabel new];
     title.font = FontScale(17);
 //    title.textColor = HexColor(#323232);
-    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    
     title.isAttributedContent = YES;
     
     tlLabel = [UILabel new];
@@ -126,7 +127,14 @@
 {
     _model = model;
     
+    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    
     bottomLabel.textColor = HexColor(#889199);
+    
+    //判断是否已经浏览过了
+    if ([UniversalMethod isBrowsNewId:model.itemId]) {
+        title.textColor = BrowsNewsTitleColor;
+    }
     
     NSString *titletext = titletext = GetSaveString(model.itemTitle);;
     

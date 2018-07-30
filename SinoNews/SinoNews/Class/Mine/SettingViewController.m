@@ -228,6 +228,7 @@
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([NSString clearCache]) {
                 [HomePageModel clearLocaHistory];
+                [UniversalMethod clearBrowsNewsIdArr];
                 LRToast(@"清理完毕");
                 [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
             }

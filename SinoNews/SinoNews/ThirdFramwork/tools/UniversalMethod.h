@@ -72,7 +72,26 @@
 +(NSString *)processNumShow:(NSInteger)num insertString:(NSString *)insert;
 
 
+/**
+ 判断是否为已浏览过的文章
 
+ @param itemId 文章id
+ @return 是或否
+ */
++(BOOL)isBrowsNewId:(NSInteger)itemId;
+
+
+/**
+ 清除浏览过的文章id
+ */
++(void)clearBrowsNewsIdArr;
+
+/**
+ 记录浏览过的文章id
+
+ @param itemId 文章id
+ */
++(void)saveBrowsNewsId:(NSInteger)itemId;
 
 
 @end

@@ -21,6 +21,7 @@
 
 #import "PraisePopView.h"
 
+
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
@@ -40,7 +41,7 @@
 @property (nonatomic ,strong) UILabel *praise;      //获赞
 
 @property (nonatomic ,strong) UserModel *user;
-@property (nonatomic ,strong) NSDictionary *tipsDic;    //保存提示信息
+@property (nonatomic ,strong) MineTipsModel *tipsmodel;    //保存提示信息
 
 @end
 
@@ -671,24 +672,24 @@
     }
     
 //    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
-    if (!kStringIsEmpty(self.tipsDic[@"messageTip"])) {
+    if (!kStringIsEmpty(self.tipsmodel.messageTip)) {
         if (indexPath.section == 0 && indexPath.row == 0) {
-            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"messageTip"]);
+            cell.detailTextLabel.text = GetSaveString(self.tipsmodel.messageTip);
         }
     }
-    if (!kStringIsEmpty(self.tipsDic[@"shareTip"])) {
+    if (!kStringIsEmpty(self.tipsmodel.shareTip)) {
         if (indexPath.section == 0 && indexPath.row == 3) {
-            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"shareTip"]);
+            cell.detailTextLabel.text = GetSaveString(self.tipsmodel.shareTip);
         }
     }
-    if (!kStringIsEmpty(self.tipsDic[@"pointRechargeTip"])) {
+    if (!kStringIsEmpty(self.tipsmodel.pointRechargeTip)) {
         if (indexPath.section == 1 && indexPath.row == 0) {
-            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"pointRechargeTip"]);
+            cell.detailTextLabel.text = GetSaveString(self.tipsmodel.pointRechargeTip);
         }
     }
-    if (!kStringIsEmpty(self.tipsDic[@"pointGameTip"])) {
+    if (!kStringIsEmpty(self.tipsmodel.pointGameTip)) {
         if (indexPath.section == 1 && indexPath.row == 1) {
-            cell.detailTextLabel.text = GetSaveString(self.tipsDic[@"pointGameTip"]);
+            cell.detailTextLabel.text = GetSaveString(self.tipsmodel.pointGameTip);
         }
     }
     
@@ -748,6 +749,7 @@
             [self.navigationController pushViewController:bhVC animated:YES];
         }else if (CompareString(title, @"消息")){
             MessageViewController *mVC = [MessageViewController new];
+            mVC.tipsModel = self.tipsmodel;
             [self.navigationController pushViewController:mVC animated:YES];
         }else if (CompareString(title, @"收藏")){
             MyCollectViewController *mVC = [MyCollectViewController new];
@@ -837,7 +839,7 @@
 -(void)requestUser_tips
 {
     [HttpRequest getWithURLString:User_tips parameters:nil success:^(id responseObject) {
-        self.tipsDic = responseObject[@"data"];
+        self.tipsmodel = [MineTipsModel mj_objectWithKeyValues:responseObject[@"data"]];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         

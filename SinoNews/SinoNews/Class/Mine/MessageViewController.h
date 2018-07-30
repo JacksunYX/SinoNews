@@ -8,7 +8,10 @@
 //消息
 
 #import <UIKit/UIKit.h>
+#import "MineTipsModel.h"
 
 @interface MessageViewController : BaseViewController
+
+@property (nonatomic,strong) MineTipsModel *tipsModel;
 
 @end

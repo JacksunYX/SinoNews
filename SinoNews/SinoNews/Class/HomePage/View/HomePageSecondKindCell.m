@@ -53,7 +53,7 @@
     title = [UILabel new];
     title.font = FontScale(16);
 //    title.textColor = HexColor(#323232);
-    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    
     
     tlLabel = [UILabel new];
     tlLabel.font = FontScale(11);
@@ -182,7 +182,14 @@
 {
     _model = model;
     
+    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    
     bottomLabel.textColor = HexColor(#889199);
+    
+    //判断是否已经浏览过了
+    if ([UniversalMethod isBrowsNewId:model.itemId]) {
+        title.textColor = BrowsNewsTitleColor;
+    }
     
     NSString *titletext = titletext = GetSaveString(model.itemTitle);;
     

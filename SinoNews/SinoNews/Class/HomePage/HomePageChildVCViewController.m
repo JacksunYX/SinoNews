@@ -290,6 +290,8 @@
 {
     id model = self.dataSource[indexPath.row];
     [UniversalMethod pushToAssignVCWithNewmodel:model];
+    //刷新下，标记已经点击过的文章
+    [self.tableView reloadData];
 }
 
 #pragma mark ---- 请求方法

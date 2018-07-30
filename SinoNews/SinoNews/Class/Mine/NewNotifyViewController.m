@@ -127,7 +127,7 @@
         ;
     }
     cell.imageView.image = UIImageNamed(@"notify_logo");
-    cell.textLabel.text = @"启世录官方通知";
+    cell.textLabel.text = @"启世录官方";
 //    cell.detailTextLabel.text = @"你好";
     if (cell.accessoryView) {
         UILabel *time = [cell.accessoryView viewWithTag:153];

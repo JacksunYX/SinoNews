@@ -77,7 +77,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"启世录官方通知";
+    self.navigationItem.title = @"启世录官方";
     self.view.backgroundColor = WhiteColor;
     [self addTableView];
 }

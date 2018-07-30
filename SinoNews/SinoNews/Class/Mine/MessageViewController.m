@@ -14,6 +14,8 @@
 
 @interface MessageViewController ()
 
+@property (nonatomic,strong) NSMutableArray *tipsArr;
+
 @end
 
 @implementation MessageViewController
@@ -53,6 +55,7 @@
                        @"通知",
                        ];
     
+    self.tipsArr = [NSMutableArray new];
     CGFloat wid = ScreenW/3;
     for (int i = 0; i < 3; i ++) {
         UIView *backView = [UIView new];
@@ -81,18 +84,26 @@
         [btn setTitle:GetSaveString(title[i]) forState:UIControlStateNormal];
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
         
-        if (i==2&&UserGetBool(@"MessageNotice")) {
-            UIView *redTip = [UIView new];
-            redTip.backgroundColor = RedColor;
-            [btn addSubview:redTip];
-            redTip.sd_layout
-            .topSpaceToView(btn, -2)
-            .leftSpaceToView(btn, 35)
-            .widthIs(4)
-            .heightEqualToWidth()
-            ;
-            [redTip setSd_cornerRadius:@2];
+        UIView *redTip = [UIView new];
+        redTip.backgroundColor = RedColor;
+        [btn addSubview:redTip];
+        redTip.sd_layout
+        .topSpaceToView(btn, 10)
+        .rightSpaceToView(btn, 5)
+        .widthIs(4)
+        .heightEqualToWidth()
+        ;
+        [redTip setSd_cornerRadius:@2];
+        
+        if (self.tipsModel.hasPraise&&i == 0) {
+            redTip.hidden = YES;
+        }else if (self.tipsModel.hasFans&&i == 1) {
+            redTip.hidden = YES;
+        }else if (self.tipsModel.hasNotice&&i == 2) {
+            redTip.hidden = YES;
         }
+        
+        [self.tipsArr addObject:redTip];
     }
     
     UIView *line1 = [UIView new];
@@ -111,27 +122,32 @@
 -(void)touchToPush:(UIButton *)btn
 {
     GGLog(@"tag:%ld",btn.tag);
-    switch (btn.tag - 10086) {
+    NSInteger index = btn.tag - 10086;
+    UIView *tip = self.tipsArr[index];
+    tip.hidden = YES;
+    switch (index) {
         case 0:
         {
+//            UserSetBool(NO, @"PraiseNotice");
             MessagePraiseViewController *pvc = [MessagePraiseViewController new];
             [self.navigationController pushViewController:pvc animated:YES];
         }
             break;
         case 1:
         {
+//            UserSetBool(NO, @"FansNotice");
             MessageFansViewController *fvc = [MessageFansViewController new];
             [self.navigationController pushViewController:fvc animated:YES];
         }
             break;
         case 2:
         {
-            UserSetBool(NO, @"MessageNotice");
+//            UserSetBool(NO, @"MessageNotice");
             NewNotifyViewController *nvc = [NewNotifyViewController new];
-
-            [self.rt_navigationController pushViewController:nvc animated:YES complete:^(BOOL finished) {
-                [self.rt_navigationController removeViewController:self];
-            }];
+            [self.navigationController pushViewController:nvc animated:YES];
+//            [self.rt_navigationController pushViewController:nvc animated:YES complete:^(BOOL finished) {
+//                [self.rt_navigationController removeViewController:self];
+//            }];
         }
             break;
             

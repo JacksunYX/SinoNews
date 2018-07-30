@@ -125,7 +125,9 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
 //清除缓存
 +(void)clearLocaHistory
 {
-    [self bg_clear:nil];
+    GCDAsynGlobal(^{
+        [self bg_clear:nil];
+    });
 }
 
 

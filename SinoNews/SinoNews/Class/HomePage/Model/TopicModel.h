@@ -22,6 +22,9 @@
 @property (nonatomic,strong) NSString *topicId;
 @property (nonatomic,strong) NSString *topicName;
 
+//新增，用来标记是否已读
+@property (nonatomic,assign) BOOL hasBrows;
+
 //专题专属
 @property (nonatomic,strong) NSArray <HomePageModel *>*topicNewsList;//专题相关文章
 

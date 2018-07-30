@@ -48,8 +48,9 @@
  根据不同的文章模型，跳转到指定的界面
 
  @param model 文章模型
+ @return 返回文章id
  */
-+(void)pushToAssignVCWithNewmodel:(id)model;
++(NSInteger)pushToAssignVCWithNewmodel:(id)model;
 
 
 
@@ -76,9 +77,9 @@
  判断是否为已浏览过的文章
 
  @param itemId 文章id
- @return 是或否
+ @param processBlock 返回处理结果
  */
-+(BOOL)isBrowsNewId:(NSInteger)itemId;
++(void)isBrowsNewId:(NSInteger)itemId handle:(void(^)(void))processBlock;
 
 
 /**
@@ -90,8 +91,16 @@
  记录浏览过的文章id
 
  @param itemId 文章id
+ @param processBlock 返回处理结果
  */
-+(void)saveBrowsNewsId:(NSInteger)itemId;
++(void)saveBrowsNewsId:(NSInteger)itemId handle:(void (^)(void))processBlock;
+
+
+//处理获取的文章数据
++(void)processNewWithBrowsWithData:(NSArray *)arr handle:(void (^)(NSMutableArray *newArr))processBlock;
+
+
+
 
 
 @end

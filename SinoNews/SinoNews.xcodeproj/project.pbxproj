@@ -140,6 +140,7 @@
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C51B166210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */; };
 		4C51B169210EC690007EF10B /* MineTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B168210EC690007EF10B /* MineTipsModel.m */; };
+		4C51B16C210F12E7007EF10B /* DailyTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B16B210F12E7007EF10B /* DailyTaskModel.m */; };
 		4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */; };
 		4C51FFD820D2758A0018387B /* UIView+GFBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD420D2758A0018387B /* UIView+GFBorder.m */; };
 		4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51FFD720D2758A0018387B /* UIView+GFCorner.m */; };
@@ -594,6 +595,8 @@
 		4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+PullUpOrDown.m"; sourceTree = "<group>"; };
 		4C51B167210EC690007EF10B /* MineTipsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTipsModel.h; sourceTree = "<group>"; };
 		4C51B168210EC690007EF10B /* MineTipsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineTipsModel.m; sourceTree = "<group>"; };
+		4C51B16A210F12E7007EF10B /* DailyTaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyTaskModel.h; sourceTree = "<group>"; };
+		4C51B16B210F12E7007EF10B /* DailyTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyTaskModel.m; sourceTree = "<group>"; };
 		4C51FFD120D1FFAE0018387B /* NewsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsDetailViewController.h; sourceTree = "<group>"; };
 		4C51FFD220D1FFAE0018387B /* NewsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		4C51FFD420D2758A0018387B /* UIView+GFBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GFBorder.m"; sourceTree = "<group>"; };
@@ -1755,6 +1758,8 @@
 				4C03F5352101DE5900574136 /* ArticleModel.m */,
 				4C51B167210EC690007EF10B /* MineTipsModel.h */,
 				4C51B168210EC690007EF10B /* MineTipsModel.m */,
+				4C51B16A210F12E7007EF10B /* DailyTaskModel.h */,
+				4C51B16B210F12E7007EF10B /* DailyTaskModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2591,6 +2596,7 @@
 				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
 				4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
+				4C51B16C210F12E7007EF10B /* DailyTaskModel.m in Sources */,
 				4C7234E320FDEB1D00D5C5D4 /* AAArea.m in Sources */,
 				4C7234DA20FDEB1D00D5C5D4 /* AASubtitle.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,

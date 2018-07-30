@@ -39,6 +39,8 @@
 
 //用来做本地存储的字符串属性
 @property (nonatomic,strong) NSString *saveTimeStr;
+//新增，用来标记是否已读
+@property (nonatomic,assign) BOOL hasBrows;
 
 //存储数据
 +(void)saveWithModel:(HomePageModel *)model;

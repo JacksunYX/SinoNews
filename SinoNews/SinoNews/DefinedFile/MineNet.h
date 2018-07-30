@@ -23,6 +23,9 @@
 
 //用户签到(post)
 #define SignIn              @"/api/user/signIn"
+//获取每日任务(get)
+#define User_getDailyTask   @"/api/user/getDailyTask"
+
 
 //我的收藏
 //查看当前用户关注的游戏公司(get)

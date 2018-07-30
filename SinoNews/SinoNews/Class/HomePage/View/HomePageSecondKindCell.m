@@ -187,7 +187,12 @@
     bottomLabel.textColor = HexColor(#889199);
     
     //判断是否已经浏览过了
-    if ([UniversalMethod isBrowsNewId:model.itemId]) {
+//    [UniversalMethod isBrowsNewId:model.itemId handle:^{
+//        GCDAsynMain(^{
+//            self->title.textColor = BrowsNewsTitleColor;
+//        });
+//    }];
+    if (model.hasBrows) {
         title.textColor = BrowsNewsTitleColor;
     }
     

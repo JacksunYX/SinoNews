@@ -148,7 +148,7 @@
 {
     //中间的
     LineLayout *layout = [[LineLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(10, 0, 50, 0);
+    layout.sectionInset = UIEdgeInsetsMake(10, 0, 20, 0);
     layout.itemSize = CGSizeMake(ScreenW, WIDTH_SCALE * 120);
     layout.minimumLineSpacing = 0;
     //速率

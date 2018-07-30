@@ -238,9 +238,11 @@ CGFloat static titleViewHeight = 91;
     //获取上部分的高度
     [self.titleView updateLayout];
     titleViewHeight = self.titleView.height;
-    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    
     GGLog(@"titleViewHeight:%f",titleViewHeight);
-    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    
+    _tableView.contentOffset = CGPointMake(0, -titleViewHeight + 1);
 }
 
 -(void)setNaviTitle
@@ -323,7 +325,7 @@ CGFloat static titleViewHeight = 91;
     config.userContentController = wkUController;
     // 设置偏好设置对象
     config.preferences = preference;
-    self.webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:config];
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
@@ -521,6 +523,8 @@ CGFloat static titleViewHeight = 91;
     [self setTitle];
     
     [self setNaviTitle];
+    
+    [self.tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
     
     [self showOrHideLoadView:NO page:2];
     
@@ -758,17 +762,7 @@ CGFloat static titleViewHeight = 91;
         NSArray *data = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         
         self.commentArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.commentArr];
-//        if (self.currPage == 1) {
-//            self.commentArr = [data mutableCopy];
-//
-//        }else{
-//            [self.commentArr addObjectsFromArray:data];
-//        }
-//        if (data.count>0) {
-//            [self.tableView.mj_footer endRefreshing];
-//        }else{
-//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//        }
+
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_footer endRefreshing];

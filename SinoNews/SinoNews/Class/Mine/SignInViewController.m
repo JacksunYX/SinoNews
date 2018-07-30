@@ -10,10 +10,12 @@
 #import "StoreChildCell.h"
 #import "SignInPopView.h"
 #import "SignInRuleWebView.h"
+#import "DailyTaskModel.h"
 
 @interface SignInViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic,strong) DailyTaskModel *taskModel;     //任务模型
 @property (nonatomic,strong) NSMutableArray *taskArr;       //任务
 @property (nonatomic,strong) NSMutableArray *integralArr;   //积分兑换
 
@@ -82,6 +84,8 @@
     self.navigationItem.title = @"天天签到";
     
     [self requestSignIn];
+    
+    [self requestUser_getDailyTask];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -255,8 +259,8 @@
         .heightIs(17)
         ;
         [topNotice updateLayout];
-        NSString *noticeStr1 = @"今日已签到";
-        NSString *noticeStr2 = @"";
+        NSString *noticeStr1 = @"今日已签到，明天可获得";
+        NSString *noticeStr2 = [NSString stringWithFormat:@" %@积分",self.data[@"minPoints"]];
         NSMutableAttributedString *noticeAtt1 = [NSString leadString:noticeStr1 tailString:noticeStr2 font:PFFontR(16) color:RGBA(18, 130, 238, 1) lineBreak:NO];
         topNotice.attributedText = noticeAtt1;
         
@@ -349,7 +353,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return self.taskArr.count;
+        return self.taskModel.subTaskList.count;
     }
     if (section == 1) {
         //        return self.articlesArr.count;
@@ -369,8 +373,8 @@
                 [subView removeFromSuperview];
             }
         }
-        NSDictionary *dic = self.taskArr[indexPath.row];
-        [self setViewWithCell:cell data:dic];
+        DailyListModel *taskmodel = self.taskModel.subTaskList[indexPath.row];
+        [self setViewWithCell:cell data:taskmodel];
         
     }else if (indexPath.section == 1){
         StoreChildCell *cell1 = (StoreChildCell *)[tableView dequeueReusableCellWithIdentifier:StoreChildCellID];
@@ -407,7 +411,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (section == 0&&self.taskArr.count > 0) {
+    if (section == 0&&self.taskModel.subTaskList.count > 0) {
         
         headView = [UIView new];
         headView.backgroundColor = WhiteColor;
@@ -440,11 +444,11 @@
         ;
         
         NSString *str1 = @"今日已领";
-        NSString *str2 = @" 0 ";
+        NSString *str2 = [NSString stringWithFormat:@" %ld ",self.taskModel.receivedPoints];
         NSMutableAttributedString *att1 = [NSString leadString:str1 tailString:str2 font:PFFontL(14) color:RGBA(242, 87, 71, 1) lineBreak:NO];
         
         NSString *str3 = @"积分，还有";
-        NSString *str4 = @" 35 ";
+        NSString *str4 = [NSString stringWithFormat:@" %ld ",self.taskModel.remainingPoints];;
         NSMutableAttributedString *att2 = [NSString leadString:str3 tailString:str4 font:PFFontL(14) color:RGBA(242, 87, 71, 1) lineBreak:NO];
         
         NSString *str5 = @"积分可领";
@@ -493,7 +497,7 @@
 }
 
 //分区0的cell
--(void)setViewWithCell:(UITableViewCell *)cell data:(NSDictionary *)data
+-(void)setViewWithCell:(UITableViewCell *)cell data:(DailyListModel *)taskModel
 {
     UIView *fatherView = cell.contentView;
     
@@ -525,7 +529,20 @@
     .heightEqualToWidth()
     ;
     [taskIcon setSd_cornerRadius:@(37/2)];
-    taskIcon.image = UIImageNamed(GetSaveString(data[@"taskIcon"]));
+//    taskIcon.image = UIImageNamed(GetSaveString(taskModel.taskIcon));
+    if ([taskModel.taskIcon containsString:@"browse"]) {
+        taskIcon.image = UIImageNamed(@"signIn_browse");
+    }else if ([taskModel.taskIcon containsString:@"share"])
+    {
+        taskIcon.image = UIImageNamed(@"signIn_share");
+    }else if ([taskModel.taskIcon containsString:@"publish-news"])
+    {
+//        taskIcon.image = UIImageNamed(@"signIn_ask");
+        taskIcon.image = UIImageNamed(@"signIn_comment");
+    }else if ([taskModel.taskIcon containsString:@"publish-comment"])
+    {
+        taskIcon.image = UIImageNamed(@"signIn_comment");
+    }
     
     taskTitle.sd_layout
     .topSpaceToView(fatherView, 10)
@@ -533,7 +550,7 @@
     .heightIs(15)
     ;
     [taskTitle setSingleLineAutoResizeWithMaxWidth:150];
-    taskTitle.text = GetSaveString(data[@"taskTitle"]);
+    taskTitle.text = GetSaveString(taskModel.taskName);
     
     taskDone.sd_layout
     .topSpaceToView(taskTitle, 10)
@@ -541,11 +558,6 @@
     .heightIs(14)
     ;
     [taskDone setSingleLineAutoResizeWithMaxWidth:100];
-    if (data[@"taskDone"]) {
-        taskDone.text = @"已完成";
-    }else{
-        taskDone.text = @"未完成";
-    }
     
     taskAward.sd_layout
     .centerYEqualToView(fatherView)
@@ -553,7 +565,14 @@
     .heightIs(14)
     ;
     [taskAward setSingleLineAutoResizeWithMaxWidth:100];
-    taskAward.text = GetSaveString(data[@"taskAward"]);
+    if (taskModel.hasAccomplished) {
+        taskDone.text = @"已完成";
+        taskAward.textColor = HexColor(#F25747);
+    }else{
+        taskDone.text = @"未完成";
+        taskAward.textColor = HexColor(#989898);
+    }
+    taskAward.text = [NSString stringWithFormat:@"+%ld积分",taskModel.taskPoints];
 }
 
 #pragma mark ---- 请求发送
@@ -578,7 +597,15 @@
     } failure:nil RefreshAction:nil];
 }
 
-
+//获取任务列表
+-(void)requestUser_getDailyTask
+{
+    [HttpRequest getWithURLString:User_getDailyTask parameters:nil success:^(id responseObject) {
+        self.taskModel = [DailyTaskModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        [self.tableView reloadData];
+    } failure:nil];
+}
 
 
 

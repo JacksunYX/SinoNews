@@ -265,7 +265,7 @@
 }
 
 //根据不同的文章模型，跳转到指定的界面
-+(void)pushToAssignVCWithNewmodel:(id)model
++(NSInteger)pushToAssignVCWithNewmodel:(id)model
 {
     UIViewController *pushVC;
     NSInteger itemId = 0;
@@ -291,61 +291,113 @@
         //        [self.navigationController pushViewController:pnVC animated:YES];
         
     }else if ([model isKindOfClass:[TopicModel class]]){
+        TopicModel *model2 = model;
         TopicViewController *tVC = [TopicViewController new];
-        tVC.topicId = [(TopicModel *)model itemId];
-        itemId = [(TopicModel *)model itemId];
+        tVC.topicId = model2.itemId;
+        itemId = model2.itemId;
         pushVC = tVC;
     }else if ([model isKindOfClass:[ADModel class]]){
         
     }
-    //将看过的新闻的id保存起来
-    [self saveBrowsNewsId:itemId];
     
     [[HttpRequest currentViewController].navigationController pushViewController:pushVC animated:YES];
+    
+    return itemId;
 }
 
 //记录浏览过的文章id
-+(void)saveBrowsNewsId:(NSInteger)itemId
++(void)saveBrowsNewsId:(NSInteger)itemId handle:(void (^)(void))processBlock
 {
-    NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
-    NSMutableArray* columnArr;
-    if (!kArrayIsEmpty(newsIdArr)) {
-        columnArr = [newsIdArr mutableCopy];
-    }else{
-        columnArr = [NSMutableArray new];
-    }
+
+    GCDAsynGlobal(^{
+        NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+        NSMutableArray* columnArr;
+        if (!kArrayIsEmpty(newsIdArr)) {
+            columnArr = [newsIdArr mutableCopy];
+        }else{
+            columnArr = [NSMutableArray new];
+        }
+        
+        for (int i = 0 ; i < columnArr.count; i ++) {
+            NSInteger newid = [columnArr[i] integerValue];
+            if (newid == itemId) {  //已经记录过了
+                return;
+            }
+        }
+        [columnArr addObject:@(itemId)];
+        [columnArr bg_saveArrayWithName:@"newsIdArr"];
+        if (processBlock) {
+            processBlock();
+        }
+        
+    });
     
-    [columnArr addObject:@(itemId)];
-    [columnArr bg_saveArrayWithName:@"newsIdArr"];
-    GGLog(@"文章id已记录");
+}
+
+//处理获取的文章数据
++(void)processNewWithBrowsWithData:(NSArray *)arr handle:(void (^)(NSMutableArray *newArr))processBlock
+{
+    GCDAsynGlobal(^{
+        NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+        NSMutableArray *newArr = [NSMutableArray new];
+        for (id model in arr) {
+            NSMutableDictionary *dic = [model mj_JSONObject];
+            NSInteger itemId = [dic[@"itemId"] integerValue];
+            
+//            if ([model isKindOfClass:[HomePageModel class]]) {
+//                HomePageModel *model1 = model;
+//                itemId = model1.itemId;
+//            }else if ([model isKindOfClass:[TopicModel class]]){
+//                itemId = [(TopicModel *)model itemId];
+//            }
+            
+            for (int i = 0 ; i < newsIdArr.count; i ++) {
+                NSInteger newid = [newsIdArr[i] integerValue];
+                if (newid == itemId) {  //已经记录过了
+                    [dic setObject:@(YES) forKey:@"hasBrows"];
+                    break;
+                }
+            }
+            [newArr addObject:dic];
+        }
+        newArr = [self getProcessNewsData:newArr];
+        if (processBlock) {
+            processBlock(newArr);
+        }
+    });
 }
 
 //清除浏览过的文章id
 +(void)clearBrowsNewsIdArr
 {
-    [NSArray bg_clearArrayWithName:@"newsIdArr"];
+    GCDAsynGlobal(^{
+        [NSArray bg_clearArrayWithName:@"newsIdArr"];
+    });
 }
 
 //判断是否为已浏览过的文章
-+(BOOL)isBrowsNewId:(NSInteger)itemId
++(void)isBrowsNewId:(NSInteger)itemId handle:(void (^)(void))processBlock
 {
-    BOOL brows = NO;
-    
-    //先获取浏览过的newid记录
-    NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
-    if (!kArrayIsEmpty(newsIdArr)) {
-        for (int i = 0; i < newsIdArr.count; i ++) {
-            NSInteger newsId = [newsIdArr[i] integerValue];
-            //有记录
-            if (newsId == itemId) {
-                GGLog(@"已经浏览过的文章");
-                brows = YES;
-                break;
+    GCDAsynGlobal(^{
+        //先获取浏览过的newid记录
+        NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+        
+        if (!kArrayIsEmpty(newsIdArr)) {
+            for (int i = 0; i < newsIdArr.count; i ++) {
+                NSInteger newsId = [newsIdArr[i] integerValue];
+                //有记录
+                if (newsId == itemId) {
+                    GGLog(@"已经浏览过的文章");
+                    if (processBlock) {
+                        processBlock();
+                    }
+                    break;
+                }
             }
         }
-    }
-    
-    return brows;
+        
+    });
+ 
 }
 
 //根据传入字符串来给标签设置对应的字体颜色，边框色和背景色

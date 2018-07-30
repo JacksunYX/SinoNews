@@ -290,8 +290,20 @@
 {
     id model = self.dataSource[indexPath.row];
     [UniversalMethod pushToAssignVCWithNewmodel:model];
-    //刷新下，标记已经点击过的文章
-    [self.tableView reloadData];
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model1 = model;
+        if (!model1.hasBrows) {
+            model1.hasBrows = YES;
+            [self.tableView reloadData];
+        }
+    }if ([model isKindOfClass:[TopicModel class]]){
+        TopicModel *model2 = model;
+        if (!model2.hasBrows) {
+            model2.hasBrows = YES;
+            [self.tableView reloadData];
+        }
+    }
+    
 }
 
 #pragma mark ---- 请求方法
@@ -340,8 +352,10 @@
 //                [self.tableView.footRefreshControl endRefreshingAndNoLongerRefreshingWithAlertText:@"没有更多了"];
             }
         }
+        
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
+        
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
@@ -353,6 +367,8 @@
     }];
     
 }
+
+
 
 //请求banner
 -(void)requestBanner

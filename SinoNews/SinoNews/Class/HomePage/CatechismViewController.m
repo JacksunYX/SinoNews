@@ -241,7 +241,8 @@ CGFloat static titleViewHeight = 91;
     titleViewHeight = self.titleView.height;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
     
-    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
+    _tableView.contentOffset = CGPointMake(0, -titleViewHeight + 1);
+//    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
 }
 
 -(void)setNaviTitle
@@ -605,8 +606,6 @@ CGFloat static titleViewHeight = 91;
 //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
     }];
     
-    
-    
     [self setBottomView];
     
     [self setNavigationBtns];
@@ -614,6 +613,8 @@ CGFloat static titleViewHeight = 91;
     [self setTitle];
     
     [self setNaviTitle];
+    
+    [self.tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
     
     [self showOrHideLoadView:NO page:2];
     
@@ -781,7 +782,7 @@ CGFloat static titleViewHeight = 91;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY = scrollView.contentOffset.y;
-    GGLog(@"contentOffset.y:%f",offsetY);
+//    GGLog(@"contentOffset.y:%f",offsetY);
     if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
@@ -835,17 +836,6 @@ CGFloat static titleViewHeight = 91;
         NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         self.answersArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.answersArr];
         
-//        if (self.currPage == 1) {
-//            self.answersArr = [data mutableCopy];
-//
-//        }else{
-//            [self.answersArr addObjectsFromArray:data];
-//        }
-//        if (data.count>0) {
-//            [self.tableView.mj_footer endRefreshing];
-//        }else{
-//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//        }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_footer endRefreshing];

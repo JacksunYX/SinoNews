@@ -218,7 +218,7 @@ CGFloat static titleViewHeight = 91;
     //获取上部分的高度
     [self.titleView updateLayout];
     titleViewHeight = self.titleView.height;
-    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
 //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     
     [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];//这里+1是防止文字大小没变时，网页重载，而titleView的显隐是靠tableview的滚动来牵制的，可能会出现不显示的bug

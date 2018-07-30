@@ -240,7 +240,7 @@ CGFloat static titleViewHeight = 91;
     titleViewHeight = self.titleView.height;
     
     GGLog(@"titleViewHeight:%f",titleViewHeight);
-    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
     
     _tableView.contentOffset = CGPointMake(0, -titleViewHeight + 1);
 }

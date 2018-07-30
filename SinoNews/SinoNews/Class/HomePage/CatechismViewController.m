@@ -239,7 +239,7 @@ CGFloat static titleViewHeight = 91;
     //获取上部分的高度
     [self.titleView updateLayout];
     titleViewHeight = self.titleView.height;
-    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
     
     _tableView.contentOffset = CGPointMake(0, -titleViewHeight + 1);
 //    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];

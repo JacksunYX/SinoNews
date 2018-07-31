@@ -453,7 +453,7 @@ CGFloat static titleViewHeight = 91;
         [answerInput updateLayout];
         
         [answerInput setNormalImage:UIImageNamed(@"catechism_addLittle")];
-        [answerInput setNormalTitle:@"添加问答..."];
+        [answerInput setNormalTitle:@"添加回答..."];
         [answerInput setBtnFont:PFFontL(15)];
         [answerInput setNormalTitleColor:HexColor(#1282EE)];
         [answerInput layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:8];
@@ -707,7 +707,12 @@ CGFloat static titleViewHeight = 91;
         ;
         [leftTitle setSingleLineAutoResizeWithMaxWidth:100];
         NSInteger count = MAX(self.newsModel.commentCount, self.answersArr.count);
-        leftTitle.text = [NSString stringWithFormat:@"%ld 回答",count];
+        if (count) {
+            leftTitle.text = [NSString stringWithFormat:@"%ld 回答",count];
+        }else{
+            leftTitle.text = @"回答";
+        }
+        
         
         self.sortView.sd_layout
         .rightSpaceToView(headView, 10)

@@ -51,7 +51,7 @@
     CGFloat tbMargin = 10;  //上下间距
     
     title = [UILabel new];
-    title.font = FontScale(16);
+    title.font = FontScale(17);
 //    title.textColor = HexColor(#323232);
     
     

@@ -610,9 +610,12 @@ CGFloat static titleViewHeight = 91;
         .autoHeightRatio(0)
         ;
         if (self.answerModel) {
-            title.text = [NSString stringWithFormat:@"全部评论（%lu）",self.answerModel.commentCount];
-        }else{
-            title.text = @"全部评论";
+            NSInteger count = MAX(self.answerModel.commentCount, self.commentArr.count);
+            if (count) {
+                title.text = [NSString stringWithFormat:@"全部评论(%ld)",count];
+            }else{
+                title.text = @"全部评论";
+            }
         }
     }
     

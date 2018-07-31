@@ -138,6 +138,7 @@
 		4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
+		4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */; };
 		4C51B166210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */; };
 		4C51B169210EC690007EF10B /* MineTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B168210EC690007EF10B /* MineTipsModel.m */; };
 		4C51B16C210F12E7007EF10B /* DailyTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B16B210F12E7007EF10B /* DailyTaskModel.m */; };
@@ -591,6 +592,8 @@
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
 		4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+emptyView.m"; sourceTree = "<group>"; };
+		4C510B55210FFE3700706185 /* BrowsNewsSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsNewsSingleton.h; sourceTree = "<group>"; };
+		4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsNewsSingleton.m; sourceTree = "<group>"; };
 		4C51B164210EAFD4007EF10B /* UIScrollView+PullUpOrDown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+PullUpOrDown.h"; sourceTree = "<group>"; };
 		4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+PullUpOrDown.m"; sourceTree = "<group>"; };
 		4C51B167210EC690007EF10B /* MineTipsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTipsModel.h; sourceTree = "<group>"; };
@@ -2137,6 +2140,8 @@
 			children = (
 				4CE9C92120C90B9B004550B9 /* UserModel.h */,
 				4CE9C92220C90B9B004550B9 /* UserModel.m */,
+				4C510B55210FFE3700706185 /* BrowsNewsSingleton.h */,
+				4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */,
 				4CA141F120F4485E00536E77 /* ModelHeader.h */,
 			);
 			path = Model;
@@ -2460,6 +2465,7 @@
 				4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */,
 				4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */,
 				4C17414620C5168600AA6D57 /* TXMatchConst.m in Sources */,
+				4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
 				4C7234DD20FDEB1D00D5C5D4 /* AAColumn.m in Sources */,
@@ -2854,9 +2860,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 95VLMCLGVQ;
+				DEVELOPMENT_TEAM = Q4DQWYLPC2;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
@@ -2866,9 +2872,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sino.SinoNews;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.RevShiLu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0045bd64-4b19-4ae3-818d-d435f16f839d";
+				PROVISIONING_PROFILE_SPECIFIER = "开发描述文件";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -2883,10 +2890,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 95VLMCLGVQ;
+				DEVELOPMENT_TEAM = Q4DQWYLPC2;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
@@ -2896,9 +2903,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sino.SinoNews;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.RevShiLu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e93dd338-97d5-4d69-8e0a-df9041d76e37";
+				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

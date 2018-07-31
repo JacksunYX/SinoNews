@@ -68,7 +68,7 @@
 //设置导航栏按钮
 -(void)addNavigationBtns
 {
-    self.navigationItem.title = @"添加问答";
+    self.navigationItem.title = @"添加回答";
     UIBarButtonItem *cancel = [UIBarButtonItem itemWithTarget:self Action:@selector(cancelAction) image:nil hightimage:nil andTitle:@"取消"];
 
     _submit = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];

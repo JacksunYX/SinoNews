@@ -15,4 +15,6 @@
 #import "HomePageModel.h"
 #import "NormalNewsModel.h"
 
+#import "BrowsNewsSingleton.h"  //阅读记录单例
+
 #endif /* ModelHeader_h */

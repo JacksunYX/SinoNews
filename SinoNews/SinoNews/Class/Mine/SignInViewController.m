@@ -21,9 +21,27 @@
 
 @property (nonatomic,strong) NSDictionary *data;
 @property (nonatomic,strong) UIView *headView;
+
+@property (nonatomic,strong) UIView *topModalView;  //夜间模式的遮罩
+
 @end
 
 @implementation SignInViewController
+-(UIView *)topModalView
+{
+    if (!_topModalView) {
+        _topModalView = [UIView new];
+        [self.view addSubview:_topModalView];
+        _topModalView.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+        ;
+        _topModalView.userInteractionEnabled = NO;
+    }
+    return _topModalView;
+}
 
 -(NSMutableArray *)taskArr
 {
@@ -83,9 +101,15 @@
     
     self.navigationItem.title = @"天天签到";
     
+    self.view.backgroundColor = WhiteColor;
+    
     [self requestSignIn];
     
     [self requestUser_getDailyTask];
+    
+    if (UserGetBool(@"NightMode")) {
+        self.topModalView.backgroundColor = HexColorAlpha(#000000, 0.1);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,7 +128,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    [self.tableView addBakcgroundColorTheme];
+//    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerClass:[StoreChildCell class] forCellReuseIdentifier:StoreChildCellID];
@@ -117,16 +141,17 @@
 {
     if (!self.headView) {
         self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 433)];
-        [self.headView addBakcgroundColorTheme];
+//        [self.headView addBakcgroundColorTheme];
+        self.headView.backgroundColor = WhiteColor;
         //最上面的广告
         UIImageView *topADImg = [UIImageView new];
         topADImg.backgroundColor = WhiteColor;
         //中间的用户信息
         UIView *centerView = [UIView new];
-        [centerView addBakcgroundColorTheme];
+//        [centerView addBakcgroundColorTheme];
         //下面的签到视图
         UIView *bottomView = [UIView new];
-        [bottomView addBakcgroundColorTheme];
+//        [bottomView addBakcgroundColorTheme];
         [self.headView sd_addSubviews:@[
                                         topADImg,
                                         centerView,
@@ -148,7 +173,7 @@
         .heightIs(93)
         ;
         [centerView updateLayout];
-        [centerView addBorderTo:BorderTypeBottom borderSize:CGSizeMake(ScreenW - 20, 1) borderColor:RGBA(227, 227, 227, 1)];
+        [centerView addBorderTo:BorderTypeBottom borderSize:CGSizeMake(ScreenW - 20, 1) borderColor:CutLineColor];
         
         bottomView.sd_layout
         .topSpaceToView(centerView, 0)
@@ -157,7 +182,7 @@
         .heightIs(280)
         ;
         [bottomView updateLayout];
-        [bottomView addBorderTo:BorderTypeBottom borderSize:CGSizeMake(ScreenW - 20, 1) borderColor:RGBA(227, 227, 227, 1)];
+        [bottomView addBorderTo:BorderTypeBottom borderSize:CGSizeMake(ScreenW - 20, 1) borderColor:CutLineColor];
         
         //中间的用户信息
         UIImageView *userIcon = [UIImageView new];
@@ -165,17 +190,19 @@
         UILabel *integral = [UILabel new];
         integral.font = PFFontL(13);
 //        integral.textColor = RGBA(50, 50, 50, 1);
-        [integral addTitleColorTheme];
+//        [integral addTitleColorTheme];
+        integral.textColor = HexColor(#323232);
         integral.isAttributedContent = YES;
         
         UILabel *signInDay = [UILabel new];
         signInDay.font = PFFontL(14);
-        signInDay.textColor = RGBA(152, 152, 152, 1);
+        signInDay.textColor = HexColor(#989898);
         
         UIButton *signInRaw = [UIButton new];
         signInRaw.titleLabel.font = PFFontL(14);
-//        [signInRaw setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
-        [signInRaw addButtonTextColorTheme];
+//        [signInRaw addButtonTextColorTheme];
+        [signInRaw setNormalTitleColor:HexColor(#323232)];
+        
         [[signInRaw rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             [SignInRuleWebView showWithWebString:News_signRule];
         }];
@@ -204,7 +231,7 @@
         [integral setSingleLineAutoResizeWithMaxWidth:150];
         NSString *integralStr1 = @"";
         NSString *integralStr2 = [NSString stringWithFormat:@"%ld",[self.data[@"totalPoints"] integerValue]];
-        NSMutableAttributedString *integralAtt1 = [NSString leadString:integralStr1 tailString:integralStr2 font:PFFontR(17) color:RGBA(242, 87, 71, 1) lineBreak:NO];
+        NSMutableAttributedString *integralAtt1 = [NSString leadString:integralStr1 tailString:integralStr2 font:PFFontR(24) color:HexColor(#F25747) lineBreak:NO];
         NSString *integralStr3 = @" 积分";
         NSMutableAttributedString *integralAtt2 = [[NSMutableAttributedString alloc]initWithString:integralStr3];
         [integralAtt1 appendAttributedString:integralAtt2];
@@ -226,25 +253,25 @@
         ;
         [signInRaw setSd_cornerRadius:@12];
         [signInRaw setTitle:@"签到规则" forState:UIControlStateNormal];
-        signInRaw.layer.borderColor = RGBA(204, 219, 234, 1).CGColor;
+        signInRaw.layer.borderColor = HexColor(#CCDBEA).CGColor;
         signInRaw.layer.borderWidth = 1;
         
         //下面的签到视图
         UILabel *topNotice = [UILabel new];
         topNotice.font = PFFontR(16);
-//        topNotice.textColor = RGBA(50, 50, 50, 1);
-        [topNotice addTitleColorTheme];
+        topNotice.textColor = HexColor(#323232);
+//        [topNotice addTitleColorTheme];
         topNotice.isAttributedContent = YES;
         
         UIView *signInView = [UIView new];
-        [signInView addBakcgroundColorTheme];
+//        [signInView addBakcgroundColorTheme];
         
         UIImageView *bottomIcon = [UIImageView new];
         bottomIcon.contentMode = 4;
         
         UILabel *bottomNotice = [UILabel new];
         bottomNotice.font = PFFontL(12);
-        bottomNotice.textColor = RGBA(152, 152, 152, 1);
+        bottomNotice.textColor = HexColor(#989898);
         
         [bottomView sd_addSubviews:@[
                                      topNotice,
@@ -306,7 +333,7 @@
             x = (avgMarginX + avgW) * (i%numPerRow);
             
             UIView *backView = [UIView new];
-            backView.backgroundColor = RGBA(242, 249, 255, 1);
+            backView.backgroundColor = HexColor(#F2F9FF);
             
             UIImageView *iconView = [UIImageView new];
             //            iconView.backgroundColor = Arc4randomColor;
@@ -323,7 +350,7 @@
             .heightEqualToWidth()
             ;
             [backView setSd_cornerRadius:@(avgW/2)];
-            backView.layer.borderColor = RGBA(207, 218, 229, 1).CGColor;
+            backView.layer.borderColor = HexColor(#CFDAE5).CGColor;
             backView.layer.borderWidth = 1;
             
             iconView.sd_layout
@@ -593,6 +620,8 @@
         [self addTableView];
         
         [self setHeadView];
+        
+        [self.view bringSubviewToFront:self.topModalView];
         
     } failure:nil RefreshAction:nil];
 }

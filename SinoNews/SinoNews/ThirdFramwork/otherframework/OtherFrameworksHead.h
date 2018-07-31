@@ -29,4 +29,9 @@
 #import "AAGlobalMacro.h"
 #import "AAChartKit.h"      //画图框架
 
+#import "NSObject+LCFastSingleton.h"    //快捷单例
+
+
+
+
 #endif /* OtherFrameworksHead_h */

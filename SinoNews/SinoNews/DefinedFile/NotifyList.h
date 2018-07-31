@@ -17,8 +17,10 @@
 #define ChangeFontNotify    @"ChangeFontNotify"
 
 //首页提示
-#define HomePageNotice  @"HomePageNotice"
+#define HomePageNotice      @"HomePageNotice"
 //我的提示
-#define MineNotice      @"MineNotice"
+#define MineNotice          @"MineNotice"
+//清除浏览记录
+#define ClearBrowsHistory    @"ClearBrowsHistory"
 
 #endif /* NotifyList_h */

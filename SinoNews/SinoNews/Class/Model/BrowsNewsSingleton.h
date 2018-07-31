@@ -9,8 +9,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BrowsNewsSingleton : NSObject
+@interface BrowsNewsSingleton : NSObject<FastSingleton>
 
+@property (nonatomic,strong) NSMutableArray *idsArr;    //保存阅读过的文章id
 
+//比对获取到的新闻模型中是否有已经阅读过的了
+-(NSMutableArray *)compareBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData;
+
+//添加一个历史
+-(void)addBrowHistory:(NSInteger)itemId;
+
+//保存本地历史
+-(void)saveBrowHistory;
+
+//清除浏览过的文章id
+-(void)clearBrowsNewsIdArr;
 
 @end

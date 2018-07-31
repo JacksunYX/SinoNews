@@ -139,6 +139,9 @@
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */; };
+		4C510B5B21103C1F00706185 /* NSObject+LCFastSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B5921103C1F00706185 /* NSObject+LCFastSingleton.m */; };
+		4C510B5E211049A600706185 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B5D211049A600706185 /* NSArray+Extension.m */; };
+		4C510B62211049BB00706185 /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B60211049BA00706185 /* NSDictionary+Extension.m */; };
 		4C51B166210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */; };
 		4C51B169210EC690007EF10B /* MineTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B168210EC690007EF10B /* MineTipsModel.m */; };
 		4C51B16C210F12E7007EF10B /* DailyTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C51B16B210F12E7007EF10B /* DailyTaskModel.m */; };
@@ -594,6 +597,12 @@
 		4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+emptyView.m"; sourceTree = "<group>"; };
 		4C510B55210FFE3700706185 /* BrowsNewsSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsNewsSingleton.h; sourceTree = "<group>"; };
 		4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsNewsSingleton.m; sourceTree = "<group>"; };
+		4C510B5921103C1F00706185 /* NSObject+LCFastSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+LCFastSingleton.m"; sourceTree = "<group>"; };
+		4C510B5A21103C1F00706185 /* NSObject+LCFastSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+LCFastSingleton.h"; sourceTree = "<group>"; };
+		4C510B5C211049A500706185 /* NSArray+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extension.h"; sourceTree = "<group>"; };
+		4C510B5D211049A600706185 /* NSArray+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extension.m"; sourceTree = "<group>"; };
+		4C510B60211049BA00706185 /* NSDictionary+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extension.m"; sourceTree = "<group>"; };
+		4C510B61211049BB00706185 /* NSDictionary+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extension.h"; sourceTree = "<group>"; };
 		4C51B164210EAFD4007EF10B /* UIScrollView+PullUpOrDown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+PullUpOrDown.h"; sourceTree = "<group>"; };
 		4C51B165210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+PullUpOrDown.m"; sourceTree = "<group>"; };
 		4C51B167210EC690007EF10B /* MineTipsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineTipsModel.h; sourceTree = "<group>"; };
@@ -1472,6 +1481,7 @@
 				4CA141EF20F445E000536E77 /* UniversalMethod.m */,
 				4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */,
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
+				4C510B5F211049AC00706185 /* NSDictionary */,
 				4CC2898D2105AF6D00BC4D92 /* UIDevice */,
 				4C72346420FCC26B00D5C5D4 /* UINavigationBar */,
 				4C4ED9E820E39B1500347974 /* UIViewController */,
@@ -1537,6 +1547,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C510B5821103C1F00706185 /* LCFastSingleton */,
 				4C03F52D2101BE9F00574136 /* FDFullscreenPopGesture */,
 				4C7234FC20FF373C00D5C5D4 /* InputView */,
 				4C72348820FDEB1D00D5C5D4 /* AAChartKitLib */,
@@ -1691,6 +1702,24 @@
 				4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		4C510B5821103C1F00706185 /* LCFastSingleton */ = {
+			isa = PBXGroup;
+			children = (
+				4C510B5921103C1F00706185 /* NSObject+LCFastSingleton.m */,
+				4C510B5A21103C1F00706185 /* NSObject+LCFastSingleton.h */,
+			);
+			path = LCFastSingleton;
+			sourceTree = "<group>";
+		};
+		4C510B5F211049AC00706185 /* NSDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				4C510B61211049BB00706185 /* NSDictionary+Extension.h */,
+				4C510B60211049BA00706185 /* NSDictionary+Extension.m */,
+			);
+			path = NSDictionary;
 			sourceTree = "<group>";
 		};
 		4C54948920CE20DB00CB448E /* View */ = {
@@ -1975,6 +2004,8 @@
 		4C8735FA20BE927B00B6A8B5 /* NSArray */ = {
 			isa = PBXGroup;
 			children = (
+				4C510B5C211049A500706185 /* NSArray+Extension.h */,
+				4C510B5D211049A600706185 /* NSArray+Extension.m */,
 				4C8735FB20BE92BD00B6A8B5 /* NSArray+compare.h */,
 				4C8735FC20BE92BD00B6A8B5 /* NSArray+compare.m */,
 			);
@@ -2473,6 +2504,7 @@
 				4C17BC7D21002D2A0021055B /* CateChismTableViewCell.m in Sources */,
 				4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
+				4C510B5B21103C1F00706185 /* NSObject+LCFastSingleton.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */,
 				4C23B3C820F592AB00ACE380 /* LMFontSizePickerView.m in Sources */,
@@ -2491,6 +2523,7 @@
 				4C17412720C4C7B400AA6D57 /* StoreViewController.m in Sources */,
 				4C93497F20CF953400BD8F07 /* MessageNotifyViewController.m in Sources */,
 				4C23B3DA20F5935800ACE380 /* LMStyleParagraphCell.m in Sources */,
+				4C510B5E211049A600706185 /* NSArray+Extension.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
@@ -2595,6 +2628,7 @@
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */,
 				4C23B3C720F592AB00ACE380 /* LMColorPickerView.m in Sources */,
+				4C510B62211049BB00706185 /* NSDictionary+Extension.m in Sources */,
 				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C72347F20FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m in Sources */,
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,

@@ -59,6 +59,24 @@
 //    GGLog(@"news_id:%@",self.news_id);
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
+    
+    @weakify(self);
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:ClearBrowsHistory object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self);
+        if (self.dataSource.count) {
+            //遍历取消浏览标记
+            for (id model in self.dataSource) {
+                if ([model isKindOfClass:[HomePageModel class]]) {
+                    HomePageModel *model1 = model;
+                    model1.hasBrows = NO;
+                }else if ([model isKindOfClass:[TopicModel class]]){
+                    TopicModel *model1 = model;
+                    model1.hasBrows = NO;
+                }
+            }
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -289,17 +307,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id model = self.dataSource[indexPath.row];
+    //跳转
     [UniversalMethod pushToAssignVCWithNewmodel:model];
+    
+    //是否需要标记看过
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = model;
         if (!model1.hasBrows) {
             model1.hasBrows = YES;
+            [BrowsNewsSingleton.singleton addBrowHistory:model1.itemId];
             [self.tableView reloadData];
         }
     }if ([model isKindOfClass:[TopicModel class]]){
-        TopicModel *model2 = model;
-        if (!model2.hasBrows) {
-            model2.hasBrows = YES;
+        TopicModel *model1 = model;
+        if (!model1.hasBrows) {
+            model1.hasBrows = YES;
+            [BrowsNewsSingleton.singleton addBrowHistory:model1.itemId];
             [self.tableView reloadData];
         }
     }
@@ -327,6 +350,8 @@
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
+        //比对是否有阅读过的数据
+        dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
         
         if (upOrDown == 0) {
             //数组都有数据时，需要把本地数据中的置顶先删掉，因为后台默认每次返回都带置顶
@@ -368,8 +393,6 @@
     
 }
 
-
-
 //请求banner
 -(void)requestBanner
 {
@@ -390,26 +413,10 @@
 -(void)requestAttentionNews
 {
     [HttpRequest postWithURLString:MyUserNews parameters:@{@"currPage":@(self.page)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        NSMutableArray *dataArr = [NSMutableArray new];
-        for (NSDictionary *dic in response[@"data"]) {
-            NSInteger itemType = [dic[@"itemType"] integerValue];
-            if (itemType>=100&&itemType<200) {  //新闻
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=200&&itemType<300) {    //专题
-                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=300&&itemType<400){     //广告
-                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=400&&itemType<500){     //投票
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=500&&itemType<600){     //问答
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }
-        }
+        NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:response[@"data"]];
+        //比对是否有阅读过的数据
+        dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
+        
         if (self.page == 1) {
             self.dataSource = [dataArr mutableCopy];
             [self.tableView.mj_header endRefreshing];
@@ -463,26 +470,10 @@
     parameters[@"channelIds"] = str;
     
     [HttpRequest getWithURLString:ListForFollow parameters:parameters success:^(id responseObject) {
-        NSMutableArray *dataArr = [NSMutableArray new];
-        for (NSDictionary *dic in responseObject[@"data"]) {
-            NSInteger itemType = [dic[@"itemType"] integerValue];
-            if (itemType>=100&&itemType<200) {  //新闻
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=200&&itemType<300) {    //专题
-                TopicModel *model = [TopicModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=300&&itemType<400){     //广告
-                ADModel *model = [ADModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=400&&itemType<500){     //投票
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }else if (itemType>=500&&itemType<600){     //问答
-                HomePageModel *model = [HomePageModel mj_objectWithKeyValues:dic];
-                [dataArr addObject:model];
-            }
-        }
+        NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
+        //比对是否有阅读过的数据
+        dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
+        
         if (self.page == 1) {
             self.dataSource = [dataArr mutableCopy];
             [self.tableView.mj_header endRefreshing];

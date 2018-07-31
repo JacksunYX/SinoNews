@@ -37,5 +37,7 @@
 #import "UIDevice+Version.h"
 #import "UIBarButtonItem+SXCreate.h"
 #import "UIScrollView+PullUpOrDown.h"
+#import "NSDictionary+Extension.h"
+#import "NSArray+Extension.h"
 
 #endif /* ToolsHeader_h */

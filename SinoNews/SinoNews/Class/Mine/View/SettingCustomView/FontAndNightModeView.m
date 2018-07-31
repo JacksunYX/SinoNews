@@ -26,7 +26,9 @@ static CGFloat anumationTime = 0.3;
     
     //下方视图
     UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(backView.frame), ScreenW, 180)];
-    bottomView.backgroundColor = WhiteColor;
+//    bottomView.backgroundColor = WhiteColor;
+    [bottomView addBakcgroundColorTheme];
+    
     [backView addSubview:bottomView];
     
     UITapGestureRecognizer *bottomTap = [UITapGestureRecognizer new];
@@ -57,14 +59,15 @@ static CGFloat anumationTime = 0.3;
     //添加按钮啥的
     UIButton *finishBtn = [UIButton new];
     finishBtn.titleLabel.font = PFFontL(17);
-    [finishBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    [finishBtn addButtonTextColorTheme];
     
     CLSlider *fontSelect = [CLSlider new];
+    [fontSelect addBakcgroundColorTheme];
     fontSelect.sliderStyle = CLSliderStyle_Cross;
-    fontSelect.thumbTintColor = [UIColor colorWithRed:18/255.0 green:130/255.0 blue:238/255.0 alpha:1];
+    fontSelect.thumbTintColor = HexColor(#1282EE);
     fontSelect.thumbShadowColor = [UIColor clearColor];
     fontSelect.thumbDiameter = 14;
-    fontSelect.scaleLineColor = [UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1];
+    
     fontSelect.scaleLineWidth = 1.0f;
     fontSelect.scaleLineHeight = 14;
     fontSelect.scaleLineNumber = 3;
@@ -75,22 +78,31 @@ static CGFloat anumationTime = 0.3;
         UserSet(@"1",@"fontSize")
     }
     
-    
-    
     UILabel *leftA = [UILabel new];
     leftA.font = PFFontL(15);
     
     UILabel *rightA = [UILabel new];
-    leftA.font = PFFontL(14);
+    rightA.font = PFFontL(15);
     
     UILabel *fonts = [UILabel new];
     fonts.font = PFFontL(17);
     
     UIView *line = [UIView new];
-    line.backgroundColor = RGBA(227, 227, 227, 1);
     
     UILabel *nightMode = [UILabel new];
     nightMode.font = PFFontL(16);
+    
+    [leftA addTitleColorTheme];
+    [rightA addTitleColorTheme];
+    [fonts addTitleColorTheme];
+    [nightMode addTitleColorTheme];
+    if (UserGetBool(@"NightMode")) {
+        line.backgroundColor = CutLineColorNight;
+        fontSelect.scaleLineColor = CutLineColorNight;
+    }else{
+        line.backgroundColor = CutLineColor;
+        fontSelect.scaleLineColor = CutLineColor;
+    }
     
     LQXSwitch *switchBtn = [[LQXSwitch alloc] initWithFrame:CGRectMake(ScreenW - 59, 13, 49, 30) onColor:RGBA(18, 130, 238, 1) offColor:RGBA(204, 227, 249, 1) font:[UIFont systemFontOfSize:25] ballSize:14];
     [switchBtn setOn:UserGetBool(@"NightMode") animated:YES];

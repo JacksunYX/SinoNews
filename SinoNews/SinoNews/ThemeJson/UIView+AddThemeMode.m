@@ -46,7 +46,17 @@
     self.lee_theme.LeeConfigButtonImage(identify, UIControlStateSelected);
 }
 
-
+//添加分割线颜色
+-(void)addCutLineColor
+{
+    self.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:CutLineColorNight];
+        }else{
+            [(UIView *)item setBackgroundColor:CutLineColor];
+        }
+    });
+}
 
 
 @end

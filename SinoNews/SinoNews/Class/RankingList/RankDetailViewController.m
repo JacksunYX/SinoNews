@@ -31,6 +31,8 @@
 
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论列表
 @property (nonatomic,assign) NSInteger currPage;   //页码
+
+@property (nonatomic,strong) UIView *naviTitle;
 @end
 
 @implementation RankDetailViewController
@@ -162,6 +164,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"启世录";
     
+    [self setNaviTitle];
+    [self showTopLine];
     [self addTableView];
     
 }
@@ -186,7 +190,13 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    _tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    _tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(BaseTableView *)item setBackgroundColor:HexColor(#292d30)];
+        }else{
+            [(BaseTableView *)item setBackgroundColor:HexColor(#EDEDED)];
+        }
+    });
     _tableView.dataSource = self;
     _tableView.delegate = self;
     //注册
@@ -220,6 +230,45 @@
     
     
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)setNaviTitle
+{
+    if (!_naviTitle) {
+        _naviTitle = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
+        self.navigationItem.titleView = _naviTitle;
+        [_naviTitle addBakcgroundColorTheme];
+        
+        UIImageView *avatar = [UIImageView new];
+        UILabel *username = [UILabel new];
+        [username addTitleColorTheme];
+        
+        [_naviTitle sd_addSubviews:@[
+                                     avatar,
+                                     username,
+                                     ]];
+        CGFloat wid = 30;
+        
+        avatar.sd_layout
+        .leftEqualToView(_naviTitle)
+        .centerYEqualToView(_naviTitle)
+        .widthIs(wid)
+        .heightIs(30)
+        ;
+        [avatar setSd_cornerRadius:@(wid/2)];
+        [avatar setImage:UIImageNamed(@"homePage_logo")];
+        
+        username.sd_layout
+        .leftSpaceToView(avatar, 5)
+        .centerYEqualToView(_naviTitle)
+        .heightIs(30)
+        ;
+        [username setSingleLineAutoResizeWithMaxWidth:120];
+        username.text = @"启世录TOPS";
+        
+        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
+        
+    }
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -452,6 +501,9 @@
     UIImageView *star = [UIImageView new];
     UIImageView *icon = [UIImageView new];
     
+    UIView *sepLine = [UIView new];
+    [sepLine addCutLineColor];
+    
     UILabel *title = [UILabel new];
     title.font = FontScale(16);
     [title addTitleColorTheme];
@@ -470,6 +522,7 @@
                                  websiteBtn,
                                  collectBtn,
                                  title,
+                                 sepLine,
                                  ]];
     //布局
     star.sd_layout
@@ -531,6 +584,14 @@
 //    [title setMaxNumberOfLinesToShow:1];
 //    [title setSingleLineAutoResizeWithMaxWidth:100];
     //    title.text = GetSaveString(model[@"title"]);
+    
+    sepLine.sd_layout
+    .bottomEqualToView(fatherView)
+    .leftSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(1)
+    ;
+    
     title.text = GetSaveString(self.companyModel.companyName);
 }
 
@@ -544,10 +605,13 @@
     descrip.font = FontScale(15);
     descrip.isAttributedContent = YES;
     
+    UIView *sepLine = [UIView new];
+    [sepLine addCutLineColor];
+    
     [fatherView sd_addSubviews:@[
                                  leftIcon,
                                  descrip,
-                                 
+                                 sepLine,
                                  ]];
     leftIcon.sd_layout
     .leftSpaceToView(fatherView, 10)
@@ -563,6 +627,13 @@
     .rightSpaceToView(fatherView, 10)
     .topEqualToView(leftIcon)
     .autoHeightRatio(0)
+    ;
+    
+    sepLine.sd_layout
+    .bottomEqualToView(fatherView)
+    .leftSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(1)
     ;
     
     if (custom) {

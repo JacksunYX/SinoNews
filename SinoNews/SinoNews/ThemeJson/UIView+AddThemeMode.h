@@ -29,6 +29,7 @@
 //添加按钮selected模式的图片
 -(void)addButtonSelectedImage:(NSString *)identify;
 
-
+//添加分割线颜色
+-(void)addCutLineColor;
 
 @end

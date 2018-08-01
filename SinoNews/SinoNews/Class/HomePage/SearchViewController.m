@@ -289,12 +289,21 @@
             //            [cancel setTitle:@"取消" forState:UIControlStateNormal];
             
         }
+        //ios10以下会有背景色，去掉
+        if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+            
+            [view removeFromSuperview];
+        }
     }
     
     self.searchBar.delegate = self;
-    self.rt_navigationController.useSystemBackBarButtonItem = YES;
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.hidesBackButton = YES;
+//    self.rt_navigationController.useSystemBackBarButtonItem = NO;
+    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc]init];
+    barBtn.title = @"";
+    self.navigationItem.leftBarButtonItem = barBtn;
+    
+//    self.navigationItem.leftBarButtonItem = nil;
+//    self.navigationItem.hidesBackButton = YES;
     
 }
 

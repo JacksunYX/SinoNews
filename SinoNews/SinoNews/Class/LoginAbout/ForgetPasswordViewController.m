@@ -16,15 +16,23 @@
     UIButton *getCodeBtn;
     UIButton *completeBtn;
 }
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation ForgetPasswordViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"找回密码";
     self.view.backgroundColor = WhiteColor;
-    [self.navigationController setNavigationBarHidden:YES];
+    self.navigationController.navigationBar.hidden = YES;
     [self setUI];
 }
 
@@ -177,6 +185,12 @@
     [completeBtn setTitle:@"完成" forState:UIControlStateNormal];
     [completeBtn addTarget:self action:@selector(completeAction) forControlEvents:UIControlEventTouchUpInside];
     [completeBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
+    
+    //键盘监听
+    WeakSelf
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
+    }];
     
     //集合信号
     RAC(completeBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,password.rac_textSignal,seccode.rac_textSignal] reduce:^id(NSString *username,NSString *password,NSString *seccode){

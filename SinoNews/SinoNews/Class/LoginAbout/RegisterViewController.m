@@ -17,15 +17,22 @@
     UIButton *getCodeBtn;
     UIButton *registerBtn;
 }
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation RegisterViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"注册";
     self.view.backgroundColor = WhiteColor;
-    [self.navigationController setNavigationBarHidden:YES];
+    self.navigationController.navigationBar.hidden = YES;
     [self setUI];
 }
 
@@ -195,6 +202,12 @@
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
     [registerBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
+    
+    //键盘监听
+    WeakSelf
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
+    }];
     
     //集合信号
     RAC(registerBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,nickname.rac_textSignal,password.rac_textSignal,seccode.rac_textSignal] reduce:^id(NSString *username,NSString *nickname,NSString *password,NSString *seccode){

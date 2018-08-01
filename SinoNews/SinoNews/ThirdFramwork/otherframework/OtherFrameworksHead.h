@@ -31,7 +31,7 @@
 
 #import "NSObject+LCFastSingleton.h"    //快捷单例
 
-
+#import "XYButton.h"
 
 
 #endif /* OtherFrameworksHead_h */

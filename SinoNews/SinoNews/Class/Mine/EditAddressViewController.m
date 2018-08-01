@@ -23,10 +23,17 @@
 @property (nonatomic,copy) NSString *city;      //市
 @property (nonatomic,copy) NSString *area;      //区
 
-
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation EditAddressViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -164,6 +171,11 @@
     .bottomSpaceToView(view3, 0)
     ;
     
+    //键盘监听
+    WeakSelf
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
+    }];
 }
 
 //设置数据

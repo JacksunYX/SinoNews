@@ -95,11 +95,11 @@
         ;
         [redTip setSd_cornerRadius:@2];
         
-        if (self.tipsModel.hasPraise&&i == 0) {
+        if (!self.tipsModel.hasPraise&&i == 0) {
             redTip.hidden = YES;
-        }else if (self.tipsModel.hasFans&&i == 1) {
+        }else if (!self.tipsModel.hasFans&&i == 1) {
             redTip.hidden = YES;
-        }else if (self.tipsModel.hasNotice&&i == 2) {
+        }else if (!self.tipsModel.hasNotice&&i == 2) {
             redTip.hidden = YES;
         }
         

@@ -32,7 +32,6 @@
         self.navigationController.navigationBar.barTintColor = value;
     });
     
-    
     self.view.lee_theme.LeeCustomConfig(@"navigationBarColor", ^(id item, id value) {
         @strongify(self)
         NSMutableDictionary *dic = [NSMutableDictionary new];

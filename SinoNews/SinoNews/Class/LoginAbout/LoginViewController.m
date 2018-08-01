@@ -17,9 +17,17 @@
 @property (nonatomic,strong)UIButton *secureBtn;    //密码可视
 @property (nonatomic,strong)UIButton *forgetBtn;
 @property (nonatomic,strong)UIButton *confirmBtn;
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation LoginViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
 
 -(void)dealloc
 {
@@ -28,9 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"登录";
     self.view.backgroundColor = WhiteColor;
-    [self.navigationController setNavigationBarHidden:YES];
+    self.navigationController.navigationBar.hidden = YES;
     [self setUI];
 }
 
@@ -211,6 +218,12 @@
     [self.confirmBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.confirmBtn addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
     [self.confirmBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
+    
+    //键盘监听
+    WeakSelf
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
+    }];
     
     //集合信号
     RAC(self.confirmBtn,enabled) = [RACSignal combineLatest:@[self.username.rac_textSignal,self.password.rac_textSignal] reduce:^id(NSString *username,NSString *password){

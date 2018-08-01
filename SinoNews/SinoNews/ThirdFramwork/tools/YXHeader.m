@@ -29,7 +29,7 @@
     } else {
         LoginViewController *loginVC = [LoginViewController new];
         loginVC.normalBack = YES;
-        [[HttpRequest getCurrentVC] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+        [[HttpRequest getCurrentVC] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }
 }
@@ -45,7 +45,7 @@
         loginVC.backHandleBlock = ^{
             backHandle();
         };
-        [[HttpRequest currentViewController] presentViewController:[[BaseNavigationVC alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+        [[HttpRequest currentViewController] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }
     return YES;

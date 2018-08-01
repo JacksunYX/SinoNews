@@ -11,6 +11,7 @@
 #import "HomePageChildVCViewController.h"
 #import "SearchViewController.h"    //搜索页面
 #import "ADPopView.h"
+#import "HomeSearchTView.h"
 
 @interface HomePageViewController ()<UITextFieldDelegate>
 
@@ -114,6 +115,27 @@
     self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;
+
+    //重构搜索框
+//    UITextField *searchField = [[UITextField alloc]initWithFrame:titleView.bounds];
+//    [titleView addSubview:searchField];
+//    searchField.font = PFFontL(13);
+//    searchField.layer.cornerRadius = 17.0f;
+//    searchField.layer.masksToBounds = YES;
+//    searchField.delegate = self;
+//    searchField.placeholder = @" 搜个关键词试试看？";
+////    @weakify(self)
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
+//    tap.numberOfTapsRequired = 1;
+//    [searchField addGestureRecognizer:tap];
+//
+//    searchField.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+//        UITextField *searchView = item;
+//        searchView.backgroundColor = value;
+//        if (UserGetBool(@"NightMode")) {
+//            searchView.backgroundColor = HexColor(#292D30);
+//        }
+//    });
     
     // 设置搜索框放大镜图标
     self.searchBar.lee_theme.LeeCustomConfig(@"homePage_search", ^(id item, id value) {
@@ -133,7 +155,9 @@
 //        [searchField addGestureRecognizer:tap];
 //    }
     
+    @weakify(self);
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
+        @strongify(self)
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
             //设置输入框的背景颜色
@@ -161,14 +185,16 @@
             //设置输入字体颜色
             textField.textColor = BlueColor;
             textField.delegate = self;
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap:)];
-            tap.numberOfTapsRequired = 1;
-            [textField addGestureRecognizer:tap];
         }
         if ([view isKindOfClass:NSClassFromString(@"UINavigationButton")]) {
             //            UIButton *cancel = (UIButton *)view;
             //            [cancel setTitle:@"取消" forState:UIControlStateNormal];
             
+        }
+        //ios10以下会有背景色，去掉
+        if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+            
+            [view removeFromSuperview];
         }
         
     }
@@ -187,8 +213,10 @@
 //让输入框无法进入编辑
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    return NO;
+    SearchViewController *sVC = [SearchViewController new];
+    [self.navigationController pushViewController:sVC animated:NO];
     
+    return NO;
 }
 
 //设置下方分页联动
@@ -327,12 +355,6 @@
     return arr;
 }
 
--(void)tap:(UITapGestureRecognizer *)gesture
-{
-    [self.searchBar resignFirstResponder];
-    SearchViewController *sVC = [SearchViewController new];
-    [self.navigationController pushViewController:sVC animated:NO];
-}
 
 //将title分离出一个数组
 -(NSArray *)getTitlesArrFromArr:(NSArray *)arr

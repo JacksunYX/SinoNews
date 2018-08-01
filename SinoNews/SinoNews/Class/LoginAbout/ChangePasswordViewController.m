@@ -16,10 +16,17 @@
     
     UIButton *confirmBtn;
 }
-
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation ChangePasswordViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -113,6 +120,12 @@
     [confirmBtn setSd_cornerRadius:@4];
     [confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
     [confirmBtn addTarget:self action:@selector(confirmAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    //键盘监听
+    WeakSelf
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
+    }];
     
     //集合信号
     RAC(confirmBtn,enabled) = [RACSignal combineLatest:@[oldPassword.rac_textSignal,newPassword.rac_textSignal,againPassword.rac_textSignal] reduce:^id (NSString *text1,NSString *text2,NSString *text3){

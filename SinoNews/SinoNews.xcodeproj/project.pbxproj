@@ -136,6 +136,8 @@
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
 		4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */; };
+		4C4E4956211153EC0078864D /* XYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E4955211153EC0078864D /* XYButton.m */; };
+		4C4E4959211159600078864D /* HomeSearchTView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E4958211159600078864D /* HomeSearchTView.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */; };
@@ -591,6 +593,10 @@
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		4C4DF4DF20F87CCB005E6197 /* TopBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopBaseViewController.h; sourceTree = "<group>"; };
 		4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopBaseViewController.m; sourceTree = "<group>"; };
+		4C4E4954211153EC0078864D /* XYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYButton.h; sourceTree = "<group>"; };
+		4C4E4955211153EC0078864D /* XYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYButton.m; sourceTree = "<group>"; };
+		4C4E4957211159600078864D /* HomeSearchTView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSearchTView.h; sourceTree = "<group>"; };
+		4C4E4958211159600078864D /* HomeSearchTView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSearchTView.m; sourceTree = "<group>"; };
 		4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareAndFunctionView.h; sourceTree = "<group>"; };
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
@@ -1547,6 +1553,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C4E4953211153DD0078864D /* XYButton */,
 				4C510B5821103C1F00706185 /* LCFastSingleton */,
 				4C03F52D2101BE9F00574136 /* FDFullscreenPopGesture */,
 				4C7234FC20FF373C00D5C5D4 /* InputView */,
@@ -1629,6 +1636,8 @@
 				4C17BC7C21002D2A0021055B /* CateChismTableViewCell.m */,
 				4C1B5ADA2106D84600A47563 /* PopNoticeView.h */,
 				4C1B5ADB2106D84600A47563 /* PopNoticeView.m */,
+				4C4E4957211159600078864D /* HomeSearchTView.h */,
+				4C4E4958211159600078864D /* HomeSearchTView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1693,6 +1702,15 @@
 				4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */,
 			);
 			path = UIView;
+			sourceTree = "<group>";
+		};
+		4C4E4953211153DD0078864D /* XYButton */ = {
+			isa = PBXGroup;
+			children = (
+				4C4E4954211153EC0078864D /* XYButton.h */,
+				4C4E4955211153EC0078864D /* XYButton.m */,
+			);
+			path = XYButton;
 			sourceTree = "<group>";
 		};
 		4C4ED9E820E39B1500347974 /* UIViewController */ = {
@@ -2688,6 +2706,7 @@
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
 				4C23B3D620F5935800ACE380 /* LMStyleFontStyleCell.m in Sources */,
+				4C4E4959211159600078864D /* HomeSearchTView.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,
 				4C51B169210EC690007EF10B /* MineTipsModel.m in Sources */,
 				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,
@@ -2700,6 +2719,7 @@
 				4C7234E020FDEB1D00D5C5D4 /* AAStyle.m in Sources */,
 				4C6332D620E0D11000D80056 /* CommentDetailViewController.m in Sources */,
 				4C72347D20FD8C6D00D5C5D4 /* PYSearchConst.m in Sources */,
+				4C4E4956211153EC0078864D /* XYButton.m in Sources */,
 				4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */,
 				4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */,
 				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,

@@ -77,9 +77,9 @@ CGFloat static titleViewHeight = 91;
     [self addTableView];
     
     [self showOrHideLoadView:YES page:2];
-    
+
     [self hiddenTopLine];
-    
+
     [self requestNewData];
 }
 
@@ -528,7 +528,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
 //    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
-    _tableView.enableDirection = YES;
+    
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];

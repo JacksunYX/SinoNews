@@ -43,7 +43,7 @@ static CGFloat topHeight = 235;
         _tableView.separatorInset = UIEdgeInsetsMake(0, 38, 0, 10);
         _tableView.contentInset = UIEdgeInsetsMake(topHeight, 0, 0, 0);
         _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
-        _tableView.enableDirection = YES;
+        
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
     return _tableView;

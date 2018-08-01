@@ -96,7 +96,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _tableView.enableDirection = YES;
+    
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
     [_tableView registerClass:[CateChismTableViewCell class] forCellReuseIdentifier:CateChismTableViewCellID];

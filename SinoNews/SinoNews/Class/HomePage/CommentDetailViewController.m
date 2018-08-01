@@ -168,7 +168,7 @@
     _tableView.separatorInset = UIEdgeInsetsMake(0, 38, 0, 10);
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 //    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
-    _tableView.enableDirection = YES;
+    
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];

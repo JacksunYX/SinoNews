@@ -11,6 +11,7 @@
 {
     UIImageView *img;
     UILabel *title;
+    UILabel *goInto;    //进入
     UILabel *introduce;
 }
 @end
@@ -40,13 +41,23 @@
 
 -(void)setUI
 {
-    UIImageView *star = [UIImageView new];
+//    UIImageView *star = [UIImageView new];
     
     img = [UIImageView new];
     
     title = [UILabel new];
     title.font = PFFontR(16);
     [title addTitleColorTheme];
+    
+    UILabel *goInto = [UILabel new];
+    goInto.font = PFFontL(15);
+    goInto.textAlignment = NSTextAlignmentCenter;
+    goInto.textColor = HexColor(#1282EE);
+    goInto.layer.borderColor = HexColor(#1282EE).CGColor;
+    goInto.layer.borderWidth = 1;
+    
+    UIView *sepLine = [UIView new];
+    [sepLine addCutLineColor];
     
     introduce = [UILabel new];
     introduce.font = PFFontL(15);
@@ -55,35 +66,55 @@
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
-                                 star,
+//                                 star,
                                  img,
+                                 goInto,
                                  title,
-                                 introduce,
+                                 sepLine,
+//                                 introduce,
                                  ]];
-    star.sd_layout
-    .leftSpaceToView(fatherView, 10)
-    .topSpaceToView(fatherView, 10)
-    .widthIs(54)
-    .heightIs(61)
+//    star.sd_layout
+//    .leftSpaceToView(fatherView, 10)
+//    .topSpaceToView(fatherView, 10)
+//    .widthIs(54)
+//    .heightIs(61)
     ;
-    star.image = UIImageNamed(@"game_sixStar");
+//    star.image = UIImageNamed(@"game_sixStar");
     
     img.sd_layout
-    .centerXEqualToView(star)
-    .centerYEqualToView(star)
+//    .centerXEqualToView(fatherView)
+    .leftSpaceToView(fatherView, 40)
+    .centerYEqualToView(fatherView)
     .widthIs(50)
     .heightEqualToWidth()
     ;
 //    img.image = UIImageNamed(@"user_icon");
     [img setSd_cornerRadius:@25];
     
+    goInto.sd_layout
+    .rightSpaceToView(fatherView, 40)
+    .centerYEqualToView(fatherView)
+    .widthIs(58)
+    .heightIs(22)
+    ;
+    goInto.text = @"进入";
+    [goInto setSd_cornerRadius:@4];
+    
     title.sd_layout
     .leftSpaceToView(img, 9)
     .centerYEqualToView(img)
     .heightIs(16)
-    .rightSpaceToView(fatherView, 10)
+//    .rightSpaceToView(fatherView, 10)
     ;
+    [title setSingleLineAutoResizeWithMaxWidth:100];
 //    title.text = @"猜大小娱乐场";
+    
+    sepLine.sd_layout
+    .bottomEqualToView(fatherView)
+    .heightIs(1)
+    .leftSpaceToView(fatherView, 40)
+    .rightSpaceToView(fatherView, 40)
+    ;
     
     introduce.sd_layout
     .leftSpaceToView(fatherView, 10)
@@ -101,7 +132,7 @@
     
     title.text = GetSaveString(model.companyName);
     
-    introduce.text = GetSaveString(model.information);
+//    introduce.text = GetSaveString(model.information);
     
     [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.logo))];
 }

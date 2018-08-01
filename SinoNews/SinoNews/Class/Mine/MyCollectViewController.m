@@ -88,6 +88,12 @@
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -187,7 +193,6 @@
             [self requestNewsList];
         }
     }];
-    [self.tableView.mj_header beginRefreshing];
     
     [self.tableView.mj_footer setHidden:YES];
 }
@@ -403,7 +408,8 @@
     if (selectedIndex == 1) {
         return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     }else if (selectedIndex == 0){
-        return 128;
+//        return 128;
+        return 70;
     }
     return 0;
 }
@@ -500,24 +506,38 @@
 }
 
 // 进入编辑模式，按下出现的编辑按钮后,进行删除操作
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (selectedIndex == 0) {
+//        if (editingStyle == UITableViewCellEditingStyleDelete) {
+//
+//        }
+//    }
+//}
+
+// 修改编辑按钮文字
+//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return @"取消收藏";
+//}
+
+-(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (selectedIndex == 0) {
-        if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //添加取消收藏按钮
+        UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             NSArray *arr;
-            if (selectedIndex == 0) {
+            if (self->selectedIndex == 0) {
                 arr = self.casinoArray;
-            }else if (selectedIndex == 1){
+            }else if (self->selectedIndex == 1){
                 arr = self.articleArray;
             }
             [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
             [self requestCancelCompanysCollects];
-        }
+        }];
+        cancelCollectAction.backgroundColor = HexColor(#51AAFF);
+        
+        return @[cancelCollectAction];
     }
-}
-
-// 修改编辑按钮文字
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"取消收藏";
+    return nil;
 }
 
 #pragma mark ---- MLMSegmentHeadDelegate

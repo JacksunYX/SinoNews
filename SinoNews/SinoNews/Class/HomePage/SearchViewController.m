@@ -335,6 +335,10 @@
             self.tableView.hidden = YES;
             self.collectionView.hidden = NO;
             self.keyTableView.hidden = YES;
+            //需要考虑一种情况，就是如果当前搜索框有文字时，需要展示上次的搜索关键词列表
+            if (self.searchField.text.length>0) {
+                [self showWithStatus:2];
+            }
         }
             break;
             
@@ -530,6 +534,8 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self.searchBar resignFirstResponder];
+    //发送请求
+    [self requestSearchNewsListWithText:searchBar.text];
     //搜索关键词
     [self showWithStatus:1];
 }

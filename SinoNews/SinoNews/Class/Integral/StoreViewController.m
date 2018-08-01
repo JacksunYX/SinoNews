@@ -40,7 +40,14 @@
     
     [self requestMallcCategory];
     
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"无数据"];
+    //监听登录
+//    @weakify(self)
+//    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+//        @strongify(self)
+//
+//    }];
+    
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"无商品"];
 }
 
 - (void)didReceiveMemoryWarning {

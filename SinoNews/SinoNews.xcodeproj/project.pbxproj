@@ -138,6 +138,9 @@
 		4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DF4E020F87CCB005E6197 /* TopBaseViewController.m */; };
 		4C4E4956211153EC0078864D /* XYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E4955211153EC0078864D /* XYButton.m */; };
 		4C4E4959211159600078864D /* HomeSearchTView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E4958211159600078864D /* HomeSearchTView.m */; };
+		4C4E495C2111A1380078864D /* ExchangeRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E495B2111A1380078864D /* ExchangeRecordCell.m */; };
+		4C4E495F2111A7A90078864D /* ExchangeRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E495E2111A7A90078864D /* ExchangeRecordModel.m */; };
+		4C4E49622111B43D0078864D /* ExchangePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E49612111B43D0078864D /* ExchangePopView.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */; };
@@ -597,6 +600,12 @@
 		4C4E4955211153EC0078864D /* XYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYButton.m; sourceTree = "<group>"; };
 		4C4E4957211159600078864D /* HomeSearchTView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSearchTView.h; sourceTree = "<group>"; };
 		4C4E4958211159600078864D /* HomeSearchTView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSearchTView.m; sourceTree = "<group>"; };
+		4C4E495A2111A1380078864D /* ExchangeRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeRecordCell.h; sourceTree = "<group>"; };
+		4C4E495B2111A1380078864D /* ExchangeRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRecordCell.m; sourceTree = "<group>"; };
+		4C4E495D2111A7A90078864D /* ExchangeRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangeRecordModel.h; sourceTree = "<group>"; };
+		4C4E495E2111A7A90078864D /* ExchangeRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRecordModel.m; sourceTree = "<group>"; };
+		4C4E49602111B43D0078864D /* ExchangePopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangePopView.h; sourceTree = "<group>"; };
+		4C4E49612111B43D0078864D /* ExchangePopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangePopView.m; sourceTree = "<group>"; };
 		4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareAndFunctionView.h; sourceTree = "<group>"; };
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
@@ -987,6 +996,10 @@
 				4C17413620C4D94700AA6D57 /* StoreChildCell.m */,
 				4C17414D20C545EF00AA6D57 /* ManagerRecordCell.h */,
 				4C17414E20C545EF00AA6D57 /* ManagerRecordCell.m */,
+				4C4E495A2111A1380078864D /* ExchangeRecordCell.h */,
+				4C4E495B2111A1380078864D /* ExchangeRecordCell.m */,
+				4C4E49602111B43D0078864D /* ExchangePopView.h */,
+				4C4E49612111B43D0078864D /* ExchangePopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1041,6 +1054,8 @@
 				4C1551DE20E633720030670F /* IntegralModel.m */,
 				4C1F0AE320ECC45300C3A2E7 /* ProductDetailModel.h */,
 				4C1F0AE420ECC45300C3A2E7 /* ProductDetailModel.m */,
+				4C4E495D2111A7A90078864D /* ExchangeRecordModel.h */,
+				4C4E495E2111A7A90078864D /* ExchangeRecordModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2555,10 +2570,12 @@
 				4C7234F520FEEB8800D5C5D4 /* CatechismSecondeViewController.m in Sources */,
 				4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */,
 				4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */,
+				4C4E495F2111A7A90078864D /* ExchangeRecordModel.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
 				4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */,
 				4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
+				4C4E49622111B43D0078864D /* ExchangePopView.m in Sources */,
 				4C7234D820FDEB1D00D5C5D4 /* AALine.m in Sources */,
 				4C7234D520FDEB1D00D5C5D4 /* AAXAxis.m in Sources */,
 				4C7234D220FDEB1D00D5C5D4 /* AAAreaspline.m in Sources */,
@@ -2584,6 +2601,7 @@
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
+				4C4E495C2111A1380078864D /* ExchangeRecordCell.m in Sources */,
 				4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
 				4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */,

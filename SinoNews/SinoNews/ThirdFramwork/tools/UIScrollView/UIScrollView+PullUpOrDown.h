@@ -10,7 +10,8 @@
 
 @interface UIScrollView (PullUpOrDown)
 
-
+//停止所有刷新动作
+-(void)endAllRefresh;
 
 /**
  根据页码和模型数组来统一处理上下拉行为

@@ -37,4 +37,11 @@ static int maxPerPage = 10; //每页最大数量
     return dataSource;
 }
 
+//停止所有刷新动作
+-(void)endAllRefresh
+{
+    [self.mj_header endRefreshing];
+    [self.mj_footer endRefreshing];
+}
+
 @end

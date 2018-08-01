@@ -8,6 +8,9 @@
 
 #import "ManagerViewController.h"
 #import "ManagerRecordCell.h"
+#import "ExchangeRecordCell.h"
+
+#import "ExchangePopView.h"
 
 @interface ManagerViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -20,9 +23,14 @@
 @property (nonatomic,strong) CAGradientLayer *gradient; //渐变色覆盖物
 
 @property (nonatomic,strong) BaseTableView *tableView;
-@property (nonatomic,strong) NSMutableArray *dataSource;
-@property (nonatomic,assign) NSInteger page;
+@property (nonatomic,strong) NSMutableArray *dataSource;    //积分记录数据
+@property (nonatomic,strong) NSMutableArray *gameRecordArr; //游戏记录数据
+@property (nonatomic,strong) NSMutableArray *exchangeRecordArr; //兑换记录数据
 
+@property (nonatomic,assign) NSInteger pageNo1;
+@property (nonatomic,assign) NSInteger pageNo2;
+
+@property (nonatomic,assign) NSInteger selectIndex; //选择的下标
 @property (nonatomic ,strong) UserModel *user;
 @end
 
@@ -95,6 +103,22 @@
 //        }
     }
     return _dataSource;
+}
+
+-(NSMutableArray *)gameRecordArr
+{
+    if (!_gameRecordArr) {
+        _gameRecordArr = [NSMutableArray new];
+    }
+    return _gameRecordArr;
+}
+
+-(NSMutableArray *)exchangeRecordArr
+{
+    if (!_exchangeRecordArr) {
+        _exchangeRecordArr = [NSMutableArray new];
+    }
+    return _exchangeRecordArr;
 }
 
 - (CAGradientLayer *)gradient
@@ -196,7 +220,7 @@
     [_segmentView updateLayout];
     _segmentView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         LXSegmentBtnView *item2 = (LXSegmentBtnView *)item;
-        item2.btnTitleSelectColor = RGBA(18, 130, 238, 1);
+        item2.btnTitleSelectColor = HexColor(#FFFFFF);
         item2.btnTitleNormalColor = RGBA(136, 136, 136, 1);
         item2.btnBackgroundNormalColor = value;
         item2.btnBackgroundSelectColor = value;
@@ -207,9 +231,21 @@
     });
     
     
-    WeakSelf
+    @weakify(self)
     _segmentView.lxSegmentBtnSelectIndexBlock = ^(NSInteger index, UIButton *btn) {
-        [weakSelf setColorWithBtn:btn];
+        @strongify(self)
+        [self setColorWithBtn:btn];
+        if (self.selectIndex == index) {
+            return ;
+        }
+        self.selectIndex = index;
+        [self.tableView reloadData];
+        
+        if (index == 1) {
+            return;
+        }
+        
+        [self.tableView.mj_header beginRefreshing];
     };
     
     _segmentView.btnTitleArray = @[
@@ -243,6 +279,8 @@
     _tableView.delegate = self;
     //注册
     [_tableView registerClass:[ManagerRecordCell class] forCellReuseIdentifier:ManagerRecordCellID];
+    [_tableView registerClass:[ExchangeRecordCell class] forCellReuseIdentifier:ExchangeRecordCellID];
+    
     
     @weakify(self)
     _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
@@ -251,8 +289,17 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
-        self.page = 1;
-        [self requestPointsListWithLoadType:0];
+        
+        if (self.selectIndex == 0) {    //积分记录
+            [self requestPointsListWithLoadType:0];
+        }else if (self.selectIndex == 1){
+            self.pageNo1 = 1;
+            
+        }else if (self.selectIndex == 2){   //兑换记录
+            self.pageNo2 = 1;
+            [self requestMall_exchangeRecord];
+        }
+        
         [self requestToGetUserInfo];
     }];
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -261,12 +308,21 @@
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
-        if (!self.dataSource.count) {
-            self.page = 1;
-        }else{
-            self.page++;
+        
+        if (self.selectIndex == 0) {    //积分记录
+            [self requestPointsListWithLoadType:1];
+        }else if (self.selectIndex == 1){
+            self.pageNo1 ++;
+            
+        }else if (self.selectIndex == 2){   //兑换记录
+            if (self.exchangeRecordArr.count>0) {
+                self.pageNo2 ++;
+            }else{
+                self.pageNo2 = 1;
+            }
+            [self requestMall_exchangeRecord];
         }
-        [self requestPointsListWithLoadType:1];
+        
     }];
     [_tableView.mj_header beginRefreshing];
 }
@@ -279,21 +335,42 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataSource.count;
+    if (self.selectIndex == 0) {
+        return self.dataSource.count;
+    }
+    if (self.selectIndex == 2) {
+        return self.exchangeRecordArr.count;
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ManagerRecordCell *cell = (ManagerRecordCell *)[tableView dequeueReusableCellWithIdentifier:ManagerRecordCellID];
-    cell.model = self.dataSource[indexPath.row];
-    [cell addBakcgroundColorTheme];
+    UITableViewCell *cell;
+    if (self.selectIndex == 0) {
+        ManagerRecordCell *cell1 = (ManagerRecordCell *)[tableView dequeueReusableCellWithIdentifier:ManagerRecordCellID];
+        cell1.model = self.dataSource[indexPath.row];
+        [cell1 addBakcgroundColorTheme];
+        cell = cell1;
+    }else if (self.selectIndex == 2){
+        ExchangeRecordCell *cell1 = (ExchangeRecordCell *)[tableView dequeueReusableCellWithIdentifier:ExchangeRecordCellID];
+        cell1.model = self.exchangeRecordArr[indexPath.row];
+        [cell1 addBakcgroundColorTheme];
+        cell = cell1;
+    }
+    
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenH tableView:tableView];
-    return 40;
+    if (self.selectIndex == 0) {
+        return 40;
+    }else if (self.selectIndex == 2){
+        return 94;
+    }
+    return 0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -303,111 +380,208 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (kArrayIsEmpty(self.dataSource)) {
-        return 0.01;
+    if (self.selectIndex == 0&&!kArrayIsEmpty(self.dataSource)) {
+        return 35;
+    }else if (self.selectIndex == 2){
+        return 35;
     }
-    return 35;
+    
+    return 0.01;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *headView = [UIView new];
-    if (kArrayIsEmpty(self.dataSource)) {
-        return nil;
-    }
-    [headView addBakcgroundColorTheme];
-    UIView *topLine = [UIView new];
-    
-    UIView *leftLine = [UIView new];
-    
-    UIView *rightLine = [UIView new];
-    
-    UIView *bottomLine = [UIView new];
-    
-    headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        [(UIView *)item setBackgroundColor:value];
-        topLine.backgroundColor = CutLineColor;
-        leftLine.backgroundColor = CutLineColor;
-        rightLine.backgroundColor = CutLineColor;
-        bottomLine.backgroundColor = CutLineColor;
-        if (UserGetBool(@"NightMode")) {
-            topLine.backgroundColor = CutLineColorNight;
-            leftLine.backgroundColor = CutLineColorNight;
-            rightLine.backgroundColor = CutLineColorNight;
-            bottomLine.backgroundColor = CutLineColorNight;
-        }
-    });
-    
-    [headView sd_addSubviews:@[
-                               topLine,
-                               leftLine,
-                               rightLine,
-                               bottomLine,
-                               ]];
-    topLine.sd_layout
-    .topEqualToView(headView)
-    .leftSpaceToView(headView, 10)
-    .rightSpaceToView(headView, 10)
-    .heightIs(1)
-    ;
-    
-    leftLine.sd_layout
-    .leftSpaceToView(headView, 10)
-    .topEqualToView(headView)
-    .bottomEqualToView(headView)
-    .widthIs(1)
-    ;
-    
-    rightLine.sd_layout
-    .rightSpaceToView(headView, 10)
-    .topEqualToView(headView)
-    .bottomEqualToView(headView)
-    .widthIs(1)
-    ;
-    
-    bottomLine.sd_layout
-    .leftSpaceToView(headView, 10)
-    .rightSpaceToView(headView, 10)
-    .bottomEqualToView(headView)
-    .heightIs(1)
-    ;
-
-    NSArray *headTitle = @[
-                           @"行为",
-                           @"时间",
-                           @"积分变化",
-                           @"余额",
-                           ];
-    CGFloat lrMargin = 10;
-    CGFloat xMargin = 0;
-    CGFloat labelWid = (ScreenW - 2 * lrMargin)/headTitle.count;
-    CGFloat labelHei = 35;
-    CGFloat x = lrMargin;
-    
-    for (int i = 0; i < headTitle.count; i ++) {
-        UILabel *label = [UILabel new];
-        label.font = Font(15);
-        [label addTitleColorTheme];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = GetSaveString(headTitle[i]);
+    UIView *headView;
+    if (!kArrayIsEmpty(self.dataSource)&&self.selectIndex == 0) {
+        headView = [UIView new];
+        [headView addBakcgroundColorTheme];
+        UIView *topLine = [UIView new];
         
-        [headView addSubview:label];
-        label.sd_layout
+        UIView *leftLine = [UIView new];
+        
+        UIView *rightLine = [UIView new];
+        
+        UIView *bottomLine = [UIView new];
+        
+        headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            [(UIView *)item setBackgroundColor:value];
+            topLine.backgroundColor = CutLineColor;
+            leftLine.backgroundColor = CutLineColor;
+            rightLine.backgroundColor = CutLineColor;
+            bottomLine.backgroundColor = CutLineColor;
+            if (UserGetBool(@"NightMode")) {
+                topLine.backgroundColor = CutLineColorNight;
+                leftLine.backgroundColor = CutLineColorNight;
+                rightLine.backgroundColor = CutLineColorNight;
+                bottomLine.backgroundColor = CutLineColorNight;
+            }
+        });
+        
+        [headView sd_addSubviews:@[
+                                   topLine,
+                                   leftLine,
+                                   rightLine,
+                                   bottomLine,
+                                   ]];
+        topLine.sd_layout
         .topEqualToView(headView)
-        .leftSpaceToView(headView, x)
-        .widthIs(labelWid)
-        .heightIs(labelHei)
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .heightIs(1)
         ;
         
-        x += xMargin + labelWid;
+        leftLine.sd_layout
+        .leftSpaceToView(headView, 10)
+        .topEqualToView(headView)
+        .bottomEqualToView(headView)
+        .widthIs(1)
+        ;
+        
+        rightLine.sd_layout
+        .rightSpaceToView(headView, 10)
+        .topEqualToView(headView)
+        .bottomEqualToView(headView)
+        .widthIs(1)
+        ;
+        
+        bottomLine.sd_layout
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .bottomEqualToView(headView)
+        .heightIs(1)
+        ;
+        
+        NSArray *headTitle = @[
+                               @"行为",
+                               @"时间",
+                               @"积分变化",
+                               @"余额",
+                               ];
+        CGFloat lrMargin = 10;
+        CGFloat xMargin = 0;
+        CGFloat labelWid = (ScreenW - 2 * lrMargin)/headTitle.count;
+        CGFloat labelHei = 35;
+        CGFloat x = lrMargin;
+        
+        for (int i = 0; i < headTitle.count; i ++) {
+            UILabel *label = [UILabel new];
+            label.font = Font(15);
+            [label addTitleColorTheme];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.text = GetSaveString(headTitle[i]);
+            
+            [headView addSubview:label];
+            label.sd_layout
+            .topEqualToView(headView)
+            .leftSpaceToView(headView, x)
+            .widthIs(labelWid)
+            .heightIs(labelHei)
+            ;
+            
+            x += xMargin + labelWid;
+        }
+    }else if (self.selectIndex == 2)
+    {
+        headView = [UIView new];
+        [headView addBakcgroundColorTheme];
+        UIView *topLine = [UIView new];
+        
+        UIView *leftLine = [UIView new];
+        
+        UIView *rightLine = [UIView new];
+        
+        UIView *bottomLine = [UIView new];
+        
+        headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            [(UIView *)item setBackgroundColor:value];
+            topLine.backgroundColor = CutLineColor;
+            leftLine.backgroundColor = CutLineColor;
+            rightLine.backgroundColor = CutLineColor;
+            bottomLine.backgroundColor = CutLineColor;
+            if (UserGetBool(@"NightMode")) {
+                topLine.backgroundColor = CutLineColorNight;
+                leftLine.backgroundColor = CutLineColorNight;
+                rightLine.backgroundColor = CutLineColorNight;
+                bottomLine.backgroundColor = CutLineColorNight;
+            }
+        });
+        
+        [headView sd_addSubviews:@[
+                                   topLine,
+                                   leftLine,
+                                   rightLine,
+                                   bottomLine,
+                                   ]];
+        topLine.sd_layout
+        .topEqualToView(headView)
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .heightIs(1)
+        ;
+        
+        leftLine.sd_layout
+        .leftSpaceToView(headView, 10)
+        .topEqualToView(headView)
+        .bottomEqualToView(headView)
+        .widthIs(1)
+        ;
+        
+        rightLine.sd_layout
+        .rightSpaceToView(headView, 10)
+        .topEqualToView(headView)
+        .bottomEqualToView(headView)
+        .widthIs(1)
+        ;
+        
+        bottomLine.sd_layout
+        .leftSpaceToView(headView, 10)
+        .rightSpaceToView(headView, 10)
+        .bottomEqualToView(headView)
+        .heightIs(1)
+        ;
+        
+        NSArray *headTitle = @[
+                               @"商品详情",
+                               @"时间",
+                               @"积分",
+                               ];
+        CGFloat lrMargin = 10;
+        CGFloat xMargin = 0;
+        CGFloat labelWid = (ScreenW - 2 * lrMargin)/4;
+        CGFloat labelHei = 35;
+        CGFloat x = lrMargin;
+        
+        for (int i = 0; i < headTitle.count; i ++) {
+            UILabel *label = [UILabel new];
+            label.font = Font(15);
+            [label addTitleColorTheme];
+            label.textAlignment = NSTextAlignmentCenter;
+            label.text = GetSaveString(headTitle[i]);
+            
+            [headView addSubview:label];
+            CGFloat labW = labelWid;
+            if (i == 0) {
+                labW = labelWid * 2;
+            }
+            label.sd_layout
+            .topEqualToView(headView)
+            .leftSpaceToView(headView, x)
+            .widthIs(labW)
+            .heightIs(labelHei)
+            ;
+            
+            x += xMargin + labW;
+        }
     }
-    
+
     return headView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GGLog(@"点击了第%ld个",indexPath.row);
+    if (self.selectIndex == 2) {
+        [ExchangePopView showWithData:self.exchangeRecordArr[indexPath.row]];
+    }
 }
 
 #pragma mark ---- 请求发送
@@ -422,14 +596,26 @@
         if (loadType == 0) {
             self.dataSource = [[data arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         }else{
             [self.dataSource addObjectsFromArray:data];
             [self.tableView.mj_footer endRefreshing];
         }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        [self.tableView endAllRefresh];
+    }];
+}
+
+//请求兑换列表
+-(void)requestMall_exchangeRecord
+{
+    [HttpRequest getWithURLString:Mall_exchangeRecord parameters:@{@"pageNo":@(self.pageNo2)} success:^(id responseObject) {
+        NSArray *data = [ExchangeRecordModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.exchangeRecordArr = [self.tableView pullWithPage:self.pageNo2 data:data dataSource:self.exchangeRecordArr];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
     }];
 }
 

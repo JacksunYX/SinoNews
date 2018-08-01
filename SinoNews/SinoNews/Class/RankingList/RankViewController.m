@@ -251,7 +251,6 @@
     }
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (collectionView == self.lineCollectionView) {
         return self.datasource.count;

@@ -19,9 +19,10 @@
 //购买商品(post)
 #define Mall_buy        @"/api/mall/buy"
 
-//用户积分管理(get)
+//用户积分记录(get)
 #define PointsBalanceSheet  @"/api/points/viewPointsBalanceSheet"
-
+//用户兑换记录(get)
+#define Mall_exchangeRecord @"/api/mall/exchangeRecord"
 //积分充值(post)
 #define Mall_recharge   @"/api/mall/recharge"
 

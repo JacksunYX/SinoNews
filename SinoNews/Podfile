@@ -40,5 +40,7 @@ pod 'RTRootNavigationController'
 pod 'LEETheme'
 pod 'XHLaunchAd'
 pod 'UINavigation-SXFixSpace'
+pod 'JHChainableAnimations', '~> 3.0.1'
+
 
 end

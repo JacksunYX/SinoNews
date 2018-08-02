@@ -341,6 +341,8 @@ CGFloat static titleViewHeight = 91;
         
         [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
+//            JHChainableAnimator *animator = [[JHChainableAnimator alloc] initWithView:self.collectBtn];
+//            animator.makeScale(2.0).spring.animate(1.0);
             [self requestCollectNews];
         }];
         
@@ -362,6 +364,7 @@ CGFloat static titleViewHeight = 91;
         .widthIs(21)
         .heightIs(21)
         ;
+        [shareBtn updateLayout];
         [shareBtn addButtonNormalImage:@"news_share"];
         
         _collectBtn.sd_layout
@@ -370,6 +373,7 @@ CGFloat static titleViewHeight = 91;
         .widthIs(22)
         .heightIs(22)
         ;
+        [_collectBtn updateLayout];
         [_collectBtn addButtonNormalImage:@"news_unCollect"];
         [_collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
         
@@ -379,6 +383,7 @@ CGFloat static titleViewHeight = 91;
         .widthIs(22)
         .heightIs(21)
         ;
+        [_praiseBtn updateLayout];
         [_praiseBtn addButtonNormalImage:@"news_unPraise"];
         [_praiseBtn setImage:UIImageNamed(@"news_praised") forState:UIControlStateSelected];
         
@@ -623,15 +628,14 @@ CGFloat static titleViewHeight = 91;
         }
     }];
     
-    
     //加载页面
-    
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
-    
+
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
+//    [self.webView loadHTMLString:GetSaveString(self.newsModel.fullContent) baseURL:nil];
     [self showOrHideLoadView:YES page:2];
 }
 

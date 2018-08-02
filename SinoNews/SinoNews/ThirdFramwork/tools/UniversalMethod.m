@@ -324,10 +324,12 @@
             
         }else{
             //白色背景，蓝色字体，蓝色边框
-            label.backgroundColor = WhiteColor;
-            label.textColor = HexColor(#1282EE);
-            label.layer.borderColor = HexColor(#1282EE).CGColor;
-            label.layer.borderWidth = 1;
+//            label.backgroundColor = WhiteColor;
+//            label.textColor = HexColor(#1282EE);
+//            label.layer.borderColor = HexColor(#1282EE).CGColor;
+//            label.layer.borderWidth = 1;
+            //目前跟专题一样的显示效果
+            label.backgroundColor = HexColor(#1282EE);
         }
         label.text = string;
     }else{

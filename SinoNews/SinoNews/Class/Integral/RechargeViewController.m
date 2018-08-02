@@ -85,6 +85,13 @@
     
 //    [self updatePayBtnStatus:0 endEdite:YES];
     
+    //监听登录
+    @weakify(self)
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self requestToGetUserInfo];
+    }];
+    
     [self requestToGetUserInfo];
 }
 

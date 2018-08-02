@@ -38,6 +38,8 @@
 
 //新增,投票网页地址
 @property (nonatomic,strong) NSString *voteUrl;
+//新增完整的h5内容
+@property (nonatomic,strong) NSString *fullContent;
 
 //这里暂时用来判断是哪种展示方式：100无图 101一图
 @property (nonatomic, assign) NSInteger itemType;   //1为普通新闻

@@ -158,6 +158,15 @@
     
     [self setupTopViews];
     [self addTableView];
+    
+    //监听登录
+    @weakify(self)
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self requestToGetUserInfo];
+    }];
+    
+    [self requestToGetUserInfo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -300,7 +309,6 @@
             [self requestMall_exchangeRecord];
         }
         
-        [self requestToGetUserInfo];
     }];
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self)

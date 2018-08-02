@@ -177,7 +177,14 @@
 //    behavior.attributedText = attStr;
 //    NSLog(@"behavior:%@",behaviorStr);
     behavior.text = GetSaveString(model.pointsType);
-    time.text = GetSaveString(model.time);
+    if (GetSaveString(model.time)) {
+        if (model.time.length>10) {
+            time.text = [GetSaveString(model.time) stringByReplacingCharactersInRange:NSMakeRange(10, model.time.length - 10) withString:@""];
+        }else{
+            time.text = GetSaveString(model.time);
+        }
+    }
+    
     integerChange.text = GetSaveString(model.pointsChange);
     if ([model.pointsChange containsString:@"-"]) {
         integerChange.textColor = RGBA(152, 152, 152, 1);

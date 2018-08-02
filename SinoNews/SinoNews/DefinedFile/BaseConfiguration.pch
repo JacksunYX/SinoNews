@@ -91,5 +91,7 @@
 #import <UINavigationConfig.h>
 
 #import <KafkaRefresh.h>
+//动画库
+#import <JHChainableAnimations/JHChainableAnimations.h>
 
 #endif /* BaseConfiguration_pch */

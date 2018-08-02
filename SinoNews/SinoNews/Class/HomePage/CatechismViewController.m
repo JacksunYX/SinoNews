@@ -37,7 +37,7 @@
 
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
-@property (nonatomic,strong) UIButton *collectBtn;
+@property (nonatomic,strong) ZXYShineButton *collectBtn;
 @property (nonatomic,strong) UIView *sortView;  //排序视图
 
 @property (nonatomic,strong) UIView *naviTitle;
@@ -383,7 +383,7 @@ CGFloat static titleViewHeight = 91;
         });
         
         _praiseBtn = [UIButton new];
-        _collectBtn = [UIButton new];
+        _collectBtn = [ZXYShineButton new];
         UIButton *shareBtn = [UIButton new];
         UIButton *answerInput = [UIButton new];
         
@@ -430,8 +430,26 @@ CGFloat static titleViewHeight = 91;
         .heightIs(22)
         ;
         [_collectBtn updateLayout];
-        [_collectBtn addButtonNormalImage:@"news_unCollect"];
-        [_collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
+        _collectBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            ZXYShineButton *btn = item;
+            ZXYShineParams *params = [ZXYShineParams new];
+            if (UserGetBool(@"NightMode")) {
+                btn.norImg = UIImageNamed(@"news_unCollect_night");
+                btn.selImg = UIImageNamed(@"news_collected_night");
+                btn.color = HexColor(#cfd3d6);
+                btn.fillColor = HexColor(#1282ee);
+                params.bigShineColor = HexColor(#1282ee);
+                params.smallShineColor = BlueColor;
+            }else{
+                btn.norImg = UIImageNamed(@"news_unCollect");
+                btn.selImg = UIImageNamed(@"news_collected");
+                btn.color = HexColor(#1A1A1A);      //未选中时的颜色
+                btn.fillColor = HexColor(#ef9f00);  //选中后的填充色
+                params.bigShineColor = HexColor(#ef9f00);
+                params.smallShineColor = RedColor;
+            }
+            btn.params = params;
+        });
         
         _praiseBtn.sd_layout
         .rightSpaceToView(_collectBtn, 30)
@@ -471,7 +489,9 @@ CGFloat static titleViewHeight = 91;
         }];
     }
     
-    self.collectBtn.selected = self.newsModel.isCollection;
+    if (self.collectBtn.selected != self.newsModel.isCollection) {
+        self.collectBtn.selected = self.newsModel.isCollection;
+    }
     self.praiseBtn.selected = self.newsModel.hasPraised;
     
 }

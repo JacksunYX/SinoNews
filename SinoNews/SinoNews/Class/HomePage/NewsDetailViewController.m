@@ -41,7 +41,7 @@
 
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
-@property (nonatomic,strong) UIButton *collectBtn;
+@property (nonatomic,strong) ZXYShineButton *collectBtn;
 
 @property (nonatomic,strong) UIView *bottomView2;
 
@@ -327,7 +327,7 @@ CGFloat static titleViewHeight = 91;
         //        }];
         
         _praiseBtn = [UIButton new];
-        _collectBtn = [UIButton new];
+        _collectBtn = [ZXYShineButton new];
         UIButton *shareBtn = [UIButton new];
         
         [[_praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -341,8 +341,6 @@ CGFloat static titleViewHeight = 91;
         
         [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-//            JHChainableAnimator *animator = [[JHChainableAnimator alloc] initWithView:self.collectBtn];
-//            animator.makeScale(2.0).spring.animate(1.0);
             [self requestCollectNews];
         }];
         
@@ -374,8 +372,27 @@ CGFloat static titleViewHeight = 91;
         .heightIs(22)
         ;
         [_collectBtn updateLayout];
-        [_collectBtn addButtonNormalImage:@"news_unCollect"];
-        [_collectBtn setImage:UIImageNamed(@"news_collected") forState:UIControlStateSelected];
+        
+        _collectBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            ZXYShineButton *btn = item;
+            ZXYShineParams *params = [ZXYShineParams new];
+            if (UserGetBool(@"NightMode")) {
+                btn.norImg = UIImageNamed(@"news_unCollect_night");
+                btn.selImg = UIImageNamed(@"news_collected_night");
+                btn.color = HexColor(#cfd3d6);
+                btn.fillColor = HexColor(#1282ee);
+                params.bigShineColor = HexColor(#1282ee);
+                params.smallShineColor = BlueColor;
+            }else{
+                btn.norImg = UIImageNamed(@"news_unCollect");
+                btn.selImg = UIImageNamed(@"news_collected");
+                btn.color = HexColor(#1A1A1A);      //未选中时的颜色
+                btn.fillColor = HexColor(#ef9f00);  //选中后的填充色
+                params.bigShineColor = HexColor(#ef9f00);
+                params.smallShineColor = RedColor;
+            }
+            btn.params = params;
+        });
         
         _praiseBtn.sd_layout
         .rightSpaceToView(_collectBtn, 30)
@@ -423,8 +440,9 @@ CGFloat static titleViewHeight = 91;
             [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.bottomView, nil];
         }];
     }
-    
-    self.collectBtn.selected = self.newsModel.isCollection;
+    if (self.collectBtn.selected != self.newsModel.isCollection) {
+        self.collectBtn.selected = self.newsModel.isCollection;
+    }
     self.praiseBtn.selected = self.newsModel.hasPraised;
     self.bottomView.hidden = NO;
 }
@@ -1158,11 +1176,11 @@ CGFloat static titleViewHeight = 91;
     parameters[@"newsId"] = @(self.newsId);
     [HttpRequest postWithTokenURLString:Favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         NSInteger status = [res[@"data"][@"status"] integerValue];
-        if (status == 1) {
-            LRToast(@"收藏成功");
-        }else{
-            LRToast(@"已取消收藏");
-        }
+//        if (status == 1) {
+//            LRToast(@"收藏成功");
+//        }else{
+//            LRToast(@"已取消收藏");
+//        }
         self.newsModel.isCollection = status;
         [self setBottomView];
     } failure:nil RefreshAction:^{

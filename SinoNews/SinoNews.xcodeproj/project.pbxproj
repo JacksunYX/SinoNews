@@ -141,6 +141,12 @@
 		4C4E495C2111A1380078864D /* ExchangeRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E495B2111A1380078864D /* ExchangeRecordCell.m */; };
 		4C4E495F2111A7A90078864D /* ExchangeRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E495E2111A7A90078864D /* ExchangeRecordModel.m */; };
 		4C4E49622111B43D0078864D /* ExchangePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4E49612111B43D0078864D /* ExchangePopView.m */; };
+		4C4EC3032112E3E800591F12 /* ZXYShineClickLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EC2F92112E3E800591F12 /* ZXYShineClickLayer.m */; };
+		4C4EC3042112E3E800591F12 /* ZXYShineParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EC2FA2112E3E800591F12 /* ZXYShineParams.m */; };
+		4C4EC3052112E3E800591F12 /* ZXYShineAngleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EC2FE2112E3E800591F12 /* ZXYShineAngleLayer.m */; };
+		4C4EC3062112E3E800591F12 /* ZXYShineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EC2FF2112E3E800591F12 /* ZXYShineButton.m */; };
+		4C4EC3072112E3E800591F12 /* ShineButton.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C4EC3002112E3E800591F12 /* ShineButton.bundle */; };
+		4C4EC3082112E3E800591F12 /* ZXYShineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4EC3022112E3E800591F12 /* ZXYShineLayer.m */; };
 		4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */; };
 		4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */; };
 		4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */; };
@@ -606,6 +612,18 @@
 		4C4E495E2111A7A90078864D /* ExchangeRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangeRecordModel.m; sourceTree = "<group>"; };
 		4C4E49602111B43D0078864D /* ExchangePopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExchangePopView.h; sourceTree = "<group>"; };
 		4C4E49612111B43D0078864D /* ExchangePopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExchangePopView.m; sourceTree = "<group>"; };
+		4C4EC2F72112E3E800591F12 /* ZXYShineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYShineButton.h; sourceTree = "<group>"; };
+		4C4EC2F82112E3E800591F12 /* ZXYShineAngleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYShineAngleLayer.h; sourceTree = "<group>"; };
+		4C4EC2F92112E3E800591F12 /* ZXYShineClickLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXYShineClickLayer.m; sourceTree = "<group>"; };
+		4C4EC2FA2112E3E800591F12 /* ZXYShineParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXYShineParams.m; sourceTree = "<group>"; };
+		4C4EC2FB2112E3E800591F12 /* ZXYShineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYShineLayer.h; sourceTree = "<group>"; };
+		4C4EC2FC2112E3E800591F12 /* ZXYShineClickLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYShineClickLayer.h; sourceTree = "<group>"; };
+		4C4EC2FD2112E3E800591F12 /* ZXYShineParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYShineParams.h; sourceTree = "<group>"; };
+		4C4EC2FE2112E3E800591F12 /* ZXYShineAngleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXYShineAngleLayer.m; sourceTree = "<group>"; };
+		4C4EC2FF2112E3E800591F12 /* ZXYShineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXYShineButton.m; sourceTree = "<group>"; };
+		4C4EC3002112E3E800591F12 /* ShineButton.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShineButton.bundle; sourceTree = "<group>"; };
+		4C4EC3012112E3E800591F12 /* ZXYShine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXYShine.h; sourceTree = "<group>"; };
+		4C4EC3022112E3E800591F12 /* ZXYShineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXYShineLayer.m; sourceTree = "<group>"; };
 		4C4ED9E520E3319B00347974 /* ShareAndFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareAndFunctionView.h; sourceTree = "<group>"; };
 		4C4ED9E620E3319B00347974 /* ShareAndFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareAndFunctionView.m; sourceTree = "<group>"; };
 		4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+emptyView.h"; sourceTree = "<group>"; };
@@ -1568,6 +1586,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C4EC2F62112E3E800591F12 /* ZXYShineButton */,
 				4C4E4953211153DD0078864D /* XYButton */,
 				4C510B5821103C1F00706185 /* LCFastSingleton */,
 				4C03F52D2101BE9F00574136 /* FDFullscreenPopGesture */,
@@ -1726,6 +1745,25 @@
 				4C4E4955211153EC0078864D /* XYButton.m */,
 			);
 			path = XYButton;
+			sourceTree = "<group>";
+		};
+		4C4EC2F62112E3E800591F12 /* ZXYShineButton */ = {
+			isa = PBXGroup;
+			children = (
+				4C4EC2F72112E3E800591F12 /* ZXYShineButton.h */,
+				4C4EC2F82112E3E800591F12 /* ZXYShineAngleLayer.h */,
+				4C4EC2F92112E3E800591F12 /* ZXYShineClickLayer.m */,
+				4C4EC2FA2112E3E800591F12 /* ZXYShineParams.m */,
+				4C4EC2FB2112E3E800591F12 /* ZXYShineLayer.h */,
+				4C4EC2FC2112E3E800591F12 /* ZXYShineClickLayer.h */,
+				4C4EC2FD2112E3E800591F12 /* ZXYShineParams.h */,
+				4C4EC2FE2112E3E800591F12 /* ZXYShineAngleLayer.m */,
+				4C4EC2FF2112E3E800591F12 /* ZXYShineButton.m */,
+				4C4EC3002112E3E800591F12 /* ShineButton.bundle */,
+				4C4EC3012112E3E800591F12 /* ZXYShine.h */,
+				4C4EC3022112E3E800591F12 /* ZXYShineLayer.m */,
+			);
+			path = ZXYShineButton;
 			sourceTree = "<group>";
 		};
 		4C4ED9E820E39B1500347974 /* UIViewController */ = {
@@ -2350,6 +2388,7 @@
 				4C8735F920BE8CC800B6A8B5 /* delete@3x.png in Resources */,
 				4C7234D120FDEB1D00D5C5D4 /* AAChartView.html in Resources */,
 				4C72348320FDD83800D5C5D4 /* delete_night@3x.png in Resources */,
+				4C4EC3072112E3E800591F12 /* ShineButton.bundle in Resources */,
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
 				4C23B3BA20F5924800ACE380 /* LMWord.storyboard in Resources */,
@@ -2532,6 +2571,7 @@
 				4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
+				4C4EC3052112E3E800591F12 /* ZXYShineAngleLayer.m in Sources */,
 				4C7234DD20FDEB1D00D5C5D4 /* AAColumn.m in Sources */,
 				4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */,
 				4C17BC7D21002D2A0021055B /* CateChismTableViewCell.m in Sources */,
@@ -2593,6 +2633,7 @@
 				4C8735F520BE8CC800B6A8B5 /* XLChannelHeader.m in Sources */,
 				4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */,
 				4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */,
+				4C4EC3062112E3E800591F12 /* ZXYShineButton.m in Sources */,
 				4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */,
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
@@ -2637,6 +2678,7 @@
 				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
+				4C4EC3032112E3E800591F12 /* ZXYShineClickLayer.m in Sources */,
 				4C646C6E20F346630053067A /* OfficialNotifyCell.m in Sources */,
 				4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */,
 				4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */,
@@ -2703,6 +2745,7 @@
 				4C72345E20FC6E4200D5C5D4 /* UIView+Empty.m in Sources */,
 				4CC289962105BD5F00BC4D92 /* VoteViewController.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
+				4C4EC3082112E3E800591F12 /* ZXYShineLayer.m in Sources */,
 				4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
@@ -2720,6 +2763,7 @@
 				4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */,
 				4C7234EE20FDEB1D00D5C5D4 /* AASeriesElement.m in Sources */,
 				4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */,
+				4C4EC3042112E3E800591F12 /* ZXYShineParams.m in Sources */,
 				4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,

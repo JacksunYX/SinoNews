@@ -19,6 +19,7 @@
         
         "news_share"        :   "news_share",
         "news_unCollect"    :   "news_unCollect",
+        "news_Collect"      :   "news_collected",
         "news_unPraise"     :   "news_unpraise",
         
         "channelManager_delete" : "delete",

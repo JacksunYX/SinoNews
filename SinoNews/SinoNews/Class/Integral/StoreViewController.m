@@ -120,9 +120,11 @@
         if (UserGetBool(@"NightMode")) {
             [(MLMSegmentHead *)item setBottomLineColor:CutLineColorNight];
         }
-        //来回滑动一次，解决显示问题
-        [(MLMSegmentHead *)item changeIndex:1 completion:YES];
-        [(MLMSegmentHead *)item changeIndex:0 completion:YES];
+        if (titles.count>0) {
+            //来回滑动一次，解决显示问题
+            [(MLMSegmentHead *)item changeIndex:1 completion:YES];
+            [(MLMSegmentHead *)item changeIndex:0 completion:YES];
+        }
     });
 }
 

@@ -160,7 +160,7 @@
     [self.view addSubview:self.lineCollectionView];
     [self.lineCollectionView activateConstraints:^{
 //        self.lineCollectionView.top_attr = self.headView.bottom_attr;
-        [self.lineCollectionView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 30];
+        self.lineCollectionView.top_attr = self.view.top_attr_safe;
         self.lineCollectionView.left_attr = self.view.left_attr_safe;
         self.lineCollectionView.right_attr = self.view.right_attr_safe;
         self.lineCollectionView.bottom_attr = self.adCollectionView.top_attr;
@@ -311,6 +311,9 @@
         self.adArr = response;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
+            [self.lineCollectionView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 30];
+        }else{
+            self.lineCollectionView.top_attr = self.view.top_attr_safe;
         }
     } failure:nil];
 }
@@ -320,6 +323,9 @@
 {
     [RequestGather requestBannerWithADId:5 success:^(id response) {
         self.adDatasource = response;
+        if (self.adDatasource.count<=0) {
+            self.adCollectionView.height_attr.constant = 0;
+        }
         [self.adCollectionView reloadData];
     } failure:nil];
 }

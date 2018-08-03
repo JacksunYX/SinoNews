@@ -136,7 +136,6 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     self.navigationController.navigationBar.hidden = YES;
     [self addViews];
-    [self requestBottomBanner];
     
     if (!UserGetBool(MineNotice)) {
         [PopNoticeView showWithData:@[
@@ -174,6 +173,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     [self requestUser_tips];
     [self requestGetCountOfUnreadMessage];
+    if (self.adDatasource.count<=0) {
+        [self requestBottomBanner];
+    }
     
     shakerAnimation(shakeImg, 2, -15);
 }

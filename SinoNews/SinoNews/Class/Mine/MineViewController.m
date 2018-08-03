@@ -23,6 +23,9 @@
 
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
+{
+    UIImageView *shakeImg;
+}
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
 @property (nonatomic ,strong) NSMutableArray *adDatasource;
@@ -46,6 +49,17 @@
 @end
 
 @implementation MineViewController
+// 重力弹跳动画效果
+void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
+    CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
+    CGFloat currentTx = view.transform.ty;
+    animation.duration = duration;
+    animation.repeatCount = MAXFLOAT;
+    animation.values = @[@(currentTx), @(currentTx + height), @(currentTx + height/3*2), @(currentTx), @(currentTx + height/3), @(currentTx)];
+    animation.keyTimes = @[ @(0), @(0.3), @(0.5), @(0.7), @(0.9), @(1) ];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [view.layer addAnimation:animation forKey:@"kViewShakerAnimationKey"];
+}
 
 -(NSMutableArray *)adDatasource
 {
@@ -160,6 +174,8 @@
     
     [self requestUser_tips];
     [self requestGetCountOfUnreadMessage];
+    
+    shakerAnimation(shakeImg, 2, -15);
 }
 
 //添加视图
@@ -272,6 +288,7 @@
     [_integral addTitleColorTheme];
     
     _signIn = [UIButton new];
+    shakeImg = [UIImageView new];
     
     _publish = [self getLabel];
     _attention = [self getLabel];
@@ -288,6 +305,7 @@
                                backView,
                                
                                _signIn,
+                               shakeImg,
                                
                                _publish,
                                _attention,
@@ -364,8 +382,9 @@
     _signIn.titleLabel.font = FontScale(13);
 //    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     [_signIn addButtonTextColorTheme];
-    [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
-    _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
+//    [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
+//    _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
+    _signIn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -25 * ScaleW);
     [self cutCornerradiusWithView:_signIn];
     _signIn.hidden = YES;
     
@@ -374,6 +393,14 @@
         SignInViewController *siVC = [SignInViewController new];
         [self.navigationController pushViewController:siVC animated:YES];
     }];
+    
+    shakeImg.sd_layout
+    .centerYEqualToView(_signIn)
+    .rightSpaceToView(_signIn, -30)
+    .heightIs(24)
+    .widthEqualToHeight()
+    ;
+    shakeImg.image = UIImageNamed(@"mine_gold");
     
     _publish.sd_layout
     .topSpaceToView(_userImg, 40)

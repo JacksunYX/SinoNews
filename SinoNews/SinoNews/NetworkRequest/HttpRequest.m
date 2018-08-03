@@ -277,12 +277,16 @@
     
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
     
-    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     ShowHudOnly;
+    //先对质量压缩
+    NSData *imgData = [uploadimage compressWithMaxLength:100 * 1024];
+    UIImage *img = [UIImage imageWithData:imgData];
+    
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         
-        //        NSData *imageData = UIImageJPEGRepresentation(uploadimage,1);
-        NSData *imageData = UIImagePNGRepresentation(uploadimage);
+        NSData *imageData = UIImageJPEGRepresentation(img,1);
+//        NSData *imageData = UIImagePNGRepresentation(uploadimage);
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";
         NSString *str = [formatter stringFromDate:[NSDate date]];
@@ -302,7 +306,7 @@
         //上传成功
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        NSLog(@"responseObject-------%@",resultdic);
+        GGLog(@"responseObject-------%@",resultdic);
         HiddenHudOnly;
         //取出返回数据
         if (success&&resultdic) {
@@ -328,7 +332,7 @@
         
     } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
         //上传失败
-        NSLog(@"error-------%@",error);
+        GGLog(@"error-------%@",error);
         //隐藏loding
         HiddenHudOnly;
         LRToast(@"图片上传失败");

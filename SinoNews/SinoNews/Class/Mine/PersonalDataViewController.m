@@ -266,12 +266,10 @@
         
         [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
             @strongify(self)
-            //先对质量压缩
-            NSData *imgData = [(UIImage *)data compressWithMaxLength:100 * 1024];
-            UIImage *img = [UIImage imageWithData:imgData];
+
             GCDAfterTime(0.5, ^{
                 
-                [HttpRequest uploadFileImage:User_updateAvata parameters:@{} uploadImage:img success:^(id response){
+                [HttpRequest uploadFileImage:User_updateAvata parameters:@{} uploadImage:(UIImage *)data success:^(id response){
                     LRToast(@"上传成功");
                     UserModel *user = [UserModel getLocalUserModel];
                     user.avatar = response[@"data"];

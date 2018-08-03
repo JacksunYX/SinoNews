@@ -294,16 +294,16 @@
     parameters[@"userId"] = @(model.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         model.isFollow = !model.isFollow;
-        UserModel *user = [UserModel getLocalUserModel];
+//        UserModel *user = [UserModel getLocalUserModel];
         
         if (model.isFollow) {
             LRToast(@"关注成功");
-            user.followCount ++;
+//            user.followCount ++;
         }else{
             LRToast(@"取消关注");
-            user.followCount --;
+//            user.followCount --;
         }
-        [UserModel coverUserData:user];
+//        [UserModel coverUserData:user];
         [self.tableView reloadData];
     } failure:nil RefreshAction:^{
 //        [self requestAttentionList];

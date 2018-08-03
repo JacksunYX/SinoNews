@@ -389,16 +389,16 @@
         @strongify(self)
         RecommendUserModel *userModel = self.recommendUserArr[index];
         userModel.isAttention = !userModel.isAttention;
-        UserModel *user = [UserModel getLocalUserModel];
+//        UserModel *user = [UserModel getLocalUserModel];
         if (userModel.isAttention) {
-            user.followCount ++;
-            LRToast(@"关注成功～");
+//            user.followCount ++;
+            LRToast(@"关注成功");
         }else{
-            user.followCount --;
+//            user.followCount --;
             LRToast(@"已取消关注");
         }
         //覆盖之前保存的信息
-        [UserModel coverUserData:user];
+//        [UserModel coverUserData:user];
         [self.tableView reloadData];
     } failure:nil RefreshAction:^{
         @strongify(self)

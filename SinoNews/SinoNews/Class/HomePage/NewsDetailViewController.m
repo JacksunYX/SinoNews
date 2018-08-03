@@ -1194,18 +1194,18 @@ CGFloat static titleViewHeight = 91;
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"userId"] = @(self.newsModel.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        UserModel *user = [UserModel getLocalUserModel];
+        UserModel *user = [UserModel getLocalUserModel];/
         NSInteger status = [res[@"data"][@"status"] integerValue];
         if (status == 1) {
-            user.followCount ++;
+//            user.followCount ++;
             LRToast(@"关注成功");
         }else{
-            user.followCount --;
+//            user.followCount --;
             LRToast(@"已取消关注");
         }
         self.newsModel.isAttention = status;
         //覆盖之前保存的信息
-        [UserModel coverUserData:user];
+//        [UserModel coverUserData:user];
         [self setTitle];
     } failure:nil RefreshAction:^{
         [self requestNewData];

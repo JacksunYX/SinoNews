@@ -160,16 +160,16 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     [super viewWillAppear:animated];
     
-    if (CompareString(UserGet(@"isLogin"), @"YES")) {
-        self.user = [UserModel getLocalUserModel];
-        if (self.user) {
-            [self setHeadViewData:YES];
-        }else{
-            [self requestToGetUserInfo];
-        }
-    }else{
+//    if (CompareString(UserGet(@"isLogin"), @"YES")) {
+//        self.user = [UserModel getLocalUserModel];
+//        if (self.user) {
+//            [self setHeadViewData:YES];
+//        }else{
+//            [self requestToGetUserInfo];
+//        }
+//    }else{
         [self requestToGetUserInfo];
-    }
+//    }
     
     [self requestUser_tips];
     [self requestGetCountOfUnreadMessage];
@@ -495,17 +495,19 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _userName.text = @"登 陆";
     _integral.text = @"";
     _signIn.hidden = YES;
+    shakeImg.hidden = YES;
     _idView.hidden = YES;
     if (login) {
         
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar)];
         _userName.text = GetSaveString(self.user.username);
         _integral.text = [NSString stringWithFormat:@"%ld 积分",self.user.integral];
-        pub = [NSString stringWithFormat:@"%lu",self.user.postCount];
-        att = [NSString stringWithFormat:@"%lu",self.user.followCount];
-        fan = [NSString stringWithFormat:@"%lu",self.user.fansCount];
-        pra = [NSString stringWithFormat:@"%lu",self.user.praisedCount];
+        pub = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.postCount];
+        att = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.followCount];
+        fan = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.fansCount];
+        pra = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.praisedCount];
         _signIn.hidden = NO;
+        shakeImg.hidden = NO;
         _idView.hidden = NO;
     }
     

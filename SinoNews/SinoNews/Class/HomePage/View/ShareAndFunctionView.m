@@ -62,6 +62,7 @@ static bool isCollect = NO;
     
     shareView.itemImageTopSpace = 15;
     shareView.iconAndTitleSpace = 10;
+    shareView.showCancleButton = NO;
     
     shareView.itemImageSize = CGSizeMake(56, 56);
     

@@ -309,16 +309,10 @@ CGFloat static titleViewHeight = 91;
 //                field.text = @"";
 //            }
 //        }];
-        [self.commentInput whenTap:^{
-            @strongify(self)
-            [QACommentInputView showAndSendHandle:^(NSString *inputText) {
-                if (![NSString isEmpty:inputText]) {
-                    [self requestCommentWithComment:inputText];
-                }else{
-                    LRToast(@"请输入有效的内容");
-                }
-            }];
-        }];
+//        [self.commentInput whenTap:^{
+//            @strongify(self)
+//
+//        }];
         
         //        [[self rac_signalForSelector:@selector(textFieldDidEndEditing:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
         //            GGLog(@"结束编辑");
@@ -359,8 +353,8 @@ CGFloat static titleViewHeight = 91;
         shareBtn.sd_layout
         .rightSpaceToView(self.bottomView, 16)
         .centerYEqualToView(self.bottomView)
-        .widthIs(21)
-        .heightIs(21)
+        .widthIs(28)
+        .heightIs(28)
         ;
         [shareBtn updateLayout];
         [shareBtn addButtonNormalImage:@"news_share"];
@@ -368,8 +362,8 @@ CGFloat static titleViewHeight = 91;
         _collectBtn.sd_layout
         .rightSpaceToView(shareBtn, 30)
         .centerYEqualToView(self.bottomView)
-        .widthIs(22)
-        .heightIs(22)
+        .widthIs(25)
+        .heightIs(25)
         ;
         [_collectBtn updateLayout];
         
@@ -410,7 +404,7 @@ CGFloat static titleViewHeight = 91;
         .centerYEqualToView(self.bottomView)
         .heightIs(34)
         ;
-        
+        [self.commentInput updateLayout];
         self.commentInput.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
             if (UserGetBool(@"NightMode")) {
                 [(UITextField *)item setBackgroundColor:HexColor(#292D30)];
@@ -660,8 +654,15 @@ CGFloat static titleViewHeight = 91;
 //让输入框无法进入编辑
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    return NO;
+    [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+        if (![NSString isEmpty:inputText]) {
+            [self requestCommentWithComment:inputText];
+        }else{
+            LRToast(@"请输入有效的内容");
+        }
+    }];
     
+    return NO;
 }
 
 #pragma mark ----- WKNavigationDelegate
@@ -1194,7 +1195,7 @@ CGFloat static titleViewHeight = 91;
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"userId"] = @(self.newsModel.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        UserModel *user = [UserModel getLocalUserModel];/
+//        UserModel *user = [UserModel getLocalUserModel];
         NSInteger status = [res[@"data"][@"status"] integerValue];
         if (status == 1) {
 //            user.followCount ++;

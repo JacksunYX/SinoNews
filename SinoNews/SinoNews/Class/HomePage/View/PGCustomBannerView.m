@@ -41,7 +41,7 @@
         _indexLabel = [[UILabel alloc] init];
 //        _indexLabel.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
         _indexLabel.backgroundColor = ClearColor;
-        _indexLabel.font = PFFontL(16);
+        _indexLabel.font = PFFontM(16);
         _indexLabel.textColor = [UIColor whiteColor];
         _indexLabel.numberOfLines = 2;
     }

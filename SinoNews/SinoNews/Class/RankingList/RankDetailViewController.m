@@ -266,7 +266,7 @@
         [username setSingleLineAutoResizeWithMaxWidth:120];
         username.text = @"启世录TOPS";
         
-        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
+//        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
         
     }
 }

@@ -900,8 +900,8 @@ CGFloat static titleViewHeight = 91;
 //            user.followCount ++;
             LRToast(@"关注成功");
         }else{
-            user.followCount --;
-//            LRToast(@"已取消关注");
+//            user.followCount --;
+            LRToast(@"已取消关注");
         }
         self.newsModel.isAttention = status;
         //覆盖之前保存的信息

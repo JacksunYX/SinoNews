@@ -297,7 +297,7 @@
     [shareCollectionView registerClass:[IFMShareItemCell class] forCellWithReuseIdentifier:kCellIdentifier_IFMShareItemCell];
     [self.bodyView addSubview:shareCollectionView];
     
-    if (self.functionItems) {
+    if (self.functionItems.count) {
         //分割线
         self.middleLine.frame = CGRectMake(_middleLineEdgeSpace, shareCollectionView.frame.origin.y+shareCollectionView.frame.size.height + _middleTopSpace, self.frame.size.width - 2*_middleLineEdgeSpace, 0.5);
         

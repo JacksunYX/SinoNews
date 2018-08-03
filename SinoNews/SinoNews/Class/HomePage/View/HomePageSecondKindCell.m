@@ -248,26 +248,72 @@
         title.text = titletext;
     }
     
-    if (model.images.count>0) {
-        NSString *imgStr = GetSaveString(model.images[0]);
-        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-    }else{
-        imgL.image = nil;
-    }
+    @weakify(self)
+    imgL.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        UIImageView *imageView = item;
+        if (self.model.images.count>0) {
+            NSString *imgStr = GetSaveString(model.images[0]);
+            if (UserGetBool(@"NightMode")) {
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small_night")];
+            }else{
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+            }
+        }else{
+            imageView.image = nil;
+        }
+    });
     
-    if (model.images.count>1) {
-        NSString *imgStr = GetSaveString(model.images[1]);
-        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-    }else{
-        imgC.image = nil;
-    }
+//    if (model.images.count>0) {
+//        NSString *imgStr = GetSaveString(model.images[0]);
+//        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+//    }else{
+//        imgL.image = nil;
+//    }
     
-    if (model.images.count>2) {
-        NSString *imgStr = GetSaveString(model.images[2]);
-        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-    }else{
-        imgR.image = nil;
-    }
+    imgC.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        UIImageView *imageView = item;
+        if (self.model.images.count>1) {
+            NSString *imgStr = GetSaveString(model.images[1]);
+            if (UserGetBool(@"NightMode")) {
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small_night")];
+            }else{
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+            }
+        }else{
+            imageView.image = nil;
+        }
+    });
+    
+//    if (model.images.count>1) {
+//        NSString *imgStr = GetSaveString(model.images[1]);
+//        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+//    }else{
+//        imgC.image = nil;
+//    }
+    
+    imgR.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        UIImageView *imageView = item;
+        if (self.model.images.count>1) {
+            NSString *imgStr = GetSaveString(model.images[2]);
+            if (UserGetBool(@"NightMode")) {
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small_night")];
+            }else{
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+            }
+        }else{
+            imageView.image = nil;
+        }
+    });
+    
+//    if (model.images.count>2) {
+//        NSString *imgStr = GetSaveString(model.images[2]);
+//        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+//    }else{
+//        imgR.image = nil;
+//    }
     
 }
 

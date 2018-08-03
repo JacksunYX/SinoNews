@@ -492,7 +492,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     NSString *att = @"0";
     NSString *fan = @"0";
     NSString *pra = @"0";
-    _userName.text = @"登 陆";
+    _userName.text = @"登 录";
     _integral.text = @"";
     _signIn.hidden = YES;
     shakeImg.hidden = YES;

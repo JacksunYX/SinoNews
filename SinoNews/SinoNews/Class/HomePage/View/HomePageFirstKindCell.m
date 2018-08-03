@@ -222,13 +222,21 @@
         title.text = titletext;
     }
     
-    if (model.images.count>0) {
-        NSString *imgStr = [model.images firstObject];
-        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-    }else{
-        rightImg.image = nil;
-    }
-    
+    @weakify(self)
+    rightImg.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        @strongify(self)
+        UIImageView *imageView = item;
+        if (self.model.images.count>0) {
+            NSString *imgStr = [self.model.images firstObject];
+            if (UserGetBool(@"NightMode")) {
+                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small_night")];
+            }else{
+               [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+            }
+        }else{
+            imageView.image = nil;
+        }
+    });
     
 }
 

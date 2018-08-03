@@ -138,7 +138,16 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.tableView];
-    self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        BaseTableView *tableview = item;
+        tableview.backgroundColor = value;
+        if (UserGetBool(@"NightMode")) {
+            tableview.separatorColor = CutLineColorNight;
+        }else{
+            tableview.separatorColor = CutLineColor;
+        }
+    });
     
     self.tableView.sd_layout
     .leftEqualToView(self.view)

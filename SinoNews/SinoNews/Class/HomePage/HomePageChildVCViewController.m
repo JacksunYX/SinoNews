@@ -21,7 +21,7 @@
 #import "HomePageThirdKindCell.h"
 #import "HomePageFourthCell.h"
 
-#define HeadViewHeight (ScreenW * 9 / 16 + 30)
+#define HeadViewHeight (ScreenW * 172 / 345 + 30)
 
 @interface HomePageChildVCViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -149,6 +149,7 @@
         @strongify(self)
         if (self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_header endRefreshing];
+            return ;
         }
         [self.tableView ly_startLoading];
         //有newsid，说明是首页的子页面
@@ -171,6 +172,7 @@
         @strongify(self)
         if (self.tableView.mj_header.isRefreshing||!self.dataSource.count) {
             [self.tableView.mj_footer endRefreshing];
+            return ;
         }
 
         self.page++;

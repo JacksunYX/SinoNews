@@ -234,8 +234,11 @@ CGFloat static titleViewHeight = 91;
         [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
     }
     
-    //是否要显示关注
-    _attentionBtn.hidden = ![UserModel showAttention:self.answerModel.userId];
+    //如果是用户本人发布的文章，就不显示关注的按钮
+    if (![UserModel showAttention:self.answerModel.userId]) {
+        [_attentionBtn removeFromSuperview];
+//        [self.topAttBtn removeFromSuperview];
+    }
     
     _titleLabel.font = [GetCurrentFont titleFont];
     

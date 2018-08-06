@@ -50,6 +50,8 @@
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 
 @property (nonatomic,strong) UIView *naviTitle;
+
+@property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
 @end
 
 @implementation NewsDetailViewController
@@ -69,6 +71,22 @@ CGFloat static titleViewHeight = 91;
         _commentsArr = [NSMutableArray new];
     }
     return _commentsArr;
+}
+
+-(UIButton *)topAttBtn
+{
+    if (!_topAttBtn) {
+        _topAttBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _topAttBtn.frame = CGRectMake(0, 10, 40, 20);
+        [_topAttBtn setBtnFont:PFFontM(20)];
+        [_topAttBtn setNormalTitleColor:WhiteColor];
+        _topAttBtn.backgroundColor = HexColor(#1282EE);
+//        [_topAttBtn setNormalTitle:@"+"];
+        _topAttBtn.layer.cornerRadius = 5;
+        _topAttBtn.titleEdgeInsets = UIEdgeInsetsMake(-5, 0, 0, 0);
+        [_topAttBtn addTarget:self action:@selector(requestIsAttention) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _topAttBtn;
 }
 
 - (void)viewDidLoad {
@@ -95,12 +113,21 @@ CGFloat static titleViewHeight = 91;
         @strongify(self)
         if (UserGetBool(@"NightMode")) {
             UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
-            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
-            self.navigationItem.rightBarButtonItems = @[more,fonts];
+//            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
+            UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+            [topBtnView addSubview:self.topAttBtn];
+            UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:topBtnView];
+            
+            self.navigationItem.rightBarButtonItems = @[more,barbtn];
         }else{
             UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
-            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
-            self.navigationItem.rightBarButtonItems = @[more,fonts];
+//            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
+            
+            UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+            [topBtnView addSubview:self.topAttBtn];
+            UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:topBtnView];
+            
+            self.navigationItem.rightBarButtonItems = @[more,barbtn];
         }
     });
 }
@@ -209,13 +236,18 @@ CGFloat static titleViewHeight = 91;
     
     _attentionBtn.selected = self.newsModel.isAttention;
     if (_attentionBtn.selected) {
+        [self.topAttBtn setNormalTitle:@"-"];
         [_attentionBtn setNormalImage:nil];
         [_attentionBtn setSelectedImage:nil];
     }else{
+        [self.topAttBtn setNormalTitle:@"+"];
         [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
     }
-    //是否要显示关注
-    _attentionBtn.hidden = ![UserModel showAttention:self.newsModel.userId];
+    //如果是用户本人发布的文章，就不显示关注的按钮
+    if (![UserModel showAttention:self.newsModel.userId]) {
+        [_attentionBtn removeFromSuperview];
+        [self.topAttBtn removeFromSuperview];
+    }
     
 //    _titleLabel.font = [GetCurrentFont titleFont];
 
@@ -225,7 +257,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
 //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     
-    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];//这里+1是防止文字大小没变时，网页重载，而titleView的显隐是靠tableview的滚动来牵制的，可能会出现不显示的bug
+//    [_tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];//这里+1是防止文字大小没变时，网页重载，而titleView的显隐是靠tableview的滚动来牵制的，可能会出现不显示的bug
 }
 
 -(void)setNaviTitle
@@ -592,6 +624,8 @@ CGFloat static titleViewHeight = 91;
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3) {
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
                 LRToast(@"链接已复制");
             }
             
@@ -924,7 +958,7 @@ CGFloat static titleViewHeight = 91;
             ;
             NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
             if (count) {
-                title.text = [NSString stringWithFormat:@"全部评论(%ld)",count];
+                title.text = [NSString stringWithFormat:@"全部评论(%ld)",(long)count];
             }else{
                 title.text = @"全部评论";
             }
@@ -1041,8 +1075,10 @@ CGFloat static titleViewHeight = 91;
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
 //        GGLog(@"min:%@",process);
         self.titleView.alpha = 1 - [process floatValue];
+        
         self.attentionBtn.enabled = 1 - [process floatValue];
         self.naviTitle.alpha = [process floatValue];
+        self.topAttBtn.alpha = 0;
         
         [self hiddenTopLine];
         
@@ -1051,6 +1087,7 @@ CGFloat static titleViewHeight = 91;
             [self showTopLine];
             self.naviTitle.alpha = 1;
             self.titleView.alpha = 0;
+            self.topAttBtn.alpha = 1;
             self.attentionBtn.enabled = NO;
         }
     }
@@ -1182,6 +1219,7 @@ CGFloat static titleViewHeight = 91;
 //        }
         self.newsModel.isCollection = status;
         [self setBottomView];
+        
     } failure:nil RefreshAction:^{
         [self requestNewData];
     }];

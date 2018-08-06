@@ -349,7 +349,8 @@
     }else{
         [self.tableView reloadData];
     }
-    
+    //修改右下角显示状态
+    [self.deleteBtn setTitle:[NSString stringWithFormat:@"删除(%ld)",self.deleteArray.count] forState:UIControlStateNormal];
 }
 
 //重置当前显示状态

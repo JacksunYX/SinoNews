@@ -493,9 +493,7 @@ CGFloat static titleViewHeight = 91;
         }];
     }
     
-    if (self.collectBtn.selected != self.newsModel.isCollection) {
-        self.collectBtn.selected = self.newsModel.isCollection;
-    }
+    self.collectBtn.selected = self.newsModel.isCollection;
     self.praiseBtn.selected = self.newsModel.hasPraised;
     
 }

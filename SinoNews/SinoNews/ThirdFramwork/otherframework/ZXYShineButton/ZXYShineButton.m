@@ -135,22 +135,31 @@
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     __weak typeof(self) weakSelf = self;
-    if (self.clickLayer.clicked == false) {
+    if (selected) {
         self.shineLayer.endAnim = ^{
-            if (weakSelf.clickLayer.clicked == false) {
-                
-            }else{
-                weakSelf.clickLayer.clicked = !weakSelf.clickLayer.clicked;
-            }
+//            if (weakSelf.clickLayer.clicked == false) {
+//
+//            }else{
+//                weakSelf.clickLayer.clicked = !weakSelf.clickLayer.clicked;
+//            }
+            weakSelf.clickLayer.clicked = YES;
             [weakSelf.clickLayer startAnim];
-            weakSelf.isSelected = !weakSelf.isSelected;
+//            weakSelf.isSelected = !weakSelf.isSelected;
+            weakSelf.isSelected = YES;
             [weakSelf sendActionsForControlEvents:UIControlEventValueChanged];
         };
         [self.shineLayer startAnim];
     }else{
-        self.clickLayer.clicked = !weakSelf.clickLayer.clicked;
-        self.isSelected = !weakSelf.isSelected;
+        self.clickLayer.clicked = NO;
+//        self.isSelected = !weakSelf.isSelected;
+        weakSelf.isSelected = NO;
         [self sendActionsForControlEvents:UIControlEventValueChanged];
+    }
+    
+    if (self.clickLayer.clicked == false) {
+        
+    }else{
+        
     }
 }
 -(void)layoutSubviews {

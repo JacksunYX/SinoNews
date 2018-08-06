@@ -150,6 +150,7 @@ CGFloat static titleViewHeight = 91;
                 [(UIButton *)item setSelectedTitleColor:WhiteColor];
             }
         });
+
         
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
@@ -437,12 +438,7 @@ CGFloat static titleViewHeight = 91;
             [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.bottomView, nil];
         }];
     }
-    
-    [self.collectBtn setClicked:YES animated:NO];
-    [self.collectBtn setClicked:NO animated:NO];
-    if (self.collectBtn.selected != self.newsModel.isCollection) {
-        self.collectBtn.selected = self.newsModel.isCollection;
-    }
+    self.collectBtn.selected = self.newsModel.isCollection;
     self.praiseBtn.selected = self.newsModel.hasPraised;
     self.bottomView.hidden = NO;
 }

@@ -250,10 +250,7 @@
         };
         //头像
         cell2.avatarBlock = ^(NSInteger row) {
-            @strongify(self)
-            UserInfoViewController *uiVC = [UserInfoViewController new];
-            uiVC.userId = [model.userId integerValue];
-            [self.navigationController pushViewController:uiVC animated:YES];
+            [UserModel toUserInforVcOrMine:[model.userId integerValue]];
         };
         
         //回复TA

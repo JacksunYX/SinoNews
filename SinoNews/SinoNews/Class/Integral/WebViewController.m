@@ -71,7 +71,7 @@
     NSURL *url = UrlWithStr(self.baseUrl);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
-    [self showOrHideLoadView:YES page:2];
+    [self showOrHideLoadView:YES page:0];
 }
 
 #pragma mark ----- WKNavigationDelegate

@@ -45,4 +45,35 @@ MJCodingImplementation
     }
 }
 
+//根据userId来判断跳转到哪个界面
++(void)toUserInforVcOrMine:(NSInteger)userId
+{
+    UserModel *user = [self getLocalUserModel];
+    UIViewController *currentVC = [HttpRequest currentViewController];
+    if (user.userId == userId) {
+        //如果是用户本人发的文章，直接跳到我的界面
+        [currentVC.navigationController popViewControllerAnimated:NO];
+        UITabBarController *tabbarVC = (UITabBarController *)[HttpRequest getCurrentVC];
+        [tabbarVC setSelectedIndex:4];
+    }else{
+        UserInfoViewController *uiVC = [UserInfoViewController new];
+        uiVC.userId = userId;
+        [currentVC.navigationController pushViewController:uiVC animated:YES];
+    }
+}
+
+//是否需要显示关注按钮
++(BOOL)showAttention:(NSInteger)userId
+{
+    UserModel *user = [self getLocalUserModel];
+    if (user.userId == userId) {
+        return NO;
+    }
+    return YES;
+}
+
+
+
+
+
 @end

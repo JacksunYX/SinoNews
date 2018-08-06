@@ -55,9 +55,11 @@
 +(void)loginSuccessSaveWithData:(NSDictionary *)response
 {
     UserSet(@"YES", @"isLogin");
-    UserSet(GetSaveString(response[@"data"][@"avatar"]), @"avatar");
-    UserSet(GetSaveString(response[@"data"][@"username"]), @"username");
+//    UserSet(GetSaveString(response[@"data"][@"avatar"]), @"avatar");
+//    UserSet(GetSaveString(response[@"data"][@"username"]), @"username");
     UserSet(GetSaveString(response[@"data"][@"token"]), @"token");
+    UserModel *user = [UserModel mj_objectWithKeyValues:response[@"data"]];
+    [UserModel coverUserData:user];
     [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginSuccess object:nil];
 }
 

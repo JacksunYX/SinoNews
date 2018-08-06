@@ -67,7 +67,7 @@ static int tag1 = 206118;
                 
                 break;
             default:
-                loadingImg.lee_theme.LeeConfigImage(@"homeLoad");
+                [loadingImg addBakcgroundColorTheme];
                 break;
         }
         

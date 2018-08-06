@@ -62,31 +62,29 @@ static bool isCollect = NO;
     
     shareView.itemImageTopSpace = 15;
     shareView.iconAndTitleSpace = 10;
-    shareView.showCancleButton = NO;
+//    shareView.showCancleButton = NO;
     
     shareView.itemImageSize = CGSizeMake(56, 56);
     
     shareView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        [(IFMShareView *)item setContainViewColor:value];
+        IFMShareView *share = item;
+        share.containViewColor = value;
+        share.cancleButton.backgroundColor = value;
         
-        [(IFMShareView *)item cancleButton].backgroundColor = value;
         if (UserGetBool(@"NightMode")) {
-            [(IFMShareView *)item setItemTitleColor:HexColor(#CFD3D6)];
-            [(IFMShareView *)item setCellimageBackgroundColor:HexColor(#3A4146)];
+            share.itemTitleColor = HexColor(#CFD3D6);
+            share.cellimageBackgroundColor = HexColor(#3A4146);
+            [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
         }else{
-            [(IFMShareView *)item setItemTitleColor:RGBA(152, 152, 152, 1)];
-            [(IFMShareView *)item setCellimageBackgroundColor:WhiteColor];
+            share.itemTitleColor = RGBA(152, 152, 152, 1);
+            share.cellimageBackgroundColor = WhiteColor;
+            [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:CutLineColor];
         }
     });
     
-    //    shareView.containViewColor = WhiteColor;
     shareView.itemTitleFont = PFFontL(13);
-    //    shareView.itemTitleColor = RGBA(152, 152, 152, 1);
     shareView.cancleButton.titleLabel.font = PFFontR(17);
     [shareView.cancleButton addButtonTextColorTheme];
-    //    [shareView.cancleButton addBakcgroundColorTheme];
-    //    [shareView.cancleButton setTitleColor:RGBA(183, 183, 183, 1) forState:UIControlStateNormal];
-    [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:RGBA(219, 219, 219, 1)];
     
     [shareView showFromControlle:[HttpRequest getCurrentVC]];
     

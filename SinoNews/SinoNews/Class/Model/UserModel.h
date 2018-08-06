@@ -74,7 +74,10 @@
  */
 +(void)coverUserData:(UserModel *)data;
 
+//根据userId来判断跳转到哪个界面
++(void)toUserInforVcOrMine:(NSInteger)userId;
 
-
+//是否需要显示关注按钮
++(BOOL)showAttention:(NSInteger)userId;
 
 @end

@@ -82,7 +82,8 @@
     .widthIs(50)
     .heightIs(22)
     ;
-    isAttention.backgroundColor = WhiteColor;
+//    isAttention.backgroundColor = WhiteColor;
+    [isAttention addBakcgroundColorTheme];
     [isAttention setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention setTitle:@"已关注" forState:UIControlStateSelected];
     

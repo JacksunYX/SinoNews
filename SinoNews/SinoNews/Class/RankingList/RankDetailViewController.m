@@ -366,6 +366,10 @@
         cell2.checkAllReplay = ^(NSInteger row) {
             GGLog(@"点击了查看全部回复");
         };
+        //点击头像
+        cell2.avatarBlock = ^(NSInteger row) {
+            [UserModel toUserInforVcOrMine:[model.userId integerValue]];
+        };
         
         cell = (CommentCell *)cell2;
     }

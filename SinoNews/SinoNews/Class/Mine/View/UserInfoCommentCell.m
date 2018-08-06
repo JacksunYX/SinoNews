@@ -54,10 +54,12 @@
     
     username = [UILabel new];
     username.font = PFFontR(13);
+    [username addTitleColorTheme];
     
     comment = [UILabel new];
     comment.font = PFFontL(15);
     comment.numberOfLines = 0;
+    [comment addTitleColorTheme];
     
     ip = [UILabel new];
     ip.font = PFFontL(11);

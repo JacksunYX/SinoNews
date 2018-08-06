@@ -213,6 +213,9 @@ CGFloat static titleViewHeight = 91;
     }else{
         [_attentionBtn setNormalImage:UIImageNamed(@"myFans_unAttention")];
     }
+    //是否要显示关注
+    _attentionBtn.hidden = ![UserModel showAttention:self.newsModel.userId];
+    
 //    _titleLabel.font = [GetCurrentFont titleFont];
 
     //获取上部分的高度
@@ -778,10 +781,7 @@ CGFloat static titleViewHeight = 91;
         };
         //点击头像
         cell2.avatarBlock = ^(NSInteger row) {
-            @strongify(self)
-            UserInfoViewController *uiVC = [UserInfoViewController new];
-            uiVC.userId = [model.userId integerValue];
-            [self.navigationController pushViewController:uiVC animated:YES];
+            [UserModel toUserInforVcOrMine:[model.userId integerValue]];
         };
         //回复TA
         //        cell2.replayBlock = ^(NSInteger row) {
@@ -1013,9 +1013,8 @@ CGFloat static titleViewHeight = 91;
                 [self requestIsAttention];
             }else if (x >= 10&&x<= (100+10) && y >= titleViewHeight - 10 - 24 && y <= titleViewHeight - 10) {
                 GGLog(@"点击用户部分");
-                UserInfoViewController *uiVC = [UserInfoViewController new];
-                uiVC.userId = self.newsModel.userId;
-                [self.navigationController pushViewController:uiVC animated:YES];
+                
+                [UserModel toUserInforVcOrMine:self.newsModel.userId];
             }
         }
     }

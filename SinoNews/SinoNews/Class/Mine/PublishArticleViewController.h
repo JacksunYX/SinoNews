@@ -13,4 +13,6 @@
 
 @property (nonatomic,assign) NSInteger editType;    //默认文章、1问答
 
+@property (nonatomic,copy) NSString *channelId;     //文章发布的频道
+
 @end

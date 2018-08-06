@@ -71,7 +71,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     NSString *title = @"发布文章";
-    self.topViewH = 50;
+    self.topViewH = 0;
     if (self.editType == 1) {
         title = @"发布问答";
         self.topViewH = 0;
@@ -128,7 +128,7 @@
         placehold = @"请输入问题";
         self.wordViewController.view.frame = self.view.bounds;
     }else{
-        self.channelChoose.backgroundColor = WhiteColor;
+//        self.channelChoose.backgroundColor = WhiteColor;
         self.wordViewController.view.frame = CGRectMake(0, self.topViewH, self.view.bounds.size.width, self.view.bounds.size.height - self.topViewH);
     }
     self.wordViewController.textView.titleTextField.placeholder = placehold;
@@ -137,7 +137,7 @@
 
 -(void)publishAction:(UIButton *)sender
 {
-    if (!self.channelModel&&self.editType==0){
+    if (!self.channelId&&self.editType==0){
         LRToast(@"请选择频道");
         return;
     }else if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
@@ -169,7 +169,8 @@
         parameters[@"channelId"] = @(85);
         parameters[@"newsType"] = @(2);
     }else{
-       parameters[@"channelId"] = self.channelModel.channelId;
+//       parameters[@"channelId"] = self.channelModel.channelId;
+        parameters[@"channelId"] = self.channelId;
         parameters[@"newsType"] = @(1);
     }
     

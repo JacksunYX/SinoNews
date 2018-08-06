@@ -8,6 +8,7 @@
 
 #import "PublishViewController.h"
 #import "PublishArticleViewController.h"
+#import "PubLishChannelSelectVC.h"
 
 @interface PublishViewController ()
 
@@ -38,8 +39,8 @@
     @weakify(self)
     [[firstBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
-        PublishArticleViewController *paVC = [PublishArticleViewController new];
-        [self.navigationController pushViewController:paVC animated:YES];
+        PubLishChannelSelectVC *pcsVC = [PubLishChannelSelectVC new];
+        [self.navigationController pushViewController:pcsVC animated:YES];
     }];
     
     UIButton *secondBtn = [UIButton new];

@@ -437,6 +437,9 @@ CGFloat static titleViewHeight = 91;
             [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.bottomView, nil];
         }];
     }
+    
+    [self.collectBtn setClicked:YES animated:NO];
+    [self.collectBtn setClicked:NO animated:NO];
     if (self.collectBtn.selected != self.newsModel.isCollection) {
         self.collectBtn.selected = self.newsModel.isCollection;
     }

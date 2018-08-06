@@ -207,7 +207,13 @@
     _userIcon.layer.cornerRadius = 17;
     
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:nil image:[UIImage imageNamed:@"homePage_logo"]];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(userTouch) image:[UIImage imageNamed:@"homePage_logo"]];
+}
+
+-(void)userTouch
+{
+    [[UIApplication sharedApplication]openURL:UrlWithStr(@"beijingtong://")];
+    
 }
 
 //让输入框无法进入编辑

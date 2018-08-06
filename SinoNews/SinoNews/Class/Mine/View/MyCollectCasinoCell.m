@@ -83,7 +83,7 @@
     
     img.sd_layout
 //    .centerXEqualToView(fatherView)
-    .leftSpaceToView(fatherView, 40)
+    .leftSpaceToView(fatherView, 10)
     .centerYEqualToView(fatherView)
     .widthIs(50)
     .heightEqualToWidth()
@@ -112,8 +112,8 @@
     sepLine.sd_layout
     .bottomEqualToView(fatherView)
     .heightIs(1)
-    .leftSpaceToView(fatherView, 40)
-    .rightSpaceToView(fatherView, 40)
+    .leftSpaceToView(fatherView, 0)
+    .rightSpaceToView(fatherView, 0)
     ;
     
     introduce.sd_layout

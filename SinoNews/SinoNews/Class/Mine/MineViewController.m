@@ -176,8 +176,12 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     if (self.adDatasource.count<=0) {
         [self requestBottomBanner];
     }
+    if (self.user.hasSignIn){
+        [shakeImg.layer removeAllAnimations];
+    }else{
+      shakerAnimation(shakeImg, 2, -15);
+    }
     
-    shakerAnimation(shakeImg, 2, -15);
 }
 
 //添加视图
@@ -510,9 +514,15 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         shakeImg.hidden = NO;
         _idView.hidden = NO;
         
-        [_signIn setNormalTitle:@"今日已签到"];
-        shakeImg.image = UIImageNamed(@"mine_gold_gray");
-        [shakeImg.layer removeAllAnimations];
+        if (self.user.hasSignIn) {
+            [_signIn setNormalTitle:@"今日已签到"];
+            shakeImg.image = UIImageNamed(@"mine_gold_gray");
+            [shakeImg.layer removeAllAnimations];
+        }else{
+            [_signIn setNormalTitle:@"签到领金币"];
+            shakeImg.image = UIImageNamed(@"mine_gold");
+        }
+        
     }
     
     [self setIdViewWithIDs];

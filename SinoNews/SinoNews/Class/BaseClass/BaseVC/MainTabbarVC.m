@@ -14,6 +14,8 @@
 #import "IntegralViewController.h"
 #import "MineViewController.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 
 @interface MainTabbarVC ()<UITabBarControllerDelegate>
 @property (nonatomic,assign) NSInteger  indexFlag;
@@ -116,6 +118,8 @@
         }
         //添加动画
         [self addAnimationOnLayer:[arry[index] layer]];
+        //点击音效
+        [self playSound];
         
         self.indexFlag = index;
     }
@@ -135,6 +139,19 @@
     [layer addAnimation:animation forKey:nil];
 }
 
+//点击音效
+-(void)playSound
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"like" ofType:@"caf"];
+    SystemSoundID soundID;
+    if (path) {
+        NSURL *soundURL = [NSURL fileURLWithPath:path];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL,&soundID);
+        AudioServicesPlaySystemSound(soundID);
+    }else{
+        GGLog(@"无效的音频文件");
+    }
+}
 
 
 @end

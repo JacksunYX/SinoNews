@@ -11,6 +11,7 @@
 #import "SettingViewController.h"
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
+#import "CasinoCollectViewController.h"
 #import "MyCollectViewController.h"
 #import "PublishPageViewController.h"
 #import "MyAttentionViewController.h"
@@ -65,10 +66,10 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     if (!_adDatasource) {
         _adDatasource  = [NSMutableArray new];
-//        for (int i = 0; i < 4; i ++) {
-//            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
-//            [_adDatasource addObject:imgStr];
-//        }
+        //        for (int i = 0; i < 4; i ++) {
+        //            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
+        //            [_adDatasource addObject:imgStr];
+        //        }
     }
     return _adDatasource;
 }
@@ -77,17 +78,19 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     if (!_mainDatasource) {
         NSArray *title = @[
-                              @"消息",
-                              @"收藏",
-                              @"历史",
-                              @"分享",
-                              @"设置",
-                              @"积分充值",
-                              @"积分游戏",
-                              @"积分商城",
-                              @"积分管理",
-                              ];
+                           @"娱乐城",
+                           @"消息",
+                           @"收藏",
+                           @"历史",
+                           @"分享",
+                           @"设置",
+                           @"积分充值",
+                           @"积分游戏",
+                           @"积分商城",
+                           @"积分管理",
+                           ];
         NSArray *img = @[
+                         @"mine_casino",
                          @"mine_message",
                          @"mine_collect",
                          @"mine_history",
@@ -100,6 +103,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                          ];
         
         NSArray *rightTitle = @[
+                                @"",
                                 @"最新消息标题",
                                 @"收藏娱乐城快速进入",
                                 @"",
@@ -118,7 +122,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                                   @"img"        :   img[i],
                                   @"rightTitle" :   rightTitle[i],
                                   };
-            if (i < 5) {
+            if (i < 6) {
                 [section0 addObject:dic];
             }else{
                 [section1 addObject:dic];
@@ -160,16 +164,16 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     [super viewWillAppear:animated];
     
-//    if (CompareString(UserGet(@"isLogin"), @"YES")) {
-//        self.user = [UserModel getLocalUserModel];
-//        if (self.user) {
-//            [self setHeadViewData:YES];
-//        }else{
-//            [self requestToGetUserInfo];
-//        }
-//    }else{
-        [self requestToGetUserInfo];
-//    }
+    //    if (CompareString(UserGet(@"isLogin"), @"YES")) {
+    //        self.user = [UserModel getLocalUserModel];
+    //        if (self.user) {
+    //            [self setHeadViewData:YES];
+    //        }else{
+    //            [self requestToGetUserInfo];
+    //        }
+    //    }else{
+    [self requestToGetUserInfo];
+    //    }
     
     [self requestUser_tips];
     [self requestGetCountOfUnreadMessage];
@@ -179,7 +183,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     if (self.user.hasSignIn){
         [shakeImg.layer removeAllAnimations];
     }else{
-      shakerAnimation(shakeImg, 2, -15);
+        shakerAnimation(shakeImg, 2, -15);
     }
     
 }
@@ -207,7 +211,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     self.adCollectionView.showsHorizontalScrollIndicator = NO;
     [self.adCollectionView addBakcgroundColorTheme];
     [self.view addSubview:self.adCollectionView];
-
+    
     [self setBottomView];
     
     self.adCollectionView.dataSource = self;
@@ -240,9 +244,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-
+    
     self.tableView.sd_layout
-//    .topEqualToView(self.view)
+    //    .topEqualToView(self.view)
     .topSpaceToView(self.view, StatusBarHeight)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
@@ -268,8 +272,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
     headView.userInteractionEnabled = YES;
-//    headView.backgroundColor = RGBA(196, 222, 247, 1);
-//    headView.image = UIImageNamed(@"mine_topBackImg");
+    //    headView.backgroundColor = RGBA(196, 222, 247, 1);
+    //    headView.image = UIImageNamed(@"mine_topBackImg");
     headView.lee_theme.LeeConfigImage(@"mineBackImg");
     self.tableView.tableHeaderView = headView;
     
@@ -280,17 +284,17 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     _userName = [UILabel new];
     _userName.font = PFFontL(18);
-//    _userName.textColor = RGBA(72, 72, 72, 1);
+    //    _userName.textColor = RGBA(72, 72, 72, 1);
     [_userName addTitleColorTheme];
     
     _idView = [UIView new];
     _idView.backgroundColor = ClearColor;
-//    [_idView addBakcgroundColorTheme];
+    //    [_idView addBakcgroundColorTheme];
     
     
     _integral = [UILabel new];
     _integral.font = PFFontL(14);
-//    _integral.textColor = RGBA(50, 50, 50, 1);
+    //    _integral.textColor = RGBA(50, 50, 50, 1);
     [_integral addTitleColorTheme];
     
     _signIn = [UIButton new];
@@ -344,9 +348,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                                ]];
     
     _userName.sd_layout
-//    .bottomSpaceToView(_userImg, -27)
-//    .centerYEqualToView(self.userImg)
-//    .leftSpaceToView(_userImg, 18 * ScaleW)
+    //    .bottomSpaceToView(_userImg, -27)
+    //    .centerYEqualToView(self.userImg)
+    //    .leftSpaceToView(_userImg, 18 * ScaleW)
     .topEqualToView(backView)
     .leftEqualToView(backView)
     .heightIs(20)
@@ -360,8 +364,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     ;
     
     _integral.sd_layout
-//    .topSpaceToView(_userName, 10)
-//    .leftEqualToView(_userName)
+    //    .topSpaceToView(_userName, 10)
+    //    .leftEqualToView(_userName)
     .leftEqualToView(backView)
     .bottomEqualToView(backView)
     .heightIs(14)
@@ -372,11 +376,12 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     _signIn.sd_layout
     .rightEqualToView(headView)
-    .centerYEqualToView(_userImg)
+//    .centerYEqualToView(_userImg)
+    .topSpaceToView(headView, 30)
     .heightIs(26)
     .widthIs(113 * ScaleW)
     ;
-//    _signIn.backgroundColor = RGBA(178, 217, 249, 1);
+    //    _signIn.backgroundColor = RGBA(178, 217, 249, 1);
     _signIn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
             [(UIButton *)item setBackgroundColor:HexColor(#0E2643)];
@@ -386,10 +391,10 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     });
     [_signIn setNormalTitle:@"签到领金币"];
     _signIn.titleLabel.font = FontScale(13);
-//    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    //    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     [_signIn addButtonTextColorTheme];
-//    [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
-//    _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
+    //    [_signIn setImage:UIImageNamed(@"mine_gold") forState:UIControlStateNormal];
+    //    _signIn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5 * ScaleW);
     _signIn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -25 * ScaleW);
     [self cutCornerradiusWithView:_signIn];
     _signIn.hidden = YES;
@@ -434,7 +439,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _attention.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_publish, 0)
-//    .bottomSpaceToView(headView, 20)
+    //    .bottomSpaceToView(headView, 20)
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
@@ -456,7 +461,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _fans.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_attention, 0)
-//    .bottomSpaceToView(headView, 20)
+    //    .bottomSpaceToView(headView, 20)
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
@@ -478,7 +483,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _praise.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_fans, 0)
-//    .bottomSpaceToView(headView, 20)
+    //    .bottomSpaceToView(headView, 20)
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
@@ -544,28 +549,45 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     if (self.user.identifications.count>0) {
         CGFloat wid = 20;
         CGFloat hei = 20;
-        CGFloat spaceX = 5;
+        CGFloat spaceX = 0;
         
+        UIView *lastView = _idView;
         for (int i = 0; i < self.user.identifications.count; i ++) {
             NSDictionary *model = self.user.identifications[i];
             UIImageView *approveView = [UIImageView new];
             [_idView addSubview:approveView];
+            
+            if (i != 0) {
+                spaceX = 10;
+            }
+            
             approveView.sd_layout
-            .topEqualToView(_idView)
-            .leftSpaceToView(_idView, (spaceX + wid)*i)
+//            .topEqualToView(lastView)
+            .centerYEqualToView(_idView)
+            .leftSpaceToView(lastView, spaceX)
             .widthIs(wid)
             .heightIs(hei)
             ;
             [approveView setSd_cornerRadius:@(wid/2)];
-//            if (CompareString(model[@"text"], @"官方账号")) {
-//                approveView.image = UIImageNamed(@"id_official");
-//            }else if (CompareString(model[@"text"], @"认证用户")) {
-//                approveView.image = UIImageNamed(@"id_company");
-//            }
-//            approveView.backgroundColor = Arc4randomColor;
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            
+            //现在要加一个label
+            UILabel *label = [UILabel new];
+            label.font = PFFontR(12);
+            [label addTitleColorTheme];
+            [_idView addSubview:label];
+            label.sd_layout
+//            .topEqualToView(_idView)
+            .centerYEqualToView(_idView)
+            .leftSpaceToView(approveView, 6)
+            .heightIs(hei)
+            ;
+            [label setSingleLineAutoResizeWithMaxWidth:50];
+            label.text = GetSaveString(model[@"text"]);
+            
+            lastView = label;
             if (i == self.user.identifications.count - 1) {
-                [_idView setupAutoWidthWithRightView:approveView rightMargin:0];
+                [_idView setupAutoWidthWithRightView:label rightMargin:0];
             }
         }
     }
@@ -619,7 +641,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 -(UILabel *)getLabel
 {
     UILabel *label = [UILabel new];
-//    label.textColor = RGBA(50, 50, 50, 1);
+    //    label.textColor = RGBA(50, 50, 50, 1);
     [label addTitleColorTheme];
     label.font = PFFontL(16);
     label.textAlignment = NSTextAlignmentCenter;
@@ -694,13 +716,13 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
         cell.textLabel.font = PFFontL(14);
-//        [cell.textLabel addTitleColorTheme];
+        //        [cell.textLabel addTitleColorTheme];
         cell.detailTextLabel.font = PFFontL(14);
         cell.detailTextLabel.textColor = RGBA(188, 188, 188, 1);
         cell.accessoryType = 1;
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
-    if (indexPath.section == 0 && indexPath.row == 0) {
+    if (indexPath.section == 0 && indexPath.row == 1) {
         
         cell.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             UITableViewCell *cell1 = (UITableViewCell *)item;
@@ -716,31 +738,31 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         [cell addTitleColorTheme];
     }
     
-//    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
+    //    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
     if (!kStringIsEmpty(self.tipsmodel.messageTip)) {
-        if (indexPath.section == 0 && indexPath.row == 0) {
+        if (indexPath.section == 0 && indexPath.row == 1) {
             cell.detailTextLabel.text = GetSaveString(self.tipsmodel.messageTip);
         }
     }else{
         cell.detailTextLabel.text = @"";
     }
     if (!kStringIsEmpty(self.tipsmodel.shareTip)) {
-        if (indexPath.section == 0 && indexPath.row == 3) {
+        if (CompareString(cell.textLabel.text, @"分享")) {
             cell.detailTextLabel.text = GetSaveString(self.tipsmodel.shareTip);
         }
     }
     if (!kStringIsEmpty(self.tipsmodel.pointRechargeTip)) {
-        if (indexPath.section == 1 && indexPath.row == 0) {
+        if (CompareString(cell.textLabel.text, @"积分充值")) {
             cell.detailTextLabel.text = GetSaveString(self.tipsmodel.pointRechargeTip);
         }
     }
     if (!kStringIsEmpty(self.tipsmodel.pointGameTip)) {
-        if (indexPath.section == 1 && indexPath.row == 1) {
+        if (CompareString(cell.textLabel.text, @"积分游戏")) {
             cell.detailTextLabel.text = GetSaveString(self.tipsmodel.pointGameTip);
         }
     }
     
-//    cell.imageView.image = UIImageNamed(GetSaveString(model[@"img"]));
+    //    cell.imageView.image = UIImageNamed(GetSaveString(model[@"img"]));
     
     cell.imageView.lee_theme.LeeCustomConfig(@"mineBackImg", ^(id item, id value) {
         NSString *imgStr = GetSaveString(model[@"img"]);
@@ -750,9 +772,6 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         
         [(UIImageView *)item setImage:UIImageNamed(imgStr)];
     });
-    if (indexPath.section == 0 && indexPath.row == 0){
-        
-    }
     
     [cell addBakcgroundColorTheme];
     return cell;
@@ -760,7 +779,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+    //    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     return 50;
 }
 
@@ -788,7 +807,10 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     NSString *title = GetSaveString(section[indexPath.row][@"title"]);
     MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
     if (indexPath.section == 0) {
-        if (CompareString(title, @"设置")) {
+        if (CompareString(title, @"娱乐城")) {
+            CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
+            [self.navigationController pushViewController:ccVC animated:YES];
+        }else if (CompareString(title, @"设置")) {
             SettingViewController *stVC = [SettingViewController new];
             [self.navigationController pushViewController:stVC animated:YES];
         }else if (CompareString(title, @"历史")){
@@ -832,8 +854,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 -(void)requestToGetUserAvatar
 {
     [HttpRequest getWithURLString:UserAvatar parameters:@{} success:^(id responseObject) {
-//        UserSet(responseObject[@"data"], @"userAvatar")
-//        [self.userImg sd_setImageWithURL:UrlWithStr(responseObject[@"data"])];
+        //        UserSet(responseObject[@"data"], @"userAvatar")
+        //        [self.userImg sd_setImageWithURL:UrlWithStr(responseObject[@"data"])];
     } failure:nil];
 }
 

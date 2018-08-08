@@ -16,4 +16,6 @@
 
 @property (nonatomic,strong) CompanyDetailModel *model;
 
+@property (nonatomic,copy) void(^webPushBlock)(void);
+
 @end

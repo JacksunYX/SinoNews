@@ -11,7 +11,8 @@
 {
     UIImageView *img;
     UILabel *title;
-    UILabel *goInto;    //进入
+    UILabel *detail;    //详情
+    UILabel *webUrl;    //官网
     UILabel *introduce;
 }
 @end
@@ -49,12 +50,19 @@
     title.font = PFFontR(16);
     [title addTitleColorTheme];
     
-    UILabel *goInto = [UILabel new];
-    goInto.font = PFFontL(15);
-    goInto.textAlignment = NSTextAlignmentCenter;
-    goInto.textColor = HexColor(#1282EE);
-    goInto.layer.borderColor = HexColor(#1282EE).CGColor;
-    goInto.layer.borderWidth = 1;
+    webUrl = [UILabel new];
+    webUrl.font = PFFontL(15);
+    webUrl.textAlignment = NSTextAlignmentCenter;
+    webUrl.textColor = HexColor(#1282EE);
+    webUrl.layer.borderColor = HexColor(#1282EE).CGColor;
+    webUrl.layer.borderWidth = 1;
+    
+    detail = [UILabel new];
+    detail.font = PFFontL(15);
+    detail.textAlignment = NSTextAlignmentCenter;
+    detail.textColor = HexColor(#1282EE);
+    detail.layer.borderColor = HexColor(#1282EE).CGColor;
+    detail.layer.borderWidth = 1;
     
     UIView *sepLine = [UIView new];
     [sepLine addCutLineColor];
@@ -68,7 +76,8 @@
     [fatherView sd_addSubviews:@[
 //                                 star,
                                  img,
-                                 goInto,
+                                 webUrl,
+                                 detail,
                                  title,
                                  sepLine,
 //                                 introduce,
@@ -91,14 +100,23 @@
 //    img.image = UIImageNamed(@"user_icon");
     [img setSd_cornerRadius:@25];
     
-    goInto.sd_layout
-    .rightSpaceToView(fatherView, 40)
+    webUrl.sd_layout
+    .rightSpaceToView(fatherView, 10)
     .centerYEqualToView(fatherView)
     .widthIs(58)
     .heightIs(22)
     ;
-    goInto.text = @"进入";
-    [goInto setSd_cornerRadius:@4];
+    webUrl.text = @"官网";
+    [webUrl setSd_cornerRadius:@4];
+    
+    detail.sd_layout
+    .rightSpaceToView(webUrl, 10)
+    .centerYEqualToView(fatherView)
+    .widthIs(58)
+    .heightIs(22)
+    ;
+    detail.text = @"详情";
+    [detail setSd_cornerRadius:@4];
     
     title.sd_layout
     .leftSpaceToView(img, 9)
@@ -131,6 +149,15 @@
     _model = model;
     
     title.text = GetSaveString(model.companyName);
+    
+    @weakify(self);
+    //点击详情
+    [webUrl whenTap:^{
+        @strongify(self);
+        if (self.webPushBlock) {
+            self.webPushBlock();
+        }
+    }];
     
 //    introduce.text = GetSaveString(model.information);
     

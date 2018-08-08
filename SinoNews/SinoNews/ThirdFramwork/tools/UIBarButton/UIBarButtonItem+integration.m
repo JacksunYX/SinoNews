@@ -29,7 +29,7 @@
             if (!kStringIsEmpty(hightimage)) {
                 btn.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
             }else{
-                btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
             }
         }
         [btn setImage:backimg forState:UIControlStateNormal];

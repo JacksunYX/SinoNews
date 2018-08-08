@@ -165,8 +165,8 @@
     //所属频道需要自己提前保存
     parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
     if (self.editType) {
-        //问答频道的id固定是85
-        parameters[@"channelId"] = @(85);
+        //问答频道的id固定是2
+        parameters[@"channelId"] = @(2);
         parameters[@"newsType"] = @(2);
     }else{
 //       parameters[@"channelId"] = self.channelModel.channelId;

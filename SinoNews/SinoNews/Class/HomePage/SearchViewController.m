@@ -300,9 +300,18 @@
     
     self.searchBar.delegate = self;
 //    self.rt_navigationController.useSystemBackBarButtonItem = NO;
-    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc]init];
-    barBtn.title = @"";
-    self.navigationItem.leftBarButtonItem = barBtn;
+//    UIBarButtonItem *barBtn = [[UIBarButtonItem alloc]init];
+//    barBtn.title = @"";
+//    self.navigationItem.leftBarButtonItem = barBtn;
+    
+    UIButton *logoIcon = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [logoIcon setNormalImage:UIImageNamed(@"homePage_logo")];
+    logoIcon.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    //    LRViewBorderRadius(_userIcon, 15, 0, HexColor(#B5B5B5));
+    logoIcon.layer.cornerRadius = 17;
+    
+    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_userIcon];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:nil image:[UIImage imageNamed:@"homePage_logo"]];
     
 //    self.navigationItem.leftBarButtonItem = nil;
 //    self.navigationItem.hidesBackButton = YES;

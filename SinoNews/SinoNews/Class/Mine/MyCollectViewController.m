@@ -128,6 +128,10 @@
         [(MLMSegmentHead *)item changeIndex:0 completion:YES];
     });
     
+    [_segHead changeIndex:1 completion:YES];
+    _segHead.hidden = YES;
+    _segHead.userInteractionEnabled = NO;
+    
 }
 
 -(void)addTableViews

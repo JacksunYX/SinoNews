@@ -691,7 +691,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         cell.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             UITableViewCell *cell1 = (UITableViewCell *)item;
             cell1.textLabel.textColor = value;
-            if (UserGetBool(@"MessageNotice")) {
+            if (self.tipsmodel.hasMessageTip) {
                 cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
             }else{
                 cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@"" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
@@ -707,6 +707,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         if (indexPath.section == 0 && indexPath.row == 0) {
             cell.detailTextLabel.text = GetSaveString(self.tipsmodel.messageTip);
         }
+    }else{
+        cell.detailTextLabel.text = @"";
     }
     if (!kStringIsEmpty(self.tipsmodel.shareTip)) {
         if (indexPath.section == 0 && indexPath.row == 3) {

@@ -70,7 +70,14 @@
     createTime.textColor = RGBA(152, 152, 152, 1);
 
     bottomBackView = [UIView new];
-    bottomBackView.backgroundColor = RGBA(227, 227, 227, 1);
+//    bottomBackView.backgroundColor = RGBA(227, 227, 227, 1);
+    bottomBackView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:HexColor(#292D30)];
+        }else{
+            [(UIView *)item setBackgroundColor:RGBA(227, 227, 227, 1)];
+        }
+    });
     
     UIView *fatherView = self.contentView;
     

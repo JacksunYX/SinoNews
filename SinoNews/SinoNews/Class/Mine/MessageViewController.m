@@ -107,7 +107,8 @@
     }
     
     UIView *line1 = [UIView new];
-    line1.backgroundColor = RGBA(227, 227, 227, 1);
+//    line1.backgroundColor = RGBA(227, 227, 227, 1);
+    [line1 addCutLineColor];
     [fatherView addSubview:line1];
     line1.sd_layout
     .leftSpaceToView(fatherView, 10)

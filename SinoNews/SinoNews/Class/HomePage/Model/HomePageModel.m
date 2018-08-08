@@ -37,7 +37,7 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
     model2.images = model.images;
     
     model2.username = model.author;
-    model2.commentCount = model.commentCount;
+//    model2.commentCount = model.commentCount; //暂时不显示评论数
     model2.viewCount = model.viewCount;
     //保存
     [self saveWithModel:model2];

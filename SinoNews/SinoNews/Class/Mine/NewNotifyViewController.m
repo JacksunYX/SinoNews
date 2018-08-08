@@ -117,7 +117,8 @@
         cell.accessoryView = accessView;
         
         UIView *sepLine = [UIView new];
-        sepLine.backgroundColor = HexColor(#e3e3e3);
+//        sepLine.backgroundColor = HexColor(#e3e3e3);
+        [sepLine addCutLineColor];
         [cell.contentView addSubview:sepLine];
         sepLine.sd_layout
         .leftSpaceToView(cell.contentView, 75)

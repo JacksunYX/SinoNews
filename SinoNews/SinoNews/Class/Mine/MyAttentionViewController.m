@@ -121,13 +121,22 @@
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     ;
     
-    [self.tableView addBakcgroundColorTheme];
+//    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    self.tableView.separatorColor = RGBA(237, 237, 237, 1);
+//    self.tableView.separatorColor = RGBA(237, 237, 237, 1);
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        BaseTableView *tableView = item;
+        tableView.backgroundColor = value;
+        if (UserGetBool(@"NightMode")) {
+            tableView.separatorColor = CutLineColorNight;
+        }else{
+            tableView.separatorColor = CutLineColor;
+        }
+    });
     //注册
     [self.tableView registerClass:[MyAttentionFirstCell class] forCellReuseIdentifier:MyAttentionFirstCellID];
     [self.tableView registerClass:[MyAttentionSecondCell class] forCellReuseIdentifier:MyAttentionSecondCellID];
@@ -213,7 +222,8 @@
     
     if ((section == 0&&self.attentionArr.count>0)||(section == 1&&self.topicArr.count>0)||(section == 2&&self.channelArr.count>0)) {
         UIView *line = [UIView new];
-        line.backgroundColor = RGBA(237, 237, 237, 1);
+//        line.backgroundColor = RGBA(237, 237, 237, 1);
+        [line addCutLineColor];
         [headView addSubview:line];
         
         CGFloat leftX = 0;

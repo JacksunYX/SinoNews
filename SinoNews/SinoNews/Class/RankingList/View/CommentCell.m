@@ -73,7 +73,7 @@
     [replyBtn setTitleColor:RGBA(137, 137, 137, 1) forState:UIControlStateNormal];
     
     bottomBackView = [UIView new];
-    bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
+//    bottomBackView.backgroundColor = RGBA(243, 243, 243, 1);
 //    [bottomBackView addBakcgroundColorTheme];
     
     UIView *sepLine = [UIView new];
@@ -232,6 +232,14 @@
     checkImg.lee_theme.LeeConfigImage(@"checkAllReplay");
     
     [bottomBackView setupAutoHeightWithBottomView:checkAllReplayLabel bottomMargin:0];
+    
+    bottomBackView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:HexColor(#292D30)];
+        }else{
+            [(UIView *)item setBackgroundColor:RGBA(243, 243, 243, 1)];
+        }
+    });
     
     [self setupAutoHeightWithBottomView:bottomBackView bottomMargin:10];
 }

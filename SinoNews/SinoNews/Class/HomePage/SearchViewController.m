@@ -400,7 +400,7 @@
         titleLabel.text = self.hotNews[indexPath.row];
         //分割线
         UIView *line = [UIView new];
-        line.backgroundColor = RGB(227, 227, 227);
+        [line addCutLineColor];
         [cell.contentView addSubview:line];
         line.sd_layout
         .leftSpaceToView(cell.contentView, 10)

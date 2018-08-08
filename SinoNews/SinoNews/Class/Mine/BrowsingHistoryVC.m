@@ -220,7 +220,7 @@
         
         headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
             if (UserGetBool(@"NightMode")) {
-                [(UIView *)item setBackgroundColor:value];
+                [(UIView *)item setBackgroundColor:HexColor(#292D30)];
             }else{
                 [(UIView *)item setBackgroundColor:HexColor(#f6f6f6)];
             }

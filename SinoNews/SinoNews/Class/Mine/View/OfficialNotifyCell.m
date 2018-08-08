@@ -15,6 +15,7 @@
     UIImageView *triangleIcon;      //三角形标记
     UILabel     *content;   //内容
     NSInteger   sendType;   //是官方还是本人
+    UIView      *timeBackView;  //时间戳背景图
     UILabel     *time;      //时间
 }
 @end
@@ -48,6 +49,8 @@
     time.font   = PFFontL(12);
     time.textAlignment = NSTextAlignmentCenter;
     
+    timeBackView = [UIView new];
+    
     contentBackView = [UIView new];
     
     triangleIcon = [UIImageView new];
@@ -59,6 +62,7 @@
     
     [self.contentView sd_addSubviews:@[
                                        time,
+                                       timeBackView,
                                        triangleIcon,
                                        content,
                                        contentBackView,
@@ -84,19 +88,28 @@
     if (!kStringIsEmpty(self.model.time)) {
         topX = 5;
         timeHeight = 20;
-        [time setSd_cornerRadius:@10];
         time.textColor = WhiteColor;
-        time.backgroundColor = RGBA(199, 203, 206, 1);
     }
     
     time.sd_layout
     .centerXEqualToView(fartherView)
     .topSpaceToView(fartherView, topX)
-    .widthIs(75)
+//    .widthIs(75)
     .heightIs(timeHeight)
     ;
+    [time setSingleLineAutoResizeWithMaxWidth:200];
     time.text = GetSaveString(self.model.time);
     [time updateLayout];
+//    GGLog(@"wid:%.2lf",time.width);
+    
+    [fartherView insertSubview:timeBackView belowSubview:time];
+    timeBackView.sd_layout
+    .centerXEqualToView(time)
+    .centerYEqualToView(time)
+    .heightRatioToView(time, 1).widthRatioToView(time, 1.2)
+    ;
+    [timeBackView setSd_cornerRadius:@10];
+    timeBackView.backgroundColor = RGBA(199, 203, 206, 1);
     
     [fartherView insertSubview:contentBackView belowSubview:content];
     if (self.model.type) {  //本人

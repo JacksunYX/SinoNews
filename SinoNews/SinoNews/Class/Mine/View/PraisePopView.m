@@ -88,7 +88,7 @@ static CGFloat anumationTime = 0.3;
     if (data.allKeys.count>0) {
         centerText = [NSString stringWithFormat:@"“%@”共获%ld赞",data[@"username"],[data[@"praisedCount"] integerValue]];
     }else{
-        centerText = [NSString stringWithFormat:@"“%@”共获%ld赞",GetSaveString(UserGet(@"username")),user.praisedCount];
+        centerText = [NSString stringWithFormat:@"“%@”共获%ld赞",GetSaveString(user.username),user.praisedCount];
     }
     centerLabel.text = centerText;
     

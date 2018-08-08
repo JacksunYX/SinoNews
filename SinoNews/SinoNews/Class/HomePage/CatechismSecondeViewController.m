@@ -96,7 +96,7 @@ CGFloat static titleViewHeight = 91;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
@@ -255,45 +255,31 @@ CGFloat static titleViewHeight = 91;
 -(void)setNaviTitle
 {
     if (!_naviTitle) {
-        _naviTitle = [UIView new];
+        _naviTitle = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
         _naviTitle.alpha = 0;
-        self.navigationItem.titleView = _naviTitle;
+        
         [_naviTitle addBakcgroundColorTheme];
         
-        _naviTitle.sd_layout
-        .heightIs(30)
-        ;
-        
-        UIImageView *avatar = [UIImageView new];
-        UILabel *username = [UILabel new];
-        [username addTitleColorTheme];
-        
-        [_naviTitle sd_addSubviews:@[
-                                     avatar,
-                                     username,
-                                     ]];
         CGFloat wid = 0;
         if (self.answerModel.avatar.length>0) {
             wid = 30;
         }
-        avatar.sd_layout
-        .leftEqualToView(_naviTitle)
-        .centerYEqualToView(_naviTitle)
-        .widthIs(wid)
-        .heightIs(30)
-        ;
-        [avatar setSd_cornerRadius:@(wid/2)];
+        UIImageView *avatar = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wid, _naviTitle.height)];
+        [_naviTitle addSubview:avatar];
+        
+        [avatar cornerWithRadius:wid/2];
         [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.answerModel.avatar))];
         
-        username.sd_layout
-        .leftSpaceToView(avatar, 5)
-        .centerYEqualToView(_naviTitle)
-        .heightIs(30)
-        ;
-        [username setSingleLineAutoResizeWithMaxWidth:150];
+        UILabel *username = [UILabel new];
+        [username addTitleColorTheme];
         username.text = GetSaveString(self.answerModel.username);
+        [username sizeToFit];
+        username.frame = CGRectMake(CGRectGetMaxX(avatar.frame) + 5, 0, username.frame.size.width, 30);
+        [_naviTitle addSubview:username];
         
-        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
+        _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);
+        
+        self.navigationItem.titleView = _naviTitle;
         
     }
 }
@@ -664,7 +650,7 @@ CGFloat static titleViewHeight = 91;
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY = scrollView.contentOffset.y;
-    GGLog(@"contentOffset.y:%f",offsetY);
+//    GGLog(@"contentOffset.y:%f",offsetY);
     if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);

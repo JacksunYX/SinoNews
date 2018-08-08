@@ -54,7 +54,7 @@
     username.lee_theme.LeeConfigTextColor(@"titleColor");
     
     praise = [UIButton new];
-    [praise setNormalTitleColor:HexColor(#929697)];
+    [praise setNormalTitleColor:HexColor(#1282EE)];
     praise.titleLabel.font = PFFontL(12);
     
     content = [UILabel new];

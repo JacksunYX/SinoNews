@@ -92,6 +92,12 @@
     [self.view endEditing:YES];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.news_id);
+    NSString *content = self.wordViewController.textView.attributedText.string;
+    
+    if ([NSString isEmpty:content]||kStringIsEmpty(content)) {
+        LRToast(@"回答的内容不能为空哦");
+        return;
+    }
     parameters[@"content"] = [self.wordViewController exportHTML];
     [HttpRequest postWithURLString:News_answer parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"回答成功");

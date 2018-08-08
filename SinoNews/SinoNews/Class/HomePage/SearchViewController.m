@@ -645,7 +645,30 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (self.newsArr.count<=0&&tableView == self.tableView) {
+        return 40;
+    }
     return 0.01;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headView;
+    if (self.newsArr.count<=0&&tableView == self.tableView) {
+        headView = [[UIView alloc]initWithFrame:CGRectMake(0,0, ScreenW, 40)];
+        [headView addBakcgroundColorTheme];
+        UILabel *noticeLabel = [UILabel new];
+        noticeLabel.font = PFFontL(14);
+        [noticeLabel addTitleColorTheme];
+        [headView addSubview:noticeLabel];
+        noticeLabel.sd_layout
+        .centerXEqualToView(headView)
+        .heightIs(40)
+        ;
+        [noticeLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
+        noticeLabel.text = [NSString stringWithFormat:@"没有找到 %@ 相关内容",self.searchBar.text];
+    }
+    return headView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

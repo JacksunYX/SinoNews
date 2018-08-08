@@ -52,7 +52,8 @@
     avatar = [UIImageView new];
     
     praise = [UIButton new];
-    [praise setTitleColor:RGBA(152, 152, 152, 1) forState:UIControlStateNormal];
+ 
+    [praise setNormalTitleColor:HexColor(#1282EE)];
     praise.titleLabel.font = PFFontR(14);
     
     username = [UILabel new];

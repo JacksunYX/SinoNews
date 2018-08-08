@@ -88,8 +88,9 @@
     //监听登录
     @weakify(self)
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self)
-        [self requestChnanel:NO];
+//        @strongify(self)s
+        //这里目前不要清空频道设置
+//        [self requestChnanel:NO];
     }];
     
     if (!UserGetBool(HomePageNotice)) {

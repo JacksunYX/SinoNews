@@ -24,7 +24,7 @@ MJCodingImplementation
     UserSet(@"", @"avatar")
     UserSet(@"", @"username")
     [UserModel bg_clear:nil];
-    [NSArray bg_clearArrayWithName:@"columnArr"];
+//    [NSArray bg_clearArrayWithName:@"columnArr"];
     GGLog(@"本地用户信息已清除");
 }
 

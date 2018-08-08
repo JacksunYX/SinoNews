@@ -49,7 +49,7 @@
 @end
 
 @implementation MineViewController
-// 重力弹跳动画效果
+//金币重力弹跳动画效果
 void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
     CGFloat currentTx = view.transform.ty;
@@ -380,7 +380,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             [(UIButton *)item setBackgroundColor:RGBA(178, 217, 249, 1)];
         }
     });
-    [_signIn setTitle:@"签到领金币" forState:UIControlStateNormal];
+    [_signIn setNormalTitle:@"签到领金币"];
     _signIn.titleLabel.font = FontScale(13);
 //    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     [_signIn addButtonTextColorTheme];
@@ -509,6 +509,10 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         _signIn.hidden = NO;
         shakeImg.hidden = NO;
         _idView.hidden = NO;
+        
+        [_signIn setNormalTitle:@"今日已签到"];
+        shakeImg.image = UIImageNamed(@"mine_gold_gray");
+        [shakeImg.layer removeAllAnimations];
     }
     
     [self setIdViewWithIDs];

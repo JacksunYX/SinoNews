@@ -249,11 +249,12 @@
 //            GGLog(@"确定退出登录");
             [UserModel clearLocalData];
             //重构主界面
-            MainTabbarVC *mainVC = [MainTabbarVC new];
-            UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-            keyWindow.rootViewController = mainVC;
-            
-            [keyWindow makeKeyAndVisible];
+//            MainTabbarVC *mainVC = [MainTabbarVC new];
+//            UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+//            keyWindow.rootViewController = mainVC;
+//
+//            [keyWindow makeKeyAndVisible];
+            [self.navigationController popToRootViewControllerAnimated:NO];
         }];
     }
     

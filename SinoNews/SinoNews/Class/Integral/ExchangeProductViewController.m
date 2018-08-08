@@ -43,6 +43,7 @@
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     ;
+    [scrollView updateLayout];
     
     UIImageView *topView = [UIImageView new];
     UIView *centerView = [UIView new];
@@ -67,14 +68,19 @@
     .topSpaceToView(topView, 0)
     .leftEqualToView(scrollView)
     .rightEqualToView(scrollView)
-    .heightIs(138)
+    .heightIs(153)
     ;
     [centerView updateLayout];
-    [centerView addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+    if (UserGetBool(@"NightMode")) {
+        [centerView addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
+    }else{
+       [centerView addBorderTo:BorderTypeBottom borderColor:CutLineColor];
+    }
+    
 //    centerView.backgroundColor = YellowColor;
     
     bottomView.sd_layout
-    .topSpaceToView(centerView, 0)
+    .topSpaceToView(centerView, 5)
     .leftEqualToView(scrollView)
     .rightEqualToView(scrollView)
     ;
@@ -168,6 +174,10 @@
     discountLabel.font = PFFontL(15);
     discountLabel.isAttributedContent = YES;
     
+    UILabel *stock = [UILabel new];
+    stock.textColor = HexColor(#989898);
+    stock.font = PFFontL(14);
+    
     UIImageView *goldImg = [UIImageView new];
     goldImg.image = UIImageNamed(@"product_gold");
     
@@ -175,7 +185,7 @@
                                  exchangeBtn,
                                  discountLabel,
                                  goldImg,
-                                 
+                                 stock,
                                  ]];
     
     exchangeBtn.sd_layout
@@ -226,6 +236,14 @@
     .widthIs(22)
     .heightEqualToWidth()
     ;
+    
+    stock.sd_layout
+    .leftEqualToView(discountLabel)
+    .topSpaceToView(goldImg, 5)
+    .heightIs(14)
+    ;
+    [stock setSingleLineAutoResizeWithMaxWidth:250];
+    stock.text = [NSString stringWithFormat:@"库存：%ld",self.productModel.stock];
 }
 
 -(void)addBottomViewWithView:(UIView *)fatherView

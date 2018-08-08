@@ -24,5 +24,5 @@
 @property(nonatomic,assign) NSInteger productType;
 @property(nonatomic,assign) NSInteger specialPrice;
 @property(nonatomic,assign) NSInteger status;
-@property(nonatomic,assign) NSInteger stock;
+@property(nonatomic,assign) NSInteger stock;    //库存
 @end

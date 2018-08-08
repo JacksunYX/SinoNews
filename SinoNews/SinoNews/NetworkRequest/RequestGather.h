@@ -34,4 +34,15 @@
                  failure:(void (^)(NSError *error))failure;
 
 
+/**
+ 分享成功后需要上报到后台
+
+ @param newsId 文章id
+ @param success 成功
+ @param failure 失败
+ */
++(void)shareWithNewsId:(NSInteger)newsId
+               Success:(void (^)(id response))success
+               failure:(void (^)(NSError *error))failure;
+
 @end

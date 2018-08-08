@@ -44,7 +44,17 @@
     } failure:nil RefreshAction:nil];
 }
 
-
+//分享成功后需要上报到后台
++(void)shareWithNewsId:(NSInteger)newsId
+               Success:(void (^)(id response))success
+               failure:(void (^)(NSError *error))failure
+{
+    [HttpRequest postWithURLString:ShareNewsCallback parameters:@{@"newsId":@(newsId)} isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        GGLog(@"分享上报成功");
+    } failure:^(NSError *error) {
+        GGLog(@"请求失败");
+    } RefreshAction:nil];
+}
 
 
 

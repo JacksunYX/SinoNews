@@ -34,6 +34,9 @@
 //是否被收藏(post)
 #define IsFavor                 @"/api/isFavor"
 
+//分享文章回调(post)
+#define ShareNewsCallback       @"/api/news/shareNewsCallback"
+
 //点赞(post)
 //点赞类型(1:回复,2:评论,3:新闻,4:问答,5:公司回复,6:公司评论)
 #define Praise                  @"/api/praise"

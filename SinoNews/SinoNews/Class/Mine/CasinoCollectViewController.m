@@ -166,10 +166,10 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyCollectCasinoCell *cell = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
-    cell.model = self.casinoArray[indexPath.row];
-    
+    CompanyDetailModel *model = self.casinoArray[indexPath.row];
+    cell.model = model;
     cell.webPushBlock = ^{
-        GGLog(@"跳转到官网");
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
     };
     
     [cell addBakcgroundColorTheme];
@@ -247,7 +247,9 @@
     [HttpRequest postWithURLString:CancelCompanysCollects parameters:@{@"companyIds":jsonString} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         @strongify(self)
         [self resetStatus];
-    } failure:nil RefreshAction:^{
+    } failure:^(NSError *error) {
+        [self endRefresh];
+    } RefreshAction:^{
         @strongify(self)
         [self.navigationController popViewControllerAnimated:YES];
     }];

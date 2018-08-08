@@ -1296,6 +1296,7 @@ CGFloat static titleViewHeight = 91;
     //分享
     [[MGSocialShareHelper defaultShareHelper]  shareMode:shareModel toSharePlatform:type showInController:self successBlock:^{
         LRToast(@"分享成功");
+        [RequestGather shareWithNewsId:self.newsId Success:nil failure:nil];
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
     }];

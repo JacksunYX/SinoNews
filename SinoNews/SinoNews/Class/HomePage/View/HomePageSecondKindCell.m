@@ -149,17 +149,16 @@
     blLabel.sd_layout
     .topSpaceToView(imgL, tbMargin)
     .leftSpaceToView(self.contentView, 10)
-    .autoHeightRatio(0)
+    .heightIs([FontScale(12) pointSize])
     ;
-    [blLabel setSingleLineAutoResizeWithMaxWidth:50];
+    [blLabel setSingleLineAutoResizeWithMaxWidth:80];
     
     bottomLabel.sd_layout
     .leftSpaceToView(blLabel, 0)
     .rightSpaceToView(self.contentView, lrMargin)
     .topSpaceToView(imgL, tbMargin)
-    .autoHeightRatio(0)
+    .heightIs([FontScale(12) pointSize])
     ;
-    [bottomLabel setMaxNumberOfLinesToShow:1];
     
     sepLine.sd_layout
     .leftSpaceToView(self.contentView, 10)

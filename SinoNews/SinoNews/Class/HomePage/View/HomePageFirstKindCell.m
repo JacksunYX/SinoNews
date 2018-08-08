@@ -193,6 +193,15 @@
     
     //判断是否包含标签文字
     if ([titletext containsString:@"<font"]) {
+        //不知道为何，显示有问题，只有自己在首位拼接一下字体标签
+        if (UserGetBool(@"NightMode")) {
+            titletext = [@"<font color='white'>" stringByAppendingString:titletext];
+            titletext = [titletext stringByAppendingString:@"</font>"];
+        }else{
+            titletext = [@"<font color='black'>" stringByAppendingString:titletext];
+            titletext = [titletext stringByAppendingString:@"</font>"];
+        }
+        
         //解析
         title.attributedText = [NSString analysisHtmlString:titletext];
         //⚠️字体需要在这里重新设置才行，不然会变小

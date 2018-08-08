@@ -231,6 +231,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -618,7 +619,7 @@
         cell.textLabel.text = self.keyArr[indexPath.row];
         [cell.textLabel addTitleColorTheme];
     }
-    cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [cell addBakcgroundColorTheme];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

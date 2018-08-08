@@ -186,17 +186,24 @@ static CGFloat anumationTime = 0.3;
             
         }else{
             //全局设置字体和夜间模式
-            UserSetBool(switchBtn.on, @"NightMode")
-            if (switchBtn.on) {
-                [LEETheme startTheme:@"NightTheme"];
-            }else{
-                [LEETheme startTheme:@"NormalTheme"];
+            if (switchBtn.on!=UserGetBool(@"NightMode")) {
+                UserSetBool(switchBtn.on, @"NightMode")
+                //发送修改了夜间模式的通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:NightModeChanged object:nil];
+                
+                if (switchBtn.on) {
+                    [LEETheme startTheme:@"NightTheme"];
+                }else{
+                    [LEETheme startTheme:@"NormalTheme"];
+                }
+            }
+            if ([UserGet(@"fontSize") integerValue] != fontSelect.currentIdx) {
+                NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
+                UserSet(fontSize, @"fontSize")
+                //发送修改了字体的通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
             }
             
-            NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
-            UserSet(fontSize, @"fontSize")
-            //发送修改了字体的通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
             //回调
             if (handlBlock) {
                 handlBlock(switchBtn.on,fontSelect.currentIdx);

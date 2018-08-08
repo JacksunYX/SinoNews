@@ -14,4 +14,7 @@
 
 @property (nonatomic, strong) NSString * channel_name;  //频道名称
 
+//滚动至顶部
+-(void)scrollToTop;
+
 @end

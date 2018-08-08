@@ -668,7 +668,7 @@ CGFloat static titleViewHeight = 91;
     
     [self setNaviTitle];
     
-    [self.tableView setContentOffset:CGPointMake(0, -titleViewHeight) animated:YES];
+    [self.tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
     
     [self showOrHideLoadView:NO page:2];
     

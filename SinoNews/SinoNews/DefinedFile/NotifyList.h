@@ -21,6 +21,9 @@
 //我的提示
 #define MineNotice          @"MineNotice"
 //清除浏览记录
-#define ClearBrowsHistory    @"ClearBrowsHistory"
+#define ClearBrowsHistory   @"ClearBrowsHistory"
+
+//夜间模式切换通知
+#define NightModeChanged    @"NightModeChanged"
 
 #endif /* NotifyList_h */

@@ -77,6 +77,15 @@
             [self.tableView reloadData];
         }
     }];
+    
+    //监听夜间模式
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:NightModeChanged object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self);
+        if (self.dataSource.count) {
+            
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -224,6 +233,12 @@
 //    self.tableView.footRefreshControl.autoRefreshOnFoot = YES;
 //
 //    [self.tableView.headRefreshControl beginRefreshing];
+}
+
+//滚动至顶部
+-(void)scrollToTop
+{
+    [self.tableView setContentOffset:CGPointMake(0,0) animated:YES];
 }
 
 #pragma mark ----- UITableViewDataSource

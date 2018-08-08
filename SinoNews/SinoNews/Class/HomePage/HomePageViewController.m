@@ -210,10 +210,14 @@
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(userTouch) image:[UIImage imageNamed:@"homePage_logo"]];
 }
 
+//点击logo滚动至顶部
 -(void)userTouch
 {
-    [[UIApplication sharedApplication]openURL:UrlWithStr(@"beijingtong://")];
-    
+//    GGLog(@"currentVcOrView:%@",self.segScroll.currentVcOrView);
+    if (self.segScroll.currentVcOrView) {
+        HomePageChildVCViewController *vc = self.segScroll.currentVcOrView;
+        [vc scrollToTop];
+    }
 }
 
 //让输入框无法进入编辑

@@ -195,6 +195,8 @@
 //    [self.view addGestureRecognizer:tap];
     
     [self getSearchField];
+    
+    [self.searchBar becomeFirstResponder];
 }
 
 //获取搜索框里的输入框
@@ -229,7 +231,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -615,6 +616,7 @@
     }else if (tableView == self.keyTableView){
         cell = [tableView dequeueReusableCellWithIdentifier:@"KeyCellID"];
         cell.textLabel.text = self.keyArr[indexPath.row];
+        [cell.textLabel addTitleColorTheme];
     }
     cell.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

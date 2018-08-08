@@ -173,6 +173,8 @@ static bool isCollect = NO;
             LRToast(@"夜间模式已开启");
             [LEETheme startTheme:@"NightTheme"];
         }
+        //发送修改了夜间模式的通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:NightModeChanged object:nil];
     }]];
     
     NSString *collectTitle = @"收藏";

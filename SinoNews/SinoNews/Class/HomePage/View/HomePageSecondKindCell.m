@@ -53,7 +53,7 @@
     title = [UILabel new];
     title.font = FontScale(17);
 //    title.textColor = HexColor(#323232);
-    
+    title.isAttributedContent = YES;
     
     tlLabel = [UILabel new];
     tlLabel.font = FontScale(11);
@@ -83,13 +83,7 @@
     
     UIView *sepLine = [UIView new];
     //设置不同环境下的颜色
-    sepLine.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        if (UserGetBool(@"NightMode")) {
-            [(UIView *)item setBackgroundColor:CutLineColorNight];
-        }else{
-            [(UIView *)item setBackgroundColor:CutLineColor];
-        }
-    });
+    [sepLine addCutLineColor];
     
     [self.contentView sd_addSubviews:@[
                                        title,
@@ -182,7 +176,7 @@
 {
     _model = model;
     
-    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    [title addTitleColorTheme];
     
     bottomLabel.textColor = HexColor(#889199);
     
@@ -191,7 +185,7 @@
         title.textColor = BrowsNewsTitleColor;
     }
     
-    NSString *titletext = titletext = GetSaveString(model.itemTitle);;
+    NSString *titletext = GetSaveString(model.itemTitle);;
     
     NSString *tipName = GetSaveString(model.tipName);
     if ([NSString isEmpty:tipName]) {

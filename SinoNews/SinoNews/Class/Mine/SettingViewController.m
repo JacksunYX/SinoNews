@@ -199,6 +199,8 @@
             UserSetBool(YES, @"NightMode")
             [LEETheme startTheme:@"NightTheme"];
         }
+        //发送修改了夜间模式的通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:NightModeChanged object:nil];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
     }else if (CompareString(title, @"字体大小")){
         [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {

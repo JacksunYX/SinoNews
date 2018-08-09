@@ -149,7 +149,8 @@
     .heightIs(56)
     ;
     [nickname updateLayout];
-    nickname.placeholder = @"请输入昵称";
+    nickname.limitedNumber = 10;
+    nickname.placeholder = @"请输入昵称(不超过10位字符)";
     [nickname addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     password.sd_layout

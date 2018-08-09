@@ -48,6 +48,7 @@
 		4C1F0AE520ECC45300C3A2E7 /* ProductDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0AE420ECC45300C3A2E7 /* ProductDetailModel.m */; };
 		4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0AE720ECF21500C3A2E7 /* UserInfoModel.m */; };
 		4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */; };
+		4C1FF1D9211C4FB700DA05F4 /* MoveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF1D8211C4FB700DA05F4 /* MoveCell.m */; };
 		4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD020D34A4500615F20 /* RegisterViewController.m */; };
 		4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD320D34A5100615F20 /* LoginViewController.m */; };
 		4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABD620D34DED00615F20 /* ForgetPasswordViewController.m */; };
@@ -425,6 +426,8 @@
 		4C1F0AE720ECF21500C3A2E7 /* UserInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		4C1F7B1D20CFB56100C49B11 /* FansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
 		4C1F7B1E20CFB56100C49B11 /* FansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
+		4C1FF1D7211C4FB600DA05F4 /* MoveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveCell.h; sourceTree = "<group>"; };
+		4C1FF1D8211C4FB700DA05F4 /* MoveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveCell.m; sourceTree = "<group>"; };
 		4C21ABCF20D34A4500615F20 /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		4C21ABD020D34A4500615F20 /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		4C21ABD220D34A5100615F20 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -2055,6 +2058,8 @@
 		4C83E64020BFE30200C99AAB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4C1FF1D7211C4FB600DA05F4 /* MoveCell.h */,
+				4C1FF1D8211C4FB700DA05F4 /* MoveCell.m */,
 				4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */,
 				4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */,
 				4C83E64120BFE32C00C99AAB /* LineLayout.h */,
@@ -2675,6 +2680,7 @@
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
 				4C23B3C520F592AB00ACE380 /* LMTextHTMLParser.m in Sources */,
+				4C1FF1D9211C4FB700DA05F4 /* MoveCell.m in Sources */,
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,

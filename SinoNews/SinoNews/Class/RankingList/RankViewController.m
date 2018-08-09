@@ -13,15 +13,23 @@
 #import "HeadBannerView.h"
 #import "LineCollectionViewCell.h"
 #import "LineLayout.h"
+#import "MoveCell.h"
 
+/*最小值的cell大小*/
+#define SCellHeight 150
+/*最大值的cell大小*/
+#define BCellHeight 230
 
-@interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 //上方的滚动视图
 @property (nonatomic, strong) HeadBannerView *headView;
 @property (nonatomic,strong) NSMutableArray *adArr; //轮播广告数组
 //中间的排行视图
 @property (nonatomic, strong) UICollectionView *lineCollectionView;
 @property (nonatomic, strong) NSMutableArray *datasource;
+//替换成新的视图展示
+@property (nonatomic, strong) UITableView *tableV;
+
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
 @property (nonatomic ,strong) NSMutableArray *adDatasource;
@@ -112,7 +120,11 @@
 {
     [self addTopLoopView];
     [self addBottomADView];
-    [self addCenterRankView];
+//    [self addCenterRankView];
+    
+    [self createTabel];
+    
+    [self requestRanking];
 }
 
 //添加上方轮播图
@@ -184,6 +196,29 @@
     }];
     
     [self.lineCollectionView.mj_header beginRefreshing];
+}
+
+- (void)createTabel
+{
+    self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableV.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    self.tableV.delegate = self;
+    self.tableV.dataSource = self;
+    self.tableV.showsVerticalScrollIndicator = NO;
+    //设置cell的上下内边距
+    self.tableV.contentInset = UIEdgeInsetsMake(BCellHeight - SCellHeight, 0, 0, 0);
+    //取消cell边框
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableV];
+    self.tableV.sd_layout
+    .topSpaceToView(self, 0)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.adCollectionView, 0)
+    ;
+    
+    [self.tableV registerClass:[MoveCell class] forCellReuseIdentifier:@"cell"];
+    
 }
 
 //添加下方广告视图
@@ -304,6 +339,63 @@
     }
 }
 
+#pragma mark ---- UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.datasource.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MoveCell *cell = [self.tableV dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    RankingModel *model = self.datasource[indexPath.row];
+    //给获取的cell赋值图片以及给当前的imagev添加tag值
+//    [cell cellGetImage:model.rankingLogo tag:indexPath.row];
+    [cell cellGetModel:model tag:indexPath.row];
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return SCellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    NSLog(@"%.2f", cell.frame.origin.y);
+    //cell第一次出现时调用计算偏移量
+    MoveCell *getCell = (MoveCell *)cell;
+    
+    [getCell cellOffsetOnTabelView:tableView];
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //改变图片的坐标cell的点击方法不准确所以用手势代替
+//    GGLog(@"点击了第%ld个",indexPath.row);
+    RankListViewController *rlVC = [RankListViewController new];
+    RankingModel *model = self.datasource[indexPath.row];
+    rlVC.rankingId = model.rankingId;
+    rlVC.navigationItem.title = model.rankingName;
+    [self.navigationController pushViewController:rlVC animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tableV) {
+        //在滑动过程中获取当前显示的所有cell, 调用偏移量的计算方法
+        [[self.tableV visibleCells] enumerateObjectsUsingBlock:^(MoveCell * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            //cell偏移设置
+            [obj cellOffsetOnTabelView:self.tableV];
+            
+        }];
+    }
+}
+
+
 #pragma mark ----- 请求发送
 //请求上部广告
 -(void)requestTopBanner
@@ -315,7 +407,7 @@
             [self addTopLoopView];
             headHeight = WIDTH_SCALE * 108 + 30;
         }
-        self.lineCollectionView.sd_layout
+        self.tableV.sd_layout
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topSpaceToView(self.view, headHeight)
@@ -355,10 +447,11 @@
         if (!kArrayIsEmpty(data)) {
             self.datasource = [data mutableCopy];
         }
-        [self.lineCollectionView.mj_header endRefreshing];
-        [self.lineCollectionView reloadData];
+//        [self.lineCollectionView.mj_header endRefreshing];
+//        [self.lineCollectionView reloadData];
+        [self.tableV reloadData];
     } failure:^(NSError *error) {
-        [self.lineCollectionView.mj_header endRefreshing];
+//        [self.lineCollectionView.mj_header endRefreshing];
     }];
 }
 

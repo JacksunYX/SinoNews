@@ -79,10 +79,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我的收藏";
+    self.navigationItem.title = @"内容";
     [self showTopLine];
     [self getButtonAndView];
-    [self setTitleView];
+    selectedIndex = 1;
+//    [self setTitleView];
     [self addTableViews];
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];

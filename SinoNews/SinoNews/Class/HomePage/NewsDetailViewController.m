@@ -510,7 +510,8 @@ CGFloat static titleViewHeight = 91;
         [priceLabel updateLayout];
         [priceLabel addBorderTo:BorderTypeTop borderColor:RGBA(227, 227, 227, 1)];
     }
-    self.bottomView2.hidden = NO;
+//    self.bottomView2.hidden = NO;
+    self.bottomView2.hidden = YES;  //当前不显示此种购买ui
 }
 
 //下方视图具体显示哪一个
@@ -751,7 +752,7 @@ CGFloat static titleViewHeight = 91;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 0&&!NoPayedNews) {
         return self.newsModel.relatedNews.count;
     }else if (section == 1){
         return self.commentsArr.count;
@@ -763,7 +764,7 @@ CGFloat static titleViewHeight = 91;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0&&!NoPayedNews) {
 //        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
 //        cell0.model = self.newsModel.relatedNews[indexPath.row];
 //        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
@@ -840,7 +841,7 @@ CGFloat static titleViewHeight = 91;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0&&self.newsModel.relatedNews.count) {
+    if (section == 0&&self.newsModel.relatedNews.count&&!NoPayedNews) {
         return 30;
     }else if (section == 1){
         if (NoPayedNews) {
@@ -854,7 +855,7 @@ CGFloat static titleViewHeight = 91;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (section == 0&&self.newsModel.relatedNews.count) {
+    if (section == 0&&self.newsModel.relatedNews.count&&!NoPayedNews) {
         headView = [UIView new];
         headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         UILabel *title = [UILabel new];
@@ -889,20 +890,20 @@ CGFloat static titleViewHeight = 91;
         if (NoPayedNews) {
             //添加文本和提示
             UILabel *noticeLabel = [UILabel new];
-            noticeLabel.font = PFFontR(15);
-//            noticeLabel.textColor = RGBA(50, 50, 50, 1);
-            [noticeLabel addTitleColorTheme];
+            noticeLabel.font = PFFontL(16);
+            noticeLabel.textColor = HexColor(#1282EE);
+//            [noticeLabel addTitleColorTheme];
             noticeLabel.numberOfLines = 0;
             
             UIImageView *lockImg = [UIImageView new];
             
             UILabel *moreNotice = [UILabel new];
-            moreNotice.textColor = RGBA(136, 136, 136, 1);
-            moreNotice.font = PFFontL(14);
+            moreNotice.textColor = HexColor(#1282EE);
+            moreNotice.font = PFFontL(16);
             moreNotice.textAlignment = NSTextAlignmentCenter;
             
             [headView sd_addSubviews:@[
-                                       noticeLabel,
+//                                       noticeLabel,
                                        moreNotice,
                                        lockImg,
                                        ]];
@@ -913,23 +914,34 @@ CGFloat static titleViewHeight = 91;
             .autoHeightRatio(0)
             ;
             [noticeLabel setMaxNumberOfLinesToShow:4];
-            noticeLabel.text = @"本文来自启世录资讯付费文章，覆盖投资精英必读核心资讯，请付费阅读。欢迎关注环球国际时报，实时了解最新资讯。";
+            noticeLabel.text = @"余下内容为付费内容，价格为199.00积分";
             
             moreNotice.sd_layout
-            .bottomSpaceToView(headView, 50)
+//            .bottomSpaceToView(headView, 50)
+            .topSpaceToView(headView, 12)
             .leftSpaceToView(headView, 10)
             .rightSpaceToView(headView, 10)
             .heightIs(14)
             ;
-            moreNotice.text = @"还有更多精彩内容 付费解锁全文";
+            moreNotice.text = [NSString stringWithFormat:@"余下内容为付费内容，价格为%ld积分",self.newsModel.points];
             
             lockImg.sd_layout
             .centerXEqualToView(headView)
-            .bottomSpaceToView(moreNotice, 10)
-            .widthIs(55)
+//            .bottomSpaceToView(moreNotice, 10)
+            .topSpaceToView(moreNotice, 20)
+            .widthIs(54)
             .heightEqualToWidth()
             ;
-            lockImg.image = UIImageNamed(@"new_locked");
+            [lockImg setSd_cornerRadius:@27];
+//            lockImg.image = UIImageNamed(@"new_locked");
+            lockImg.image = UIImageNamed(@"news_unlock");
+            
+            //添加点击事件
+            @weakify(self);
+            [lockImg whenTap:^{
+                @strongify(self)
+                [self requestPayForNews];
+            }];
             
         }else if(self.newsModel){
             UILabel *title = [UILabel new];
@@ -1089,12 +1101,13 @@ CGFloat static titleViewHeight = 91;
     
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
-
+        
+        [self.tableView reloadData];
+        
         [self setWebViewLoad];
         
         [HomePageModel saveWithNewsModel:self.newsModel];
         
-        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
         [self.tableView.mj_header endRefreshing];
@@ -1312,7 +1325,7 @@ CGFloat static titleViewHeight = 91;
     } failure:^(NSError *error) {
         
     } RefreshAction:^{
-        
+        [self requestNewData];
     }];
 }
 

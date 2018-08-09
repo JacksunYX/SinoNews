@@ -682,8 +682,11 @@ CGFloat static titleViewHeight = 91;
         self.answerModel = [AnswerDetailModel mj_objectWithKeyValues:response[@"data"]];
         self.commentArr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:self.answerModel.comments];
         self.currPage = 1;
-        [self setWebViewLoad];
+        
         [self.tableView reloadData];
+        
+        [self setWebViewLoad];
+        
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
     } RefreshAction:nil];

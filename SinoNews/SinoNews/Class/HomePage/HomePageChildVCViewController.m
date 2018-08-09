@@ -166,7 +166,7 @@
         if ([self.news_id integerValue]) {
             [self requestNews_list:0];
             //只有最新频道存在轮播图
-            if ([self.news_id integerValue] == 82||CompareString(self.channel_name, @"最新")) {
+            if ([self.news_id integerValue] == 1||CompareString(self.channel_name, @"最新")) {
                 [self requestBanner];
             }
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){  //反之则是关注子页面

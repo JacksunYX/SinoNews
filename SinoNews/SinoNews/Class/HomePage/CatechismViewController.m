@@ -856,9 +856,10 @@ CGFloat static titleViewHeight = 91;
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
         
+        [self.tableView reloadData];
+        
         [self setWebViewLoad];
         
-        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
         [self.tableView.mj_header endRefreshing];

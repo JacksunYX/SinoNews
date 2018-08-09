@@ -8,6 +8,7 @@
 
 #import "PersonalDataViewController.h"
 #import "WSDatePickerView.h"
+#import "LogoutNoticeView.h"
 #import "BindingDataViewController.h"
 #import "ChangePasswordViewController.h"
 #import "AddressViewController.h"
@@ -89,9 +90,11 @@
                            @"绑定手机",
                            @"绑定邮箱",
                            @"修改密码",
+                           @"退出登录",
                            ];
         
         NSArray *rightTitle = @[
+                                @"",
                                 @"",
                                 @"",
                                 @"",
@@ -143,7 +146,16 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    [self.tableView addBakcgroundColorTheme];
+//    [self.tableView addBakcgroundColorTheme];
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(BaseTableView *)item setBackgroundColor:value];
+            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
+        }else{
+            [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
+            [(BaseTableView *)item setSeparatorColor:CutLineColor];
+        }
+    });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -331,6 +343,11 @@
     }else if (CompareString(title, @"修改密码")){
         ChangePasswordViewController *cpVC = [ChangePasswordViewController new];
         [self.navigationController pushViewController:cpVC animated:YES];
+    }else if (CompareString(title, @"退出登录")){
+        [LogoutNoticeView show:^{
+            [UserModel clearLocalData];
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }];
     }
 }
 

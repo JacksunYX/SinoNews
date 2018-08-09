@@ -285,6 +285,7 @@
 		4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEA20DE4C7A0040E348 /* NSDate+Extension.m */; };
 		4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */; };
 		4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFF120DE514E0040E348 /* BindingDataViewController.m */; };
+		4C9D7ABB211BCE3C00EDCDBC /* NewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */; };
 		4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EB20F43DEE00536E77 /* RequestGather.m */; };
 		4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EF20F445E000536E77 /* UniversalMethod.m */; };
 		4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141F320F4517300536E77 /* PublishPageViewController.m */; };
@@ -897,6 +898,8 @@
 		4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		4C95FFF020DE514E0040E348 /* BindingDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindingDataViewController.h; sourceTree = "<group>"; };
 		4C95FFF120DE514E0040E348 /* BindingDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindingDataViewController.m; sourceTree = "<group>"; };
+		4C9D7AB9211BCE3C00EDCDBC /* NewSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSettingViewController.h; sourceTree = "<group>"; };
+		4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSettingViewController.m; sourceTree = "<group>"; };
 		4CA141EA20F43DEE00536E77 /* RequestGather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestGather.h; sourceTree = "<group>"; };
 		4CA141EB20F43DEE00536E77 /* RequestGather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestGather.m; sourceTree = "<group>"; };
 		4CA141EE20F445E000536E77 /* UniversalMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversalMethod.h; sourceTree = "<group>"; };
@@ -1434,6 +1437,8 @@
 			children = (
 				4C3F8FF720BCEF45003EC4FC /* MineViewController.h */,
 				4C3F8FF820BCEF45003EC4FC /* MineViewController.m */,
+				4C9D7AB9211BCE3C00EDCDBC /* NewSettingViewController.h */,
+				4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */,
 				4CE9C91920C7D508004550B9 /* SettingViewController.h */,
 				4CE9C91A20C7D508004550B9 /* SettingViewController.m */,
 				4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */,
@@ -2815,6 +2820,7 @@
 				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C7234DE20FDEB1D00D5C5D4 /* AAPlotLinesElement.m in Sources */,
+				4C9D7ABB211BCE3C00EDCDBC /* NewSettingViewController.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */,

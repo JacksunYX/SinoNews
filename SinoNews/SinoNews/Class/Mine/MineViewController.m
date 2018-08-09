@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "LoginViewController.h"
 #import "SettingViewController.h"
+#import "NewSettingViewController.h"
 #import "BrowsingHistoryVC.h"
 #import "MessageViewController.h"
 #import "CasinoCollectViewController.h"
@@ -811,7 +812,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
             [self.navigationController pushViewController:ccVC animated:YES];
         }else if (CompareString(title, @"设置")) {
-            SettingViewController *stVC = [SettingViewController new];
+            NewSettingViewController *stVC = [NewSettingViewController new];
             [self.navigationController pushViewController:stVC animated:YES];
         }else if (CompareString(title, @"历史")){
             BrowsingHistoryVC *bhVC = [BrowsingHistoryVC new];

@@ -31,7 +31,7 @@
                            @"清除缓存",
                            @"关于",
                            @"隐私协议",
-                           @"退出登录",
+//                           @"退出登录",
                            ];
         
         NSArray *rightTitle = @[
@@ -42,7 +42,7 @@
                                 @"",
                                 @"",
                                 @"",
-                                @"",
+//                                @"",
                                 ];
         NSMutableArray *section0 = [NSMutableArray new];
         NSMutableArray *section1 = [NSMutableArray new];

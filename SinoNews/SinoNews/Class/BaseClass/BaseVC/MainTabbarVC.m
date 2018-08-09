@@ -142,7 +142,7 @@
 //点击音效
 -(void)playSound
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"like" ofType:@"caf"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"tabbarClick" ofType:@"mp3"];
     SystemSoundID soundID;
     if (path) {
         NSURL *soundURL = [NSURL fileURLWithPath:path];

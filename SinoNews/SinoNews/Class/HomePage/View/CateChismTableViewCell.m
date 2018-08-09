@@ -59,7 +59,7 @@
     
     content = [UILabel new];
 //    content.textColor = HexColor(#323232);
-    [content addContentColorTheme];
+    [content addTitleColorTheme];
     content.font = PFFontL(15);
     
     imgL = [UIImageView new];

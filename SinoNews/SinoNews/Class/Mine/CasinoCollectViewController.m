@@ -55,7 +55,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,7 +125,7 @@
 //        [self requestCompanyList];
 //
 //    }];
-    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 //重置当前显示状态
@@ -261,14 +261,14 @@
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    if (!kStringIsEmpty(keyname)) {
+    if (!kStringIsEmpty(keyname)&&![NSString isEmpty:keyname]) {
         parameters[@"companyName"] = GetSaveString(keyname);
     }
     
     [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
-        NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        NSArray *data = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-//        self.casinoArray = [self.tableView pullWithPage:self.currPage data:data dataSource:self.casinoArray];
+        self.casinoArray = [self.tableView pullWithPage:self.currPage data:data dataSource:self.casinoArray];
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {

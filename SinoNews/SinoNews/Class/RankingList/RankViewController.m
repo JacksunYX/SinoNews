@@ -148,8 +148,8 @@
 {
     //中间的
     LineLayout *layout = [[LineLayout alloc] init];
-    layout.sectionInset = UIEdgeInsetsMake(10, 0, 20, 0);
-    layout.itemSize = CGSizeMake(ScreenW, WIDTH_SCALE * 120);
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    layout.itemSize = CGSizeMake(ScreenW, ScreenW/4);
     layout.minimumLineSpacing = 0;
     //速率
     layout.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -158,13 +158,13 @@
     self.lineCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.lineCollectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:self.lineCollectionView];
-    [self.lineCollectionView activateConstraints:^{
-//        self.lineCollectionView.top_attr = self.headView.bottom_attr;
-        self.lineCollectionView.top_attr = self.view.top_attr_safe;
-        self.lineCollectionView.left_attr = self.view.left_attr_safe;
-        self.lineCollectionView.right_attr = self.view.right_attr_safe;
-        self.lineCollectionView.bottom_attr = self.adCollectionView.top_attr;
-    }];
+
+    self.lineCollectionView.sd_layout
+    .topSpaceToView(self, 0)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.adCollectionView, 0)
+    ;
     
     _lineCollectionView.dataSource = self;
     _lineCollectionView.delegate = self;
@@ -200,12 +200,13 @@
     self.adCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:adLayout];
     self.adCollectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:self.adCollectionView];
-    [self.adCollectionView activateConstraints:^{
-        self.adCollectionView.bottom_attr = self.view.bottom_attr_safe;
-        self.adCollectionView.left_attr = self.view.left_attr_safe;
-        self.adCollectionView.right_attr = self.view.right_attr_safe;
-        self.adCollectionView.height_attr.constant = 30 + itemH;
-    }];
+
+    self.adCollectionView.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomEqualToView(self.view)
+    .heightIs(0)
+    ;
     
     self.adCollectionView.dataSource = self;
     self.adCollectionView.delegate = self;
@@ -309,12 +310,18 @@
 {
     [RequestGather requestBannerWithADId:7 success:^(id response) {
         self.adArr = response;
+        CGFloat headHeight = 0;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
-            [self.lineCollectionView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 30];
-        }else{
-            self.lineCollectionView.top_attr = self.view.top_attr_safe;
+            headHeight = WIDTH_SCALE * 108 + 30;
         }
+        self.lineCollectionView.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .topSpaceToView(self.view, headHeight)
+        .bottomSpaceToView(self.adCollectionView, 0)
+        ;
+        
     } failure:nil];
 }
 
@@ -323,9 +330,19 @@
 {
     [RequestGather requestBannerWithADId:5 success:^(id response) {
         self.adDatasource = response;
-        if (self.adDatasource.count<=0) {
-            self.adCollectionView.height_attr.constant = 0;
+        CGFloat adViewHeight = 0;
+        CGFloat itemW = (ScreenW - 35)/4;
+        CGFloat itemH = itemW * 60 / 85;
+        if (!kArrayIsEmpty(self.adDatasource)) {
+            adViewHeight = 30 + itemH;
         }
+        self.adCollectionView.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomEqualToView(self.view)
+        .heightIs(adViewHeight)
+        ;
+        
         [self.adCollectionView reloadData];
     } failure:nil];
 }

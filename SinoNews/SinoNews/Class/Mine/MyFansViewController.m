@@ -50,13 +50,20 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    [self.tableView addBakcgroundColorTheme];
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        BaseTableView *table = item;
+        table.backgroundColor = value;
+        if (UserGetBool(@"NightMode")) {
+            table.separatorColor = CutLineColorNight;
+        }else{
+            table.separatorColor = CutLineColor;
+        }
+    });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    self.tableView.separatorColor = RGBA(227, 227, 227, 1);
     
     //注册
     [self.tableView registerClass:[MyFansTableViewCell class] forCellReuseIdentifier:MyFansTableViewCellID];

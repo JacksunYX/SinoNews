@@ -286,6 +286,7 @@
 		4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFEB20DE4C7A0040E348 /* UIView+Extension.m */; };
 		4C95FFF220DE514E0040E348 /* BindingDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C95FFF120DE514E0040E348 /* BindingDataViewController.m */; };
 		4C9D7ABB211BCE3C00EDCDBC /* NewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */; };
+		4C9D7ABD211BD7BC00EDCDBC /* tabbarClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D7ABC211BD7BC00EDCDBC /* tabbarClick.mp3 */; };
 		4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EB20F43DEE00536E77 /* RequestGather.m */; };
 		4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EF20F445E000536E77 /* UniversalMethod.m */; };
 		4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141F320F4517300536E77 /* PublishPageViewController.m */; };
@@ -900,6 +901,7 @@
 		4C95FFF120DE514E0040E348 /* BindingDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindingDataViewController.m; sourceTree = "<group>"; };
 		4C9D7AB9211BCE3C00EDCDBC /* NewSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSettingViewController.h; sourceTree = "<group>"; };
 		4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSettingViewController.m; sourceTree = "<group>"; };
+		4C9D7ABC211BD7BC00EDCDBC /* tabbarClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tabbarClick.mp3; sourceTree = "<group>"; };
 		4CA141EA20F43DEE00536E77 /* RequestGather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestGather.h; sourceTree = "<group>"; };
 		4CA141EB20F43DEE00536E77 /* RequestGather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RequestGather.m; sourceTree = "<group>"; };
 		4CA141EE20F445E000536E77 /* UniversalMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversalMethod.h; sourceTree = "<group>"; };
@@ -1866,6 +1868,7 @@
 		4C5BFD03211AF44000EF82DA /* SoundSource */ = {
 			isa = PBXGroup;
 			children = (
+				4C9D7ABC211BD7BC00EDCDBC /* tabbarClick.mp3 */,
 				4C5BFD04211AF46200EF82DA /* like.caf */,
 			);
 			path = SoundSource;
@@ -2426,6 +2429,7 @@
 				4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */,
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
+				4C9D7ABD211BD7BC00EDCDBC /* tabbarClick.mp3 in Resources */,
 				4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */,
 				4C7234CD20FDEB1D00D5C5D4 /* AAHighchartsLib.js in Resources */,
 				4C72348420FDD83800D5C5D4 /* delete_night@2x.png in Resources */,

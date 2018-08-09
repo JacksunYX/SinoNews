@@ -86,10 +86,21 @@
     .heightIs(20)
     ;
     [attentionBtn setSd_cornerRadius:@10];
-    [attentionBtn setImage:UIImageNamed(@"myFans_unAttention") forState:UIControlStateNormal];
-    [attentionBtn setImage:UIImageNamed(@"myFans_attentioned") forState:UIControlStateSelected];
-    [attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)] forState:UIControlStateNormal];
-    [attentionBtn setBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)] forState:UIControlStateSelected];
+    [attentionBtn addButtonNormalImage:@"myfans_attention"];
+    [attentionBtn addButtonSelectedImage:@"myfans_attentioned"];
+//    [attentionBtn setImage:UIImageNamed(@"myFans_unAttention") forState:UIControlStateNormal];
+//    [attentionBtn setImage:UIImageNamed(@"myFans_attentioned") forState:UIControlStateSelected];
+    attentionBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        UIButton *btn = item;
+        if (UserGetBool(@"NightMode")) {
+            [btn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
+            [btn setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#292a2f)]];
+        }else{
+            [btn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
+            [btn setSelectedBackgroundImage:[UIImage imageWithColor:RGBA(227, 227, 227, 1)]];
+        }
+    });
+    
     @weakify(self)
     [[attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
@@ -105,7 +116,8 @@
 {
     _type = type;
     if (type == 1) {
-        [attentionBtn setImage:UIImageNamed(@"myFans_tick") forState:UIControlStateSelected];
+//        [attentionBtn setImage:UIImageNamed(@"myFans_tick") forState:UIControlStateSelected];
+        [attentionBtn addButtonSelectedImage:@"other_attention"];
     }
 }
 

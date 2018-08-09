@@ -355,8 +355,8 @@
             [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#1C1F2C)]];
             [(UIButton *)item setSelectedTitleColor:HexColor(#4E4F53)];
         }else{
-            [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#e3e3e3)]];
-            [(UIButton *)item setSelectedTitleColor:WhiteColor];
+            [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#f2f6f7)]];
+            [(UIButton *)item setSelectedTitleColor:HexColor(#aeb6b8)];
         }
     });
     

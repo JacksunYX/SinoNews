@@ -30,6 +30,10 @@
         
         "integral_storeProductImg" : "store_backImg",
         "integral_input_money" : "input_money",
+        
+        "myfans_attention"  : "myFans_unAttention",
+        "myfans_attentioned": "myFans_attentioned",
+        "other_attention"   : "myFans_tick",
     },
     "other": {
         

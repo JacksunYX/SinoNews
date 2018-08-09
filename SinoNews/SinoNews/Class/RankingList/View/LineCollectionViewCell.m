@@ -61,7 +61,8 @@
     
     title.sd_layout
     .centerXEqualToView(self.contentView)
-    .topSpaceToView(self.contentView, 35)
+//    .topSpaceToView(self.contentView, 35)
+    .centerYEqualToView(self.contentView)
     .autoHeightRatio(0)
     ;
     [title setSingleLineAutoResizeWithMaxWidth:200];

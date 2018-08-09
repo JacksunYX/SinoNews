@@ -278,6 +278,11 @@
                 return;
             }
         }
+        //此处再检测一下昵称
+        if ([NSString isEmpty:nickname.text]||nickname.text.length>10) {
+            LRToast(@"昵称为不能超过10位字符的任意字母下划线汉字的组合");
+            return;
+        }
         //再检测密码
         if ([password.text checkPassWord]) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];

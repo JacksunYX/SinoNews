@@ -307,7 +307,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"rankingId"] = GetSaveString(self.rankingId);
 //    parameters[@"currPage"] = @(self.currPage);
-    if (!kStringIsEmpty(companyname)) {
+    if (!kStringIsEmpty(companyname)&&![NSString isEmpty:companyname]) {
         parameters[@"companyName"] = GetSaveString(companyname);
     }
    

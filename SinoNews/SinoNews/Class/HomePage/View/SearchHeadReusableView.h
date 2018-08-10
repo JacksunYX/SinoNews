@@ -9,6 +9,14 @@
 
 #import <UIKit/UIKit.h>
 
+#define SearchHeadReusableViewID    @"SearchHeadReusableViewID"
+#define SearchHeadReusableViewHeight    (50+54)
+
 @interface SearchHeadReusableView : UICollectionReusableView
+
+//设置分区标题和图标
+-(void)setTitle:(NSString *)title Icon:(NSString *)image;
+//选择回调
+@property (nonatomic ,copy) void(^selectBlock)(NSInteger index);
 
 @end

@@ -39,7 +39,16 @@
         self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, SCellHeight)];
         [self.contentView addSubview:self.imageV];
 
-        
+        UIView *backView = [UIView new];
+        backView.backgroundColor = HexColorAlpha(#000000, 0.3);
+        [self.imageV addSubview:backView];
+        backView.sd_layout
+        .leftEqualToView(self.imageV)
+        .rightEqualToView(self.imageV)
+        .topEqualToView(self.imageV)
+        .bottomEqualToView(self.imageV)
+        ;
+
         self.label = [UILabel new];
         self.label.numberOfLines = 1;
         self.label.font = PFFontM(24);
@@ -78,7 +87,7 @@
 
 - (void)tapAction:(UIGestureRecognizer *)gestur
 {
-    NSLog(@"点击了%ld", gestur.view.tag);
+//    NSLog(@"点击了%ld", gestur.view.tag);
 }
 - (void)cellOffsetOnTabelView:(UITableView *)tabelView
 {
@@ -93,7 +102,6 @@
         self.imageV.y = - (BCellHeight - SCellHeight);
        
 //        self.label.font = [UIFont systemFontOfSize:FontSize * 4];
-        
         
     }else if (self.frame.origin.y <= currentLocation && self.frame.origin.y >= tabelView.contentOffset.y) {
         //cell开始进入规定的位置
@@ -120,7 +128,6 @@
 //        } else {
 //            self.label.font = [UIFont systemFontOfSize:FontSize * 4];
 //        }
-        
         
     }else{
         //超出规定的位置以 ->“下”

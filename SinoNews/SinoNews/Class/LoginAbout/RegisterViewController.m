@@ -79,7 +79,7 @@
     .heightIs(44)
     ;
     [title setSingleLineAutoResizeWithMaxWidth:100];
-    title.text = @"注册新用户";
+    title.text = @"注册";
     
     popBtn.sd_layout
     .leftSpaceToView(backImg, 15)

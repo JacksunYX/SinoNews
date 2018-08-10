@@ -266,6 +266,7 @@
 		4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8735FF20BE9F4600B6A8B5 /* SearchViewController.m */; };
 		4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */; };
 		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
+		4C890731211D34FF00F86220 /* STSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C89072F211D34FE00F86220 /* STSegmentView.m */; };
 		4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */; };
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
@@ -863,6 +864,8 @@
 		4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
 		4C87360420BEABB700B6A8B5 /* SearchHeadReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHeadReusableView.h; sourceTree = "<group>"; };
 		4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHeadReusableView.m; sourceTree = "<group>"; };
+		4C89072F211D34FE00F86220 /* STSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSegmentView.m; sourceTree = "<group>"; };
+		4C890730211D34FE00F86220 /* STSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSegmentView.h; sourceTree = "<group>"; };
 		4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryVC.h; sourceTree = "<group>"; };
 		4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryVC.m; sourceTree = "<group>"; };
 		4C93496C20CF677600BD8F07 /* BaseViewHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewHead.h; sourceTree = "<group>"; };
@@ -1612,6 +1615,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C89072E211D34FE00F86220 /* STSegmentView */,
 				4C4EC2F62112E3E800591F12 /* ZXYShineButton */,
 				4C4E4953211153DD0078864D /* XYButton */,
 				4C510B5821103C1F00706185 /* LCFastSingleton */,
@@ -2120,6 +2124,15 @@
 			path = NSArray;
 			sourceTree = "<group>";
 		};
+		4C89072E211D34FE00F86220 /* STSegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				4C89072F211D34FE00F86220 /* STSegmentView.m */,
+				4C890730211D34FE00F86220 /* STSegmentView.h */,
+			);
+			path = STSegmentView;
+			sourceTree = "<group>";
+		};
 		4C93496D20CF6DD100BD8F07 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2573,6 +2586,7 @@
 				4C23B3BB20F5924800ACE380 /* LMWordView.m in Sources */,
 				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C17414720C5168600AA6D57 /* TXLimitedTextField.m in Sources */,
+				4C890731211D34FF00F86220 /* STSegmentView.m in Sources */,
 				4C72346020FC6E4200D5C5D4 /* LYEmptyView.m in Sources */,
 				4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */,
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,

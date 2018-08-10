@@ -11,4 +11,6 @@
 
 @interface CasinoCollectViewController : BaseViewController
 
+@property (nonatomic,assign) NSInteger type;    //0收藏的、1搜索的
+@property (nonatomic,strong) NSString *keyword;   //搜索关键词
 @end

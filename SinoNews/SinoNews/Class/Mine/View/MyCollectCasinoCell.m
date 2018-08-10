@@ -148,7 +148,13 @@
 {
     _model = model;
     
-    title.text = GetSaveString(model.companyName);
+    if ([model.companyName containsString:@"<font"]) {
+        title.attributedText = [NSString analysisHtmlString:GetSaveString(model.companyName)];
+        [title addTitleColorTheme];
+        title.font = PFFontR(16);
+    }else{
+        title.text = GetSaveString(model.companyName);
+    }
     
     @weakify(self);
     //点击详情

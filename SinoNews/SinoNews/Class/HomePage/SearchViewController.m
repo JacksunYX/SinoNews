@@ -18,6 +18,8 @@
 #import "HomePageThirdKindCell.h"
 #import "HomePageFourthCell.h"
 
+#import "CasinoCollectViewController.h"
+
 @interface SearchViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     BOOL showNewsList;      //展示相关咨询列表
@@ -30,6 +32,8 @@
 //资讯展示tableview
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *newsArr;    //资讯数组
+//搜索的娱乐城数组
+@property (nonatomic,strong) NSMutableArray *casinoArray;
 //推荐关键词视图
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) NSMutableArray *recommandArr;    //推荐关键词数组
@@ -41,7 +45,7 @@
 @property (nonatomic,strong) NSMutableArray *hotNews;
 @property (nonatomic,strong) NSMutableArray *choicenessNews;
 
-
+@property (nonatomic,assign) NSInteger selectIndex; //搜索下标
 @end
 
 @implementation SearchViewController
@@ -71,7 +75,7 @@
 //        }];
         //注册
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
-        [_collectionView registerClass:[SearchHeadReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeadView"];
+        [_collectionView registerClass:[SearchHeadReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SearchHeadReusableViewID];
         
         _collectionView.hidden = YES;
     }
@@ -167,12 +171,20 @@
     return _keyArr;
 }
 
+-(NSMutableArray *)casinoArray
+{
+    if (!_casinoArray) {
+        _casinoArray = [NSMutableArray new];
+    }
+    return _casinoArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self addNavigationView];
     
-    self.collectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [self showTopLine]; self.collectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
 //    self.keyTableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     @weakify(self)
@@ -242,7 +254,7 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300 * ScaleW, 34)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290 * ScaleW, 34)];
     self.searchBar = [[UISearchBar alloc] initWithFrame:titleView.bounds];
     [titleView addSubview:self.searchBar];
     self.navigationItem.titleView = titleView;
@@ -437,8 +449,8 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    if ((section ==0 && self.hotNews.count)||(section ==1 && self.choicenessNews.count)) {
-        return CGSizeMake(ScreenW, 54);
+    if (section ==0||(section ==1 && self.choicenessNews.count)) {
+        return CGSizeMake(ScreenW, SearchHeadReusableViewHeight);
     }
     
     return CGSizeZero;
@@ -463,43 +475,26 @@
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    @weakify(self);
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        SearchHeadReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeadView" forIndexPath:indexPath];
+        SearchHeadReusableView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SearchHeadReusableViewID forIndexPath:indexPath];
         
-        if (headView.subviews.count) {
-            for (UIView *subview in headView.subviews) {
-                [subview removeFromSuperview];
-            }
-        }
-        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-        
-        UIImageView *img = [UIImageView new];
-        UILabel *sectionTitle = [UILabel new];
-        sectionTitle.font = Font(16);
-        sectionTitle.lee_theme.LeeConfigTextColor(@"titleColor");
-        [headView sd_addSubviews:@[
-                                   img,
-                                   sectionTitle,
-                                   ]];
-        img.sd_layout
-        .leftSpaceToView(headView, 10)
-        .centerYEqualToView(headView)
-        .widthIs(19)
-        .heightEqualToWidth()
-        ;
-        
-        sectionTitle.sd_layout
-        .leftSpaceToView(img, 5)
-        .centerYEqualToView(img)
-        .autoHeightRatio(0)
-        ;
-        [sectionTitle setSingleLineAutoResizeWithMaxWidth:200];
         if (indexPath.section == 0) {
-            sectionTitle.text = @"今日热点";
-            img.image = UIImageNamed(@"searchHot");
+            
+            if ( self.hotNews.count>0) {
+                [headView setTitle:@"今日热点" Icon:@"searchHot"];
+            }else{
+                [headView setTitle:@"" Icon:@""];
+            }
+            
+            headView.selectBlock = ^(NSInteger index) {
+                @strongify(self);
+                self.selectIndex = index;
+            };
+            
         }else{
-            sectionTitle.text = @"精选咨询";
-            img.image = UIImageNamed(@"saerchChoiceness");
+            
+            [headView setTitle:@"精选咨询" Icon:@"saerchChoiceness"];
         }
         
         return headView;
@@ -545,10 +540,17 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self.searchBar resignFirstResponder];
-    //发送请求
-    [self requestSearchNewsListWithText:searchBar.text];
-    //搜索关键词
-    [self showWithStatus:1];
+    if (self.selectIndex == 1){
+        CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
+        ccVC.type = 1;
+        ccVC.keyword = self.searchBar.text;
+        [self.navigationController pushViewController:ccVC animated:NO];
+    }else if (self.selectIndex == 0){
+        //发送请求
+        [self requestSearchNewsListWithText:searchBar.text];
+        //搜索关键词
+        [self showWithStatus:1];
+    }
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -654,7 +656,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (self.newsArr.count<=0&&tableView == self.tableView) {
+    if (self.newsArr.count<=0&&tableView == self.tableView&&self.selectIndex == 0) {
         return 40;
     }
     return 0.01;
@@ -663,7 +665,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (self.newsArr.count<=0&&tableView == self.tableView) {
+    if (self.newsArr.count<=0&&tableView == self.tableView&&self.selectIndex == 0) {
         headView = [[UIView alloc]initWithFrame:CGRectMake(0,0, ScreenW, 40)];
         [headView addBakcgroundColorTheme];
         UILabel *noticeLabel = [UILabel new];
@@ -687,14 +689,21 @@
     [self showWithStatus:1];
     if (tableView == self.keyTableView) {
         self.searchBar.text = self.keyArr[indexPath.row];
-        //发送请求
-        [self requestSearchNewsListWithText:self.searchBar.text];
+        if (self.selectIndex == 0) {
+            //在当前界面搜索
+            [self requestSearchNewsListWithText:self.searchBar.text];
+        }else if (self.selectIndex == 1){
+            CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
+            ccVC.type = 1;
+            ccVC.keyword = self.searchBar.text;
+            [self.navigationController pushViewController:ccVC animated:NO];
+        }
+        [self reloadViews];
     }else if (tableView == self.tableView){
         id model = self.newsArr[indexPath.row];
         [UniversalMethod pushToAssignVCWithNewmodel:model];
     }
 }
-
 
 #pragma mark ----- 请求发送
 //热搜关键字
@@ -715,12 +724,15 @@
 //搜索文章列表
 -(void)requestSearchNewsListWithText:(NSString *)text
 {
+    ShowHudOnly;
     [HttpRequest getWithURLString:News_listForSearching parameters:@{@"keyword":text} success:^(id responseObject) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
-
+        HiddenHudOnly;
         self.newsArr = [dataArr mutableCopy];
         [self reloadViews];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+    }];
 }
 
 //搜索补全信号

@@ -13,8 +13,11 @@
 //查询榜单(get)
 #define Ranking         @"/api/ranking"
 
-//查询企业排名(get)
+//查询公司排名(get)
 #define CompanyRanking  @"/api/companyRanking"
+
+//关键字搜索娱乐场(get) 带分页
+#define SearchCompany   @"/api/company/searchCompany"
 
 //公司详情(get)
 #define CompanyDetail   @"/api/company/showCompanyDetails"

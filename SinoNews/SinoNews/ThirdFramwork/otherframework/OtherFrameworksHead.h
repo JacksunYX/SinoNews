@@ -35,4 +35,6 @@
 
 #import "ZXYShine.h"    //🌞按钮
 
+#import "STSegmentView.h"//分段选择
+
 #endif /* OtherFrameworksHead_h */

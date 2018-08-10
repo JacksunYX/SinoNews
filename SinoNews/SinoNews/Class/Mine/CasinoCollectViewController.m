@@ -21,6 +21,8 @@
 //存储选择要删除数据数组
 @property (nonatomic,strong) NSMutableArray *deleteArray;
 
+@property (nonatomic,assign) BOOL haveSearch;   //是否搜索了
+
 @end
 
 @implementation CasinoCollectViewController
@@ -43,13 +45,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"收藏的娱乐城";
+    if (self.type == 0) {
+        self.navigationItem.title = @"收藏的娱乐城";
+        [self addNavigationBtn];
+        self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];
+    }else if (self.type == 1) {
+        self.navigationItem.title = @"搜索的娱乐城";
+    }
     
     [self showTopLine];
-    [self addNavigationBtn];
+    
     [self addTableViews];
     
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -93,7 +100,7 @@
     self.tableView.delegate = self;
     
     //允许支持同时多选多行
-    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+//    self.tableView.allowsMultipleSelectionDuringEditing = YES;
     //注册
     [self.tableView registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];
     
@@ -106,25 +113,32 @@
         }
         self.currPage = 1;
 
-        [self requestCompanyList];
+        if (self.type == 1) {
+            [self requestCasinoDataWithKeyName2:self.keyword];
+        }else{
+            [self requestCompanyList];
+        }
         
     }];
     
-//    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-//        @strongify(self);
-//        if (self.tableView.mj_header.isRefreshing||self.tableView.editing) {
-//            [self.tableView.mj_footer endRefreshing];
-//            return ;
-//        }
-//        if (!self.casinoArray.count) {
-//            self.currPage = 1;
-//        }else{
-//            self.currPage++;
-//        }
-//
-//        [self requestCompanyList];
-//
-//    }];
+    if (self.type == 1) {
+        _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+            @strongify(self);
+            if (self.tableView.mj_header.isRefreshing||self.tableView.editing) {
+                [self.tableView.mj_footer endRefreshing];
+                return ;
+            }
+            if (!self.casinoArray.count) {
+                self.currPage = 1;
+            }else{
+                self.currPage++;
+            }
+            
+            [self requestCasinoDataWithKeyName2:self.keyword];
+            
+        }];
+    }
+
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -202,20 +216,26 @@
 
 // 定义编辑样式
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
+    if (self.type == 0) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
 }
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //添加取消收藏按钮
-    UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    if (self.type == 0) {
+        //添加取消收藏按钮
+        UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            
+            [self.deleteArray addObject:[self.casinoArray objectAtIndex:indexPath.row]];
+            [self requestCancelCompanysCollects];
+        }];
+        cancelCollectAction.backgroundColor = HexColor(#51AAFF);
         
-        [self.deleteArray addObject:[self.casinoArray objectAtIndex:indexPath.row]];
-        [self requestCancelCompanysCollects];
-    }];
-    cancelCollectAction.backgroundColor = HexColor(#51AAFF);
-    
-    return @[cancelCollectAction];
+        return @[cancelCollectAction];
+    }
+    return nil;
 }
 
 #pragma mark ---- 请求发送
@@ -230,6 +250,7 @@
         [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
+        self.haveSearch = NO;
     } failure:nil];
 }
 
@@ -268,14 +289,37 @@
     [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
         NSArray *data = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-        self.casinoArray = [self.tableView pullWithPage:self.currPage data:data dataSource:self.casinoArray];
+        self.casinoArray = [data mutableCopy];
         
         [self.tableView reloadData];
+        
+        self.haveSearch = YES;
     } failure:^(NSError *error) {
         [self endRefresh];
     }];
     
 }
 
+//根据关键字查询娱乐城(带分页)
+-(void)requestCasinoDataWithKeyName2:(NSString *)keyname
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    
+    if (!kStringIsEmpty(keyname)&&![NSString isEmpty:keyname]) {
+        parameters[@"keyword"] = GetSaveString(keyname);
+    }
+    parameters[@"page"] = @(self.currPage);
+    [HttpRequest getWithURLString:SearchCompany parameters:parameters success:^(id responseObject) {
+        NSArray *data = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        self.casinoArray = [self.tableView pullWithPage:self.currPage data:data dataSource:self.casinoArray];
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        [self endRefresh];
+    }];
+    
+}
 
 @end

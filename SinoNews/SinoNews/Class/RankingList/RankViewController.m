@@ -122,7 +122,7 @@
     [self addBottomADView];
 //    [self addCenterRankView];
     
-    [self createTabel];
+    [self createTable];
     
     [self requestRanking];
 }
@@ -198,7 +198,7 @@
     [self.lineCollectionView.mj_header beginRefreshing];
 }
 
-- (void)createTabel
+- (void)createTable
 {
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
@@ -349,8 +349,7 @@
 {
     MoveCell *cell = [self.tableV dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     RankingModel *model = self.datasource[indexPath.row];
-    //给获取的cell赋值图片以及给当前的imagev添加tag值
-//    [cell cellGetImage:model.rankingLogo tag:indexPath.row];
+    
     [cell cellGetModel:model tag:indexPath.row];
 
     return cell;

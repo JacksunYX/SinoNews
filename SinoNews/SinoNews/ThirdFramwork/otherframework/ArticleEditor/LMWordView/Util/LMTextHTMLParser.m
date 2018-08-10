@@ -25,13 +25,16 @@
     BOOL isNewParagraph = YES;
     NSMutableString *htmlContent = [NSMutableString string];
     NSRange effectiveRange = NSMakeRange(0, 0);
+    //遍历这个富文本
     while (effectiveRange.location + effectiveRange.length < attributedString.length) {
         
         NSDictionary *attributes = [attributedString attributesAtIndex:effectiveRange.location effectiveRange:&effectiveRange];
         NSTextAttachment *attachment = attributes[@"NSAttachment"];
         NSParagraphStyle *paragraph = attributes[@"NSParagraphStyle"];
         LMParagraphConfig *paragraphConfig = [[LMParagraphConfig alloc] initWithParagraphStyle:paragraph type:LMParagraphTypeNone];
+        //如果对象存在
         if (attachment) {
+            //检查类型
             switch (attachment.attachmentType) {
                 case LMTextAttachmentTypeImage:
                 [htmlContent appendString:[NSString stringWithFormat:@"<img src=\"%@\" width=\"100%%\"/>", attachment.userInfo]];

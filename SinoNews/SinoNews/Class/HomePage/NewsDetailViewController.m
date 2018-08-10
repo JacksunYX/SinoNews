@@ -52,11 +52,21 @@
 @property (nonatomic,strong) UIView *naviTitle;
 
 @property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
+
+@property (nonatomic,strong) UserModel *user;
 @end
 
 @implementation NewsDetailViewController
 
 CGFloat static titleViewHeight = 91;
+-(UserModel *)user
+{
+    if (!_user) {
+        _user = [UserModel getLocalUserModel];
+    }
+    return _user;
+}
+
 -(ZYKeyboardUtil *)keyboardUtil
 {
     if (!_keyboardUtil) {
@@ -457,6 +467,11 @@ CGFloat static titleViewHeight = 91;
     self.collectBtn.selected = self.newsModel.isCollection;
     self.praiseBtn.selected = self.newsModel.hasPraised;
     self.bottomView.hidden = NO;
+    if (self.user.userId == self.newsModel.userId) {
+        self.praiseBtn.enabled = NO;
+    }else{
+        self.praiseBtn.enabled = YES;
+    }
 }
 
 -(void)setBottomView2
@@ -699,7 +714,7 @@ CGFloat static titleViewHeight = 91;
     [self setNaviTitle];
     
     //向上滚动一个像素点防止titleview不显示
-    [self.tableView setContentOffset:CGPointMake(0, -titleViewHeight + 1) animated:YES];
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 1) animated:YES];
     
     [self showOrHideLoadView:NO page:2];
     
@@ -747,14 +762,14 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0&&!NoPayedNews) {
+    if (section == 1&&!NoPayedNews) {
         return self.newsModel.relatedNews.count;
-    }else if (section == 1){
+    }else if (section == 2){
         return self.commentsArr.count;
     }
     
@@ -764,7 +779,7 @@ CGFloat static titleViewHeight = 91;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.section == 0&&!NoPayedNews) {
+    if (indexPath.section == 1&&!NoPayedNews) {
 //        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
 //        cell0.model = self.newsModel.relatedNews[indexPath.row];
 //        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
@@ -784,7 +799,7 @@ CGFloat static titleViewHeight = 91;
             }
         }
         
-    }else if (indexPath.section == 1){
+    }else if (indexPath.section == 2){
         CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
         cell2.tag = indexPath.row;
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
@@ -833,7 +848,7 @@ CGFloat static titleViewHeight = 91;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 1&&self.commentsArr.count<=0&&!NoPayedNews){
+    if (section == 2&&self.commentsArr.count<=0&&!NoPayedNews){
         return 90;
     }
     return 0.01;
@@ -841,9 +856,11 @@ CGFloat static titleViewHeight = 91;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0&&self.newsModel.relatedNews.count&&!NoPayedNews) {
+    if (section == 0&&!NoPayedNews) {
+        return 110;
+    }else if (section == 1&&self.newsModel.relatedNews.count&&!NoPayedNews) {
         return 30;
-    }else if (section == 1){
+    }else if (section == 2){
         if (NoPayedNews) {
             return 230;
         }
@@ -855,7 +872,82 @@ CGFloat static titleViewHeight = 91;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (section == 0&&self.newsModel.relatedNews.count&&!NoPayedNews) {
+    if (section == 0&&!NoPayedNews) {
+        headView = [UIView new];
+        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        UIButton *praiseBtn = [UIButton new];
+        [praiseBtn addButtonTextColorTheme];
+        UILabel *notice = [UILabel new];
+        notice.font = PFFontL(13);
+        [notice addContentColorTheme];
+        
+        [headView sd_addSubviews:@[
+                                   praiseBtn,
+                                   notice,
+                                   ]];
+        praiseBtn.sd_layout
+        .widthIs(60)
+        .heightEqualToWidth()
+        .centerXEqualToView(headView)
+        .topSpaceToView(headView, 10)
+        ;
+        [praiseBtn setSd_cornerRadius:@30];
+        [praiseBtn setNormalTitle:@"4"];
+        praiseBtn.layer.borderWidth = 1;
+        [praiseBtn setBtnFont:PFFontL(12)];
+        [praiseBtn addButtonNormalImage:@"news_unPraise"];
+        [praiseBtn setSelectedImage:UIImageNamed(@"news_praised")];
+        [praiseBtn setNormalTitleColor:HexColor(#1A1A1A)];
+        [praiseBtn setSelectedTitleColor:HexColor(#1282EE)];
+        praiseBtn.imageEdgeInsets = UIEdgeInsetsMake(-15, 15, 0, 0);
+        praiseBtn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
+        praiseBtn.selected = self.newsModel.hasPraised;
+        
+        if (self.newsModel.hasPraised) {
+            praiseBtn.selected = YES;
+            praiseBtn.layer.borderColor = HexColor(#1282EE).CGColor;
+        }else{
+            praiseBtn.selected = NO;
+            praiseBtn.layer.borderColor = HexColor(#1A1A1A).CGColor;
+        }
+        @weakify(self);
+        [[praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(self);
+            if (self.praiseBtn.selected) {
+                LRToast(@"已经点过赞啦");
+            }else{
+                [self requestPraiseWithPraiseType:3 praiseId:self.newsId commentNum:0];
+            }
+        }];
+        //边框色
+        praiseBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            @strongify(self);
+            UIButton *btn = item;
+            if (self.newsModel.hasPraised) {
+                btn.layer.borderColor = HexColor(#1282EE).CGColor;
+            }else{
+                if (UserGetBool(@"NightMode")) {
+                    btn.layer.borderColor = HexColor(#cfd3d6).CGColor;
+                }else{
+                    btn.layer.borderColor = HexColor(#1A1A1A).CGColor;
+                }
+            }
+        });
+        if (self.user.userId == self.newsModel.userId) {
+            praiseBtn.enabled = NO;
+        }else{
+            praiseBtn.enabled = YES;
+        }
+        
+        notice.sd_layout
+        .centerXEqualToView(headView)
+        .heightIs(14)
+        .bottomSpaceToView(headView, 17)
+        ;
+        [notice setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
+        notice.text = @"启世录好文章，需要你勤劳的小手指";
+        
+    }else if (section == 1&&self.newsModel.relatedNews.count&&!NoPayedNews) {
         headView = [UIView new];
         headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         UILabel *title = [UILabel new];
@@ -885,7 +977,7 @@ CGFloat static titleViewHeight = 91;
         .widthIs(14)
         ;
         [line setSd_cornerRadius:@1];
-    }else if (section == 1){
+    }else if (section == 2){
         headView = [UIView new];
         if (NoPayedNews) {
             //添加文本和提示
@@ -971,7 +1063,7 @@ CGFloat static titleViewHeight = 91;
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
-    if (section == 1&&self.commentsArr.count<=0&&!NoPayedNews) {
+    if (section == 2&&self.commentsArr.count<=0&&!NoPayedNews) {
         footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
         footView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         
@@ -994,7 +1086,7 @@ CGFloat static titleViewHeight = 91;
 {
     //    GGLog(@"tableView点击了");
     [self.view endEditing:YES];
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
         if (model.itemType>=400&&model.itemType<500) { //投票
             VoteViewController *vVC = [VoteViewController new];
@@ -1013,7 +1105,7 @@ CGFloat static titleViewHeight = 91;
             ndVC.newsId = model.itemId;
             [self.navigationController pushViewController:ndVC animated:YES];
         }
-    }else if (indexPath.section == 1) {
+    }else if (indexPath.section == 2) {
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         CommentDetailViewController *cdVC = [CommentDetailViewController new];
         cdVC.model = model;
@@ -1178,6 +1270,11 @@ CGFloat static titleViewHeight = 91;
 //点赞文章/评论
 -(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
 {
+    //做个判断，如果是作者本人，则无法点赞
+    if (self.user.userId == self.newsModel.userId) {
+        LRToast(@"不可以点赞自己哟");
+        return;
+    }
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);
@@ -1198,8 +1295,8 @@ CGFloat static titleViewHeight = 91;
                 LRToast(@"点赞已取消");
                 model.likeNum --;
             }
-            [self.tableView reloadData];
         }
+        [self.tableView reloadData];
     } failure:nil RefreshAction:^{
         [self requestNewData];
     }];

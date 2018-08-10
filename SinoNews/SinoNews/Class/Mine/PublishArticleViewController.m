@@ -116,6 +116,19 @@
     [rightBtn addSubview:editBtn];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
+}
+
+-(void)back
+{
+    if (!kStringIsEmpty(self.wordViewController.textView.attributedText.string)&&self.editType==0) {
+        //在这里做保存处理
+        GGLog(@"需要保存的文本：%@",self.wordViewController.textView.attributedText);
+        
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 -(void)setUI

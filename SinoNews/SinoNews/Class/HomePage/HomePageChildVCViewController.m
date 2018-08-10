@@ -58,7 +58,7 @@
     
 //    GGLog(@"news_id:%@",self.news_id);
     
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"无数据"];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
     
     @weakify(self);
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:ClearBrowsHistory object:nil] subscribeNext:^(NSNotification * _Nullable x) {

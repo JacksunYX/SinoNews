@@ -892,7 +892,7 @@ CGFloat static titleViewHeight = 91;
         .topSpaceToView(headView, 10)
         ;
         [praiseBtn setSd_cornerRadius:@30];
-        [praiseBtn setNormalTitle:@"4"];
+        [praiseBtn setNormalTitle:[NSString stringWithFormat:@"%ld",self.newsModel.praiseCount]];
         praiseBtn.layer.borderWidth = 1;
         [praiseBtn setBtnFont:PFFontL(12)];
         [praiseBtn addButtonNormalImage:@"news_unPraise"];
@@ -1283,6 +1283,7 @@ CGFloat static titleViewHeight = 91;
         if (praiseType == 3) {  //新闻
             LRToast(@"点赞成功");
             self.newsModel.hasPraised = !self.newsModel.hasPraised;
+            self.newsModel.praiseCount ++;
             [self setBottomView];
         }else if (praiseType == 2) {
             CompanyCommentModel *model = self.commentsArr[row];

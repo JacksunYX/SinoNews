@@ -47,7 +47,7 @@
     .heightIs(50)
     ;
     [selectView updateLayout];
-    [selectView addBorderTo:BorderTypeBottom borderColor:HexColor(#E3E3E3)];
+    [selectView addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
     
     img.sd_layout
     .leftSpaceToView(self, 10)
@@ -64,6 +64,7 @@
     [sectionTitle setSingleLineAutoResizeWithMaxWidth:200];
     
     STSegmentView *segmentView = [[STSegmentView alloc]initWithFrame:CGRectMake(self.width/2 - 100, 0, 200, 50)];
+    [segmentView.selectedBgView addBakcgroundColorTheme];
     segmentView.titleArray = @[@"文章",@"娱乐城"];
     segmentView.sliderColor = HexColor(#1282EE);
     segmentView.titleSpacing = 50;

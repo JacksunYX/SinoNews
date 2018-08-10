@@ -13,6 +13,9 @@
 //用户登录的通知
 #define UserLoginSuccess    @"UserLoginSuccess"
 
+//用户退出登录通知
+#define UserLoginOutNotify  @"UserLoginOutNotify"
+
 //设置字体的通知
 #define ChangeFontNotify    @"ChangeFontNotify"
 

@@ -300,6 +300,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     _signIn = [UIButton new];
     shakeImg = [UIImageView new];
+    shakeImg.hidden = YES;
     
     _publish = [self getLabel];
     _attention = [self getLabel];

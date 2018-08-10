@@ -164,6 +164,14 @@
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
         [self requestToGetUserInfo];
+        [self.dataSource removeAllObjects];
+        [self.exchangeRecordArr removeAllObjects];
+        [self.tableView reloadData];
+    }];
+    //监听退出
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginOutNotify object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        [self requestToGetUserInfo];
     }];
     
     [self requestToGetUserInfo];
@@ -646,7 +654,10 @@
             self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
             [self->integer updateLayout];
         }else{
-            
+            [UserModel clearLocalData];
+            [self->userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
+            self->userName.text = @"";
+            self->integer.text = @"";
         }
     } failure:nil];
 }

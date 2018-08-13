@@ -351,6 +351,7 @@
 		4C7EF39C21212A820002166A /* ZSSbold@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF39221212A810002166A /* ZSSbold@2x.png */; };
 		4C7EF39D21212A820002166A /* ZSSbold@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF39321212A820002166A /* ZSSbold@3x.png */; };
 		4C7EF39E21212A820002166A /* ZSSundo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF39421212A820002166A /* ZSSundo@2x.png */; };
+		4C7EF4BD21217EE90002166A /* ChannelSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7EF4BC21217EE90002166A /* ChannelSelectView.m */; };
 		4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64220BFE32C00C99AAB /* LineLayout.m */; };
 		4C83E64620BFE37800C99AAB /* LineCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64520BFE37800C99AAB /* LineCollectionViewCell.m */; };
 		4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C83E64A20BFFA6C00C99AAB /* YXNormalHeader.m */; };
@@ -1051,6 +1052,8 @@
 		4C7EF39221212A810002166A /* ZSSbold@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbold@2x.png"; sourceTree = "<group>"; };
 		4C7EF39321212A820002166A /* ZSSbold@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbold@3x.png"; sourceTree = "<group>"; };
 		4C7EF39421212A820002166A /* ZSSundo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSundo@2x.png"; sourceTree = "<group>"; };
+		4C7EF4BB21217EE90002166A /* ChannelSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelSelectView.h; sourceTree = "<group>"; };
+		4C7EF4BC21217EE90002166A /* ChannelSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelSelectView.m; sourceTree = "<group>"; };
 		4C83E64120BFE32C00C99AAB /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
 		4C83E64220BFE32C00C99AAB /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
 		4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2533,6 +2536,8 @@
 				4C646C6D20F346630053067A /* OfficialNotifyCell.m */,
 				4CA141FE20F4596000536E77 /* PublishManagerCell.h */,
 				4CA141FF20F4596000536E77 /* PublishManagerCell.m */,
+				4C7EF4BB21217EE90002166A /* ChannelSelectView.h */,
+				4C7EF4BC21217EE90002166A /* ChannelSelectView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3136,6 +3141,7 @@
 				4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */,
 				4C72347B20FD8C6D00D5C5D4 /* PYSearchViewController.m in Sources */,
 				4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */,
+				4C7EF4BD21217EE90002166A /* ChannelSelectView.m in Sources */,
 				4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */,
 				4C03F5362101DE5900574136 /* ArticleModel.m in Sources */,
 				4C95FFCD20DDD1950040E348 /* FontAndNightModeView.m in Sources */,

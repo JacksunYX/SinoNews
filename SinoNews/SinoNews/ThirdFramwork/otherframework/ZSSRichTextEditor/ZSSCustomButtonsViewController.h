@@ -10,4 +10,6 @@
 
 @interface ZSSCustomButtonsViewController : ZSSRichTextEditor
 
+-(void)canTouch:(BOOL)yesOrNo;
+
 @end

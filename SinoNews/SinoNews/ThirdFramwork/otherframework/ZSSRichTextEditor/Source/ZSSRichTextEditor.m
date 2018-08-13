@@ -244,7 +244,7 @@ static CGFloat kToolBarHeight = 44;
     self.editorLoaded = NO;
     self.receiveEditorDidChangeEvents = NO;
     self.alwaysShowToolbar = NO;
-    self.shouldShowKeyboard = YES;
+    self.shouldShowKeyboard = NO;
     self.formatHTML = YES;
     
     //Initalise enabled toolbar items array

@@ -39,8 +39,10 @@
     @weakify(self)
     [[firstBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
-        PubLishChannelSelectVC *pcsVC = [PubLishChannelSelectVC new];
-        [self.navigationController pushViewController:pcsVC animated:YES];
+//        PubLishChannelSelectVC *pcsVC = [PubLishChannelSelectVC new];
+//        [self.navigationController pushViewController:pcsVC animated:YES];
+        PublishArticleViewController *paVC = [PublishArticleViewController new];
+        [self.navigationController pushViewController:paVC animated:YES];
     }];
     
     UIButton *secondBtn = [UIButton new];

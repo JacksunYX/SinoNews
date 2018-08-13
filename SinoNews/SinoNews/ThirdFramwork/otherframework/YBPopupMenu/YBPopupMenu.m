@@ -101,7 +101,7 @@ UITableViewDataSource
 
 + (YBPopupMenu *)showRelyOnView:(UIView *)view titles:(NSArray *)titles icons:(NSArray *)icons menuWidth:(CGFloat)itemWidth delegate:(id<YBPopupMenuDelegate>)delegate
 {
-    CGRect absoluteRect = [view convertRect:view.bounds toView:YBMainWindow];
+    CGRect absoluteRect = [view convertRect:view.frame toView:YBMainWindow];
     CGPoint relyPoint = CGPointMake(absoluteRect.origin.x + absoluteRect.size.width / 2, absoluteRect.origin.y + absoluteRect.size.height);
     YBPopupMenu *popupMenu = [[YBPopupMenu alloc] init];
     popupMenu.point = relyPoint;

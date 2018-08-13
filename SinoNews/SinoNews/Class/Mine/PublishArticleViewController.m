@@ -7,20 +7,32 @@
 //
 
 #import "PublishArticleViewController.h"
+#import "ZSSCustomButtonsViewController.h"
 
 #import "LMWordViewController.h"
 #import "LMWordView.h"
 #import "LMTextHTMLParser.h"
 #import "XLChannelModel.h"
 #import "YBPopupMenu.h"
+#import "ChannelSelectView.h"
 
-@interface PublishArticleViewController ()<YBPopupMenuDelegate>
+@interface PublishArticleViewController ()<YBPopupMenuDelegate,UITextFieldDelegate>
+{
+    //不可以用作当前控制器的属性，否则会崩溃
+    ZSSCustomButtonsViewController *inputViewController;
+}
+
 @property (nonatomic, strong) LMWordViewController *wordViewController;
 @property (nonatomic, strong) UIView *channelChoose;
 @property (nonatomic, strong) UIButton *channelBtn;
 @property (nonatomic, assign) CGFloat topViewH;
 @property (nonatomic, strong) NSMutableArray *channelArr;
 @property (nonatomic, strong) XLChannelModel *channelModel;
+
+//第二版
+@property (nonatomic, strong) UIView *channelSelectionView;
+@property (nonatomic, strong) TXLimitedTextField *titleInputField;
+@property (nonatomic, strong) ChannelSelectView *selectView;
 
 @end
 
@@ -70,28 +82,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
+
+    [self showTopLine];
+    
     NSString *title = @"发布文章";
-    self.topViewH = 0;
+    self.topViewH = 54;
     if (self.editType == 1) {
         title = @"发布问答";
         self.topViewH = 0;
     }
     self.navigationItem.title = title;
     [self setNavigation];
-    [self setUI];
-    
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [IQKeyboardManager sharedManager].enable = NO;
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [IQKeyboardManager sharedManager].enable = YES;
+//    [self setUI];
+    [self setUI2];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,19 +151,120 @@
     
 }
 
+-(void)setUI2
+{
+    //频道选择
+    _channelSelectionView = [UIView new];
+    [self.view addSubview:_channelSelectionView];
+    _channelSelectionView.sd_layout
+    .topEqualToView(self.view)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(self.topViewH)
+    ;
+    [_channelSelectionView updateLayout];
+    [_channelSelectionView addBorderTo:BorderTypeBottom borderColor:HexColor(#E3E3E3)];
+    
+    if (self.editType==0) {
+        UILabel *channelLabel = [UILabel new];
+        channelLabel.font = PFFontL(15);
+        channelLabel.textColor = HexColor(#626262);
+        [_channelSelectionView addSubview:channelLabel];
+        channelLabel.sd_layout
+        .topEqualToView(_channelSelectionView)
+        .leftEqualToView(_channelSelectionView)
+        .heightIs(self.topViewH)
+        .widthIs(45)
+        ;
+        channelLabel.text = @"频道：";
+        
+        self.selectView = [ChannelSelectView new];
+        [_channelSelectionView addSubview:self.selectView];
+        self.selectView.sd_layout
+        .topEqualToView(_channelSelectionView)
+        .leftSpaceToView(channelLabel, 0)
+        .heightIs(self.topViewH-1)
+        .rightSpaceToView(_channelSelectionView, 0)
+        ;
+        [self.selectView updateLayout];
+        //构建视图
+        [self.selectView setViewWithChannelArr:[self getAllChannels]];
+    }
+    
+
+    //标题
+    _titleInputField = [TXLimitedTextField new];
+    _titleInputField.font = PFFontL(17);
+    _titleInputField.placeholder = @"请输入标题";
+    _titleInputField.delegate = self;
+    [self.view addSubview:_titleInputField];
+    _titleInputField.sd_layout
+    .topSpaceToView(_channelSelectionView, 0)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(43)
+    ;
+    [_titleInputField updateLayout];
+
+    UIView *sepLine = [UIView new];
+    [self.view addSubview:sepLine];
+    sepLine.sd_layout
+    .topSpaceToView(_titleInputField, 0)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(1)
+    ;
+    [sepLine updateLayout];
+    //加虚线
+    [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
+    
+    //添加输入界面
+    inputViewController = [[ZSSCustomButtonsViewController alloc]init];
+    [self addChildViewController:inputViewController];
+    
+    [self.view addSubview:inputViewController.view];
+    
+    inputViewController.view.frame = CGRectMake(0, CGRectGetMaxY(sepLine.frame) + 1, self.view.bounds.size.width, self.view.bounds.size.height - CGRectGetMaxY(sepLine.frame) - 1);
+    
+    [self.titleInputField becomeFirstResponder];
+}
+
 -(void)publishAction:(UIButton *)sender
 {
+    GGLog(@"输入了：%@",[inputViewController getText]);
     if (!self.channelId&&self.editType==0){
         LRToast(@"请选择频道");
         return;
-    }else if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
+    }
+//    else if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
+//        LRToast(@"请输入标题");
+//        return;
+//    }else if (self.wordViewController.textView.attributedText.length<=0){
+//        LRToast(@"还没编辑内容哟");
+//        return;
+//    }
+//    [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
+    
+    else if ([NSString isEmpty:self.titleInputField.text]){
         LRToast(@"请输入标题");
         return;
-    }else if (self.wordViewController.textView.attributedText.length<=0){
+    }else if ([NSString isEmpty:[inputViewController getText]]||[NSString isEmpty:[inputViewController getHTML]]){
         LRToast(@"还没编辑内容哟");
         return;
     }
-    [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
+    [self requestPublishArticleWithContent:[inputViewController getHTML]];
+}
+
+#pragma mark --- UITextFieldDelegate
+//当编辑标题时，无法操作键盘上面的选项
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [inputViewController canTouch:NO];
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [inputViewController canTouch:YES];
 }
 
 #pragma mark - YBPopupMenuDelegate

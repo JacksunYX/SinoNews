@@ -51,7 +51,7 @@
     if (CompareString(UserGet(@"isLogin"), @"YES")) {
         
     }
-    [self reloadChildVCWithTitles:@[@"作者",@"频道"]];
+    [self reloadChildVCWithTitles:@[@"作者",@"专题"]];
     
 }
 
@@ -111,7 +111,7 @@
         if (i == 0) {
            vc.news_id = @"作者";
         }else if (i == 1){
-            vc.news_id = @"频道";
+            vc.news_id = @"专题";
         }
         
         [arr addObject:vc];

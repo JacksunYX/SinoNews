@@ -41,9 +41,9 @@ zss_editor.init = function() {
     $('#zss_editor_content').on('touchend', function(e) {
                                 zss_editor.enabledEditingItems(e);
                                 var clicked = $(e.target);
-                                if (!clicked.hasClass('zs_active')) {
-                                $('img').removeClass('zs_active');
-                                }
+//                                if (!clicked.hasClass('zs_active')) {
+//                                $('img').removeClass('zs_active');
+//                                }
                                 });
     
     $(document).on('selectionchange',function(e){
@@ -68,6 +68,7 @@ zss_editor.init = function() {
                  });
     $(window).on('touchend', function(e) {
                  if (!zss_editor.isDragging && (e.target.id == "zss_editor_footer"||e.target.nodeName.toLowerCase() == "html")) {
+                 zss_editor.updateOffset();
                  zss_editor.focusEditor();
                  }
                  });
@@ -472,7 +473,7 @@ zss_editor.prepareInsert = function() {
 
 zss_editor.insertImage = function(url, alt) {
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" alt="'+alt+'" />'+'<br /><br />';//加换行
+    var html = '<img src="'+url+'" alt="'+alt+'" />'+'<br /><br /><br /><br />';//加换行
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
 }

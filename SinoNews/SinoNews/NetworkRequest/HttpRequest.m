@@ -7,6 +7,7 @@
 //
 
 #import "HttpRequest.h"
+#import "AddressViewController.h"
 
 @implementation HttpRequest
 //获取通用的请求manager
@@ -157,6 +158,11 @@
                                 RefreshAction();
                             }
                         }];
+                    }else if ([resultdic[@"statusCode"] integerValue] == 400401){
+                        //积分够了，但是未设置收获地址,跳转到收获地址设置界面
+                        AddressViewController *aVC = [AddressViewController new];
+                        [[[HttpRequest currentViewController] navigationController] pushViewController:aVC animated:YES];
+                        
                     }
                     if (failure) {
                         failure(nil);

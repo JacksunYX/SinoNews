@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.type == 0) {
-        self.navigationItem.title = @"他的关注";
+        self.navigationItem.title = @"TA的关注";
     }else{
         self.navigationItem.title = @"他的粉丝";
     }

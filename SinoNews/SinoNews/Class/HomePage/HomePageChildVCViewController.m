@@ -171,7 +171,7 @@
             }
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){  //反之则是关注子页面
             [self requestAttentionNews];
-        }else if(CompareString(GetSaveString(self.news_id), @"频道")){
+        }else if(CompareString(GetSaveString(self.news_id), @"专题")){
             [self requestAttentionChannelNews];
         }
 
@@ -191,7 +191,7 @@
             [self requestNews_list:1];
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){
             [self requestAttentionNews];
-        }else if(CompareString(GetSaveString(self.news_id), @"频道")){
+        }else if(CompareString(GetSaveString(self.news_id), @"专题")){
             [self requestAttentionChannelNews];
         }
 

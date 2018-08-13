@@ -132,7 +132,12 @@
     isAttention.selected = model.isFollow;
     
     if (isAttention.selected) {
-        isAttention.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        if (UserGetBool(@"NightMode")) {
+            
+            isAttention.layer.borderColor = CutLineColorNight.CGColor;
+        }else{
+            isAttention.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        }
     }else{
         isAttention.layer.borderColor = HexColor(#1282EE).CGColor;
     }

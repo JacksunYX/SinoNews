@@ -78,11 +78,16 @@
 //        self.segHead.selectColor = HexColor(#323232);
         _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             [(MLMSegmentHead *)item setSelectColor:value];
+            if (UserGetBool(@"NightMode")) {
+                [(MLMSegmentHead *)item setBottomLineColor:CutLineColorNight];
+            }else{
+                [(MLMSegmentHead *)item setBottomLineColor:CutLineColor];
+            }
         });
         self.segHead.deSelectColor = HexColor(#989898);
         self.segHead.maxTitles = 2;
         self.segHead.bottomLineHeight = 1;
-        self.segHead.bottomLineColor = RGBA(227, 227, 227, 1);
+//        self.segHead.bottomLineColor = RGBA(227, 227, 227, 1);
         self.segHead.singleW_Add = 90;
         self.segHead.delegate = self;
         @weakify(self)
@@ -481,22 +486,45 @@
     if (self.user.identifications.count>0) {
         CGFloat wid = 20;
         CGFloat hei = 20;
-        CGFloat spaceX = 5;
+        CGFloat spaceX = 0;
         
+        UIView *lastView = _idView;
         for (int i = 0; i < self.user.identifications.count; i ++) {
             NSDictionary *model = self.user.identifications[i];
-            UIView *approveView = [UIView new];
+            UIImageView *approveView = [UIImageView new];
             [_idView addSubview:approveView];
+            
+            if (i != 0) {
+                spaceX = 10;
+            }
+            
             approveView.sd_layout
-            .topEqualToView(_idView)
-            .leftSpaceToView(_idView, (spaceX + wid)*i)
+            //            .topEqualToView(lastView)
+            .centerYEqualToView(_idView)
+            .leftSpaceToView(lastView, spaceX)
             .widthIs(wid)
             .heightIs(hei)
             ;
             [approveView setSd_cornerRadius:@(wid/2)];
-            approveView.backgroundColor = Arc4randomColor;
+            [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            
+            //现在要加一个label
+            UILabel *label = [UILabel new];
+            label.font = PFFontR(12);
+            [label addTitleColorTheme];
+            [_idView addSubview:label];
+            label.sd_layout
+            //            .topEqualToView(_idView)
+            .centerYEqualToView(_idView)
+            .leftSpaceToView(approveView, 6)
+            .heightIs(hei)
+            ;
+            [label setSingleLineAutoResizeWithMaxWidth:50];
+            label.text = GetSaveString(model[@"text"]);
+            
+            lastView = label;
             if (i == self.user.identifications.count - 1) {
-                [_idView setupAutoWidthWithRightView:approveView rightMargin:0];
+                [_idView setupAutoWidthWithRightView:label rightMargin:0];
             }
         }
     }
@@ -604,6 +632,7 @@
                 case 100:   //无图
                 {
                     HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                    cell1.bottomShowType = 1;
                     cell1.model = model1;
                     cell = (UITableViewCell *)cell1;
                 }
@@ -614,6 +643,7 @@
                 case 101:   //1图
                 {
                     HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                    cell1.bottomShowType = 1;
                     cell1.model = model1;
                     cell = (UITableViewCell *)cell1;
                 }
@@ -623,6 +653,7 @@
                 case 103:   //3图
                 {
                     HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                    cell1.bottomShowType = 1;
                     cell1.model = model1;
                     cell = (UITableViewCell *)cell1;
                 }
@@ -634,6 +665,7 @@
             
         }else if ([model isKindOfClass:[TopicModel class]]){
             HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+            cell2.bottomShowType = 1;
             cell2.model = model;
             cell = (UITableViewCell *)cell2;
         }else if ([model isKindOfClass:[ADModel class]]){

@@ -17,6 +17,7 @@
 
 @property (nonatomic,strong) HomePageModel *model;
 
-
+//默认是正常拼接、1是只拼接阅读和发布时间
+@property (nonatomic,assign) NSInteger bottomShowType;
 
 @end

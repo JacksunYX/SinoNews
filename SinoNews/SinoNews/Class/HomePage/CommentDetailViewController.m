@@ -123,12 +123,20 @@
         .centerYEqualToView(self.bottomView)
         .heightIs(34)
         ;
-        self.commentInput.backgroundColor = RGBA(219, 219, 219, 1);
-        [self.commentInput setSd_cornerRadius:@16];
+        [self.commentInput updateLayout];
+        self.commentInput.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(UITextField *)item setBackgroundColor:HexColor(#292D30)];
+            }else{
+                [(UITextField *)item setBackgroundColor:RGBA(244, 244, 244, 1)];
+            }
+        });
+//        self.commentInput.backgroundColor = RGBA(219, 219, 219, 1);
+        [self.commentInput setSd_cornerRadius:@17];
         NSMutableAttributedString *placeholder = [[NSMutableAttributedString alloc]initWithString:@"写评论..."];
         NSDictionary *dic = @{
                               NSFontAttributeName : PFFontR(14),
-                              NSForegroundColorAttributeName : RGBA(53, 53, 53, 1),
+                              NSForegroundColorAttributeName : RGBA(148, 152, 153, 1),
                               };
         [placeholder addAttributes:dic range:NSMakeRange(0, placeholder.length)];
         self.commentInput.attributedPlaceholder = placeholder;

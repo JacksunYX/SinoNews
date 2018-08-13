@@ -182,12 +182,22 @@
         bottomLabel.text = [NSString stringWithFormat:@"%ld 回答",model.commentCount];
     }else{
         //其他新闻
-        NSString *str1 = AppendingString(GetSaveString(model.username), @"  ");
+        NSString *str1 = @"";
+        if (self.bottomShowType) {
+            
+        }else{
+            str1 = AppendingString(GetSaveString(model.username), @"  ");
+        }
+        
         NSString *str2 = [UniversalMethod processNumShow:model.viewCount insertString:@"阅"];
         NSString *str3 = [UniversalMethod processNumShow:model.commentCount insertString:@"评"];
         
         NSString *totalStr = [[str1 stringByAppendingString:str2] stringByAppendingString:str3];
         bottomLabel.text = totalStr;
+    }
+    
+    if (self.bottomShowType) {
+        bottomLabel.text = [bottomLabel.text stringByAppendingString:GetSaveString(model.createTime)];
     }
     
     //判断是否包含标签文字

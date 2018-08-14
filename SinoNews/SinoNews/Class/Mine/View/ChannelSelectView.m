@@ -94,6 +94,20 @@ static NSInteger maxSelect = 3; //最大选择数
         [self.selectedArr removeObject:model];
         btn.layer.borderColor = HexColor(#E3E3E3).CGColor;
     }
+    if (self.selectBlock) {
+        //拼接下当前id字符串
+        NSMutableString *idStr = [@"" mutableCopy];
+
+        for (int i = 0; i < self.selectedArr.count; i++) {
+            XLChannelModel *model = self.selectedArr[i];
+            [idStr appendFormat:@"%@,",model.channelId];
+            if (i == self.selectedArr.count-1) {
+                //删掉最后一个','
+                [idStr deleteCharactersInRange:NSMakeRange(idStr.length-1, 1)];
+            }
+        }
+        self.selectBlock(idStr);
+    }
 }
 
 @end

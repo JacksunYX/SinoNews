@@ -899,7 +899,7 @@ CGFloat static titleViewHeight = 91;
         [praiseBtn setSelectedImage:UIImageNamed(@"news_praised")];
         [praiseBtn setNormalTitleColor:HexColor(#1A1A1A)];
         [praiseBtn setSelectedTitleColor:HexColor(#1282EE)];
-        praiseBtn.imageEdgeInsets = UIEdgeInsetsMake(-15, 12, 0, 0);
+        praiseBtn.imageEdgeInsets = UIEdgeInsetsMake(-15, 10, 0, 0);
         praiseBtn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
         praiseBtn.selected = self.newsModel.hasPraised;
         

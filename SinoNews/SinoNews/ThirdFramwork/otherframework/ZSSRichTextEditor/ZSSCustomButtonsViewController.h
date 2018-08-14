@@ -10,6 +10,10 @@
 
 @interface ZSSCustomButtonsViewController : ZSSRichTextEditor
 
+@property (nonatomic,copy) void(^selectedBlock)(NSInteger index);
+
 -(void)canTouch:(BOOL)yesOrNo;
+
+
 
 @end

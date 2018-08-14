@@ -31,8 +31,14 @@
     [super viewDidLoad];
     
     [self addTableView];
+    NSString *notice = @"暂无发布内容";
+    if (self.type == 1) {
+        notice = @"暂无待审核内容";
+    }else if (self.type == 2){
+        notice = @"暂无草稿";
+    }
     
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noPublish" title:@"暂无发布的内容"];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noPublish" title:notice];
 }
 
 - (void)didReceiveMemoryWarning {

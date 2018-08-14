@@ -173,4 +173,13 @@
 }
 
 
+#pragma mark --- YBPopupMenuDelegate
+-(void)ybPopupMenu:(YBPopupMenu *)ybPopupMenu didSelectedAtIndex:(NSInteger)index
+{
+    if (self.selectedBlock) {
+        self.selectedBlock(index);
+    }
+}
+
+
 @end

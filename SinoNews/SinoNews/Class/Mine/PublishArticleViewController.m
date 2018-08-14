@@ -120,7 +120,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
+//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
 }
 
 -(void)back
@@ -189,8 +189,13 @@
         [self.selectView updateLayout];
         //构建视图
         [self.selectView setViewWithChannelArr:[self getAllChannels]];
+        //回调
+        @weakify(self);
+        self.selectView.selectBlock = ^(NSString *channelIdStr) {
+            @strongify(self);
+            self.channelId = channelIdStr;
+        };
     }
-    
 
     //标题
     _titleInputField = [TXLimitedTextField new];
@@ -226,13 +231,35 @@
     
     inputViewController.view.frame = CGRectMake(0, CGRectGetMaxY(sepLine.frame) + 1, self.view.bounds.size.width, self.view.bounds.size.height - CGRectGetMaxY(sepLine.frame) - 1);
     
+    @weakify(self);
+    inputViewController.selectedBlock = ^(NSInteger index) {
+        @strongify(self);
+        [self processWithIndex:index];
+    };
+    
     [self.titleInputField becomeFirstResponder];
 }
 
+//保存或者放弃编辑
+-(void)processWithIndex:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+            GGLog(@"保存草稿");
+            break;
+        case 1:
+            [self giveUpEditPop];
+            break;
+        default:
+            break;
+    }
+}
+
+//发布检测
 -(void)publishAction:(UIButton *)sender
 {
     GGLog(@"输入了：%@",[inputViewController getText]);
-    if (!self.channelId&&self.editType==0){
+    if (kStringIsEmpty(self.channelId)&&self.editType==0){
         LRToast(@"请选择频道");
         return;
     }
@@ -253,6 +280,21 @@
         return;
     }
     [self requestPublishArticleWithContent:[inputViewController getHTML]];
+}
+
+//询问用户是否放弃编辑
+-(void)giveUpEditPop
+{
+    UIAlertController *popVC = [UIAlertController alertControllerWithTitle:@"放弃当前编辑?" message:@"当前内容将不会保存" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *giveUp = [UIAlertAction actionWithTitle:@"放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [popVC addAction:giveUp];
+    [popVC addAction:cancel];
+    
+    [self presentViewController:popVC animated:YES completion:nil];
 }
 
 #pragma mark --- UITextFieldDelegate
@@ -276,18 +318,19 @@
 }
 
 #pragma make ----- 请求发送
+//发布文章或问答
 -(void)requestPublishArticleWithContent:(NSString *)content
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
-    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
+//    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
+    parameters[@"title"] = self.titleInputField.text;
     if (self.editType) {
-        //问答频道的id固定是2
-        parameters[@"channelId"] = @(2);
+        //问答频道后台可以直接通过newsType来判断
+        parameters[@"channelIds"] = @"";
         parameters[@"newsType"] = @(2);
     }else{
-//       parameters[@"channelId"] = self.channelModel.channelId;
-        parameters[@"channelId"] = self.channelId;
+        parameters[@"channelIds"] = self.channelId;
         parameters[@"newsType"] = @(1);
     }
     

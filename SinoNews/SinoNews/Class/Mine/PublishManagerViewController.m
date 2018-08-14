@@ -56,6 +56,7 @@
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    self.tableView.separatorColor = CutLineColor;
     [self.tableView registerClass:[PublishManagerCell class] forCellReuseIdentifier:PublishManagerCellID];
     
     @weakify(self);
@@ -67,7 +68,8 @@
         }
         [self.tableView ly_startLoading];
         self.currPage = 1;
-        [self requestUserPushNews];
+        
+        [self loadWhichRequest];
         
     }];
     
@@ -83,12 +85,30 @@
         }else{
             self.currPage ++;
         }
-        [self requestUserPushNews];
+        [self loadWhichRequest];
         
     }];
     
     [_tableView.mj_header beginRefreshing];
     
+}
+
+//加载指定的type请求
+-(void)loadWhichRequest
+{
+    switch (self.type) {
+        case 0: //已审核
+            [self requestUserPushNews];
+            break;
+        case 1: //待审核
+            [self requestWaitConfirm];
+            break;
+        case 2: //草稿箱
+            [self requestDrafts];
+            break;
+        default:
+            break;
+    }
 }
 
 //显示删除提示
@@ -120,6 +140,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PublishManagerCell *cell = (PublishManagerCell *)[tableView dequeueReusableCellWithIdentifier:PublishManagerCellID];
+    cell.type = self.type;
     ArticleModel *model = self.articlesArr[indexPath.row];
     cell.model = model;
     @weakify(self)
@@ -148,18 +169,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ArticleModel *model = self.articlesArr[indexPath.row];
-    if (model.itemType>=100&&model.itemType<200) {  //普通文章
-        NewsDetailViewController *ndVC = [NewsDetailViewController new];
-        ndVC.newsId = model.itemId;
-        [self.navigationController pushViewController:ndVC animated:YES];
-    }else if (model.itemType>=500&&model.itemType<600) { //问答
-        CatechismViewController *cVC = [CatechismViewController new];
-        cVC.news_id = model.itemId;
-        [self.navigationController pushViewController:cVC animated:YES];
-    }else{
-        LRToast(@"未知文章");
+    if (self.type==0) {
+//        ArticleModel *model = self.articlesArr[indexPath.row];
+//        if (model.itemType>=100&&model.itemType<200) {  //普通文章
+//            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+//            ndVC.newsId = model.itemId;
+//            [self.navigationController pushViewController:ndVC animated:YES];
+//        }else if (model.itemType>=500&&model.itemType<600) { //问答
+//            CatechismViewController *cVC = [CatechismViewController new];
+//            cVC.news_id = model.itemId;
+//            [self.navigationController pushViewController:cVC animated:YES];
+//        }else{
+//            LRToast(@"未知文章");
+//        }
+    }else if (self.type==2){
+        //跳转到草稿展示
     }
+    
 }
 
 #pragma mark ----请求发送
@@ -170,17 +196,39 @@
         NSArray *data = [ArticleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         self.articlesArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.articlesArr];
         
-//        if (self.currPage == 1) {
-//            self.articlesArr = [data mutableCopy];
-//            [self.tableView.mj_header endRefreshing];
-//        }else{
-//            [self.articlesArr addObjectsFromArray:data];
-//            if (data.count) {
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//        }
+        [self.tableView reloadData];
+        
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
+    }];
+}
+
+//请求待审核文章
+-(void)requestWaitConfirm
+{
+    [HttpRequest getWithURLString:GetCurrentUserNews parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
+        NSArray *data = [ArticleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.articlesArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.articlesArr];
+        
+        [self.tableView reloadData];
+        
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
+    }];
+}
+
+//请求草稿箱文章
+-(void)requestDrafts
+{
+    [HttpRequest getWithURLString:GetCurrentUserNews parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
+        NSArray *data = [ArticleModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.articlesArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.articlesArr];
         
         [self.tableView reloadData];
         

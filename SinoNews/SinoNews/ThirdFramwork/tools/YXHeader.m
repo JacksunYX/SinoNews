@@ -42,9 +42,9 @@
     } else {
         LoginViewController *loginVC = [LoginViewController new];
         loginVC.normalBack = YES;
-        loginVC.backHandleBlock = ^{
-            backHandle();
-        };
+//        loginVC.backHandleBlock = ^{
+//            backHandle();
+//        };
         [[HttpRequest currentViewController] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }

@@ -14,7 +14,7 @@
 @property (nonatomic,strong) NSMutableArray *selectedArr;
 @end
 
-static NSInteger maxSelect = 2; //最大选择数
+static NSInteger maxSelect = 3; //最大选择数
 @implementation ChannelSelectView
 -(NSMutableArray *)selectedArr
 {

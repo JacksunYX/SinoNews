@@ -849,7 +849,7 @@ CGFloat static titleViewHeight = 91;
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == 2&&self.commentsArr.count<=0&&!NoPayedNews){
-        return 90;
+        return 120;
     }
     return 0.01;
 }
@@ -899,7 +899,7 @@ CGFloat static titleViewHeight = 91;
         [praiseBtn setSelectedImage:UIImageNamed(@"news_praised")];
         [praiseBtn setNormalTitleColor:HexColor(#1A1A1A)];
         [praiseBtn setSelectedTitleColor:HexColor(#1282EE)];
-        praiseBtn.imageEdgeInsets = UIEdgeInsetsMake(-15, 15, 0, 0);
+        praiseBtn.imageEdgeInsets = UIEdgeInsetsMake(-15, 12, 0, 0);
         praiseBtn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
         praiseBtn.selected = self.newsModel.hasPraised;
         
@@ -1064,16 +1064,18 @@ CGFloat static titleViewHeight = 91;
 {
     UIView *footView;
     if (section == 2&&self.commentsArr.count<=0&&!NoPayedNews) {
-        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
+        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 120)];
         footView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         
         UIImageView *imgV = [UIImageView new];
         [footView addSubview:imgV];
         imgV.sd_layout
         .centerXEqualToView(footView)
-        .topEqualToView(footView)
-        .bottomEqualToView(footView)
+        .centerYEqualToView(footView)
+//        .topEqualToView(footView)
+//        .bottomEqualToView(footView)
         .widthIs(156)
+        .heightIs(90)
         ;
         imgV.lee_theme.LeeConfigImage(@"noCommentFoot");
         

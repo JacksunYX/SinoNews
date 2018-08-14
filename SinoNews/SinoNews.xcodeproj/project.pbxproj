@@ -128,6 +128,7 @@
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
+		4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */; };
 		4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F05920D0A321009DC42B /* RankingModel.m */; };
 		4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F05C20D0AF5C009DC42B /* RankingListModel.m */; };
 		4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06020D0C2DE009DC42B /* UIView+Gesture.m */; };
@@ -695,6 +696,8 @@
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
 		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
 		4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLChannelModel.m; sourceTree = "<group>"; };
+		4C44E37D212261B600C5D10A /* NewPublishManagerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPublishManagerVC.h; sourceTree = "<group>"; };
+		4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPublishManagerVC.m; sourceTree = "<group>"; };
 		4C49F05820D0A321009DC42B /* RankingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingModel.h; sourceTree = "<group>"; };
 		4C49F05920D0A321009DC42B /* RankingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankingModel.m; sourceTree = "<group>"; };
 		4C49F05B20D0AF5C009DC42B /* RankingListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingListModel.h; sourceTree = "<group>"; };
@@ -1692,6 +1695,8 @@
 				4CA141F920F4525F00536E77 /* CommentManagerViewController.m */,
 				4CEA61732117FB3800AAB8B0 /* PubLishChannelSelectVC.h */,
 				4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */,
+				4C44E37D212261B600C5D10A /* NewPublishManagerVC.h */,
+				4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */,
 				4CA141FB20F4528600536E77 /* PublishManagerViewController.h */,
 				4CA141FC20F4528600536E77 /* PublishManagerViewController.m */,
 				4CA1420120F48A6900536E77 /* PublishArticleViewController.h */,
@@ -3226,6 +3231,7 @@
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
+				4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */,
 				4C95FFDD20DDF4EA0040E348 /* VideoAutoPlaySelectView.m in Sources */,
 				4C23B3C720F592AB00ACE380 /* LMColorPickerView.m in Sources */,
 				4C510B62211049BB00706185 /* NSDictionary+Extension.m in Sources */,

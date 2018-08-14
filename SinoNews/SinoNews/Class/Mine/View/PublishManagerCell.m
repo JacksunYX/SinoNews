@@ -93,19 +93,36 @@
                                  creatTime,
                                  newTitle,
                                  popView,
-                                 viewCount,
+//                                 viewCount,
                                  
                                  newsCover,
                                  
-//                                 share,
-//                                 comment,
-//                                 praise,
+                                 share,
+                                 comment,
+                                 praise,
                                  
                                  ]];
     
     [self sdLoadViews];
     
-    [self setupAutoHeightWithBottomViewsArray:@[newsCover] bottomMargin:10];
+}
+
+-(void)setType:(NSInteger)type
+{
+    _type = type;
+    share.hidden = type;
+    comment.hidden = type;
+    praise.hidden = type;
+    popView.hidden = type;
+    newsCover.hidden = NO;
+    if (type == 1) {
+        [self setupAutoHeightWithBottomViewsArray:@[newsCover] bottomMargin:10];
+    }else if (type == 2){
+        newsCover.hidden = YES;
+        [self setupAutoHeightWithBottomViewsArray:@[newTitle] bottomMargin:10];
+    }else{
+        [self setupAutoHeightWithBottomViewsArray:@[share,comment,praise] bottomMargin:10];
+    }
 }
 
 //布局
@@ -147,8 +164,9 @@
 //    newTitle.text = @"习近平总书记两院士大会重要讲话激励香港科学家";
     
     popView.sd_layout
-    .topSpaceToView(fatherView, 10)
+//    .topSpaceToView(fatherView, 10)
     .rightSpaceToView(fatherView, 10)
+    .centerYEqualToView(username)
     .widthIs(13)
     .heightIs(8)
     ;
@@ -178,8 +196,8 @@
     .widthIs(60)
     .heightIs(18)
     ;
-    [share setTitle:@"分享" forState:UIControlStateNormal];
-    [share setImage:UIImageNamed(@"publish_share") forState:UIControlStateNormal];
+    [share setNormalTitle:@""];
+    [share setNormalImage:UIImageNamed(@"publish_view")];
     share.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     
     comment.sd_layout
@@ -214,11 +232,13 @@
     }
     username.text = GetSaveString(model.username);
     creatTime.text = GetSaveString(model.createTime);
-    viewCount.text = [NSString stringWithFormat:@"%ld\n阅读",model.viewCount];
+//    viewCount.text = [NSString stringWithFormat:@"%ld\n阅读",model.viewCount];
     newTitle.text = GetSaveString(model.itemTitle);
     if (model.images.count>0) {
         [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[0])) placeholderImage:UIImageNamed(@"placeholder_logo_big")];
     }
+    [share setNormalTitle:[NSString stringWithFormat:@"%ld",model.viewCount]];
+    
     [comment setNormalTitle:[NSString stringWithFormat:@"%ld",model.commentCount]];
     
     [praise setNormalTitle:[NSString stringWithFormat:@"%ld",model.praiseCount]];

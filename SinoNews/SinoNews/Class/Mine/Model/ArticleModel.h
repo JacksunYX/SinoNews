@@ -32,11 +32,8 @@
 
 @property (nonatomic,strong) NSArray *images;
 
-
-
-
-
-
-
 @property (nonatomic,assign) NSInteger viewCount;
+
+
+
 @end

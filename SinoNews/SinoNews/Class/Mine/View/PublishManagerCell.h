@@ -14,6 +14,8 @@
 
 @interface PublishManagerCell : UITableViewCell
 
+@property (nonatomic,assign) NSInteger type;    //0已审核 1待审核
+
 @property (nonatomic ,strong) ArticleModel *model;
 
 @property (nonatomic ,copy) void(^avatarClick)(void);

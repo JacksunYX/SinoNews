@@ -10,6 +10,7 @@
 #import "PublishViewController.h"
 #import "CommentManagerViewController.h"
 #import "PublishManagerViewController.h"
+#import "NewPublishManagerVC.h"
 
 @interface PublishPageViewController ()
 @property (nonatomic, strong) MLMSegmentHead *segHead;
@@ -20,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self showTopLine];
     
     [self reloadChildVCWithTitles:@[
                                     @"发布",
@@ -72,17 +75,18 @@
     });
 }
 
-
 - (NSArray *)vcArr:(NSInteger)count {
     NSMutableArray *arr = [NSMutableArray array];
     PublishViewController *pvc = [PublishViewController new];
     CommentManagerViewController *cmvc = [CommentManagerViewController new];
-    PublishManagerViewController *pmvc = [PublishManagerViewController new];
+//    PublishManagerViewController *pmvc = [PublishManagerViewController new];
+    NewPublishManagerVC *npmVC = [NewPublishManagerVC new];
     
     [arr addObjectsFromArray:@[
                                pvc,
                                cmvc,
-                               pmvc,
+//                               pmvc,
+                               npmVC,
                                ]];
     return arr;
 }

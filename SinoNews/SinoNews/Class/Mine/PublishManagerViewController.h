@@ -12,4 +12,6 @@
 
 @interface PublishManagerViewController : BaseViewController
 
+@property (nonatomic,assign) NSInteger type;    //0已审核 1代审核 2草稿箱
+
 @end

@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ArticleModel.h"
+#import "NewPublishModel.h"
 
 #define PublishManagerCellID @"PublishManagerCellID"
 
@@ -17,6 +18,8 @@
 @property (nonatomic,assign) NSInteger type;    //0已审核 1待审核
 
 @property (nonatomic ,strong) ArticleModel *model;
+
+@property (nonatomic ,strong) NewPublishModel *newsModel;
 
 @property (nonatomic ,copy) void(^avatarClick)(void);
 

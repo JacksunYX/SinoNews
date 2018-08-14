@@ -444,6 +444,7 @@
         ;
         [title setSingleLineAutoResizeWithMaxWidth:100];
         NSString *titleStr = GetSaveString(self.companyModel.syntheticalRanking.score);
+        titleStr = [NSString stringWithFormat:@"%.1lf",[titleStr floatValue]];
         NSString *str = [titleStr stringByAppendingString:@" 总分"];
         NSMutableAttributedString *attText = [[NSMutableAttributedString alloc]initWithString:str];
         NSDictionary *dic = @{

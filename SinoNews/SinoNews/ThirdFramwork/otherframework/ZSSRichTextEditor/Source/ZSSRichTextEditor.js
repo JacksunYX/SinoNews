@@ -473,7 +473,7 @@ zss_editor.prepareInsert = function() {
 
 zss_editor.insertImage = function(url, alt) {
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" alt="'+alt+'" />'+'<br /><br /><br /><br />';//加换行
+    var html = '<img src="'+url+'" alt="'+alt+'" />'+'<br /><br />';//加换行
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
 }

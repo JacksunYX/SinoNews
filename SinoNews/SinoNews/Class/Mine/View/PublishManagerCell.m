@@ -244,6 +244,29 @@
     [praise setNormalTitle:[NSString stringWithFormat:@"%ld",model.praiseCount]];
 }
 
+-(void)setNewsModel:(NewPublishModel *)newsModel
+{
+    _newsModel = newsModel;
+    
+    [self tapViews];
+    
+    username.text = GetSaveString(newsModel.authorName);
+    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(newsModel.avatar)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    
+    creatTime.text = GetSaveString(newsModel.publishTime);
+    newTitle.text = GetSaveString(newsModel.title);
+    
+    [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(newsModel.image)) placeholderImage:UIImageNamed(@"placeholder_logo_big")];
+    
+    if (self.type == 0) {
+        [share setNormalTitle:[NSString stringWithFormat:@"%ld",newsModel.viewCount]];
+        
+        [comment setNormalTitle:[NSString stringWithFormat:@"%ld",newsModel.commentCount]];
+        
+        [praise setNormalTitle:[NSString stringWithFormat:@"%ld",newsModel.praiseCount]];
+    }
+}
+
 -(void)tapViews
 {
     @weakify(self)

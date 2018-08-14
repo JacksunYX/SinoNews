@@ -15,6 +15,8 @@
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *publishTime;
 @property (nonatomic,strong) NSString *image;
+//草稿专用，内容
+@property (nonatomic,strong) NSString *content;
 
 @property (nonatomic,assign) NSInteger authorId;
 @property (nonatomic,assign) NSInteger newsId;

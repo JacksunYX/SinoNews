@@ -75,6 +75,8 @@
 #define ListCheckedNewsForUser  @"/api/news/listCheckedNewsForUser"
 //查询用户草稿箱(get)
 #define ListNewsDraftForUser    @"/api/news/listNewsDraftForUser"
+//查看草稿
+#define BrowseNewsDraft         @"/api/news/browseNewsDraft"
 
 //删除一篇文章(post)
 #define RemoveArticle       @"/api/news/remove"

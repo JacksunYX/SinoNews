@@ -426,9 +426,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _publish.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         @strongify(self)
         if (UserGetBool(@"NightMode")) {
-            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColorAlpha(#C1D6E9, 0.5)];
         }else{
-            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+            [self.publish addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 0.5)];
         }
     });
     
@@ -449,9 +449,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _attention.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         @strongify(self)
         if (UserGetBool(@"NightMode")) {
-            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColorAlpha(#C1D6E9, 0.5)];
         }else{
-            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+            [self.attention addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 0.5)];
         }
     });
     
@@ -471,9 +471,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _fans.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         @strongify(self)
         if (UserGetBool(@"NightMode")) {
-            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColor(#C1D6E9)];
+            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:HexColorAlpha(#C1D6E9, 0.5)];
         }else{
-            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 1)];
+            [self.fans addBorderTo:BorderTypeRight borderSize:CGSizeMake(1, 16) borderColor:RGBA(193, 214, 233, 0.5)];
         }
     });
     

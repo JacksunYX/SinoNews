@@ -213,6 +213,8 @@
     }else if (self.type==2){
         //跳转到草稿展示
         DraftDetailViewController *ddVC = [DraftDetailViewController new];
+        ddVC.newsId = model.newsId;
+        ddVC.type = model.newsType;
         [self.navigationController pushViewController:ddVC animated:YES];
     }
     

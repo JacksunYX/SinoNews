@@ -160,7 +160,7 @@
     .heightIs(22)
     ;
     [isAttention1 setSd_cornerRadius:@2];
-    [isAttention1 addBakcgroundColorTheme];
+//    [isAttention1 addBakcgroundColorTheme];
     [isAttention1 setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention1 setTitle:@"已关注" forState:UIControlStateSelected];
     
@@ -252,7 +252,7 @@
     .heightIs(22)
     ;
     [isAttention2 setSd_cornerRadius:@2];
-    [isAttention2 addBakcgroundColorTheme];
+//    [isAttention2 addBakcgroundColorTheme];
     [isAttention2 setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention2 setTitle:@"已关注" forState:UIControlStateSelected];
     
@@ -341,7 +341,7 @@
     .heightIs(22)
     ;
     [isAttention3 setSd_cornerRadius:@2];
-    [isAttention3 addBakcgroundColorTheme];
+//    [isAttention3 addBakcgroundColorTheme];
     [isAttention3 setTitle:@"关注" forState:UIControlStateNormal];
     [isAttention3 setTitle:@"已关注" forState:UIControlStateSelected];
     

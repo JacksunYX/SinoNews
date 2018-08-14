@@ -7,9 +7,11 @@
 //
 
 #import "DraftDetailViewController.h"
+#import "PublishArticleViewController.h"
+#import "NewPublishModel.h"
 
-@interface DraftDetailViewController ()
-
+@interface DraftDetailViewController ()<WKNavigationDelegate>
+@property (nonatomic,strong) NewPublishModel *draftModel;
 @property (nonatomic,strong) UILabel *newsTitle;
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,strong) UIView *bottomView;
@@ -23,7 +25,8 @@
     
     [self showTopLine];
     [self setNavigation];
-    [self setUI];
+    [self requestBrowseNewsDraft];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,16 +132,45 @@
     }];
     
     [editBtn whenTap:^{
-        GGLog(@"跳转到编辑页面");
+        @strongify(self);
+        PublishArticleViewController *paVC = [PublishArticleViewController new];
+        if (self.type == 0||self.type == 1) {
+            paVC.editType = 0;
+        }else{
+            paVC.editType = 1;
+        }
+        paVC.draftModel = self.draftModel;
+        [self.navigationController pushViewController:paVC animated:YES];
     }];
     
     _newsTitle = [UILabel new];
     _newsTitle.font = PFFontM(17);
     [_newsTitle addTitleColorTheme];
     
+    //加载之前就注入适应屏幕及防止及禁止缩放的js代码
+    NSString *jScript = @"var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
+    
+    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+    [wkUController addUserScript:wkUScript];
+    
+    // 创建设置对象
+    WKPreferences *preference = [[WKPreferences alloc]init];
+    // 设置字体大小(最小的字体大小)
+    preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+    
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.userContentController = wkUController;
+    // 设置偏好设置对象
+    config.preferences = preference;
+    
     self.webView = [[WKWebView alloc]initWithFrame:CGRectZero configuration:config];
+    self.webView.scrollView.showsHorizontalScrollIndicator = NO;
+    self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     
     [self.view sd_addSubviews:@[
@@ -152,7 +184,7 @@
     .rightSpaceToView(self.view, 10)
     .autoHeightRatio(0)
     ;
-    _newsTitle.text = @"巴勒斯坦总统和是我哄我烦我,烦你按哦到那时 到那时看到你  ";
+    _newsTitle.text = GetSaveString(self.draftModel.title);
     
     self.webView.sd_layout
     .topSpaceToView(_newsTitle, 10)
@@ -160,10 +192,27 @@
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.bottomView, 0)
     ;
-    
-    NSURL *url = UrlWithStr(@"https://www.taobao.com");
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
-    [self.webView loadRequest:request];
+    //加载页面
+    //拼接代码，使图片自适应屏幕宽度
+    NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                       "<head> \n"
+                       "<style type=\"text/css\"> \n"
+                       "body {font-size:15px;}\n"
+                       "</style> \n"
+                       "</head> \n"
+                       "<body>"
+                       "<script type='text/javascript'>"
+                       "window.onload = function(){\n"
+                       "var $img = document.getElementsByTagName('img');\n"
+                       "for(var p in  $img){\n"
+                       " $img[p].style.width = '100%%';\n"
+                       "$img[p].style.height ='auto'\n"
+                       "}\n"
+                       "}"
+                       "</script>%@"
+                       "</body>"
+                       "</html>",GetSaveString(self.draftModel.content)];
+    [self.webView loadHTMLString:GetSaveString(htmls) baseURL:nil];
 }
 
 //询问用户是否要删除
@@ -181,11 +230,36 @@
     [self presentViewController:popVC animated:YES completion:nil];
 }
 
+#pragma mark ---- WKNavigationDelegate
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    if (UserGetBool(@"NightMode")) {    //夜间模式
+        //修改字体颜色  #9098b8
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#cfd3d6'"completionHandler:nil];
+        //修改背景色
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
+    }
+}
+
+
 #pragma mark --- 请求
+//查看草稿
+-(void)requestBrowseNewsDraft
+{
+    [HttpRequest getWithURLString:BrowseNewsDraft parameters:@{@"newsId":@(self.newsId)} success:^(id responseObject) {
+        self.draftModel = [NewPublishModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self setUI];
+    } failure:nil];
+}
+
 //删除当前草稿
 -(void)requestDeleteCurrentDraft
 {
-    
+    [HttpRequest postWithURLString:RemoveArticle parameters:@{@"newsId":@(self.newsId)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:nil RefreshAction:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 

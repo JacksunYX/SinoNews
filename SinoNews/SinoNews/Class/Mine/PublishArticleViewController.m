@@ -15,6 +15,8 @@
 #import "XLChannelModel.h"
 #import "YBPopupMenu.h"
 #import "ChannelSelectView.h"
+#import "NewPublishModel.h"
+
 
 @interface PublishArticleViewController ()<YBPopupMenuDelegate,UITextFieldDelegate>
 {
@@ -217,6 +219,9 @@
     .heightIs(43)
     ;
     [_titleInputField updateLayout];
+    if (self.draftModel) {
+        _titleInputField.text = self.draftModel.title;
+    }
 
     UIView *sepLine = [UIView new];
     [self.view addSubview:sepLine];
@@ -232,6 +237,11 @@
     
     //添加输入界面
     inputViewController = [[ZSSCustomButtonsViewController alloc]init];
+    if (self.draftModel) {
+        [inputViewController setHTML:self.draftModel.content];
+    }
+    
+    
     [self addChildViewController:inputViewController];
     
     [self.view addSubview:inputViewController.view];
@@ -265,6 +275,7 @@
 //发布检测
 -(void)publishActionWithDraft:(BOOL)yesOrNo
 {
+    GGLog(@"html:%@",[inputViewController getHTML]);
     GGLog(@"输入了：%@",[inputViewController getText]);
     if (kStringIsEmpty(self.channelId)&&self.editType==0){
         LRToast(@"请选择频道");

@@ -10,6 +10,7 @@
 #import "NewPagedFlowView.h"
 #import "PGCustomBannerView.h"
 #import "LWDPageControl.h"
+#import "HomePageBannerModel.h"
 
 @interface HeadBannerView ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource>
 //轮播图
@@ -48,6 +49,16 @@
         ADModel *model = models[i];
         [self.imageArray addObject:GetSaveString(model.url)];
         [self.titlesArray addObject:GetSaveString(model.name)];
+    }
+    [self setupUI];
+}
+
+-(void)setupUIWithModels2:(NSArray <HomePageBannerModel*> *)models
+{
+    for (int i = 0; i < models.count; i ++) {
+        HomePageBannerModel *model = models[i];
+        [self.imageArray addObject:GetSaveString(model.image)];
+        [self.titlesArray addObject:GetSaveString(model.newsTitle)];
     }
     [self setupUI];
 }

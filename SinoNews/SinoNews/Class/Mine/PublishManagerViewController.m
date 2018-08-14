@@ -8,6 +8,7 @@
 
 #import "PublishManagerViewController.h"
 #import "NewsDetailViewController.h"
+#import "DraftDetailViewController.h"
 
 #import "PublishManagerCell.h"
 
@@ -140,15 +141,16 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.articlesArr.count;
+//    return self.articlesArr.count;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PublishManagerCell *cell = (PublishManagerCell *)[tableView dequeueReusableCellWithIdentifier:PublishManagerCellID];
     cell.type = self.type;
-    ArticleModel *model = self.articlesArr[indexPath.row];
-    cell.model = model;
+//    ArticleModel *model = self.articlesArr[indexPath.row];
+//    cell.model = model;
     @weakify(self)
     cell.moreClick = ^{
         @strongify(self)
@@ -176,20 +178,22 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.type==0) {
-//        ArticleModel *model = self.articlesArr[indexPath.row];
-//        if (model.itemType>=100&&model.itemType<200) {  //普通文章
-//            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-//            ndVC.newsId = model.itemId;
-//            [self.navigationController pushViewController:ndVC animated:YES];
-//        }else if (model.itemType>=500&&model.itemType<600) { //问答
-//            CatechismViewController *cVC = [CatechismViewController new];
-//            cVC.news_id = model.itemId;
-//            [self.navigationController pushViewController:cVC animated:YES];
-//        }else{
-//            LRToast(@"未知文章");
-//        }
+        ArticleModel *model = self.articlesArr[indexPath.row];
+        if (model.itemType>=100&&model.itemType<200) {  //普通文章
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = model.itemId;
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }else if (model.itemType>=500&&model.itemType<600) { //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = model.itemId;
+            [self.navigationController pushViewController:cVC animated:YES];
+        }else{
+            LRToast(@"未知文章");
+        }
     }else if (self.type==2){
         //跳转到草稿展示
+        DraftDetailViewController *ddVC = [DraftDetailViewController new];
+        [self.navigationController pushViewController:ddVC animated:YES];
     }
     
 }

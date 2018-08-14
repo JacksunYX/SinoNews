@@ -15,6 +15,7 @@
 
 #import "HeadBannerView.h"
 #import "XLChannelModel.h"
+#import "HomePageBannerModel.h"
 
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
@@ -108,16 +109,32 @@
     ;
     [headView updateLayout];
     headView.showTitle = YES;
-    [headView setupUIWithModels:self.adArr];
+    [headView setupUIWithModels2:self.adArr];
     
     @weakify(self)
     headView.selectBlock = ^(NSInteger index) {
         @strongify(self)
-        ADModel *model = self.adArr[index];
-        [UniversalMethod jumpWithADModel:model];
+        [self pushToVCWithIndex:index];
     };
     
     self.tableView.tableHeaderView = headView;
+}
+
+//根据下标跳转
+-(void)pushToVCWithIndex:(NSInteger)index
+{
+    HomePageBannerModel *model = self.adArr[index];
+    UIViewController *pushVC;
+    if (model.topic) {  //专题
+        TopicViewController *tVC = [TopicViewController new];
+        tVC.topicId = model.newsId;
+        pushVC = tVC;
+    }else{  //非专题
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = model.newsId;
+        pushVC = ndVC;
+    }
+    [self.navigationController pushViewController:pushVC animated:YES];
 }
 
 -(void)addTableView
@@ -167,7 +184,8 @@
             [self requestNews_list:0];
             //只有最新频道存在轮播图
             if ([self.news_id integerValue] == 1||CompareString(self.channel_name, @"最新")) {
-                [self requestBanner];
+//                [self requestBanner];
+                [self requestNewBanner];
             }
         }else if(CompareString(GetSaveString(self.news_id), @"作者")){  //反之则是关注子页面
             [self requestAttentionNews];
@@ -424,6 +442,18 @@
 //        [self.tableView.mj_header endRefreshing];
     }];
     
+}
+
+//新的轮播图
+-(void)requestNewBanner
+{
+    [HttpRequest getWithURLString:NewsSlide parameters:nil success:^(id responseObject) {
+        NSArray *data = [HomePageBannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.adArr = [data mutableCopy];
+        if (!kArrayIsEmpty(self.adArr)) {
+            [self creatBanner];
+        }
+    } failure:nil];
 }
 
 //获取关注的人相关文章

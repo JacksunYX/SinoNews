@@ -104,18 +104,25 @@
 
 -(void)setNavigation
 {
-    UIImageView *rightBtn = [UIImageView new];
+    UIButton *rightBtn = [UIButton new];
     rightBtn.frame = CGRectMake(0, 0, 40, 40);
     
-    UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    editBtn.frame = CGRectMake(0, 15, 40, 20);
-    editBtn.titleLabel.font = PFFontL(15);
-    [editBtn setNormalTitleColor:RGBA(18, 130, 238, 1)];
-    [editBtn setNormalTitle:@"发布"];
+    UILabel *editBtn = [UILabel new];
+    editBtn.textAlignment = NSTextAlignmentCenter;
+    editBtn.userInteractionEnabled = NO;
+    editBtn.frame = CGRectMake(0, 10, 40, 20);
+    editBtn.font = PFFontL(15);
+    editBtn.textColor = RGBA(18, 130, 238, 1);
+    editBtn.text = @"发布";
     editBtn.layer.cornerRadius = 3;
     editBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
     editBtn.layer.borderWidth = 1;
-    [editBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
+    @weakify(self);
+    [rightBtn whenTap:^{
+        @strongify(self);
+        [self publishActionWithDraft:NO];
+    }];
     [rightBtn addSubview:editBtn];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
@@ -245,7 +252,7 @@
 {
     switch (index) {
         case 0:
-            GGLog(@"保存草稿");
+            [self publishActionWithDraft:YES];
             break;
         case 1:
             [self giveUpEditPop];
@@ -256,7 +263,7 @@
 }
 
 //发布检测
--(void)publishAction:(UIButton *)sender
+-(void)publishActionWithDraft:(BOOL)yesOrNo
 {
     GGLog(@"输入了：%@",[inputViewController getText]);
     if (kStringIsEmpty(self.channelId)&&self.editType==0){
@@ -279,7 +286,7 @@
         LRToast(@"还没编辑内容哟");
         return;
     }
-    [self requestPublishArticleWithContent:[inputViewController getHTML]];
+    [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
 }
 
 //询问用户是否放弃编辑
@@ -319,7 +326,7 @@
 
 #pragma make ----- 请求发送
 //发布文章或问答
--(void)requestPublishArticleWithContent:(NSString *)content
+-(void)requestPublishArticleWithContent:(NSString *)content isDraft:(BOOL)yesOrNo
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
@@ -333,7 +340,7 @@
         parameters[@"channelIds"] = self.channelId;
         parameters[@"newsType"] = @(1);
     }
-    
+    parameters[@"isDraft"] = @(yesOrNo);
     parameters[@"content"] = GetSaveString(content);
     
     [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {

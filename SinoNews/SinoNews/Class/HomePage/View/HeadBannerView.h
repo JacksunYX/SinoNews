@@ -16,6 +16,7 @@ typedef enum : NSUInteger {
 
 typedef void(^clickHandleBlock)(NSInteger index);
 
+@class HomePageBannerModel;
 @interface HeadBannerView : UIView
 
 @property (nonatomic,copy) clickHandleBlock selectBlock;
@@ -23,5 +24,6 @@ typedef void(^clickHandleBlock)(NSInteger index);
 @property (nonatomic,assign) BOOL showTitle;    //是否显示标题
 -(void)setupUIWithImageUrls:(NSArray *)imgs;
 -(void)setupUIWithModels:(NSArray <ADModel*> *)models;
+-(void)setupUIWithModels2:(NSArray <HomePageBannerModel*> *)models; //替换
 
 @end

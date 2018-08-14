@@ -129,6 +129,8 @@
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
 		4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */; };
+		4C44E3822122832700C5D10A /* DraftDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E3812122832700C5D10A /* DraftDetailViewController.m */; };
+		4C44E3852122B33200C5D10A /* HomePageBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E3842122B33200C5D10A /* HomePageBannerModel.m */; };
 		4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F05920D0A321009DC42B /* RankingModel.m */; };
 		4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F05C20D0AF5C009DC42B /* RankingListModel.m */; };
 		4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06020D0C2DE009DC42B /* UIView+Gesture.m */; };
@@ -698,6 +700,10 @@
 		4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLChannelModel.m; sourceTree = "<group>"; };
 		4C44E37D212261B600C5D10A /* NewPublishManagerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPublishManagerVC.h; sourceTree = "<group>"; };
 		4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPublishManagerVC.m; sourceTree = "<group>"; };
+		4C44E3802122832700C5D10A /* DraftDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DraftDetailViewController.h; sourceTree = "<group>"; };
+		4C44E3812122832700C5D10A /* DraftDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DraftDetailViewController.m; sourceTree = "<group>"; };
+		4C44E3832122B33200C5D10A /* HomePageBannerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageBannerModel.h; sourceTree = "<group>"; };
+		4C44E3842122B33200C5D10A /* HomePageBannerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageBannerModel.m; sourceTree = "<group>"; };
 		4C49F05820D0A321009DC42B /* RankingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingModel.h; sourceTree = "<group>"; };
 		4C49F05920D0A321009DC42B /* RankingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankingModel.m; sourceTree = "<group>"; };
 		4C49F05B20D0AF5C009DC42B /* RankingListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankingListModel.h; sourceTree = "<group>"; };
@@ -1701,6 +1707,8 @@
 				4CA141FC20F4528600536E77 /* PublishManagerViewController.m */,
 				4CA1420120F48A6900536E77 /* PublishArticleViewController.h */,
 				4CA1420220F48A6900536E77 /* PublishArticleViewController.m */,
+				4C44E3802122832700C5D10A /* DraftDetailViewController.h */,
+				4C44E3812122832700C5D10A /* DraftDetailViewController.m */,
 				4C49F06220D0C74D009DC42B /* MyAttentionViewController.h */,
 				4C49F06320D0C74D009DC42B /* MyAttentionViewController.m */,
 				4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */,
@@ -1959,6 +1967,8 @@
 				4C17BC7F210076500021055B /* AnswerModel.m */,
 				4C17BC812100B47F0021055B /* AnswerDetailModel.h */,
 				4C17BC822100B47F0021055B /* AnswerDetailModel.m */,
+				4C44E3832122B33200C5D10A /* HomePageBannerModel.h */,
+				4C44E3842122B33200C5D10A /* HomePageBannerModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3177,6 +3187,7 @@
 				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
+				4C44E3852122B33200C5D10A /* HomePageBannerModel.m in Sources */,
 				4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
@@ -3217,6 +3228,7 @@
 				4C1551DF20E633720030670F /* IntegralModel.m in Sources */,
 				4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */,
 				4C3F901320BCFE8A003EC4FC /* UIButton+countDown.m in Sources */,
+				4C44E3822122832700C5D10A /* DraftDetailViewController.m in Sources */,
 				4C7234F120FED51800D5C5D4 /* CatechismViewController.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C7234FB20FF34C900D5C5D4 /* QACommentInputView.m in Sources */,

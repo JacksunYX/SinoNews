@@ -79,11 +79,13 @@
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                LRToast(resultdic[@"alertMsg"]);
+                
                 //未登陆
                 if ([resultdic[@"statusCode"] integerValue] == 110001) {
                     //清空登录状态
                     [UserModel clearLocalData];
+                }else{
+                    LRToast(resultdic[@"alertMsg"]);
                 }
                 if (failure) {
                     failure(nil);
@@ -143,7 +145,7 @@
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                if (isshowtoastd == YES) {
+                if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
                     LRToast(resultdic[@"alertMsg"]);
                 }
                 GCDAfterTime(1.2, ^{
@@ -229,7 +231,7 @@
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                if (isshowtoastd == YES) {
+                if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
                     LRToast(resultdic[@"alertMsg"]);
                 }
                 

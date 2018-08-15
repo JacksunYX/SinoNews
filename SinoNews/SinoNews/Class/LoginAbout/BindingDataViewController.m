@@ -170,7 +170,7 @@
     ;
     [password updateLayout];
     password.secureTextEntry = YES;
-    password.placeholder = @"请输入登录密码(6位以上的非纯数字字母的组合)";
+    password.placeholder = @"请输入登录密码(6-16位数字和字母)";
     [password addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     confirmBtn.sd_layout

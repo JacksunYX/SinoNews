@@ -957,15 +957,31 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
+    //直接分享图片
+//    if (type == MGShareToSina) {
+//        //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
+//        shareModel.contentType = MGShareContentTypeImage;
+//        shareModel.thumbImage = UIImageNamed(@"ad_banner0");
+//        shareModel.image = UIImageNamed(@"ad_banner0");
+//    }else{
+//        shareModel.contentType = MGShareContentTypeImage;
+//        shareModel.thumbImage = UIImageNamed(@"ad_banner0");
+//        shareModel.image = UIImageNamed(@"ad_banner0");
+//    }
+    
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
-        shareModel.contentType = MGShareContentTypeImage;
-        shareModel.thumbImage = UIImageNamed(@"ad_banner0");
-        shareModel.image = UIImageNamed(@"ad_banner0");
+        shareModel.contentType = MGShareContentTypeText;
+        shareModel.content = AppendingString(@"", @"网页链接");
+//        shareModel.thumbImage = [UIImage imageNamed:@""];
+//        shareModel.image = @"xxx";
     }else{
-        shareModel.contentType = MGShareContentTypeImage;
-        shareModel.thumbImage = UIImageNamed(@"ad_banner0");
-        shareModel.image = UIImageNamed(@"ad_banner0");
+        shareModel.contentType = MGShareContentTypeWebPage;
+        shareModel.title = @"分享标题";
+        shareModel.url = @"分享链接";
+        shareModel.content = @"分享内容";
+        shareModel.thumbImage = UIImageNamed(@"AppIcon");
+        
     }
     
     //分享

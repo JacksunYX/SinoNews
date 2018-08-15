@@ -466,17 +466,18 @@
         //比对是否有阅读过的数据
         dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
         
-        if (self.page == 1) {
-            self.dataSource = [dataArr mutableCopy];
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            if (dataArr.count) {
-                [self.dataSource addObjectsFromArray:dataArr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+//        if (self.page == 1) {
+//            self.dataSource = [dataArr mutableCopy];
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            if (dataArr.count) {
+//                [self.dataSource addObjectsFromArray:dataArr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
+        [self.tableView pullWithPage:self.page data:dataArr dataSource:self.dataSource];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
@@ -523,17 +524,19 @@
         //比对是否有阅读过的数据
         dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
         
-        if (self.page == 1) {
-            self.dataSource = [dataArr mutableCopy];
-            [self.tableView.mj_header endRefreshing];
-        }else{
-            if (dataArr.count) {
-                [self.dataSource addObjectsFromArray:dataArr];
-                [self.tableView.mj_footer endRefreshing];
-            }else{
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        }
+//        if (self.page == 1) {
+//            self.dataSource = [dataArr mutableCopy];
+//            [self.tableView.mj_header endRefreshing];
+//        }else{
+//            if (dataArr.count) {
+//                [self.dataSource addObjectsFromArray:dataArr];
+//                [self.tableView.mj_footer endRefreshing];
+//            }else{
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//        }
+        [self.tableView pullWithPage:self.page data:dataArr dataSource:self.dataSource];
+        
         [self.tableView reloadData];
         
         [self.tableView ly_endLoading];

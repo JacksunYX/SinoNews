@@ -330,16 +330,14 @@
         AddressViewController *aVC = [AddressViewController new];
         [self.navigationController pushViewController:aVC animated:YES];
     }else if (CompareString(title, @"绑定手机")){
-//        if (!self.user.mobile) {
-            BindingDataViewController *bdVC = [BindingDataViewController new];
-            bdVC.bindingType = 1;
-            [self.navigationController pushViewController:bdVC animated:YES];
-//        }
+        BindingDataViewController *bdVC = [BindingDataViewController new];
+        bdVC.bindingType = 1;
+        bdVC.isUpdate = self.user.mobile?YES:NO;
+        [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"绑定邮箱")){
-//        if (kStringIsEmpty(self.user.email)) {
-            BindingDataViewController *bdVC = [BindingDataViewController new];
-            [self.navigationController pushViewController:bdVC animated:YES];
-//        }
+        BindingDataViewController *bdVC = [BindingDataViewController new];
+        bdVC.isUpdate = self.user.email?YES:NO;
+        [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"修改密码")){
         ChangePasswordViewController *cpVC = [ChangePasswordViewController new];
         [self.navigationController pushViewController:cpVC animated:YES];

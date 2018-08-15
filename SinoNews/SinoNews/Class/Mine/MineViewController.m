@@ -344,6 +344,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .centerYEqualToView(_userImg)
     .heightIs(40)
     ;
+    
+    
     [backView sd_addSubviews:@[
                                _userName,
                                _idView,
@@ -374,6 +376,11 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .heightIs(14)
     ;
     [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    //添加点击弹出积分规则
+    [_integral whenTap:^{
+        @strongify(self);
+        [self popIntegralRule];
+    }];
     
     [backView setupAutoWidthWithRightView:_userName rightMargin:10];
     
@@ -643,7 +650,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //弹出积分规则
 -(void)popIntegralRule
 {
-    [SignInRuleWebView showWithWebString:News_pointsRule];
+    if (self.user) {
+       [SignInRuleWebView showWithWebString:News_pointsRule];
+    }
 }
 
 //获取统一label

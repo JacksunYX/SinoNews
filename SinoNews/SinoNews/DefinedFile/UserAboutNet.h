@@ -32,13 +32,15 @@
 //修改性别(post)
 #define User_editGender     @"/api/user/editGender"
 //完善个人资料(post)
-#define User_editUserInfo     @"/api/user/editUserInfo"
+#define User_editUserInfo       @"/api/user/editUserInfo"
 //绑定手机(post)
-#define User_bindMobile     @"/api/user/bindMobile"
+#define User_bindMobile         @"/api/user/bindMobile"
 //绑定邮箱(post)
-#define User_bindEmail      @"/api/user/bindEmail"
+#define User_bindEmail          @"/api/user/bindEmail"
 //修改用户密码(post)
-#define User_editPassword   @"/api/user/editPassword"
+#define User_editPassword       @"/api/user/editPassword"
+//修改绑定手机或邮箱(post)
+#define User_updateBindAccount  @"/api/user/updateBindAccount"
 
 //获取用户提示信息(get)
 #define User_tips           @"/api/user/tips"

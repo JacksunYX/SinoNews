@@ -12,6 +12,7 @@
 {
     TXLimitedTextField *username;   //账号
     TXLimitedTextField *seccode;    //验证码
+    TXLimitedTextField *password;    //验证码
     UIButton *getCodeBtn;
     UIButton *confirmBtn;
 }
@@ -29,11 +30,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.bindingType) {
-        self.navigationItem.title = @"绑定手机";
+    if (self.isUpdate) {
+        if (self.bindingType) {
+            self.navigationItem.title = @"重新绑定手机";
+        }else{
+            self.navigationItem.title = @"重新绑定邮箱";
+        }
     }else{
-        self.navigationItem.title = @"绑定邮箱";
+        if (self.bindingType) {
+            self.navigationItem.title = @"绑定手机";
+        }else{
+            self.navigationItem.title = @"绑定邮箱";
+        }
     }
+    
     self.view.backgroundColor = WhiteColor;
     
     [self setUI];
@@ -78,7 +88,7 @@
     
     UIView *seccodeBackView = [UIView new];
     seccodeBackView.backgroundColor = WhiteColor;
-    
+    //验证码
     seccode = [TXLimitedTextField new];
     seccode.clearButtonMode = UITextFieldViewModeWhileEditing;
     seccode.limitedType = TXLimitedTextFieldTypeCustom;
@@ -95,9 +105,18 @@
     confirmBtn.backgroundColor = RGBA(62, 159, 252, 1);
     confirmBtn.titleLabel.font = PFFontL(17);
     
+    password = [TXLimitedTextField new];
+    password.clearButtonMode = UITextFieldViewModeWhileEditing;
+    password.delegate = self;
+    CGFloat passwordHeight = 0;
+    if (self.isUpdate) {
+        passwordHeight = 50;
+    }
+    
     [backImg sd_addSubviews:@[
                               username,
                               seccodeBackView,
+                              password,
                               confirmBtn,
                               ]];
     username.sd_layout
@@ -143,6 +162,17 @@
     ;
     seccode.placeholder = @"输入验证码";
     
+    password.sd_layout
+    .topSpaceToView(seccodeBackView, 0)
+    .leftSpaceToView(backImg, 10)
+    .rightSpaceToView(backImg, 10)
+    .heightIs(passwordHeight)
+    ;
+    [password updateLayout];
+    password.secureTextEntry = YES;
+    password.placeholder = @"请输入登录密码(6位以上的非纯数字字母的组合)";
+    [password addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+    
     confirmBtn.sd_layout
     .leftSpaceToView(backImg, 24)
     .rightSpaceToView(backImg, 24)
@@ -160,9 +190,16 @@
     }];
     
     //集合信号
-    RAC(confirmBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,seccode.rac_textSignal] reduce:^id(NSString *username,NSString *seccode){
-        return @(username.length>=6&&seccode.length>=4);
-    }];
+    if (self.isUpdate) {
+        RAC(confirmBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,seccode.rac_textSignal,password.rac_textSignal] reduce:^id(NSString *username,NSString *seccode,NSString *password){
+            return @(username.length>=6&&seccode.length>=4&&password.length>=6);
+        }];
+    }else{
+        RAC(confirmBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,seccode.rac_textSignal] reduce:^id(NSString *username,NSString *seccode){
+            return @(username.length>=6&&seccode.length>=4);
+        }];
+    }
+    
 }
 
 //收回键盘
@@ -177,6 +214,8 @@
         LRToast(@"请输入账号");
     }else if (kStringIsEmpty(seccode.text)){
         LRToast(@"请输入验证码");
+    }else if (kStringIsEmpty(password.text)&&self.isUpdate){
+        LRToast(@"请输入登录密码");
     }else{
         //检测帐号
         if (self.bindingType) {
@@ -190,7 +229,11 @@
                 return;
             }
         }
-        [self requestImproveUserInfo];
+        if (self.isUpdate) {
+            [self requestUpdateBindAccount];
+        }else{
+            [self requestImproveUserInfo];
+        }
     }
 }
 
@@ -283,7 +326,23 @@
     }];
 }
 
+//重置绑定手机或邮箱
+-(void)requestUpdateBindAccount
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    
+    parameters[@"account"] = username.text;
+    parameters[@"validCode"] = seccode.text;
+    parameters[@"password"] = password.text;
 
+    [HttpRequest postWithURLString:User_updateBindAccount parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"重新绑定成功");
+        GCDAfterTime(1, ^{
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        });
+        
+    } failure:nil RefreshAction:nil];
+}
 
 
 

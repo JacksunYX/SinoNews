@@ -22,6 +22,7 @@
 #import "IntegralViewController.h"
 
 #import "PraisePopView.h"
+#import "SignInRuleWebView.h"
 
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
@@ -637,6 +638,12 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         [self.navigationController pushViewController:pdVC animated:YES];
     }
     
+}
+
+//弹出积分规则
+-(void)popIntegralRule
+{
+    [SignInRuleWebView showWithWebString:News_pointsRule];
 }
 
 //获取统一label

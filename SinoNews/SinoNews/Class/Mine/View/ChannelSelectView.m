@@ -12,6 +12,7 @@
 @interface ChannelSelectView ()
 @property (nonatomic,strong) NSMutableArray *channelArr;
 @property (nonatomic,strong) NSMutableArray *selectedArr;
+@property (nonatomic,strong) NSMutableArray *btnArr;    //保存按钮
 @end
 
 static NSInteger maxSelect = 3; //最大选择数
@@ -22,6 +23,14 @@ static NSInteger maxSelect = 3; //最大选择数
         _selectedArr = [NSMutableArray new];
     }
     return _selectedArr;
+}
+
+-(NSMutableArray *)btnArr
+{
+    if (!_btnArr) {
+        _btnArr = [NSMutableArray new];
+    }
+    return _btnArr;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -67,7 +76,7 @@ static NSInteger maxSelect = 3; //最大选择数
         .widthIs(44)
         ;
         [btn setNormalTitle:GetSaveString(model.channelName)];
-        
+        [self.btnArr addObject:btn];
         lastView = btn;
         i ++;
     }
@@ -109,5 +118,26 @@ static NSInteger maxSelect = 3; //最大选择数
         self.selectBlock(idStr);
     }
 }
+
+//设置已选频道
+-(void)setSelectChannels:(NSArray *)channels
+{
+    if (!channels.count) {
+        return;
+    }
+    for (NSString *channelId in channels) {
+        for (int i = 0; i < self.channelArr.count; i ++) {
+            XLChannelModel *model = self.channelArr[i];
+            if ([channelId integerValue] == [model.channelId integerValue]) {
+                //找出对应的按钮，调用方法
+                UIButton *btn = self.btnArr[i];
+                [self click:btn];
+                GGLog(@"已选频道:%@",model.channelName);
+                break;
+            }
+        }
+    }
+}
+
 
 @end

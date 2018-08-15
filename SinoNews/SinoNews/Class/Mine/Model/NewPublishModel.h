@@ -27,4 +27,6 @@
 @property (nonatomic,assign) NSInteger commentCount;
 @property (nonatomic,assign) NSInteger praiseCount;
 
+//草稿专用-已选频道数组
+@property (nonatomic,strong) NSArray *channelIds;
 @end

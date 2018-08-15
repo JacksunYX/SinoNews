@@ -219,9 +219,6 @@
     .heightIs(43)
     ;
     [_titleInputField updateLayout];
-    if (self.draftModel) {
-        _titleInputField.text = self.draftModel.title;
-    }
 
     UIView *sepLine = [UIView new];
     [self.view addSubview:sepLine];
@@ -254,10 +251,15 @@
         [self processWithIndex:index];
     };
     
-    if (!self.draftModel) {
-        [self.titleInputField becomeFirstResponder];
+    //如果是文章草稿，需要设置已选的频道
+    if (self.draftModel&&self.editType==0) {
+        [self.selectView setSelectChannels:self.draftModel.channelIds];
     }
-
+    
+    //现在使用的这个编辑器有个bug，如果在同一界面有其他可编辑的输入框，并且焦点在另外的输入框上，那么直接给这个第三方的编辑器设置内容，图片会显示不出来，所以需要先把编辑器的内容先加载出来，再设置其他输入框的内容
+    if (self.draftModel) {
+        _titleInputField.text = self.draftModel.title;
+    }
 }
 
 //保存或者放弃编辑
@@ -280,6 +282,7 @@
 {
     GGLog(@"html:%@",[inputViewController getHTML]);
     GGLog(@"输入了：%@",[inputViewController getText]);
+    
     if (kStringIsEmpty(self.channelId)&&self.editType==0){
         LRToast(@"请选择频道");
         return;
@@ -342,6 +345,7 @@
 //发布文章或问答
 -(void)requestPublishArticleWithContent:(NSString *)content isDraft:(BOOL)yesOrNo
 {
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
 //    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
@@ -356,9 +360,19 @@
     }
     parameters[@"isDraft"] = @(yesOrNo);
     parameters[@"content"] = GetSaveString(content);
+    if (self.draftModel) {
+        parameters[@"newsId"] = @(self.draftModel.newsId);
+    }
     
     [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        [self.navigationController popViewControllerAnimated:YES];
+        //退回到文章管理界面
+        for (id vc in self.navigationController.viewControllers) {
+//            GGLog(@"类名:%@",NSStringFromClass([vc class]));
+            if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
+                [self.navigationController popToViewController:vc animated:YES];
+            }
+        }
+        
     } failure:nil RefreshAction:nil];
 }
 

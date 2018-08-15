@@ -215,7 +215,7 @@
         DraftDetailViewController *ddVC = [DraftDetailViewController new];
         ddVC.newsId = model.newsId;
         ddVC.type = model.newsType;
-        ddVC.publishRefresh = ^{
+        ddVC.refreshBlock = ^{
             [self.tableView.mj_header beginRefreshing];
         };
         [self.navigationController pushViewController:ddVC animated:YES];

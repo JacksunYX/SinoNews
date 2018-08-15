@@ -91,6 +91,8 @@
 #define News_aboutUs        @"/api/news/aboutUs"
 //隐私协议
 #define News_statement      @"/api/news/statement"
+//积分规则
+#define News_pointsRule     @"/api/news/pointsRule"
 
 //查看未读私信数量(get)
 #define GetCountOfUnreadMessage @"/api/message/getCountOfUnreadMessage"

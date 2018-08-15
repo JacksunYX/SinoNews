@@ -15,4 +15,7 @@
 //根据传递过来的数组构建视图
 -(void)setViewWithChannelArr:(NSMutableArray *)channelArr;
 
+//设置已选频道
+-(void)setSelectChannels:(NSArray *)channels;
+
 @end

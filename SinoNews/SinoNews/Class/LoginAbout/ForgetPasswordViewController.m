@@ -132,7 +132,7 @@
     .heightIs(56)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入手机/邮箱";
+    username.placeholder = @"请输入手机号/邮箱";
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
 
     password.sd_layout
@@ -142,7 +142,7 @@
     .heightIs(56)
     ;
     [password updateLayout];
-    password.placeholder = @"设置密码（6-16位）";
+    password.placeholder = @"设置密码(6-16位数字和字母)";
     [password addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     seccodeBackView.sd_layout
@@ -173,7 +173,7 @@
     .bottomEqualToView(seccodeBackView)
     .rightSpaceToView(getCodeBtn, 0)
     ;
-    seccode.placeholder = @"输入验证码";
+    seccode.placeholder = @"请输入验证码";
     
     completeBtn.sd_layout
     .leftSpaceToView(backImg, 30)
@@ -237,9 +237,9 @@
 -(void)completeAction
 {
     if (kStringIsEmpty(username.text)) {
-        LRToast(@"请输入账号");
+        LRToast(@"请输入手机号/邮箱");
     }else if (kStringIsEmpty(password.text)){
-        LRToast(@"请输入密码");
+        LRToast(@"请输入密码(6-16位数字和字母)");
     }else if (kStringIsEmpty(seccode.text)){
         LRToast(@"请输入验证码");
     }else{

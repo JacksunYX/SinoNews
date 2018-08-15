@@ -154,7 +154,7 @@
     .heightIs(56)
     ;
     [self.username updateLayout];
-    self.username.placeholder = @"请输入手机/邮箱";
+    self.username.placeholder = @"请输入手机号/邮箱";
     [self.username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     passwordBackView.sd_layout
@@ -253,9 +253,9 @@
 -(void)confirmAction
 {
     if (kStringIsEmpty(self.username.text)) {
-        LRToast(@"账号不能为空！");
+        LRToast(@"请输入手机号/邮箱");
     }else if (kStringIsEmpty(self.password.text)){
-        LRToast(@"密码不能为空！");
+        LRToast(@"请输入密码");
     }else{
         //先检测帐号
         //先做邮箱判断

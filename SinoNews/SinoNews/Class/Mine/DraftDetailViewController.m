@@ -55,7 +55,16 @@
 //发布按钮
 -(void)publishAction
 {
-    GGLog(@"直接发布");
+    ShowHudOnly;
+    [HttpRequest getWithURLString:PublishNewsDraft parameters:@{@"newsId":@(self.draftModel.newsId)} success:^(id responseObject) {
+        HiddenHudOnly;
+        if (self.refreshBlock) {
+            self.refreshBlock();
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+    }];
 }
 
 -(void)setUI
@@ -70,7 +79,16 @@
     .heightIs(49)
     ;
     [_bottomView updateLayout];
-    [_bottomView addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+    _bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        UIView *view = item;
+        if (UserGetBool(@"NightMode")) {
+            [view addBorderTo:BorderTypeRight borderColor:CutLineColorNight];
+            
+        }else{
+            [view addBorderTo:BorderTypeRight borderColor:CutLineColor];
+        }
+        
+    });
     
     UIButton *deleteBtn = [UIButton new];
     UIButton *editBtn = [UIButton new];
@@ -256,6 +274,9 @@
 -(void)requestDeleteCurrentDraft
 {
     [HttpRequest postWithURLString:RemoveArticle parameters:@{@"newsId":@(self.newsId)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        if (self.refreshBlock) {
+            self.refreshBlock();
+        }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:nil RefreshAction:^{
         [self.navigationController popViewControllerAnimated:YES];

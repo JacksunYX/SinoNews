@@ -9,8 +9,9 @@
 #import "NewPublishModel.h"
 
 @implementation NewPublishModel
-+(NSDictionary *)mj_replacedKeyFromPropertyName
-{
-    return @{@"newsId":@"id"};
-}
+//+(NSDictionary *)mj_replacedKeyFromPropertyName
+//{
+//    return @{@"newsId":@"id"};
+//}
+
 @end

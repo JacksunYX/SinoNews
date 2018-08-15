@@ -13,4 +13,5 @@
 @property (nonatomic,assign) NSInteger newsId;
 @property (nonatomic,assign) NSInteger type;    //0普通文章 1问答
 
+@property (nonatomic,copy) void(^refreshBlock)(void); //发布成功后刷新回调
 @end

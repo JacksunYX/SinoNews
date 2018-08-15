@@ -254,7 +254,10 @@
         [self processWithIndex:index];
     };
     
-    [self.titleInputField becomeFirstResponder];
+    if (!self.draftModel) {
+        [self.titleInputField becomeFirstResponder];
+    }
+
 }
 
 //保存或者放弃编辑

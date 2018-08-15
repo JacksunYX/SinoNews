@@ -69,14 +69,18 @@
 //查看当前用户发表的文章列表(get)(已经不再使用这个接口了)
 #define GetCurrentUserNews  @"/api/user/getCurrentUserNews"
 
+
 //查询用户待审核的文章(get)
 #define ListNewsToReviewForUser @"/api/news/listNewsToReviewForUser"
 //查询用户已审核的文章(get)
 #define ListCheckedNewsForUser  @"/api/news/listCheckedNewsForUser"
 //查询用户草稿箱(get)
 #define ListNewsDraftForUser    @"/api/news/listNewsDraftForUser"
-//查看草稿
+//查看草稿(get)
 #define BrowseNewsDraft         @"/api/news/browseNewsDraft"
+//发布草稿(get)
+#define PublishNewsDraft        @"/api/news/publishNewsDraft"
+
 
 //删除一篇文章(post)
 #define RemoveArticle       @"/api/news/remove"

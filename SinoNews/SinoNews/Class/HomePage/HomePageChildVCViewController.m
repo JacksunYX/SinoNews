@@ -398,6 +398,8 @@
                         [self.dataSource removeObject:model];
                     }
                 }
+            }else if(self.dataSource.count==0&&dataArr.count==0){
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];

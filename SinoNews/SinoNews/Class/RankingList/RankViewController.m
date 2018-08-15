@@ -110,6 +110,17 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.adArr.count<=0) {
+        [self requestTopBanner];
+    }
+    if (self.adDatasource.count<=0) {
+        [self requestBottomBanner];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -401,12 +412,12 @@
 {
     [RequestGather requestBannerWithADId:7 success:^(id response) {
         self.adArr = response;
-        CGFloat headHeight = 0;
+        CGFloat headHeight = WIDTH_SCALE * 108 + 30;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
-            headHeight = WIDTH_SCALE * 108 + 30;
+            
         }
-        self.tableV.sd_layout
+        self.tableV.sd_resetLayout
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topSpaceToView(self.view, headHeight)
@@ -427,7 +438,7 @@
         if (!kArrayIsEmpty(self.adDatasource)) {
             adViewHeight = 30 + itemH;
         }
-        self.adCollectionView.sd_layout
+        self.adCollectionView.sd_resetLayout
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomEqualToView(self.view)

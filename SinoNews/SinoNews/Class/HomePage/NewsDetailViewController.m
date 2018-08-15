@@ -23,7 +23,10 @@
 #define NoPayedNews (self.newsModel.isToll&&self.newsModel.hasPaid==0)
 
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
-
+{
+    NSMutableArray *allUrlArray;
+    UIScrollView *bgView;
+}
 
 @property (nonatomic,strong) UITextField *commentInput;
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -54,6 +57,7 @@
 @property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
 
 @property (nonatomic,strong) UserModel *user;
+
 @end
 
 @implementation NewsDetailViewController
@@ -637,7 +641,10 @@ CGFloat static titleViewHeight = 91;
 //设置网页
 -(void)setWebViewLoad
 {
-    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0]. appendChild(meta);";
+    NSString *jScript = @"var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
     
     WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     WKUserContentController *wkUController = [[WKUserContentController alloc] init];
@@ -658,7 +665,7 @@ CGFloat static titleViewHeight = 91;
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
-    self.webView.userInteractionEnabled = NO;
+//    self.webView.userInteractionEnabled = NO;
     
     //KVO监听web的高度变化
     @weakify(self)
@@ -750,13 +757,113 @@ CGFloat static titleViewHeight = 91;
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
     }
     
-    //防止缩放
-//    NSString *injectionJSString = @"var script = document.createElement('meta');"
-//    "script.name = 'viewport';"
-//    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
-//    "document.getElementsByTagName('head')[0].appendChild(script);";
-//    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
+    //js方法遍历图片添加点击事件 返回图片个数
+    /*这块我着重说几句
+     逻辑:
+     1.遍历获取全部的图片;
+     2.生成一个Srting为所有图片的拼接,拼接时拿到所处数组下标;
+     3.为图片添加点击事件,并添加数组所处下标
+     注意点:
+     1.如果仅仅拿到url而无下标的话,网页中如果有多张相同地址的图片 则会发生位置错乱
+     2.声明时不要用 var yong let  不然方法添加的i 永远是length的值
+     */
+    static  NSString * const jsGetImages =
+    @"function getImages(){\
+    var objs = document.getElementsByTagName(\"img\");\
+    var imgScr = '';\
+    for(let i=0;i<objs.length;i++){\
+    imgScr = imgScr + objs[i].src +'LQXindex'+ i +'L+Q+X';\
+    objs[i].onclick=function(){\
+    document.location=\"myweb:imageClick:\"+this.src + 'LQXindex' + i;\
+    };\
+    };\
+    return imgScr;\
+    };";
+    //注入js方法
+    [webView evaluateJavaScript:jsGetImages completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        
+    }];
+    //注入自定义的js方法后别忘了调用 否则不会生效（不调用也一样生效了，，，不明白）
     
+    @weakify(self);
+    [webView evaluateJavaScript:@"getImages()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        @strongify(self);
+        NSString *urlResurlt = result;
+        self->allUrlArray = [NSMutableArray arrayWithArray:[urlResurlt componentsSeparatedByString:@"L+Q+X"]];
+        if (self->allUrlArray.count >= 2) {
+            [self->allUrlArray removeLastObject];// 此时数组为每一个图片的url
+        }
+    }];
+    
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSString *requestString = [[navigationAction.request URL] absoluteString];
+    //hasPrefix 判断创建的字符串内容是否以pic:字符开始
+    if ([requestString hasPrefix:@"myweb:imageClick:"]) {
+        NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
+//        if (bgView) {
+//            //设置不隐藏，还原放大缩小，显示图片
+//            bgView.alpha = 1;
+//            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+//            int i = [imageIndex.lastObject intValue];
+//            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
+//        }else{
+            [self showBigImage:imageUrl];//创建视图并显示图片
+//        }
+        
+    }
+    
+    decisionHandler(WKNavigationActionPolicyAllow);
+    
+}
+
+#pragma mark 显示大图片
+-(void)showBigImage:(NSString *)imageUrl{
+    //创建灰色透明背景，使其背后内容不可操作
+    bgView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT)];
+    [bgView setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7]];
+    bgView.contentSize = CGSizeMake(ScreenW *allUrlArray.count, bgView.bounds.size.height);
+    bgView.pagingEnabled = YES;
+    [self.view addSubview:bgView];
+    
+    //创建显示图像视图
+    for (int i = 0; i < allUrlArray.count; i++) {
+        UIView *borderView = [[UIView alloc] initWithFrame:CGRectMake(ScreenW *i, 0, bgView.bounds.size.width, bgView.bounds.size.height)];
+        [bgView addSubview:borderView];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth(borderView.frame)-20, CGRectGetHeight(borderView.frame)-20)];
+        imgView.contentMode = 1;
+        @weakify(self);
+        [imgView whenTap:^{
+            @strongify(self);
+            [self hiddenBigImage];
+        }];
+        
+        NSArray *imageIndex = [NSMutableArray arrayWithArray:[allUrlArray[i] componentsSeparatedByString:@"LQXindex"]];
+        
+        [imgView sd_setImageWithURL:[NSURL URLWithString:imageIndex.firstObject] placeholderImage:nil];
+        
+        [borderView addSubview:imgView];
+        
+    }
+    NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+    
+    
+    int i = [imageIndex.lastObject intValue];
+    [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
+    
+}
+
+//隐藏图片浏览
+-(void)hiddenBigImage
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self->bgView.alpha = 0;
+    } completion:^(BOOL finished) {
+        for (UIView *subview in self->bgView.subviews) {
+            [subview removeFromSuperview];
+        }
+    }];
 }
 
 #pragma mark ----- UITableViewDataSource

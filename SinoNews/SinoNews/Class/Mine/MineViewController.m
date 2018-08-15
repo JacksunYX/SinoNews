@@ -23,6 +23,7 @@
 
 #import "PraisePopView.h"
 #import "SignInRuleWebView.h"
+#import "ShareAndFunctionView.h"
 
 
 @interface MineViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
@@ -842,7 +843,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             MyCollectViewController *mVC = [MyCollectViewController new];
             [self.navigationController pushViewController:mVC animated:YES];
         }else if (CompareString(title, @"分享")){
-            
+            [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
+                [self shareToPlatform:sharePlateform];
+            }];
         }
         
     }else if(indexPath.section == 1){
@@ -948,6 +951,30 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     }];
 }
 
+//分享方法
+-(void)shareToPlatform:(MGShareToPlateform)type
+{
+    //创建分享对象
+    MGSocialShareModel *shareModel = [MGSocialShareModel new];
+    
+    if (type == MGShareToSina) {
+        //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
+        shareModel.contentType = MGShareContentTypeImage;
+        shareModel.thumbImage = UIImageNamed(@"ad_banner0");
+        shareModel.image = UIImageNamed(@"ad_banner0");
+    }else{
+        shareModel.contentType = MGShareContentTypeImage;
+        shareModel.thumbImage = UIImageNamed(@"ad_banner0");
+        shareModel.image = UIImageNamed(@"ad_banner0");
+    }
+    
+    //分享
+    [[MGSocialShareHelper defaultShareHelper]  shareMode:shareModel toSharePlatform:type showInController:self successBlock:^{
+        LRToast(@"分享成功");
+    } failureBlock:^(MGShareResponseErrorCode errorCode) {
+        GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
+    }];
+}
 
 
 

@@ -52,7 +52,101 @@ static bool isCollect = NO;
     return _shareArray;
 }
 
-+(void)showWithCollect:(BOOL)collect returnBlock:(void (^)(NSInteger, NSInteger , MGShareToPlateform))clickBlock
++(void)showWithReturnBlock:(void (^)(NSInteger, NSInteger , MGShareToPlateform))clickBlock
+{
+    IFMShareView *shareView = [[IFMShareView alloc] initWithItems:[[self new] shareArray] itemSize:CGSizeMake(99,116) DisplayLine:NO];
+    shareView.itemSpace = 0;
+    shareView.middleTopSpace = 5;
+    shareView.middleBottomSpace = 0;
+    
+    shareView.itemImageTopSpace = 15;
+    shareView.iconAndTitleSpace = 10;
+    shareView.showCancleButton = NO;
+    
+    shareView.itemImageSize = CGSizeMake(56, 56);
+    
+    shareView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        IFMShareView *share = item;
+        share.containViewColor = value;
+        share.cancleButton.backgroundColor = value;
+        
+        if (UserGetBool(@"NightMode")) {
+            share.itemTitleColor = HexColor(#CFD3D6);
+            share.cellimageBackgroundColor = HexColor(#3A4146);
+            [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+        }else{
+            share.itemTitleColor = RGBA(152, 152, 152, 1);
+            share.cellimageBackgroundColor = WhiteColor;
+            [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:CutLineColor];
+        }
+    });
+    
+    shareView.itemTitleFont = PFFontL(13);
+    shareView.cancleButton.titleLabel.font = PFFontR(17);
+    [shareView.cancleButton addButtonTextColorTheme];
+    
+    [shareView showFromControlle:[HttpRequest getCurrentVC]];
+    
+    __block MGShareToPlateform sharePlateform;
+    shareView.clickBlock = ^(NSInteger section, NSInteger row) {
+        if (section == 0 && row!=5) {
+            //1先判断是否有微信
+            
+            if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
+                //有微信
+                if (row == 0) {
+                    sharePlateform = MGShareToWechatSession;
+                }else if (row == 1){
+                    sharePlateform = MGShareToWechatTimeline;
+                }else{
+                    
+                    //2.超过2个了,需要先判断有没有qq
+                    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                        //有
+                        if (row == 2) {
+                            sharePlateform = MGShareToQQ;
+                        }else if (row == 3){
+                            sharePlateform = MGShareToQzone;
+                        }else if (row == 4){
+                            sharePlateform = MGShareToSina;
+                        }
+                    }else{
+                        //没有
+                        if (row == 2) {
+                            sharePlateform = MGShareToSina;
+                        }
+                    }
+                }
+                
+            }else{
+                //没有微信
+                //先判断是否有qq
+                if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                    //有
+                    if (row == 0) {
+                        sharePlateform = MGShareToQQ;
+                    }else if (row == 1){
+                        sharePlateform = MGShareToQzone;
+                    }else if (row == 2){
+                        sharePlateform = MGShareToSina;
+                    }
+                }else{
+                    //没有
+                    if (row == 0) {
+                        sharePlateform = MGShareToSina;
+                    }
+                }
+            }
+            
+        }
+        
+        if (clickBlock) {
+            clickBlock(section,row,sharePlateform);
+        }
+    };
+}
+
++(void)showWithCollect:(BOOL)collect returnBlock:(void (^)(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform))clickBlock
 {
     isCollect = collect;
     IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[[self new] shareArray] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];

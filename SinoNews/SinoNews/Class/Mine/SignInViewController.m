@@ -286,7 +286,7 @@
         .heightIs(17)
         ;
         [topNotice updateLayout];
-        NSString *noticeStr1 = @"今日已签到，明天可获得";
+        NSString *noticeStr1 = @"今日已签到，明天最少可获得";
         NSString *noticeStr2 = [NSString stringWithFormat:@" %@积分",self.data[@"minPoints"]];
         NSMutableAttributedString *noticeAtt1 = [NSString leadString:noticeStr1 tailString:noticeStr2 font:PFFontR(16) color:RGBA(18, 130, 238, 1) lineBreak:NO];
         topNotice.attributedText = noticeAtt1;

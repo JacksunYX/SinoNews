@@ -27,7 +27,16 @@
         self.delegate = self;
         self.tableFooterView = [UIView new];
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.backgroundColor = BACKGROUND_COLOR;
+//        self.backgroundColor = BACKGROUND_COLOR;
+        self.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            if (UserGetBool(@"NightMode")) {
+                [(BaseTableView *)item setBackgroundColor:HexColor(#292D30)];
+                [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
+            }else{
+                [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
+                [(BaseTableView *)item setSeparatorColor:CutLineColor];
+            }
+        });
         [self registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }
     return self;

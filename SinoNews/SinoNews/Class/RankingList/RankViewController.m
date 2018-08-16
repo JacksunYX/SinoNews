@@ -217,7 +217,7 @@
     self.tableV.dataSource = self;
     self.tableV.showsVerticalScrollIndicator = NO;
     //设置cell的上下内边距
-    self.tableV.contentInset = UIEdgeInsetsMake(BCellHeight - SCellHeight, 0, 0, 0);
+    self.tableV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     //取消cell边框
     self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableV];

@@ -146,16 +146,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-//    [self.tableView addBakcgroundColorTheme];
-    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        if (UserGetBool(@"NightMode")) {
-            [(BaseTableView *)item setBackgroundColor:value];
-            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
-        }else{
-            [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
-            [(BaseTableView *)item setSeparatorColor:CutLineColor];
-        }
-    });
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

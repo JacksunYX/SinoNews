@@ -256,15 +256,6 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .bottomSpaceToView(self.adCollectionView, 0)
     ;
     
-    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        if (UserGetBool(@"NightMode")) {
-            [(BaseTableView *)item setBackgroundColor:value];
-            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
-        }else{
-            [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
-            [(BaseTableView *)item setSeparatorColor:CutLineColor];
-        }
-    });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -716,7 +707,6 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         [UniversalMethod jumpWithADModel:model];
     }
 }
-
 
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

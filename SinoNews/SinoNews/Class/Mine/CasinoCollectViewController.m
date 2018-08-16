@@ -216,7 +216,7 @@
 
 // 定义编辑样式
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.type == 0) {
+    if (self.type == 0&&!self.haveSearch) {
         return UITableViewCellEditingStyleDelete;
     }
     return UITableViewCellEditingStyleNone;
@@ -224,14 +224,22 @@
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.type == 0) {
+    if (self.type == 0&&!self.haveSearch) {
         //添加取消收藏按钮
         UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             
             [self.deleteArray addObject:[self.casinoArray objectAtIndex:indexPath.row]];
             [self requestCancelCompanysCollects];
         }];
-        cancelCollectAction.backgroundColor = HexColor(#51AAFF);
+        
+        cancelCollectAction.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            UITableViewRowAction *btn = item;
+            if (UserGetBool(@"NightMode")) {
+                btn.backgroundColor = HexColor(#6A7C8D);
+            }else{
+                btn.backgroundColor = HexColor(#51AAFF);
+            }
+        });
         
         return @[cancelCollectAction];
     }
@@ -248,9 +256,9 @@
         @strongify(self)
         self.casinoArray = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         [self.tableView.mj_header endRefreshing];
+        self.haveSearch = NO;
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
-        self.haveSearch = NO;
     } failure:nil];
 }
 
@@ -291,9 +299,9 @@
         
         self.casinoArray = [data mutableCopy];
         
+        self.haveSearch = YES;
         [self.tableView reloadData];
         
-        self.haveSearch = YES;
     } failure:^(NSError *error) {
         [self endRefresh];
     }];

@@ -294,7 +294,11 @@ CGFloat static titleViewHeight = 91;
         [username addTitleColorTheme];
         username.text = GetSaveString(self.newsModel.author);
         [username sizeToFit];
-        username.frame = CGRectMake(CGRectGetMaxX(avatar.frame) + 5, 0, username.frame.size.width, 30);
+        CGFloat labelW = CGRectGetWidth(username.frame);
+        if (labelW>150*ScaleW) {
+            labelW = 150*ScaleW;
+        }
+        username.frame = CGRectMake(CGRectGetMaxX(avatar.frame) + 5, 0, labelW, 30);
         [_naviTitle addSubview:username];
         
         _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);

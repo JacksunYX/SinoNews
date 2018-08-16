@@ -145,10 +145,11 @@
         blLabel.text = AppendingString(GetSaveString(model.labelName), @"  ");
     }
     
-    if(model.itemType>=200&&model.itemType<300){
-        //专题
-        bottomLabel.text = @"";
-    }else if (model.itemType >=500 && model.itemType < 600){
+//    if(model.itemType>=200&&model.itemType<300){
+//        //专题
+//        bottomLabel.text = @"";
+//    }else
+    if (model.itemType >=500 && model.itemType < 600){
         //问答
         bottomLabel.textColor = HexColor(#1282EE);
         bottomLabel.text = [NSString stringWithFormat:@"%ld 回答",model.commentCount];
@@ -156,6 +157,9 @@
         //其他新闻
         NSString *str1 = @"";
         if (self.bottomShowType) {
+            
+        }else if(model.itemType>=200&&model.itemType<300){
+            //专题
             
         }else{
             str1 = AppendingString(GetSaveString(model.username), @"  ");

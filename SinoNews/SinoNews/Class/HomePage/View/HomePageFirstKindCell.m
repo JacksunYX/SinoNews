@@ -173,10 +173,11 @@
          blLabel.text = AppendingString(GetSaveString(model.labelName), @"  ");
     }
     
-    if(model.itemType>=200&&model.itemType<300){
-        //专题
-        bottomLabel.text = @"";
-    }else if (model.itemType >=500 && model.itemType < 600){
+//    if(model.itemType>=200&&model.itemType<300){
+//        //专题
+//        bottomLabel.text = @"";
+//    }else
+    if (model.itemType >=500 && model.itemType < 600){
         //问答
         bottomLabel.textColor = HexColor(#1282EE);
         bottomLabel.text = [NSString stringWithFormat:@"%ld 回答",model.commentCount];
@@ -184,6 +185,9 @@
         //其他新闻
         NSString *str1 = @"";
         if (self.bottomShowType) {
+            
+        }else if(model.itemType>=200&&model.itemType<300){
+            //专题
             
         }else{
             str1 = AppendingString(GetSaveString(model.username), @"  ");
@@ -233,23 +237,39 @@
         title.text = titletext;
     }
     
-    @weakify(self)
-    rightImg.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        @strongify(self)
-        UIImageView *imageView = item;
-        if (self.model.images.count>0) {
-            NSString *imgStr = [self.model.images firstObject];
-            if (UserGetBool(@"NightMode")) {
-                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small_night")];
-            }else{
-               [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-            }
-        }else{
-            imageView.image = nil;
-        }
-    });
+//    @weakify(self)
+//    rightImg.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+//        @strongify(self)
+//        UIImageView *imageView = item;
+//        if (self.model.images.count>0) {
+//            NSString *imgStr = [self.model.images firstObject];
+//            if (UserGetBool(@"NightMode")) {
+//                [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small_night")];
+//            }else{
+//               [imageView sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
+//            }
+//        }else{
+//            imageView.image = nil;
+//        }
+//    });
     
+    if (self.model.images.count>0) {
+        NSString *imgStr = [self.model.images firstObject];
+        
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgStr)) placeholderImage:[self placeholderImageStr]];
+    }else{
+        rightImg.image = [self placeholderImageStr];
+    }
 }
 
+//获取当前应当显示的占位图
+-(UIImage *)placeholderImageStr
+{
+    NSString *imgUrl = @"placeholder_logo_small";
+    if (UserGetBool(@"NightMode")) {
+        imgUrl = [imgUrl stringByAppendingString:@"_night"];
+    }
+    return UIImageNamed(imgUrl);
+}
 
 @end

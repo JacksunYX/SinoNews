@@ -259,6 +259,7 @@
             }else if (model.itemType == 202) {
                 model.itemType = 102;
             }
+            model.tipName = @"";
         }
         self.dataSource = [self.model.topicNewsList mutableCopy];
         [self addHeadView];

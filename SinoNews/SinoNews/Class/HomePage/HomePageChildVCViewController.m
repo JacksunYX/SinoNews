@@ -311,9 +311,36 @@
         }
 
     }else if ([model isKindOfClass:[TopicModel class]]){
-        HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-        cell2.model = model;
-        cell = (UITableViewCell *)cell2;
+        HomePageModel *model1 = (HomePageModel *)model;
+        switch (model1.itemType) {
+            case 200:   //无图
+            {
+                HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+
+            case 201:   //1图
+            {
+                HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+                
+            case 103:   //3图
+            {
+                HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
     }else if ([model isKindOfClass:[ADModel class]]){
         HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
         cell3.model = model;
@@ -380,7 +407,6 @@
     }else{
         parameters[@"loadTime"] = @([[UniversalMethod getTopLoadTimeWithData:self.dataSource] integerValue]);
     }
-    
     
     [HttpRequest getWithURLString:News_list parameters:parameters success:^(id responseObject) {
         

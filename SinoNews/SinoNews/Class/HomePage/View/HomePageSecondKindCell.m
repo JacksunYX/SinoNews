@@ -200,10 +200,11 @@
         blLabel.text = AppendingString(GetSaveString(model.labelName), @"  ");
     }
     
-    if(model.itemType>=200&&model.itemType<300){
-        //专题
-        bottomLabel.text = @"";
-    }else if (model.itemType >=500 && model.itemType < 600){
+//    if(model.itemType>=200&&model.itemType<300){
+//        //专题
+//        bottomLabel.text = @"";
+//    }else
+    if (model.itemType >=500 && model.itemType < 600){
         //问答
         bottomLabel.textColor = HexColor(#1282EE);
         bottomLabel.text = [NSString stringWithFormat:@"%ld 回答",model.commentCount];
@@ -211,6 +212,9 @@
         //其他新闻
         NSString *str1 = @"";
         if (self.bottomShowType) {
+            
+        }else if(model.itemType>=200&&model.itemType<300){
+            //专题
             
         }else{
             str1 = AppendingString(GetSaveString(model.username), @"  ");
@@ -250,6 +254,7 @@
         title.text = titletext;
     }
     
+    /*
     @weakify(self)
     imgL.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         @strongify(self)
@@ -266,12 +271,6 @@
         }
     });
     
-//    if (model.images.count>0) {
-//        NSString *imgStr = GetSaveString(model.images[0]);
-//        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-//    }else{
-//        imgL.image = nil;
-//    }
     
     imgC.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         @strongify(self)
@@ -288,12 +287,6 @@
         }
     });
     
-//    if (model.images.count>1) {
-//        NSString *imgStr = GetSaveString(model.images[1]);
-//        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-//    }else{
-//        imgC.image = nil;
-//    }
     
     imgR.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         @strongify(self)
@@ -310,16 +303,40 @@
         }
     });
     
-//    if (model.images.count>2) {
-//        NSString *imgStr = GetSaveString(model.images[2]);
-//        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
-//    }else{
-//        imgR.image = nil;
-//    }
+    */
+    
+    if (model.images.count>0) {
+        NSString *imgStr = GetSaveString(model.images[0]);
+        [imgL sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:[self placeholderImageStr]];
+    }else{
+        imgL.image = [self placeholderImageStr];
+    }
+    
+    if (model.images.count>1) {
+        NSString *imgStr = GetSaveString(model.images[1]);
+        [imgC sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:[self placeholderImageStr]];
+    }else{
+        imgC.image = [self placeholderImageStr];
+    }
+    
+    if (model.images.count>2) {
+        NSString *imgStr = GetSaveString(model.images[2]);
+        [imgR sd_setImageWithURL:UrlWithStr(imgStr) placeholderImage:[self placeholderImageStr]];
+    }else{
+        imgR.image = [self placeholderImageStr];
+    }
     
 }
 
-
+//获取当前应当显示的占位图
+-(UIImage *)placeholderImageStr
+{
+    NSString *imgUrl = @"placeholder_logo_small";
+    if (UserGetBool(@"NightMode")) {
+        imgUrl = [imgUrl stringByAppendingString:@"_night"];
+    }
+    return UIImageNamed(imgUrl);
+}
 
 
 

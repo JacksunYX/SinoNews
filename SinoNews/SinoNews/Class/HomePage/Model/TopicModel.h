@@ -33,4 +33,7 @@
 @property (nonatomic, strong) NSString *itemTitle;  //条目标题
 @property (nonatomic, strong) NSArray *images;      //包含的图片数组
 
+@property (nonatomic, assign) NSInteger commentCount;
+@property (nonatomic, assign) NSInteger viewCount;
+
 @end

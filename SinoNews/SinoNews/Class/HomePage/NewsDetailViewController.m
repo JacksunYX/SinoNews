@@ -39,8 +39,11 @@
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImageView *avatar;
-@property (nonatomic,strong) UILabel *authorAndTime;
+@property (nonatomic,strong) UILabel *authorName;
+@property (nonatomic ,strong) UIView *idView;   //认证标签视图
+@property (nonatomic,strong) UILabel *creatTime;
 @property (nonatomic,strong) UIButton *attentionBtn;
+
 
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *praiseBtn;
@@ -167,9 +170,16 @@ CGFloat static titleViewHeight = 91;
         
         _avatar = [UIImageView new];
         
-        _authorAndTime = [UILabel new];
-        _authorAndTime.font = PFFontR(11);
-        _authorAndTime.textColor = RGBA(152, 152, 152, 1);
+        _authorName = [UILabel new];
+        _authorName.font = PFFontR(11);
+        _authorName.textColor = RGBA(152, 152, 152, 1);
+        
+        _idView = [UIView new];
+        _idView.backgroundColor = ClearColor;
+        
+        _creatTime = [UILabel new];
+        _creatTime.font = PFFontR(11);
+        _creatTime.textColor = RGBA(152, 152, 152, 1);
         
         @weakify(self);
         _attentionBtn = [UIButton new];
@@ -203,7 +213,9 @@ CGFloat static titleViewHeight = 91;
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,
                                          _avatar,
-                                         _authorAndTime,
+                                         _authorName,
+                                         _idView,
+                                         _creatTime,
                                          _attentionBtn,
                                          ]];
         _titleLabel.sd_layout
@@ -228,13 +240,30 @@ CGFloat static titleViewHeight = 91;
         [_avatar setSd_cornerRadius:@12];
         [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.newsModel.avatar))];
         
-        _authorAndTime.sd_layout
-        .leftSpaceToView(_avatar, 3)
+        _authorName.sd_layout
+        .leftSpaceToView(_avatar, 5)
         .centerYEqualToView(_avatar)
         .heightIs(12)
         ;
-        [_authorAndTime setSingleLineAutoResizeWithMaxWidth:200];
-        _authorAndTime.text = [NSString stringWithFormat:@"%@    %@",GetSaveString(self.newsModel.author),GetSaveString(self.newsModel.createTime)];
+        [_authorName setSingleLineAutoResizeWithMaxWidth:150];
+        _authorName.text = GetSaveString(self.newsModel.author);
+        
+        _idView.sd_layout
+        .heightIs(20)
+        .centerYEqualToView(_authorName)
+        .leftSpaceToView(_authorName, 10)
+        .widthIs(0)
+        ;
+        
+        [self setIdViewWithIDs];
+        
+        _creatTime.sd_layout
+        .centerYEqualToView(_authorName)
+        .leftSpaceToView(_idView, 5)
+        .heightIs(12)
+        ;
+        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
+        _creatTime.text = GetSaveString(self.newsModel.createTime);
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
@@ -304,6 +333,47 @@ CGFloat static titleViewHeight = 91;
         _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);
         
         self.navigationItem.titleView = _naviTitle;
+        
+    }
+}
+
+//设置标签视图
+-(void)setIdViewWithIDs
+{
+    //先清除
+    for (UIView *subview in _idView.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (self.newsModel.identifications.count>0) {
+        CGFloat wid = 20;
+        CGFloat hei = 20;
+        CGFloat spaceX = 0;
+        
+        UIView *lastView = _idView;
+        for (int i = 0; i < self.newsModel.identifications.count; i ++) {
+            NSDictionary *model = self.newsModel.identifications[i];
+            UIImageView *approveView = [UIImageView new];
+            [_idView addSubview:approveView];
+            
+            if (i != 0) {
+                spaceX = 10;
+            }
+            
+            approveView.sd_layout
+            .centerYEqualToView(_idView)
+            .leftSpaceToView(lastView, spaceX)
+            .widthIs(wid)
+            .heightIs(hei)
+            ;
+            [approveView setSd_cornerRadius:@(wid/2)];
+            [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            
+            lastView = approveView;
+            if (i == self.newsModel.identifications.count - 1) {
+                [_idView setupAutoWidthWithRightView:approveView rightMargin:0];
+            }
+        }
+    }else{
         
     }
 }

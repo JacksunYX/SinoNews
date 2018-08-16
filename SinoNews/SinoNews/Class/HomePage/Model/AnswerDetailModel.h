@@ -27,4 +27,7 @@
 
 @property (nonatomic,assign) NSInteger userId;
 
+//认证类型
+@property (nonatomic,strong) NSArray *identifications;
+
 @end

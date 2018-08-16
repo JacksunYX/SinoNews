@@ -48,4 +48,7 @@
 @property (nonatomic, strong) NSString *itemTitle;
 @property (nonatomic, strong) NSArray *images;      //包含的图片数组
 
+//认证类型
+@property (nonatomic,strong) NSArray *identifications;
+
 @end

@@ -34,7 +34,7 @@
             model1.hasBrows = [self.idsArr containsObject:@(model1.itemId)];
         }else if ([model isKindOfClass:[TopicModel class]]){
             TopicModel *model1 = model;
-            model1.hasBrows = [self.idsArr containsObject:@(model1.itemId)];
+            model1.hasBrows = [self.idsArr containsObject:@([model1.topicId integerValue])];
         }
     }
     GGLog(@"idsArr:%ld",self.idsArr.count);

@@ -163,18 +163,25 @@
     @weakify(self)
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [self requestToGetUserInfo];
-        [self.dataSource removeAllObjects];
-        [self.exchangeRecordArr removeAllObjects];
-        [self.tableView reloadData];
+        [self resetDataSource];
     }];
     //监听退出
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginOutNotify object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [self requestToGetUserInfo];
+        [self resetDataSource];
     }];
     
     [self requestToGetUserInfo];
+}
+
+//重置数据
+-(void)resetDataSource
+{
+    [self requestToGetUserInfo];
+    [self.dataSource removeAllObjects];
+    [self.exchangeRecordArr removeAllObjects];
+    [self.tableView reloadData];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -496,7 +503,7 @@
             
             x += xMargin + labelWid;
         }
-    }else if (self.selectIndex == 2)
+    }else if (!kArrayIsEmpty(self.exchangeRecordArr)&&self.selectIndex == 2)
     {
         headView = [UIView new];
         [headView addBakcgroundColorTheme];
@@ -610,16 +617,23 @@
     [HttpRequest getWithURLString:PointsBalanceSheet parameters:parameters success:^(id responseObject) {
         NSArray *data = [IntegralModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         if (loadType == 0) {
-            self.dataSource = [[data arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+            if (data.count) {
+                self.dataSource = [[data arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+            }
             [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
         }else{
-            [self.dataSource addObjectsFromArray:data];
-            [self.tableView.mj_footer endRefreshing];
+            if (data.count) {
+                [self.dataSource addObjectsFromArray:data];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }
+        self.tableView.mj_footer.hidden = NO;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        self.tableView.mj_footer.hidden = YES;
     }];
 }
 

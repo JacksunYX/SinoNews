@@ -357,7 +357,7 @@
         TopicModel *model1 = model;
         if (!model1.hasBrows) {
             model1.hasBrows = YES;
-            [BrowsNewsSingleton.singleton addBrowHistory:model1.itemId];
+            [BrowsNewsSingleton.singleton addBrowHistory:[model1.topicId integerValue]];
             [self.tableView reloadData];
         }
     }

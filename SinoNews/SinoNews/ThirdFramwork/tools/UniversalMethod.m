@@ -286,15 +286,12 @@
             pushVC = ndVC;
         }
         
-        
-        //        PayNewsViewController *pnVC = [PayNewsViewController new];
-        //        [self.navigationController pushViewController:pnVC animated:YES];
-        
     }else if ([model isKindOfClass:[TopicModel class]]){
         TopicModel *model2 = model;
         TopicViewController *tVC = [TopicViewController new];
-        tVC.topicId = model2.itemId;
-        itemId = model2.itemId;
+        //只有专题是用的topicId
+        tVC.topicId = [model2.topicId integerValue];
+        itemId = [model2.topicId integerValue];
         pushVC = tVC;
     }else if ([model isKindOfClass:[ADModel class]]){
         

@@ -19,14 +19,16 @@ MJCodingImplementation
 
 +(void)clearLocalData
 {
-    UserSet(@"", @"isLogin")
-    UserSet(@"", @"token")
-    UserSet(@"", @"avatar")
-    UserSet(@"", @"username")
-    [UserModel bg_clear:nil];
-//    [NSArray bg_clearArrayWithName:@"columnArr"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginOutNotify object:nil];
-    GGLog(@"本地用户信息已清除");
+    if ([self getLocalUserModel]) {
+        UserSet(@"", @"isLogin")
+        UserSet(@"", @"token")
+        UserSet(@"", @"avatar")
+        UserSet(@"", @"username")
+        [UserModel bg_clear:nil];
+        //    [NSArray bg_clearArrayWithName:@"columnArr"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginOutNotify object:nil];
+        GGLog(@"本地用户信息已清除");
+    }
 }
 
 +(UserModel *)getLocalUserModel

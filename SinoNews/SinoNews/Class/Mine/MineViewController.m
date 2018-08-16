@@ -256,6 +256,15 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .bottomSpaceToView(self.adCollectionView, 0)
     ;
     
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(BaseTableView *)item setBackgroundColor:value];
+            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
+        }else{
+            [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
+            [(BaseTableView *)item setSeparatorColor:CutLineColor];
+        }
+    });
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -403,6 +412,10 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     [[_signIn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
+        //是否登录
+        if (![YXHeader checkNormalBackLogin]) {
+            return;
+        }
         SignInViewController *siVC = [SignInViewController new];
         [self.navigationController pushViewController:siVC animated:YES];
     }];
@@ -505,8 +518,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     NSString *pra = @"0";
     _userName.text = @"登 录";
     _integral.text = @"";
-    _signIn.hidden = YES;
-    shakeImg.hidden = YES;
+    _signIn.hidden = NO;
+    shakeImg.hidden = NO;
     _idView.hidden = YES;
     if (login) {
         
@@ -517,19 +530,19 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         att = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.followCount];
         fan = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.fansCount];
         pra = [NSString stringWithFormat:@"%lu",(unsigned long)self.user.praisedCount];
-        _signIn.hidden = NO;
-        shakeImg.hidden = NO;
+//        _signIn.hidden = NO;
+//        shakeImg.hidden = NO;
         _idView.hidden = NO;
-        
-        if (self.user.hasSignIn) {
-            [_signIn setNormalTitle:@"今日已签到"];
-            shakeImg.image = UIImageNamed(@"mine_gold_gray");
-            [shakeImg.layer removeAllAnimations];
-        }else{
-            [_signIn setNormalTitle:@"签到领金币"];
-            shakeImg.image = UIImageNamed(@"mine_gold");
-        }
-        
+    }
+    
+    if (self.user.hasSignIn) {
+        [_signIn setNormalTitle:@"今日已签到"];
+        shakeImg.image = UIImageNamed(@"mine_gold_gray");
+        [shakeImg.layer removeAllAnimations];
+    }else{
+        [_signIn setNormalTitle:@"签到领金币"];
+        shakeImg.image = UIImageNamed(@"mine_gold");
+        shakerAnimation(shakeImg, 2, -15);
     }
     
     [self setIdViewWithIDs];
@@ -885,6 +898,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         }else{
             [UserModel clearLocalData];
             [self.userImg sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
+            self.user = [UserModel getLocalUserModel];
             [self setHeadViewData:NO];
         }
     } failure:nil];

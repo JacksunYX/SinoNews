@@ -70,7 +70,7 @@
 -(void)setUI
 {
     _bottomView = [UIView new];
-    [_bottomView addBakcgroundColorTheme];
+    
     [self.view addSubview:_bottomView];
     _bottomView.sd_layout
     .leftEqualToView(self.view)
@@ -81,11 +81,13 @@
     [_bottomView updateLayout];
     _bottomView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         UIView *view = item;
+        [view setBackgroundColor:value];
         if (UserGetBool(@"NightMode")) {
-            [view addBorderTo:BorderTypeRight borderColor:CutLineColorNight];
-            
+            [view addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+            [view addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
         }else{
-            [view addBorderTo:BorderTypeRight borderColor:CutLineColor];
+            [view addBorderTo:BorderTypeTop borderColor:CutLineColor];
+            [view addBorderTo:BorderTypeBottom borderColor:CutLineColor];
         }
         
     });
@@ -112,9 +114,9 @@
         UIButton *btn = item;
         [btn setNormalTitleColor:value];
         NSString *iconStr = @"draft_delete";
-        [btn addBorderTo:BorderTypeRight borderColor:CutLineColor];
+        [btn addBorderTo:BorderTypeTop borderColor:CutLineColor];
         if (UserGetBool(@"NightMode")) {
-            [btn addBorderTo:BorderTypeRight borderColor:CutLineColorNight];
+            [btn addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
             iconStr = [iconStr stringByAppendingString:@"_night"];
         }
         [btn setNormalImage:UIImageNamed(iconStr)];

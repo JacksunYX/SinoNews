@@ -1281,7 +1281,7 @@ CGFloat static titleViewHeight = 91;
             [self.navigationController pushViewController:cVC animated:YES];
         }else if (model.itemType>=200&&model.itemType<300) {    //专题
             TopicViewController *tVC = [TopicViewController new];
-            tVC.topicId = model.itemId;
+            tVC.topicId = model.topicId;
             [self.navigationController pushViewController:tVC animated:YES];
         }else{
             NewsDetailViewController *ndVC = [NewsDetailViewController new];

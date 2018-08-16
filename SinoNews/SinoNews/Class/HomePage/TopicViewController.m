@@ -72,7 +72,7 @@
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     self.tableView.sd_layout
-    .topSpaceToView(self.view, -NAVI_HEIGHT+StatusBarHeight)
+    .topSpaceToView(self.view, StatusBarHeight)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
@@ -250,6 +250,16 @@
 {
     [HttpRequest getWithURLString:ShowTopicDetails parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
         self.model = [TopicModel mj_objectWithKeyValues:responseObject[@"data"]];
+        //因为专题里的新闻后台返回的数据itemType也是200开头的,但是实际上它们在这里只是普通新闻，所以这里全部手动变为普通新闻的itemType
+        for (HomePageModel *model in self.model.topicNewsList) {
+            if (model.itemType == 200) {
+                model.itemType = 100;
+            }else if (model.itemType == 201) {
+                model.itemType = 101;
+            }else if (model.itemType == 202) {
+                model.itemType = 102;
+            }
+        }
         self.dataSource = [self.model.topicNewsList mutableCopy];
         [self addHeadView];
         [self showOrHideLoadView:NO page:2];

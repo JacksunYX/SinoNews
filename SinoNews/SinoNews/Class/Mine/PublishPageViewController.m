@@ -50,7 +50,7 @@
     _segHead.lineHeight = 3;
     _segHead.lineColor = HexColor(#1282EE);
     _segHead.selectColor = HexColor(#323232);
-    _segHead.deSelectColor = HexColor(#323232);
+    _segHead.deSelectColor = HexColor(#989898);
     _segHead.maxTitles = 3;
     _segHead.bottomLineHeight = 0;
     _segHead.bottomLineColor = RGBA(227, 227, 227, 1);

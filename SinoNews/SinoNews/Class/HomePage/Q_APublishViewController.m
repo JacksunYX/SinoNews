@@ -100,7 +100,7 @@
     }
     parameters[@"content"] = [self.wordViewController exportHTML];
     [HttpRequest postWithURLString:News_answer parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"回答成功");
+        LRToast(@"回答已发送");
         if (self.submitBlock) {
             self.submitBlock();
         }

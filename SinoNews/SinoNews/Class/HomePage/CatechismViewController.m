@@ -964,7 +964,6 @@ CGFloat static titleViewHeight = 91;
     return footView;
 }
     
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AnswerModel *model = self.answersArr[indexPath.row];

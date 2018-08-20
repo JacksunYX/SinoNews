@@ -114,7 +114,7 @@
 //        titltImg.backgroundColor = Arc4randomColor;
         
         UILabel *title = [UILabel new];
-        title.font = PFFontL(18);
+        title.font = FontScale(20);
         [title addTitleColorTheme];
         title.numberOfLines = 1;
         
@@ -125,7 +125,7 @@
             if (UserGetBool(@"NightMode")) {
                 [(UILabel *)item setTextColor:value];
             }else{
-                [(UILabel *)item setTextColor:RGBA(136, 136, 136, 1)];
+                [(UILabel *)item setTextColor:HexColor(#868e97)];
             }
         });
         
@@ -148,7 +148,7 @@
         .topSpaceToView(titltImg, 25)
         .leftSpaceToView(self.headView, 10)
         .rightSpaceToView(self.headView, 10)
-        .heightIs(18)
+        .heightIs(22)
         ;
         title.text = GetSaveString(self.model.itemTitle);
         
@@ -242,7 +242,6 @@
         [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
     }
 }
-
 
 #pragma mark ----- 请求发送
 //展示专题详情

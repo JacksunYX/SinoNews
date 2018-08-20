@@ -12,6 +12,7 @@
 #import "LogoutNoticeView.h"
 #import "HomePageModel.h"
 #import "SignInRuleWebView.h"
+#import "WebViewController.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -243,9 +244,15 @@
         [alertVC addAction:action2];
         [self presentViewController:alertVC animated:YES completion:nil];
     }else if (CompareString(title, @"关于")){
-        [SignInRuleWebView showWithWebString:News_aboutUs];
+//        [SignInRuleWebView showWithWebString:News_aboutUs];
+        WebViewController *wVC = [WebViewController new];
+        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_aboutUs)];;
+        [self.navigationController pushViewController:wVC animated:YES];
     }else if (CompareString(title, @"隐私协议")){
-        [SignInRuleWebView showWithWebString:News_statement];
+//        [SignInRuleWebView showWithWebString:News_statement];
+        WebViewController *wVC = [WebViewController new];
+        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_statement)];;
+        [self.navigationController pushViewController:wVC animated:YES];
     }else if (CompareString(title, @"退出登录")){
         
         [LogoutNoticeView show:^{

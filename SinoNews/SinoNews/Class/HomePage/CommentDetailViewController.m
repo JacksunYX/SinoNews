@@ -381,7 +381,7 @@
     parameters[@"parentId"] = @([self.model.commentId integerValue]);
     
     [HttpRequest postWithTokenURLString:requestUrl parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-        LRToast(@"评论成功");
+        LRToast(@"评论已发送");
         [self refreshComments];
     } failure:nil RefreshAction:^{
         

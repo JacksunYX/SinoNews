@@ -952,6 +952,7 @@ CGFloat static titleViewHeight = 91;
     parameters[@"answerId"] = @(self.answer_id);
     parameters[@"parentId"] = @(0);
     [HttpRequest postWithTokenURLString:AnswerComment parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        LRToast(@"评论已发送");
         CompanyCommentModel *addComment = [CompanyCommentModel mj_objectWithKeyValues:res[@"data"]];
         [self.commentArr insertObject:addComment atIndex:0];
         [self.tableView reloadData];

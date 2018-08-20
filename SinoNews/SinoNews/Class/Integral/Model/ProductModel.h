@@ -13,6 +13,7 @@
 
 @property (nonatomic,strong) NSString *categoryId;  //所属分类的id
 @property (nonatomic,strong) NSString *categoryName;
+@property (nonatomic,strong) NSString *detail;
 @property (nonatomic,strong) NSString *createTime;
 @property (nonatomic,strong) NSString *product_id;  //商品id
 @property (nonatomic,strong) NSString *imageUrl;

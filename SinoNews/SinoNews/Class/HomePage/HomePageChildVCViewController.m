@@ -127,7 +127,7 @@
     UIViewController *pushVC;
     if (model.topic) {  //专题
         TopicViewController *tVC = [TopicViewController new];
-        tVC.topicId = model.newsId;
+        tVC.topicId = model.topicId;
         pushVC = tVC;
     }else{  //非专题
         NewsDetailViewController *ndVC = [NewsDetailViewController new];

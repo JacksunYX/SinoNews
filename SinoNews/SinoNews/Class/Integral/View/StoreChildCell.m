@@ -138,6 +138,7 @@
     _model = model;
     [iconImg sd_setImageWithURL:UrlWithStr(model.imageUrl)];
     title.text = GetSaveString(model.productName);
+    subTitle.text = GetSaveString(model.detail);
     if (model.price) {
         bottomTitle.text = [NSString stringWithFormat:@"价值%@元",model.price];
     }

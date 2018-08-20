@@ -15,4 +15,5 @@
 @property (nonatomic,assign) NSInteger newsId;      //新闻相关id
 @property (nonatomic,strong) NSString *newsTitle;   //标题
 @property (nonatomic,assign) NSInteger topic;       //是否时专题
+@property (nonatomic,assign) NSInteger topicId;     //专题id
 @end

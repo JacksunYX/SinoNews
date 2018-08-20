@@ -329,7 +329,7 @@
             }
                 break;
                 
-            case 103:   //3图
+            case 203:   //3图
             {
                 HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
                 cell1.model = model1;

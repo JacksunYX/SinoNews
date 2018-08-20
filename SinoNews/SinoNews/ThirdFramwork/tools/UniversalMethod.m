@@ -190,8 +190,8 @@
             id model = data[i];
             //先转换成字典
             NSMutableDictionary *modelDic = [model mj_keyValues];
-            //如果是广告、专题、置顶就跳过
-            if ([model isKindOfClass:[ADModel class]]||[model isKindOfClass:[TopicModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
+            //如果是广告、置顶就跳过（现在专题是属于新闻）
+            if ([model isKindOfClass:[ADModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
                 //防止越界
                 if (i == data.count - 1) {
                     GGLog(@"没有更多数据了");
@@ -220,7 +220,7 @@
             //先转换成字典
             NSMutableDictionary *modelDic = [model mj_keyValues];
             //如果是广告或者专题，就跳过
-            if ([model isKindOfClass:[ADModel class]]||[model isKindOfClass:[TopicModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
+            if ([model isKindOfClass:[ADModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
                 //防止越界
                 if (i == 0) {
                     GGLog(@"没有更多数据了");

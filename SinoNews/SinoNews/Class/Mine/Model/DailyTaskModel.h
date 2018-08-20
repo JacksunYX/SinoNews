@@ -14,7 +14,10 @@
 @property (nonatomic,strong) NSString *taskIcon;    //任务图标
 @property (nonatomic,strong) NSString *taskName;    //任务名称
 @property (nonatomic,assign) NSInteger taskPoints;  //任务可得积分
-
+//新增
+@property (nonatomic,assign) NSInteger accomplishedNum; //已完成任务数
+@property (nonatomic,assign) NSInteger receivedPoints;  //已领取的子任务积分
+@property (nonatomic,assign) NSInteger taskNum;         //任务总数
 @end
 
 @interface DailyTaskModel : NSObject

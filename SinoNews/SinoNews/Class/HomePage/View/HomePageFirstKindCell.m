@@ -157,7 +157,7 @@
         title.textColor = BrowsNewsTitleColor;
     }
     
-    NSString *titletext = GetSaveString(model.itemTitle);;
+    NSString *titletext = GetSaveString(model.itemTitle);
     
     NSString *tipName = GetSaveString(model.tipName);
     if ([NSString isEmpty:tipName]) {

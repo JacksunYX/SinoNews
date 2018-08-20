@@ -534,6 +534,7 @@
     
     UILabel *taskTitle = [UILabel new];
     taskTitle.font = PFFontR(15);
+    taskTitle.isAttributedContent = YES;
     
     UILabel *taskDone = [UILabel new];
     taskDone.font = PFFontL(14);
@@ -542,6 +543,7 @@
     UILabel *taskAward = [UILabel new];
     taskAward.font = PFFontL(14);
     taskAward.textColor = RGBA(152, 152, 152, 1);
+    taskAward.textAlignment = NSTextAlignmentCenter;
     
     [fatherView sd_addSubviews:@[
                                  taskIcon,
@@ -575,9 +577,13 @@
     .topSpaceToView(fatherView, 10)
     .leftSpaceToView(taskIcon, 10)
     .heightIs(15)
+//    .autoWidthRatio(0)
     ;
-    [taskTitle setSingleLineAutoResizeWithMaxWidth:150];
-    taskTitle.text = GetSaveString(taskModel.taskName);
+    [taskTitle setSingleLineAutoResizeWithMaxWidth:ScreenW - 140];
+    NSString *str1 = GetSaveString(taskModel.taskName);
+    NSString *str2 = [NSString stringWithFormat:@"  +%ld积分 ",taskModel.taskPoints];
+    NSMutableAttributedString *att = [NSString leadString:str1 tailString:str2 font:PFFontR(15) color:HexColor(#F25747) lineBreak:NO];
+    taskTitle.attributedText = att;
     
     taskDone.sd_layout
     .topSpaceToView(taskTitle, 10)
@@ -589,17 +595,29 @@
     taskAward.sd_layout
     .centerYEqualToView(fatherView)
     .rightSpaceToView(fatherView, 10)
-    .heightIs(14)
+    .widthIs(60)
+    .heightIs(30)
     ;
-    [taskAward setSingleLineAutoResizeWithMaxWidth:100];
+    [taskAward setSd_cornerRadius:@15];
+    taskAward.layer.borderWidth = 1;
+//    [taskAward setSingleLineAutoResizeWithMaxWidth:100];
+    
+    taskDone.text = [NSString stringWithFormat:@"完成 %ld / %ld",taskModel.accomplishedNum,taskModel.taskNum];
+    
     if (taskModel.hasAccomplished) {
-        taskDone.text = @"已完成";
-        taskAward.textColor = HexColor(#F25747);
-    }else{
-        taskDone.text = @"未完成";
+        taskAward.text = @"已完成";
         taskAward.textColor = HexColor(#989898);
+        taskAward.layer.borderColor = HexColor(#989898).CGColor;
+    }else{
+        taskAward.text = @"去完成";
+        taskAward.textColor = HexColor(#F25747);
+        taskAward.layer.borderColor = HexColor(#F25747).CGColor;
+        [taskAward whenTap:^{
+            MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            [keyVC setSelectedIndex:0];
+        }];
     }
-    taskAward.text = [NSString stringWithFormat:@"+%ld积分",taskModel.taskPoints];
+//    taskAward.text = [NSString stringWithFormat:@"+%ld积分",taskModel.taskPoints];
 }
 
 #pragma mark ---- 请求发送

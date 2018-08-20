@@ -314,7 +314,7 @@
 - (void)deleteAction:(UIButton *)btn
 {
     if (!self.deleteArray.count) {
-        LRToast(@"还没有选择要删掉的东西哟～");
+        LRToast(@"还没有选择要删掉的东西哟");
         return;
     }
     

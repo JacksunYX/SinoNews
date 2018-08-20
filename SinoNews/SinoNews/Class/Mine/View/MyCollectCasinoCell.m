@@ -147,13 +147,22 @@
 -(void)setModel:(CompanyDetailModel *)model
 {
     _model = model;
+    NSString *titletext = GetSaveString(model.companyName);
     
     if ([model.companyName containsString:@"<font"]) {
-        title.attributedText = [NSString analysisHtmlString:GetSaveString(model.companyName)];
-        [title addTitleColorTheme];
+        //显示有问题，只有自己在首位拼接一下字体标签
+        if (UserGetBool(@"NightMode")) {
+            titletext = [@"<font color='white'>" stringByAppendingString:titletext];
+            titletext = [titletext stringByAppendingString:@"</font>"];
+        }else{
+            titletext = [@"<font color='black'>" stringByAppendingString:titletext];
+            titletext = [titletext stringByAppendingString:@"</font>"];
+        }
+        title.attributedText = [NSString analysisHtmlString:titletext];
+        
         title.font = PFFontR(16);
     }else{
-        title.text = GetSaveString(model.companyName);
+        title.text = titletext;
     }
     
     @weakify(self);

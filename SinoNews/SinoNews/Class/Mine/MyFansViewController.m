@@ -192,7 +192,7 @@
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         model.isFollow = !model.isFollow;
         if (model.isFollow) {
-            LRToast(@"关注成功～");
+            LRToast(@"关注成功");
         }else{
             LRToast(@"已取消关注");
         }

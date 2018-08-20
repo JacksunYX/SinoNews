@@ -158,7 +158,7 @@
     }else if (kStringIsEmpty(againPassword.text)){
         LRToast(@"请输入确认密码");
     }else if(!CompareString(newPassword.text, againPassword.text)){
-        LRToast(@"两次输入的密码不一致哦～");
+        LRToast(@"两次输入的密码不一致");
     }else{
         if (![oldPassword.text checkPassWord]) {
             LRToast(@"旧密码为6-16位数字、字母和下划线组成");

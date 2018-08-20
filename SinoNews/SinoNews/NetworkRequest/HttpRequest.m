@@ -235,7 +235,7 @@
                     LRToast(resultdic[@"alertMsg"]);
                 }
                 
-                GCDAfterTime(1.2, ^{
+                GCDAfterTime(0.3, ^{
                     //未登陆
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面

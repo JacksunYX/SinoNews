@@ -111,7 +111,7 @@
         [self.headView addBakcgroundColorTheme];
         
         UIImageView *titltImg = [UIImageView new];
-        titltImg.backgroundColor = Arc4randomColor;
+//        titltImg.backgroundColor = Arc4randomColor;
         
         UILabel *title = [UILabel new];
         title.font = PFFontL(18);
@@ -251,16 +251,16 @@
     [HttpRequest getWithURLString:ShowTopicDetails parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
         self.model = [TopicModel mj_objectWithKeyValues:responseObject[@"data"]];
         //因为专题里的新闻后台返回的数据itemType也是200开头的,但是实际上它们在这里只是普通新闻，所以这里全部手动变为普通新闻的itemType
-        for (HomePageModel *model in self.model.topicNewsList) {
-            if (model.itemType == 200) {
-                model.itemType = 100;
-            }else if (model.itemType == 201) {
-                model.itemType = 101;
-            }else if (model.itemType == 202) {
-                model.itemType = 102;
-            }
-            model.tipName = @"";
-        }
+//        for (HomePageModel *model in self.model.topicNewsList) {
+//            if (model.itemType == 200) {
+//                model.itemType = 100;
+//            }else if (model.itemType == 201) {
+//                model.itemType = 101;
+//            }else if (model.itemType == 202) {
+//                model.itemType = 102;
+//            }
+//            model.tipName = @"";
+//        }
         self.dataSource = [self.model.topicNewsList mutableCopy];
         [self addHeadView];
         [self showOrHideLoadView:NO page:2];

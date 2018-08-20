@@ -855,7 +855,6 @@ CGFloat static titleViewHeight = 91;
     
 }
 
-
 #pragma mark ---- 请求发送
 //查看回答
 -(void)requestNews_browseAnswer

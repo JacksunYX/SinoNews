@@ -63,7 +63,7 @@
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
-    self.tableView.separatorColor = CutLineColor;
+    self.tableView.separatorColor = CutLineColorNight;
     [self.tableView registerClass:[PublishManagerCell class] forCellReuseIdentifier:PublishManagerCellID];
     
     @weakify(self);

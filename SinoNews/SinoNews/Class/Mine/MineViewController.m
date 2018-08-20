@@ -258,10 +258,10 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
-            [(BaseTableView *)item setBackgroundColor:value];
+            [(BaseTableView *)item setBackgroundColor:HexColor(#292d30)];
             [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
         }else{
-            [(BaseTableView *)item setBackgroundColor:HexColor(F2F6F7)];
+            [(BaseTableView *)item setBackgroundColor:HexColor(#F2F6F7)];
             [(BaseTableView *)item setSeparatorColor:CutLineColor];
         }
     });

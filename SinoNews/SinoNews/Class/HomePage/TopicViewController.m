@@ -120,14 +120,14 @@
         
         UILabel *subTitle = [UILabel new];
         subTitle.font = PFFontL(15);
-//        subTitle.textColor = RGBA(136, 136, 136, 1);
-        subTitle.lee_theme.LeeCustomConfig(@"contentColor", ^(id item, id value) {
-            if (UserGetBool(@"NightMode")) {
-                [(UILabel *)item setTextColor:value];
-            }else{
-                [(UILabel *)item setTextColor:HexColor(#868e97)];
-            }
-        });
+        subTitle.textColor = HexColor(#868e97);
+//        subTitle.lee_theme.LeeCustomConfig(@"contentColor", ^(id item, id value) {
+//            if (UserGetBool(@"NightMode")) {
+//                [(UILabel *)item setTextColor:value];
+//            }else{
+//                [(UILabel *)item setTextColor:HexColor(#868e97)];
+//            }
+//        });
         
         [self.headView sd_addSubviews:@[
                                         titltImg,

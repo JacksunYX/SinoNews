@@ -51,7 +51,7 @@
     
     username = [UILabel new];
     username.font = PFFontR(12);
-    username.lee_theme.LeeConfigTextColor(@"titleColor");
+    [username addTitleColorTheme];
     
     praise = [UIButton new];
     [praise setNormalTitleColor:HexColor(#1282EE)];
@@ -60,7 +60,7 @@
     content = [UILabel new];
 //    content.textColor = HexColor(#323232);
     [content addTitleColorTheme];
-    content.font = PFFontL(15);
+    content.font = PFFontR(15);
     
     imgL = [UIImageView new];
     imgL.userInteractionEnabled = YES;

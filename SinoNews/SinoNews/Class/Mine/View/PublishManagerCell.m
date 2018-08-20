@@ -256,7 +256,7 @@
     creatTime.text = GetSaveString(newsModel.publishTime);
     newTitle.text = GetSaveString(newsModel.title);
     
-    [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(newsModel.image)) placeholderImage:UIImageNamed(@"placeholder_logo_big")];
+    [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(newsModel.image)) placeholderImage:[self placeholderImageStr]];
     
     if (self.type == 0) {
         [share setNormalTitle:[NSString stringWithFormat:@"%ld",newsModel.viewCount]];
@@ -265,6 +265,16 @@
         
         [praise setNormalTitle:[NSString stringWithFormat:@"%ld",newsModel.praiseCount]];
     }
+}
+
+//获取当前应当显示的占位图
+-(UIImage *)placeholderImageStr
+{
+    NSString *imgUrl = @"placeholder_logo_big";
+    if (UserGetBool(@"NightMode")) {
+        imgUrl = [imgUrl stringByAppendingString:@"_night"];
+    }
+    return UIImageNamed(imgUrl);
 }
 
 -(void)tapViews

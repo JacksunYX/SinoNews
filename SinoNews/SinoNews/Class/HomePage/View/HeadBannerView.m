@@ -21,6 +21,7 @@
 //标题数组
 @property (nonatomic, strong) NSMutableArray *titlesArray;
 
+@property (nonatomic, strong) NSMutableArray *modelArray;
 
 @property (nonatomic, strong) LWDPageControl * pageControl;
 
@@ -55,6 +56,7 @@
 
 -(void)setupUIWithModels2:(NSArray <HomePageBannerModel*> *)models
 {
+    self.modelArray = [models mutableCopy];
     for (int i = 0; i < models.count; i ++) {
         HomePageBannerModel *model = models[i];
         [self.imageArray addObject:GetSaveString(model.image)];
@@ -135,7 +137,10 @@
     
 //    bannerView.mainImageView.image = UIImageNamed(self.imageArray[index]);
     bannerView.indexLabel.hidden = !self.showTitle;
+    HomePageBannerModel *model = self.modelArray[index];
+    bannerView.isTopic = model.topic;
     bannerView.indexLabel.text = self.titlesArray[index];
+    
     return bannerView;
 }
 

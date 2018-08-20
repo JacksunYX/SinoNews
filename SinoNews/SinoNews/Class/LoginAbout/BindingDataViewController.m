@@ -111,6 +111,8 @@
     CGFloat passwordHeight = 0;
     if (self.isUpdate) {
         passwordHeight = 50;
+    }else{
+        password.hidden = YES;
     }
     
     [backImg sd_addSubviews:@[

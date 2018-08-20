@@ -129,6 +129,28 @@ static CGFloat animation_time = .3;
     [self defaultAndCreateView];
 }
 
+-(void)setSelectColor:(UIColor *)selectColor
+{
+    _selectColor = selectColor;
+    if (buttonArray.count>0) {
+        UIButton *selectedBtn = buttonArray[currentIndex];
+        [selectedBtn setTintColor:_selectColor];
+    }
+}
+
+-(void)setDeSelectColor:(UIColor *)deSelectColor
+{
+    _deSelectColor = deSelectColor;
+    if (buttonArray.count>0) {
+        for (int i = 0; i < buttonArray.count; i ++) {
+            UIButton *btn = buttonArray[i];
+            if (i != currentIndex) {
+                [btn setTintColor:_deSelectColor];
+            }
+        }
+    }
+    
+}
 
 #pragma mark - layout
 - (void)defaultAndCreateView {

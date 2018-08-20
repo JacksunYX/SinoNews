@@ -296,11 +296,6 @@
     
     _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         [(MLMSegmentHead *)item setSelectColor:value];
-        if (self.titleList.count>1) {
-            //来回滑动一次，解决显示问题
-            [(MLMSegmentHead *)item changeIndex:1 completion:YES];
-            [(MLMSegmentHead *)item changeIndex:0 completion:YES];
-        }
     });
     
     //添加更多按钮

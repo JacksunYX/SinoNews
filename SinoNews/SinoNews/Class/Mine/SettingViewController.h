@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/6/6.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//这里改为系统设置界面
+//这里改为APP设置界面
 
 #import <UIKit/UIKit.h>
 

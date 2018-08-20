@@ -22,7 +22,7 @@
     if (!_datasource) {
         _datasource = [NSMutableArray new];
         [_datasource addObject:@"账户设置"];
-        [_datasource addObject:@"系统设置"];
+        [_datasource addObject:@"APP设置"];
     }
     return _datasource;
 }
@@ -107,7 +107,7 @@
     if (CompareString(text, @"账户设置")) {
         PersonalDataViewController *pdVC = [PersonalDataViewController new];
         vc = pdVC;
-    }else if (CompareString(text, @"系统设置")){
+    }else if (CompareString(text, @"APP设置")){
         SettingViewController *sVC = [SettingViewController new];
         vc = sVC;
     }

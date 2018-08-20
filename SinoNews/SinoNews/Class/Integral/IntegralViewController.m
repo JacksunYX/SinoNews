@@ -71,12 +71,13 @@
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
     _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
-        [(MLMSegmentHead *)item setBottomLineColor:CutLineColor];
+        
         if (UserGetBool(@"NightMode")) {
             [(MLMSegmentHead *)item setDeSelectColor:value];
             [(MLMSegmentHead *)item setBottomLineColor:CutLineColorNight];
         }else{
             [(MLMSegmentHead *)item setDeSelectColor:HexColor(#7B7B7B)];
+            [(MLMSegmentHead *)item setBottomLineColor:CutLineColor];
         }
     });
 }

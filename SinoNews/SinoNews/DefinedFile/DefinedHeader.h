@@ -460,9 +460,9 @@ item.alpha = 0.0; \
 
 //设置加载提示框（第三方框架：Toast）
 #define LRToast(str)              CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle]; \
-[kWindow  makeToast:str duration:0.8 position:CSToastPositionCenter style:style];\
+[kWindow  makeToast:str duration:0.5 position:CSToastPositionCenter style:style];\
 kWindow.userInteractionEnabled = NO; \
-dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
 kWindow.userInteractionEnabled = YES;\
 });\
 

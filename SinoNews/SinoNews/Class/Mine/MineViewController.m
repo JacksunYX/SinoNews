@@ -393,7 +393,12 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .heightIs(18)
     ;
     [_level setSd_cornerRadius:@9];
+    _level.hidden = YES;
 //    _level.text = @"Lv.15";
+    [_level whenTap:^{
+        @strongify(self);
+        [self popLevelRule];
+    }];
     
     //添加点击弹出积分规则
     [_integral whenTap:^{
@@ -679,6 +684,14 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     if (self.user) {
        [SignInRuleWebView showWithWebString:News_pointsRule];
+    }
+}
+
+//弹出等级规则
+-(void)popLevelRule
+{
+    if (self.user) {
+        [SignInRuleWebView showWithWebString:News_levelRule];
     }
 }
 

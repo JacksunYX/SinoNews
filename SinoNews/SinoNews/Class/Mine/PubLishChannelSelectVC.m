@@ -10,6 +10,7 @@
 #import "XLChannelModel.h"
 #import "PublishArticleViewController.h"
 
+
 @interface PubLishChannelSelectVC ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic,strong) NSMutableArray *channelArr;

@@ -1431,6 +1431,7 @@ static CGFloat kToolBarHeight = 44;
 
 - (void)showInsertImageDialogWithLink:(NSString *)url alt:(NSString *)alt {
     
+    
     // Insert Button Title
     NSString *insertButtonTitle = !self.selectedImageURL ? NSLocalizedString(@"Insert", nil) : NSLocalizedString(@"Update", nil);
     
@@ -1441,7 +1442,7 @@ static CGFloat kToolBarHeight = 44;
     [am addTarget:self action:@selector(showInsertImageAlternatePicker) forControlEvents:UIControlEventTouchUpInside];
     
     if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
-        
+        /*
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Insert Image", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.placeholder = NSLocalizedString(@"URL (required)", nil);
@@ -1475,6 +1476,8 @@ static CGFloat kToolBarHeight = 44;
             [self focusTextEditor];
         }]];
         [self presentViewController:alertController animated:YES completion:NULL];
+        */
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
         
     } else {
         
@@ -1897,16 +1900,26 @@ static CGFloat kToolBarHeight = 44;
 
     UIImage *selectedImage = info[UIImagePickerControllerEditedImage]?:info[UIImagePickerControllerOriginalImage];
     
-    //Scale the image
-    CGSize targetSize = CGSizeMake(selectedImage.size.width * self.selectedImageScale, selectedImage.size.height * self.selectedImageScale);
-    UIGraphicsBeginImageContext(targetSize);
-    [selectedImage drawInRect:CGRectMake(0,0,targetSize.width,targetSize.height)];
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    //Compress the image, as it is going to be encoded rather than linked
-    NSData *scaledImageData = UIImageJPEGRepresentation(scaledImage, kJPEGCompression);
+    //自定义的处理方法
+    //上传至服务器
+    [RequestGather uploadSingleImage:selectedImage Success:^(id response) {
+        //上传成功
+        NSString *imgUrlStr = response[@"data"];
+        [self insertImage:imgUrlStr alt:@""];
+        [self focusTextEditor];
+        
+    } failure:nil];
     
+    //Scale the image
+//    CGSize targetSize = CGSizeMake(selectedImage.size.width * self.selectedImageScale, selectedImage.size.height * self.selectedImageScale);
+//    UIGraphicsBeginImageContext(targetSize);
+//    [selectedImage drawInRect:CGRectMake(0,0,targetSize.width,targetSize.height)];
+//    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//
+//    //Compress the image, as it is going to be encoded rather than linked
+//    NSData *scaledImageData = UIImageJPEGRepresentation(scaledImage, kJPEGCompression);
+    /*
     //Encode the image data as a base64 string
     NSString *imageBase64String = [scaledImageData base64EncodedStringWithOptions:0];
     
@@ -1918,7 +1931,7 @@ static CGFloat kToolBarHeight = 44;
     }
     
     self.imageBase64String = imageBase64String;
-
+     */
     //Dismiss the Image Picker
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }

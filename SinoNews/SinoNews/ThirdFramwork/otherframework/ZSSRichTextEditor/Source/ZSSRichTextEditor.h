@@ -235,6 +235,10 @@ static NSString * const ZSSRichTextEditorToolbarFonts = @"com.zedsaid.toolbarite
 
 - (void)redo;
 
+-(void)insertImage;
+
+- (void)insertImageFromDevice;
+
 //新增
 -(void)prepareInsert;
 

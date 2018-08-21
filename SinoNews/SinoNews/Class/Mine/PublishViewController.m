@@ -9,6 +9,7 @@
 #import "PublishViewController.h"
 #import "PublishArticleViewController.h"
 #import "PubLishChannelSelectVC.h"
+#import "ZSSCustomButtonsViewController.h"
 
 @interface PublishViewController ()
 

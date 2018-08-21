@@ -751,9 +751,9 @@ CGFloat static titleViewHeight = 91;
             self.topWebHeight = newHeight;
             self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
 //            GGLog(@"topWebHeight:%lf",topWebHeight);
-            [self.tableView beginUpdates];
+//            [self.tableView beginUpdates];
             self.tableView.tableHeaderView = self.webView;
-            [self.tableView endUpdates];
+//            [self.tableView endUpdates];
         }
     }];
     

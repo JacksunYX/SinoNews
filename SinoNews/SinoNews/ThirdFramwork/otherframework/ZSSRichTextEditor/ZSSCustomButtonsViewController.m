@@ -49,7 +49,7 @@
     UIButton *insertImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.0f, btnW, 49.0f)];
     [insertImageBtn setImage:[UIImage imageNamed:@"ZSSimage"] forState:UIControlStateNormal];
     [insertImageBtn addTarget:self
-                       action:@selector(openPhoto)
+                       action:@selector(insertImage)
              forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *boldBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.0f, btnW, 49.0f)];
@@ -96,6 +96,7 @@
     
 }
 
+//暂未使用
 //打开相册，选择图片后上传
 -(void)openPhoto
 {

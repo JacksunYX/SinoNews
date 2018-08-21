@@ -287,10 +287,15 @@
         HomePageModel *model1 = model;
         itemId = model1.itemId;
         if (model1.itemType>=400&&model1.itemType<500) { //投票
-            VoteViewController *vVC = [VoteViewController new];
-            vVC.newsId = model1.itemId;
-            pushVC = vVC;
-        }else if (model1.itemType>=500&&model1.itemType<600) { //问答
+//            VoteViewController *vVC = [VoteViewController new];
+//            vVC.newsId = model1.itemId;
+//            pushVC = vVC;
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = model1.itemId;
+            ndVC.isVote = YES;
+            pushVC = ndVC;
+        }else
+            if (model1.itemType>=500&&model1.itemType<600) { //问答
             CatechismViewController *cVC = [CatechismViewController new];
             cVC.news_id = model1.itemId;
             pushVC = cVC;

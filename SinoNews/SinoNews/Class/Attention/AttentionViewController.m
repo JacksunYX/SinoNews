@@ -10,6 +10,7 @@
 #import "SearchViewController.h"    //搜索页面
 #import "HomePageChildVCViewController.h"
 #import "AttentionRecommendVC.h"
+#import "CasinoCollectViewController.h"
 
 @interface AttentionViewController ()
 @property (nonatomic, strong) MLMSegmentHead *segHead;
@@ -51,7 +52,7 @@
     if (CompareString(UserGet(@"isLogin"), @"YES")) {
         
     }
-    [self reloadChildVCWithTitles:@[@"作者",@"专题"]];
+    [self reloadChildVCWithTitles:@[@"作者",@"娱乐场"]];
     
 }
 
@@ -107,14 +108,16 @@
 {
     NSMutableArray *arr = [NSMutableArray array];
     for (NSInteger i = 0; i < 2; i ++) {
-        HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
+        
         if (i == 0) {
-           vc.news_id = @"作者";
+            HomePageChildVCViewController *vc = [HomePageChildVCViewController new];
+            vc.news_id = @"作者";
+            [arr addObject:vc];
         }else if (i == 1){
-            vc.news_id = @"专题";
+            CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
+            [arr addObject:ccVC];
         }
         
-        [arr addObject:vc];
     }
     return arr;
 }

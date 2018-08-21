@@ -30,6 +30,7 @@
 @property (nonatomic ,strong) UILabel *userName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic ,strong) UILabel *integral;
+@property (nonatomic ,strong) UILabel *level;   //等级
 @property (nonatomic ,strong) UIButton *attentionBtn;
 @property (nonatomic ,strong) UILabel *publish;     //文章
 @property (nonatomic ,strong) UILabel *attention;   //关注
@@ -216,6 +217,12 @@
 //    _integral.textColor = RGBA(50, 50, 50, 1);
     [_integral addTitleColorTheme];
     
+    _level = [UILabel new];
+    _level.font = PFFontM(12);
+    _level.textAlignment = NSTextAlignmentCenter;
+    _level.textColor = WhiteColor;
+    _level.backgroundColor = HexColor(#1282EE);
+    
     _attentionBtn = [UIButton new];
     
     _publish = [self getLabel];
@@ -309,6 +316,7 @@
                                _userName,
                                _idView,
                                _integral,
+                               _level,
                                ]];
     
     _userName.sd_layout
@@ -336,6 +344,15 @@
     .heightIs(14)
     ;
     [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    
+    _level.sd_layout
+    .leftSpaceToView(_integral, 10)
+    .centerYEqualToView(_integral)
+    .widthIs(40)
+    .heightIs(18)
+    ;
+    [_level setSd_cornerRadius:@9];
+//    _level.text = @"Lv.15";
     
     [backView setupAutoWidthWithRightView:_userName rightMargin:10];
     
@@ -456,6 +473,8 @@
     NSString *pra = @"0";
     _userName.text = @"0";
     _integral.text = @"0积分";
+    _level.hidden = YES;
+    _level.text = @"";
     _idView.hidden = YES;
     if (self.user) {
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar)];
@@ -466,6 +485,8 @@
         fan = [NSString stringWithFormat:@"%lu",self.user.fansCount];
         pra = [NSString stringWithFormat:@"%lu",self.user.postCount];
         _idView.hidden = NO;
+        _level.hidden = NO;
+        _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
     }
     [self setIdViewWithIDs];
     

@@ -55,6 +55,7 @@
 @property (nonatomic,strong) NSString *email;   //邮箱
 @property (nonatomic,assign) long mobile;       //手机号
 @property (nonatomic,assign) BOOL hasSignIn;    //今日是否签到
+@property (nonatomic,assign) NSUInteger level;  //等级
 
 /**
  清除本地保存的用户信息

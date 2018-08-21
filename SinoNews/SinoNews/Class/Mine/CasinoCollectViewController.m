@@ -88,13 +88,19 @@
 -(void)addTableViews
 {
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    [self.view addSubview:_tableView];
-    self.tableView.sd_layout
-    .topEqualToView(self.view)
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-    ;
+    [self.view addSubview:self.tableView];
+//    self.tableView.sd_layout
+//    .topEqualToView(self.view)
+//    .leftEqualToView(self.view)
+//    .rightEqualToView(self.view)
+//    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+//    ;
+    [self.tableView activateConstraints:^{
+        self.tableView.top_attr = self.view.top_attr_safe;
+        self.tableView.left_attr = self.view.left_attr_safe;
+        self.tableView.right_attr = self.view.right_attr_safe;
+        self.tableView.bottom_attr = self.view.bottom_attr_safe;
+    }];
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -259,7 +265,9 @@
         self.haveSearch = NO;
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        [self endRefresh];
+    }];
 }
 
 //批量取消关注游戏公司

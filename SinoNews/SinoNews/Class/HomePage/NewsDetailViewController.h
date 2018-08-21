@@ -15,4 +15,6 @@
 
 @property (nonatomic,assign) HomePageModel *model;
 
+@property (nonatomic,assign) BOOL isVote;   //是否是投票
+
 @end

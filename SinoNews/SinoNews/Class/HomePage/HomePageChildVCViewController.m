@@ -503,7 +503,7 @@
 //                [self.tableView.mj_footer endRefreshingWithNoMoreData];
 //            }
 //        }
-        [self.tableView pullWithPage:self.page data:dataArr dataSource:self.dataSource];
+        self.dataSource = [self.tableView pullWithPage:self.page data:dataArr dataSource:self.dataSource];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {

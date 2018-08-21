@@ -13,6 +13,7 @@
 @property (nonatomic,strong) NormalNewsModel *newsModel;    //新闻模型
 @end
 
+CGFloat static titleViewHeight = 91;
 @implementation VoteViewController
 
 - (void)viewDidLoad {
@@ -33,7 +34,10 @@
 //设置网页
 -(void)setWebViewLoad
 {
-    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0]. appendChild(meta);";
+    NSString *jScript = @"var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
     
     WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     WKUserContentController *wkUController = [[WKUserContentController alloc] init];
@@ -53,9 +57,8 @@
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT - BOTTOM_MARGIN) configuration:config];
     [self.view addSubview:self.webView];
     self.webView.navigationDelegate = self;
-    [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
-//    self.webView.allowsBackForwardNavigationGestures = NO;
+    [self.webView addBakcgroundColorTheme];
     
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.voteUrl);
@@ -78,14 +81,6 @@
         //修改背景色
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
     }
-    
-    //防止缩放
-//    NSString *injectionJSString = @"var script = document.createElement('meta');"
-//    "script.name = 'viewport';"
-//    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
-//    "document.getElementsByTagName('head')[0].appendChild(script);";
-//    [webView evaluateJavaScript:injectionJSString completionHandler:nil];
-    
 }
 
 #pragma mark ----- 发送请求

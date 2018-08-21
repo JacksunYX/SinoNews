@@ -759,6 +759,9 @@ CGFloat static titleViewHeight = 91;
     
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    if (self.isVote) {
+        urlStr = AppendingString(DefaultDomainName, self.newsModel.voteUrl);
+    }
 
     GGLog(@"文章h5：%@",urlStr);
     NSURL *url = UrlWithStr(urlStr);
@@ -1253,8 +1256,6 @@ CGFloat static titleViewHeight = 91;
         imgV.sd_layout
         .centerXEqualToView(footView)
         .centerYEqualToView(footView)
-//        .topEqualToView(footView)
-//        .bottomEqualToView(footView)
         .widthIs(156)
         .heightIs(90)
         ;

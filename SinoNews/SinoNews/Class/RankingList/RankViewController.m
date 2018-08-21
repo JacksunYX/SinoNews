@@ -183,7 +183,7 @@
     [self.view addSubview:self.lineCollectionView];
 
     self.lineCollectionView.sd_layout
-    .topSpaceToView(self, 0)
+    .topSpaceToView(self.view, 0)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.adCollectionView, 0)
@@ -212,17 +212,17 @@
 - (void)createTable
 {
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableV.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [self.tableV addBakcgroundColorTheme];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
     self.tableV.showsVerticalScrollIndicator = NO;
     //设置cell的上下内边距
-    self.tableV.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tableV.contentInset = UIEdgeInsetsMake(BCellHeight - SCellHeight, 0, 0, 0);
     //取消cell边框
     self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableV];
     self.tableV.sd_layout
-    .topSpaceToView(self, 0)
+    .topSpaceToView(self.headView, 0)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.adCollectionView, 0)
@@ -362,6 +362,7 @@
     RankingModel *model = self.datasource[indexPath.row];
     
     [cell cellGetModel:model tag:indexPath.row];
+//    [cell cellGetImage:[NSString stringWithFormat:@"banner%u",arc4random()%4] tag:indexPath.row];
 
     return cell;
 }

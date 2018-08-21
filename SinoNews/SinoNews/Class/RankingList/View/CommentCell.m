@@ -12,6 +12,7 @@
 {
     UIImageView *avatar;
     UILabel *username;
+    UILabel *level;   //等级
     UILabel *comment;
     UILabel *createTime;
     UIButton *praise;   //点赞
@@ -60,6 +61,12 @@
     username.font = PFFontR(16);
     [username addTitleColorTheme];
     
+    level = [UILabel new];
+    level.font = PFFontM(12);
+    level.textAlignment = NSTextAlignmentCenter;
+    level.textColor = WhiteColor;
+    level.backgroundColor = HexColor(#1282EE);
+    
     comment = [UILabel new];
     comment.font = PFFontL(15);
     comment.numberOfLines = 0;
@@ -93,6 +100,7 @@
                                  avatar,
                                  praise,
                                  username,
+                                 level,
                                  comment,
                                  createTime,
                                  replyBtn,
@@ -125,8 +133,19 @@
     .centerYEqualToView(avatar)
     .leftSpaceToView(avatar, 4)
     .heightIs(14)
-    .rightSpaceToView(praise, 20)
+//    .rightSpaceToView(praise, 20)
     ;
+    [username setSingleLineAutoResizeWithMaxWidth:100];
+    
+    level.sd_layout
+    .leftSpaceToView(username, 10)
+    .centerYEqualToView(username)
+    .widthIs(40)
+    .heightIs(18)
+    ;
+    [level setSd_cornerRadius:@9];
+    level.text = @"Lv.15";
+    level.hidden = YES;
     
     comment.sd_layout
     .leftEqualToView(username)

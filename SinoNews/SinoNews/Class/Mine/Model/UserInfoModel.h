@@ -31,7 +31,8 @@
 @property(nonatomic,assign) NSInteger integral;     //用户积分
 
 @property(nonatomic,strong) NSArray *identifications;   //认证数组
-
+//新增等级
+@property(nonatomic,assign) NSUInteger level;
 
 
 

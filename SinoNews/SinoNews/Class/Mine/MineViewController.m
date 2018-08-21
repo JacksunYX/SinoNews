@@ -41,6 +41,7 @@
 @property (nonatomic ,strong) UILabel *userName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic ,strong) UILabel *integral;
+@property (nonatomic ,strong) UILabel *level;   //等级
 @property (nonatomic ,strong) UIButton *signIn;
 @property (nonatomic ,strong) UILabel *publish;     //文章
 @property (nonatomic ,strong) UILabel *attention;   //关注
@@ -81,7 +82,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     if (!_mainDatasource) {
         NSArray *title = @[
-                           @"娱乐城",
+//                           @"娱乐城",
                            @"消息",
                            @"收藏",
                            @"历史",
@@ -93,7 +94,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                            @"积分管理",
                            ];
         NSArray *img = @[
-                         @"mine_casino",
+//                         @"mine_casino",
                          @"mine_message",
                          @"mine_collect",
                          @"mine_history",
@@ -106,7 +107,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                          ];
         
         NSArray *rightTitle = @[
-                                @"",
+//                                @"",
                                 @"最新消息标题",
                                 @"收藏娱乐城快速进入",
                                 @"",
@@ -125,7 +126,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                                   @"img"        :   img[i],
                                   @"rightTitle" :   rightTitle[i],
                                   };
-            if (i < 6) {
+            if (i < 5) {
                 [section0 addObject:dic];
             }else{
                 [section1 addObject:dic];
@@ -300,6 +301,12 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     //    _integral.textColor = RGBA(50, 50, 50, 1);
     [_integral addTitleColorTheme];
     
+    _level = [UILabel new];
+    _level.font = PFFontM(12);
+    _level.textAlignment = NSTextAlignmentCenter;
+    _level.textColor = WhiteColor;
+    _level.backgroundColor = HexColor(#1282EE);
+    
     _signIn = [UIButton new];
     shakeImg = [UIImageView new];
     shakeImg.hidden = YES;
@@ -351,6 +358,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
                                _userName,
                                _idView,
                                _integral,
+                               _level,
                                ]];
     
     _userName.sd_layout
@@ -377,6 +385,16 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .heightIs(14)
     ;
     [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    
+    _level.sd_layout
+    .leftSpaceToView(_integral, 10)
+    .centerYEqualToView(_integral)
+    .widthIs(40)
+    .heightIs(18)
+    ;
+    [_level setSd_cornerRadius:@9];
+//    _level.text = @"Lv.15";
+    
     //添加点击弹出积分规则
     [_integral whenTap:^{
         @strongify(self);
@@ -518,6 +536,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     NSString *pra = @"0";
     _userName.text = @"登 录";
     _integral.text = @"";
+    _level.hidden = YES;
+    _level.text = @"";
     _signIn.hidden = NO;
     shakeImg.hidden = NO;
     _idView.hidden = YES;
@@ -533,6 +553,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //        _signIn.hidden = NO;
 //        shakeImg.hidden = NO;
         _idView.hidden = NO;
+        _level.hidden = NO;
+        _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
     }
     
     if (self.user.hasSignIn) {
@@ -744,7 +766,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         cell.accessoryType = 1;
     }
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
-    if (indexPath.section == 0 && indexPath.row == 1) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
         
         cell.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             UITableViewCell *cell1 = (UITableViewCell *)item;
@@ -762,7 +784,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     
     //    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
     if (!kStringIsEmpty(self.tipsmodel.messageTip)) {
-        if (indexPath.section == 0 && indexPath.row == 1) {
+        if (indexPath.section == 0 && indexPath.row == 0) {
             cell.detailTextLabel.text = GetSaveString(self.tipsmodel.messageTip);
         }
     }else{

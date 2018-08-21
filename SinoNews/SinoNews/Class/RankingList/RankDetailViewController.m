@@ -408,6 +408,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (section == 4&&self.commentsArr.count<=0){
+        return 120;
+    }
     return 10;
 }
 
@@ -486,6 +489,27 @@
     }
     
     return headView;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footView;
+    if (section == 4&&self.commentsArr.count<=0) {
+        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 120)];
+        footView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        
+        UIImageView *imgV = [UIImageView new];
+        [footView addSubview:imgV];
+        imgV.sd_layout
+        .centerXEqualToView(footView)
+        .centerYEqualToView(footView)
+        .widthIs(156)
+        .heightIs(90)
+        ;
+        imgV.lee_theme.LeeConfigImage(@"noCommentFoot");
+        
+    }
+    return footView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

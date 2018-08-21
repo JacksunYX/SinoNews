@@ -289,11 +289,11 @@
     ShowHudOnly;
     //先对质量压缩
     NSData *imgData = [uploadimage compressWithMaxLength:100 * 1024];
-    UIImage *img = [UIImage imageWithData:imgData];
+//    UIImage *img = [UIImage imageWithData:imgData];
     
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         
-        NSData *imageData = UIImageJPEGRepresentation(img,1);
+//        NSData *imageData = UIImageJPEGRepresentation(img,1);
 //        NSData *imageData = UIImagePNGRepresentation(uploadimage);
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -301,7 +301,7 @@
         NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
         
         //上传的参数(上传图片，以文件流的格式)
-        [formData appendPartWithFileData:imageData
+        [formData appendPartWithFileData:imgData
                                     name:@"file" //这里name是后台取数据对应的字段，所以不能乱写
                                 fileName:fileName
                                 mimeType:@"image/jpg/png/jpeg"];

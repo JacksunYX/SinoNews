@@ -134,8 +134,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 -(void)setADLoadView
 {
     [XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
-    //注意:请求广告数据前,必须设置此属性,否则会先进入window的的根控制器
-    [XHLaunchAd setWaitDataDuration:3];
+    //注意:请求广告数据前,必须设置此属性,否则会先进入window的根控制器
+    [XHLaunchAd setWaitDataDuration:2];
     
     [RequestGather requestBannerWithADId:3 success:^(id response) {
         NSArray *adArr = response;
@@ -157,9 +157,9 @@ void uncaughtExceptionHandler(NSException *exception) {
             //广告点击打开页面参数(openModel可为NSString,模型,字典等任意类型)
             imageAdconfiguration.openModel = model;
             //广告显示完成动画
-            imageAdconfiguration.showFinishAnimate =ShowFinishAnimateLite;
+            imageAdconfiguration.showFinishAnimate = ShowFinishAnimateLite;
             //广告显示完成动画时间
-            imageAdconfiguration.showFinishAnimateTime = 0.8;
+            imageAdconfiguration.showFinishAnimateTime = 0.5;
             //跳过按钮类型
             imageAdconfiguration.skipButtonType = SkipTypeTimeText;
             //后台返回时,是否显示广告
@@ -176,7 +176,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 -(void)xhLaunchAd:(XHLaunchAd *)launchAd clickAndOpenModel:(id)openModel clickPoint:(CGPoint)clickPoint
 {
-    NSLog(@"广告点击事件");
+    GGLog(@"广告点击事件");
     
     /** openModel即配置广告数据设置的点击广告时打开页面参数(configuration.openModel) */
     

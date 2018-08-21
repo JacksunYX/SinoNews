@@ -79,6 +79,9 @@
         }
     });
     
+    UIView *sepLine = [UIView new];
+    [sepLine addCutLineColor];
+    
     UIView *fatherView = self.contentView;
     
     [fatherView sd_addSubviews:@[
@@ -89,6 +92,7 @@
                                  ip,
                                  createTime,
                                  bottomBackView,
+                                 sepLine,
                                  ]];
     
     avatar.sd_layout
@@ -149,6 +153,13 @@
     .heightIs(50)
     ;
     
+    sepLine.sd_layout
+    .leftEqualToView(username)
+    .rightSpaceToView(fatherView, 10)
+    .topSpaceToView(bottomBackView, 10)
+    .heightIs(1)
+    ;
+    
     //下半部分
     articleImg = [UIImageView new];
 //    articleImg.backgroundColor = Arc4randomColor;
@@ -176,7 +187,7 @@
     ;
     [articleTitle setMaxNumberOfLinesToShow:2];
     
-    [self setupAutoHeightWithBottomView:bottomBackView bottomMargin:10];
+    [self setupAutoHeightWithBottomView:sepLine bottomMargin:0];
     
 }
 

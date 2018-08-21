@@ -14,6 +14,7 @@
 #import "NewsDetailViewController.h"
 #import "TopicViewController.h"
 #import "RankDetailViewController.h"
+#import "WebViewController.h"
 
 @interface UniversalMethod ()
 //标记
@@ -53,7 +54,20 @@
         case 6: //app下载地址
         case 7: //外链
         {
-            [[UIApplication sharedApplication] openURL:UrlWithStr(model.redirectUrl)];
+            //方法一：外链跳转
+            NSURL *url = UrlWithStr(model.redirectUrl);
+            if([[UIApplication sharedApplication] canOpenURL:url]) {
+                //此处可以做一下版本适配，至于为何要做版本适配，大家应该很清楚
+                [[UIApplication sharedApplication] openURL:url];
+            }
+            //方法二：内部网页跳转
+//            WebViewController *wVC = [WebViewController new];
+//            wVC.baseUrl = GetSaveString(model.redirectUrl);
+//            UIViewController *vc = [HttpRequest currentViewController];
+//
+//            [vc.navigationController pushViewController:wVC animated:YES];
+            
+            return;
         }
             break;
             

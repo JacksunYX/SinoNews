@@ -14,62 +14,21 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - BaiduMobStat (4.8.1)
   - BGFMDB (2.0.12):
     - BGFMDB/BG (= 2.0.12)
     - BGFMDB/FMDB (= 2.0.12)
   - BGFMDB/BG (2.0.12):
     - BGFMDB/FMDB
   - BGFMDB/FMDB (2.0.12)
-  - FBRetainCycleDetector (0.1.4)
   - FCUUID (1.3.1):
     - UICKeyChainStore (~> 2.1.0)
   - FLAnimatedImage (1.0.12)
   - GHConsole (1.3.0)
-  - IQKeyboardManager (6.1.1)
-  - JHChainableAnimations (3.0.1)
-  - KafkaRefresh (1.2.0):
-    - KafkaRefresh/Category (= 1.2.0)
-    - KafkaRefresh/Configuration (= 1.2.0)
-    - KafkaRefresh/Core (= 1.2.0)
-    - KafkaRefresh/Default (= 1.2.0)
-    - KafkaRefresh/Style (= 1.2.0)
-    - KafkaRefresh/UIKit (= 1.2.0)
-  - KafkaRefresh/Category (1.2.0)
-  - KafkaRefresh/Configuration (1.2.0):
-    - KafkaRefresh/UIKit/FootKit
-    - KafkaRefresh/UIKit/HeadKit
-  - KafkaRefresh/Core (1.2.0):
-    - KafkaRefresh/Category
-  - KafkaRefresh/Default (1.2.0):
-    - KafkaRefresh/Style
-  - KafkaRefresh/Style (1.2.0)
-  - KafkaRefresh/UIKit (1.2.0):
-    - KafkaRefresh/UIKit/FootKit (= 1.2.0)
-    - KafkaRefresh/UIKit/HeadKit (= 1.2.0)
-    - KafkaRefresh/UIKit/LayerKit (= 1.2.0)
-  - KafkaRefresh/UIKit/FootKit (1.2.0):
-    - KafkaRefresh/Category
-    - KafkaRefresh/Core
-    - KafkaRefresh/Default
-    - KafkaRefresh/Style
-    - KafkaRefresh/UIKit/LayerKit
-  - KafkaRefresh/UIKit/HeadKit (1.2.0):
-    - KafkaRefresh/Category
-    - KafkaRefresh/Core
-    - KafkaRefresh/Default
-    - KafkaRefresh/Style
-    - KafkaRefresh/UIKit/LayerKit
-  - KafkaRefresh/UIKit/LayerKit (1.2.0):
-    - KafkaRefresh/Category
-    - KafkaRefresh/Default
   - LEETheme (1.1.7)
   - MBProgressHUD (1.1.0)
   - MGSocialShareKit (1.1.0)
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.3)
-  - MLeaksFinder (1.0.0):
-    - FBRetainCycleDetector
   - NSLayoutConstraint-SSLayout (1.2)
   - ReactiveObjC (3.1.0)
   - RTRootNavigationController (0.6.7):
@@ -88,19 +47,14 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - BaiduMobStat
   - BGFMDB
   - FCUUID
   - GHConsole
-  - IQKeyboardManager
-  - JHChainableAnimations (~> 3.0.1)
-  - KafkaRefresh
   - LEETheme
   - MBProgressHUD
   - MGSocialShareKit (~> 1.0)
   - MJExtension
   - MJRefresh
-  - MLeaksFinder
   - NSLayoutConstraint-SSLayout
   - ReactiveObjC
   - RTRootNavigationController
@@ -114,21 +68,15 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
-    - BaiduMobStat
     - BGFMDB
-    - FBRetainCycleDetector
     - FCUUID
     - FLAnimatedImage
     - GHConsole
-    - IQKeyboardManager
-    - JHChainableAnimations
-    - KafkaRefresh
     - LEETheme
     - MBProgressHUD
     - MGSocialShareKit
     - MJExtension
     - MJRefresh
-    - MLeaksFinder
     - NSLayoutConstraint-SSLayout
     - ReactiveObjC
     - RTRootNavigationController
@@ -142,21 +90,15 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  BaiduMobStat: 4104ba9d7ce7308dbed3c78fe6131eea1ec232c5
   BGFMDB: cd5e468218d4c7345862d814d313c0888db3a66a
-  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   GHConsole: 8fa768c1b30139e7baa192508ead18fd71f4b7db
-  IQKeyboardManager: 79c57795f5c2408d259d37b9da2ed07efcbb5225
-  JHChainableAnimations: 0237489ed063f0ec5b351f5c7bb26c1891517074
-  KafkaRefresh: 20d69e508dfe6b6ffcabe4c3273d7f33bd34ff03
   LEETheme: e5dc623fe58ee9f2b973e9a7445267e3e972deb4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MGSocialShareKit: abffd0f9c513a63c07ed96af07a0cc9abcf43366
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   NSLayoutConstraint-SSLayout: 8cb9f316489c2af50ae4767073093754b3e290c9
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
@@ -168,6 +110,6 @@ SPEC CHECKSUMS:
   XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 1e7db520fac7932deaa31c8ba108dd5360224d01
+PODFILE CHECKSUM: c0334f7f967b65eddc241207d252b7baee8b6fc0
 
 COCOAPODS: 1.5.3

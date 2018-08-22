@@ -51,7 +51,6 @@
 
 
 //部分第三方库
-#import <IQKeyboardManager.h>
 
 #import <ZYKeyboardUtil.h>
 
@@ -76,7 +75,7 @@
 #import <UIDevice+FCUUID.h>
 #import <FCUUID.h>
 
-#import <BaiduMobStat.h>
+
 
 #import <BGFMDB.h>
 
@@ -90,8 +89,12 @@
 //导航栏左右按钮间隙调整
 #import <UINavigationConfig.h>
 
-#import <KafkaRefresh.h>
-//动画库
-#import <JHChainableAnimations/JHChainableAnimations.h>
+//#import <BaiduMobStat.h>
+//
+//#import <IQKeyboardManager.h>
+//
+//#import <KafkaRefresh.h>
+////动画库
+//#import <JHChainableAnimations/JHChainableAnimations.h>
 
 #endif /* BaseConfiguration_pch */

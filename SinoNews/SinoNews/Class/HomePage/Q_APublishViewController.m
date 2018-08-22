@@ -37,7 +37,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [IQKeyboardManager sharedManager].enable = NO;
+//    [IQKeyboardManager sharedManager].enable = NO;
     //这里给个延时，不然无法正常显示编辑框
     GCDAfterTime(0.5, ^{
         [self.wordViewController.textView becomeFirstResponder];
@@ -47,7 +47,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [IQKeyboardManager sharedManager].enable = YES;
+//    [IQKeyboardManager sharedManager].enable = YES;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -18,29 +18,29 @@ target 'SinoNews' do
   end
 
 pod 'NSLayoutConstraint-SSLayout'
-
 pod 'AFNetworking'
 pod 'MBProgressHUD'
 pod 'Toast'
 pod 'MJExtension'
 pod 'MJRefresh'
-pod 'KafkaRefresh'
 pod 'SDAutoLayout', '~> 2.1.3'
 pod 'SDWebImage'
-pod 'IQKeyboardManager'
 pod 'ZYKeyboardUtil'
 pod 'GHConsole'
 pod 'FCUUID'
-pod 'BaiduMobStat'
 pod 'MGSocialShareKit', '~> 1.0'
 pod 'BGFMDB'
 pod 'ReactiveObjC'
-pod 'MLeaksFinder'
 pod 'RTRootNavigationController'
 pod 'LEETheme'
 pod 'XHLaunchAd'
 pod 'UINavigation-SXFixSpace'
-pod 'JHChainableAnimations', '~> 3.0.1'
+
+#pod 'KafkaRefresh'
+#pod 'MLeaksFinder'
+#pod 'BaiduMobStat'
+#pod 'IQKeyboardManager'
+#pod 'JHChainableAnimations', '~> 3.0.1'
 
 
 end

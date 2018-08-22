@@ -284,6 +284,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     _userImg = [UIImageView new];
     
     UIView *backView = [UIView new];
+    backView.userInteractionEnabled = YES;
     backView.backgroundColor = ClearColor;
     
     _userName = [UILabel new];
@@ -406,7 +407,11 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         [self popIntegralRule];
     }];
     
-    [backView setupAutoWidthWithRightView:_userName rightMargin:10];
+    if (self.user.identifications.count>0){
+        [backView setupAutoWidthWithRightView:_idView rightMargin:10];
+    }else{
+        [backView setupAutoWidthWithRightView:_level rightMargin:10];
+    }
     
     _signIn.sd_layout
     .rightEqualToView(headView)

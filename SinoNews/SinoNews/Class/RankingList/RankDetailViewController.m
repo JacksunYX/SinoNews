@@ -877,15 +877,19 @@
     if ([btnTitle isEqualToString:@"官网"]) {
         [self openUrlWithString:GetSaveString(self.companyModel.website)];
     }else if ([btnTitle isEqualToString:@"发评论"]){
-        [QACommentInputView showAndSendHandle:^(NSString *inputText) {
-            if (![NSString isEmpty:inputText]) {
-                [self requestCommentWithComment:inputText];
-            }else{
-                LRToast(@"请输入有效的内容");
-            }
-        }];
+        if ([YXHeader checkLogin]) {
+            [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+                if (![NSString isEmpty:inputText]) {
+                    [self requestCommentWithComment:inputText];
+                }else{
+                    LRToast(@"请输入有效的内容");
+                }
+            }];
+        }
     }else{
-        [self requestConcernCompany];
+        if ([YXHeader checkLogin]) {
+            [self requestConcernCompany];
+        }
     }
 }
 

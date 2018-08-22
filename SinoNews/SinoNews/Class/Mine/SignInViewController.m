@@ -613,8 +613,10 @@
         taskAward.textColor = HexColor(#F25747);
         taskAward.layer.borderColor = HexColor(#F25747).CGColor;
         [taskAward whenTap:^{
+            
             MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
             [keyVC setSelectedIndex:0];
+            [self.navigationController popViewControllerAnimated:YES];
         }];
     }
 //    taskAward.text = [NSString stringWithFormat:@"+%ld积分",taskModel.taskPoints];

@@ -32,7 +32,8 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
 @property (nonatomic,strong) NormalNewsModel *newsModel;    //新闻模型
-@property (nonatomic,strong) WKWebView *webView;
+@property (nonatomic,strong) WKWebView *webView;        //文章内容
+@property (nonatomic,strong) WKWebView *voteWebView;    //投票内容
 @property (nonatomic,assign) NSInteger currPage;            //页面(起始为1)
 @property (nonatomic,assign) CGFloat topWebHeight;
 
@@ -760,7 +761,7 @@ CGFloat static titleViewHeight = 91;
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
     if (self.isVote) {
-        urlStr = AppendingString(DefaultDomainName, self.newsModel.voteUrl);
+        urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
     }
 
     GGLog(@"文章h5：%@",urlStr);
@@ -871,6 +872,23 @@ CGFloat static titleViewHeight = 91;
             [self->allUrlArray removeLastObject];// 此时数组为每一个图片的url
         }
     }];
+    
+    //插入一段文本
+//    if (self.isVote) {
+//        static  NSString * const insertContent =
+//        @"function insertContent(html){\
+//        var ele = document.getElementsByTagName('body');\
+//        html += ele.innerHTML;\
+//        ele.innerHTML = html;\
+//        };";
+//        //注入js方法
+//        [webView evaluateJavaScript:insertContent completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+//
+//        }];
+//        [webView evaluateJavaScript:[NSString stringWithFormat:@"insertContent(\"%@\")",self.newsModel.fullContent] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+//            GGLog(@"注入了");
+//        }];
+//    }
     
 }
 

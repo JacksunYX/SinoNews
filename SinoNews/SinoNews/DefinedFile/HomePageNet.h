@@ -77,7 +77,8 @@
 #define AnswerComment           @"/api/answerComment"
 
 #pragma mark ---- 投票相关接口
-
+//专用于获取ios端完整文章内容的接口，现在只用来获取投票
+#define News_iosContent         @"/api/news/iosContent"
 
 
 //支付一篇付费文章(post)

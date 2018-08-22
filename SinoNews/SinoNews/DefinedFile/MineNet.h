@@ -94,7 +94,7 @@
 //积分规则
 #define News_pointsRule     @"/api/news/pointsRule"
 //等级规则
-#define News_levelRule      @""
+#define News_levelRule      @"/api/news/levelRule"
 
 //查看未读私信数量(get)
 #define GetCountOfUnreadMessage @"/api/message/getCountOfUnreadMessage"

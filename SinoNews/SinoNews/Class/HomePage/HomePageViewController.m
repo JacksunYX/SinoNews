@@ -490,7 +490,7 @@
     [RequestGather requestBannerWithADId:4 success:^(id response) {
         NSArray *popArr = response;
         if (popArr.count>0) {
-            [ADPopView showWithData:[popArr lastObject]];
+            [ADPopView showWithData:[popArr firstObject]];
         }
     } failure:nil];
 }

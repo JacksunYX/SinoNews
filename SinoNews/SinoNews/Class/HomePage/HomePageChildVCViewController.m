@@ -424,20 +424,21 @@
                         [self.dataSource removeObject:model];
                     }
                 }
-            }else if(self.dataSource.count==0&&dataArr.count==0){
+            }else if(self.dataSource.count==0&&dataArr.count<10){
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
             [self.tableView.mj_header endRefreshing];
-//            [self.tableView.headRefreshControl endRefreshing];
         }else{
             if (dataArr.count) {
                 [self.dataSource addObjectsFromArray:dataArr];
-                [self.tableView.mj_footer endRefreshing];
-//                [self.tableView.footRefreshControl endRefreshing];
+                if (dataArr.count<10) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [self.tableView.mj_footer endRefreshing];
+                }
             }else{
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//                [self.tableView.footRefreshControl endRefreshingAndNoLongerRefreshingWithAlertText:@"没有更多了"];
             }
         }
         
@@ -447,9 +448,6 @@
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
-        
-//        [self.tableView.headRefreshControl endRefreshing];
-//        [self.tableView.footRefreshControl endRefreshing];
         
         [self.tableView ly_endLoading];
     }];

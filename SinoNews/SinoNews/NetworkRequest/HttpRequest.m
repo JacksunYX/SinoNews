@@ -8,6 +8,7 @@
 
 #import "HttpRequest.h"
 #import "AddressViewController.h"
+static float afterTime = 0.5;
 
 @implementation HttpRequest
 //获取通用的请求manager
@@ -147,8 +148,11 @@
             }else{
                 if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
                     LRToast(resultdic[@"alertMsg"]);
+                }else{
+                    kWindow.userInteractionEnabled = NO;
                 }
-                GCDAfterTime(0.5, ^{
+                GCDAfterTime(afterTime, ^{
+                    kWindow.userInteractionEnabled = YES;
                     //未登陆
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面
@@ -233,9 +237,12 @@
             }else{
                 if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
                     LRToast(resultdic[@"alertMsg"]);
+                }else{
+                    kWindow.userInteractionEnabled = NO;
                 }
                 
-                GCDAfterTime(0.5, ^{
+                GCDAfterTime(afterTime, ^{
+                    kWindow.userInteractionEnabled = YES;
                     //未登陆
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面
@@ -322,7 +329,7 @@
                 success(resultdic);
             }else{
                 LRToast(resultdic[@"alertMsg"]);
-                GCDAfterTime(0.5, ^{
+                GCDAfterTime(afterTime, ^{
                     //未登陆
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面

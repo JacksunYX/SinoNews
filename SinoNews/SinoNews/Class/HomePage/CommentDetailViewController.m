@@ -125,10 +125,13 @@
         ;
         [self.commentInput updateLayout];
         self.commentInput.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            UITextField *input = (UITextField *)item;
             if (UserGetBool(@"NightMode")) {
-                [(UITextField *)item setBackgroundColor:HexColor(#292D30)];
+                input.textColor = HexColor(#cfd3d6);
+                [input setBackgroundColor:HexColor(#292D30)];
             }else{
-                [(UITextField *)item setBackgroundColor:RGBA(244, 244, 244, 1)];
+                input.textColor = HexColor(#1a1a1a);
+                [input setBackgroundColor:RGBA(244, 244, 244, 1)];
             }
         });
 //        self.commentInput.backgroundColor = RGBA(219, 219, 219, 1);

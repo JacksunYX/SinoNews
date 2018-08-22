@@ -383,10 +383,16 @@
         [btn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateSelected];
         
         btn.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+            UIButton *currentBtn = (UIButton *)item;
             if (UserGetBool(@"NightMode")) {
-                [(UIButton *)item setNormalTitleColor:value];
+                [currentBtn setNormalTitleColor:value];
+                currentBtn.layer.borderColor = [value CGColor];
             }else{
-                [(UIButton *)item setNormalTitleColor:RGBA(50, 50, 50, 1)];
+                [currentBtn setNormalTitleColor:RGBA(50, 50, 50, 1)];
+                currentBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+            }
+            if (currentBtn.selected == YES) {
+                currentBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
             }
         });
         
@@ -472,7 +478,11 @@
             self->moneyInput.text = moneyBtn.titleLabel.text;
         }else{
             moneyBtn.selected = NO;
-            moneyBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+            if (UserGetBool(@"NightMode")) {
+                moneyBtn.layer.borderColor = HexColor(#cfd3d6).CGColor;
+            }else{
+                moneyBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
+            }   
         }
     }];
 }

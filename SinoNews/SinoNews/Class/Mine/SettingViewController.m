@@ -266,6 +266,12 @@
 //            [keyWindow makeKeyAndVisible];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }];
+    }else if (CompareString(title, @"当前版本")){
+        [VersionCheckHelper requestToCheckVersion:^(id response) {
+            if (CompareString(response, @"1")) {
+                LRToast(@"已经是最新版本啰");
+            }
+        } popUpdateView:YES];
     }
     
 }

@@ -200,6 +200,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    //如果是强制需要更新的话，这里每次进入app也是要检测的
+    [VersionCheckHelper requestToCheckVersion:nil popUpdateView:NO];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

@@ -84,7 +84,8 @@
 //支付一篇付费文章(post)
 #define PayForNews              @"/api/news/payForNews"
 
-
+//获取当前app最新版本以做更新检测(get)
+#define CurrentVersion          @"/api/currentVersion"
 
 
 

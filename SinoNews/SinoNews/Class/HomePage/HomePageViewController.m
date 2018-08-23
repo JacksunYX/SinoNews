@@ -97,7 +97,13 @@
         [PopNoticeView showWithData:@[@"homePage_0",@"homePage_1",@"homePage_2"]];
         UserSetBool(YES, HomePageNotice);
     }else{
-        [self requestADPop];
+        [VersionCheckHelper requestToCheckVersion:^(id response) {
+            if (CompareString(response, @"1")) {
+                //说明不需要提示更新
+                [self requestADPop];
+            }
+        } popUpdateView:NO];
+
     }
 }
 

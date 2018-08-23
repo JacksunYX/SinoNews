@@ -19,5 +19,7 @@
 
 #import "QACommentInputView.h"
 #import "PopNoticeView.h"
+#import "VersionCheckHelper.h"
+
 
 #endif /* PageHeader_h */

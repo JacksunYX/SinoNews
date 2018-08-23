@@ -563,7 +563,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //        _signIn.hidden = NO;
 //        shakeImg.hidden = NO;
         _idView.hidden = NO;
-        _level.hidden = NO;
+        _level.hidden = self.user.level?NO:YES;
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
     }
     

@@ -485,7 +485,7 @@
         fan = [NSString stringWithFormat:@"%lu",self.user.fansCount];
         pra = [NSString stringWithFormat:@"%lu",self.user.postCount];
         _idView.hidden = NO;
-        _level.hidden = NO;
+        _level.hidden = self.user.level?NO:YES;
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
     }
     [self setIdViewWithIDs];

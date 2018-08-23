@@ -634,8 +634,8 @@ CGFloat static titleViewHeight = 91;
             }
             [self requestComments];
         }];
-        [_tableView.mj_footer beginRefreshing];
-//        [self refreshComments];
+        
+        [self refreshComments];
     }
 }
 
@@ -772,6 +772,19 @@ CGFloat static titleViewHeight = 91;
     [self showOrHideLoadView:YES page:2];
 }
 
+//购买弹框提示
+-(void)popBuyNotice
+{
+    UIAlertController *payPopVc = [UIAlertController alertControllerWithTitle:@"确认购买这篇付费文章?" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self requestPayForNews];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [payPopVc addAction:confirm];
+    [payPopVc addAction:cancel];
+    [self presentViewController:payPopVc animated:YES completion:nil];
+}
+
 //让输入框无法进入编辑
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
@@ -785,7 +798,6 @@ CGFloat static titleViewHeight = 91;
     
     return NO;
 }
-
 
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
@@ -1209,7 +1221,7 @@ CGFloat static titleViewHeight = 91;
             .autoHeightRatio(0)
             ;
             [noticeLabel setMaxNumberOfLinesToShow:4];
-            noticeLabel.text = @"余下内容为付费内容，价格为199.00积分";
+//            noticeLabel.text = @"余下内容为付费内容，价格为199.00积分";
             
             moreNotice.sd_layout
 //            .bottomSpaceToView(headView, 50)
@@ -1235,7 +1247,9 @@ CGFloat static titleViewHeight = 91;
             @weakify(self);
             [lockImg whenTap:^{
                 @strongify(self)
-                [self requestPayForNews];
+                if ([YXHeader checkLogin]) {
+                    [self popBuyNotice];
+                }
             }];
             
         }else if(self.newsModel){

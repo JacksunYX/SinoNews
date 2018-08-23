@@ -165,7 +165,9 @@
     @weakify(self)
     [[exchangeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)
-        [self requestBuyProduct];
+        if ([YXHeader checkLogin]) {
+            [self popBuyNotice];
+        }
     }];
     
     UILabel *discountLabel = [UILabel new];
@@ -337,6 +339,19 @@
     [leftView addSubview:colorview];
     textfield.leftView = leftView;
     return textfield;
+}
+
+//购买弹框提示
+-(void)popBuyNotice
+{
+    UIAlertController *payPopVc = [UIAlertController alertControllerWithTitle:@"确认购买这篇付费文章?" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self requestBuyProduct];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [payPopVc addAction:confirm];
+    [payPopVc addAction:cancel];
+    [self presentViewController:payPopVc animated:YES completion:nil];
 }
 
 //设置网页

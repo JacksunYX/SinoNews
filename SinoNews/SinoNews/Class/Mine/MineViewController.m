@@ -386,6 +386,15 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     .heightIs(14)
     ;
     [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    //添加点击弹出积分规则
+    [_integral whenTap:^{
+        @strongify(self);
+        //        [self popIntegralRule];
+        WebViewController *wVC = [WebViewController new];
+        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_pointsRule)];;
+        [self.navigationController pushViewController:wVC animated:YES];
+    }];
+    
     
     _level.sd_layout
     .leftSpaceToView(_integral, 10)
@@ -398,14 +407,12 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //    _level.text = @"Lv.15";
     [_level whenTap:^{
         @strongify(self);
-        [self popLevelRule];
+//        [self popLevelRule];
+        WebViewController *wVC = [WebViewController new];
+        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_levelRule)];;
+        [self.navigationController pushViewController:wVC animated:YES];
     }];
-    
-    //添加点击弹出积分规则
-    [_integral whenTap:^{
-        @strongify(self);
-        [self popIntegralRule];
-    }];
+
     
     if (self.user.identifications.count>0){
         [backView setupAutoWidthWithRightView:_idView rightMargin:10];

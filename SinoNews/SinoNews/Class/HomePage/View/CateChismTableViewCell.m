@@ -11,6 +11,7 @@
 {
     UIImageView *avatar;
     UILabel *username;
+    UILabel *level;   //等级
     UIButton *praise;   //点赞
     UILabel *content;   //内容
     UIImageView *imgL;
@@ -53,6 +54,12 @@
     username.font = PFFontR(12);
     [username addTitleColorTheme];
     
+    level = [UILabel new];
+    level.font = PFFontM(12);
+    level.textAlignment = NSTextAlignmentCenter;
+    level.textColor = WhiteColor;
+    level.backgroundColor = HexColor(#f3c00f);
+    
     praise = [UIButton new];
     [praise setNormalTitleColor:HexColor(#1282EE)];
     praise.titleLabel.font = PFFontL(12);
@@ -75,6 +82,7 @@
     [self.contentView sd_addSubviews:@[
                                        avatar,
                                        username,
+                                       level,
                                        content,
                                        praise,
                                        
@@ -97,6 +105,15 @@
     .heightIs(12)
     ;
     [username setSingleLineAutoResizeWithMaxWidth:80];
+    
+    level.sd_layout
+    .leftSpaceToView(username, 10)
+    .centerYEqualToView(username)
+    .widthIs(40)
+    .heightIs(18)
+    ;
+    [level setSd_cornerRadius:@9];
+    level.hidden = YES;
     
     praise.sd_layout
     .rightSpaceToView(self.contentView, 20)
@@ -128,6 +145,8 @@
     
     [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(model.avatar))];
     username.text = GetSaveString(model.username);
+    level.hidden = model.level?NO:YES;
+    level.text = [NSString stringWithFormat:@"Lv.%lu",model.level];
     content.text = GetSaveString(model.html);
     
     praise.selected = model.hasPraise;

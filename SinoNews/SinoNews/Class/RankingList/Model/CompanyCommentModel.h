@@ -13,6 +13,7 @@
 @property (nonatomic,strong) NSString *userId;      //用户id
 @property (nonatomic,strong) NSString *newsId;      //所属新闻的id
 @property (nonatomic,strong) NSString *username;    //用户昵称
+@property (nonatomic,assign) NSUInteger level;      //用户等级
 @property (nonatomic,strong) NSString *avatar;      //用户头像
 @property (nonatomic,strong) NSString *comment;     //评论内容
 @property (nonatomic,strong) NSString *commentId;   //评论id

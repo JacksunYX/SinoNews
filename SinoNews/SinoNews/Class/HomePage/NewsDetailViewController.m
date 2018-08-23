@@ -26,6 +26,9 @@
 {
     NSMutableArray *allUrlArray;
     UIScrollView *bgView;
+    
+    CGFloat currentScrollY; //记录当前滚动的y轴偏移量
+    BOOL isLoadWeb; //是否已经加载过网页了
 }
 
 @property (nonatomic,strong) UITextField *commentInput;
@@ -100,7 +103,7 @@ CGFloat static titleViewHeight = 91;
         [_topAttBtn setNormalTitleColor:WhiteColor];
         _topAttBtn.backgroundColor = HexColor(#1282EE);
 //        [_topAttBtn setNormalTitle:@"+"];
-        _topAttBtn.layer.cornerRadius = 5;
+        _topAttBtn.layer.cornerRadius = 10;
         _topAttBtn.titleEdgeInsets = UIEdgeInsetsMake(-5, 0, 0, 0);
         [_topAttBtn addTarget:self action:@selector(requestIsAttention) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -172,15 +175,15 @@ CGFloat static titleViewHeight = 91;
         _avatar = [UIImageView new];
         
         _authorName = [UILabel new];
-        _authorName.font = PFFontR(11);
-        _authorName.textColor = RGBA(152, 152, 152, 1);
+        _authorName.font = PFFontR(12);
+        _authorName.textColor = HexColor(#889199);
         
         _idView = [UIView new];
         _idView.backgroundColor = ClearColor;
         
         _creatTime = [UILabel new];
-        _creatTime.font = PFFontR(11);
-        _creatTime.textColor = RGBA(152, 152, 152, 1);
+        _creatTime.font = PFFontR(12);
+        _creatTime.textColor = HexColor(#889199);
         
         @weakify(self);
         _attentionBtn = [UIButton new];
@@ -273,7 +276,7 @@ CGFloat static titleViewHeight = 91;
         .heightIs(20)
         ;
         
-        [_attentionBtn setSd_cornerRadius:@8];
+        [_attentionBtn setSd_cornerRadius:@10];
         
         [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:10];
     }
@@ -300,6 +303,8 @@ CGFloat static titleViewHeight = 91;
     titleViewHeight = self.titleView.height;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
 //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
+    //向下滚动一个像素点防止titleview不显示
+//    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - 1) animated:YES];
 }
 
 -(void)setNaviTitle
@@ -811,8 +816,13 @@ CGFloat static titleViewHeight = 91;
     
     [self setNaviTitle];
     
-    //向上滚动一个像素点防止titleview不显示
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 1) animated:YES];
+    CGFloat y = -titleViewHeight;
+    if (isLoadWeb) {
+        y = currentScrollY;
+    }
+    //滚到标题偏移坐标
+    _tableView.contentOffset = CGPointMake(0, y);
+    isLoadWeb = YES;
     
     [self showOrHideLoadView:NO page:2];
     
@@ -1376,6 +1386,7 @@ CGFloat static titleViewHeight = 91;
 //    GGLog(@"y:%lf",scrollView.contentOffset.y);
     
     CGFloat offsetY = scrollView.contentOffset.y;
+    currentScrollY = offsetY;
     
     if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
         //计算透明度比例

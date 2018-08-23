@@ -566,8 +566,7 @@
         taskIcon.image = UIImageNamed(@"signIn_share");
     }else if ([taskModel.taskIcon containsString:@"publish-news"])
     {
-//        taskIcon.image = UIImageNamed(@"signIn_ask");
-        taskIcon.image = UIImageNamed(@"signIn_comment");
+        taskIcon.image = UIImageNamed(@"signIn_article");
     }else if ([taskModel.taskIcon containsString:@"publish-comment"])
     {
         taskIcon.image = UIImageNamed(@"signIn_comment");

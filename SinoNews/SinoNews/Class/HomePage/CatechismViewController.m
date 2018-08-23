@@ -21,6 +21,9 @@
 {
     NSMutableArray *allUrlArray;
     UIScrollView *bgView;
+    
+    CGFloat currentScrollY; //记录当前滚动的y轴偏移量
+    BOOL isLoadWeb; //是否已经加载过网页了
 }
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *answersArr;    //回答数组
@@ -69,7 +72,7 @@ CGFloat static titleViewHeight = 91;
         [_topAttBtn setNormalTitleColor:WhiteColor];
         _topAttBtn.backgroundColor = HexColor(#1282EE);
         //        [_topAttBtn setNormalTitle:@"+"];
-        _topAttBtn.layer.cornerRadius = 5;
+        _topAttBtn.layer.cornerRadius = 10;
         _topAttBtn.titleEdgeInsets = UIEdgeInsetsMake(-5, 0, 0, 0);
         [_topAttBtn addTarget:self action:@selector(requestIsAttention) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -172,15 +175,15 @@ CGFloat static titleViewHeight = 91;
         _avatar = [UIImageView new];
         
         _authorName = [UILabel new];
-        _authorName.font = PFFontR(11);
-        _authorName.textColor = RGBA(152, 152, 152, 1);
+        _authorName.font = PFFontR(12);
+        _authorName.textColor = HexColor(#889199);
         
         _idView = [UIView new];
         _idView.backgroundColor = ClearColor;
         
         _creatTime = [UILabel new];
-        _creatTime.font = PFFontR(11);
-        _creatTime.textColor = RGBA(152, 152, 152, 1);
+        _creatTime.font = PFFontR(12);
+        _creatTime.textColor = HexColor(#889199);
         
         @weakify(self);
         _attentionBtn = [UIButton new];
@@ -271,7 +274,7 @@ CGFloat static titleViewHeight = 91;
         .heightIs(20)
         ;
         
-        [_attentionBtn setSd_cornerRadius:@8];
+        [_attentionBtn setSd_cornerRadius:@10];
         
         [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:10];
     }
@@ -731,7 +734,15 @@ CGFloat static titleViewHeight = 91;
     
     [self setNaviTitle];
     
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + 1) animated:YES];
+    CGFloat y = -titleViewHeight;
+    if (isLoadWeb) {
+        y = currentScrollY;
+    }
+    //滚到标题偏移坐标
+    _tableView.contentOffset = CGPointMake(0, y);
+    isLoadWeb = YES;
+    
+    [self showOrHideLoadView:NO page:2];
     
     [self showOrHideLoadView:NO page:2];
     

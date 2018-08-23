@@ -65,7 +65,7 @@
     level.font = PFFontM(12);
     level.textAlignment = NSTextAlignmentCenter;
     level.textColor = WhiteColor;
-    level.backgroundColor = HexColor(#1282EE);
+    level.backgroundColor = HexColor(#f3c00f);
     
     comment = [UILabel new];
     comment.font = PFFontL(15);
@@ -144,7 +144,6 @@
     .heightIs(18)
     ;
     [level setSd_cornerRadius:@9];
-    level.text = @"Lv.15";
     level.hidden = YES;
     
     comment.sd_layout
@@ -280,6 +279,9 @@
     }];
     
     username.text = GetSaveString(model.username);
+    
+    level.hidden = model.level?NO:YES;
+    level.text = [NSString stringWithFormat:@"Lv.%lu",model.level];
     
     comment.text = GetSaveString(model.comment);
     

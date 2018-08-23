@@ -15,6 +15,7 @@
 @property (nonatomic,assign) NSInteger userId;
 
 @property (nonatomic,strong) NSString *username;
+@property (nonatomic,assign) NSUInteger level;      //用户等级
 @property (nonatomic,strong) NSString *avatar;
 @property (nonatomic,strong) NSString *html;        //回答纯文本
 @property (nonatomic,strong) NSArray *images;       //图片集

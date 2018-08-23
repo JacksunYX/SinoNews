@@ -344,7 +344,7 @@
 //购买弹框提示
 -(void)popBuyNotice
 {
-    UIAlertController *payPopVc = [UIAlertController alertControllerWithTitle:@"确认购买这篇付费文章?" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *payPopVc = [UIAlertController alertControllerWithTitle:@"确认购买这件商品?" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self requestBuyProduct];
     }];

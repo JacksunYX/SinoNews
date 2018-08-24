@@ -136,7 +136,7 @@
             
             isAttention.layer.borderColor = CutLineColorNight.CGColor;
         }else{
-            isAttention.layer.borderColor = HexColor(#E3E3E3).CGColor;
+            isAttention.layer.borderColor = CutLineColor.CGColor;
         }
     }else{
         isAttention.layer.borderColor = HexColor(#1282EE).CGColor;

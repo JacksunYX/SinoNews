@@ -48,7 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self showTopLine];
     [self setWebViewLoad];
 }
 
@@ -68,6 +68,7 @@
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     ;
     //加载页面
+    GGLog(@"网页地址:%@",self.baseUrl);
     NSURL *url = UrlWithStr(self.baseUrl);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];

@@ -491,7 +491,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
-    if (section == 0&& self.taskArr.count > 0) {
+    if (section == 0&& self.taskModel.subTaskList.count > 0) {
         
         footView = [UIView new];
         footView.backgroundColor = WhiteColor;

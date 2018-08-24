@@ -426,7 +426,11 @@
     
     if (model1.isAttention) {
         isAttention1.selected = YES;
-        isAttention1.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        if (UserGetBool(@"NightMode")) {
+            isAttention1.layer.borderColor = CutLineColorNight.CGColor;
+        }else{
+            isAttention1.layer.borderColor = CutLineColor.CGColor;
+        }
     }else{
         isAttention1.selected = NO;
         isAttention1.layer.borderColor = HexColor(#1282EE).CGColor;
@@ -438,7 +442,11 @@
     
     if (model2.isAttention) {
         isAttention2.selected = YES;
-        isAttention2.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        if (UserGetBool(@"NightMode")) {
+            isAttention2.layer.borderColor = CutLineColorNight.CGColor;
+        }else{
+            isAttention2.layer.borderColor = CutLineColor.CGColor;
+        }
     }else{
         isAttention2.selected = NO;
         isAttention2.layer.borderColor = HexColor(#1282EE).CGColor;
@@ -450,7 +458,11 @@
     
     if (model3.isAttention) {
         isAttention3.selected = YES;
-        isAttention3.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        if (UserGetBool(@"NightMode")) {
+            isAttention3.layer.borderColor = CutLineColorNight.CGColor;
+        }else{
+            isAttention3.layer.borderColor = CutLineColor.CGColor;
+        }
     }else{
         isAttention3.selected = NO;
         isAttention3.layer.borderColor = HexColor(#1282EE).CGColor;

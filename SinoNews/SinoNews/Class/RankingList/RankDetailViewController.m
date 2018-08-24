@@ -71,11 +71,11 @@
                              };
     NSDictionary *dic0_1 = @{
                              @"icon"          :   @"game_discount",
-                             @"title"         :   GetSaveString(self.companyModel.promos),
+                             @"title"         :   AppendingString(@"优惠：", GetSaveString(self.companyModel.promos)),
                              };
     NSDictionary *dic0_2 = @{
                              @"icon"          :   @"game_setup",
-                             @"title"         :   [@"成立：" stringByAppendingString:GetSaveString(self.companyModel.foundTime)],
+                             @"title"         :   AppendingString(@"成立：", GetSaveString(self.companyModel.foundTime)),
                              };
     NSArray *section0 = @[dic0_0,dic0_1,dic0_2];
     return section0;
@@ -85,11 +85,11 @@
 {
     NSDictionary *dic1_0 = @{
                              @"icon"          :   @"game_type",
-                             @"title"         :   GetSaveString(self.companyModel.game),
+                             @"title"         :   AppendingString(@"游戏：", GetSaveString(self.companyModel.game)),
                              };
     NSDictionary *dic1_1 = @{
                              @"icon"          :   @"game_operation",
-                             @"title"         :   GetSaveString(self.companyModel.area),
+                             @"title"         :   AppendingString(@"运营：", GetSaveString(self.companyModel.area)),
                              };
     
     

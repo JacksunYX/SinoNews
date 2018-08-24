@@ -512,7 +512,7 @@ CGFloat static titleViewHeight = 91;
         [answerInput setNormalImage:UIImageNamed(@"news_comment")];
         [answerInput setNormalTitle:@"回复答主..."];
         [answerInput setBtnFont:PFFontL(15)];
-        [answerInput setNormalTitleColor:HexColor(#323232)];
+        [answerInput setNormalTitleColor:RGBA(148, 152, 153, 1)];
         [answerInput layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleLeft imageTitleSpace:8];
         
         [answerInput whenTap:^{

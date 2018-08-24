@@ -41,7 +41,7 @@
 - (void)configUI {
     
     self.addAddress = [UIButton new];
-    [self.addAddress setTitleColor:RGBA(136, 136, 136, 1) forState:UIControlStateNormal];
+    [self.addAddress setNormalTitleColor:HexColor(#888888)];
     self.addAddress.titleLabel.font = PFFontL(17);
     self.addAddress.backgroundColor = WhiteColor;
     
@@ -53,7 +53,10 @@
     .heightIs(49)
     ;
     [self.addAddress updateLayout];
-    [self.addAddress setTitle:@"添加新地址" forState:UIControlStateNormal];
+    [self.addAddress setNormalImage:UIImageNamed(@"address_add")];
+    [self.addAddress setNormalTitle:@"添加新地址"];
+    self.addAddress.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+    
     @weakify(self)
     [[self.addAddress rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self)

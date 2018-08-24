@@ -217,7 +217,12 @@
     }
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, space, ScreenW, height)];
     [view addBakcgroundColorTheme];
-    [view addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+    if (UserGetBool(@"NightMode")) {
+        [view addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
+    }else{
+        [view addBorderTo:BorderTypeBottom borderColor:CutLineColor];
+    }
+    
     return view;
 }
 

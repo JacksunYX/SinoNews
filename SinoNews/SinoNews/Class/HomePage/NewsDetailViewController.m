@@ -28,7 +28,7 @@
     UIScrollView *bgView;
     
     CGFloat currentScrollY; //记录当前滚动的y轴偏移量
-    BOOL isLoadWeb; //是否已经加载过网页了
+    BOOL firstLoadWeb;      //是否是第一次加载网页
 }
 
 @property (nonatomic,strong) UITextField *commentInput;
@@ -769,6 +769,7 @@ CGFloat static titleViewHeight = 91;
     
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    
     if (self.isVote) {
         urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
     }
@@ -811,7 +812,7 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    
+    GGLog(@"加载完成");
     [self showBottomView];
     
     [self setNavigationBtns];
@@ -821,12 +822,12 @@ CGFloat static titleViewHeight = 91;
     [self setNaviTitle];
     
     CGFloat y = -titleViewHeight;
-    if (isLoadWeb) {
+    if (firstLoadWeb) {
         y = currentScrollY;
     }
     //滚到标题偏移坐标
     _tableView.contentOffset = CGPointMake(0, y);
-    isLoadWeb = YES;
+    firstLoadWeb = YES;
     
     [self showOrHideLoadView:NO page:2];
     
@@ -920,8 +921,9 @@ CGFloat static titleViewHeight = 91;
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    GGLog(@"进入了1");
-    NSString *requestString = [[navigationAction.request URL] absoluteString];
+    
+    NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
+//    GGLog(@"requestString:%@",requestString);
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
@@ -935,46 +937,17 @@ CGFloat static titleViewHeight = 91;
             [self showBigImage:imageUrl];//创建视图并显示图片
 //        }
         
-    }
-    
-    // 获取完整url并进行UTF-8转码
-    NSString *strRequest = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
-    if ([strRequest hasPrefix:@"app://"]) {
+    }else if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
         // 拦截点击链接
-        [self handleCustomAction:strRequest];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(requestString)];
         // 不允许跳转
         decisionHandler(WKNavigationActionPolicyCancel);
-    }else {
-        // 允许跳转
-        decisionHandler(WKNavigationActionPolicyAllow);
-        
+        return;
     }
+    // 允许跳转
+    decisionHandler(WKNavigationActionPolicyAllow);
     
 }
-
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
-    
-    GGLog(@"进入了2");
-    decisionHandler(WKNavigationResponsePolicyAllow);
-}
-
-- (void)handleCustomAction:(NSString *)URL
-{
-    // 判断跳转
-    NSString *link_id = @"";
-    if ([URL hasPrefix:@"app://video"]) {
-        // 视频
-        GGLog(@"点击了视频%@",link_id);
-    }else if ([URL hasPrefix:@"app://item"]) {
-        // 单品
-        GGLog(@"点击了单品%@",link_id);
-    }else if ([URL hasPrefix:@"app://brand"]) {
-        // 品牌
-        link_id = [URL substringFromIndex:[NSString stringWithFormat:@"app://brand"].length];
-        GGLog(@"点击了品牌%@",link_id);
-    }
-}
-
 
 #pragma mark 显示大图片
 -(void)showBigImage:(NSString *)imageUrl{
@@ -997,9 +970,27 @@ CGFloat static titleViewHeight = 91;
             [self hiddenBigImage];
         }];
         
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [imgView addSubview:activityIndicator];
+        activityIndicator.sd_layout
+        .centerXEqualToView(imgView)
+        .centerYEqualToView(imgView)
+        .widthIs(100)
+        .heightEqualToWidth()
+        ;
+        //设置小菊花颜色
+        activityIndicator.color = WhiteColor;
+        //设置背景颜色
+        activityIndicator.backgroundColor = ClearColor;
+        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
+        activityIndicator.hidesWhenStopped = NO;
+        [activityIndicator startAnimating];
+        
         NSArray *imageIndex = [NSMutableArray arrayWithArray:[allUrlArray[i] componentsSeparatedByString:@"LQXindex"]];
         
-        [imgView sd_setImageWithURL:[NSURL URLWithString:imageIndex.firstObject] placeholderImage:nil];
+        [imgView sd_setImageWithURL:[NSURL URLWithString:imageIndex.firstObject] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [activityIndicator removeFromSuperview];
+        }];
         
         [borderView addSubview:imgView];
         
@@ -1428,7 +1419,7 @@ CGFloat static titleViewHeight = 91;
     CGFloat offsetY = scrollView.contentOffset.y;
     currentScrollY = offsetY;
     
-    if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
+    if (offsetY >= - titleViewHeight&&offsetY < 0) {
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
@@ -1448,6 +1439,12 @@ CGFloat static titleViewHeight = 91;
             self.titleView.alpha = 0;
             self.topAttBtn.alpha = 1;
             self.attentionBtn.enabled = NO;
+        }else{
+            [self hiddenTopLine];
+            self.naviTitle.alpha = 0;
+            self.titleView.alpha = 1;
+            self.topAttBtn.alpha = 0;
+            self.attentionBtn.enabled = YES;
         }
     }
 }

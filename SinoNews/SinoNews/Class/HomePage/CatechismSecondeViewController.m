@@ -670,8 +670,14 @@ CGFloat static titleViewHeight = 91;
             [self showBigImage:imageUrl];//创建视图并显示图片
         }
         
+    }else if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
+        // 拦截点击链接
+        [[UIApplication sharedApplication] openURL:UrlWithStr(requestString)];
+        // 不允许跳转
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
-    
+    // 允许跳转
     decisionHandler(WKNavigationActionPolicyAllow);
     
 }
@@ -842,7 +848,8 @@ CGFloat static titleViewHeight = 91;
 {
     CGFloat offsetY = scrollView.contentOffset.y;
 //    GGLog(@"contentOffset.y:%f",offsetY);
-    if (offsetY >= - titleViewHeight - 1&&offsetY <= 0) {
+    currentScrollY = offsetY;
+    if (offsetY >= - titleViewHeight&&offsetY < 0) {
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
@@ -859,6 +866,11 @@ CGFloat static titleViewHeight = 91;
             self.naviTitle.alpha = 1;
             self.titleView.alpha = 0;
             self.attentionBtn.enabled = NO;
+        }else{
+            [self hiddenTopLine];
+            self.naviTitle.alpha = 0;
+            self.titleView.alpha = 1;
+            self.attentionBtn.enabled = YES;
         }
     }
     

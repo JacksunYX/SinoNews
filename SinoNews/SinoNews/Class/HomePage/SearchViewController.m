@@ -266,6 +266,7 @@
     for (UIView *view in self.searchBar.subviews.lastObject.subviews) {
         if([view isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
             UITextField *textField = (UITextField *)view;
+            
             //设置输入框的背景颜色
             textField.clipsToBounds = YES;
 //            textField.backgroundColor = HexColor(#EEEEEE);
@@ -291,10 +292,10 @@
             if (UserGetBool(@"NightMode")) {
                 //文字颜色和光标颜色
                 textField.textColor = HexColor(#cfd3d6);
-                textField.tintColor = HexColor(#cfd3d6);
+//                textField.tintColor = HexColor(#cfd3d6);
             }else{
                 textField.textColor = BlackColor;
-                textField.tintColor = BlackColor;
+//                textField.tintColor = BlackColor;
             }
             
         }

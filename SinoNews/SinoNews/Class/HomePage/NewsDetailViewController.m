@@ -747,6 +747,10 @@ CGFloat static titleViewHeight = 91;
     self.webView.scrollView.delegate = self;
 //    self.webView.userInteractionEnabled = NO;
     
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testJS" ofType:@"js"];
+//    NSString *jsString = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+//    [self.webView evaluateJavaScript:jsString completionHandler:nil];
+    
     //KVO监听web的高度变化
     @weakify(self)
     [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
@@ -916,6 +920,7 @@ CGFloat static titleViewHeight = 91;
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    GGLog(@"进入了1");
     NSString *requestString = [[navigationAction.request URL] absoluteString];
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]) {
@@ -932,9 +937,44 @@ CGFloat static titleViewHeight = 91;
         
     }
     
-    decisionHandler(WKNavigationActionPolicyAllow);
+    // 获取完整url并进行UTF-8转码
+    NSString *strRequest = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
+    if ([strRequest hasPrefix:@"app://"]) {
+        // 拦截点击链接
+        [self handleCustomAction:strRequest];
+        // 不允许跳转
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }else {
+        // 允许跳转
+        decisionHandler(WKNavigationActionPolicyAllow);
+        
+    }
     
 }
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    
+    GGLog(@"进入了2");
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
+- (void)handleCustomAction:(NSString *)URL
+{
+    // 判断跳转
+    NSString *link_id = @"";
+    if ([URL hasPrefix:@"app://video"]) {
+        // 视频
+        GGLog(@"点击了视频%@",link_id);
+    }else if ([URL hasPrefix:@"app://item"]) {
+        // 单品
+        GGLog(@"点击了单品%@",link_id);
+    }else if ([URL hasPrefix:@"app://brand"]) {
+        // 品牌
+        link_id = [URL substringFromIndex:[NSString stringWithFormat:@"app://brand"].length];
+        GGLog(@"点击了品牌%@",link_id);
+    }
+}
+
 
 #pragma mark 显示大图片
 -(void)showBigImage:(NSString *)imageUrl{

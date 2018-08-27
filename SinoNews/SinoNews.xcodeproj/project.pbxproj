@@ -194,6 +194,7 @@
 		4C646C6E20F346630053067A /* OfficialNotifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C646C6D20F346630053067A /* OfficialNotifyCell.m */; };
 		4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */; };
 		4C681E342133AF98003E6746 /* tabbarClick2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C681E332133AF98003E6746 /* tabbarClick2.mp3 */; };
+		4C681E362133DF68003E6746 /* testJS.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C681E352133DF68003E6746 /* testJS.js */; };
 		4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4820EB04A700BA0534 /* SignInPopView.m */; };
 		4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4B20EB11A400BA0534 /* PraisePopView.m */; };
 		4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4E20EB155F00BA0534 /* ADPopView.m */; };
@@ -831,6 +832,7 @@
 		4C646C6F20F34E0E0053067A /* OfficialNotifyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfficialNotifyModel.h; sourceTree = "<group>"; };
 		4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfficialNotifyModel.m; sourceTree = "<group>"; };
 		4C681E332133AF98003E6746 /* tabbarClick2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tabbarClick2.mp3; sourceTree = "<group>"; };
+		4C681E352133DF68003E6746 /* testJS.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = testJS.js; sourceTree = "<group>"; };
 		4C6B4E4720EB04A700BA0534 /* SignInPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInPopView.h; sourceTree = "<group>"; };
 		4C6B4E4820EB04A700BA0534 /* SignInPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInPopView.m; sourceTree = "<group>"; };
 		4C6B4E4A20EB11A400BA0534 /* PraisePopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PraisePopView.h; sourceTree = "<group>"; };
@@ -2128,6 +2130,7 @@
 				4C9D7ABC211BD7BC00EDCDBC /* tabbarClick.mp3 */,
 				4C681E332133AF98003E6746 /* tabbarClick2.mp3 */,
 				4C5BFD04211AF46200EF82DA /* like.caf */,
+				4C681E352133DF68003E6746 /* testJS.js */,
 			);
 			path = SoundSource;
 			sourceTree = "<group>";
@@ -2919,6 +2922,7 @@
 				4C681E342133AF98003E6746 /* tabbarClick2.mp3 in Resources */,
 				4C95FFEC20DE4C7A0040E348 /* WSDatePickerView.xib in Resources */,
 				4C7EF33521212A0B0002166A /* ZSShorizontalrule@2x.png in Resources */,
+				4C681E362133DF68003E6746 /* testJS.js in Resources */,
 				4C7EF36321212A0B0002166A /* ZSSlink.png in Resources */,
 				4C7EF35021212A0B0002166A /* ZSSh1.png in Resources */,
 				4C7234D020FDEB1D00D5C5D4 /* AAHighcharts-3d.js in Resources */,

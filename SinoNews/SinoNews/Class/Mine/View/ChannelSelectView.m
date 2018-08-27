@@ -92,7 +92,8 @@ static NSInteger maxSelect = 3; //最大选择数
         //已选
         
     }else if (self.selectedArr.count>=maxSelect) {
-        LRToast(@"至多只能选择2个频道发布哦");
+        NSString *noticeStr = [NSString stringWithFormat:@"至多只能选择%ld个频道发布哦",maxSelect];
+        LRToast(noticeStr);
         return;
     }
     btn.selected = !btn.selected;

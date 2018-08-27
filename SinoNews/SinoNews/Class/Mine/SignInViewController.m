@@ -561,15 +561,16 @@
 //    taskIcon.image = UIImageNamed(GetSaveString(taskModel.taskIcon));
     if ([taskModel.taskIcon containsString:@"browse"]) {
         taskIcon.image = UIImageNamed(@"signIn_browse");
-    }else if ([taskModel.taskIcon containsString:@"share"])
-    {
+    }else if ([taskModel.taskIcon containsString:@"share"]){
         taskIcon.image = UIImageNamed(@"signIn_share");
-    }else if ([taskModel.taskIcon containsString:@"publish-news"])
-    {
+    }else if ([taskModel.taskIcon containsString:@"publish-news"]){
         taskIcon.image = UIImageNamed(@"signIn_article");
-    }else if ([taskModel.taskIcon containsString:@"publish-comment"])
-    {
+    }else if ([taskModel.taskIcon containsString:@"publish-comment"]){
         taskIcon.image = UIImageNamed(@"signIn_comment");
+    }else if ([taskModel.taskIcon containsString:@"game"]){
+        taskIcon.image = UIImageNamed(@"signIn_game");
+    }else if ([taskModel.taskIcon containsString:@"recharge"]){
+        taskIcon.image = UIImageNamed(@"signIn_recharge");
     }
     
     taskTitle.sd_layout

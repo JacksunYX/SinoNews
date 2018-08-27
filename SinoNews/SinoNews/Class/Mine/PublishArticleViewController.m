@@ -352,7 +352,7 @@
     parameters[@"title"] = self.titleInputField.text;
     if (self.editType) {
         //问答频道后台可以直接通过newsType来判断
-        parameters[@"channelIds"] = @"";
+        parameters[@"channelIds"] = @"2";
         parameters[@"newsType"] = @(2);
     }else{
         parameters[@"channelIds"] = self.channelId;

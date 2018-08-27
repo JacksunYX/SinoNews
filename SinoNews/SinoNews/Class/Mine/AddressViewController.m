@@ -41,9 +41,9 @@
 - (void)configUI {
     
     self.addAddress = [UIButton new];
-    [self.addAddress setNormalTitleColor:HexColor(#888888)];
+    [self.addAddress setNormalTitleColor:WhiteColor];
     self.addAddress.titleLabel.font = PFFontL(17);
-    self.addAddress.backgroundColor = WhiteColor;
+    self.addAddress.backgroundColor = HexColor(#3e97ed);
     
     [self.view addSubview:self.addAddress];
     self.addAddress.sd_layout

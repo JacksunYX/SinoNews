@@ -52,7 +52,7 @@
     NSArray *title = @[
                        @"赞",
                        @"粉丝",
-                       @"通知",
+                       @"站内信",
                        ];
     
     self.tipsArr = [NSMutableArray new];
@@ -101,6 +101,7 @@
             redTip.hidden = YES;
         }else if (!self.tipsModel.hasNotice&&i == 2) {
             redTip.hidden = YES;
+            btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 35);
         }
         
         [self.tipsArr addObject:redTip];

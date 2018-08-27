@@ -435,7 +435,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             [(UIButton *)item setBackgroundColor:RGBA(178, 217, 249, 1)];
         }
     });
-    [_signIn setNormalTitle:@"签到领金币"];
+    [_signIn setNormalTitle:@"签到领积分"];
     _signIn.titleLabel.font = FontScale(13);
     //    [_signIn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     [_signIn addButtonTextColorTheme];
@@ -579,7 +579,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         shakeImg.image = UIImageNamed(@"mine_gold_gray");
         [shakeImg.layer removeAllAnimations];
     }else{
-        [_signIn setNormalTitle:@"签到领金币"];
+        [_signIn setNormalTitle:@"签到领积分"];
         shakeImg.image = UIImageNamed(@"mine_gold");
         shakerAnimation(shakeImg, 2, -15);
     }

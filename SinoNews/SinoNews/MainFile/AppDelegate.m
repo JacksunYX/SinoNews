@@ -161,9 +161,9 @@ void uncaughtExceptionHandler(NSException *exception) {
             //广告显示完成动画时间
             imageAdconfiguration.showFinishAnimateTime = 0.5;
             //跳过按钮类型
-            imageAdconfiguration.skipButtonType = SkipTypeRoundText;
+            imageAdconfiguration.skipButtonType = SkipTypeText;
             //后台返回时,是否显示广告
-            imageAdconfiguration.showEnterForeground = NO;
+            imageAdconfiguration.showEnterForeground = YES;
             
             //显示开屏广告
             [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];

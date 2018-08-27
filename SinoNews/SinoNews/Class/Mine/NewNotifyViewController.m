@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"通知";
+    self.navigationItem.title = @"站内信";
     [self showTopLine];
     [self addTableView];
 }

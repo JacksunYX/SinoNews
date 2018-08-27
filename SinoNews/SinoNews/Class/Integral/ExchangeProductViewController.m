@@ -240,7 +240,8 @@
     ;
     
     stock.sd_layout
-    .leftEqualToView(discountLabel)
+//    .leftEqualToView(discountLabel)
+    .centerXEqualToView(fatherView)
     .topSpaceToView(goldImg, 5)
     .heightIs(14)
     ;

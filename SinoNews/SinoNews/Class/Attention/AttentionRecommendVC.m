@@ -113,7 +113,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"推荐";
-    [self addNavigationView];
+    [self showTopLine];
+//    [self addNavigationView];
     
     [self addTableview];
     
@@ -128,7 +129,6 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    
     
     @weakify(self)
     self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {

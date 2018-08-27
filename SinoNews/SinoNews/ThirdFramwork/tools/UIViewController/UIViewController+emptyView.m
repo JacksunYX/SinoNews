@@ -104,6 +104,7 @@ static int tag1 = 206118;
     for (UIView *subview in view.subviews) {
         UIImageView *imageView = [self getLineViewInNavigationBar:subview];
         if (imageView) {
+            [imageView addCutLineColor];
             return imageView;
         }
     }

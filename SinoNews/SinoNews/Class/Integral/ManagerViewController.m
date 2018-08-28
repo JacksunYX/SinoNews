@@ -364,11 +364,11 @@
             return ;
         }
         
-        if (self.selectIndex == 0) {    //积分记录
+        if (self.selectIndex == 0) {        //积分记录
             [self requestPointsListWithLoadType:0];
-        }else if (self.selectIndex == 1){
+        }else if (self.selectIndex == 1){   //游戏记录
             self.pageNo1 = 1;
-            
+            [self.tableView.mj_header endRefreshing];
         }else if (self.selectIndex == 2){   //兑换记录
             self.pageNo2 = 1;
             [self requestMall_exchangeRecord];
@@ -382,11 +382,11 @@
             return ;
         }
         
-        if (self.selectIndex == 0) {    //积分记录
+        if (self.selectIndex == 0) {        //积分记录
             [self requestPointsListWithLoadType:1];
-        }else if (self.selectIndex == 1){
+        }else if (self.selectIndex == 1){   //游戏记录
             self.pageNo1 ++;
-            
+            [self.tableView.mj_footer endRefreshing];
         }else if (self.selectIndex == 2){   //兑换记录
             if (self.exchangeRecordArr.count>0) {
                 self.pageNo2 ++;

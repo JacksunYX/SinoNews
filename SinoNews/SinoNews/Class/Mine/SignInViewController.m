@@ -7,6 +7,8 @@
 //
 
 #import "SignInViewController.h"
+#import "IntegralViewController.h"
+
 #import "StoreChildCell.h"
 #import "SignInPopView.h"
 #import "SignInRuleWebView.h"
@@ -520,7 +522,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
 
 //分区0的cell
@@ -615,7 +616,17 @@
         [taskAward whenTap:^{
             
             MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
-            [keyVC setSelectedIndex:0];
+            RTRootNavigationController *bvc = keyVC.viewControllers[3];
+            IntegralViewController *ivC = (IntegralViewController *)bvc.rt_viewControllers[0];
+            if ([taskModel.taskName containsString:@"游戏"]) {
+                [keyVC setSelectedIndex:3];
+                [ivC setSelectIndex:1];
+            }else if ([taskModel.taskName containsString:@"充值"]) {
+                [keyVC setSelectedIndex:3];
+                [ivC setSelectIndex:2];
+            }else{
+                [keyVC setSelectedIndex:0];
+            }
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }

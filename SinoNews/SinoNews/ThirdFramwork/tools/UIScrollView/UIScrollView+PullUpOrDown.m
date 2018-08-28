@@ -14,6 +14,7 @@ static int maxPerPage = 10; //每页最大数量
 
 -(NSMutableArray *)pullWithPage:(NSInteger)page data:(NSArray *)data dataSource:(NSMutableArray *)dataSource
 {
+    self.mj_footer.hidden = NO;
     //区分页码
     if (page == 1) {
         dataSource = [data mutableCopy];
@@ -21,6 +22,7 @@ static int maxPerPage = 10; //每页最大数量
         //数组元素个数小于10，则代表后面无数据了
         if (data.count<maxPerPage) {
             [self.mj_footer endRefreshingWithNoMoreData];
+            self.mj_footer.hidden = YES;
         }else{
             [self.mj_footer endRefreshing];
         }

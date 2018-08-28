@@ -22,5 +22,6 @@
 @property (nonatomic,strong) NSString *productType; //商品类型？
 @property (nonatomic,strong) NSString *specialPrice;//特殊价格？
 @property (nonatomic,strong) NSString *stock;       //库存
+@property (nonatomic,strong) NSString *worth;       //价值
 
 @end

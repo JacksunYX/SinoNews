@@ -9,6 +9,7 @@
 #import "HomePageViewController.h"
 #import "XLChannelControl.h"        //频道管理页面
 #import "HomePageChildVCViewController.h"
+#import "MineViewController.h"
 #import "SearchViewController.h"    //搜索页面
 #import "ADPopView.h"
 #import "HomeSearchTView.h"
@@ -86,7 +87,7 @@
     }
     
     //监听登录
-    @weakify(self)
+//    @weakify(self)
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginSuccess object:nil] subscribeNext:^(NSNotification * _Nullable x) {
 //        @strongify(self)s
         //这里目前不要清空频道设置
@@ -105,12 +106,23 @@
         } popUpdateView:NO];
 
     }
+    
+    [self timerRun];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+}
+
+// 重复执行的定时器
+- (void)timerRun
+{
+    //暂定每隔30秒请求一次
+    NSTimer *timer = [NSTimer timerWithTimeInterval:30 target:self selector:@selector(requestGetCountOfUnreadMessage) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    [timer fire];
 }
 
 //修改导航栏显示
@@ -501,6 +513,22 @@
     } failure:nil];
 }
 
-
+//获取用户未读消息数量
+-(void)requestGetCountOfUnreadMessage
+{
+    [HttpRequest getWithURLString:GetCountOfUnreadMessage parameters:nil success:^(id responseObject) {
+        MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        //获取指定item
+        UITabBarItem *item = [keyVC.tabBar.items lastObject];
+        NSInteger count = [responseObject[@"data"][@"count"] integerValue];
+        if (count) {
+            UserSetBool(YES, @"MessageNotice");
+            item.badgeValue = @"5";
+        }else{
+            UserSetBool(NO, @"MessageNotice");
+            item.badgeValue = @"";
+        }
+    } failure:nil];
+}
 
 @end

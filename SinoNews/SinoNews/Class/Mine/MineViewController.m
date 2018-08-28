@@ -999,9 +999,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             UserSetBool(NO, @"MessageNotice");
         }
         [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        
-    }];
+    } failure:nil];
 }
 
 //分享方法

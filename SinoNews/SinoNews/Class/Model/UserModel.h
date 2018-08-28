@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UserModel : NSObject
+@interface UserModel : NSObject<FastSingleton>
 //用户登录使用账号
 @property (nonatomic,strong) NSString *account;
 //用户昵称

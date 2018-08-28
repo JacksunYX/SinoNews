@@ -345,7 +345,6 @@
 //发布文章或问答
 -(void)requestPublishArticleWithContent:(NSString *)content isDraft:(BOOL)yesOrNo
 {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
 //    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;

@@ -77,6 +77,14 @@
     return _moneyBtnArr;
 }
 
+-(UserModel *)user
+{
+    if (!_user) {
+        _user = [UserModel getLocalUserModel];
+    }
+    return _user;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"充值";
@@ -94,10 +102,42 @@
     //监听退出
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserLoginOutNotify object:nil] subscribeNext:^(NSNotification * _Nullable x) {
         @strongify(self)
-        [self requestToGetUserInfo];
+        [self updateDataSource];
+    }];
+    //监听积分变动
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UserIntegralOrAvatarChanged object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self)
+        GGLog(@"积分-管理数据更新");
+        [self updateDataSource];
     }];
     
-    [self requestToGetUserInfo];
+    if (self.user) {
+        [self setTopViews];
+    }else{
+        [self requestToGetUserInfo];
+    }
+}
+
+//更新
+-(void)updateDataSource
+{
+    self.user = [UserModel getLocalUserModel];
+    [self setTopViews];
+}
+
+//设置上部分数据
+-(void)setTopViews
+{
+    [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(self.user.avatar))];
+    userName.text = GetSaveString(self.user.username);
+    [userName updateLayout];
+    if (self.user.integral) {
+        integer.text = [NSString stringWithFormat:@"%ld积分",self.user.integral];
+    }else{
+        integer.text = @"";
+    }
+    
+    [integer updateLayout];
 }
 
 - (void)didReceiveMemoryWarning {

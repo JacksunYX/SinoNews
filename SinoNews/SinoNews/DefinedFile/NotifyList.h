@@ -29,4 +29,7 @@
 //夜间模式切换通知
 #define NightModeChanged    @"NightModeChanged"
 
+//用户积分或头像变动的通知
+#define UserIntegralOrAvatarChanged @"UserIntegralOrAvatarChanged"
+
 #endif /* NotifyList_h */

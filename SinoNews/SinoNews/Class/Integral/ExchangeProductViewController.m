@@ -446,8 +446,11 @@
     @weakify(self)
     [HttpRequest postWithURLString:Mall_buy parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"购买成功");
+        UserModel *user = [UserModel getLocalUserModel];
+        user.integral = [response[@"data"][@"remainPoints"] longValue];
+        [UserModel coverUserData:user];
         //暂时使用登录的监听，只为有积分展示的界面会重新获取用户信息
-        [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginSuccess object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:UserIntegralOrAvatarChanged object:nil];
         @strongify(self)
         GCDAfterTime(1, ^{
             [self.navigationController popViewControllerAnimated:YES];

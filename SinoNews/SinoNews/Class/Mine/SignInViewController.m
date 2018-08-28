@@ -635,8 +635,13 @@
             [SignInPopView showWithData:self.data];
         }
         UserModel *user = [UserModel getLocalUserModel];
-        user.integral = [self.data[@"totalPoints"] integerValue];
-        [UserModel coverUserData:user];
+        if (user.integral != [self.data[@"totalPoints"] longValue]) {
+            //不相等则需要修改
+            user.integral = [self.data[@"totalPoints"] integerValue];
+            [UserModel coverUserData:user];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserIntegralOrAvatarChanged object:nil];
+        }
+        
         [self addTableView];
         
         [self setHeadView];

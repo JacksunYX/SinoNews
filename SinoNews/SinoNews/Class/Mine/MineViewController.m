@@ -943,7 +943,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             self.user = model;
             [self setHeadViewData:YES];
         }else{
-            [UserModel clearLocalData];
+            if (self.user) {
+               [UserModel clearLocalData];
+            }
             [self.userImg sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
             self.user = [UserModel getLocalUserModel];
             [self setHeadViewData:NO];

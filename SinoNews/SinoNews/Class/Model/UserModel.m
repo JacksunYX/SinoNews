@@ -46,6 +46,7 @@ MJCodingImplementation
     if ([data bg_cover]) {
         GGLog(@"用户本地数据已被覆盖至最新");
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserIntegralOrAvatarChanged object:nil];
 }
 
 //根据userId来判断跳转到哪个界面

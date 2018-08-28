@@ -863,6 +863,8 @@ CGFloat static titleViewHeight = 91;
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
     }
     
+    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];
+    
     //js方法遍历图片添加点击事件 返回图片个数
     /*这块我着重说几句
      逻辑:
@@ -1683,6 +1685,9 @@ CGFloat static titleViewHeight = 91;
 {
     [HttpRequest postWithURLString:PayForNews parameters:@{@"newsId":@(self.newsId)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"支付成功");
+        UserModel *user = [UserModel getLocalUserModel];
+        user.integral = [response[@"data"][@"remainPoints"] longValue];
+        [UserModel coverUserData:user];
         self.newsModel.hasPaid = YES;
         [self setWebViewLoad];
     } failure:^(NSError *error) {

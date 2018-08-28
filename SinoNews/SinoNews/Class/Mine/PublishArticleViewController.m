@@ -36,6 +36,7 @@
 @property (nonatomic, strong) TXLimitedTextField *titleInputField;
 @property (nonatomic, strong) ChannelSelectView *selectView;
 
+@property (nonatomic,assign) NSInteger rewardPoint; //悬赏积分
 @end
 
 @implementation PublishArticleViewController
@@ -308,7 +309,12 @@
         LRToast(@"还没编辑内容哟");
         return;
     }
-    [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
+    //如果是问答，需要弹框提示填入悬赏积分
+    if (self.editType) {
+        [self popInputIntegralWithDraft:(BOOL)yesOrNo];
+    }else{
+       [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
+    }
 }
 
 //询问用户是否放弃编辑
@@ -326,6 +332,30 @@
     [self presentViewController:popVC animated:YES completion:nil];
 }
 
+//弹框输入悬赏积分
+-(void)popInputIntegralWithDraft:(BOOL)yesOrNo
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请输入悬赏积分" message:@"不输入默认为不悬赏" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"0";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.delegate = self;
+    }];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = [alertController.textFields objectAtIndex:0];
+        if (textField.text) {
+            self.rewardPoint = [textField.text integerValue];
+        }else{
+            self.rewardPoint = 0;
+        }
+        [self requestPublishArticleWithContent:[self->inputViewController getHTML] isDraft:yesOrNo];
+    }]];
+    [self presentViewController:alertController animated:YES completion:NULL];
+}
+
 #pragma mark --- UITextFieldDelegate
 //当编辑标题时，无法操作键盘上面的选项
 -(void)textFieldDidBeginEditing:(UITextField *)textField
@@ -336,6 +366,42 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [inputViewController canTouch:YES];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (textField == self.titleInputField) {
+        return YES;
+    }
+    if (textField != self.titleInputField) {
+        //这里的if是为了获取删除操作,如果没有if会造成当达到字数限制后删除键也不能使用的后果.
+        if (range.length == 1 && string.length == 0) {
+            return YES;
+        }
+        //限制最大输入长度
+        else if (textField.text.length >= 5) {
+            textField.text = [textField.text substringToIndex:6];
+            return NO;
+        }
+        
+    }
+    return [self validateNumber:string];
+}
+
+//检测是否是纯数字
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
 }
 
 #pragma mark - YBPopupMenuDelegate
@@ -358,6 +424,7 @@
         //问答频道后台可以直接通过newsType来判断
         parameters[@"channelIds"] = @"2";
         parameters[@"newsType"] = @(2);
+        parameters[@"rewardPoints"] = @(self.rewardPoint);
     }else{
         parameters[@"channelIds"] = self.channelId;
         parameters[@"newsType"] = @(1);

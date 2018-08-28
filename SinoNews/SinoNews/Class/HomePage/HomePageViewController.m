@@ -526,7 +526,7 @@
             item.badgeValue = @"5";
         }else{
             UserSetBool(NO, @"MessageNotice");
-            item.badgeValue = @"";
+            item.badgeValue = nil;
         }
     } failure:nil];
 }

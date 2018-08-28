@@ -11,11 +11,11 @@
 #define DefinedHeader_h
 
 //接口域名
-#define DefaultDomainName DebugDomain1
+#define DefaultDomainName DebugDomain2
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087"
-#define DebugDomain2 @"http://192.168.2.141:8083"
+#define DebugDomain2 @"http://192.168.2.144:8083"
 
 //正式环境
 #define FormalDomain @"https://www.kuaiyishare.com/"

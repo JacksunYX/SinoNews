@@ -238,7 +238,6 @@
         [inputViewController setHTML:self.draftModel.content];
     }
     
-    
     [self addChildViewController:inputViewController];
     
     [self.view addSubview:inputViewController.view];
@@ -267,7 +266,13 @@
 {
     switch (index) {
         case 0:
-            [self publishActionWithDraft:YES];
+        {
+            if (self.isToAudit) {
+                LRToast(@"请直接发布");
+            }else{
+                [self publishActionWithDraft:YES];
+            }
+        }
             break;
         case 1:
             [self giveUpEditPop];
@@ -359,8 +364,14 @@
     }
     parameters[@"isDraft"] = @(yesOrNo);
     parameters[@"content"] = GetSaveString(content);
+    //是否从草稿详情页过来的
     if (self.draftModel) {
-        parameters[@"newsId"] = @(self.draftModel.newsId);
+        //是否已是待审核的文章或问答
+        if (self.isToAudit) {
+            parameters[@"newsId"] = @(self.draftModel.newsId);
+        }else{
+            parameters[@"draftId"] = @(self.draftModel.newsId);
+        }
     }
     
     [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {

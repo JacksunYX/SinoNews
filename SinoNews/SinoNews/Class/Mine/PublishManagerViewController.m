@@ -215,6 +215,9 @@
         DraftDetailViewController *ddVC = [DraftDetailViewController new];
         ddVC.newsId = model.newsId;
         ddVC.type = model.newsType;
+        if (self.type == 1) {
+            ddVC.isToAudit = YES;
+        }
         ddVC.refreshBlock = ^{
             [self.tableView.mj_header beginRefreshing];
         };

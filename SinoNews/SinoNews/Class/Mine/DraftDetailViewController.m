@@ -24,7 +24,10 @@
     [super viewDidLoad];
     
     [self showTopLine];
-    [self setNavigation];
+    //不是待审核的文章或问答才能使用发布
+    if (!self.isToAudit) {
+        [self setNavigation];
+    }
     [self requestBrowseNewsDraft];
     
 }
@@ -55,8 +58,14 @@
 //发布按钮
 -(void)publishAction
 {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    if (self.isToAudit) {
+        parameters[@"newsId"] = @(self.newsId);
+    }else{
+        parameters[@"draftId"] = @(self.newsId);
+    }
     ShowHudOnly;
-    [HttpRequest getWithURLString:PublishNewsDraft parameters:@{@"newsId":@(self.draftModel.newsId)} success:^(id responseObject) {
+    [HttpRequest getWithURLString:PublishNewsDraft parameters:parameters success:^(id responseObject) {
         HiddenHudOnly;
         if (self.refreshBlock) {
             self.refreshBlock();
@@ -84,10 +93,10 @@
         [view setBackgroundColor:value];
         if (UserGetBool(@"NightMode")) {
             [view addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
-            [view addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
+//            [view addBorderTo:BorderTypeBottom borderColor:CutLineColorNight];
         }else{
             [view addBorderTo:BorderTypeTop borderColor:CutLineColor];
-            [view addBorderTo:BorderTypeBottom borderColor:CutLineColor];
+//            [view addBorderTo:BorderTypeBottom borderColor:CutLineColor];
         }
         
     });
@@ -114,10 +123,12 @@
         UIButton *btn = item;
         [btn setNormalTitleColor:value];
         NSString *iconStr = @"draft_delete";
-        [btn addBorderTo:BorderTypeTop borderColor:CutLineColor];
+        
         if (UserGetBool(@"NightMode")) {
-            [btn addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+            [btn addBorderTo:BorderTypeRight borderColor:CutLineColorNight];
             iconStr = [iconStr stringByAppendingString:@"_night"];
+        }else{
+            [btn addBorderTo:BorderTypeRight borderColor:CutLineColor];
         }
         [btn setNormalImage:UIImageNamed(iconStr)];
     });
@@ -128,7 +139,7 @@
     .bottomEqualToView(_bottomView)
     .widthRatioToView(_bottomView, 0.5)
     ;
-    
+    [editBtn updateLayout];
     [editBtn setNormalTitle:@"编辑"];
     editBtn.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         UIButton *btn = item;
@@ -159,6 +170,7 @@
         }else{
             paVC.editType = 1;
         }
+        paVC.isToAudit = self.isToAudit;
         paVC.draftModel = self.draftModel;
         [self.navigationController pushViewController:paVC animated:YES];
     }];
@@ -261,12 +273,17 @@
     }
 }
 
-
 #pragma mark --- 请求
 //查看草稿
 -(void)requestBrowseNewsDraft
 {
-    [HttpRequest getWithURLString:BrowseNewsDraft parameters:@{@"newsId":@(self.newsId)} success:^(id responseObject) {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    if (self.isToAudit) {
+        parameters[@"newsId"] = @(self.newsId);
+    }else{
+        parameters[@"draftId"] = @(self.newsId);
+    }
+    [HttpRequest getWithURLString:BrowseNewsDraft parameters:parameters success:^(id responseObject) {
         self.draftModel = [NewPublishModel mj_objectWithKeyValues:responseObject[@"data"]];
         [self setUI];
     } failure:nil];
@@ -275,7 +292,13 @@
 //删除当前草稿
 -(void)requestDeleteCurrentDraft
 {
-    [HttpRequest postWithURLString:RemoveArticle parameters:@{@"newsId":@(self.newsId)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    if (self.isToAudit) {
+        parameters[@"newsId"] = @(self.newsId);
+    }else{
+        parameters[@"draftId"] = @(self.newsId);
+    }
+    [HttpRequest postWithURLString:RemoveArticle parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
         if (self.refreshBlock) {
             self.refreshBlock();
         }

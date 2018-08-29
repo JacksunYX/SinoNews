@@ -114,11 +114,9 @@ CGFloat static titleViewHeight = 91;
     [super viewDidLoad];
     
     [self addTableView];
-    
-    [self showOrHideLoadView:YES page:2];
 
     [self hiddenTopLine];
-
+    
     [self requestNewData];
 }
 
@@ -685,7 +683,8 @@ CGFloat static titleViewHeight = 91;
     @weakify(self)
     [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
         @strongify(self)
-        [self setWebViewLoad];
+//        [self setWebViewLoad];
+        [self newLoadWeb];
     }];
 }
 
@@ -704,7 +703,7 @@ CGFloat static titleViewHeight = 91;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
-                [self.webView reload];
+                [self newLoadWeb];
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3) {
@@ -733,7 +732,9 @@ CGFloat static titleViewHeight = 91;
     // 创建设置对象
     WKPreferences *preference = [[WKPreferences alloc]init];
     // 设置字体大小(最小的字体大小)
-    preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+    if (self.isVote) {
+        preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+    }
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
@@ -767,19 +768,49 @@ CGFloat static titleViewHeight = 91;
         }
     }];
     
-    //加载页面
-    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
-    
-    if (self.isVote) {
-        urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
-    }
-
-    GGLog(@"文章h5：%@",urlStr);
-    NSURL *url = UrlWithStr(urlStr);
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
-    [self.webView loadRequest:request];
-//    [self.webView loadHTMLString:GetSaveString(self.newsModel.fullContent) baseURL:nil];
+    [self newLoadWeb];
     [self showOrHideLoadView:YES page:2];
+}
+
+//另一种加载页面的方式
+-(void)newLoadWeb
+{
+    if (self.isVote) {
+        //投票比较特殊
+//        NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
+        NSURL *url = UrlWithStr(urlStr);
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
+        [self.webView loadRequest:request];
+    }else{
+        NSString *color = @"color: #1a1a1a";
+        if (UserGetBool(@"NightMode")) {
+            color = @"color: #cfd3d6;";
+        }
+        NSString *styleStr = [NSString stringWithFormat:@"style=\"%@line-height:30px;letter-spacing: .5px;\"",color];
+        //拼接样式
+        NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                           "<head> \n"
+                           "<style type=\"text/css\"> \n"
+                           "body {font-size:%.fpx;}\n"
+                           "a {font-weight: 600 !important;}\n"
+                           "</style> \n"
+                           "</head> \n"
+                           "<body %@>"
+                           "<script type='text/javascript'>"
+                           "window.onload = function(){\n"
+                           "var $img = document.getElementsByTagName('img');\n"
+                           "for(var p in  $img){\n"
+                           " $img[p].style.width = '100%%';\n"
+                           "$img[p].style.height ='auto'\n"
+                           "}\n"
+                           "}"
+                           "</script>%@"
+                           "</body>"
+                           "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.newsModel.fullContent)];
+        
+        [self.webView loadHTMLString:htmls baseURL:nil];
+    }
 }
 
 //购买弹框提示
@@ -831,7 +862,6 @@ CGFloat static titleViewHeight = 91;
     
     [self showOrHideLoadView:NO page:2];
     
-    
 //    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
 //        CGFloat height = [data floatValue];
 //        GGLog(@"height:%lf",height);
@@ -861,9 +891,14 @@ CGFloat static titleViewHeight = 91;
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#cfd3d6'"completionHandler:nil];
         //修改背景色
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
+    }else{
+        //修改字体颜色  #9098b8
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#1a1a1a'"completionHandler:nil];
+        //修改背景色
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
     }
     
-    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];
+//    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];
     
     //js方法遍历图片添加点击事件 返回图片个数
     /*这块我着重说几句
@@ -927,17 +962,17 @@ CGFloat static titleViewHeight = 91;
     NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
 //    GGLog(@"requestString:%@",requestString);
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
-    if ([requestString hasPrefix:@"myweb:imageClick:"]) {
+    if ([requestString hasPrefix:@"myweb:imageClick:"]&&!self.webView.loading) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-//        if (bgView) {
-//            //设置不隐藏，还原放大缩小，显示图片
-//            bgView.alpha = 1;
-//            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-//            int i = [imageIndex.lastObject intValue];
-//            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-//        }else{
+        if (bgView) {
+            //设置不隐藏，还原放大缩小，显示图片
+            bgView.alpha = 1;
+            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+            int i = [imageIndex.lastObject intValue];
+            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
+        }else{
             [self showBigImage:imageUrl];//创建视图并显示图片
-//        }
+        }
         
     }else if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
         // 拦截点击链接
@@ -953,12 +988,15 @@ CGFloat static titleViewHeight = 91;
 
 #pragma mark 显示大图片
 -(void)showBigImage:(NSString *)imageUrl{
+    
+    if (!bgView) {
+        bgView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT)];
+        bgView.pagingEnabled = YES;
+        [self.view addSubview:bgView];
+    }
     //创建灰色透明背景，使其背后内容不可操作
-    bgView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT)];
     [bgView setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7]];
     bgView.contentSize = CGSizeMake(ScreenW *allUrlArray.count, bgView.bounds.size.height);
-    bgView.pagingEnabled = YES;
-    [self.view addSubview:bgView];
     
     //创建显示图像视图
     for (int i = 0; i < allUrlArray.count; i++) {
@@ -999,7 +1037,6 @@ CGFloat static titleViewHeight = 91;
     }
     NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
     
-    
     int i = [imageIndex.lastObject intValue];
     [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
     
@@ -1011,9 +1048,9 @@ CGFloat static titleViewHeight = 91;
     [UIView animateWithDuration:0.5 animations:^{
         self->bgView.alpha = 0;
     } completion:^(BOOL finished) {
-        for (UIView *subview in self->bgView.subviews) {
-            [subview removeFromSuperview];
-        }
+//        for (UIView *subview in self->bgView.subviews) {
+//            [subview removeFromSuperview];
+//        }
     }];
 }
 
@@ -1455,6 +1492,7 @@ CGFloat static titleViewHeight = 91;
 //获取文章详情
 -(void)requestNewData
 {
+    [self showOrHideLoadView:YES page:2];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.newsId);
     
@@ -1688,8 +1726,10 @@ CGFloat static titleViewHeight = 91;
         UserModel *user = [UserModel getLocalUserModel];
         user.integral = [response[@"data"][@"remainPoints"] longValue];
         [UserModel coverUserData:user];
-        self.newsModel.hasPaid = YES;
-        [self setWebViewLoad];
+//        self.newsModel.hasPaid = YES;
+//        [self setWebViewLoad];
+        //直接重新拉一遍详情
+        [self requestNewData];
     } failure:^(NSError *error) {
         
     } RefreshAction:^{

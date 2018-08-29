@@ -19,7 +19,8 @@ static CGFloat anumationTime = 0.3;
 {
     NSString *appid = @"1420833734";
     NSString *openUrlStr = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@?mt=8",appid];
-    NSURL *openUrl = [NSURL URLWithString:openUrlStr];
+    NSURL *openUrl = UrlWithStr(openUrlStr);
+    openUrl = UrlWithStr(GetSaveString(data[@"link"]));
     
     //背景视图
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];

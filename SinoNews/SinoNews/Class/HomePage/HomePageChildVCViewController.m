@@ -413,7 +413,7 @@
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         //比对是否有阅读过的数据
         dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
-        
+        self.tableView.mj_footer.hidden = NO;
         if (upOrDown == 0) {
             //数组都有数据时，需要把本地数据中的置顶先删掉，因为后台默认每次返回都带置顶
             if (self.dataSource.count>0&&dataArr.count>0) {
@@ -425,6 +425,9 @@
                     }
                 }
             }else if(self.dataSource.count==0&&dataArr.count<10){
+                if (dataArr.count<=0) {
+                    self.tableView.mj_footer.hidden = YES;
+                }
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];

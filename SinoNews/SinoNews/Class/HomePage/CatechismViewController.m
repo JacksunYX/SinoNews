@@ -397,7 +397,7 @@ CGFloat static titleViewHeight = 91;
     // 创建设置对象
     WKPreferences *preference = [[WKPreferences alloc]init];
     // 设置字体大小(最小的字体大小)
-    preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+//    preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
     
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
@@ -427,6 +427,7 @@ CGFloat static titleViewHeight = 91;
         }
     }];
     
+    /*
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
     GGLog(@"文章h5：%@",urlStr);
@@ -434,7 +435,42 @@ CGFloat static titleViewHeight = 91;
     NSURLRequest *request= [NSURLRequest requestWithURL:url];
 //    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:MAXFLOAT];
     [self.webView loadRequest:request];
+    */
+    [self newLoadWeb];
     [self showOrHideLoadView:YES page:2];
+    
+}
+
+//另一种加载页面的方式
+-(void)newLoadWeb
+{
+    NSString *color = @"color: #1a1a1a";
+    if (UserGetBool(@"NightMode")) {
+        color = @"color: #cfd3d6;";
+    }
+    NSString *styleStr = [NSString stringWithFormat:@"style=\"%@line-height:30px;letter-spacing: .5px;\"",color];
+    //拼接样式
+    NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                       "<head> \n"
+                       "<style type=\"text/css\"> \n"
+                       "body {font-size:%.fpx;}\n"
+                       "a {font-weight: 600 !important;}\n"
+                       "</style> \n"
+                       "</head> \n"
+                       "<body %@>"
+                       "<script type='text/javascript'>"
+                       "window.onload = function(){\n"
+                       "var $img = document.getElementsByTagName('img');\n"
+                       "for(var p in  $img){\n"
+                       " $img[p].style.width = '100%%';\n"
+                       "$img[p].style.height ='auto'\n"
+                       "}\n"
+                       "}"
+                       "</script>%@"
+                       "</body>"
+                       "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.newsModel.fullContent)];
+    
+    [self.webView loadHTMLString:htmls baseURL:nil];
     
 }
 
@@ -607,10 +643,10 @@ CGFloat static titleViewHeight = 91;
             if (row == 0) {
                 [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
                     @strongify(self)
-                    [self setWebViewLoad];
+                    [self newLoadWeb];
                 }];
             }else if (row == 1) {
-                [self.webView reload];
+                [self newLoadWeb];
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3){
@@ -746,9 +782,14 @@ CGFloat static titleViewHeight = 91;
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#FFFFFF'"completionHandler:nil];
+//        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#cfd3d6'"completionHandler:nil];
         //修改背景色
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
+    }else{
+        //修改字体颜色  #9098b8
+//        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#1a1a1a'"completionHandler:nil];
+        //修改背景色
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
     }
     
     //js方法遍历图片添加点击事件 返回图片个数
@@ -793,7 +834,7 @@ CGFloat static titleViewHeight = 91;
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSString *requestString = [[navigationAction.request URL] absoluteString];
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
-    if ([requestString hasPrefix:@"myweb:imageClick:"]) {
+    if ([requestString hasPrefix:@"myweb:imageClick:"]&&!self.webView.loading) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
         if (bgView) {
             //设置不隐藏，还原放大缩小，显示图片

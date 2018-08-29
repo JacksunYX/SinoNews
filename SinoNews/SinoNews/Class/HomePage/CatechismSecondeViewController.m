@@ -432,6 +432,39 @@ CGFloat static titleViewHeight = 91;
     [self showOrHideLoadView:YES page:2];
 }
 
+//另一种加载页面的方式
+-(void)newLoadWeb
+{
+    NSString *color = @"color: #1a1a1a";
+    if (UserGetBool(@"NightMode")) {
+        color = @"color: #cfd3d6;";
+    }
+    NSString *styleStr = [NSString stringWithFormat:@"style=\"%@line-height:30px;letter-spacing: .5px;\"",color];
+    //拼接样式
+    NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                       "<head> \n"
+                       "<style type=\"text/css\"> \n"
+                       "body {font-size:%.fpx;}\n"
+                       "a {font-weight: 600 !important;}\n"
+                       "</style> \n"
+                       "</head> \n"
+                       "<body %@>"
+                       "<script type='text/javascript'>"
+                       "window.onload = function(){\n"
+                       "var $img = document.getElementsByTagName('img');\n"
+                       "for(var p in  $img){\n"
+                       " $img[p].style.width = '100%%';\n"
+                       "$img[p].style.height ='auto'\n"
+                       "}\n"
+                       "}"
+                       "</script>%@"
+                       "</body>"
+                       "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.answerModel.content)];
+    
+    [self.webView loadHTMLString:htmls baseURL:nil];
+    
+}
+
 -(void)setBottomView
 {
     if (!self.bottomView) {

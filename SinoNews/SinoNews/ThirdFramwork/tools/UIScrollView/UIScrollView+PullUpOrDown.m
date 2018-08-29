@@ -22,7 +22,9 @@ static int maxPerPage = 10; //每页最大数量
         //数组元素个数小于10，则代表后面无数据了
         if (data.count<maxPerPage) {
             [self.mj_footer endRefreshingWithNoMoreData];
-            self.mj_footer.hidden = YES;
+            if (data.count<=0) {
+                self.mj_footer.hidden = YES;
+            }
         }else{
             [self.mj_footer endRefreshing];
         }

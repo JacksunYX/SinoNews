@@ -45,7 +45,7 @@
 @property (nonatomic,strong) NSMutableArray *hotNews;
 @property (nonatomic,strong) NSMutableArray *choicenessNews;
 
-@property (nonatomic,assign) NSInteger selectIndex; //搜索下标
+
 @end
 
 @implementation SearchViewController
@@ -487,7 +487,7 @@
             }else{
                 [headView setTitle:@"" Icon:@""];
             }
-            
+            [headView setSelectedIndex:self.selectIndex];
             headView.selectBlock = ^(NSInteger index) {
                 @strongify(self);
                 self.selectIndex = index;
@@ -725,11 +725,11 @@
 //搜索文章列表
 -(void)requestSearchNewsListWithText:(NSString *)text
 {
-    ShowHudOnly;
+     ShowHudOnly;
     [HttpRequest getWithURLString:News_listForSearching parameters:@{@"keyword":text} success:^(id responseObject) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         HiddenHudOnly;
-        self.newsArr = [dataArr mutableCopy];
+        self.newsArr =  [dataArr mutableCopy];
         [self reloadViews];
     } failure:^(NSError *error) {
         HiddenHudOnly;

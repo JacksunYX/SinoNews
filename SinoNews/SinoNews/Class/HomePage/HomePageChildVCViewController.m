@@ -58,8 +58,11 @@
     [self addTableView];
     
 //    GGLog(@"news_id:%@",self.news_id);
-    
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
+    NSString *notice = @"暂无数据";
+    if(CompareString(GetSaveString(self.news_id), @"作者")){
+        notice = @"点击左上角按钮搜索作者并关注";
+    }
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:notice];
     
     @weakify(self);
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:ClearBrowsHistory object:nil] subscribeNext:^(NSNotification * _Nullable x) {
@@ -505,6 +508,7 @@
 //            }
 //        }
         self.dataSource = [self.tableView pullWithPage:self.page data:dataArr dataSource:self.dataSource];
+        
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {

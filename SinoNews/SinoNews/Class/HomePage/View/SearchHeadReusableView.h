@@ -19,4 +19,7 @@
 //选择回调
 @property (nonatomic ,copy) void(^selectBlock)(NSInteger index);
 
+//设置下标
+-(void)setSelectedIndex:(NSInteger)index;
+
 @end

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SearchViewController : BaseViewController
-
+@property (nonatomic,assign) NSInteger selectIndex; //搜索下标
 @end

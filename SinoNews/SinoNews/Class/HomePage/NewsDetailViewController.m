@@ -787,16 +787,16 @@ CGFloat static titleViewHeight = 91;
         if (UserGetBool(@"NightMode")) {
             color = @"color: #cfd3d6;";
         }
-        NSString *styleStr = [NSString stringWithFormat:@"style=\"%@line-height:30px;letter-spacing: .5px;\"",color];
+        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:30px;letter-spacing: .5px;",color];
         //拼接样式
         NSString *htmls = [NSString stringWithFormat:@"<html> \n"
                            "<head> \n"
                            "<style type=\"text/css\"> \n"
-                           "body {font-size:%.fpx;}\n"
+                           "body {font-size:%.fpx;%@}\n"
                            "a {font-weight: 600 !important;}\n"
                            "</style> \n"
                            "</head> \n"
-                           "<body %@>"
+                           "<body >"
                            "<script type='text/javascript'>"
                            "window.onload = function(){\n"
                            "var $img = document.getElementsByTagName('img');\n"
@@ -888,14 +888,16 @@ CGFloat static titleViewHeight = 91;
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#cfd3d6'"completionHandler:nil];
+        if (self.isVote) {
+            [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#cfd3d6'"completionHandler:nil];
+        }
         //修改背景色
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
     }else{
         //修改字体颜色  #9098b8
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#1a1a1a'"completionHandler:nil];
+//        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#1a1a1a'"completionHandler:nil];
         //修改背景色
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
+//        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
     }
     
 //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];

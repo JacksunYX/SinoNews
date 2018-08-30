@@ -568,6 +568,7 @@ CGFloat static titleViewHeight = 91;
 -(void)moreSelect
 {
     @weakify(self)
+    /*
     [ShareAndFunctionView showWithCollect:YES returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self)
         if (section == 0) {
@@ -586,6 +587,11 @@ CGFloat static titleViewHeight = 91;
             
         }
     }];
+    */
+    [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
+        @strongify(self);
+        [self shareToPlatform:sharePlateform];
+    }];
 }
 
 //分享方法
@@ -594,19 +600,19 @@ CGFloat static titleViewHeight = 91;
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
-    NSString *urlStr = AppendingString(DefaultDomainName, @"");
+    NSString *urlStr = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;
-        shareModel.content = AppendingString(@"测试标题", urlStr);
+        shareModel.content = AppendingString(GetSaveString(self.answerModel.newsTitle), urlStr);
         //        shareModel.thumbImage = [UIImage imageNamed:@""];
         //        shareModel.image = @"xxx";
     }else{
         shareModel.contentType = MGShareContentTypeWebPage;
-        shareModel.title = @"测试标题";
+        shareModel.title = GetSaveString(self.answerModel.newsTitle);
         shareModel.url = urlStr;
-        shareModel.content = @"";
-        shareModel.thumbImage = [UIImage imageNamed:@""];
+        shareModel.content = self.answerModel.username;
+        shareModel.thumbImage = UIImageNamed(@"AppIcon");
     }
     
     //分享

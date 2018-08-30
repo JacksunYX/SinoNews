@@ -12,9 +12,10 @@
 #import "AttentionRecommendVC.h"
 #import "CasinoCollectViewController.h"
 
-@interface AttentionViewController ()
+@interface AttentionViewController ()<MLMSegmentHeadDelegate>
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
+@property (nonatomic, strong) UIBarButtonItem *rightBarButtonItem;
 @end
 
 @implementation AttentionViewController
@@ -34,7 +35,6 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    
     @weakify(self)
     self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         @strongify(self)
@@ -44,7 +44,8 @@
             rightImg = [rightImg stringByAppendingString:@"_night"];
             leftImg = [leftImg stringByAppendingString:@"_night"];
         }
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:rightImg hightimage:nil andTitle:@""];
+        self.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:rightImg hightimage:nil andTitle:@""];
+        self.navigationItem.rightBarButtonItem = self.rightBarButtonItem;
 //        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:leftImg hightimage:leftImg andTitle:@""];
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(leftImg)];
     });
@@ -59,6 +60,7 @@
 -(void)searchAction
 {
     SearchViewController *sVC = [SearchViewController new];
+    sVC.selectIndex = 2;
     [self.navigationController pushViewController:sVC animated:NO];
 }
 
@@ -80,6 +82,7 @@
     _segHead.lineScale = 0.5;
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
+    _segHead.delegate = self;
     _segHead.lineColor = HexColor(#1282EE);
     _segHead.selectColor = HexColor(#1282EE);
 //    _segHead.deSelectColor = HexColor(#323232);
@@ -122,7 +125,11 @@
     return arr;
 }
 
-
+#pragma mark --- MLMSegmentHeadDelegate
+-(void)didSelectedIndex:(NSInteger)index
+{
+    self.rightBarButtonItem.customView.hidden = index;
+}
 
 
 

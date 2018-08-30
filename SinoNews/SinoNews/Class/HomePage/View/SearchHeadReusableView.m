@@ -14,6 +14,7 @@
     UIImageView *img;
     UILabel *sectionTitle;
 }
+@property (nonatomic ,strong) STSegmentView *segmentView;
 @end
 
 @implementation SearchHeadReusableView
@@ -63,18 +64,18 @@
     ;
     [sectionTitle setSingleLineAutoResizeWithMaxWidth:200];
     
-    STSegmentView *segmentView = [[STSegmentView alloc]initWithFrame:CGRectMake(self.width/2 - 100, 0, 200, 50)];
-    [segmentView.selectedBgView addBakcgroundColorTheme];
-    segmentView.titleArray = @[@"文章",@"娱乐城"];
-    segmentView.sliderColor = HexColor(#1282EE);
-    segmentView.titleSpacing = 50;
-    segmentView.sliderHeight = 2;
-    segmentView.labelFont = PFFontL(14);
-    segmentView.topLabelTextColor = HexColor(#1282EE);
-    segmentView.bottomLabelTextColor = HexColor(#888888);
-    segmentView.duration = 0.2;
-    segmentView.delegate = self;
-    [selectView addSubview: segmentView];
+    _segmentView = [[STSegmentView alloc]initWithFrame:CGRectMake(self.width/2 - 150, 0, 300, 50)];
+    [_segmentView.selectedBgView addBakcgroundColorTheme];
+    _segmentView.titleArray = @[@"文章",@"娱乐城",@"作者"];
+    _segmentView.sliderColor = HexColor(#1282EE);
+    _segmentView.titleSpacing = 50;
+    _segmentView.sliderHeight = 2;
+    _segmentView.labelFont = PFFontL(14);
+    _segmentView.topLabelTextColor = HexColor(#1282EE);
+    _segmentView.bottomLabelTextColor = HexColor(#888888);
+    _segmentView.duration = 0.2;
+    _segmentView.delegate = self;
+    [selectView addSubview: _segmentView];
 }
 
 -(void)setTitle:(NSString *)title Icon:(NSString *)image
@@ -88,6 +89,12 @@
     if (self.selectBlock) {
         self.selectBlock(index);
     }
+}
+
+//设置下标
+-(void)setSelectedIndex:(NSInteger)index
+{
+    [_segmentView setButtonSelected:index];
 }
 
 @end

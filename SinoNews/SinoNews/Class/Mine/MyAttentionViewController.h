@@ -11,6 +11,7 @@
 
 @interface MyAttentionViewController : BaseViewController
 
+@property(nonatomic,assign) BOOL isSearch;  //是否是搜索
 @property(nonatomic,copy) NSString *keyword;
 
 @end

@@ -46,6 +46,8 @@
 @property (nonatomic,strong) NSMutableArray *hotNews;
 @property (nonatomic,strong) NSMutableArray *choicenessNews;
 
+//提示文本
+@property (nonatomic,copy) NSString *noticeString;
 
 @end
 
@@ -552,12 +554,19 @@
         [self requestSearchNewsListWithText:searchBar.text];
         //搜索关键词
         [self showWithStatus:1];
+    }else if (self.selectIndex == 2){
+        MyAttentionViewController *maVC = [MyAttentionViewController new];
+        maVC.keyword = self.searchBar.text;
+        maVC.isSearch = YES;
+        [self.navigationController pushViewController:maVC animated:NO];
     }
 }
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [self showWithStatus:3];
+    self.noticeString = @"";
+    [self.tableView reloadData];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -679,7 +688,7 @@
         .heightIs(40)
         ;
         [noticeLabel setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
-        noticeLabel.text = [NSString stringWithFormat:@"没有找到 %@ 相关内容",self.searchBar.text];
+        noticeLabel.text = self.noticeString;
     }
     return headView;
 }
@@ -702,6 +711,7 @@
         }else if (self.selectIndex == 2){
             MyAttentionViewController *maVC = [MyAttentionViewController new];
             maVC.keyword = self.searchBar.text;
+            maVC.isSearch = YES;
             [self.navigationController pushViewController:maVC animated:NO];
         }
         [self reloadViews];
@@ -730,11 +740,16 @@
 //搜索文章列表
 -(void)requestSearchNewsListWithText:(NSString *)text
 {
-     ShowHudOnly;
+    ShowHudOnly;
     [HttpRequest getWithURLString:News_listForSearching parameters:@{@"keyword":text} success:^(id responseObject) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         HiddenHudOnly;
         self.newsArr =  [dataArr mutableCopy];
+        if (self.newsArr.count<=0) {
+            self.noticeString = [NSString stringWithFormat:@"没有找到 %@ 相关内容",text];
+        }else{
+            self.noticeString = @"";
+        }
         [self reloadViews];
     } failure:^(NSError *error) {
         HiddenHudOnly;

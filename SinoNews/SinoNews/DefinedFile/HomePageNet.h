@@ -58,6 +58,8 @@
 #define News_listForSearching   @"/api/news/listForSearching"
 //搜索自动补全(get)
 #define News_autoComplete       @"/api/news/autoComplete"
+//搜索作者(post)
+#define ListUserForSearch       @"/api/user/listUserForSearch"
 
 //展示专题详情(get)
 #define ShowTopicDetails        @"/api/topic/showTopicDetails"

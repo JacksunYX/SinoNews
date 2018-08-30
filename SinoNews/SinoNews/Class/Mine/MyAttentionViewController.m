@@ -51,7 +51,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我的关注";
+    if (self.isSearch) {
+        self.navigationItem.title = @"搜索到的作者";
+    }else{
+        self.navigationItem.title = @"我的关注";
+    }
     
     [self showTopLine];
     
@@ -67,7 +71,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.keyword) {
+    if (self.isSearch) {
         [self requestWithKeyword];
     }else{
         [self requestAttentionList];
@@ -87,7 +91,7 @@
     [self.view addSubview:topView];
     
     CGFloat topViewHeight = 35;
-    if (self.keyword) {
+    if (self.isSearch) {
         topViewHeight = 0;
     }
     
@@ -215,6 +219,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0&&self.attentionArr.count) {
+        if (self.isSearch) {
+            return 0.01;
+        }
         return 39;
     }
     return 0.01;
@@ -224,7 +231,9 @@
 {
     UIView *headView = [UIView new];
     [headView addBakcgroundColorTheme];
-    
+    if (self.isSearch) {
+        return headView;
+    }
     if ((section == 0&&self.attentionArr.count>0)||(section == 1&&self.topicArr.count>0)||(section == 2&&self.channelArr.count>0)) {
         UIView *line = [UIView new];
 //        line.backgroundColor = RGBA(237, 237, 237, 1);
@@ -329,6 +338,10 @@
 //搜索作者
 -(void)requestWithKeyword
 {
+    [HttpRequest postWithURLString:ListUserForSearch parameters:@{@"keyword":GetSaveString(self.keyword)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        self.attentionArr = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:nil];
     
 }
 

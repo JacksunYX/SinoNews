@@ -274,7 +274,7 @@ CGFloat static titleViewHeight = 91;
 //        [self.topAttBtn removeFromSuperview];
     }
     
-    _titleLabel.font = [GetCurrentFont titleFont];
+//    _titleLabel.font = [GetCurrentFont titleFont];
     
     //获取上部分的高度
     [self.titleView updateLayout];
@@ -430,39 +430,6 @@ CGFloat static titleViewHeight = 91;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
     [self showOrHideLoadView:YES page:2];
-}
-
-//另一种加载页面的方式
--(void)newLoadWeb
-{
-    NSString *color = @"color: #161a24";
-    if (UserGetBool(@"NightMode")) {
-        color = @"color: #cfd3d6;";
-    }
-    NSString *styleStr = [NSString stringWithFormat:@"style=\"%@line-height:30px;letter-spacing: .5px;\"",color];
-    //拼接样式
-    NSString *htmls = [NSString stringWithFormat:@"<html> \n"
-                       "<head> \n"
-                       "<style type=\"text/css\"> \n"
-                       "body {font-size:%.fpx;}\n"
-                       "a {font-weight: 600 !important;}\n"
-                       "</style> \n"
-                       "</head> \n"
-                       "<body %@>"
-                       "<script type='text/javascript'>"
-                       "window.onload = function(){\n"
-                       "var $img = document.getElementsByTagName('img');\n"
-                       "for(var p in  $img){\n"
-                       " $img[p].style.width = '100%%';\n"
-                       "$img[p].style.height ='auto'\n"
-                       "}\n"
-                       "}"
-                       "</script>%@"
-                       "</body>"
-                       "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.answerModel.content)];
-    
-    [self.webView loadHTMLString:htmls baseURL:nil];
-    
 }
 
 -(void)setBottomView

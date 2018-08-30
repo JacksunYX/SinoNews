@@ -349,8 +349,8 @@ CGFloat static titleViewHeight = 91;
         [subview removeFromSuperview];
     }
     if (self.newsModel.identifications.count>0) {
-        CGFloat wid = 20;
-        CGFloat hei = 20;
+        CGFloat wid = 25;
+        CGFloat hei = 25;
         CGFloat spaceX = 0;
         
         UIView *lastView = _idView;
@@ -362,19 +362,19 @@ CGFloat static titleViewHeight = 91;
             if (i != 0) {
                 spaceX = 10;
             }
-            
+            approveView.contentMode = 1;
             approveView.sd_layout
             .centerYEqualToView(_idView)
             .leftSpaceToView(lastView, spaceX)
             .widthIs(wid)
             .heightIs(hei)
             ;
-            [approveView setSd_cornerRadius:@(wid/2)];
+//            [approveView setSd_cornerRadius:@(wid/2)];
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
             
             lastView = approveView;
             if (i == self.newsModel.identifications.count - 1) {
-                [_idView setupAutoWidthWithRightView:approveView rightMargin:0];
+                [_idView setupAutoWidthWithRightView:lastView rightMargin:0];
             }
         }
     }else{
@@ -784,10 +784,6 @@ CGFloat static titleViewHeight = 91;
     if (self.isVote) {
         //投票比较特殊
 //        NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
-        WKPreferences *preference = [[WKPreferences alloc]init];
-        preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
-        // 设置偏好设置对象
-        self.webView.configuration.preferences = preference;
         
         NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
         GGLog(@"加载网址:%@",urlStr);

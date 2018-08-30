@@ -32,9 +32,9 @@
     [super viewDidLoad];
     if (self.isUpdate) {
         if (self.bindingType) {
-            self.navigationItem.title = @"重新绑定手机";
+            self.navigationItem.title = @"修改绑定手机";
         }else{
-            self.navigationItem.title = @"重新绑定邮箱";
+            self.navigationItem.title = @"修改绑定邮箱";
         }
     }else{
         if (self.bindingType) {
@@ -128,10 +128,15 @@
     .heightIs(50)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入邮箱";
+    NSMutableString *placeholder;
+    placeholder = [@"请输入邮箱" mutableCopy];
     if (self.bindingType) {
-        username.placeholder = @"请输入手机";
+        placeholder = [@"请输入手机" mutableCopy];
     }
+    if (self.isUpdate) {
+        [placeholder insertString:@"新" atIndex:2];
+    }
+    username.placeholder = placeholder;
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     seccodeBackView.sd_layout

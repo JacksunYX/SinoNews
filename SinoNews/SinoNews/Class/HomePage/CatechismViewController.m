@@ -295,7 +295,7 @@ CGFloat static titleViewHeight = 91;
         [self.topAttBtn removeFromSuperview];
     }
     
-    _titleLabel.font = [GetCurrentFont titleFont];
+//    _titleLabel.font = [GetCurrentFont titleFont];
     
     //获取上部分的高度
     [self.titleView updateLayout];

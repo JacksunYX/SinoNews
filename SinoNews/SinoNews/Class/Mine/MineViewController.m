@@ -603,8 +603,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         [subview removeFromSuperview];
     }
     if (self.user.identifications.count>0) {
-        CGFloat wid = 20;
-        CGFloat hei = 20;
+        CGFloat wid = 25;
+        CGFloat hei = 25;
         CGFloat spaceX = 0;
         
         UIView *lastView = _idView;
@@ -625,6 +625,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             .heightIs(hei)
             ;
 //            [approveView setSd_cornerRadius:@(wid/2)];
+            approveView.contentMode = 1;
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
             
             //现在要加一个label
@@ -639,7 +640,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             .heightIs(hei)
             ;
             [label setSingleLineAutoResizeWithMaxWidth:50];
-            label.text = GetSaveString(model[@"text"]);
+//            label.text = GetSaveString(model[@"text"]);
             
             lastView = label;
             if (i == self.user.identifications.count - 1) {

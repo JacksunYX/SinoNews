@@ -67,16 +67,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self requestAttentionList];
-//    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
-//    [navi showNavigationDownLine];
+    if (self.keyword) {
+        [self requestWithKeyword];
+    }else{
+        [self requestAttentionList];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    BaseNavigationVC *navi = (BaseNavigationVC *)self.navigationController;
-//    [navi hideNavigationDownLine];
 }
 
 -(void)addViews
@@ -86,11 +86,16 @@
     [topView addBakcgroundColorTheme];
     [self.view addSubview:topView];
     
+    CGFloat topViewHeight = 35;
+    if (self.keyword) {
+        topViewHeight = 0;
+    }
+    
     topView.sd_layout
     .leftEqualToView(self.view)
     .topEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(35)
+    .heightIs(topViewHeight)
     ;
     
     UILabel *addAttention = [UILabel new];
@@ -321,8 +326,11 @@
     }];
 }
 
-
-
+//搜索作者
+-(void)requestWithKeyword
+{
+    
+}
 
 
 @end

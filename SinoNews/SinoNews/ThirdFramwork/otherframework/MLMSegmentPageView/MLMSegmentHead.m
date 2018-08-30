@@ -447,8 +447,7 @@ static CGFloat animation_time = .3;
 #pragma mark - button Action
 - (void)selectedHeadTitles:(UIButton *)button {
     NSInteger selectIndex = [buttonArray indexOfObject:button];
-    [self changeIndex:selectIndex completion:YES];
-
+    [self setSelectIndex:selectIndex];
 }
 
 #pragma mark - 点击结束
@@ -458,26 +457,27 @@ static CGFloat animation_time = .3;
 
 #pragma mark - set index
 - (void)setSelectIndex:(NSInteger)index {
-//    if (index == currentIndex) {
-//        return;
-//    }
-//    //before
-//    NSInteger before = currentIndex;
-//    currentIndex = index;
-//    [self changeContentOffset];
-//    //select
-//    [UIView animateWithDuration:animation_time animations:^{
-//        [self changeBtnFrom:before to:currentIndex];
-//    } completion:^(BOOL finished) {
-//    }];
-//    isSelected = YES;
-//    if ([self.delegate respondsToSelector:@selector(didSelectedIndex:)]) {
-//        [self.delegate didSelectedIndex:currentIndex];
-//    } else if (self.selectedIndex) {
-//        self.selectedIndex(currentIndex);
-//    }
+    if (index == currentIndex) {
+        return;
+    }
+    //before
+    NSInteger before = currentIndex;
+    currentIndex = index;
+    [self changeContentOffset];
+    //select
+    [UIView animateWithDuration:animation_time animations:^{
+        [self changeBtnFrom:before to:currentIndex];
+    } completion:^(BOOL finished) {
+    }];
+    isSelected = YES;
+    if ([self.delegate respondsToSelector:@selector(didSelectedIndex:)]) {
+        [self.delegate didSelectedIndex:currentIndex];
+    }
+    if (self.selectedIndex) {
+        self.selectedIndex(currentIndex);
+    }
     
-    [self changeIndex:index completion:NO];
+//    [self changeIndex:index completion:NO];
 }
 
 - (void)changeIndex:(NSInteger)index completion:(BOOL)completion {
@@ -498,7 +498,8 @@ static CGFloat animation_time = .3;
     if (completion) {
         if ([self.delegate respondsToSelector:@selector(didSelectedIndex:)]) {
             [self.delegate didSelectedIndex:currentIndex];
-        } else if (self.selectedIndex) {
+        }
+        if (self.selectedIndex) {
             self.selectedIndex(currentIndex);
         }
     }

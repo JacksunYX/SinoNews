@@ -83,6 +83,7 @@
     _segHead.fontSize = 16;
     _segHead.lineHeight = 3;
     _segHead.delegate = self;
+    
     _segHead.lineColor = HexColor(#1282EE);
     _segHead.selectColor = HexColor(#1282EE);
 //    _segHead.deSelectColor = HexColor(#323232);
@@ -99,12 +100,14 @@
     _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getvcArr]];
     _segScroll.countLimit = 0;
     
-    WEAK(weakself, self);
+    @weakify(self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
-        weakself.navigationItem.titleView = weakself.segHead;
-        [weakself.view addSubview:weakself.segScroll];
+        @strongify(self);
+        self.navigationItem.titleView = self.segHead;
+        [self.view addSubview:self.segScroll];
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
+    
 }
 
 - (NSArray *)getvcArr

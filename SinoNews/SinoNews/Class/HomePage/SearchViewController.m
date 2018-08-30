@@ -12,6 +12,7 @@
 #import "NewsDetailViewController.h"
 #import "TopicViewController.h"
 #import "PayNewsViewController.h"
+#import "MyAttentionViewController.h"
 
 #import "HomePageFirstKindCell.h"
 #import "HomePageSecondKindCell.h"
@@ -698,6 +699,10 @@
             ccVC.type = 1;
             ccVC.keyword = self.searchBar.text;
             [self.navigationController pushViewController:ccVC animated:NO];
+        }else if (self.selectIndex == 2){
+            MyAttentionViewController *maVC = [MyAttentionViewController new];
+            maVC.keyword = self.searchBar.text;
+            [self.navigationController pushViewController:maVC animated:NO];
         }
         [self reloadViews];
     }else if (tableView == self.tableView){

@@ -11,4 +11,6 @@
 
 @interface MyAttentionViewController : BaseViewController
 
+@property(nonatomic,copy) NSString *keyword;
+
 @end

@@ -140,7 +140,7 @@
     title.text = GetSaveString(model.productName);
     subTitle.text = GetSaveString(model.detail);
     if (model.worth) {
-        bottomTitle.text = [NSString stringWithFormat:@"价值%@元",model.price];
+        bottomTitle.text = [NSString stringWithFormat:@"价值%@",model.worth];
     }else{
         bottomTitle.text = @"";
     }

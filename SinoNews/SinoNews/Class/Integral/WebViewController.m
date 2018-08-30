@@ -49,6 +49,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self showTopLine];
+//    1.积分规则
+//    2.等级规则
+//    3.签到规则
+//    4.隐私协议
+//    5.关于
+    switch (self.showType) {
+        case 1:
+            self.navigationItem.title = @"积分规则";
+            break;
+        case 2:
+            self.navigationItem.title = @"等级规则";
+            break;
+        case 3:
+            self.navigationItem.title = @"签到规则";
+            break;
+        case 4:
+            self.navigationItem.title = @"隐私协议";
+            break;
+        case 5:
+            self.navigationItem.title = @"关于";
+            break;
+        default:
+            break;
+    }
+    
     [self setWebViewLoad];
 }
 

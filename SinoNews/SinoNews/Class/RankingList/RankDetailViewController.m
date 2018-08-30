@@ -586,7 +586,7 @@
     collectBtn.sd_layout
     .rightSpaceToView(websiteBtn, 10)
     .centerYEqualToView(fatherView)
-    .widthIs(32 * ScaleW)
+    .widthIs(80 * ScaleW)
     .heightIs(23)
     ;
     UIImage *collectImg;
@@ -595,6 +595,8 @@
     }else{
         collectImg = UIImageNamed(@"game_unCollect");
     }
+    [collectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+    collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     [collectBtn setImage:collectImg forState:UIControlStateNormal];
     [collectBtn setSd_cornerRadius:@5];
     collectBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;

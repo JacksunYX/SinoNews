@@ -11,6 +11,18 @@
 
 @interface WebViewController : BaseViewController
 
+
+/**
+ 展示标题样式
+ 0.默认是没有标题
+ 1.积分规则
+ 2.等级规则
+ 3.签到规则
+ 4.隐私协议
+ 5.关于
+ */
+@property (nonatomic,assign) NSInteger showType;
+
 @property (nonatomic,strong) NSString *baseUrl;
 
 @end

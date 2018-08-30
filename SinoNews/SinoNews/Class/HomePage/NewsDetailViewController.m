@@ -683,8 +683,11 @@ CGFloat static titleViewHeight = 91;
     @weakify(self)
     [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
         @strongify(self)
-//        [self setWebViewLoad];
-        [self newLoadWeb];
+        if (self.isVote) {
+            [self setWebViewLoad];
+        }else{
+            [self newLoadWeb];
+        }
     }];
 }
 
@@ -728,19 +731,20 @@ CGFloat static titleViewHeight = 91;
     WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     WKUserContentController *wkUController = [[WKUserContentController alloc] init];
     [wkUController addUserScript:wkUScript];
-    
-    // 创建设置对象
-    WKPreferences *preference = [[WKPreferences alloc]init];
-    // 设置字体大小(最小的字体大小)
-    if (self.isVote) {
-        preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
-    }
-    
+  
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.userContentController = wkUController;
-    // 设置偏好设置对象
-    config.preferences = preference;
+    
+    // 设置字体大小(最小的字体大小)
+    if (self.isVote) {
+        // 创建设置对象
+        WKPreferences *preference = [[WKPreferences alloc]init];
+        preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+        // 设置偏好设置对象
+        config.preferences = preference;
+    }
+    
     //默认高度给1，防止网页是纯图片时无法撑开
     self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
     self.webView.navigationDelegate = self;
@@ -754,19 +758,21 @@ CGFloat static titleViewHeight = 91;
     
     //KVO监听web的高度变化
     @weakify(self)
-    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
-        @strongify(self)
-//        GGLog(@"x:%@",x);
-        CGFloat newHeight = self.webView.scrollView.contentSize.height;
-        if (newHeight != self.topWebHeight) {
-            self.topWebHeight = newHeight;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
-//            GGLog(@"topWebHeight:%lf",topWebHeight);
-//            [self.tableView beginUpdates];
-            self.tableView.tableHeaderView = self.webView;
-//            [self.tableView endUpdates];
-        }
-    }];
+    if (self.isVote) {
+        [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
+            @strongify(self)
+            //        GGLog(@"x:%@",x);
+            CGFloat newHeight = self.webView.scrollView.contentSize.height;
+            if (newHeight != self.topWebHeight) {
+                self.topWebHeight = newHeight;
+                self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+                //            GGLog(@"topWebHeight:%lf",topWebHeight);
+                //            [self.tableView beginUpdates];
+                self.tableView.tableHeaderView = self.webView;
+                //            [self.tableView endUpdates];
+            }
+        }];
+    }
     
     [self newLoadWeb];
     [self showOrHideLoadView:YES page:2];
@@ -778,21 +784,27 @@ CGFloat static titleViewHeight = 91;
     if (self.isVote) {
         //投票比较特殊
 //        NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+        WKPreferences *preference = [[WKPreferences alloc]init];
+        preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+        // 设置偏好设置对象
+        self.webView.configuration.preferences = preference;
+        
         NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
+        GGLog(@"加载网址:%@",urlStr);
         NSURL *url = UrlWithStr(urlStr);
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
         [self.webView loadRequest:request];
     }else{
-        NSString *color = @"color: #1a1a1a";
+        NSString *color = @"color: #161a24";
         if (UserGetBool(@"NightMode")) {
             color = @"color: #cfd3d6;";
         }
-        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:30px;letter-spacing: .5px;",color];
+        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:30px;letter-spacing: 2px;",color];
         //拼接样式
         NSString *htmls = [NSString stringWithFormat:@"<html> \n"
                            "<head> \n"
                            "<style type=\"text/css\"> \n"
-                           "body {font-size:%.fpx;%@}\n"
+                           "body {font-family:PingFangSC-Regular;font-size:%.fpx;%@}\n"
                            "a {font-weight: 600 !important;}\n"
                            "</style> \n"
                            "</head> \n"
@@ -806,6 +818,9 @@ CGFloat static titleViewHeight = 91;
                            "}\n"
                            "}"
                            "</script>%@"
+                           //追加定位标签,获取真实高度需要用到
+                           "<div id=\"test-div\">"
+                           "</div>"
                            "</body>"
                            "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.newsModel.fullContent)];
         
@@ -862,13 +877,20 @@ CGFloat static titleViewHeight = 91;
     
     [self showOrHideLoadView:NO page:2];
     
-//    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
-//        CGFloat height = [data floatValue];
-//        GGLog(@"height:%lf",height);
-        //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
-        //设置通知或者代理来传高度
-        //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
-//    }];
+    //不是投票时才使用这种方法获取真实高度
+    if (!self.isVote) {
+        //获取在html里注入的锚点，得到准确的高度
+        [webView evaluateJavaScript:@"document.getElementById(\"test-div\").offsetTop" completionHandler:^(id data, NSError * _Nullable error) {
+            CGFloat height = [data floatValue];
+            //        GGLog(@"height:%lf",height);
+            //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
+            //设置通知或者代理来传高度
+            //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
+            self.topWebHeight = height;
+            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+            self.tableView.tableHeaderView = self.webView;
+        }];
+    }
     
     //修改字体大小 300%
 //    NSString *fontStr = @"100%";

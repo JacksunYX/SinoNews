@@ -435,7 +435,7 @@ CGFloat static titleViewHeight = 91;
 //另一种加载页面的方式
 -(void)newLoadWeb
 {
-    NSString *color = @"color: #1a1a1a";
+    NSString *color = @"color: #161a24";
     if (UserGetBool(@"NightMode")) {
         color = @"color: #cfd3d6;";
     }
@@ -741,6 +741,22 @@ CGFloat static titleViewHeight = 91;
             @strongify(self);
             [self hiddenBigImage];
         }];
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [imgView addSubview:activityIndicator];
+        activityIndicator.sd_layout
+        .centerXEqualToView(imgView)
+        .centerYEqualToView(imgView)
+        .widthIs(100)
+        .heightEqualToWidth()
+        ;
+        //设置小菊花颜色
+        activityIndicator.color = WhiteColor;
+        //设置背景颜色
+        activityIndicator.backgroundColor = ClearColor;
+        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
+        activityIndicator.hidesWhenStopped = NO;
+        [activityIndicator startAnimating];
         
         NSArray *imageIndex = [NSMutableArray arrayWithArray:[allUrlArray[i] componentsSeparatedByString:@"LQXindex"]];
         

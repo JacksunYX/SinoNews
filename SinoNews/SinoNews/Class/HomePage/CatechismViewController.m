@@ -412,20 +412,20 @@ CGFloat static titleViewHeight = 91;
     [self.view addSubview:self.webView];
     
     //KVO监听web的高度变化
-    @weakify(self)
-    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
-        @strongify(self)
-//        GGLog(@"x:%@",x);
-        CGFloat newHeight = self.webView.scrollView.contentSize.height;
-        if (newHeight != self.topWebHeight) {
-            self.topWebHeight = newHeight;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
-            //            GGLog(@"topWebHeight:%lf",topWebHeight);
-//            [self.tableView beginUpdates];
-            self.tableView.tableHeaderView = self.webView;
-//            [self.tableView endUpdates];
-        }
-    }];
+//    @weakify(self)
+//    [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
+//        @strongify(self)
+////        GGLog(@"x:%@",x);
+//        CGFloat newHeight = self.webView.scrollView.contentSize.height;
+//        if (newHeight != self.topWebHeight) {
+//            self.topWebHeight = newHeight;
+//            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+//            //            GGLog(@"topWebHeight:%lf",topWebHeight);
+////            [self.tableView beginUpdates];
+//            self.tableView.tableHeaderView = self.webView;
+////            [self.tableView endUpdates];
+//        }
+//    }];
     
     /*
     //加载页面
@@ -444,7 +444,7 @@ CGFloat static titleViewHeight = 91;
 //另一种加载页面的方式
 -(void)newLoadWeb
 {
-    NSString *color = @"color: #1a1a1a";
+    NSString *color = @"color: #161a24";
     if (UserGetBool(@"NightMode")) {
         color = @"color: #cfd3d6;";
     }
@@ -467,6 +467,9 @@ CGFloat static titleViewHeight = 91;
                        "}\n"
                        "}"
                        "</script>%@"
+                       //追加定位标签,获取真实高度需要用到
+                       "<div id=\"test-div\">"
+                       "</div>"
                        "</body>"
                        "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.newsModel.fullContent)];
     
@@ -754,12 +757,15 @@ CGFloat static titleViewHeight = 91;
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     
-    [webView evaluateJavaScript:@"document.body.offsetHeight" completionHandler:^(id data, NSError * _Nullable error) {
-//        CGFloat height = [data floatValue];
+    [webView evaluateJavaScript:@"document.getElementById(\"test-div\").offsetTop" completionHandler:^(id data, NSError * _Nullable error) {
+        CGFloat height = [data floatValue];
 //        GGLog(@"height:%lf",height);
 //    ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
 //        设置通知或者代理来传高度
 //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
+        self.topWebHeight = height;
+        self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+        self.tableView.tableHeaderView = self.webView;
     }];
     
     [self setBottomView];
@@ -878,6 +884,22 @@ CGFloat static titleViewHeight = 91;
             @strongify(self);
             [self hiddenBigImage];
         }];
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [imgView addSubview:activityIndicator];
+        activityIndicator.sd_layout
+        .centerXEqualToView(imgView)
+        .centerYEqualToView(imgView)
+        .widthIs(100)
+        .heightEqualToWidth()
+        ;
+        //设置小菊花颜色
+        activityIndicator.color = WhiteColor;
+        //设置背景颜色
+        activityIndicator.backgroundColor = ClearColor;
+        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
+        activityIndicator.hidesWhenStopped = NO;
+        [activityIndicator startAnimating];
         
         NSArray *imageIndex = [NSMutableArray arrayWithArray:[allUrlArray[i] componentsSeparatedByString:@"LQXindex"]];
         

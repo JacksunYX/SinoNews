@@ -624,7 +624,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             .widthIs(wid)
             .heightIs(hei)
             ;
-            [approveView setSd_cornerRadius:@(wid/2)];
+//            [approveView setSd_cornerRadius:@(wid/2)];
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
             
             //现在要加一个label

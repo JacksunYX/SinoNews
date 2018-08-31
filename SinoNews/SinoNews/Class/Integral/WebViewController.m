@@ -28,7 +28,7 @@
         // 创建设置对象
         WKPreferences *preference = [[WKPreferences alloc]init];
         // 设置字体大小(最小的字体大小)
-        preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
+        preference.minimumFontSize = 16;
         
         //创建网页配置对象
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];

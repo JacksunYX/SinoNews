@@ -882,7 +882,7 @@ CGFloat static titleViewHeight = 91;
             //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
             //设置通知或者代理来传高度
             //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
-            self.topWebHeight = height;
+            self.topWebHeight = height + 10;
             self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
             self.tableView.tableHeaderView = self.webView;
         }];

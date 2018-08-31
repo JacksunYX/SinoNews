@@ -506,6 +506,10 @@ static CGFloat animation_time = .3;
 
 }
 
+-(NSInteger)index
+{
+    return currentIndex;
+}
 
 - (void)changeContentOffset {
     if (sum_width > SCROLL_WIDTH) {

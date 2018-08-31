@@ -294,8 +294,8 @@ CGFloat static titleViewHeight = 91;
         [subview removeFromSuperview];
     }
     if (self.answerModel.identifications.count>0) {
-        CGFloat wid = 20;
-        CGFloat hei = 20;
+        CGFloat wid = 25;
+        CGFloat hei = 25;
         CGFloat spaceX = 0;
         
         UIView *lastView = _idView;
@@ -314,8 +314,9 @@ CGFloat static titleViewHeight = 91;
             .widthIs(wid)
             .heightIs(hei)
             ;
-            [approveView setSd_cornerRadius:@(wid/2)];
+//            [approveView setSd_cornerRadius:@(wid/2)];
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            approveView.contentMode = 1;
             
             lastView = approveView;
             if (i == self.answerModel.identifications.count - 1) {

@@ -15,6 +15,7 @@
 @interface AttentionViewController ()<MLMSegmentHeadDelegate>
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
+@property (nonatomic, strong) UIBarButtonItem *leftBarButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *rightBarButtonItem;
 @end
 
@@ -44,10 +45,15 @@
             rightImg = [rightImg stringByAppendingString:@"_night"];
             leftImg = [leftImg stringByAppendingString:@"_night"];
         }
-        self.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(recommandAction) image:rightImg hightimage:nil andTitle:@""];
+        
+        self.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(recommandAction) image:UIImageNamed(rightImg)];
         self.navigationItem.rightBarButtonItem = self.rightBarButtonItem;
-//        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:leftImg hightimage:leftImg andTitle:@""];
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(leftImg)];
+        
+        self.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(leftImg)];
+        self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
+        
+        self.leftBarButtonItem.customView.hidden = self.segHead.index;
+        self.rightBarButtonItem.customView.hidden = self.segHead.index;
     });
     
     if (CompareString(UserGet(@"isLogin"), @"YES")) {
@@ -131,6 +137,7 @@
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
+    self.leftBarButtonItem.customView.hidden = index;
     self.rightBarButtonItem.customView.hidden = index;
 }
 

@@ -70,6 +70,10 @@ typedef enum : NSUInteger {
  */
 @property (nonatomic, assign) NSInteger showIndex;
 /**
+ 当前下标
+ */
+@property (nonatomic, assign) NSInteger index;
+/**
  *  导航条的背景颜色
  */
 @property (nonatomic, strong) UIColor *headColor;

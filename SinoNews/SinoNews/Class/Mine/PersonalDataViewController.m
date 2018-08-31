@@ -168,6 +168,10 @@
 {
     NSInteger index = sender.tag - 10010;
     @weakify(self)
+    if (self.user.gender != -1) {
+        LRToast(@"性别只能设置一次哦");
+        return;
+    }
     [self requestEditGenderWith:index haveChanged:^{
         @strongify(self)
         self.user.gender = index;

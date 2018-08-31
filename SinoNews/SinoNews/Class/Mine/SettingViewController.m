@@ -247,13 +247,11 @@
 //        [SignInRuleWebView showWithWebString:News_aboutUs];
         WebViewController *wVC = [WebViewController new];
         wVC.showType = 5;
-        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_aboutUs)];;
         [self.navigationController pushViewController:wVC animated:YES];
     }else if (CompareString(title, @"隐私协议")){
 //        [SignInRuleWebView showWithWebString:News_statement];
         WebViewController *wVC = [WebViewController new];
         wVC.showType = 4;
-        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_statement)];;
         [self.navigationController pushViewController:wVC animated:YES];
     }else if (CompareString(title, @"退出登录")){
         

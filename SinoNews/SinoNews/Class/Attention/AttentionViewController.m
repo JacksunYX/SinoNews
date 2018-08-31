@@ -52,7 +52,6 @@
         self.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(leftImg)];
         self.navigationItem.leftBarButtonItem = self.leftBarButtonItem;
         
-        self.leftBarButtonItem.customView.hidden = self.segHead.index;
         self.rightBarButtonItem.customView.hidden = self.segHead.index;
     });
     
@@ -66,7 +65,10 @@
 -(void)searchAction
 {
     SearchViewController *sVC = [SearchViewController new];
-    sVC.selectIndex = 2;
+    sVC.selectIndex = 1;
+    if (self.segHead.index == 0) {
+      sVC.selectIndex = 2;
+    }
     [self.navigationController pushViewController:sVC animated:NO];
 }
 
@@ -137,7 +139,6 @@
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
-    self.leftBarButtonItem.customView.hidden = index;
     self.rightBarButtonItem.customView.hidden = index;
 }
 

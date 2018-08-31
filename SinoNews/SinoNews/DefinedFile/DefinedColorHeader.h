@@ -18,6 +18,6 @@
 #define CutLineColorNight  HexColorAlpha(#e3e3e3,0.13)
 
 //浏览过的文章的标题颜色
-#define BrowsNewsTitleColor HexColor(#646464)
+#define BrowsNewsTitleColor HexColor(#828993)
 
 #endif /* DefinedColorHeader_h */

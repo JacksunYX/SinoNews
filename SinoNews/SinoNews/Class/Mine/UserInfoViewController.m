@@ -257,7 +257,7 @@
                                ]];
     @weakify(self)
     closeBtn.sd_layout
-    .leftSpaceToView(headView, 10)
+    .leftSpaceToView(headView, 0)
     .topSpaceToView(headView, 10)
     .widthIs(40)
     .heightEqualToWidth()

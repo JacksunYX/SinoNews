@@ -124,7 +124,7 @@
             rightImg = [rightImg stringByAppendingString:@"_night"];
             
         }
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(searchAction) image:rightImg hightimage:nil andTitle:@""];
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(rightImg)];
     });
     
 }

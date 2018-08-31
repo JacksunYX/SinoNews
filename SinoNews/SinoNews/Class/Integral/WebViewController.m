@@ -56,19 +56,34 @@
 //    5.关于
     switch (self.showType) {
         case 1:
+        {
             self.navigationItem.title = @"积分规则";
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_pointsRule)];
+        }
             break;
         case 2:
+        {
             self.navigationItem.title = @"等级规则";
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_levelRule)];
+        }
             break;
         case 3:
+        {
             self.navigationItem.title = @"签到规则";
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_signRule)];
+        }
             break;
         case 4:
+        {
             self.navigationItem.title = @"隐私协议";
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_statement)];
+        }
             break;
         case 5:
+        {
             self.navigationItem.title = @"关于";
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_aboutUs)];
+        }
             break;
         default:
             break;

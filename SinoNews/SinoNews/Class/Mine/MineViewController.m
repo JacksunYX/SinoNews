@@ -392,7 +392,6 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         //        [self popIntegralRule];
         WebViewController *wVC = [WebViewController new];
         wVC.showType = 1;
-        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_pointsRule)];
         [self.navigationController pushViewController:wVC animated:YES];
     }];
     
@@ -411,7 +410,6 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //        [self popLevelRule];
         WebViewController *wVC = [WebViewController new];
         wVC.showType = 2;
-        wVC.baseUrl = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, News_levelRule)];;
         [self.navigationController pushViewController:wVC animated:YES];
     }];
 

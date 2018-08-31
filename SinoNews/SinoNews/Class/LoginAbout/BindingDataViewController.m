@@ -134,7 +134,7 @@
         placeholder = [@"请输入手机" mutableCopy];
     }
     if (self.isUpdate) {
-        [placeholder insertString:@"新" atIndex:2];
+        [placeholder insertString:@"新" atIndex:3];
     }
     username.placeholder = placeholder;
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];

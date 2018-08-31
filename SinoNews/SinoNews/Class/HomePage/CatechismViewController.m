@@ -482,7 +482,7 @@ CGFloat static titleViewHeight = 91;
 {
     self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self action:@selector(moreSelect) image:UIImageNamed(@"news_more_night")];
             
             UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
             [topBtnView addSubview:self.topAttBtn];
@@ -490,7 +490,7 @@ CGFloat static titleViewHeight = 91;
             
             self.navigationItem.rightBarButtonItems = @[more,barbtn];
         }else{
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self action:@selector(moreSelect) image:UIImageNamed(@"news_more")];
             
             UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
             [topBtnView addSubview:self.topAttBtn];
@@ -767,6 +767,9 @@ CGFloat static titleViewHeight = 91;
         self.topWebHeight = height + 10;
         self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
         self.tableView.tableHeaderView = self.webView;
+        if (height<10) {
+            [self newLoadWeb];
+        }
     }];
     
     [self setBottomView];

@@ -632,9 +632,11 @@
     UIView *fatherView = cell.contentView;
     
     UIImageView *leftIcon = [UIImageView new];
+    
     UILabel *descrip = [UILabel new];
     descrip.font = FontScale(15);
     descrip.isAttributedContent = YES;
+    [descrip addContentColorTheme];
     
     UIView *sepLine = [UIView new];
     [sepLine addCutLineColor];
@@ -720,9 +722,10 @@
         //解析标签文字
         descrip.attributedText = [NSString analysisHtmlString:GetSaveString(model[@"title"])];
         descrip.font = FontScale(15);
+        [descrip addContentColorTheme];
     }
     
-    [descrip addContentColorTheme];
+    
 //    if (cell.sd_indexPath.row == 1) {
 //        descrip.text = [NSString stringWithFormat:@"优惠：%@",self.companyModel.promos];
 //    }else if (cell.sd_indexPath.row == 2){

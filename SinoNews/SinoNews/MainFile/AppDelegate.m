@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     [UINavigationConfig shared].sx_disableFixSpace = NO;//默认为NO  可以修改
-    [UINavigationConfig shared].sx_defaultFixSpace = 10;//默认为0 可以修改
+    [UINavigationConfig shared].sx_defaultFixSpace = 5;//默认为0 可以修改
     //配置全局刷新参数
 //    [[KafkaRefreshDefaults standardRefreshDefaults] setHeadDefaultStyle:KafkaRefreshStyleAnimatableArrow];
 //    [[KafkaRefreshDefaults standardRefreshDefaults] setFootDefaultStyle:KafkaRefreshStyleAnimatableArrow];

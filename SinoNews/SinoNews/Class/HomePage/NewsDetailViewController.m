@@ -131,7 +131,7 @@ CGFloat static titleViewHeight = 91;
     self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         @strongify(self)
         if (UserGetBool(@"NightMode")) {
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more_night" hightimage:nil andTitle:@""];
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self action:@selector(moreSelect) image:UIImageNamed(@"news_more_night")];
 //            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
             UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
             [topBtnView addSubview:self.topAttBtn];
@@ -139,7 +139,7 @@ CGFloat static titleViewHeight = 91;
             
             self.navigationItem.rightBarButtonItems = @[more,barbtn];
         }else{
-            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self Action:@selector(moreSelect) image:@"news_more" hightimage:nil andTitle:@""];
+            UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self action:@selector(moreSelect) image:UIImageNamed(@"news_more")];
 //            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
             
             UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -863,6 +863,24 @@ CGFloat static titleViewHeight = 91;
     
     [self setNaviTitle];
     
+    //不是投票时才使用这种方法获取真实高度
+    if (!self.isVote) {
+        //获取在html里注入的锚点，得到准确的高度
+        [webView evaluateJavaScript:@"document.getElementById(\"test-div\").offsetTop" completionHandler:^(id data, NSError * _Nullable error) {
+            CGFloat height = [data floatValue];
+            //            GGLog(@"height:%lf",height);
+            //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
+            //设置通知或者代理来传高度
+            //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
+            self.topWebHeight = height + 10;
+            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+            self.tableView.tableHeaderView = self.webView;
+            if (height<10) {
+                [self newLoadWeb];
+            }
+        }];
+    }
+    
     CGFloat y = -titleViewHeight;
     if (firstLoadWeb) {
         y = currentScrollY;
@@ -873,20 +891,7 @@ CGFloat static titleViewHeight = 91;
     
     [self showOrHideLoadView:NO page:2];
     
-    //不是投票时才使用这种方法获取真实高度
-    if (!self.isVote) {
-        //获取在html里注入的锚点，得到准确的高度
-        [webView evaluateJavaScript:@"document.getElementById(\"test-div\").offsetTop" completionHandler:^(id data, NSError * _Nullable error) {
-            CGFloat height = [data floatValue];
-            //        GGLog(@"height:%lf",height);
-            //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
-            //设置通知或者代理来传高度
-            //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
-            self.topWebHeight = height + 10;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
-            self.tableView.tableHeaderView = self.webView;
-        }];
-    }
+    
     
     //修改字体大小 300%
 //    NSString *fontStr = @"100%";

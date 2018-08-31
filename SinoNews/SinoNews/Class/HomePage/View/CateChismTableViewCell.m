@@ -162,13 +162,14 @@
     }
     
     @weakify(self)
-    [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [praise whenTap:^{
         @strongify(self)
         [self addanimation];
         if (self.praiseBlock) {
             self.praiseBlock();
         }
     }];
+    
     
     [avatar whenTap:^{
        @strongify(self)

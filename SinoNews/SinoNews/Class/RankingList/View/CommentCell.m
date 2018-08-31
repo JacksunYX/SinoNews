@@ -296,7 +296,7 @@
         [praise setNormalTitle:count];
     }
     
-    [[praise rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    [praise whenTap:^{
         @strongify(self);
         
         [self addanimation];

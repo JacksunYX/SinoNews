@@ -505,8 +505,8 @@
         [subview removeFromSuperview];
     }
     if (self.user.identifications.count>0) {
-        CGFloat wid = 25;
-        CGFloat hei = 25;
+        CGFloat wid = 30;
+        CGFloat hei = 30;
         CGFloat spaceX = 0;
         
         UIView *lastView = _idView;

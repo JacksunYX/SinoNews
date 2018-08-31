@@ -14,6 +14,7 @@
     TXLimitedTextField *nickname;   //昵称
     TXLimitedTextField *password;   //密码
     TXLimitedTextField *seccode;    //验证码
+    TXLimitedTextField *promoteCode;//推广码
     UIButton *getCodeBtn;
     UIButton *registerBtn;
 }
@@ -121,6 +122,10 @@
     getCodeBtn.titleLabel.font = PFFontL(14);
     [getCodeBtn setTitleColor:RGBA(18, 130, 238, 1) forState:UIControlStateNormal];
     
+    promoteCode = [TXLimitedTextField new];
+    promoteCode.clearButtonMode = UITextFieldViewModeWhileEditing;
+    promoteCode.delegate = self;
+    
     registerBtn = [UIButton new];
     [registerBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
     registerBtn.titleLabel.font = PFFontL(16);
@@ -130,6 +135,7 @@
                               nickname,
                               password,
                               seccodeBackView,
+                              promoteCode,
                               registerBtn,
                               ]];
     username.sd_layout
@@ -193,10 +199,20 @@
     ;
     seccode.placeholder = @"请输入验证码";
     
+    promoteCode.sd_layout
+    .leftSpaceToView(backImg, 30)
+    .rightSpaceToView(backImg, 30)
+    .topSpaceToView(seccodeBackView, 0)
+    .heightIs(56)
+    ;
+    [promoteCode updateLayout];
+    promoteCode.placeholder = @"请输入推广码(选填)";
+    [promoteCode addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
+    
     registerBtn.sd_layout
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
-    .topSpaceToView(seccodeBackView, 57)
+    .topSpaceToView(promoteCode, 57)
     .heightIs(50)
     ;
     [registerBtn setSd_cornerRadius:@25];
@@ -292,6 +308,7 @@
             parameters[@"password"] = password.text;
             parameters[@"valid"] = seccode.text;
             parameters[@"source"] = @"2";
+            parameters[@"promoCode"] = promoteCode.text;
             
             [HttpRequest postWithURLString:DoRegister parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
                 LRToast(@"注册成功");

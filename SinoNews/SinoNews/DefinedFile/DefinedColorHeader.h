@@ -14,7 +14,7 @@
 #define NewsTitle_homePage  @"#1a1a1a"
 
 //分割线颜色
-#define CutLineColor  HexColor(#e3e3e3)
+#define CutLineColor  HexColor(#efefef)
 #define CutLineColorNight  HexColorAlpha(#e3e3e3,0.13)
 
 //浏览过的文章的标题颜色

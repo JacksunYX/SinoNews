@@ -88,7 +88,7 @@
     .heightIs(50)
     ;
     [oldPassword updateLayout];
-    oldPassword.placeholder = @"当前密码";
+    oldPassword.placeholder = @"旧密码";
     [oldPassword addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     newPassword.sd_layout
@@ -139,6 +139,7 @@
     textfield.clearButtonMode = UITextFieldViewModeWhileEditing;
     textfield.delegate = self;
     textfield.secureTextEntry = YES;
+    textfield.limitedNumber = 16;
     return textfield;
 }
 

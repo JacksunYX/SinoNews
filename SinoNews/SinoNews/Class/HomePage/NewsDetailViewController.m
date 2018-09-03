@@ -791,17 +791,20 @@ CGFloat static titleViewHeight = 91;
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
         [self.webView loadRequest:request];
     }else{
-        NSString *color = @"color: #161a24";
+        NSString *color = @"color: #161a24;";
         if (UserGetBool(@"NightMode")) {
             color = @"color: #cfd3d6;";
         }
-        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:30px;letter-spacing: 2px;",color];
+        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:33px;letter-spacing: 0.8px;",color];
+        //调整文字左右对齐
+        NSString *styleStr2 = @"text-align:justify; text-justify:inter-ideograph;";
         //拼接样式
         NSString *htmls = [NSString stringWithFormat:@"<html> \n"
                            "<head> \n"
                            "<style type=\"text/css\"> \n"
-                           "body {font-family:PingFangSC-Regular;font-size:%.fpx;%@}\n"
-                           "a {font-weight: 600 !important;}\n"
+                           "body {font-family:PingFangSC-Regular;font-size:%.fpx;%@%@}\n"
+//                           "a {font-weight: 600 !important;}\n"
+//                           "p {margin: 10px 10px 10px 10px;}"
                            "</style> \n"
                            "</head> \n"
                            "<body >"
@@ -818,7 +821,7 @@ CGFloat static titleViewHeight = 91;
                            "<div id=\"test-div\">"
                            "</div>"
                            "</body>"
-                           "</html>",[GetCurrentFont contentFont].pointSize,styleStr,GetSaveString(self.newsModel.fullContent)];
+                           "</html>",[GetCurrentFont contentFont].pointSize,styleStr,styleStr2,GetSaveString(self.newsModel.fullContent)];
         
         [self.webView loadHTMLString:htmls baseURL:nil];
     }
@@ -875,8 +878,9 @@ CGFloat static titleViewHeight = 91;
             self.topWebHeight = height + 10;
             self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
             self.tableView.tableHeaderView = self.webView;
-            if (height<10) {
+            if (!UserGetBool(@"HaveLoadedWeb")) {
                 [self newLoadWeb];
+                UserSetBool(YES, @"HaveLoadedWeb");
             }
         }];
     }

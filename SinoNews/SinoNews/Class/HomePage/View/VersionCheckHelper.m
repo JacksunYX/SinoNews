@@ -15,21 +15,23 @@
 +(void)requestToCheckVersion:(success)successBlock popUpdateView:(BOOL)pop
 {
     NSMutableDictionary *param = [NSMutableDictionary new];
-
+    
     param[@"platform"] = @(1);
+    param[@"version"] = [UIDevice appVersion];
     
     [HttpRequest getWithURLString:CurrentVersion parameters:param success:^(id response) {
-        //后台返回的最新版本号
-        NSString *versionName = response[@"data"][@"versionName"];
-        //0位为非强制更新，1为强制更新
-        NSInteger type = [response[@"data"][@"type"] integerValue];
-        //先跟当前app版本比对是否有出入
-        if (CompareString([UIDevice appVersion], versionName)) {
+        
+        //如果为空，说明此版本比服务器最新版本还高，或者是服务器不存在的版本
+        if (!response[@"data"]) {
             if (successBlock) {
                 successBlock(@"1");
             }
             return ;
         }else{
+            //后台返回的最新版本号
+            NSString *versionName = response[@"data"][@"versionName"];
+            //0位为非强制更新，1为强制更新
+            NSInteger type = [response[@"data"][@"type"] integerValue];
             switch (type) {
                 case 0:
                 {

@@ -667,15 +667,16 @@ CGFloat static titleViewHeight = 91;
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-        if (bgView) {
-            //设置不隐藏，还原放大缩小，显示图片
-            bgView.alpha = 1;
-            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-            int i = [imageIndex.lastObject intValue];
-            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-        }else{
-            [self showBigImage:imageUrl];//创建视图并显示图片
-        }
+//        if (bgView) {
+//            //设置不隐藏，还原放大缩小，显示图片
+//            bgView.alpha = 1;
+//            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+//            int i = [imageIndex.lastObject intValue];
+//            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
+//        }else{
+//            [self showBigImage:imageUrl];//创建视图并显示图片
+//        }
+        [self anotherImageBrowser:imageUrl];
         
     }else if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
         // 拦截点击链接
@@ -747,6 +748,27 @@ CGFloat static titleViewHeight = 91;
     [UIView animateWithDuration:0.5 animations:^{
         self->bgView.alpha = 0;
     }];
+}
+
+//第二种查看图片的方式
+-(void)anotherImageBrowser:(NSString *)imageUrl
+{
+    //获取下标
+    NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+    int i = [imageIndex.lastObject intValue];
+    
+    NSMutableArray *images = [NSMutableArray new];
+    for (int j = 0; j < allUrlArray.count; j ++) {
+        NSArray *imageArr = [NSMutableArray arrayWithArray:[allUrlArray[j] componentsSeparatedByString:@"LQXindex"]];
+        [images addObject:imageArr.firstObject];
+    }
+    //创建图片浏览器
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    browser.isFullWidthForLandScape = YES;
+    browser.isNeedLandscape = YES;
+    browser.currentImageIndex = i;
+    browser.imageArray = images;
+    [browser show];
 }
 
 #pragma mark ----- UITableViewDataSource

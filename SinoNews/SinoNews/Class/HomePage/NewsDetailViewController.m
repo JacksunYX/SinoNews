@@ -102,7 +102,7 @@ CGFloat static titleViewHeight = 91;
         [_topAttBtn setBtnFont:PFFontM(20)];
         [_topAttBtn setNormalTitleColor:WhiteColor];
         _topAttBtn.backgroundColor = HexColor(#1282EE);
-//        [_topAttBtn setNormalTitle:@"+"];
+        //        [_topAttBtn setNormalTitle:@"+"];
         _topAttBtn.layer.cornerRadius = 10;
         _topAttBtn.titleEdgeInsets = UIEdgeInsetsMake(-5, 0, 0, 0);
         [_topAttBtn addTarget:self action:@selector(requestIsAttention) forControlEvents:UIControlEventTouchUpInside];
@@ -114,7 +114,7 @@ CGFloat static titleViewHeight = 91;
     [super viewDidLoad];
     
     [self addTableView];
-
+    
     [self hiddenTopLine];
     
     [self requestNewData];
@@ -132,7 +132,7 @@ CGFloat static titleViewHeight = 91;
         @strongify(self)
         if (UserGetBool(@"NightMode")) {
             UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self action:@selector(moreSelect) image:UIImageNamed(@"news_more_night")];
-//            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
+            //            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts_night" hightimage:nil andTitle:@""];
             UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
             [topBtnView addSubview:self.topAttBtn];
             UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:topBtnView];
@@ -140,7 +140,7 @@ CGFloat static titleViewHeight = 91;
             self.navigationItem.rightBarButtonItems = @[more,barbtn];
         }else{
             UIBarButtonItem *more = [UIBarButtonItem itemWithTarget:self action:@selector(moreSelect) image:UIImageNamed(@"news_more")];
-//            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
+            //            UIBarButtonItem *fonts = [UIBarButtonItem itemWithTarget:self Action:@selector(fontsSelect) image:@"news_fonts" hightimage:nil andTitle:@""];
             
             UIView *topBtnView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
             [topBtnView addSubview:self.topAttBtn];
@@ -161,7 +161,7 @@ CGFloat static titleViewHeight = 91;
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .topEqualToView(self.view)
-//        .heightIs(titleViewHeight)
+        //        .heightIs(titleViewHeight)
         
         ;
         
@@ -203,7 +203,7 @@ CGFloat static titleViewHeight = 91;
                 [(UIButton *)item setSelectedTitleColor:WhiteColor];
             }
         });
-
+        
         
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
@@ -294,15 +294,15 @@ CGFloat static titleViewHeight = 91;
         [self.topAttBtn removeFromSuperview];
     }
     
-//    _titleLabel.font = [GetCurrentFont titleFont];
-
+    //    _titleLabel.font = [GetCurrentFont titleFont];
+    
     //获取上部分的高度
     [self.titleView updateLayout];
     titleViewHeight = self.titleView.height;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
-//    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
+    //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     //向下滚动一个像素点防止titleview不显示
-//    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - 1) animated:YES];
+    //    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - 1) animated:YES];
 }
 
 -(void)setNaviTitle
@@ -369,7 +369,7 @@ CGFloat static titleViewHeight = 91;
             .widthIs(wid)
             .heightIs(hei)
             ;
-//            [approveView setSd_cornerRadius:@(wid/2)];
+            //            [approveView setSd_cornerRadius:@(wid/2)];
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
             
             lastView = approveView;
@@ -408,23 +408,23 @@ CGFloat static titleViewHeight = 91;
         self.commentInput.delegate = self;
         self.commentInput.returnKeyType = UIReturnKeySend;
         @weakify(self)
-//        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
-//            @strongify(self)
-//            GGLog(@"完成编辑");
-//            UITextField *field = x.first;
-//            GGLog(@"-----%@",field.text);
-//            [field resignFirstResponder];
-//            if ([NSString isEmpty:field.text]) {
-//                LRToast(@"评论不能为空哦~");
-//            }else{
-//                [self requestCommentWithComment:field.text];
-//                field.text = @"";
-//            }
-//        }];
-//        [self.commentInput whenTap:^{
-//            @strongify(self)
-//
-//        }];
+        //        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+        //            @strongify(self)
+        //            GGLog(@"完成编辑");
+        //            UITextField *field = x.first;
+        //            GGLog(@"-----%@",field.text);
+        //            [field resignFirstResponder];
+        //            if ([NSString isEmpty:field.text]) {
+        //                LRToast(@"评论不能为空哦~");
+        //            }else{
+        //                [self requestCommentWithComment:field.text];
+        //                field.text = @"";
+        //            }
+        //        }];
+        //        [self.commentInput whenTap:^{
+        //            @strongify(self)
+        //
+        //        }];
         
         //        [[self rac_signalForSelector:@selector(textFieldDidEndEditing:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
         //            GGLog(@"结束编辑");
@@ -534,10 +534,10 @@ CGFloat static titleViewHeight = 91;
         self.commentInput.attributedPlaceholder = placeholder;
         
         UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 34)];
-//        UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
-//        [leftView addSubview:leftImg];
-//        leftImg.center = leftView.center;s
-//        leftImg.image = UIImageNamed(@"news_comment");
+        //        UIImageView *leftImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 22, 21)];
+        //        [leftView addSubview:leftImg];
+        //        leftImg.center = leftView.center;s
+        //        leftImg.image = UIImageNamed(@"news_comment");
         self.commentInput.leftViewMode = UITextFieldViewModeAlways;
         self.commentInput.leftView = leftView;
         
@@ -587,9 +587,9 @@ CGFloat static titleViewHeight = 91;
         priceLabel.text = [NSString stringWithFormat:@"  %ld积分",self.newsModel.points];
         
         [self.bottomView2 sd_addSubviews:@[
-                                          payBtn,
-                                          priceLabel,
-                                          ]];
+                                           payBtn,
+                                           priceLabel,
+                                           ]];
         payBtn.sd_layout
         .topEqualToView(self.bottomView2)
         .rightEqualToView(self.bottomView2)
@@ -607,7 +607,7 @@ CGFloat static titleViewHeight = 91;
         [priceLabel updateLayout];
         [priceLabel addBorderTo:BorderTypeTop borderColor:RGBA(227, 227, 227, 1)];
     }
-//    self.bottomView2.hidden = NO;
+    //    self.bottomView2.hidden = NO;
     self.bottomView2.hidden = YES;  //当前不显示此种购买ui
 }
 
@@ -653,14 +653,14 @@ CGFloat static titleViewHeight = 91;
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN + 49)
     ;
-//    [_tableView updateLayout];
+    //    [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
-
+    
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 0, 0);
-//    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
+    //    _tableView.separatorStyle = UITableViewCellSelectionStyleGray;
     
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
@@ -731,7 +731,7 @@ CGFloat static titleViewHeight = 91;
     WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     WKUserContentController *wkUController = [[WKUserContentController alloc] init];
     [wkUController addUserScript:wkUScript];
-  
+    
     //创建网页配置对象
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.userContentController = wkUController;
@@ -750,11 +750,11 @@ CGFloat static titleViewHeight = 91;
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
-//    self.webView.userInteractionEnabled = NO;
+    //    self.webView.userInteractionEnabled = NO;
     
-//    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testJS" ofType:@"js"];
-//    NSString *jsString = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-//    [self.webView evaluateJavaScript:jsString completionHandler:nil];
+    //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testJS" ofType:@"js"];
+    //    NSString *jsString = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //    [self.webView evaluateJavaScript:jsString completionHandler:nil];
     
     //KVO监听web的高度变化
     @weakify(self)
@@ -783,7 +783,7 @@ CGFloat static titleViewHeight = 91;
 {
     if (self.isVote) {
         //投票比较特殊
-//        NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+        //        NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
         
         NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
         GGLog(@"加载网址:%@",urlStr);
@@ -803,8 +803,8 @@ CGFloat static titleViewHeight = 91;
                            "<head> \n"
                            "<style type=\"text/css\"> \n"
                            "body {font-family:PingFangSC-Regular;font-size:%.fpx;%@%@}\n"
-//                           "a {font-weight: 600 !important;}\n"
-//                           "p {margin: 10px 10px 10px 10px;}"
+                           //                           "a {font-weight: 600 !important;}\n"
+                           //                           "p {margin: 10px 10px 10px 10px;}"
                            "</style> \n"
                            "</head> \n"
                            "<body >"
@@ -898,20 +898,20 @@ CGFloat static titleViewHeight = 91;
     
     
     //修改字体大小 300%
-//    NSString *fontStr = @"100%";
-//    if ([GetCurrentFont contentFont].pointSize == 12) {
-//        fontStr = @"80%";
-//    }else if ([GetCurrentFont contentFont].pointSize == 13){
-//        fontStr = @"90%";
-//    }else if ([GetCurrentFont contentFont].pointSize == 14){
-//        fontStr = @"100%";
-//    }else if ([GetCurrentFont contentFont].pointSize == 15){
-//        fontStr = @"120%";
-//    }else if ([GetCurrentFont contentFont].pointSize == 16){
-//        fontStr = @"150%";
-//    }
-//
-//    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
+    //    NSString *fontStr = @"100%";
+    //    if ([GetCurrentFont contentFont].pointSize == 12) {
+    //        fontStr = @"80%";
+    //    }else if ([GetCurrentFont contentFont].pointSize == 13){
+    //        fontStr = @"90%";
+    //    }else if ([GetCurrentFont contentFont].pointSize == 14){
+    //        fontStr = @"100%";
+    //    }else if ([GetCurrentFont contentFont].pointSize == 15){
+    //        fontStr = @"120%";
+    //    }else if ([GetCurrentFont contentFont].pointSize == 16){
+    //        fontStr = @"150%";
+    //    }
+    //
+    //    [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontStr] completionHandler:nil];
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8
@@ -922,12 +922,12 @@ CGFloat static titleViewHeight = 91;
         [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#1c2023'" completionHandler:nil];
     }else{
         //修改字体颜色  #9098b8
-//        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#1a1a1a'"completionHandler:nil];
+        //        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#1a1a1a'"completionHandler:nil];
         //修改背景色
-//        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
+        //        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
     }
     
-//    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];
+    //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];
     
     //js方法遍历图片添加点击事件 返回图片个数
     /*这块我着重说几句
@@ -968,40 +968,42 @@ CGFloat static titleViewHeight = 91;
     }];
     
     //插入一段文本
-//    if (self.isVote) {
-//        static  NSString * const insertContent =
-//        @"function insertContent(html){\
-//        var ele = document.getElementsByTagName('body');\
-//        html += ele.innerHTML;\
-//        ele.innerHTML = html;\
-//        };";
-//        //注入js方法
-//        [webView evaluateJavaScript:insertContent completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-//
-//        }];
-//        [webView evaluateJavaScript:[NSString stringWithFormat:@"insertContent(\"%@\")",self.newsModel.fullContent] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-//            GGLog(@"注入了");
-//        }];
-//    }
+    //    if (self.isVote) {
+    //        static  NSString * const insertContent =
+    //        @"function insertContent(html){\
+    //        var ele = document.getElementsByTagName('body');\
+    //        html += ele.innerHTML;\
+    //        ele.innerHTML = html;\
+    //        };";
+    //        //注入js方法
+    //        [webView evaluateJavaScript:insertContent completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+    //
+    //        }];
+    //        [webView evaluateJavaScript:[NSString stringWithFormat:@"insertContent(\"%@\")",self.newsModel.fullContent] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+    //            GGLog(@"注入了");
+    //        }];
+    //    }
     
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
     NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
-//    GGLog(@"requestString:%@",requestString);
+    //    GGLog(@"requestString:%@",requestString);
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]&&!self.webView.loading) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-        if (bgView) {
-            //设置不隐藏，还原放大缩小，显示图片
-            bgView.alpha = 1;
-            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-            int i = [imageIndex.lastObject intValue];
-            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-        }else{
-            [self showBigImage:imageUrl];//创建视图并显示图片
-        }
+//        if (bgView) {
+//            //设置不隐藏，还原放大缩小，显示图片
+//            bgView.alpha = 1;
+//            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+//            int i = [imageIndex.lastObject intValue];
+//            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
+//        }else{
+//            [self showBigImage:imageUrl];//创建视图并显示图片
+//        }
+        
+        [self anotherImageBrowser:imageUrl];
         
     }else if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
         // 拦截点击链接
@@ -1077,10 +1079,31 @@ CGFloat static titleViewHeight = 91;
     [UIView animateWithDuration:0.5 animations:^{
         self->bgView.alpha = 0;
     } completion:^(BOOL finished) {
-//        for (UIView *subview in self->bgView.subviews) {
-//            [subview removeFromSuperview];
-//        }
+        //        for (UIView *subview in self->bgView.subviews) {
+        //            [subview removeFromSuperview];
+        //        }
     }];
+}
+
+//第二种查看图片的方式
+-(void)anotherImageBrowser:(NSString *)imageUrl
+{
+    //获取下标
+    NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
+    int i = [imageIndex.lastObject intValue];
+    
+    NSMutableArray *images = [NSMutableArray new];
+    for (int j = 0; j < allUrlArray.count; j ++) {
+        NSArray *imageArr = [NSMutableArray arrayWithArray:[allUrlArray[j] componentsSeparatedByString:@"LQXindex"]];
+        [images addObject:imageArr.firstObject];
+    }
+    //创建图片浏览器
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    browser.isFullWidthForLandScape = YES;
+    browser.isNeedLandscape = YES;
+    browser.currentImageIndex = i;
+    browser.imageArray = images;
+    [browser show];
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -1104,10 +1127,10 @@ CGFloat static titleViewHeight = 91;
 {
     UITableViewCell *cell;
     if (indexPath.section == 1&&!NoPayedNews) {
-//        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-//        cell0.model = self.newsModel.relatedNews[indexPath.row];
-//        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-//        cell = (UITableViewCell *)cell0;
+        //        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+        //        cell0.model = self.newsModel.relatedNews[indexPath.row];
+        //        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        //        cell = (UITableViewCell *)cell0;
         id model = self.newsModel.relatedNews[indexPath.row];
         if ([model isKindOfClass:[HomePageModel class]]) {
             HomePageModel *model1 = (HomePageModel *)model;
@@ -1150,13 +1173,13 @@ CGFloat static titleViewHeight = 91;
         //            [self.commentInput becomeFirstResponder];
         //        };
         //点击回复
-//        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
-//            GGLog(@"点击了第%ld条回复",index);
-//        };
+        //        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
+        //            GGLog(@"点击了第%ld条回复",index);
+        //        };
         //查看全部评论
-//        cell2.checkAllReplay = ^(NSInteger row) {
-//            GGLog(@"点击了查看全部回复");
-//        };
+        //        cell2.checkAllReplay = ^(NSInteger row) {
+        //            GGLog(@"点击了查看全部回复");
+        //        };
         
         cell = (CommentCell *)cell2;
     }
@@ -1279,7 +1302,7 @@ CGFloat static titleViewHeight = 91;
         title.textAlignment = NSTextAlignmentCenter;
         title.lee_theme.LeeConfigTextColor(@"titleColor");
         UIView *line = [UIView new];
-//        line.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        //        line.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         line.backgroundColor = HexColor(#BCD5EE);
         
         [headView sd_addSubviews:@[
@@ -1308,7 +1331,7 @@ CGFloat static titleViewHeight = 91;
             UILabel *noticeLabel = [UILabel new];
             noticeLabel.font = PFFontL(16);
             noticeLabel.textColor = HexColor(#1282EE);
-//            [noticeLabel addTitleColorTheme];
+            //            [noticeLabel addTitleColorTheme];
             noticeLabel.numberOfLines = 0;
             
             UIImageView *lockImg = [UIImageView new];
@@ -1319,7 +1342,7 @@ CGFloat static titleViewHeight = 91;
             moreNotice.textAlignment = NSTextAlignmentCenter;
             
             [headView sd_addSubviews:@[
-//                                       noticeLabel,
+                                       //                                       noticeLabel,
                                        moreNotice,
                                        lockImg,
                                        ]];
@@ -1330,10 +1353,10 @@ CGFloat static titleViewHeight = 91;
             .autoHeightRatio(0)
             ;
             [noticeLabel setMaxNumberOfLinesToShow:4];
-//            noticeLabel.text = @"余下内容为付费内容，价格为199.00积分";
+            //            noticeLabel.text = @"余下内容为付费内容，价格为199.00积分";
             
             moreNotice.sd_layout
-//            .bottomSpaceToView(headView, 50)
+            //            .bottomSpaceToView(headView, 50)
             .topSpaceToView(headView, 12)
             .leftSpaceToView(headView, 10)
             .rightSpaceToView(headView, 10)
@@ -1343,13 +1366,13 @@ CGFloat static titleViewHeight = 91;
             
             lockImg.sd_layout
             .centerXEqualToView(headView)
-//            .bottomSpaceToView(moreNotice, 10)
+            //            .bottomSpaceToView(moreNotice, 10)
             .topSpaceToView(moreNotice, 20)
             .widthIs(54)
             .heightEqualToWidth()
             ;
             [lockImg setSd_cornerRadius:@27];
-//            lockImg.image = UIImageNamed(@"new_locked");
+            //            lockImg.image = UIImageNamed(@"new_locked");
             lockImg.image = UIImageNamed(@"news_unlock");
             
             //添加点击事件
@@ -1449,15 +1472,15 @@ CGFloat static titleViewHeight = 91;
     int x = point.x;
     int y = point.y;
     //    NSLog(@"touch (x, y) is (%d, %d)", x, y);
-//    GGLog(@"y：%lf",self.tableView.contentOffset.y);
-//    GGLog(@"-titleViewHeight：%lf",-titleViewHeight);
+    //    GGLog(@"y：%lf",self.tableView.contentOffset.y);
+    //    GGLog(@"-titleViewHeight：%lf",-titleViewHeight);
     
     if (self.attentionBtn.enabled) {
         //如果大于，说明tableView便宜量已经看不到头像等信息了
         if (self.tableView.contentOffset.y + titleViewHeight >=10 + 24) {
             GGLog(@"不能点击");
         }else{
-
+            
             if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 24/2 - 20/2 && y <= titleViewHeight - 10 - 24/2 + 20/2) {
                 GGLog(@"点击了关注");
                 [self requestIsAttention];
@@ -1474,7 +1497,7 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
+    
     [self processViewAlphaWithView:scrollView];
     
 }
@@ -1482,7 +1505,7 @@ CGFloat static titleViewHeight = 91;
 //处理滚动视图时其他视图的显隐
 -(void)processViewAlphaWithView:(UIScrollView *)scrollView
 {
-//    GGLog(@"y:%lf",scrollView.contentOffset.y);
+    //    GGLog(@"y:%lf",scrollView.contentOffset.y);
     
     CGFloat offsetY = scrollView.contentOffset.y;
     currentScrollY = offsetY;
@@ -1491,7 +1514,7 @@ CGFloat static titleViewHeight = 91;
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
-//        GGLog(@"min:%@",process);
+        //        GGLog(@"min:%@",process);
         self.titleView.alpha = 1 - [process floatValue];
         
         self.attentionBtn.enabled = 1 - [process floatValue];
@@ -1551,23 +1574,23 @@ CGFloat static titleViewHeight = 91;
         
         self.commentsArr = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.commentsArr];
         
-//        if (self.currPage == 1) {
-//            //            [self.tableView.mj_header endRefreshing];
-//            if (arr.count) {
-//                self.commentsArr = [arr mutableCopy];
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//        }else{
-//            if (arr.count) {
-//                [self.commentsArr addObjectsFromArray:arr];
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//        }
-//
+        //        if (self.currPage == 1) {
+        //            //            [self.tableView.mj_header endRefreshing];
+        //            if (arr.count) {
+        //                self.commentsArr = [arr mutableCopy];
+        //                [self.tableView.mj_footer endRefreshing];
+        //            }else{
+        //                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        //            }
+        //        }else{
+        //            if (arr.count) {
+        //                [self.commentsArr addObjectsFromArray:arr];
+        //                [self.tableView.mj_footer endRefreshing];
+        //            }else{
+        //                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        //            }
+        //        }
+        //
         [self setBottomView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -1588,7 +1611,7 @@ CGFloat static titleViewHeight = 91;
         LRToast(@"评论已发送");
         //        self.parentId = 0;
         [self refreshComments];
-//        [self requestNewData];
+        //        [self requestNewData];
         //        CompanyCommentModel *commentModel = [CompanyCommentModel new];
         //        commentModel.avatar = UserGet(@"avatar");
         //        commentModel.username = UserGet(@"username");
@@ -1644,11 +1667,11 @@ CGFloat static titleViewHeight = 91;
     parameters[@"newsId"] = @(self.newsId);
     [HttpRequest postWithTokenURLString:Favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         NSInteger status = [res[@"data"][@"status"] integerValue];
-//        if (status == 1) {
-//            LRToast(@"收藏成功");
-//        }else{
-//            LRToast(@"已取消收藏");
-//        }
+        //        if (status == 1) {
+        //            LRToast(@"收藏成功");
+        //        }else{
+        //            LRToast(@"已取消收藏");
+        //        }
         self.newsModel.isCollection = status;
         [self setBottomView];
         
@@ -1663,18 +1686,18 @@ CGFloat static titleViewHeight = 91;
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"userId"] = @(self.newsModel.userId);
     [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
-//        UserModel *user = [UserModel getLocalUserModel];
+        //        UserModel *user = [UserModel getLocalUserModel];
         NSInteger status = [res[@"data"][@"status"] integerValue];
         if (status == 1) {
-//            user.followCount ++;
+            //            user.followCount ++;
             LRToast(@"关注成功");
         }else{
-//            user.followCount --;
+            //            user.followCount --;
             LRToast(@"已取消关注");
         }
         self.newsModel.isAttention = status;
         //覆盖之前保存的信息
-//        [UserModel coverUserData:user];
+        //        [UserModel coverUserData:user];
         [self setTitle];
     } failure:nil RefreshAction:^{
         [self requestNewData];
@@ -1723,8 +1746,8 @@ CGFloat static titleViewHeight = 91;
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;
         shareModel.content = AppendingString(self.newsModel.newsTitle, urlStr);
-//        shareModel.thumbImage = [UIImage imageNamed:@""];
-//        shareModel.image = @"xxx";
+        //        shareModel.thumbImage = [UIImage imageNamed:@""];
+        //        shareModel.image = @"xxx";
     }else{
         shareModel.contentType = MGShareContentTypeWebPage;
         shareModel.title = self.newsModel.newsTitle;
@@ -1755,8 +1778,8 @@ CGFloat static titleViewHeight = 91;
         UserModel *user = [UserModel getLocalUserModel];
         user.integral = [response[@"data"][@"remainPoints"] longValue];
         [UserModel coverUserData:user];
-//        self.newsModel.hasPaid = YES;
-//        [self setWebViewLoad];
+        //        self.newsModel.hasPaid = YES;
+        //        [self setWebViewLoad];
         //直接重新拉一遍详情
         [self requestNewData];
     } failure:^(NSError *error) {

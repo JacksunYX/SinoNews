@@ -85,6 +85,10 @@
 		4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C23B5D120F7023D00ACE380 /* NormalTheme.json */; };
 		4C23B5D620F7480F00ACE380 /* UIView+AddThemeMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
+		4C3CB3C7213D0E8700E48A97 /* HZWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CB3BF213D0E8700E48A97 /* HZWaitingView.m */; };
+		4C3CB3C8213D0E8700E48A97 /* HZPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CB3C1213D0E8700E48A97 /* HZPhotoBrowser.m */; };
+		4C3CB3C9213D0E8700E48A97 /* HZPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C3CB3C4213D0E8700E48A97 /* HZPhotoBrowser.bundle */; };
+		4C3CB3CA213D0E8700E48A97 /* HZPhotoBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CB3C5213D0E8700E48A97 /* HZPhotoBrowserView.m */; };
 		4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */; };
 		4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */; };
 		4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */; };
@@ -607,6 +611,14 @@
 		4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddThemeMode.m"; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
+		4C3CB3BF213D0E8700E48A97 /* HZWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZWaitingView.m; sourceTree = "<group>"; };
+		4C3CB3C0213D0E8700E48A97 /* HZPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		4C3CB3C1213D0E8700E48A97 /* HZPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZPhotoBrowser.m; sourceTree = "<group>"; };
+		4C3CB3C2213D0E8700E48A97 /* HZPhotoBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPhotoBrowserView.h; sourceTree = "<group>"; };
+		4C3CB3C3213D0E8700E48A97 /* HZWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZWaitingView.h; sourceTree = "<group>"; };
+		4C3CB3C4213D0E8700E48A97 /* HZPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HZPhotoBrowser.bundle; sourceTree = "<group>"; };
+		4C3CB3C5213D0E8700E48A97 /* HZPhotoBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZPhotoBrowserView.m; sourceTree = "<group>"; };
+		4C3CB3C6213D0E8700E48A97 /* HZPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPhotoBrowser.h; sourceTree = "<group>"; };
 		4C3D111920D8D58100480E03 /* CompanyDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailModel.h; sourceTree = "<group>"; };
 		4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailModel.m; sourceTree = "<group>"; };
 		4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
@@ -1477,6 +1489,21 @@
 			path = ThemeJson;
 			sourceTree = "<group>";
 		};
+		4C3CB3BE213D0E8700E48A97 /* ptotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				4C3CB3BF213D0E8700E48A97 /* HZWaitingView.m */,
+				4C3CB3C0213D0E8700E48A97 /* HZPhotoBrowserConfig.h */,
+				4C3CB3C1213D0E8700E48A97 /* HZPhotoBrowser.m */,
+				4C3CB3C2213D0E8700E48A97 /* HZPhotoBrowserView.h */,
+				4C3CB3C3213D0E8700E48A97 /* HZWaitingView.h */,
+				4C3CB3C4213D0E8700E48A97 /* HZPhotoBrowser.bundle */,
+				4C3CB3C5213D0E8700E48A97 /* HZPhotoBrowserView.m */,
+				4C3CB3C6213D0E8700E48A97 /* HZPhotoBrowser.h */,
+			);
+			path = ptotoBrowser;
+			sourceTree = "<group>";
+		};
 		4C3D111C20D8F01500480E03 /* UILabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1860,6 +1887,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C3CB3BE213D0E8700E48A97 /* ptotoBrowser */,
 				4C7EF2C3212129C60002166A /* ZSSRichTextEditor */,
 				4C89072E211D34FE00F86220 /* STSegmentView */,
 				4C4EC2F62112E3E800591F12 /* ZXYShineButton */,
@@ -2882,6 +2910,7 @@
 				4C8735F820BE8CC800B6A8B5 /* delete@2x.png in Resources */,
 				4C7EF38721212A0B0002166A /* jQuery.js in Resources */,
 				4C13E96D20C67263009115C1 /* city.plist in Resources */,
+				4C3CB3C9213D0E8700E48A97 /* HZPhotoBrowser.bundle in Resources */,
 				4C7EF36521212A0B0002166A /* ZSSforcejustify@2x.png in Resources */,
 				4C7EF35D21212A0B0002166A /* ZSSleftjustify.png in Resources */,
 				4C7EF37121212A0B0002166A /* ZSSquicklink.png in Resources */,
@@ -3183,6 +3212,7 @@
 				4C4DF4E120F87CCB005E6197 /* TopBaseViewController.m in Sources */,
 				4C4EC3062112E3E800591F12 /* ZXYShineButton.m in Sources */,
 				4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */,
+				4C3CB3C7213D0E8700E48A97 /* HZWaitingView.m in Sources */,
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
@@ -3192,6 +3222,7 @@
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
+				4C3CB3C8213D0E8700E48A97 /* HZPhotoBrowser.m in Sources */,
 				4C4E495C2111A1380078864D /* ExchangeRecordCell.m in Sources */,
 				4CA141F020F445E000536E77 /* UniversalMethod.m in Sources */,
 				4C3F901B20BD006C003EC4FC /* UIImage+Util.m in Sources */,
@@ -3229,6 +3260,7 @@
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
 				4C646C6520F3129B0053067A /* SignInRuleWebView.m in Sources */,
 				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
+				4C3CB3CA213D0E8700E48A97 /* HZPhotoBrowserView.m in Sources */,
 				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
@@ -3556,7 +3588,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfdb9b0e-9c43-40d5-be90-847da81e48d8";
+				PROVISIONING_PROFILE = "467dd32f-76f8-4f9d-9016-c37a0819c25d";
 				PROVISIONING_PROFILE_SPECIFIER = "开发描述文件";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3587,7 +3619,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "69a1c759-8db5-4b49-8b89-00a38896f3f8";
+				PROVISIONING_PROFILE = "275dec1b-5a6c-4152-8985-5b392f63fc2b";
 				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

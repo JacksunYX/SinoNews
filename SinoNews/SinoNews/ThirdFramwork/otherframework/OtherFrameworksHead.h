@@ -37,4 +37,8 @@
 
 #import "STSegmentView.h"//分段选择
 
+#import "HZPhotoBrowser.h"  //图片浏览器
+
+#import "WebViewJavascriptBridge.h"
+
 #endif /* OtherFrameworksHead_h */

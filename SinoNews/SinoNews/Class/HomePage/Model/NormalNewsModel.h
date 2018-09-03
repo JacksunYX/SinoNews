@@ -30,6 +30,7 @@
 @property (nonatomic,strong) NSString *newsTitle;
 @property (nonatomic,assign) NSInteger points;          //解锁收费部分需要的积分
 @property (nonatomic,strong) NSArray <HomePageModel *>*relatedNews; //相关推荐的新闻列表
+@property (nonatomic,strong) NSArray <ADModel *>*advertisements;//相关广告列表
 @property (nonatomic,strong) NSString *tollContentUrl;  //收费内容链接
 @property (nonatomic,assign) NSInteger topicId;         //专题id
 @property (nonatomic,strong) NSString *topicName;       //专题名称

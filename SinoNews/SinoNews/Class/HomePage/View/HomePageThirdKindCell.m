@@ -40,7 +40,7 @@
 -(void)setupUI
 {
     title = [UILabel new];
-    title.font = FontScale(16);
+    title.font = FontScale(17);
 //    title.textColor = HexColor(#323232);
     title.lee_theme.LeeConfigTextColor(@"titleColor");
     
@@ -139,6 +139,7 @@
     }else{
         title.text = titletext;
     }
+    [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
 }
 
 

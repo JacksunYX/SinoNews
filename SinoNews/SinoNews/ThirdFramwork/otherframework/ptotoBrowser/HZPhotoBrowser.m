@@ -256,6 +256,7 @@
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 {
+    GGLog(@"保存成功");
     if (error) {
         [self showTip:HZPhotoBrowserSaveImageFailText];
     } else {

@@ -39,6 +39,6 @@
 #import "UIScrollView+PullUpOrDown.h"
 #import "NSDictionary+Extension.h"
 #import "NSArray+Extension.h"
-#import "HZPhotoBrowser.h"
+#import "Util.h"
 
 #endif /* ToolsHeader_h */

@@ -390,6 +390,9 @@
             [BrowsNewsSingleton.singleton addBrowHistory:[model1.topicId integerValue]];
             [self.tableView reloadData];
         }
+    }else if ([model isKindOfClass:[ADModel class]]){
+        ADModel *model1 = model;
+        [UniversalMethod jumpWithADModel:model1];
     }
     
 }

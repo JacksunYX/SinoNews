@@ -14,6 +14,7 @@
 {
     return @{
              @"relatedNews" : [HomePageModel class],
+             @"advertisements" : [ADModel class],
              };
 }
 

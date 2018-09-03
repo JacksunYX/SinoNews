@@ -273,7 +273,7 @@
 
 #define UserInfoData [DCUserInfo findAll].lastObject
 
-
+#define kNotificationCenter [NSNotificationCenter defaultCenter]
 
 
 //由角度获取弧度 由弧度获取角度

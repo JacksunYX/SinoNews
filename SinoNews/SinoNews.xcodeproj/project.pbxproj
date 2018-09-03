@@ -43,6 +43,12 @@
 		4C1C6DE520E468D200637E2A /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE420E468D200637E2A /* SignInViewController.m */; };
 		4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */; };
 		4C1D503320E5C8300002C53E /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D503220E5C8300002C53E /* ProductModel.m */; };
+		4C1DE9EC213D2CC500350313 /* DetalJavascript.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C1DE9EB213D2CC500350313 /* DetalJavascript.js */; };
+		4C1DE9EF213D2E0600350313 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DE9EE213D2E0600350313 /* Util.m */; };
+		4C1DE9F9213D339600350313 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DE9F1213D339600350313 /* WebViewJavascriptBridgeBase.m */; };
+		4C1DE9FA213D339600350313 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DE9F2213D339600350313 /* WKWebViewJavascriptBridge.m */; };
+		4C1DE9FB213D339600350313 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DE9F3213D339600350313 /* WebViewJavascriptBridge.m */; };
+		4C1DE9FC213D339600350313 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1DE9F6213D339600350313 /* WebViewJavascriptBridge_JS.m */; };
 		4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0ADD20EC9F8500C3A2E7 /* RecommendChannelModel.m */; };
 		4C1F0AE120ECA02A00C3A2E7 /* RecommendUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0AE020ECA02A00C3A2E7 /* RecommendUserModel.m */; };
 		4C1F0AE520ECC45300C3A2E7 /* ProductDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F0AE420ECC45300C3A2E7 /* ProductDetailModel.m */; };
@@ -529,6 +535,17 @@
 		4C1C6DE720E4D65700637E2A /* PayNewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayNewsViewController.m; sourceTree = "<group>"; };
 		4C1D503120E5C8300002C53E /* ProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
 		4C1D503220E5C8300002C53E /* ProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
+		4C1DE9EB213D2CC500350313 /* DetalJavascript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = DetalJavascript.js; sourceTree = "<group>"; };
+		4C1DE9ED213D2E0600350313 /* Util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		4C1DE9EE213D2E0600350313 /* Util.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		4C1DE9F1213D339600350313 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		4C1DE9F2213D339600350313 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		4C1DE9F3213D339600350313 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		4C1DE9F4213D339600350313 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		4C1DE9F5213D339600350313 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		4C1DE9F6213D339600350313 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		4C1DE9F7213D339600350313 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		4C1DE9F8213D339600350313 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		4C1F0ADC20EC9F8500C3A2E7 /* RecommendChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendChannelModel.h; sourceTree = "<group>"; };
 		4C1F0ADD20EC9F8500C3A2E7 /* RecommendChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendChannelModel.m; sourceTree = "<group>"; };
 		4C1F0ADF20ECA02A00C3A2E7 /* RecommendUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendUserModel.h; sourceTree = "<group>"; };
@@ -1353,6 +1370,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4C1DE9F0213D339600350313 /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				4C1DE9F1213D339600350313 /* WebViewJavascriptBridgeBase.m */,
+				4C1DE9F2213D339600350313 /* WKWebViewJavascriptBridge.m */,
+				4C1DE9F3213D339600350313 /* WebViewJavascriptBridge.m */,
+				4C1DE9F4213D339600350313 /* WebViewJavascriptBridge_JS.h */,
+				4C1DE9F5213D339600350313 /* WebViewJavascriptBridgeBase.h */,
+				4C1DE9F6213D339600350313 /* WebViewJavascriptBridge_JS.m */,
+				4C1DE9F7213D339600350313 /* WebViewJavascriptBridge.h */,
+				4C1DE9F8213D339600350313 /* WKWebViewJavascriptBridge.h */,
+			);
+			path = WebViewJavascriptBridge;
+			sourceTree = "<group>";
+		};
 		4C21ABCE20D34A0300615F20 /* LoginAbout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1821,6 +1853,8 @@
 				4CA141EF20F445E000536E77 /* UniversalMethod.m */,
 				4C23B5C820F6E30C00ACE380 /* GetCurrentFont.h */,
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
+				4C1DE9ED213D2E0600350313 /* Util.h */,
+				4C1DE9EE213D2E0600350313 /* Util.m */,
 				4C510B5F211049AC00706185 /* NSDictionary */,
 				4CC2898D2105AF6D00BC4D92 /* UIDevice */,
 				4C72346420FCC26B00D5C5D4 /* UINavigationBar */,
@@ -1887,6 +1921,8 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C1DE9EB213D2CC500350313 /* DetalJavascript.js */,
+				4C1DE9F0213D339600350313 /* WebViewJavascriptBridge */,
 				4C3CB3BE213D0E8700E48A97 /* ptotoBrowser */,
 				4C7EF2C3212129C60002166A /* ZSSRichTextEditor */,
 				4C89072E211D34FE00F86220 /* STSegmentView */,
@@ -2970,6 +3006,7 @@
 				4C7EF33E21212A0B0002166A /* ZSSoutdent.png in Resources */,
 				4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */,
 				4C7EF34221212A0B0002166A /* ZSSparagraph.png in Resources */,
+				4C1DE9EC213D2CC500350313 /* DetalJavascript.js in Resources */,
 				4C7EF39B21212A820002166A /* ZSSredo@3x.png in Resources */,
 				4C7EF33921212A0B0002166A /* ZSSitalic.png in Resources */,
 				4C7EF36621212A0B0002166A /* ZSSviewsource@2x.png in Resources */,
@@ -3255,6 +3292,7 @@
 				4C7234E220FDEB1D00D5C5D4 /* AATitle.m in Sources */,
 				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
 				4C72350220FF373C00D5C5D4 /* JHTextView.m in Sources */,
+				4C1DE9FC213D339600350313 /* WebViewJavascriptBridge_JS.m in Sources */,
 				4C6B4E4F20EB155F00BA0534 /* ADPopView.m in Sources */,
 				4C7EF38621212A0B0002166A /* ZSSTextView.m in Sources */,
 				4C83E64320BFE32C00C99AAB /* LineLayout.m in Sources */,
@@ -3268,6 +3306,7 @@
 				4C646C6E20F346630053067A /* OfficialNotifyCell.m in Sources */,
 				4C21ABD120D34A4500615F20 /* RegisterViewController.m in Sources */,
 				4C95FFEE20DE4C7A0040E348 /* NSDate+Extension.m in Sources */,
+				4C1DE9F9213D339600350313 /* WebViewJavascriptBridgeBase.m in Sources */,
 				4C83E64E20BFFB3100C99AAB /* YXGifHeader.m in Sources */,
 				4C23B3AB20F591E400ACE380 /* NSTextAttachment+LMText.m in Sources */,
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
@@ -3287,10 +3326,12 @@
 				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
 				4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */,
 				4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */,
+				4C1DE9FA213D339600350313 /* WKWebViewJavascriptBridge.m in Sources */,
 				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
 				4C72345F20FC6E4200D5C5D4 /* UIView+LYExtension.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,
+				4C1DE9EF213D2E0600350313 /* Util.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4CA23270212E99A8006709E6 /* VersionCheckHelper.m in Sources */,
 				4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */,
@@ -3308,6 +3349,7 @@
 				4C51B16C210F12E7007EF10B /* DailyTaskModel.m in Sources */,
 				4C7234E320FDEB1D00D5C5D4 /* AAArea.m in Sources */,
 				4C7234DA20FDEB1D00D5C5D4 /* AASubtitle.m in Sources */,
+				4C1DE9FB213D339600350313 /* WebViewJavascriptBridge.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */,
 				4C7234EC20FDEB1D00D5C5D4 /* AAChartModel.m in Sources */,

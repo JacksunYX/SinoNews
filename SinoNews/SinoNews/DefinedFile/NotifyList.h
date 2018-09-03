@@ -32,4 +32,7 @@
 //用户积分或头像变动的通知
 #define UserIntegralOrAvatarChanged @"UserIntegralOrAvatarChanged"
 
+//下载图片完成的通知
+#define kDownloadImageSuccessNotify @"kDownloadImageSuccessNotify"
+
 #endif /* NotifyList_h */

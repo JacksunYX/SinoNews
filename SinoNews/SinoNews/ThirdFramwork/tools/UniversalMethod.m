@@ -233,7 +233,7 @@
             id model = data[i];
             //先转换成字典
             NSMutableDictionary *modelDic = [model mj_keyValues];
-            //如果是广告或者专题，就跳过
+            //如果是广告、置顶就跳过（现在专题是属于新闻）
             if ([model isKindOfClass:[ADModel class]]||CompareString(modelDic[@"labelName"], @"置顶")) {
                 //防止越界
                 if (i == 0) {
@@ -313,7 +313,7 @@
         itemId = [model2.topicId integerValue];
         pushVC = tVC;
     }else if ([model isKindOfClass:[ADModel class]]){
-        
+        return itemId;
     }
     
     [[HttpRequest currentViewController].navigationController pushViewController:pushVC animated:YES];

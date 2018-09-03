@@ -9,10 +9,12 @@
 
 #import "NewsDetailViewController.h"
 #import "CommentDetailViewController.h"
+
 #import "HomePageFirstKindCell.h"
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
 #import "HomePageFourthCell.h"
+#import "HomePageThirdKindCell.h"
 
 #import "HomePageModel.h"
 #import "FontAndNightModeView.h"
@@ -65,6 +67,7 @@
 
 @property (nonatomic,strong) UserModel *user;
 
+@property WebViewJavascriptBridge* bridge;
 @end
 
 @implementation NewsDetailViewController
@@ -666,6 +669,7 @@ CGFloat static titleViewHeight = 91;
     //注册
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+    [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
 }
@@ -750,6 +754,11 @@ CGFloat static titleViewHeight = 91;
     self.webView.navigationDelegate = self;
     [self.webView addBakcgroundColorTheme];
     self.webView.scrollView.delegate = self;
+//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+//    [self.bridge registerHandler:@"ObjC Echo" handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"ObjC Echo called with: %@", data);
+//        responseCallback(data);
+//    }];
     //    self.webView.userInteractionEnabled = NO;
     
     //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testJS" ofType:@"js"];
@@ -795,7 +804,8 @@ CGFloat static titleViewHeight = 91;
         if (UserGetBool(@"NightMode")) {
             color = @"color: #cfd3d6;";
         }
-        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:33px;letter-spacing: 0.8px;",color];
+        
+        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:32px;letter-spacing: 0.8px;",color];
         //调整文字左右对齐
         NSString *styleStr2 = @"text-align:justify; text-justify:inter-ideograph;";
         //拼接样式
@@ -857,7 +867,7 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    GGLog(@"加载完成");
+    GGLog(@"加载完成1");
     [self showBottomView];
     
     [self setNavigationBtns];
@@ -894,7 +904,6 @@ CGFloat static titleViewHeight = 91;
     firstLoadWeb = YES;
     
     [self showOrHideLoadView:NO page:2];
-    
     
     
     //修改字体大小 300%
@@ -987,7 +996,8 @@ CGFloat static titleViewHeight = 91;
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    
+    GGLog(@"加载完成2");
+//    [self loadNewHtmlStr:[webView.URL absoluteString]];
     NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
     //    GGLog(@"requestString:%@",requestString);
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
@@ -1015,6 +1025,20 @@ CGFloat static titleViewHeight = 91;
     // 允许跳转
     decisionHandler(WKNavigationActionPolicyAllow);
     
+}
+
+-(void)loadNewHtmlStr:(NSString *)absoluteString
+{
+    NSString *htmlStr = [Util changeImgSrc:absoluteString];
+    GGLog(@"html == %@", htmlStr);
+    // 读取本地JS文件，把JS加到最后面
+    NSString *jsPath = [[NSBundle mainBundle] pathForResource:@"DetalJavascript" ofType:@"js"];
+    NSString *jsHtml = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
+    htmlStr = [htmlStr stringByAppendingString:[NSString stringWithFormat:@"\n%@", jsHtml]];
+    GGLog(@"%@", htmlStr);
+    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    //    [NSKeyedArchiver archiveRootObject:htmlStr toFile:[NSString stringWithFormat:@"%@/index.html", docPath]];
+    [_webView loadHTMLString:htmlStr baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@", docPath]]];
 }
 
 #pragma mark 显示大图片
@@ -1106,6 +1130,20 @@ CGFloat static titleViewHeight = 91;
     [browser show];
 }
 
+#pragma mark - 图片下载完成通知
+-(void)imageDownloadSuccess:(NSNotification *)notify{
+    NSString *imgPath = [NSString stringWithFormat:@"%@",notify.object];
+    imgPath = [NSString stringWithFormat:@"�file://%@", imgPath];
+    NSString *imgName = [imgPath lastPathComponent];
+    if (imgPath) {
+        [self.bridge callHandler:@"imagesDownloadCompleteHandler" data:@[imgName,imgPath] responseCallback:^(id responseData) {
+
+            NSLog(@"调用完JS后的回调：%@",responseData);
+        }];
+        
+    }
+}
+
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -1114,7 +1152,9 @@ CGFloat static titleViewHeight = 91;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 1&&!NoPayedNews) {
+    if (section == 0&&!NoPayedNews) {
+        return self.newsModel.advertisements.count;
+    }else if (section == 1&&!NoPayedNews) {
         return self.newsModel.relatedNews.count;
     }else if (section == 2){
         return self.commentsArr.count;
@@ -1126,7 +1166,12 @@ CGFloat static titleViewHeight = 91;
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.section == 1&&!NoPayedNews) {
+    if (indexPath.section == 0&&!NoPayedNews) {
+        ADModel *model = self.newsModel.advertisements[indexPath.row];
+        HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+        cell3.model = model;
+        cell = (UITableViewCell *)cell3;
+    }else if (indexPath.section == 1&&!NoPayedNews) {
         //        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         //        cell0.model = self.newsModel.relatedNews[indexPath.row];
         //        cell0.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
@@ -1435,7 +1480,10 @@ CGFloat static titleViewHeight = 91;
 {
     //    GGLog(@"tableView点击了");
     [self.view endEditing:YES];
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        ADModel *model = self.newsModel.advertisements[indexPath.row];
+        [UniversalMethod jumpWithADModel:model];
+    }else if (indexPath.section == 1) {
         HomePageModel *model = self.newsModel.relatedNews[indexPath.row];
         if (model.itemType>=400&&model.itemType<500) { //投票
             VoteViewController *vVC = [VoteViewController new];

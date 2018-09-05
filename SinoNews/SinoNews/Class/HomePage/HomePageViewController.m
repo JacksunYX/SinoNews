@@ -518,6 +518,7 @@
 {
     [HttpRequest getWithURLString:GetCountOfUnreadMessage parameters:nil success:^(id responseObject) {
         MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+
         //获取指定item
         UITabBarItem *item = [keyVC.tabBar.items lastObject];
         NSInteger count = [responseObject[@"data"][@"count"] integerValue];

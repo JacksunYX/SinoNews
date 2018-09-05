@@ -89,11 +89,13 @@ static NSString *photoAssetCollectionName = @"LEE";
     
     vc.browser = self;
     
-    browserWindow.rootViewController = vc;
-    
-    browserWindow.hidden = NO;
-    
-    [browserWindow makeKeyAndVisible];
+//    browserWindow.rootViewController = vc;
+//
+//    browserWindow.hidden = NO;
+//
+//    [browserWindow makeKeyAndVisible];
+
+    [[HttpRequest currentViewController] presentViewController:vc animated:NO completion:nil];
     
     [vc show];
 }
@@ -391,11 +393,12 @@ static NSString *photoAssetCollectionName = @"LEE";
             
             [self.tempImageView removeFromSuperview];
             
-            browserWindow.rootViewController = nil;
-            
-            browserWindow.hidden = YES;
-            
-            [browserWindow resignKeyWindow];
+//            browserWindow.rootViewController = nil;
+//
+//            browserWindow.hidden = YES;
+//
+//            [browserWindow resignKeyWindow];
+            [self dismissViewControllerAnimated:NO completion:nil];
         }];
         
     } else {
@@ -408,11 +411,12 @@ static NSString *photoAssetCollectionName = @"LEE";
             
         } completion:^(BOOL finished) {
             
-            browserWindow.rootViewController = nil;
-            
-            browserWindow.hidden = YES;
-            
-            [browserWindow resignKeyWindow];
+//            browserWindow.rootViewController = nil;
+//
+//            browserWindow.hidden = YES;
+//
+//            [browserWindow resignKeyWindow];
+            [self dismissViewControllerAnimated:NO completion:nil];
         }];
         
     }

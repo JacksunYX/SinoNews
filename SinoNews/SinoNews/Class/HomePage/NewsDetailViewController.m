@@ -1466,9 +1466,15 @@ CGFloat static titleViewHeight = 91;
             @weakify(self);
             [lockImg whenTap:^{
                 @strongify(self)
-                if ([YXHeader checkLogin]) {
+
+                if ([YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                    if (login) {
+                        [self requestNewData];
+                    }
+                }]) {
                     [self popBuyNotice];
                 }
+                
             }];
             
         }else if(self.newsModel){

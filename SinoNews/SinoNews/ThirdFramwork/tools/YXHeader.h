@@ -38,7 +38,7 @@
 //新增一个跳转登录正常返回的
 +(BOOL)checkNormalBackLogin;
 //带回调的登录检测
-+(BOOL)checkNormalBackLoginHandle:(void(^)(void))backHandle;
++(BOOL)checkNormalBackLoginHandle:(void(^)(BOOL login))backHandle;
 //登陆成功，保存数据
 +(void)loginSuccessSaveWithData:(NSDictionary *)response;
 

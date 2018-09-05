@@ -35,16 +35,18 @@
 }
 
 //新增一个带回调的登录检测
-+ (BOOL)checkNormalBackLoginHandle:(void (^)(void))backHandle
++ (BOOL)checkNormalBackLoginHandle:(void (^)(BOOL login))backHandle
 {
     if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
         return YES;
     } else {
         LoginViewController *loginVC = [LoginViewController new];
         loginVC.normalBack = YES;
-//        loginVC.backHandleBlock = ^{
-//            backHandle();
-//        };
+        loginVC.backHandleBlock = ^(BOOL login) {
+            if (backHandle) {
+                backHandle(login);
+            }
+        };
         [[HttpRequest currentViewController] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }

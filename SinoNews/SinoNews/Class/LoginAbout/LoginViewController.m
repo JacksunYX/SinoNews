@@ -120,7 +120,7 @@
     [closeBtn setImage:UIImageNamed(@"login_close") forState:UIControlStateNormal];
     [[closeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
-        [self popAction];
+        [self popAction:NO];
     }];
  
     registBtn.sd_layout
@@ -232,12 +232,12 @@
     
 }
 
--(void)popAction
+-(void)popAction:(BOOL)logined
 {
     [self.view endEditing:YES];
     if (self.normalBack) {
         if (self.backHandleBlock) {
-            self.backHandleBlock();
+            self.backHandleBlock(logined);
         }
     }
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -281,7 +281,7 @@
                 LRToast(@"登录成功");
                 [YXHeader loginSuccessSaveWithData:response];
                 GCDAfterTime(1, ^{
-                    [self popAction];
+                    [self popAction:YES];
                 });
             } failure:nil  RefreshAction:nil];
         }else{

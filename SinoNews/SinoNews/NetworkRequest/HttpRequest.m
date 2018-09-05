@@ -158,10 +158,12 @@ static float afterTime = 0.5;
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
                         
-                        [YXHeader checkNormalBackLoginHandle:^{
-                            if (RefreshAction) {
-                                GGLog(@"登录成功回调");
-                                RefreshAction();
+                        [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                            if (login) {
+                                if (RefreshAction) {
+                                    GGLog(@"登录成功回调");
+                                    RefreshAction();
+                                }
                             }
                         }];
                     }else if ([resultdic[@"statusCode"] integerValue] == 400401){
@@ -247,9 +249,13 @@ static float afterTime = 0.5;
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
-                        [YXHeader checkNormalBackLoginHandle:^{
-                            GGLog(@"登录成功回调");
-                            RefreshAction();
+                        [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                            if (login) {
+                                if (RefreshAction) {
+                                    GGLog(@"登录成功回调");
+                                    RefreshAction();
+                                }
+                            }
                         }];
                     }else{
                         if (failure) {
@@ -334,9 +340,13 @@ static float afterTime = 0.5;
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {
                         //清空登录状态,然后跳转到登录界面
                         [UserModel clearLocalData];
-                        [YXHeader checkNormalBackLoginHandle:^{
-                            GGLog(@"登录成功回调");
-                            RefreshAction();
+                        [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                            if (login) {
+                                if (RefreshAction) {
+                                    GGLog(@"登录成功回调");
+                                    RefreshAction();
+                                }
+                            }
                         }];
                     }
                 });

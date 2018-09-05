@@ -13,7 +13,7 @@
 
 @property (nonatomic,assign) BOOL normalBack;
 
-@property (nonatomic,copy) void (^backHandleBlock)(void) ;
+@property (nonatomic,copy) void (^backHandleBlock)(BOOL login) ;
 
 
 

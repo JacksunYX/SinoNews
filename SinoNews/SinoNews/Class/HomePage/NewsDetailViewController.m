@@ -22,7 +22,6 @@
 
 #import <SDWebImageManager.h>
 
-#import "NewsDetailsHeaderView.h"
 
 //未付费标记
 #define NoPayedNews (self.newsModel.isToll&&self.newsModel.hasPaid==0)
@@ -30,7 +29,6 @@
 @interface NewsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
     NSMutableArray *allUrlArray;
-    UIScrollView *bgView;
     
     CGFloat currentScrollY; //记录当前滚动的y轴偏移量
     BOOL firstLoadWeb;      //是否是第一次加载网页
@@ -954,7 +952,6 @@ CGFloat static titleViewHeight = 91;
     NewsDetailsModel *headModel = [NewsDetailsModel new];
     headModel.newsHtml = self.newsModel.fullContent;
     self.headerView.model = headModel;
-    
 }
 
 //购买弹框提示

@@ -1092,18 +1092,20 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     
     WKFrameInfo *targetFrameInfo = navigationAction.targetFrame;
-    
-    if (targetFrameInfo) {
-        
-        decisionHandler(WKNavigationActionPolicyAllow);
-        
-    } else {
-        
+    NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
+    GGLog(@"触发的URL:%@",navigationAction.request.URL);
+    if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
+        // 拦截点击链接
         NSURL *url = navigationAction.request.URL;
         
         [[UIApplication sharedApplication] openURL:url];
         
         decisionHandler(WKNavigationActionPolicyCancel);
+        
+    }else if (targetFrameInfo) {
+        
+        decisionHandler(WKNavigationActionPolicyAllow);
+        
     }
     
 }
@@ -1112,7 +1114,6 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
 // 这个是决定是否接收response
 // 要获取response，通过WKNavigationResponse对象获取
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
-    
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 

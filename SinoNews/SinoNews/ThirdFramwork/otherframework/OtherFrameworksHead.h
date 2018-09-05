@@ -49,4 +49,6 @@
 
 #import "ThemeManager.h"    //封装切换主题
 
+#import "NewsDetailsHeaderView.h"
+
 #endif /* OtherFrameworksHead_h */

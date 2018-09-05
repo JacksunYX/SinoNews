@@ -51,6 +51,9 @@
 @property (nonatomic,strong) UIView *naviTitle;
 
 @property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
+
+//新增，封装头部
+@property (nonatomic , strong) NewsDetailsHeaderView *headerView;
 @end
 
 @implementation CatechismViewController
@@ -84,12 +87,21 @@ CGFloat static titleViewHeight = 91;
     
     [self addTableView];
     
+    [self configBlock];
+    
     [self showOrHideLoadView:YES page:2];
     
     [self hiddenTopLine];
     
     [self requestNewData];
     
+}
+
+- (void)viewDidLayoutSubviews{
+    
+    [super viewDidLayoutSubviews];
+    
+    [self.headerView updateHeight];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,6 +156,14 @@ CGFloat static titleViewHeight = 91;
     
     [self refreshComments];
     
+    _headerView = [[NewsDetailsHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
+    
+    self.tableView.tableHeaderView = _headerView;
+    
+    self.headerView.sd_layout
+    .xIs(0)
+    .yIs(0)
+    .widthRatioToView(self.tableView, 1.0f);
 }
 
 //刷新评论
@@ -445,6 +465,7 @@ CGFloat static titleViewHeight = 91;
 //另一种加载页面的方式
 -(void)newLoadWeb
 {
+    /*
     NSString *color = @"color: #161a24";
     if (UserGetBool(@"NightMode")) {
         color = @"color: #cfd3d6;";
@@ -478,6 +499,16 @@ CGFloat static titleViewHeight = 91;
     
     [self.webView loadHTMLString:htmls baseURL:nil];
     
+    */
+    [self theThirdLoadWebView];
+}
+
+//第三种加载方式
+-(void)theThirdLoadWebView
+{
+    NewsDetailsModel *headModel = [NewsDetailsModel new];
+    headModel.newsHtml = self.newsModel.fullContent;
+    self.headerView.model = headModel;
 }
 
 -(void)setNavigationBtns
@@ -637,6 +668,57 @@ CGFloat static titleViewHeight = 91;
     
 }
 
+#pragma mark - 设置Block
+- (void)configBlock{
+    
+    __weak typeof(self) weakSelf = self;
+    
+    self.headerView.loadedFinishBlock = ^(BOOL result) {
+        
+        if (!weakSelf) return ;
+        
+        if (result) {
+            
+            weakSelf.tableView.hidden = NO;
+            
+            weakSelf.tableView.alpha = 0.0f;
+            
+            [weakSelf setUpOtherViews];
+            
+            [UIView animateWithDuration:0.5f animations:^{
+                
+                weakSelf.tableView.alpha = 1.0f;
+                [weakSelf showOrHideLoadView:NO page:2];
+            }];
+            
+        } else {
+            
+            // 加载失败 提示用户
+        }
+        
+    };
+    
+    self.headerView.updateHeightBlock = ^(NewsDetailsHeaderView *view) {
+        
+        if (!weakSelf) return ;
+        
+        weakSelf.tableView.tableHeaderView = view;
+    };
+    
+}
+
+//设置其他视图
+-(void)setUpOtherViews
+{
+    [self setBottomView];
+    
+    [self setNavigationBtns];
+    
+    [self setTitle];
+    
+    [self setNaviTitle];
+}
+
 //更多
 -(void)moreSelect
 {
@@ -649,7 +731,7 @@ CGFloat static titleViewHeight = 91;
             if (row == 0) {
                 [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
                     @strongify(self)
-                    [self newLoadWeb];
+                    [self.headerView configFontLevel:fontIndex];
                 }];
             }else if (row == 1) {
                 [self newLoadWeb];
@@ -1109,6 +1191,9 @@ CGFloat static titleViewHeight = 91;
 #pragma mark ----- UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    // 传递滑动
+    [self.headerView scroll:scrollView.contentOffset];
+    
     CGFloat offsetY = scrollView.contentOffset.y;
 //    GGLog(@"contentOffset.y:%f",offsetY);
     currentScrollY = offsetY;
@@ -1145,15 +1230,18 @@ CGFloat static titleViewHeight = 91;
 //获取回答详情
 -(void)requestNewData
 {
+    [self showOrHideLoadView:YES page:2];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.news_id);
     
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
         
+        [self newLoadWeb];
+        
         [self.tableView reloadData];
         
-        [self setWebViewLoad];
+//        [self setWebViewLoad];
         
     } failure:^(NSError *error) {
         

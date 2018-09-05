@@ -260,13 +260,14 @@ static bool isCollect = NO;
     [functionArray addObject:[[IFMShareItem alloc] initWithImage:nightModelImg title:title action:^(IFMShareItem *item) {
         BOOL open = UserGetBool(@"NightMode");
         UserSetBool(!open, @"NightMode")
-        if (open) {
-            LRToast(@"夜间模式已关闭");
-            [LEETheme startTheme:@"NormalTheme"];
-        }else{
-            LRToast(@"夜间模式已开启");
-            [LEETheme startTheme:@"NightTheme"];
-        }
+        [ThemeManager changeTheme];
+//        if (open) {
+//            LRToast(@"夜间模式已关闭");
+//            [LEETheme startTheme:@"NormalTheme"];
+//        }else{
+//            LRToast(@"夜间模式已开启");
+//            [LEETheme startTheme:@"NightTheme"];
+//        }
         //发送修改了夜间模式的通知
         [[NSNotificationCenter defaultCenter] postNotificationName:NightModeChanged object:nil];
     }]];

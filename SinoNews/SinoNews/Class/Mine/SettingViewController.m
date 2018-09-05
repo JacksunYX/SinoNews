@@ -196,13 +196,16 @@
     NSString *title = GetSaveString(section[indexPath.row][@"title"]);
     
     if (CompareString(title, @"夜间模式")) {
-        if (UserGetBool(@"NightMode")) {
-            UserSetBool(NO, @"NightMode")
-            [LEETheme startTheme:@"NormalTheme"];
-        }else{
-            UserSetBool(YES, @"NightMode")
-            [LEETheme startTheme:@"NightTheme"];
-        }
+        BOOL open = UserGetBool(@"NightMode");
+        UserSetBool(!open, @"NightMode")
+        [ThemeManager changeTheme];
+//        if (UserGetBool(@"NightMode")) {
+//            UserSetBool(NO, @"NightMode")
+//            [LEETheme startTheme:@"NormalTheme"];
+//        }else{
+//            UserSetBool(YES, @"NightMode")
+//            [LEETheme startTheme:@"NightTheme"];
+//        }
         //发送修改了夜间模式的通知
         [[NSNotificationCenter defaultCenter] postNotificationName:NightModeChanged object:nil];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];

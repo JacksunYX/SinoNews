@@ -20,6 +20,9 @@
 #import "FontAndNightModeView.h"
 #import "ShareAndFunctionView.h"
 
+#import <SDWebImageManager.h>
+
+#import "NewsDetailsHeaderView.h"
 
 //未付费标记
 #define NoPayedNews (self.newsModel.isToll&&self.newsModel.hasPaid==0)
@@ -31,6 +34,9 @@
     
     CGFloat currentScrollY; //记录当前滚动的y轴偏移量
     BOOL firstLoadWeb;      //是否是第一次加载网页
+    
+    NSMutableArray *allImagesOfThisArticle;
+    NSMutableArray *imgUrls;
 }
 
 @property (nonatomic,strong) UITextField *commentInput;
@@ -68,6 +74,9 @@
 @property (nonatomic,strong) UserModel *user;
 
 @property WebViewJavascriptBridge* bridge;
+
+//新增，封装头部
+@property (nonatomic , strong) NewsDetailsHeaderView *headerView;
 @end
 
 @implementation NewsDetailViewController
@@ -118,9 +127,18 @@ CGFloat static titleViewHeight = 91;
     
     [self addTableView];
     
+    [self configBlock];
+    
     [self hiddenTopLine];
     
     [self requestNewData];
+}
+
+- (void)viewDidLayoutSubviews{
+    
+    [super viewDidLayoutSubviews];
+    
+    [self.headerView updateHeight];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -656,7 +674,7 @@ CGFloat static titleViewHeight = 91;
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN + 49)
     ;
-    //    [_tableView updateLayout];
+    [_tableView updateLayout];
     _tableView.backgroundColor = ClearColor;
     
     _tableView.dataSource = self;
@@ -672,6 +690,65 @@ CGFloat static titleViewHeight = 91;
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
+    _headerView = [[NewsDetailsHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
+    
+    self.tableView.tableHeaderView = _headerView;
+    
+    self.headerView.sd_layout
+    .xIs(0)
+    .yIs(0)
+    .widthRatioToView(self.tableView, 1.0f);
+}
+
+#pragma mark - 设置Block
+- (void)configBlock{
+    
+    __weak typeof(self) weakSelf = self;
+    
+    self.headerView.loadedFinishBlock = ^(BOOL result) {
+        
+        if (!weakSelf) return ;
+        
+        if (result) {
+            
+            weakSelf.tableView.hidden = NO;
+            
+            weakSelf.tableView.alpha = 0.0f;
+            
+            [weakSelf setUpOtherViews];
+            
+            [UIView animateWithDuration:0.5f animations:^{
+                
+                weakSelf.tableView.alpha = 1.0f;
+                [weakSelf showOrHideLoadView:NO page:2];
+            }];
+            
+        } else {
+            
+            // 加载失败 提示用户
+        }
+        
+    };
+    
+    self.headerView.updateHeightBlock = ^(NewsDetailsHeaderView *view) {
+        
+        if (!weakSelf) return ;
+        
+        weakSelf.tableView.tableHeaderView = view;
+    };
+    
+}
+
+//设置其他视图
+-(void)setUpOtherViews
+{
+    [self showBottomView];
+    
+    [self setNavigationBtns];
+    
+    [self setTitle];
+    
+    [self setNaviTitle];
 }
 
 //刷新评论
@@ -690,7 +767,7 @@ CGFloat static titleViewHeight = 91;
         if (self.isVote) {
             [self setWebViewLoad];
         }else{
-            [self newLoadWeb];
+            [self.headerView configFontLevel:fontIndex];
         }
     }];
 }
@@ -727,47 +804,37 @@ CGFloat static titleViewHeight = 91;
 //设置网页
 -(void)setWebViewLoad
 {
-    NSString *jScript = @"var script = document.createElement('meta');"
-    "script.name = 'viewport';"
-    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
-    "document.getElementsByTagName('head')[0].appendChild(script);";
-    
-    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
-    [wkUController addUserScript:wkUScript];
-    
-    //创建网页配置对象
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    config.userContentController = wkUController;
-    
-    // 设置字体大小(最小的字体大小)
     if (self.isVote) {
+        NSString *jScript = @"var script = document.createElement('meta');"
+        "script.name = 'viewport';"
+        "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+        "document.getElementsByTagName('head')[0].appendChild(script);";
+        
+        WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+        WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+        [wkUController addUserScript:wkUScript];
+        
+        //创建网页配置对象
+        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+        config.userContentController = wkUController;
+        
+        // 设置字体大小(最小的字体大小)
+        
         // 创建设置对象
         WKPreferences *preference = [[WKPreferences alloc]init];
         preference.minimumFontSize = [GetCurrentFont contentFont].pointSize;
         // 设置偏好设置对象
         config.preferences = preference;
-    }
-    
-    //默认高度给1，防止网页是纯图片时无法撑开
-    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
-    self.webView.navigationDelegate = self;
-    [self.webView addBakcgroundColorTheme];
-    self.webView.scrollView.delegate = self;
-//    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
-//    [self.bridge registerHandler:@"ObjC Echo" handler:^(id data, WVJBResponseCallback responseCallback) {
-//        NSLog(@"ObjC Echo called with: %@", data);
-//        responseCallback(data);
-//    }];
-    //    self.webView.userInteractionEnabled = NO;
-    
-    //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testJS" ofType:@"js"];
-    //    NSString *jsString = [[NSString alloc]initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    //    [self.webView evaluateJavaScript:jsString completionHandler:nil];
-    
-    //KVO监听web的高度变化
-    @weakify(self)
-    if (self.isVote) {
+        
+        //默认高度给1，防止网页是纯图片时无法撑开
+        self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1) configuration:config];
+        self.webView.navigationDelegate = self;
+        [self.webView addBakcgroundColorTheme];
+        self.webView.scrollView.delegate = self;
+        
+        //KVO监听web的高度变化
+        @weakify(self)
+        
         [RACObserve(self.webView.scrollView, contentSize) subscribeNext:^(id  _Nullable x) {
             @strongify(self)
             //        GGLog(@"x:%@",x);
@@ -782,6 +849,7 @@ CGFloat static titleViewHeight = 91;
             }
         }];
     }
+    
     
     [self newLoadWeb];
     [self showOrHideLoadView:YES page:2];
@@ -800,41 +868,93 @@ CGFloat static titleViewHeight = 91;
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
         [self.webView loadRequest:request];
     }else{
-        NSString *color = @"color: #161a24;";
-        if (UserGetBool(@"NightMode")) {
-            color = @"color: #cfd3d6;";
-        }
         
-        NSString *styleStr = [NSString stringWithFormat:@"%@line-height:32px;letter-spacing: 0.8px;",color];
-        //调整文字左右对齐
-        NSString *styleStr2 = @"text-align:justify; text-justify:inter-ideograph;";
-        //拼接样式
-        NSString *htmls = [NSString stringWithFormat:@"<html> \n"
-                           "<head> \n"
-                           "<style type=\"text/css\"> \n"
-                           "body {font-family:PingFangSC-Regular;font-size:%.fpx;%@%@}\n"
-                           //                           "a {font-weight: 600 !important;}\n"
-                           //                           "p {margin: 10px 10px 10px 10px;}"
-                           "</style> \n"
-                           "</head> \n"
-                           "<body >"
-                           "<script type='text/javascript'>"
-                           "window.onload = function(){\n"
-                           "var $img = document.getElementsByTagName('img');\n"
-                           "for(var p in  $img){\n"
-                           " $img[p].style.width = '100%%';\n"
-                           "$img[p].style.height ='auto'\n"
-                           "}\n"
-                           "}"
-                           "</script>%@"
-                           //追加定位标签,获取真实高度需要用到
-                           "<div id=\"test-div\">"
-                           "</div>"
-                           "</body>"
-                           "</html>",[GetCurrentFont contentFont].pointSize,styleStr,styleStr2,GetSaveString(self.newsModel.fullContent)];
-        
-        [self.webView loadHTMLString:htmls baseURL:nil];
+        [self theThirdLoadWebView];
     }
+}
+
+//直接加载content(暂不使用)
+-(void)normalLoadWbeView
+{
+    NSString *color = @"color: #161a24;";
+    if (UserGetBool(@"NightMode")) {
+        color = @"color: #cfd3d6;";
+    }
+    
+    NSString *styleStr = [NSString stringWithFormat:@"%@line-height:32px;letter-spacing: 0.8px;",color];
+    //调整文字左右对齐
+    NSString *styleStr2 = @"text-align:justify; text-justify:inter-ideograph;";
+    
+    //拼接样式
+    NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                       "<head> \n"
+                       "<style type=\"text/css\"> \n"
+                       "body {font-family:PingFangSC-Regular;font-size:%.fpx;%@%@}\n"
+                       //                           "a {font-weight: 600 !important;}\n"
+                       //                           "p {margin: 10px 10px 10px 10px;}"
+                       "</style> \n"
+                       "</head> \n"
+                       "<body >"
+                       "<script type='text/javascript'>"
+                       "window.onload = function(){\n"
+                       "var $img = document.getElementsByTagName('img');\n"
+                       "for(var p in  $img){\n"
+                       " $img[p].style.width = '100%%';\n"
+                       "$img[p].style.height ='auto'\n"
+                       "}\n"
+                       "}"
+                       "</script>%@"
+                       //追加定位标签,获取真实高度需要用到
+                       "<div id=\"test-div\">"
+                       "</div>"
+                       "</body>"
+                       "</html>",[GetCurrentFont contentFont].pointSize,styleStr,styleStr2,GetSaveString(self.newsModel.fullContent)];
+    
+    [self.webView loadHTMLString:htmls baseURL:nil];
+    
+    [self anotherLazyLoadWebView];
+}
+
+//使用懒加载的方式处理
+-(void)anotherLazyLoadWebView
+{
+    // 标签替换
+    NSString *originalStr = [GetSaveString(self.newsModel.fullContent) stringByReplacingOccurrencesOfString:@"src" withString:@"data-original"];
+    //获取temp文件的路径
+    NSString *tempPath = [[NSBundle mainBundle]pathForResource:@"temp" ofType:@"html"];
+    
+    //加载temp内容为字符串
+    NSString *tempHtml = [NSString stringWithContentsOfFile:tempPath encoding:NSUTF8StringEncoding error:nil];
+    
+    //替换temp内的占位符{{Content_holder}}为需要加载的HTML代码
+    tempHtml = [tempHtml stringByReplacingOccurrencesOfString:@"{{Content_holder}}" withString:originalStr];
+    //替换文字样式
+    NSString *color = @"color: #161a24;";
+    if (UserGetBool(@"NightMode")) {
+        color = @"color: #cfd3d6;";
+    }
+    
+    NSString *styleStr = [NSString stringWithFormat:@"%@line-height:32px;letter-spacing: 0.8px;",color];
+    //调整文字左右对齐
+    NSString *styleStr2 = @"text-align:justify; text-justify:inter-ideograph;";
+    NSString *bodyCss = [NSString stringWithFormat:@"body {font-family:PingFangSC-Regular;font-size:%.fpx;%@%@}\n",[GetCurrentFont contentFont].pointSize,styleStr,styleStr2];
+    tempHtml = [tempHtml stringByReplacingOccurrencesOfString:@"{{bodyCss}}" withString:bodyCss];
+    
+    //Temp目录下的js文件在根路径，因此需要在加载HTMLString时指定根路径
+    NSString *basePath = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:basePath];
+    
+    //加载HTMLString
+    [self.webView loadHTMLString:tempHtml baseURL:baseURL];
+}
+
+//第三种加载方式
+-(void)theThirdLoadWebView
+{
+    NewsDetailsModel *headModel = [NewsDetailsModel new];
+    headModel.newsHtml = self.newsModel.fullContent;
+    self.headerView.model = headModel;
+    
 }
 
 //购买弹框提示
@@ -877,23 +997,23 @@ CGFloat static titleViewHeight = 91;
     [self setNaviTitle];
     
     //不是投票时才使用这种方法获取真实高度
-    if (!self.isVote) {
-        //获取在html里注入的锚点，得到准确的高度
-        [webView evaluateJavaScript:@"document.getElementById(\"test-div\").offsetTop" completionHandler:^(id data, NSError * _Nullable error) {
-            CGFloat height = [data floatValue];
-            //            GGLog(@"height:%lf",height);
-            //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
-            //设置通知或者代理来传高度
-            //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
-            self.topWebHeight = height + 10;
-            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
-            self.tableView.tableHeaderView = self.webView;
-            if (!UserGetBool(@"HaveLoadedWeb")) {
-                [self newLoadWeb];
-                UserSetBool(YES, @"HaveLoadedWeb");
-            }
-        }];
-    }
+//    if (!self.isVote) {
+//        //获取在html里注入的锚点，得到准确的高度
+//        [webView evaluateJavaScript:@"document.getElementById(\"test-div\").offsetTop" completionHandler:^(id data, NSError * _Nullable error) {
+//            CGFloat height = [data floatValue];
+//            //            GGLog(@"height:%lf",height);
+//            //ps:js可以是上面所写，也可以是document.body.scrollHeight;在WKWebView中前者offsetHeight获取自己加载的html片段，高度获取是相对准确的，但是若是加载的是原网站内容，用这个获取，会不准确，改用后者之后就可以正常显示，这个情况是我尝试了很多次方法才正常显示的
+//            //设置通知或者代理来传高度
+//            //        [[NSNotificationCenter defaultCenter]postNotificationName:@"getCellHightNotification" object:nil userInfo:@{@"height":[NSNumber numberWithFloat:height]}];
+//            self.topWebHeight = height + 10;
+//            self.webView.frame = CGRectMake(0, 0, ScreenW, self.topWebHeight);
+//            self.tableView.tableHeaderView = self.webView;
+//            if (!UserGetBool(@"HaveLoadedWeb")) {
+//                [self newLoadWeb];
+//                UserSetBool(YES, @"HaveLoadedWeb");
+//            }
+//        }];
+//    }
     
     CGFloat y = -titleViewHeight;
     if (firstLoadWeb) {
@@ -976,42 +1096,16 @@ CGFloat static titleViewHeight = 91;
         }
     }];
     
-    //插入一段文本
-    //    if (self.isVote) {
-    //        static  NSString * const insertContent =
-    //        @"function insertContent(html){\
-    //        var ele = document.getElementsByTagName('body');\
-    //        html += ele.innerHTML;\
-    //        ele.innerHTML = html;\
-    //        };";
-    //        //注入js方法
-    //        [webView evaluateJavaScript:insertContent completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-    //
-    //        }];
-    //        [webView evaluateJavaScript:[NSString stringWithFormat:@"insertContent(\"%@\")",self.newsModel.fullContent] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-    //            GGLog(@"注入了");
-    //        }];
-    //    }
-    
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     GGLog(@"加载完成2");
-//    [self loadNewHtmlStr:[webView.URL absoluteString]];
+
     NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
     //    GGLog(@"requestString:%@",requestString);
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]&&!self.webView.loading) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-//        if (bgView) {
-//            //设置不隐藏，还原放大缩小，显示图片
-//            bgView.alpha = 1;
-//            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-//            int i = [imageIndex.lastObject intValue];
-//            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-//        }else{
-//            [self showBigImage:imageUrl];//创建视图并显示图片
-//        }
         
         [self anotherImageBrowser:imageUrl];
         
@@ -1027,91 +1121,10 @@ CGFloat static titleViewHeight = 91;
     
 }
 
--(void)loadNewHtmlStr:(NSString *)absoluteString
-{
-    NSString *htmlStr = [Util changeImgSrc:absoluteString];
-    GGLog(@"html == %@", htmlStr);
-    // 读取本地JS文件，把JS加到最后面
-    NSString *jsPath = [[NSBundle mainBundle] pathForResource:@"DetalJavascript" ofType:@"js"];
-    NSString *jsHtml = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
-    htmlStr = [htmlStr stringByAppendingString:[NSString stringWithFormat:@"\n%@", jsHtml]];
-    GGLog(@"%@", htmlStr);
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-    //    [NSKeyedArchiver archiveRootObject:htmlStr toFile:[NSString stringWithFormat:@"%@/index.html", docPath]];
-    [_webView loadHTMLString:htmlStr baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@", docPath]]];
-}
-
-#pragma mark 显示大图片
--(void)showBigImage:(NSString *)imageUrl{
-    
-    if (!bgView) {
-        bgView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT)];
-        bgView.pagingEnabled = YES;
-        [self.view addSubview:bgView];
-    }
-    //创建灰色透明背景，使其背后内容不可操作
-    [bgView setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7]];
-    bgView.contentSize = CGSizeMake(ScreenW *allUrlArray.count, bgView.bounds.size.height);
-    
-    //创建显示图像视图
-    for (int i = 0; i < allUrlArray.count; i++) {
-        UIView *borderView = [[UIView alloc] initWithFrame:CGRectMake(ScreenW *i, 0, bgView.bounds.size.width, bgView.bounds.size.height)];
-        [bgView addSubview:borderView];
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth(borderView.frame)-20, CGRectGetHeight(borderView.frame)-20)];
-        imgView.contentMode = 1;
-        @weakify(self);
-        [imgView whenTap:^{
-            @strongify(self);
-            [self hiddenBigImage];
-        }];
-        
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [imgView addSubview:activityIndicator];
-        activityIndicator.sd_layout
-        .centerXEqualToView(imgView)
-        .centerYEqualToView(imgView)
-        .widthIs(100)
-        .heightEqualToWidth()
-        ;
-        //设置小菊花颜色
-        activityIndicator.color = WhiteColor;
-        //设置背景颜色
-        activityIndicator.backgroundColor = ClearColor;
-        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
-        activityIndicator.hidesWhenStopped = NO;
-        [activityIndicator startAnimating];
-        
-        NSArray *imageIndex = [NSMutableArray arrayWithArray:[allUrlArray[i] componentsSeparatedByString:@"LQXindex"]];
-        
-        [imgView sd_setImageWithURL:[NSURL URLWithString:imageIndex.firstObject] placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            [activityIndicator removeFromSuperview];
-        }];
-        
-        [borderView addSubview:imgView];
-        
-    }
-    NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-    
-    int i = [imageIndex.lastObject intValue];
-    [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-    
-}
-
-//隐藏图片浏览
--(void)hiddenBigImage
-{
-    [UIView animateWithDuration:0.5 animations:^{
-        self->bgView.alpha = 0;
-    } completion:^(BOOL finished) {
-        //        for (UIView *subview in self->bgView.subviews) {
-        //            [subview removeFromSuperview];
-        //        }
-    }];
-}
-
 //第二种查看图片的方式
 -(void)anotherImageBrowser:(NSString *)imageUrl
 {
+    GGLog(@"点击的图片:%@",imageUrl);
     //获取下标
     NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
     int i = [imageIndex.lastObject intValue];
@@ -1141,6 +1154,35 @@ CGFloat static titleViewHeight = 91;
             NSLog(@"调用完JS后的回调：%@",responseData);
         }];
         
+    }
+}
+
+#pragma mark -- 下载全部图片
+-(void)downloadAllImagesInNative:(NSMutableArray *)imageUrls{
+    imgUrls = imageUrls;
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    //初始化一个置空元素数组
+    if (!allImagesOfThisArticle) {
+        allImagesOfThisArticle = [[NSMutableArray alloc]init];//本地的一个用于保存所有图片的数组
+    }
+    
+    for (NSUInteger i = 0; i < imageUrls.count; i++) {
+        NSString *_url = imageUrls[i];
+        
+        [manager loadImageWithURL:UrlWithStr(_url) options:SDWebImageHighPriority progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+            if (image) {
+                GGLog(@"图片下载完成");
+                [self->allImagesOfThisArticle addObject:image];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    NSString *imgB64 = [UIImageJPEGRepresentation(image, 1.0) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+                    
+                    //把图片在磁盘中的地址传回给JS
+                    NSString *key = [manager cacheKeyForURL:imageURL];
+                    NSString *source = [NSString stringWithFormat:@"data:image/png;base64,%@", imgB64];
+                    [self.bridge callHandler:@"imagesDownloadComplete" data:@[key,source]];
+                });
+            }
+        }];
     }
 }
 
@@ -1547,7 +1589,9 @@ CGFloat static titleViewHeight = 91;
 {
     
     [self processViewAlphaWithView:scrollView];
+    // 传递滑动
     
+    [self.headerView scroll:scrollView.contentOffset];
 }
 
 //处理滚动视图时其他视图的显隐
@@ -1599,9 +1643,9 @@ CGFloat static titleViewHeight = 91;
     [HttpRequest getWithURLString:BrowseNews parameters:parameters success:^(id responseObject) {
         self.newsModel = [NormalNewsModel mj_objectWithKeyValues:responseObject[@"data"]];
         
-        [self.tableView reloadData];
-        
         [self setWebViewLoad];
+        
+        [self.tableView reloadData];
         
         [HomePageModel saveWithNewsModel:self.newsModel];
         

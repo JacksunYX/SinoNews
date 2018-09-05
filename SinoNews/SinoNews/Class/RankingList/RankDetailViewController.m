@@ -673,9 +673,17 @@
         NSMutableString *otherWeb = [@"备用：" mutableCopy];
         NSMutableArray *ranges = [NSMutableArray new];
         NSMutableArray *actionStrs = [NSMutableArray array]; // 将要添加点击事件的字符串集合
-        if (self.companyModel.otherwebsite.count) {
+        NSMutableArray *indexArr = [NSMutableArray array];  //保存有效网址下标的数组
+        if (self.companyModel.otherwebsite.count>0) {
+            int j = 0;
             for (int i = 0; i < self.companyModel.otherwebsite.count; i ++) {
-                NSString *str = [NSString stringWithFormat:@"网址%d",i + 1];
+                if ([self canopenUrl:self.companyModel.otherwebsite[i]]) {
+                    j ++;
+                    [indexArr addObject:@(i)];
+                }else{
+                    continue;
+                }
+                NSString *str = [NSString stringWithFormat:@"网址%d",j];
                 [actionStrs addObject:str];
                 [otherWeb appendString:str];
                 
@@ -684,34 +692,41 @@
                 
                 [otherWeb appendString:@"  "];
             }
-            // 转换成富文本字符串
-            NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:otherWeb];
-            
-            [attrStr addAttributes:@{NSFontAttributeName : FontScale(15)} range:NSMakeRange(0, otherWeb.length)];
-            
-            // 最好设置一下行高，不设的话默认是0
-            
-            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-            
-            style.lineSpacing = 0;
-            
-            [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, otherWeb.length)];
-            
-            // 给指定文字添加颜色
-            
-            for (NSValue *rangeVal in ranges) {
+            if (![otherWeb containsString:@"网址"]) {
+                //说明没有正确的网址
+                descrip.text = @"备用：无";
+            }else{
+                // 转换成富文本字符串
+                NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:otherWeb];
                 
-                [attrStr addAttributes:@{NSForegroundColorAttributeName : RGBA(216, 132, 132, 1)} range:rangeVal.rangeValue];
+                [attrStr addAttributes:@{NSFontAttributeName : FontScale(15)} range:NSMakeRange(0, otherWeb.length)];
                 
+                // 最好设置一下行高，不设的话默认是0
+                
+                NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+                
+                style.lineSpacing = 0;
+                
+                [attrStr addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, otherWeb.length)];
+                
+                // 给指定文字添加颜色
+                
+                for (NSValue *rangeVal in ranges) {
+                    
+                    [attrStr addAttributes:@{NSForegroundColorAttributeName : RGBA(216, 132, 132, 1)} range:rangeVal.rangeValue];
+                    
+                }
+                
+                descrip.attributedText = attrStr;
+                @weakify(self);
+                [descrip yb_addAttributeTapActionWithStrings:actionStrs tapClicked:^(NSString *string, NSRange range, NSInteger index) {
+                    //                GGLog(@"点击了%@\n index:%ld",string,index);
+                    @strongify(self);
+                    NSInteger k = [indexArr[index] integerValue];
+                    [self openUrlWithString:GetSaveString(self.companyModel.otherwebsite[k])];
+                }];
             }
             
-            descrip.attributedText = attrStr;
-            @weakify(self);
-            [descrip yb_addAttributeTapActionWithStrings:actionStrs tapClicked:^(NSString *string, NSRange range, NSInteger index) {
-//                GGLog(@"点击了%@\n index:%ld",string,index);
-                @strongify(self);
-                [self openUrlWithString:GetSaveString(self.companyModel.otherwebsite[index])];
-            }];
         }else{
 //            [otherWeb appendString:@"无"];
             descrip.text = @"备用：无";
@@ -872,7 +887,18 @@
 -(void)openUrlWithString:(NSString *)str
 {
     NSURL *url = [NSURL URLWithString:str];
-    [[UIApplication sharedApplication] openURL:url];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+//网址是否能打开
+-(BOOL)canopenUrl:(NSString *)urlStr
+{
+    if ([[UIApplication sharedApplication] canOpenURL:UrlWithStr(GetSaveString(urlStr))]) {
+        return YES;
+    }
+    return NO;
 }
 
 //按钮事件集合

@@ -158,7 +158,13 @@ function configImgState(state, index, className){
         case 1:
             
             // 加载中
-            img.attr({"data-state":1 , "src":"../defaultimage/load_image.png"});
+            img.attr({"data-state":1 , "src":"../defaultimage/load_image.png"})
+            .css({
+//                 width:'100%',
+//                 height:'50px',
+                 
+                 })
+            .appendTo(div);
             
             span.text("加载中");
             
@@ -296,6 +302,33 @@ function configStyle(type){
     
 }
 
+function configSpaceWhiteDivFont(className){
+    
+    var o = className == undefined ? "spacewhite" : className;
+    
+    $(o).css({"font-size" : randomNum(1,100) + "px"});
+}
+
+//生成从minNum到maxNum的随机数
+function randomNum(minNum,maxNum){
+    switch(arguments.length){
+        case 1:
+            return parseInt(Math.random()*minNum+1,10);
+            break;
+        case 2:
+            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
+            break;
+        default:
+            return 0;
+            break;
+    }
+}
+
+/**
+ 返回Img个数
+ 
+ @param clas
+
 /**
  返回Img个数
  
@@ -374,10 +407,17 @@ function getContentString(className){
 function getContentHeight(className){
     
     var o = className == undefined ? "body" : className;
+
+    var div = $(o).find("div.spaceWhite");
+    var div2 = $(o).find("div.content");
+//    alert(div.offset().top);
+//    alert(div2.outerHeight(true));
     
-    var div = $(o).find("div.content");
+    return div2.outerHeight(true);
     
-    return div.outerHeight(true);
+    //取出之前拼接的空div，拿到从它以上的高度并返回
+//    return div.offset().top;
+    
 }
 
 /**

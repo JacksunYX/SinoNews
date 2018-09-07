@@ -89,6 +89,8 @@
 //导航栏左右按钮间隙调整
 #import <UINavigationConfig.h>
 
+#import <DeviceTool.h>
+
 //#import <BaiduMobStat.h>
 //
 //#import <IQKeyboardManager.h>

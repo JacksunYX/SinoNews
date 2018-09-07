@@ -523,6 +523,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
         
         NSString *fontSize = [NSString stringWithFormat:@"%.0f" , [ContentManager fontSize:16.0f + [ContentManager fontLevel] * 2]];
         
+        //在内容的最后面拼接一个定位用的空div
         NSString *frame = [NSString stringWithFormat:@"\
                            <html class=\"%@\">\
                            <head>\
@@ -535,6 +536,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
                            </head>\
                            <body style=\"font-size:%@px;\">\
                            <div class=\"content\">%@</div>\
+                           <div class=\"spacewhite\"></div>\
                            </body>\
                            <script src=\"../js/WebContentHandle.js\"></script>\
                            </html>" , styleType , fontSize , contentHTMLString];
@@ -845,8 +847,16 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
         if (response) [weakSelf.imageInfoArray replaceObjectAtIndex:index withObject:response];
         
         // 更新webview高度
-        
         [weakSelf updateHeight];
+        
+        NSString *configFont = @"configStyle('1');";
+        if ([[LEETheme currentThemeTag] isEqualToString:THEME_DAY]) {
+            configFont = @"configStyle('0');";
+        }
+        
+        [weakSelf.webView evaluateJavaScript:configFont completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+            
+        }];
         
         if (resultBlock) resultBlock();
     }];

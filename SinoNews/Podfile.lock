@@ -41,11 +41,14 @@ PODS:
   - SDWebImage/GIF (4.4.2):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
+  - SSKeychain (1.4.1)
   - Toast (4.0.0)
   - UICKeyChainStore (2.1.1)
   - UINavigation-SXFixSpace (1.0.7)
   - XHLaunchAd (3.9.7):
     - FLAnimatedImage (~> 1.0.12)
+  - XXDeviceTool (0.1.2):
+    - SSKeychain
   - ZYKeyboardUtil (1.0.7)
 
 DEPENDENCIES:
@@ -68,6 +71,7 @@ DEPENDENCIES:
   - Toast
   - UINavigation-SXFixSpace
   - XHLaunchAd
+  - XXDeviceTool (from `https://github.com/XXCommonTools/XXDeviceTool.git`)
   - ZYKeyboardUtil
 
 SPEC REPOS:
@@ -87,11 +91,21 @@ SPEC REPOS:
     - RTRootNavigationController
     - SDAutoLayout
     - SDWebImage
+    - SSKeychain
     - Toast
     - UICKeyChainStore
     - UINavigation-SXFixSpace
     - XHLaunchAd
     - ZYKeyboardUtil
+
+EXTERNAL SOURCES:
+  XXDeviceTool:
+    :git: https://github.com/XXCommonTools/XXDeviceTool.git
+
+CHECKOUT OPTIONS:
+  XXDeviceTool:
+    :commit: 3cd41104ba358cafc5913e2d9d74ff78df69b4bc
+    :git: https://github.com/XXCommonTools/XXDeviceTool.git
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -109,12 +123,14 @@ SPEC CHECKSUMS:
   RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
   SDAutoLayout: 6b6f4db0d009dfc46cef14ef710dbb164e86616c
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
   UINavigation-SXFixSpace: 02323ab6d50f3719bf0829afa22995acb9b2486b
   XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
+  XXDeviceTool: 7c8d0d190682351c3cb9e10c269897b05a052fcb
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: cafc53e7c2ff1c0786301c710bdcea46f026b1ea
+PODFILE CHECKSUM: e9d97f66a24c8b4656cde25a091055e5158a412e
 
 COCOAPODS: 1.5.3

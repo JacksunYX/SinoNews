@@ -24,7 +24,7 @@
 @property (nonatomic,assign) NSUInteger hasConcerned;        //是否收藏
 @property (nonatomic,strong) NSString *information;         //简介
 @property (nonatomic,strong) NSString *logo;                //公司logo
-@property (nonatomic,strong) NSArray *otherwebsite;         //备用地址
+@property (nonatomic,strong) NSMutableArray *otherwebsite;         //备用地址
 @property (nonatomic,strong) NSString *promos;              //优惠
 @property (nonatomic,strong) NSArray *rankings;             //评分数组
 @property (nonatomic,strong) NSString *siteThumbnail;       //网站缩略图

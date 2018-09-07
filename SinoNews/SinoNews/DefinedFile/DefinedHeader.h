@@ -41,12 +41,6 @@
 //正式环境
 #define FormalShopShareDomain @""
 
-//域名+版本号+接口名
-#define ApiAppending(api) [NSString stringWithFormat:@"%@%@%@",DefaultDomainName,VersionNum,GetSaveString(api)]
-
-//拼接分享商品或商家的链接地址
-#define JoinShareWebUrlStr(webUrl,goods_id,business_id,mobile) [webUrl stringByAppendingString:[NSString stringWithFormat:@"?goods_id=%@&business_id=%@&mobile=%@",goods_id,business_id,mobile]]
-
 
 // rgb颜色转换（16进制->10进制）
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

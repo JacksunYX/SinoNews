@@ -952,6 +952,7 @@ CGFloat static titleViewHeight = 91;
     NewsDetailsModel *headModel = [NewsDetailsModel new];
     headModel.newsHtml = self.newsModel.fullContent;
     self.headerView.model = headModel;
+
 }
 
 //购买弹框提示
@@ -1837,6 +1838,9 @@ CGFloat static titleViewHeight = 91;
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    if (self.isVote) {
+        urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
+    }
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;

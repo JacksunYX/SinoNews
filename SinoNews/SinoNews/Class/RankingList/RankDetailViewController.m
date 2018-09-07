@@ -27,12 +27,15 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
+
 @property (nonatomic,strong) CompanyDetailModel *companyModel;
 
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论列表
+
 @property (nonatomic,assign) NSInteger currPage;   //页码
 
 @property (nonatomic,strong) UIView *naviTitle;
+
 @end
 
 @implementation RankDetailViewController
@@ -184,12 +187,18 @@
 {
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr_safe;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-    }];
+//    [self.tableView activateConstraints:^{
+//        self.tableView.top_attr = self.view.top_attr_safe;
+//        self.tableView.left_attr = self.view.left_attr_safe;
+//        self.tableView.right_attr = self.view.right_attr_safe;
+//        self.tableView.bottom_attr = self.view.bottom_attr_safe;
+//    }];
+    self.tableView.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .topEqualToView(self.view)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    ;
     _tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
             [(BaseTableView *)item setBackgroundColor:HexColor(#292d30)];
@@ -928,6 +937,65 @@
     
 }
 
+//ping一下网址
+-(void)pingWithWebsite:(NSString *)website
+{
+    
+}
+
+-(void)processOtherWebsiteArr
+{
+    NSMutableArray *copyArr = [self.companyModel.otherwebsite mutableCopy];
+    for (int i = 0; i < copyArr.count; i ++) {
+        @weakify(self);
+        [self validateUrl:copyArr[i] handle:^(BOOL isValid,NSString *webStr) {
+            @strongify(self);
+            if (!isValid) {
+                [self.companyModel.otherwebsite removeObject:webStr];
+                GCDAsynMain(^{
+                    [self.tableView reloadData];
+                });
+            }
+        }];
+    }
+}
+
+//判断网址是否可用
+-(void)validateUrl:(NSString *)website handle:(void(^)(BOOL isValid,NSString *webStr))checkBlock
+{
+    
+    __block BOOL isvalid;
+    NSURL * candidate = UrlWithStr(GetSaveString(website));
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:candidate];
+    
+    [request setHTTPMethod:@"HEAD"];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        GGLog(@"error %@",error);
+        
+        if (error) {
+            isvalid = NO;
+            GGLog(@"不可用");
+            
+        }else{
+            
+            GGLog(@"可用%@",request);
+            isvalid = YES;
+        }
+        //回调
+        if (checkBlock) {
+            checkBlock(isvalid,website);
+        }
+        
+    }];
+    
+    [task resume];
+    
+}
+
 #pragma mark ----- 发送请求
 //企业详情
 -(void)requestCompanyRanking
@@ -937,8 +1005,9 @@
     
     [HttpRequest getWithURLString:CompanyDetail parameters:parameters success:^(id responseObject) {
         self.companyModel = [CompanyDetailModel mj_objectWithKeyValues:responseObject[@"data"]];
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
+        [self processOtherWebsiteArr];
+//        [self.tableView.mj_header endRefreshing];
+//        [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
     }];

@@ -17,7 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
     [UINavigationConfig shared].sx_disableFixSpace = NO;//默认为NO  可以修改
     [UINavigationConfig shared].sx_defaultFixSpace = 5;//默认为0 可以修改
     //配置全局刷新参数
@@ -25,6 +25,11 @@
 //    [[KafkaRefreshDefaults standardRefreshDefaults] setFootDefaultStyle:KafkaRefreshStyleAnimatableArrow];
     
     GGLog(@"BrowsNewsSingleton:%@",BrowsNewsSingleton.singleton.idsArr);
+    if (UserGet(@"fontSize")) {
+        
+    }else{
+        UserSet(@"1",@"fontSize")
+    }
     
     //配置主题
     [GetCurrentFont configTheme];
@@ -44,15 +49,27 @@
     
     [self setADLoadView];
     
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    
     return YES;
 }
 
 void uncaughtExceptionHandler(NSException *exception) {
     
-    NSLog(@"reason: %@", exception);
+    GGLog(@"reason: %@", exception.reason);
     
     // Internal error reporting
+    //上报至后台接口
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"version_name"] = [UIDevice appVersion];
+    parameters[@"device_platform"] = @"iOS";
+    parameters[@"device_brand"] = [DeviceTool sharedInstance].deviceModel;
+    parameters[@"os_version"] = [UIDevice currentDevice].systemVersion;
+    parameters[@"reason"] = exception.reason;
     
+    [HttpRequest getWithURLString:@"" parameters:parameters success:^(id responseObject) {
+        GGLog(@"已上报");
+    } failure:nil];
 }
 
 //设置主界面内容

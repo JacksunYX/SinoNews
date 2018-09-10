@@ -368,6 +368,8 @@
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
 		4C73382A2145F6430001B33F /* load_image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7338292145F6420001B33F /* load_image2.png */; };
 		4C73382F214605AA0001B33F /* GetImageSizeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73382E214605AA0001B33F /* GetImageSizeTool.m */; };
+		4C73383A21465B0B0001B33F /* YJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73383721465B0B0001B33F /* YJProgressHUD.m */; };
+		4C73383B21465B0B0001B33F /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C73383821465B0B0001B33F /* images.bundle */; };
 		4C7EF32F21212A0B0002166A /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */; };
 		4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C921212A0A0002166A /* ZSStable@2x.png */; };
 		4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2CA21212A0A0002166A /* ZSSoutdent@2x.png */; };
@@ -1279,6 +1281,9 @@
 		4C7338292145F6420001B33F /* load_image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_image2.png; sourceTree = "<group>"; };
 		4C73382D214605AA0001B33F /* GetImageSizeTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetImageSizeTool.h; sourceTree = "<group>"; };
 		4C73382E214605AA0001B33F /* GetImageSizeTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetImageSizeTool.m; sourceTree = "<group>"; };
+		4C73383721465B0B0001B33F /* YJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJProgressHUD.m; sourceTree = "<group>"; };
+		4C73383821465B0B0001B33F /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
+		4C73383921465B0B0001B33F /* YJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJProgressHUD.h; sourceTree = "<group>"; };
 		4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		4C7EF2C621212A0A0002166A /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4C7EF2C721212A0A0002166A /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
@@ -2217,6 +2222,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C73383621465B0B0001B33F /* YJProgressHUDK */,
 				4C6E90A7213F5F06001535CA /* YYKit */,
 				4C6E9095213F5E00001535CA /* Utility */,
 				4C6E908A213E8589001535CA /* Temp */,
@@ -3044,6 +3050,16 @@
 			path = InputView;
 			sourceTree = "<group>";
 		};
+		4C73383621465B0B0001B33F /* YJProgressHUDK */ = {
+			isa = PBXGroup;
+			children = (
+				4C73383721465B0B0001B33F /* YJProgressHUD.m */,
+				4C73383821465B0B0001B33F /* images.bundle */,
+				4C73383921465B0B0001B33F /* YJProgressHUD.h */,
+			);
+			path = YJProgressHUDK;
+			sourceTree = "<group>";
+		};
 		4C7EF2C3212129C60002166A /* ZSSRichTextEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -3593,6 +3609,7 @@
 				4C7EF37A21212A0B0002166A /* JSBeautifier.js in Resources */,
 				4C7EF34E21212A0B0002166A /* ZSSh6@2x.png in Resources */,
 				4C3F8FAC20BCD894003EC4FC /* LaunchScreen.storyboard in Resources */,
+				4C73383B21465B0B0001B33F /* images.bundle in Resources */,
 				4C7EF37021212A0B0002166A /* ZSSimageDevice@2x.png in Resources */,
 				4C7EF36E21212A0B0002166A /* ZSSstrikethrough.png in Resources */,
 				4C17B4A520E250C900470AEB /* IFMShareImage.bundle in Resources */,
@@ -4074,6 +4091,7 @@
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,
 				4C1DE9EF213D2E0600350313 /* Util.m in Sources */,
+				4C73383A21465B0B0001B33F /* YJProgressHUD.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4CA23270212E99A8006709E6 /* VersionCheckHelper.m in Sources */,
 				4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */,

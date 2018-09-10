@@ -57,7 +57,7 @@
 @end
 
 @implementation CatechismViewController
-CGFloat static titleViewHeight = 91;
+CGFloat static titleViewHeight = 150;
 -(NSMutableArray *)answersArr
 {
     if (!_answersArr) {

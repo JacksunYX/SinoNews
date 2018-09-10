@@ -29,6 +29,9 @@ static int tag1 = 206118;
         [self show:show view:[self.view viewWithTag:tag1]];
         
     }else{
+        if (!show) {
+            return;
+        }
         UIImageView *loadingImg = [UIImageView new];
         loadingImg.tag = tag1;
         loadingImg.userInteractionEnabled = YES;
@@ -40,6 +43,15 @@ static int tag1 = 206118;
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
         ;
+        [loadingImg updateLayout];
+        
+        NSMutableArray *imageArr = [NSMutableArray new];
+        for (int i = 0;i < 6;i++) {
+            NSString *imageName = [NSString stringWithFormat:@"loading_pic_%d",i];
+            [imageArr addObject:UIImageNamed(imageName)];
+        }
+        [YJProgressHUD showCustomAnimation:@"" withImgArry:imageArr inview:loadingImg];
+        /*
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [loadingImg addSubview:activityIndicator];
         activityIndicator.sd_layout
@@ -56,7 +68,7 @@ static int tag1 = 206118;
         //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
         activityIndicator.hidesWhenStopped = NO;
         [activityIndicator startAnimating];
-        
+        */
         switch (pageType) {
             case 1: //首页
                 loadingImg.lee_theme.LeeConfigImage(@"homeLoad");
@@ -82,11 +94,13 @@ static int tag1 = 206118;
 
         [UIView animateWithDuration:0.3 animations:^{
             view.alpha = 0;
+            [YJProgressHUD hide];
         } completion:^(BOOL finished) {
             [view removeFromSuperview];
         }];
         
     }else{
+        
         [view setHidden:NO];
         [view.superview bringSubviewToFront:view];
 

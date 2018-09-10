@@ -49,7 +49,7 @@
 @end
 
 @implementation CatechismSecondeViewController
-CGFloat static titleViewHeight = 91;
+CGFloat static titleViewHeight = 150;
 -(NSMutableArray *)commentArr
 {
     if (!_commentArr) {

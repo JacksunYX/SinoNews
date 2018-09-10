@@ -79,7 +79,7 @@
 
 @implementation NewsDetailViewController
 
-CGFloat static titleViewHeight = 91;
+CGFloat static titleViewHeight = 150;
 -(UserModel *)user
 {
     if (!_user) {

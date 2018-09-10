@@ -51,5 +51,6 @@
 
 #import "NewsDetailsHeaderView.h"
 #import "HUD.h"
+#import "YJProgressHUD.h"
 
 #endif /* OtherFrameworksHead_h */

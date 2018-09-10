@@ -17,4 +17,6 @@
 
 #import "BrowsNewsSingleton.h"  //阅读记录单例
 
+#import "GetImageSizeTool.h"
+
 #endif /* ModelHeader_h */

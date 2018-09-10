@@ -366,6 +366,8 @@
 		4C72350220FF373C00D5C5D4 /* JHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7234FF20FF373C00D5C5D4 /* JHTextView.m */; };
 		4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */; };
 		4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */; };
+		4C73382A2145F6430001B33F /* load_image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7338292145F6420001B33F /* load_image2.png */; };
+		4C73382F214605AA0001B33F /* GetImageSizeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73382E214605AA0001B33F /* GetImageSizeTool.m */; };
 		4C7EF32F21212A0B0002166A /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */; };
 		4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C921212A0A0002166A /* ZSStable@2x.png */; };
 		4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2CA21212A0A0002166A /* ZSSoutdent@2x.png */; };
@@ -1274,6 +1276,9 @@
 		4C72D57420D10AAB00088149 /* MyCollectArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectArticleCell.m; sourceTree = "<group>"; };
 		4C72D57620D10AE100088149 /* MyCollectCasinoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectCasinoCell.h; sourceTree = "<group>"; };
 		4C72D57720D10AE100088149 /* MyCollectCasinoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectCasinoCell.m; sourceTree = "<group>"; };
+		4C7338292145F6420001B33F /* load_image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load_image2.png; sourceTree = "<group>"; };
+		4C73382D214605AA0001B33F /* GetImageSizeTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetImageSizeTool.h; sourceTree = "<group>"; };
+		4C73382E214605AA0001B33F /* GetImageSizeTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetImageSizeTool.m; sourceTree = "<group>"; };
 		4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		4C7EF2C621212A0A0002166A /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4C7EF2C721212A0A0002166A /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
@@ -2866,6 +2871,7 @@
 			isa = PBXGroup;
 			children = (
 				4C6E91B1213F64AB001535CA /* load_image.png */,
+				4C7338292145F6420001B33F /* load_image2.png */,
 				4C6E91B2213F64AB001535CA /* WebContentHandle.js */,
 				4C6E91B3213F64AB001535CA /* jquery.min.js */,
 				4C6E91B4213F64AB001535CA /* radialIndicator.js */,
@@ -3422,6 +3428,8 @@
 				4CE9C92220C90B9B004550B9 /* UserModel.m */,
 				4C510B55210FFE3700706185 /* BrowsNewsSingleton.h */,
 				4C510B56210FFE3700706185 /* BrowsNewsSingleton.m */,
+				4C73382D214605AA0001B33F /* GetImageSizeTool.h */,
+				4C73382E214605AA0001B33F /* GetImageSizeTool.m */,
 				4CA141F120F4485E00536E77 /* ModelHeader.h */,
 			);
 			path = Model;
@@ -3662,6 +3670,7 @@
 				4C7EF34B21212A0B0002166A /* ZSSh5.png in Resources */,
 				4C7EF33B21212A0B0002166A /* ZSStextcolor.png in Resources */,
 				4C7EF35421212A0B0002166A /* ZSSredo.png in Resources */,
+				4C73382A2145F6430001B33F /* load_image2.png in Resources */,
 				4C7EF33A21212A0B0002166A /* ZSSunderline.png in Resources */,
 				4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */,
 				4C6E91BC213F64AC001535CA /* load_image_gif_icon.png in Resources */,
@@ -4060,6 +4069,7 @@
 				4C6E918E213F5F07001535CA /* NSNumber+YYAdd.m in Sources */,
 				4C1DE9FA213D339600350313 /* WKWebViewJavascriptBridge.m in Sources */,
 				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
+				4C73382F214605AA0001B33F /* GetImageSizeTool.m in Sources */,
 				4C72345F20FC6E4200D5C5D4 /* UIView+LYExtension.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,

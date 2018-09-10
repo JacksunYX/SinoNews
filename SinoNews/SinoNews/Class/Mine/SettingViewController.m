@@ -235,12 +235,7 @@
     }else if (CompareString(title, @"清除缓存")){
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"需要清除缓存嘛？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if ([NSString clearCache]) {
-                [HomePageModel clearLocaHistory];
-                [BrowsNewsSingleton.singleton clearBrowsNewsIdArr];
-                LRToast(@"清理完毕");
-                [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
-            }
+            [self clearAllCache];
         }];
         UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"不用了" style:UIAlertActionStyleCancel handler:nil];
         [alertVC addAction:action1];
@@ -279,5 +274,58 @@
     
 }
 
+
+-(void)clearAllCache
+{
+    [HUD showLoading:@"清理中"];
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    // 清理资讯详情缓存
+    
+    dispatch_group_enter(group);
+    
+    [NewsDetailsModel clearAllCacheWithBlock:^{
+        
+        dispatch_group_leave(group);
+    }];
+    
+    // 清理资讯详情内容缓存 (TEMP)
+    
+    dispatch_group_enter(group);
+    
+    [ContentManager clearCacheWithResultBlock:^{
+        
+        dispatch_group_leave(group);
+    }];
+    
+    // 清理图片缓存
+    
+    dispatch_group_enter(group);
+    
+    [[YYWebImageManager sharedManager].cache.diskCache removeAllObjectsWithBlock:^{
+        
+        dispatch_group_leave(group);
+    }];
+    
+    // 其他缓存清理处理....
+    if ([NSString clearCache]) {
+        [HomePageModel clearLocaHistory];
+        [BrowsNewsSingleton.singleton clearBrowsNewsIdArr];
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        
+        if (!weakSelf) return ;
+        
+        // 清理完成
+        
+        [HUD showMessage:@"清理完成"];
+        
+        [weakSelf.tableView reloadData];
+    });
+}
 
 @end

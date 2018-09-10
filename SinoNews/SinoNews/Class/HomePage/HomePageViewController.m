@@ -238,8 +238,6 @@
         [vc scrollToTop];
     }
     
-//    NSArray *arr = @[@"1"];
-//    GGLog(@"%@",arr[1]);
 }
 
 //让输入框无法进入编辑

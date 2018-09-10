@@ -24,6 +24,7 @@
             self.estimatedRowHeight = 0;
             self.estimatedSectionFooterHeight = 0;
             self.estimatedSectionHeaderHeight = 0;
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
         self.dataSource = self;

@@ -409,6 +409,9 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
                 NSString *imgHtml = [htmlString substringWithRange:[match rangeAtIndex:0]];
                 
                 NSString *src = [weakSelf getElementAttributeValueWithElement:imgHtml Attribute:@"src"];
+//                src = @"http://demo-resources.oss-cn-beijing.aliyuncs.com/newsdetailsdemo/a3b81ed6cff11fa4658.gif";
+                CGSize imageSize = [GetImageSizeTool downloadImageSizeWithURL:src];
+                imgHtml = [imgHtml stringByAppendingString:[NSString stringWithFormat:@"width=\"%.f\" height=\"%.f\"",imageSize.width,imageSize.height]];
                 
                 NSString *width = [weakSelf getElementAttributeValueWithElement:imgHtml Attribute:@"width"];
                 
@@ -849,14 +852,14 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
         // 更新webview高度
         [weakSelf updateHeight];
         
-        NSString *configFont = @"configStyle('1');";
-        if ([[LEETheme currentThemeTag] isEqualToString:THEME_DAY]) {
-            configFont = @"configStyle('0');";
-        }
-        
-        [weakSelf.webView evaluateJavaScript:configFont completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-            
-        }];
+//        NSString *configFont = @"configStyle('1');";
+//        if ([[LEETheme currentThemeTag] isEqualToString:THEME_DAY]) {
+//            configFont = @"configStyle('0');";
+//        }
+//
+//        [weakSelf.webView evaluateJavaScript:configFont completionHandler:^(id _Nullable response, NSError * _Nullable error) {
+//
+//        }];
         
         if (resultBlock) resultBlock();
     }];
@@ -1103,7 +1106,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
     
     WKFrameInfo *targetFrameInfo = navigationAction.targetFrame;
     NSString *requestString = [navigationAction.request.URL.absoluteString stringByRemovingPercentEncoding];
-    GGLog(@"触发的URL:%@",navigationAction.request.URL);
+//    GGLog(@"触发的URL:%@",navigationAction.request.URL);
     if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
         // 拦截点击链接
         NSURL *url = navigationAction.request.URL;

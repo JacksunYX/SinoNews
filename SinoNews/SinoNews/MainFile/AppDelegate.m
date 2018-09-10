@@ -61,15 +61,13 @@ void uncaughtExceptionHandler(NSException *exception) {
     // Internal error reporting
     //上报至后台接口
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"version_name"] = [UIDevice appVersion];
-    parameters[@"device_platform"] = @"iOS";
-    parameters[@"device_brand"] = [DeviceTool sharedInstance].deviceModel;
-    parameters[@"os_version"] = [UIDevice currentDevice].systemVersion;
-    parameters[@"reason"] = exception.reason;
     
-    [HttpRequest getWithURLString:@"" parameters:parameters success:^(id responseObject) {
+    parameters[@"message"] = exception.reason;
+    
+    [HttpRequest postWithURLString:ErrorResponse parameters:parameters isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
         GGLog(@"已上报");
-    } failure:nil];
+    } failure:nil RefreshAction:nil];
+    sleep(2);
 }
 
 //设置主界面内容

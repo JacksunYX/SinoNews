@@ -158,13 +158,7 @@ function configImgState(state, index, className){
         case 1:
             
             // 加载中
-            img.attr({"data-state":1 , "src":"../defaultimage/load_image.png"})
-            .css({
-//                 width:'100%',
-//                 height:'50px',
-                 
-                 })
-            .appendTo(div);
+            img.attr({"data-state":1 , "src":"../defaultimage/load_image.png"});
             
             span.text("加载中");
             

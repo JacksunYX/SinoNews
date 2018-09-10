@@ -54,6 +54,15 @@ static float afterTime = 0.5;
     [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"device_no"];
     [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"app_version"];
     [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"os_version"];
+    [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"device_platform"];
+    [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"device_brand"];
+    [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"device_platform"];
+    
+//    parameters[@"version_name"] = [UIDevice appVersion];
+//    parameters[@"device_platform"] = @"iOS";
+//    parameters[@"device_brand"] = [DeviceTool sharedInstance].deviceModel;
+//    parameters[@"os_version"] = [UIDevice currentDevice].systemVersion;
+    
     //    }
     return manager;
 }
@@ -98,7 +107,7 @@ static float afterTime = 0.5;
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        LRToast(@"请求失败");
+//        LRToast(@"请求失败");
         if (failure) {
             failure(error);
         }
@@ -185,7 +194,7 @@ static float afterTime = 0.5;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
         HiddenHudOnly;
-        LRToast(@"请求失败");
+//        LRToast(@"请求失败");
         if (failure) {
             //失败返回错误原因
             failure(error);
@@ -272,7 +281,7 @@ static float afterTime = 0.5;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
         HiddenHudOnly;
-        LRToast(@"请求失败");
+//        LRToast(@"请求失败");
         
         if (failure) {
             

@@ -21,7 +21,7 @@
 #import "ShareAndFunctionView.h"
 
 #import <SDWebImageManager.h>
-
+#import <CommonCrypto/CommonDigest.h>
 
 //未付费标记
 #define NoPayedNews (self.newsModel.isToll&&self.newsModel.hasPaid==0)
@@ -689,9 +689,9 @@ CGFloat static titleViewHeight = 91;
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
     
     _headerView = [[NewsDetailsHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
-    
+
     self.tableView.tableHeaderView = _headerView;
-    
+
     self.headerView.sd_layout
     .xIs(0)
     .yIs(0)
@@ -868,6 +868,7 @@ CGFloat static titleViewHeight = 91;
     }else{
         
         [self theThirdLoadWebView];
+
     }
 }
 
@@ -952,7 +953,86 @@ CGFloat static titleViewHeight = 91;
     NewsDetailsModel *headModel = [NewsDetailsModel new];
     headModel.newsHtml = self.newsModel.fullContent;
     self.headerView.model = headModel;
+    
+}
 
+//下载图片
+- (void)downloadImageWithUrl:(NSString *)src {
+    
+    [[SDWebImageManager sharedManager] loadImageWithURL:UrlWithStr(src) options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        
+    } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+        if (error) {
+            GGLog(@"下载图片失败 url: %@", src);
+        }else{
+            NSString *docPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+            NSString *localPath = [docPath stringByAppendingPathComponent:[self md5:src]];
+            
+            if (![data writeToFile:localPath atomically:NO]) {
+                GGLog(@"写入本地失败 url：%@", src);
+            }
+        }
+    }];
+}
+
+//md5处理
+- (NSString *)md5:(NSString *)sourceContent {
+    if (self == nil || [sourceContent length] == 0) {
+        return nil;
+    }
+    
+    unsigned char digest[CC_MD5_DIGEST_LENGTH], i;
+    CC_MD5([sourceContent UTF8String], (int)[sourceContent lengthOfBytesUsingEncoding:NSUTF8StringEncoding], digest);
+    NSMutableString *ms = [NSMutableString string];
+    
+    for (i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [ms appendFormat:@"%02x", (int)(digest[i])];
+    }
+    
+    return [ms copy];
+}
+
+#pragma mark - 获取HTML元素属性值
+
+- (NSString *)getElementAttributeValueWithElement:(NSString *)element Attribute:(NSString *)attribute{
+    
+    NSString *value = nil;
+    
+    if (element && element.length && attribute && attribute.length) {
+        
+        // 去除空格
+        
+        element = [element stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        NSArray *array = nil;
+        
+        if ([element rangeOfString:[NSString stringWithFormat:@"%@=\"" , attribute]].location != NSNotFound) {
+            
+            array = [element componentsSeparatedByString:[NSString stringWithFormat:@"%@=\"" , attribute]];
+            
+        } else if ([element rangeOfString:[NSString stringWithFormat:@"%@=" , attribute]].location != NSNotFound) {
+            
+            array = [element componentsSeparatedByString:[NSString stringWithFormat:@"%@=" , attribute]];
+        }
+        
+        if (array.count >= 2) {
+            
+            NSString *temp = array[1];
+            
+            NSUInteger loc = [temp rangeOfString:@"\""].location;
+            
+            if (loc != NSNotFound) {
+                
+                temp = [temp substringToIndex:loc];
+                
+                if (temp.length > 0) value = temp;
+            }
+            
+        }
+        
+    }
+    
+    return value;
 }
 
 //购买弹框提示

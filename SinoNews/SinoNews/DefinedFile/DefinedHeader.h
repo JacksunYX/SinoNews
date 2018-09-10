@@ -277,40 +277,27 @@
 
 
 //单例化一个类
-#define SYNTHESIZE_SINGLETON_FOR_CLASS(classname) \
-\
-static classname *shared##classname = nil; \
-\
-+ (classname *)shared##classname \
-{ \
-@synchronized(self) \
-{ \
-if (shared##classname == nil) \
-{ \
-shared##classname = [self alloc] init]; \
-} \
-} \
-\
-return shared##classname; \
-} \
-\
+// @interface
+#define singleton_interface(className) \
++ (className *)shared##className;
+// @implementation
+#define singleton_implementation(className) \
+static className *_instance; \
 + (id)allocWithZone:(NSZone *)zone \
 { \
-@synchronized(self) \
-{ \
-if (shared##classname == nil) \
-{ \
-shared##classname = [super allocWithZone:zone]; \
-return shared##classname; \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&onceToken, ^{ \
+        _instance = [super allocWithZone:zone]; \
+    }); \
+    return _instance; \
 } \
-} \
-\
-return nil; \
-} \
-\
-- (id)copyWithZone:(NSZone *)zone \
++ (className *)shared##className \
 { \
-return self; \
+    static dispatch_once_t onceToken; \
+    dispatch_once(&onceToken, ^{ \
+        _instance = [[self alloc] init]; \
+    }); \
+    return _instance; \
 }
 
 //----------------------其他----------------------------

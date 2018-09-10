@@ -99,7 +99,8 @@
 //查看未读私信数量(get)
 #define GetCountOfUnreadMessage @"/api/message/getCountOfUnreadMessage"
 
-
+//错误上报(post)
+#define ErrorResponse       @"/api/errorResponse"
 
 
 

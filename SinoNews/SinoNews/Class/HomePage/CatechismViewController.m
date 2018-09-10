@@ -23,7 +23,7 @@
     UIScrollView *bgView;
     
     CGFloat currentScrollY; //记录当前滚动的y轴偏移量
-    BOOL isLoadWeb; //是否已经加载过网页了
+    BOOL firstLoadWeb; //是否已经加载过网页了
 }
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *answersArr;    //回答数组
@@ -671,24 +671,32 @@ CGFloat static titleViewHeight = 150;
 #pragma mark - 设置Block
 - (void)configBlock{
     
-    __weak typeof(self) weakSelf = self;
+    @weakify(self);
     
     self.headerView.loadedFinishBlock = ^(BOOL result) {
-        
-        if (!weakSelf) return ;
+        @strongify(self);
+        if (!self) return ;
         
         if (result) {
             
-            weakSelf.tableView.hidden = NO;
+            self.tableView.hidden = NO;
             
-            weakSelf.tableView.alpha = 0.0f;
+            self.tableView.alpha = 0.0f;
             
-            [weakSelf setUpOtherViews];
+            [self setUpOtherViews];
+            
+            CGFloat y = -titleViewHeight;
+            if (self->firstLoadWeb) {
+                y = self->currentScrollY;
+            }
+            //滚到标题偏移坐标
+            self.tableView.contentOffset = CGPointMake(0, y);
+            self->firstLoadWeb = YES;
             
             [UIView animateWithDuration:0.5f animations:^{
                 
-                weakSelf.tableView.alpha = 1.0f;
-                [weakSelf showOrHideLoadView:NO page:2];
+                self.tableView.alpha = 1.0f;
+                [self showOrHideLoadView:NO page:2];
             }];
             
         } else {
@@ -699,10 +707,10 @@ CGFloat static titleViewHeight = 150;
     };
     
     self.headerView.updateHeightBlock = ^(NewsDetailsHeaderView *view) {
+        @strongify(self);
+        if (!self) return ;
         
-        if (!weakSelf) return ;
-        
-        weakSelf.tableView.tableHeaderView = view;
+        self.tableView.tableHeaderView = view;
     };
     
 }
@@ -734,7 +742,7 @@ CGFloat static titleViewHeight = 150;
                     [self.headerView configFontLevel:fontIndex];
                 }];
             }else if (row == 1) {
-                [self newLoadWeb];
+//                [self newLoadWeb];
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3){
@@ -866,12 +874,12 @@ CGFloat static titleViewHeight = 150;
     [self setNaviTitle];
     
     CGFloat y = -titleViewHeight;
-    if (isLoadWeb) {
+    if (firstLoadWeb) {
         y = currentScrollY;
     }
     //滚到标题偏移坐标
     _tableView.contentOffset = CGPointMake(0, y);
-    isLoadWeb = YES;
+    firstLoadWeb = YES;
     
     [self showOrHideLoadView:NO page:2];
     

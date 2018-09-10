@@ -793,7 +793,7 @@ CGFloat static titleViewHeight = 150;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
-                [self newLoadWeb];
+//                [self newLoadWeb];
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3) {

@@ -685,7 +685,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
             
             if (![current isEqualToString:[NSURL fileURLWithPath:thumbnailPath].absoluteString]) {
                 
-                [weakSelf loadImageFinishHandleWithIndex:index State:gif ? ContentImageLoadStateGif : ContentImageLoadStateFinish ImagePath:thumbnailPath ResultBlock:resultBlock];
+                [weakSelf loadImageFinishHandleWithIndex:index State:gif ? ContentImageLoadStateFinish : ContentImageLoadStateFinish ImagePath:thumbnailPath ResultBlock:resultBlock];
             
             } else {
                 
@@ -723,7 +723,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
                 
                 // 获取状态 如果是gif图加载完成 则设置5
                 
-                [weakSelf loadImageFinishHandleWithIndex:index State:gif ? ContentImageLoadStateGif : ContentImageLoadStateFinish ImagePath:cachePath ResultBlock:resultBlock];
+                [weakSelf loadImageFinishHandleWithIndex:index State:gif ? ContentImageLoadStateFinish : ContentImageLoadStateFinish ImagePath:cachePath ResultBlock:resultBlock];
                 
             } else {
                 
@@ -851,15 +851,6 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
         
         // 更新webview高度
         [weakSelf updateHeight];
-        
-//        NSString *configFont = @"configStyle('1');";
-//        if ([[LEETheme currentThemeTag] isEqualToString:THEME_DAY]) {
-//            configFont = @"configStyle('0');";
-//        }
-//
-//        [weakSelf.webView evaluateJavaScript:configFont completionHandler:^(id _Nullable response, NSError * _Nullable error) {
-//
-//        }];
         
         if (resultBlock) resultBlock();
     }];

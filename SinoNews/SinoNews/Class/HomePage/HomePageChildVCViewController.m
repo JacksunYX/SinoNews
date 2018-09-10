@@ -78,7 +78,10 @@
                     model1.hasBrows = NO;
                 }
             }
-            [self.tableView reloadData];
+            GCDAsynMain(^{
+                [self.tableView reloadData];
+            });
+            
         }
     }];
     

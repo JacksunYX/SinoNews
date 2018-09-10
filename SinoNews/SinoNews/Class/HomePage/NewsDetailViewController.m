@@ -319,7 +319,7 @@ CGFloat static titleViewHeight = 150;
     [self.titleView updateLayout];
     titleViewHeight = self.titleView.height;
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
-    //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
+//    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     //向下滚动一个像素点防止titleview不显示
     //    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - 1) animated:YES];
 }
@@ -701,24 +701,32 @@ CGFloat static titleViewHeight = 150;
 #pragma mark - 设置Block
 - (void)configBlock{
     
-    __weak typeof(self) weakSelf = self;
+    @weakify(self);
     
     self.headerView.loadedFinishBlock = ^(BOOL result) {
-        
-        if (!weakSelf) return ;
+        @strongify(self);
+        if (!self) return ;
         
         if (result) {
             
-            weakSelf.tableView.hidden = NO;
+            self.tableView.hidden = NO;
             
-            weakSelf.tableView.alpha = 0.0f;
+            self.tableView.alpha = 0.0f;
             
-            [weakSelf setUpOtherViews];
+            [self setUpOtherViews];
+            
+            CGFloat y = -titleViewHeight;
+            if (self->firstLoadWeb) {
+                y = self->currentScrollY;
+            }
+            //滚到标题偏移坐标
+            self.tableView.contentOffset = CGPointMake(0, y);
+            self->firstLoadWeb = YES;
             
             [UIView animateWithDuration:0.5f animations:^{
                 
-                weakSelf.tableView.alpha = 1.0f;
-                [weakSelf showOrHideLoadView:NO page:2];
+                self.tableView.alpha = 1.0f;
+                [self showOrHideLoadView:NO page:2];
             }];
             
         } else {
@@ -729,10 +737,10 @@ CGFloat static titleViewHeight = 150;
     };
     
     self.headerView.updateHeightBlock = ^(NewsDetailsHeaderView *view) {
+        @strongify(self);
+        if (!self) return ;
         
-        if (!weakSelf) return ;
-        
-        weakSelf.tableView.tableHeaderView = view;
+        self.tableView.tableHeaderView = view;
     };
     
 }

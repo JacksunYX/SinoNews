@@ -6,8 +6,8 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#import "MJRefreshAutoNormalFooter.h"
+#import "MJRefreshAutoGifFooter.h"
 
-@interface YXAutoNormalFooter : MJRefreshAutoNormalFooter
+@interface YXAutoNormalFooter : MJRefreshAutoGifFooter
 
 @end

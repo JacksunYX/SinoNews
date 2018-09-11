@@ -213,7 +213,7 @@
     [_tableView registerClass:[RankScoreCell class] forCellReuseIdentifier:RankScoreCellID];
     
     @weakify(self)
-    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_footer.refreshing) {
             [self.tableView.mj_header endRefreshing];

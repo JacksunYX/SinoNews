@@ -161,7 +161,7 @@
     [self.tableView registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];
     
     @weakify(self);
-    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
         if (self.tableView.mj_footer.isRefreshing||self.tableView.editing) {
             [self.tableView.mj_header endRefreshing];

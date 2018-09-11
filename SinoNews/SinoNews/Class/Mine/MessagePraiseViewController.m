@@ -115,7 +115,7 @@
     [self.tableView registerClass:[PraiseTableViewCell class] forCellReuseIdentifier:PraiseTableViewCellID];
     
     @weakify(self)
-    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
         [self.tableView ly_startLoading];
         [self requestGetPraiseHistory];

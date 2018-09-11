@@ -160,7 +160,7 @@
     [self.tableView registerClass:[RankListTableViewCell class] forCellReuseIdentifier:RankListTableViewCellID];
     _currPage = 1;
     WEAK(weakSelf, self);
-    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         if (weakSelf.tableView.mj_footer.isRefreshing) {
             [weakSelf.tableView.mj_header endRefreshing];
             return ;

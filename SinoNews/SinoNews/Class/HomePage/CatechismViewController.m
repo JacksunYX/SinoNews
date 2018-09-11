@@ -940,15 +940,7 @@ CGFloat static titleViewHeight = 150;
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
     if ([requestString hasPrefix:@"myweb:imageClick:"]&&!self.webView.loading) {
         NSString *imageUrl = [requestString substringFromIndex:@"myweb:imageClick:".length];
-//        if (bgView) {
-//            //设置不隐藏，还原放大缩小，显示图片
-//            bgView.alpha = 1;
-//            NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-//            int i = [imageIndex.lastObject intValue];
-//            [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-//        }else{
-//            [self showBigImage:imageUrl];//创建视图并显示图片
-//        }
+        
         [self anotherImageBrowser:imageUrl];
         
     }else if ([requestString hasPrefix:@"http"]&&!self.webView.loading) {
@@ -964,64 +956,6 @@ CGFloat static titleViewHeight = 150;
 }
 
 #pragma mark 显示大图片
--(void)showBigImage:(NSString *)imageUrl{
-    //创建灰色透明背景，使其背后内容不可操作
-    bgView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - NAVI_HEIGHT)];
-    [bgView setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7]];
-    bgView.contentSize = CGSizeMake(ScreenW *allUrlArray.count, bgView.bounds.size.height);
-    bgView.pagingEnabled = YES;
-    [self.view addSubview:bgView];
-    
-    //创建显示图像视图
-    for (int i = 0; i < allUrlArray.count; i++) {
-        UIView *borderView = [[UIView alloc] initWithFrame:CGRectMake(ScreenW *i, 0, bgView.bounds.size.width, bgView.bounds.size.height)];
-        [bgView addSubview:borderView];
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth(borderView.frame)-20, CGRectGetHeight(borderView.frame)-20)];
-        imgView.contentMode = 1;
-        @weakify(self);
-        [imgView whenTap:^{
-            @strongify(self);
-            [self hiddenBigImage];
-        }];
-        
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [imgView addSubview:activityIndicator];
-        activityIndicator.sd_layout
-        .centerXEqualToView(imgView)
-        .centerYEqualToView(imgView)
-        .widthIs(100)
-        .heightEqualToWidth()
-        ;
-        //设置小菊花颜色
-        activityIndicator.color = WhiteColor;
-        //设置背景颜色
-        activityIndicator.backgroundColor = ClearColor;
-        //刚进入这个界面会显示控件，并且停止旋转也会显示，只是没有在转动而已，没有设置或者设置为YES的时候，刚进入页面不会显示
-        activityIndicator.hidesWhenStopped = NO;
-        [activityIndicator startAnimating];
-        
-        NSArray *imageIndex = [NSMutableArray arrayWithArray:[allUrlArray[i] componentsSeparatedByString:@"LQXindex"]];
-        
-        [imgView sd_setImageWithURL:[NSURL URLWithString:imageIndex.firstObject] placeholderImage:nil];
-        
-        [borderView addSubview:imgView];
-        
-    }
-    NSArray *imageIndex = [NSMutableArray arrayWithArray:[imageUrl componentsSeparatedByString:@"LQXindex"]];
-    
-    
-    int i = [imageIndex.lastObject intValue];
-    [bgView setContentOffset:CGPointMake(ScreenW *i, 0)];
-    
-}
-
-//隐藏图片浏览
--(void)hiddenBigImage
-{
-    [UIView animateWithDuration:0.5 animations:^{
-        self->bgView.alpha = 0;
-    }];
-}
 
 //第二种查看图片的方式
 -(void)anotherImageBrowser:(NSString *)imageUrl

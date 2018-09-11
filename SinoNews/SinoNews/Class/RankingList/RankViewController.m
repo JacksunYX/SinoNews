@@ -194,7 +194,7 @@
     [_lineCollectionView registerClass:[LineCollectionViewCell class] forCellWithReuseIdentifier:LineCollectionViewCellID];
     
     @weakify(self)
-    self.lineCollectionView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.lineCollectionView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self)
         if (self.adArr.count<=0) {
             [self requestTopBanner];

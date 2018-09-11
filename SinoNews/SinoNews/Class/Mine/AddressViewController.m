@@ -91,7 +91,7 @@
     
     [self.tableView registerClass:[AddressTableViewCell class] forCellReuseIdentifier:AddressTableViewCellID];
 
-    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self)
         [self.tableView ly_startLoading];
         [self requestMall_listAddress];

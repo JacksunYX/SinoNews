@@ -173,7 +173,7 @@
     [self.tableView registerClass:[OfficialNotifyCell class] forCellReuseIdentifier:OfficialNotifyCellID];
     
     
-    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_header endRefreshing];

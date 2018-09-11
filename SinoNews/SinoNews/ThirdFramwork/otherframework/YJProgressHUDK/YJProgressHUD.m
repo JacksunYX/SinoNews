@@ -175,4 +175,20 @@
 
 }
 
+//新增，自定义loading动画
++(void)showCustomLoadingInview:(UIView *)fatherView
+{
+    NSMutableArray *imageArr = [NSMutableArray new];
+    for (int i = 0;i < 6;i++) {
+        NSString *imageName = [NSString stringWithFormat:@"loading_pic_%d",i];
+        [imageArr addObject:UIImageNamed(imageName)];
+    }
+    [self showCustomAnimation:@"" withImgArry:imageArr inview:fatherView];
+}
+
++(void)showCustomLoadingInKeyWindow
+{
+    [self showCustomLoadingInview:kWindow];
+}
+
 @end

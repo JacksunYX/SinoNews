@@ -104,7 +104,7 @@
     //注册
     [self.tableView registerClass:[FansTableViewCell class] forCellReuseIdentifier:FansTableViewCellID];
     @weakify(self)
-    self.tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
         [self.tableView ly_startLoading];
         [self requestGetFansHistory];

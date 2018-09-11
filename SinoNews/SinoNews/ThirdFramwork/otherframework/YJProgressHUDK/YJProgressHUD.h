@@ -69,4 +69,9 @@ typedef NS_ENUM(NSInteger,YJProgressMode){
 //隐藏
 +(void)hide;
 
+//新增，自定义loading动画
++(void)showCustomLoadingInview:(UIView *)fatherView;
+//新增，自定义loading动画，直接显示在kwindow上
++(void)showCustomLoadingInKeyWindow;
+
 @end

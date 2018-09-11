@@ -177,7 +177,7 @@
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
     self.page = 1;
-    _tableView.mj_header = [YXNormalHeader headerWithRefreshingBlock:^{
+    _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_header endRefreshing];

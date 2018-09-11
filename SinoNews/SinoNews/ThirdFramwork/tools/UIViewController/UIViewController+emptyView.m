@@ -50,7 +50,9 @@ static int tag1 = 206118;
             NSString *imageName = [NSString stringWithFormat:@"loading_pic_%d",i];
             [imageArr addObject:UIImageNamed(imageName)];
         }
-        [YJProgressHUD showCustomAnimation:@"" withImgArry:imageArr inview:loadingImg];
+
+        [YJProgressHUD showCustomLoadingInview:loadingImg];
+        
         /*
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [loadingImg addSubview:activityIndicator];

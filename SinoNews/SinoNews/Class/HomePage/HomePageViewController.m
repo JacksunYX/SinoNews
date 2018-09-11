@@ -120,7 +120,7 @@
 - (void)timerRun
 {
     //暂定每隔30秒请求一次
-    NSTimer *timer = [NSTimer timerWithTimeInterval:30 target:self selector:@selector(requestGetCountOfUnreadMessage) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:30 target:self selector:@selector(requestUser_tips) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     [timer fire];
 }
@@ -514,22 +514,22 @@
     } failure:nil];
 }
 
-//获取用户未读消息数量
--(void)requestGetCountOfUnreadMessage
+//获取用户提示信息
+-(void)requestUser_tips
 {
-    [HttpRequest getWithURLString:GetCountOfUnreadMessage parameters:nil success:^(id responseObject) {
+    [HttpRequest getWithURLString:User_tips parameters:nil success:^(id responseObject) {
+        
         MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
-
-        //获取指定item
-        UITabBarItem *item = [keyVC.tabBar.items lastObject];
-        NSInteger count = [responseObject[@"data"][@"count"] integerValue];
+        
+        NSInteger count = [responseObject[@"data"][@"hasMessageTip"] integerValue];
         if (count) {
             UserSetBool(YES, @"MessageNotice");
-            item.badgeValue = @"5";
+            [keyVC.tabBar showBadgeOnItemIndex:4];
         }else{
             UserSetBool(NO, @"MessageNotice");
-            item.badgeValue = nil;
+            [keyVC.tabBar hideBadgeOnItemIndex:4];
         }
+        
     } failure:nil];
 }
 

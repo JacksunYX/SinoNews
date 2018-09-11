@@ -90,10 +90,10 @@
         redTip.sd_layout
         .topSpaceToView(btn, 10)
         .rightSpaceToView(btn, 5)
-        .widthIs(4)
+        .widthIs(6)
         .heightEqualToWidth()
         ;
-        [redTip setSd_cornerRadius:@2];
+        [redTip setSd_cornerRadius:@3];
         
         if (!self.tipsModel.hasPraise&&i == 0) {
             redTip.hidden = YES;

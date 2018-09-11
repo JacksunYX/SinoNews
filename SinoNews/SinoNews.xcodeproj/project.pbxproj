@@ -528,6 +528,7 @@
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
+		4CDD0DD22147A11600036A0A /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD0DD12147A11600036A0A /* UITabBar+badge.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
 		4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D720C0D16000A44782 /* GroupShadowTableView.m */; };
@@ -1514,6 +1515,8 @@
 		4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansTableViewCell.m; sourceTree = "<group>"; };
 		4CCCF02120EA1E14000EC6BD /* MyFansModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansModel.h; sourceTree = "<group>"; };
 		4CCCF02220EA1E14000EC6BD /* MyFansModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansModel.m; sourceTree = "<group>"; };
+		4CDD0DD02147A11600036A0A /* UITabBar+badge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+badge.h"; sourceTree = "<group>"; };
+		4CDD0DD12147A11600036A0A /* UITabBar+badge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+badge.m"; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
 		4CE121CE20C00A6400A44782 /* RankListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListViewController.m; sourceTree = "<group>"; };
 		4CE121D120C0148700A44782 /* NSObject+DLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DLClass.h"; sourceTree = "<group>"; };
@@ -2156,6 +2159,7 @@
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
 				4C1DE9ED213D2E0600350313 /* Util.h */,
 				4C1DE9EE213D2E0600350313 /* Util.m */,
+				4CDD0DCF2147A0F300036A0A /* UITabbar */,
 				4C510B5F211049AC00706185 /* NSDictionary */,
 				4CC2898D2105AF6D00BC4D92 /* UIDevice */,
 				4C72346420FCC26B00D5C5D4 /* UINavigationBar */,
@@ -3391,6 +3395,15 @@
 			path = UIDevice;
 			sourceTree = "<group>";
 		};
+		4CDD0DCF2147A0F300036A0A /* UITabbar */ = {
+			isa = PBXGroup;
+			children = (
+				4CDD0DD02147A11600036A0A /* UITabBar+badge.h */,
+				4CDD0DD12147A11600036A0A /* UITabBar+badge.m */,
+			);
+			path = UITabbar;
+			sourceTree = "<group>";
+		};
 		4CE121D020C0148700A44782 /* DLogName_Line */ = {
 			isa = PBXGroup;
 			children = (
@@ -3849,6 +3862,7 @@
 				4C7234E520FDEB1D00D5C5D4 /* AALegend.m in Sources */,
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4C6E9179213F5F07001535CA /* YYTextParser.m in Sources */,
+				4CDD0DD22147A11600036A0A /* UITabBar+badge.m in Sources */,
 				4CA141FA20F4525F00536E77 /* CommentManagerViewController.m in Sources */,
 				4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,

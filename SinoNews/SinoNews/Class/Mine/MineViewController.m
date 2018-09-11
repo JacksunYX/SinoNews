@@ -50,7 +50,7 @@
 
 @property (nonatomic ,strong) UserModel *user;
 @property (nonatomic ,strong) MineTipsModel *tipsmodel;    //保存提示信息
-
+@property (nonatomic ,strong) UIView *redNotice;
 @end
 
 @implementation MineViewController
@@ -139,6 +139,15 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     return _mainDatasource;
 }
 
+-(UIView *)redNotice
+{
+    if (!_redNotice) {
+        _redNotice = [UIView new];
+        _redNotice.backgroundColor = RedColor;
+    }
+    return _redNotice;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -180,7 +189,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     //    }
     
     [self requestUser_tips];
-    [self requestGetCountOfUnreadMessage];
+//    [self requestGetCountOfUnreadMessage];
     if (self.adDatasource.count<=0) {
         [self requestBottomBanner];
     }
@@ -794,19 +803,28 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     NSDictionary *model = self.mainDatasource[indexPath.section][indexPath.row];
     if (indexPath.section == 0 && indexPath.row == 0) {
         
+        if (self.tipsmodel.hasMessageTip) {
+            [cell.contentView addSubview:self.redNotice];
+            self.redNotice.sd_layout
+            .leftSpaceToView(cell.textLabel, 10)
+            .centerYEqualToView(cell.textLabel)
+            .widthIs(6)
+            .heightEqualToWidth()
+            ;
+            [self.redNotice setSd_cornerRadius:@3];
+            
+        }else{
+            [self.redNotice removeFromSuperview];
+        }
+        
         cell.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
             UITableViewCell *cell1 = (UITableViewCell *)item;
             cell1.textLabel.textColor = value;
-            if (self.tipsmodel.hasMessageTip) {
-                cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@" ·" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
-            }else{
-                cell1.textLabel.attributedText = [NSString leadString:GetSaveString(model[@"title"]) tailString:@"" font:Font(18) color:RGBA(248, 52, 52, 1)  lineBreak:NO];
-            }
         });
-    }else{
-        cell.textLabel.text = GetSaveString(model[@"title"]);
-        [cell addTitleColorTheme];
     }
+    
+    cell.textLabel.text = GetSaveString(model[@"title"]);
+    [cell addTitleColorTheme];
     
     //    cell.detailTextLabel.text = GetSaveString(model[@"rightTitle"]);
     if (!kStringIsEmpty(self.tipsmodel.messageTip)) {
@@ -984,13 +1002,26 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     [HttpRequest getWithURLString:User_tips parameters:nil success:^(id responseObject) {
         self.tipsmodel = [MineTipsModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
         [self.tableView reloadData];
+        
+        MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        NSInteger count = [responseObject[@"data"][@"hasMessageTip"] integerValue];
+        if (count) {
+            UserSetBool(YES, @"MessageNotice");
+            [keyVC.tabBar showBadgeOnItemIndex:4];
+        }else{
+            UserSetBool(NO, @"MessageNotice");
+            [keyVC.tabBar hideBadgeOnItemIndex:4];
+        }
+        
     } failure:^(NSError *error) {
         
     }];
 }
 
-//获取用户未读消息数量
+//获取用户未读消息数量(暂未使用)
 -(void)requestGetCountOfUnreadMessage
 {
     [HttpRequest getWithURLString:GetCountOfUnreadMessage parameters:nil success:^(id responseObject) {

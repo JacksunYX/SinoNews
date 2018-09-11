@@ -40,5 +40,6 @@
 #import "NSDictionary+Extension.h"
 #import "NSArray+Extension.h"
 #import "Util.h"
+#import "UITabBar+badge.h"
 
 #endif /* ToolsHeader_h */

@@ -73,7 +73,7 @@ static NSInteger maxSelect = 3; //最大选择数
         .leftSpaceToView(lastView, 10)
         .centerYEqualToView(scrollView)
         .heightIs(22)
-        .widthIs(44)
+        .widthIs(54)
         ;
         [btn setNormalTitle:GetSaveString(model.channelName)];
         [self.btnArr addObject:btn];

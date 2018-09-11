@@ -165,12 +165,14 @@
     
     popView.sd_layout
 //    .topSpaceToView(fatherView, 10)
-    .rightSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 0)
     .centerYEqualToView(username)
-    .widthIs(13)
-    .heightIs(8)
+    .widthIs(50)
+    .heightIs(30)
     ;
+    popView.contentMode = 4;
     popView.image = UIImageNamed(@"publish_operate");
+//    popView.backgroundColor = RedColor;
     
     viewCount.sd_layout
     .topSpaceToView(popView, 10)
@@ -235,8 +237,13 @@
 //    viewCount.text = [NSString stringWithFormat:@"%ld\n阅读",model.viewCount];
     newTitle.text = GetSaveString(model.itemTitle);
     if (model.images.count>0) {
+        newsCover.sd_layout.heightIs((ScreenW - 20)*150/355);
         [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[0])) placeholderImage:UIImageNamed(@"placeholder_logo_big")];
+    }else{
+        newsCover.sd_layout.heightIs(0);
     }
+    [self updateLayout];
+    
     [share setNormalTitle:[NSString stringWithFormat:@"%ld",model.viewCount]];
     
     [comment setNormalTitle:[NSString stringWithFormat:@"%ld",model.commentCount]];
@@ -256,7 +263,13 @@
     creatTime.text = GetSaveString(newsModel.publishTime);
     newTitle.text = GetSaveString(newsModel.title);
     
-    [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(newsModel.image)) placeholderImage:[self placeholderImageStr]];
+    if (newsModel.image) {
+        newsCover.sd_layout.heightIs((ScreenW - 20)*150/355);
+        [newsCover sd_setImageWithURL:UrlWithStr(GetSaveString(newsModel.image)) placeholderImage:[self placeholderImageStr]];
+    }else{
+        newsCover.sd_layout.heightIs(0);
+    }
+    [self updateLayout];
     
     if (self.type == 0) {
         [share setNormalTitle:[NSString stringWithFormat:@"%ld",newsModel.viewCount]];

@@ -317,7 +317,8 @@ CGFloat static titleViewHeight = 150;
     
     //获取上部分的高度
     [self.titleView updateLayout];
-    titleViewHeight = self.titleView.height;
+    //向下取整
+    titleViewHeight = floorf(self.titleView.height);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
 //    GGLog(@"titleView自适应高度为：%lf",self.titleView.height);
     //向下滚动一个像素点防止titleview不显示
@@ -720,7 +721,8 @@ CGFloat static titleViewHeight = 150;
                 y = self->currentScrollY;
             }
             //滚到标题偏移坐标
-            self.tableView.contentOffset = CGPointMake(0, y);
+//            self.tableView.contentOffset = CGPointMake(0, y);
+            [self.tableView setContentOffset:CGPointMake(0, y+0.5) animated:NO];
             self->firstLoadWeb = YES;
             
             [UIView animateWithDuration:0.5f animations:^{
@@ -1689,8 +1691,8 @@ CGFloat static titleViewHeight = 150;
 //处理滚动视图时其他视图的显隐
 -(void)processViewAlphaWithView:(UIScrollView *)scrollView
 {
-    //    GGLog(@"y:%lf",scrollView.contentOffset.y);
-    
+//    GGLog(@"scrollViewY:%lf",scrollView.contentOffset.y);
+//    GGLog(@"scrollViewY2:%lf",-titleViewHeight);
     CGFloat offsetY = scrollView.contentOffset.y;
     currentScrollY = offsetY;
     
@@ -1698,7 +1700,7 @@ CGFloat static titleViewHeight = 150;
         //计算透明度比例
         CGFloat alpha = MAX(0, (titleViewHeight - fabs(offsetY)) / titleViewHeight);
         NSString *process = [NSString stringWithFormat:@"%.1lf",alpha];
-        //        GGLog(@"min:%@",process);
+//        GGLog(@"process:%@",process);
         self.titleView.alpha = 1 - [process floatValue];
         
         self.attentionBtn.enabled = 1 - [process floatValue];
@@ -1708,6 +1710,7 @@ CGFloat static titleViewHeight = 150;
         [self hiddenTopLine];
         
     }else{
+//        GGLog(@"process2");
         if (offsetY>0) {
             [self showTopLine];
             self.naviTitle.alpha = 1;

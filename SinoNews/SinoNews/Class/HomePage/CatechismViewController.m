@@ -319,7 +319,8 @@ CGFloat static titleViewHeight = 150;
     
     //获取上部分的高度
     [self.titleView updateLayout];
-    titleViewHeight = self.titleView.height;
+    //向下取整
+    titleViewHeight = floorf(self.titleView.height);
     _tableView.contentInset = UIEdgeInsetsMake(titleViewHeight, 0, 40, 0);
     
 //    _tableView.contentOffset = CGPointMake(0, -titleViewHeight + 1);
@@ -690,7 +691,7 @@ CGFloat static titleViewHeight = 150;
                 y = self->currentScrollY;
             }
             //滚到标题偏移坐标
-            self.tableView.contentOffset = CGPointMake(0, y);
+            [self.tableView setContentOffset:CGPointMake(0, y+0.5) animated:NO];
             self->firstLoadWeb = YES;
             
             [UIView animateWithDuration:0.5f animations:^{

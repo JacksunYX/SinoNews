@@ -82,4 +82,5 @@
 //是否需要显示关注按钮
 +(BOOL)showAttention:(NSInteger)userId;
 
+
 @end

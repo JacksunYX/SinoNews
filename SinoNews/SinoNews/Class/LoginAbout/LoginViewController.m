@@ -15,8 +15,9 @@
 @property (nonatomic,strong)TXLimitedTextField *username;
 @property (nonatomic,strong)TXLimitedTextField *password;
 @property (nonatomic,strong)UIButton *secureBtn;    //密码可视
-@property (nonatomic,strong)UIButton *forgetBtn;
-@property (nonatomic,strong)UIButton *confirmBtn;
+@property (nonatomic,strong)UIButton *forgetBtn;    //忘记密码
+@property (nonatomic,strong)UIButton *rememberBtn;  //记住密码
+@property (nonatomic,strong)UIButton *confirmBtn;   //登录按钮
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
@@ -102,6 +103,10 @@
     [self.forgetBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
     self.forgetBtn.titleLabel.font = PFFontL(12);
     
+    self.rememberBtn = [UIButton new];
+    [self.rememberBtn setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];
+    self.rememberBtn.titleLabel.font = PFFontL(12);
+    
     [backImg sd_addSubviews:@[
                               closeBtn,
                               registBtn,
@@ -109,6 +114,7 @@
                               self.username,
                               passwordBackView,
                               self.forgetBtn,
+                              self.rememberBtn,
                               self.confirmBtn,
                               ]];
     closeBtn.sd_layout
@@ -208,6 +214,20 @@
         [self.navigationController pushViewController:fpVC animated:YES];
     }];
     
+    self.rememberBtn.sd_layout
+    .leftEqualToView(passwordBackView)
+    .centerYEqualToView(self.forgetBtn)
+    .widthIs(80)
+    .heightIs(30)
+    ;
+//    self.rememberBtn.backgroundColor = RedColor;
+    self.rememberBtn.selected = YES;
+    [self.rememberBtn setTitle:@"记住密码" forState:UIControlStateNormal];
+    [self.rememberBtn setNormalImage:UIImageNamed(@"collect_unSelected")];
+    [self.rememberBtn setSelectedImage:UIImageNamed(@"collect_selected")];
+    self.rememberBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    [self.rememberBtn addTarget:self action:@selector(rememberAccount:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.confirmBtn.sd_layout
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
@@ -230,6 +250,13 @@
         return @(username.length>=6&&password.length>=6);
     }];
     
+    //设置记录的账号密码
+    if (UserGet(@"account")) {
+        _username.text = UserGet(@"account");
+    }
+    if (UserGet(@"password")) {
+        _password.text = UserGet(@"password");
+    }
 }
 
 -(void)popAction:(BOOL)logined
@@ -279,6 +306,12 @@
             
             [HttpRequest postWithURLString:Login parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
                 LRToast(@"登录成功");
+                if (self.rememberBtn.selected) {
+                    //把当前登录的账号密码记录下来，以供下次登录时使用
+                    UserSet(parameters[@"account"], @"account");
+                    UserSet(parameters[@"password"], @"password");
+                }
+                
                 [YXHeader loginSuccessSaveWithData:response];
                 GCDAfterTime(1, ^{
                     [self popAction:YES];
@@ -289,6 +322,12 @@
         }
         
     }
+}
+
+//记住密码
+-(void)rememberAccount:(UIButton *)btn
+{
+    btn.selected = !btn.selected;
 }
 
 #pragma mark ----- UITextFieldDelegate

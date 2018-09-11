@@ -34,6 +34,7 @@
     if (!_topModalView) {
         _topModalView = [UIView new];
         [self.view addSubview:_topModalView];
+        [self.view bringSubviewToFront:_topModalView];
         _topModalView.sd_layout
         .topEqualToView(self.view)
         .leftEqualToView(self.view)

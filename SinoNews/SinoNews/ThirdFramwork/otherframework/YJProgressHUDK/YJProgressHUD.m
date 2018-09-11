@@ -46,7 +46,7 @@
     //是否设置黑色背景，这两句配合使用
     [YJProgressHUD shareinstance].hud.bezelView.color = [UIColor clearColor];
     [YJProgressHUD shareinstance].hud.contentColor = [UIColor clearColor];
-    
+    [YJProgressHUD shareinstance].hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     [[YJProgressHUD shareinstance].hud setMargin:10];
     [[YJProgressHUD shareinstance].hud setRemoveFromSuperViewOnHide:YES];
     [YJProgressHUD shareinstance].hud.detailsLabel.text = msg;

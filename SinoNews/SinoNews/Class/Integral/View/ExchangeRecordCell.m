@@ -186,7 +186,7 @@
 -(void)setModel:(ExchangeRecordModel *)model
 {
     _model = model;
-    [productImage sd_setImageWithURL:UrlWithStr(GetSaveString(model.productImage))];
+    [productImage sd_setImageWithURL:UrlWithStr(GetSaveString(model.productImage)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     productName.text = GetSaveString(model.productName);
     time.text = GetSaveString(model.createTime);
     integral.text = [NSString stringWithFormat:@"%ld",model.price];

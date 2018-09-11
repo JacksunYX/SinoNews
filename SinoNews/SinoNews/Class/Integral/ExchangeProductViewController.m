@@ -443,21 +443,61 @@
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"productId"] = @(self.productModel.productId);
-    @weakify(self)
+    
     [HttpRequest postWithURLString:Mall_buy parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"购买成功");
+        
         UserModel *user = [UserModel getLocalUserModel];
         user.integral = [response[@"data"][@"remainPoints"] longValue];
         [UserModel coverUserData:user];
         //暂时使用登录的监听，只为有积分展示的界面会重新获取用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:UserIntegralOrAvatarChanged object:nil];
-        @strongify(self)
-        GCDAfterTime(1, ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        
+        NSString *coupon = response[@"data"][@"coupon"];
+        [self popPaySuccessWithCoupon:coupon];
     } failure:nil RefreshAction:nil];
 }
 
+//虚拟商品返回券号不为空则需要弹窗提示，可以点击按钮复制券号
+-(void)popPaySuccessWithCoupon:(NSString *)coupon
+{
+    if (coupon) {
+        UIAlertController *popVC = [UIAlertController alertControllerWithTitle:@"您可以在“管理”->“兑换记录“中查看兑换详情" message:AppendingString(@"卡号：", coupon) preferredStyle:UIAlertControllerStyleAlert];
+        
+        //修改message字体颜色
+        NSString *messageString = AppendingString(@"卡号：", coupon);
+        NSMutableAttributedString *alertControllerMessageStr = [[NSMutableAttributedString alloc] initWithString:messageString];
+        NSDictionary *dic = @{
+                              NSForegroundColorAttributeName:GrayColor,
+                              NSFontAttributeName:PFFontL(15),
+                              };
+        [alertControllerMessageStr addAttributes:dic range:NSMakeRange(0, messageString.length)];
+        
+        [popVC setValue:alertControllerMessageStr forKey:@"attributedMessage"];
+        
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        UIAlertAction *copy = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.string = coupon;
+            LRToast(@"卡号已复制");
+            GCDAfterTime(1, ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }];
+        
+        [popVC addAction:confirm];
+        [popVC addAction:copy];
+        
+        [self presentViewController:popVC animated:YES completion:nil];
+    }else{
+        LRToast(@"购买成功");
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    }
+}
 
 
 @end

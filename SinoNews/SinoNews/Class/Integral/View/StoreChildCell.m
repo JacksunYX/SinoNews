@@ -136,7 +136,7 @@
 -(void)setModel:(ProductModel *)model
 {
     _model = model;
-    [iconImg sd_setImageWithURL:UrlWithStr(model.imageUrl)];
+    [iconImg sd_setImageWithURL:UrlWithStr(model.imageUrl) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     title.text = GetSaveString(model.productName);
     subTitle.text = GetSaveString(model.detail);
     if (model.worth) {

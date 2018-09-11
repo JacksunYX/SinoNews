@@ -21,7 +21,7 @@
 @property(nonatomic,assign) NSInteger productId;    //id
 @property(nonatomic,strong) NSString *productImage; //图片
 @property(nonatomic,strong) NSString *productName;  //名称
-@property(nonatomic,assign) NSInteger productType;  //商品类型(0实物 2虚拟)
+@property(nonatomic,assign) NSInteger productType;  //商品类型(0实物 1虚拟)
 @property(nonatomic,strong) NSString *status;       //订单状态
 
 @end

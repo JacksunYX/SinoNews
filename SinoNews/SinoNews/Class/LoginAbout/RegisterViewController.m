@@ -258,13 +258,16 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"account"] = username.text;
     ShowHudOnly;
+    
     [HttpRequest getWithURLString:SendValidCode parameters:parameters success:^(id responseObject) {
         LRToast(@"验证码已发送");
         HiddenHudOnly;
+        
         //发送成功后
         [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:WhiteColor countColor:WhiteColor];
     } failure:^(NSError *error) {
         HiddenHudOnly;
+        
     }];
     
 }

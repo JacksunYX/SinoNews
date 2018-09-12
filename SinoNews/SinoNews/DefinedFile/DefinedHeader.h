@@ -433,11 +433,11 @@ item.alpha = 0.0; \
 #define kHiddenHUDAndAvtivity kRemoveBackView;kHiddenHUD;HideNetworkActivityIndicator()
 
 //只显示hud
-#define ShowHudOnly [MBProgressHUD showHUDAddedTo:kWindow animated:YES];
-#define HiddenHudOnly [MBProgressHUD hideHUDForView:kWindow animated:YES];
-
-
-
+//#define ShowHudOnly [MBProgressHUD showHUDAddedTo:kWindow animated:YES];
+//#define HiddenHudOnly [MBProgressHUD hideHUDForView:kWindow animated:YES];
+//重新自定义
+#define ShowHudOnly [YJProgressHUD showCustomLoadingInKeyWindow];
+#define HiddenHudOnly [YJProgressHUD hide];
 
 //设置加载提示框（第三方框架：Toast）
 #define LRToast(str)              CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle]; \

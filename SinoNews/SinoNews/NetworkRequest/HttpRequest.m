@@ -136,8 +136,8 @@ static float afterTime = 0.5;
     //判断显示loding
     if (isshowhud == YES) {
         
-//        ShowHudOnly;
-        [YJProgressHUD showCustomLoadingInKeyWindow];
+        ShowHudOnly;
+        
     }
     
     [manager POST:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -147,8 +147,8 @@ static float afterTime = 0.5;
         
         GGLog(@"resultdic-----%@",resultdic);
         //隐藏loding
-//        HiddenHudOnly;
-        [YJProgressHUD hide];
+        HiddenHudOnly;
+        
         //取出返回数据
         if (success&&resultdic) {
             
@@ -194,8 +194,8 @@ static float afterTime = 0.5;
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
-//        HiddenHudOnly;
-        [YJProgressHUD hide];
+        HiddenHudOnly;
+        
 //        LRToast(@"请求失败");
         if (failure) {
             //失败返回错误原因
@@ -226,8 +226,8 @@ static float afterTime = 0.5;
     //判断显示loding
     if (isshowhud == YES) {
         
-//        ShowHudOnly;
-        [YJProgressHUD showCustomLoadingInKeyWindow];
+        ShowHudOnly;
+        
     }
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
@@ -240,8 +240,8 @@ static float afterTime = 0.5;
         GGLog(@"resultdic-----%@",resultdic);
         
         //隐藏loding
-//        HiddenHudOnly;
-        [YJProgressHUD hide];
+        HiddenHudOnly;
+        
         //取出返回数据
         if (success&&resultdic) {
             
@@ -283,8 +283,8 @@ static float afterTime = 0.5;
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
-//        HiddenHudOnly;
-        [YJProgressHUD hide];
+        HiddenHudOnly;
+        
 //        LRToast(@"请求失败");
         
         if (failure) {
@@ -312,8 +312,8 @@ static float afterTime = 0.5;
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
-//    ShowHudOnly;
-    [YJProgressHUD showCustomLoadingInKeyWindow];
+    ShowHudOnly;
+    
     //先对质量压缩
     NSData *imgData = [uploadimage compressWithMaxLength:100 * 1024];
 //    UIImage *img = [UIImage imageWithData:imgData];
@@ -342,8 +342,8 @@ static float afterTime = 0.5;
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
         GGLog(@"responseObject-------%@",resultdic);
-//        HiddenHudOnly;
-        [YJProgressHUD hide];
+        HiddenHudOnly;
+        
         //取出返回数据
         if (success&&resultdic) {
             if ([resultdic[@"success"] integerValue] == 1) {
@@ -374,8 +374,8 @@ static float afterTime = 0.5;
         //上传失败
         GGLog(@"error-------%@",error);
         //隐藏loding
-//        HiddenHudOnly;
-        [YJProgressHUD hide];
+        HiddenHudOnly;
+        
         LRToast(@"图片上传失败");
         if (failure) {
             failure(error);

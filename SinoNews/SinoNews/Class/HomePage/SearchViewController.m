@@ -346,6 +346,9 @@
         case 1:
         {
             self.tableView.hidden = NO;
+            if (self.selectIndex!=0) {
+                self.tableView.hidden = YES;
+            }
             self.collectionView.hidden = YES;
             self.keyTableView.hidden = YES;
         }
@@ -741,6 +744,7 @@
 -(void)requestSearchNewsListWithText:(NSString *)text
 {
     ShowHudOnly;
+    [YJProgressHUD showCustomLoadingInKeyWindow];
     [HttpRequest getWithURLString:News_listForSearching parameters:@{@"keyword":text} success:^(id responseObject) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         HiddenHudOnly;

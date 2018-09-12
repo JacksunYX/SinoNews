@@ -795,7 +795,7 @@ CGFloat static titleViewHeight = 150;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
-//                [self newLoadWeb];
+                [self newLoadWeb];
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3) {
@@ -1103,15 +1103,7 @@ CGFloat static titleViewHeight = 150;
 //        }];
 //    }
     
-    CGFloat y = -titleViewHeight;
-    if (firstLoadWeb) {
-        y = currentScrollY;
-    }
-    //滚到标题偏移坐标
-    _tableView.contentOffset = CGPointMake(0, y);
-    firstLoadWeb = YES;
     
-    [self showOrHideLoadView:NO page:2];
     
     
     //修改字体大小 300%
@@ -1143,6 +1135,16 @@ CGFloat static titleViewHeight = 150;
         //修改背景色
         //        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.background='#ffffff'" completionHandler:nil];
     }
+    
+    CGFloat y = -titleViewHeight;
+    if (firstLoadWeb) {
+        y = currentScrollY;
+    }
+    //滚到标题偏移坐标
+    _tableView.contentOffset = CGPointMake(0, y);
+    firstLoadWeb = YES;
+    
+    [self showOrHideLoadView:NO page:2];
     
     //    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.letter-spacing:25px" completionHandler:nil];
     

@@ -11,6 +11,7 @@
 #import "HomePageChildVCViewController.h"
 #import "AttentionRecommendVC.h"
 #import "CasinoCollectViewController.h"
+#import "MyAttentionViewController.h"
 
 @interface AttentionViewController ()<MLMSegmentHeadDelegate>
 @property (nonatomic, strong) MLMSegmentHead *segHead;
@@ -25,7 +26,21 @@
     [super viewDidLoad];
     self.navigationItem.title = @"关注";
     
-    [self addNavigationView];
+    if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
+        [self addNavigationView];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UserLoginOutNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [self.segHead removeFromSuperview];
+        [self.segScroll removeFromSuperview];
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil;
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UserLoginSuccess object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [self addNavigationView];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +61,7 @@
             leftImg = [leftImg stringByAppendingString:@"_night"];
         }
         
-        self.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(recommandAction) image:UIImageNamed(rightImg)];
+        self.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(attentionAction) image:UIImageNamed(rightImg)];
         self.navigationItem.rightBarButtonItem = self.rightBarButtonItem;
         
         self.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(leftImg)];
@@ -55,9 +70,6 @@
         self.rightBarButtonItem.customView.hidden = self.segHead.index;
     });
     
-    if (CompareString(UserGet(@"isLogin"), @"YES")) {
-        
-    }
     [self reloadChildVCWithTitles:@[@"作者",@"娱乐场"]];
     
 }
@@ -72,10 +84,10 @@
     [self.navigationController pushViewController:sVC animated:NO];
 }
 
--(void)recommandAction
+-(void)attentionAction
 {
-    AttentionRecommendVC *arVC = [AttentionRecommendVC new];
-    [self.navigationController pushViewController:arVC animated:YES];
+    MyAttentionViewController *attentionVC = [MyAttentionViewController new];
+    [self.navigationController pushViewController:attentionVC animated:YES];
 }
 
 //设置下方分页联动

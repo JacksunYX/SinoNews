@@ -245,11 +245,6 @@
         [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
     }];
     
-    //集合信号
-    RAC(self.confirmBtn,enabled) = [RACSignal combineLatest:@[self.username.rac_textSignal,self.password.rac_textSignal] reduce:^id(NSString *username,NSString *password){
-        return @(username.length>=6&&password.length>=6);
-    }];
-    
     //设置记录的账号密码
     if (UserGet(@"account")) {
         _username.text = UserGet(@"account");
@@ -257,6 +252,12 @@
     if (UserGet(@"password")) {
         _password.text = UserGet(@"password");
     }
+    
+    //集合信号
+    RAC(self.confirmBtn,enabled) = [RACSignal combineLatest:@[self.username.rac_textSignal,self.password.rac_textSignal] reduce:^id(NSString *username,NSString *password){
+        return @(username.length>=6&&password.length>=6);
+    }];
+    
 }
 
 -(void)popAction:(BOOL)logined

@@ -53,6 +53,7 @@ static CGFloat anumationTime = 0.3;
     
     //添加输入框和其他控件
     JHTextView *textView = [JHTextView new];
+    textView.limitLength = 200;
     textView.font = PFFontL(16);
     textView.placeholderLabel.font = PFFontL(16);
     [textView addBakcgroundColorTheme];

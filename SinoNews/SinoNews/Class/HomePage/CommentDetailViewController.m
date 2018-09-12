@@ -100,18 +100,18 @@
         self.commentInput.delegate = self;
         self.commentInput.returnKeyType = UIReturnKeySend;
         @weakify(self)
-        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
-            @strongify(self)
-            UITextField *field = x.first;
-            GGLog(@"-----%@",field.text);
-            [field resignFirstResponder];
-            if ([NSString isEmpty:field.text]) {
-                LRToast(@"评论不能为空哦");
-            }else{
-                [self requestCommentWithComment:field.text];
-                field.text = @"";
-            }
-        }];
+//        [[self rac_signalForSelector:@selector(textFieldShouldReturn:) fromProtocol:@protocol(UITextFieldDelegate)] subscribeNext:^(RACTuple * _Nullable x) {
+//            @strongify(self)
+//            UITextField *field = x.first;
+//            GGLog(@"-----%@",field.text);
+//            [field resignFirstResponder];
+//            if ([NSString isEmpty:field.text]) {
+//                LRToast(@"评论不能为空哦");
+//            }else{
+//                [self requestCommentWithComment:field.text];
+//                field.text = @"";
+//            }
+//        }];
         
         [self.bottomView sd_addSubviews:@[
                                           self.commentInput,
@@ -216,6 +216,20 @@
 {
     self.currPage = 1;
     [self requestComments];
+}
+
+//让输入框无法进入编辑
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+        if (![NSString isEmpty:inputText]) {
+            [self requestCommentWithComment:inputText];
+        }else{
+            LRToast(@"请输入有效的内容");
+        }
+    }];
+    
+    return NO;
 }
 
 #pragma mark ----- UITableViewDataSource

@@ -123,6 +123,17 @@
         
         self.indexFlag = index;
     }
+    
+    if (index==1) {
+        [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+            if (login) {
+                
+            }else{
+                [self setSelectedIndex:0];
+            }
+        }];
+    }
+    
 }
 
 -(void)addAnimationOnLayer:(CALayer *)layer

@@ -887,20 +887,30 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //是否登录
-    if (![YXHeader checkNormalBackLogin]) {
-        return;
-    }
     NSArray *section = self.mainDatasource[indexPath.section];
     NSString *title = GetSaveString(section[indexPath.row][@"title"]);
+    
+    //是否登录
+    if (![UserGet(@"isLogin") isEqualToString:@"YES"]&&!CompareString(title, @"设置")&&!CompareString(title, @"分享")) {
+        LoginViewController *loginVC = [LoginViewController new];
+        loginVC.normalBack = YES;
+        [[HttpRequest getCurrentVC] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+        return;
+    }
+    
     MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
     if (indexPath.section == 0) {
         if (CompareString(title, @"娱乐城")) {
             CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
             [self.navigationController pushViewController:ccVC animated:YES];
         }else if (CompareString(title, @"设置")) {
-            NewSettingViewController *stVC = [NewSettingViewController new];
-            [self.navigationController pushViewController:stVC animated:YES];
+            if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
+                NewSettingViewController *stVC = [NewSettingViewController new];
+                [self.navigationController pushViewController:stVC animated:YES];
+            }else{
+                SettingViewController *sVC = [SettingViewController new];
+                [self.navigationController pushViewController:sVC animated:YES];
+            }
         }else if (CompareString(title, @"历史")){
             BrowsingHistoryVC *bhVC = [BrowsingHistoryVC new];
             [self.navigationController pushViewController:bhVC animated:YES];

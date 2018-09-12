@@ -977,6 +977,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
         [weakSelf loadImage:index ResultBlock:^{}];
     };
     
+    /*
     browser.longClickBlock = ^(PhotoBrowser *weakBrowser, NSInteger index) {
         
         if (!weakSelf) return ;
@@ -1010,6 +1011,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
         .LeeBackgroundStyleBlur(UIBlurEffectStyleDark)
         .LeeShow();
     };
+     */
 }
 
 #pragma mark - WKUIDelegate

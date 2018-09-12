@@ -40,16 +40,16 @@ static CGFloat anumationTime = 0.3;
     //点击移除手势
     @weakify(backView)
     @weakify(bottomView)
-    [backView whenTap:^{
-        @strongify(backView)
-        @strongify(bottomView)
-        [UIView animateWithDuration:anumationTime animations:^{
-            backView.alpha = 0;
-            bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame), ScreenW, bottomViewHeight);
-        } completion:^(BOOL finished) {
-            [backView removeFromSuperview];
-        }];
-    }];
+//    [backView whenTap:^{
+//        @strongify(backView)
+//        @strongify(bottomView)
+//        [UIView animateWithDuration:anumationTime animations:^{
+//            backView.alpha = 0;
+//            bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame), ScreenW, bottomViewHeight);
+//        } completion:^(BOOL finished) {
+//            [backView removeFromSuperview];
+//        }];
+//    }];
     
     //添加输入框和其他控件
     JHTextView *textView = [JHTextView new];

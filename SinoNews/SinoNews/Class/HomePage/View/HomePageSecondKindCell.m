@@ -51,7 +51,7 @@
     CGFloat tbMargin = 10;  //上下间距
     
     title = [UILabel new];
-    title.font = FontScale(17);
+    title.font = NewsTitleFont;
 //    title.textColor = HexColor(#323232);
     title.isAttributedContent = YES;
     
@@ -235,7 +235,7 @@
         //解析
         title.attributedText = [NSString analysisHtmlString:titletext];
         //⚠️字体需要在这里重新设置才行，不然会变小
-        title.font = FontScale(17);
+        title.font = NewsTitleFont;
         //判断是否要缩进
         if (tlLabel.hidden == NO) {
             //⚠️如果文本前面有空格，进过h5编码后，空格会消失，需要重新拼接空格
@@ -331,9 +331,11 @@
 //获取当前应当显示的占位图
 -(UIImage *)placeholderImageStr
 {
-    NSString *imgUrl = @"placeholder_logo_small";
+    NSString *imgUrl = @"placeholder_logo";
     if (UserGetBool(@"NightMode")) {
         imgUrl = [imgUrl stringByAppendingString:@"_night"];
+    }else{
+        imgUrl = [imgUrl stringByAppendingString:@"_day"];
     }
     return UIImageNamed(imgUrl);
 }

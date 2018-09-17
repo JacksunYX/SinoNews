@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/7/24.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//项目通用颜色等
+//项目通用颜色字体等
 
 #ifndef DefinedColorHeader_h
 #define DefinedColorHeader_h
@@ -19,5 +19,8 @@
 
 //浏览过的文章的标题颜色
 #define BrowsNewsTitleColor HexColor(#828993)
+
+//新闻列表标题字体
+#define NewsTitleFont  FontScale(16)
 
 #endif /* DefinedColorHeader_h */

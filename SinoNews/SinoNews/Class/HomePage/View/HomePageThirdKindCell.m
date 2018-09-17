@@ -40,7 +40,7 @@
 -(void)setupUI
 {
     title = [UILabel new];
-    title.font = FontScale(17);
+    title.font = NewsTitleFont;
 //    title.textColor = HexColor(#323232);
     title.lee_theme.LeeConfigTextColor(@"titleColor");
     
@@ -135,7 +135,7 @@
     if ([titletext containsString:@"<font"]) {
         title.attributedText = [NSString analysisHtmlString:titletext];
         //⚠️字体需要在这里重新设置才行，不然会变小
-        title.font = FontScale(16);
+        title.font = NewsTitleFont;
     }else{
         title.text = titletext;
     }

@@ -946,18 +946,30 @@
 -(void)processOtherWebsiteArr
 {
     NSMutableArray *copyArr = [self.companyModel.otherwebsite mutableCopy];
+    // 创建 dispatch 组
+    dispatch_group_t group = dispatch_group_create();
+    
     for (int i = 0; i < copyArr.count; i ++) {
         @weakify(self);
+        //向group中添加任务
+        dispatch_group_enter(group);
         [self validateUrl:copyArr[i] handle:^(BOOL isValid,NSString *webStr) {
             @strongify(self);
             if (!isValid) {
                 [self.companyModel.otherwebsite removeObject:webStr];
-                GCDAsynMain(^{
-                    [self.tableView reloadData];
-                });
             }
+            GGLog(@"进入ping方法");
+            //结束某个任务时需要调用
+            dispatch_group_leave(group);
         }];
     }
+    //当所有加入的任务都结束时就会回调
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        GGLog(@"ping完成");
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+    });
+    
 }
 
 //判断网址是否可用

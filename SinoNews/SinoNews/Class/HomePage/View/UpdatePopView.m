@@ -14,6 +14,7 @@
 
 @implementation UpdatePopView
 static CGFloat anumationTime = 0.3;
+static int tag = 15532;
 
 +(void)showWithData:(NSDictionary *)data
 {
@@ -21,6 +22,14 @@ static CGFloat anumationTime = 0.3;
     NSString *openUrlStr = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@?mt=8",appid];
     NSURL *openUrl = UrlWithStr(openUrlStr);
     openUrl = UrlWithStr(GetSaveString(data[@"link"]));
+    
+    //检查一下是否重复
+    for (UIView *subView in kWindow.subviews) {
+        if (subView.tag == tag) {
+            [subView removeFromSuperview];
+            break;
+        }
+    }
     
     //背景视图
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];

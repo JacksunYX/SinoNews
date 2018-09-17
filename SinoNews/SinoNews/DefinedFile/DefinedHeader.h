@@ -16,9 +16,10 @@
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087"
 #define DebugDomain2 @"http://192.168.2.144:8083"
+#define DebugDomain3 @"https://www.qishilu888.com"
 
 //正式环境
-#define FormalDomain @"https://www.kuaiyishare.com/"
+
 
 //图片域名
 #define defaultUrl DebugImgDomain

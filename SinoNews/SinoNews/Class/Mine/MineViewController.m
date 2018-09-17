@@ -891,7 +891,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     NSString *title = GetSaveString(section[indexPath.row][@"title"]);
     
     //是否登录
-    if (![UserGet(@"isLogin") isEqualToString:@"YES"]&&!CompareString(title, @"设置")&&!CompareString(title, @"分享")) {
+    if (![UserGet(@"isLogin") isEqualToString:@"YES"]&&!CompareString(title, @"设置")) {
         LoginViewController *loginVC = [LoginViewController new];
         loginVC.normalBack = YES;
         [[HttpRequest getCurrentVC] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
@@ -922,9 +922,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             MyCollectViewController *mVC = [MyCollectViewController new];
             [self.navigationController pushViewController:mVC animated:YES];
         }else if (CompareString(title, @"分享")){
-            [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
-                [self shareToPlatform:sharePlateform];
-            }];
+            
+            [self getShareData];
         }
         
     }else if(indexPath.section == 1){
@@ -1044,6 +1043,14 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     } failure:nil];
 }
 
+//获取分享链接
+-(void)getShareData
+{
+    [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
+        [self shareToPlatform:sharePlateform];
+    }];
+}
+
 //分享方法
 -(void)shareToPlatform:(MGShareToPlateform)type
 {
@@ -1062,16 +1069,18 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //        shareModel.image = UIImageNamed(@"ad_banner0");
 //    }
     
+    NSString *shareUrl = AppendingString(DefaultDomainName, @"/pc2.html");
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;
-        shareModel.content = AppendingString(@"启世录", @"http://192.168.2.144:8090/pc2.html");
+        shareModel.content = AppendingString(@"启世录", shareUrl);
+        
 //        shareModel.thumbImage = [UIImage imageNamed:@""];
 //        shareModel.image = @"xxx";
     }else{
         shareModel.contentType = MGShareContentTypeWebPage;
         shareModel.title = @"启世录";
-        shareModel.url = @"http://192.168.2.144:8090/pc2.html";
+        shareModel.url = shareUrl;
         shareModel.content = @"";
         shareModel.thumbImage = UIImageNamed(@"AppIcon");
         

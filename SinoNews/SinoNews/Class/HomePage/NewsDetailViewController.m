@@ -80,6 +80,9 @@
 @implementation NewsDetailViewController
 
 CGFloat static titleViewHeight = 150;
+CGFloat static bottomMargin = 25;
+CGFloat static attentionBtnW = 66;
+CGFloat static attentionBtnH = 26;
 -(UserModel *)user
 {
     if (!_user) {
@@ -185,7 +188,8 @@ CGFloat static titleViewHeight = 150;
         ;
         
         _titleLabel = [UILabel new];
-        _titleLabel.font = PFFontM(22);
+//        _titleLabel.font = PFFontM(19);
+        _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:ScaleWidth(20)];
         _titleLabel.numberOfLines = 0;
         [_titleLabel addTitleColorTheme];
         
@@ -289,13 +293,13 @@ CGFloat static titleViewHeight = 150;
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
         .centerYEqualToView(_avatar)
-        .widthIs(58)
-        .heightIs(20)
+        .widthIs(attentionBtnW)
+        .heightIs(attentionBtnH)
         ;
         
-        [_attentionBtn setSd_cornerRadius:@10];
+        [_attentionBtn setSd_cornerRadius:@(attentionBtnH/2)];
         
-        [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:10];
+        [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:bottomMargin];
     }
     
     _attentionBtn.selected = self.newsModel.isAttention;
@@ -1662,15 +1666,15 @@ CGFloat static titleViewHeight = 150;
     //    GGLog(@"-titleViewHeight：%lf",-titleViewHeight);
     
     if (self.attentionBtn.enabled) {
-        //如果大于，说明tableView便宜量已经看不到头像等信息了
-        if (self.tableView.contentOffset.y + titleViewHeight >=10 + 24) {
+        //如果大于，说明tableView偏移量已经看不到头像等信息了
+        if (self.tableView.contentOffset.y + titleViewHeight >=bottomMargin + 24) {
             GGLog(@"不能点击");
         }else{
             
-            if (x >= ScreenW - (58+10)&&x<= ScreenW - 10 && y >= titleViewHeight - 10 - 24/2 - 20/2 && y <= titleViewHeight - 10 - 24/2 + 20/2) {
+            if (x >= ScreenW - (attentionBtnW+10)&&x<= ScreenW - 10 && y >= titleViewHeight - bottomMargin - 24/2 - attentionBtnH/2 && y <= titleViewHeight - bottomMargin - 24/2 + attentionBtnH/2) {
                 GGLog(@"点击了关注");
                 [self requestIsAttention];
-            }else if (x >= 10&&x<= (100+10) && y >= titleViewHeight - 10 - 24 && y <= titleViewHeight - 10) {
+            }else if (x >= 10&&x<= (100+10) && y >= titleViewHeight - bottomMargin - 24 && y <= titleViewHeight - bottomMargin) {
                 GGLog(@"点击用户部分");
                 
                 [UserModel toUserInforVcOrMine:self.newsModel.userId];

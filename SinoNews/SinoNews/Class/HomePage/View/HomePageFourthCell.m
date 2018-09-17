@@ -44,7 +44,7 @@
 -(void)setupUI
 {
     title = [UILabel new];
-    title.font = FontScale(17);
+    title.font = FontScale(16);
 //    title.textColor = HexColor(#323232);
     
     title.isAttributedContent = YES;

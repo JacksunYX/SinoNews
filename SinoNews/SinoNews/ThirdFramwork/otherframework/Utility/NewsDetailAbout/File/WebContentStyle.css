@@ -16,7 +16,7 @@ body{
 /*    text-indent:2em;*/
     padding:0;
     line-height:1.7;
-    letter-spacing: 1;
+    letter-spacing: 0.4;
     text-align: justify;
     background-color:transparent;
     word-wrap:break-word;
@@ -26,6 +26,7 @@ body{
 /*    -webkit-touch-callout: none;*/
 /*    -webkit-user-select: none;*/
     overflow-y: scroll;
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
 }
 
 div.content{

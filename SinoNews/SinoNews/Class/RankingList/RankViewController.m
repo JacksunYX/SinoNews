@@ -163,7 +163,7 @@
         ADModel *model = self.adArr[index];
         [UniversalMethod jumpWithADModel:model];
     };
-
+    
 }
 
 //添加中间的排行视图

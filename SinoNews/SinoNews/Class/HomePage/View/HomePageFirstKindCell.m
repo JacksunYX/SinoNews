@@ -62,7 +62,7 @@
 {
     rightImg = [UIImageView new];
     rightImg.userInteractionEnabled = YES;
-    rightImg.contentMode = 2;
+    rightImg.contentMode = 4;
     //    rightImg.backgroundColor = Arc4randomColor;
     
     title = [UILabel new];
@@ -99,10 +99,10 @@
     rightImg.sd_layout
     .rightSpaceToView(self.contentView, 10)
     .topSpaceToView(self.contentView, 15)
-    //    .widthIs(kScaelW(130))
-    //    .heightIs(kScaelW(130)*80/130)
-    .widthIs(kScaelW(105))
-    .heightEqualToWidth()
+        .widthIs(kScaelW(118))
+        .heightIs(kScaelW(118)*82/118)
+//    .widthIs(kScaelW(105))
+//    .heightEqualToWidth()
     ;
     [rightImg setSd_cornerRadius:@4];
     
@@ -112,7 +112,7 @@
     .rightSpaceToView(rightImg, 20)
     .autoHeightRatio(0)
     ;
-    [title setMaxNumberOfLinesToShow:3];
+    [title setMaxNumberOfLinesToShow:2];
     
     tlLabel.sd_layout
     .leftEqualToView(title)

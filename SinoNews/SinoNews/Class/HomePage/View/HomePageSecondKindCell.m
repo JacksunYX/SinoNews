@@ -63,15 +63,15 @@
     
     imgL = [UIImageView new];
     imgL.userInteractionEnabled = YES;
-    imgL.contentMode = 2;
+    imgL.contentMode = 4;
 //    imgL.backgroundColor = Arc4randomColor;
     imgC = [UIImageView new];
     imgC.userInteractionEnabled = YES;
-    imgC.contentMode = 2;
+    imgC.contentMode = 4;
 //    imgC.backgroundColor = Arc4randomColor;
     imgR = [UIImageView new];
     imgR.userInteractionEnabled = YES;
-    imgR.contentMode = 2;
+    imgR.contentMode = 4;
 //    imgR.backgroundColor = Arc4randomColor;
     
     blLabel = [UILabel new];
@@ -117,8 +117,8 @@
     
     //图片宽度
     CGFloat imgW = (ScreenW - lrMargin*2 - imgMargin*2)/3;
-//    CGFloat imgH = imgW * 90.0 / 117;
-    CGFloat imgH = imgW;
+    CGFloat imgH = imgW * 82.0 / 118;
+//    CGFloat imgH = imgW;
     imgL.sd_layout
     .topSpaceToView(title, tbMargin)
     .leftSpaceToView(self.contentView, lrMargin)

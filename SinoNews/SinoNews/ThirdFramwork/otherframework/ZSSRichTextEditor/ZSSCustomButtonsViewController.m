@@ -49,7 +49,7 @@
     UIButton *insertImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.0f, btnW, 49.0f)];
     [insertImageBtn setImage:[UIImage imageNamed:@"ZSSimage"] forState:UIControlStateNormal];
     [insertImageBtn addTarget:self
-                       action:@selector(insertImage)
+                       action:@selector(openPhoto)
              forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *boldBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.0f, btnW, 49.0f)];
@@ -103,6 +103,8 @@
     if (_touch == NO) {
         return;
     }
+    [self insertImage];
+    /*
     @weakify(self);
     [[ZZYPhotoHelper shareHelper] showImageViewSelcteWithResultBlock:^(id data) {
         @strongify(self)
@@ -120,6 +122,7 @@
         });
         
     }];
+     */
 }
 
 //插入图片链接

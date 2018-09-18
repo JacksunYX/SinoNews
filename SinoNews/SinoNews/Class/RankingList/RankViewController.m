@@ -291,7 +291,7 @@
         .heightIs(30)
         ;
         [username setSingleLineAutoResizeWithMaxWidth:120];
-        username.text = @"启世录TOPS";
+        username.text = @"娱乐场排行榜";
         
 //        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
         

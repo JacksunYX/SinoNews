@@ -273,6 +273,11 @@
             [self.tableView.mj_footer endRefreshing];
         }
         [self.tableView reloadData];
+        
+        if (loadType||self.dataSource.count == data.count) {
+            [self scrollTableToFoot:YES];
+        }
+        
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
@@ -296,6 +301,17 @@
     
     return loadTime;
 }
+
+- (void)scrollTableToFoot:(BOOL)animated
+{
+    NSInteger s = [self.tableView numberOfSections];  //有多少组
+    if (s<1) return;  //无数据时不执行 要不会crash
+    NSInteger r = [self.tableView numberOfRowsInSection:s-1]; //最后一组有多少行
+    if (r<1) return;
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:r-1 inSection:s-1];  //取最后一行数据
+    [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:animated]; //滚动到最后一行
+}
+
 
 
 @end

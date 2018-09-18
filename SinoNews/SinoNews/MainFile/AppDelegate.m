@@ -96,8 +96,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 //集成友盟分享
 -(void)initThirdShare
 {
-    //初始化
-    [MGSocialShareHelper configWithUMAppKey:@"5b17b13df29d98533d00009e" umSocialAppSecret:@"" openLog:NO usingHttpsWhenShareContent:NO];
+    //初始化5b9f59a9b27b0a34710000da
+    [MGSocialShareHelper configWithUMAppKey:@"5b9f59a9b27b0a34710000da" umSocialAppSecret:@"" openLog:NO usingHttpsWhenShareContent:NO];
     //配置分享平台
     //微信
     [MGSocialShareHelper configSharePlateform:MGShareToWechatSession withAppKey:@"wx715d540022f70374" appSecret:@"4ca2ea9de17e7b69537d06c831dfb664" redirectURL:@"http://mobile.umeng.com/social"];
@@ -106,7 +106,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [MGSocialShareHelper configSharePlateform:MGShareToQQ withAppKey:@"1106998630" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
     [MGSocialShareHelper configSharePlateform:MGShareToQzone withAppKey:@"1106998630" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
     [MGSocialShareHelper configSharePlateform:MGShareToTim withAppKey:@"1106998630" appSecret:@"" redirectURL:@"http://mobile.umeng.com/social"];
-    //微博s
+    //微博
     [MGSocialShareHelper configSharePlateform:MGShareToSina withAppKey:@"2509849189" appSecret:@"4a729c55f2d965e781cb9fb3ef236105" redirectURL:@"http://mobile.umeng.com/social"];
 
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]) {

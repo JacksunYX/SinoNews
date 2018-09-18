@@ -11,6 +11,7 @@
 #import "MessageFansViewController.h"
 #import "MessageNotifyViewController.h"
 #import "NewNotifyViewController.h"
+#import "OfficialNotifyViewController.h"
 
 @interface MessageViewController ()
 
@@ -145,8 +146,10 @@
         case 2:
         {
 //            UserSetBool(NO, @"MessageNotice");
-            NewNotifyViewController *nvc = [NewNotifyViewController new];
-            [self.navigationController pushViewController:nvc animated:YES];
+//            NewNotifyViewController *nvc = [NewNotifyViewController new];
+//            [self.navigationController pushViewController:nvc animated:YES];
+            OfficialNotifyViewController *onVC = [OfficialNotifyViewController new];
+            [self.navigationController pushViewController:onVC animated:YES];
 //            [self.rt_navigationController pushViewController:nvc animated:YES complete:^(BOOL finished) {
 //                [self.rt_navigationController removeViewController:self];
 //            }];

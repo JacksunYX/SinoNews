@@ -63,15 +63,15 @@
     
     imgL = [UIImageView new];
     imgL.userInteractionEnabled = YES;
-    imgL.contentMode = 4;
+    imgL.contentMode = 2;
 //    imgL.backgroundColor = Arc4randomColor;
     imgC = [UIImageView new];
     imgC.userInteractionEnabled = YES;
-    imgC.contentMode = 4;
+    imgC.contentMode = 2;
 //    imgC.backgroundColor = Arc4randomColor;
     imgR = [UIImageView new];
     imgR.userInteractionEnabled = YES;
-    imgR.contentMode = 4;
+    imgR.contentMode = 2;
 //    imgR.backgroundColor = Arc4randomColor;
     
     blLabel = [UILabel new];

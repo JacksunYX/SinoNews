@@ -465,7 +465,7 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
                         
                         // 设置状态
                         
-                        state = gif ? ContentImageLoadStateGif : ContentImageLoadStateFinish;
+                        state = gif ? ContentImageLoadStateFinish : ContentImageLoadStateFinish;
                         
                     } else {
                         

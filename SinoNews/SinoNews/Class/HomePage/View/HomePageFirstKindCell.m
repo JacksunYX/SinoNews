@@ -62,7 +62,7 @@
 {
     rightImg = [UIImageView new];
     rightImg.userInteractionEnabled = YES;
-    rightImg.contentMode = 4;
+    rightImg.contentMode = 2;
     //    rightImg.backgroundColor = Arc4randomColor;
     
     title = [UILabel new];

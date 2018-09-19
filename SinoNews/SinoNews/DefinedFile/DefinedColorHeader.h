@@ -21,6 +21,12 @@
 #define BrowsNewsTitleColor HexColor(#828993)
 
 //新闻列表标题字体
-#define NewsTitleFont  FontScale(16)
+#define NewsTitleFont   FontScale(16)
+
+//新闻列表下标签字体
+#define NewsBottomTip   PFFontR(10)
+
+//新闻列表下文字字体
+#define NewsBottomTitle PFFontR(10)
 
 #endif /* DefinedColorHeader_h */

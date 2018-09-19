@@ -75,11 +75,11 @@
 //    imgR.backgroundColor = Arc4randomColor;
     
     blLabel = [UILabel new];
-    blLabel.font = FontScale(12);
+    blLabel.font = NewsBottomTip;
     blLabel.textColor = HexColor(#1282EE);
     
     bottomLabel = [UILabel new];
-    bottomLabel.font = FontScale(12);
+    bottomLabel.font = NewsBottomTitle;
     
     UIView *sepLine = [UIView new];
     //设置不同环境下的颜色

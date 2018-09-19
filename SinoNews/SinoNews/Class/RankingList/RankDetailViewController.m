@@ -225,6 +225,7 @@
     }];
     
     self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self)
         if (self.tableView.mj_header.refreshing) {
             [self.tableView.mj_footer endRefreshing];
             return ;
@@ -981,6 +982,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:candidate];
     
     [request setHTTPMethod:@"HEAD"];
+    [request setTimeoutInterval:3.0];//超时3秒说明网址有问题
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
@@ -1035,19 +1037,19 @@
     [HttpRequest getWithURLString:CompanyShowComment parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         
-        self.commentsArr = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.commentsArr];
+//        self.commentsArr = [self.tableView pullWithPage:self.currPage data:arr dataSource:self.commentsArr];
         
-//        if (self.currPage == 1) {
-//            self.commentsArr = [arr mutableCopy];
+        if (self.currPage == 1) {
+            self.commentsArr = [arr mutableCopy];
 //            [self.tableView.mj_header endRefreshing];
-//        }else{
-//            if (arr.count) {
-//                [self.commentsArr addObjectsFromArray:arr];
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//        }
+        }else if (self.currPage > 1) {
+            if (arr.count) {
+                [self.commentsArr addObjectsFromArray:arr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {

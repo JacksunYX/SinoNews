@@ -39,7 +39,7 @@
         self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, SCellHeight)];
         [self.contentView addSubview:self.imageV];
         self.imageV.contentMode = 3;
-
+        
         UIView *backView = [UIView new];
         backView.backgroundColor = HexColorAlpha(#000000, 0.3);
         [self.imageV addSubview:backView];

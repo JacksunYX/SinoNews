@@ -263,38 +263,31 @@
 {
     if (!_naviTitle) {
         _naviTitle = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-        self.navigationItem.titleView = _naviTitle;
+        
         [_naviTitle addBakcgroundColorTheme];
         
-        UIImageView *avatar = [UIImageView new];
+        CGFloat wid = 30;
+        
+        UIImageView *avatar = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wid, _naviTitle.height)];
+        [_naviTitle addSubview:avatar];
+        
+        [avatar cornerWithRadius:wid/2];
+        avatar.image = UIImageNamed(@"homePage_logo");
+        
         UILabel *username = [UILabel new];
         [username addTitleColorTheme];
+        username.text = @"娱乐城排行榜";
+        [username sizeToFit];
+        CGFloat labelW = CGRectGetWidth(username.frame);
+        if (labelW>150*ScaleW) {
+            labelW = 150*ScaleW;
+        }
+        username.frame = CGRectMake(CGRectGetMaxX(avatar.frame) + 5, 0, labelW, 30);
+        [_naviTitle addSubview:username];
         
-        [_naviTitle sd_addSubviews:@[
-                                     avatar,
-                                     username,
-                                     ]];
-        CGFloat wid = 30;
-
-        avatar.sd_layout
-        .leftEqualToView(_naviTitle)
-        .centerYEqualToView(_naviTitle)
-        .widthIs(wid)
-        .heightIs(30)
-        ;
-        [avatar setSd_cornerRadius:@(wid/2)];
-        [avatar setImage:UIImageNamed(@"homePage_logo")];
+        _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);
         
-        username.sd_layout
-        .leftSpaceToView(avatar, 5)
-        .centerYEqualToView(_naviTitle)
-        .heightIs(30)
-        ;
-        [username setSingleLineAutoResizeWithMaxWidth:120];
-        username.text = @"娱乐场排行榜";
-        
-//        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
-        
+        self.navigationItem.titleView = _naviTitle;
     }
 }
 

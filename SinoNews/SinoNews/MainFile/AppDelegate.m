@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <XHLaunchAd.h>
 
-@interface AppDelegate ()<XHLaunchAdDelegate>
+@interface AppDelegate ()<XHLaunchAdDelegate,CoreJPushProtocol>
 
 @end
 
@@ -44,6 +44,8 @@
 //    [IQKeyboardManager sharedManager].enable = NO;
     //集成友盟分享
     [self initThirdShare];
+    //集成极光推送
+    [self initJPushWithOptions:launchOptions];
     //设置主页
     [self setMainVC];
     
@@ -127,6 +129,15 @@ void uncaughtExceptionHandler(NSException *exception) {
         GGLog(@"可以分享到新浪微博");
     }
  
+}
+
+//集成极光推送
+-(void)initJPushWithOptions:(NSDictionary *)launchOptions
+{
+    //注册JPush
+    [CoreJPush registerJPush:launchOptions];
+    //添加一个监听者：此监听者是遵循了CoreJPushProtocol协议
+    [CoreJPush addJPushListener:self];
 }
 
 //获取用户信息
@@ -237,6 +248,12 @@ void uncaughtExceptionHandler(NSException *exception) {
         // 其他如支付等SDK的回调
     }
     return result;
+}
+
+#pragma mark --- CoreJPushProtocol ---
+-(void)didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    GGLog(@"收到推送数据:%@",userInfo);
 }
 
 @end

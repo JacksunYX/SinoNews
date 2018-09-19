@@ -37,6 +37,14 @@
 		4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC822100B47F0021055B /* AnswerDetailModel.m */; };
 		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */; };
+		4C1B148F21525740004ADD9E /* AppDelegate+JPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B148A21525740004ADD9E /* AppDelegate+JPush.m */; };
+		4C1B149021525740004ADD9E /* CoreJPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B148B21525740004ADD9E /* CoreJPush.m */; };
+		4C1B149121525740004ADD9E /* jpush-ios-2.1.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B148D21525740004ADD9E /* jpush-ios-2.1.6.a */; };
+		4C1B1493215257B6004ADD9E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B1492215257B6004ADD9E /* CFNetwork.framework */; };
+		4C1B1495215257BE004ADD9E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B1494215257BE004ADD9E /* CoreFoundation.framework */; };
+		4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B1496215257C5004ADD9E /* CoreTelephony.framework */; };
+		4C1B149B21525830004ADD9E /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B149A21525830004ADD9E /* libresolv.tbd */; };
+		4C1B149D2152583B004ADD9E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B149C2152583B004ADD9E /* libz.tbd */; };
 		4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B5ADB2106D84600A47563 /* PopNoticeView.m */; };
 		4C1B5ADF2107268E00A47563 /* UIBarButtonItem+SXCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B5ADE2107268E00A47563 /* UIBarButtonItem+SXCreate.m */; };
 		4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1C2E0120DBD64C00F0ABED /* HomePageFourthCell.m */; };
@@ -626,6 +634,20 @@
 		4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseHistoryModel.m; sourceTree = "<group>"; };
 		4C1A29E820EF425500D8A188 /* ReciveMessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReciveMessageModel.h; sourceTree = "<group>"; };
 		4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReciveMessageModel.m; sourceTree = "<group>"; };
+		4C1B148521525740004ADD9E /* CoreJPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreJPush.h; sourceTree = "<group>"; };
+		4C1B148721525740004ADD9E /* AppDelegate+JPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+JPush.h"; sourceTree = "<group>"; };
+		4C1B148821525740004ADD9E /* CoreJPushProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreJPushProtocol.h; sourceTree = "<group>"; };
+		4C1B148921525740004ADD9E /* CoreJPushSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreJPushSingleton.h; sourceTree = "<group>"; };
+		4C1B148A21525740004ADD9E /* AppDelegate+JPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+JPush.m"; sourceTree = "<group>"; };
+		4C1B148B21525740004ADD9E /* CoreJPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreJPush.m; sourceTree = "<group>"; };
+		4C1B148D21525740004ADD9E /* jpush-ios-2.1.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.6.a"; sourceTree = "<group>"; };
+		4C1B148E21525740004ADD9E /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		4C1B1492215257B6004ADD9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		4C1B1494215257BE004ADD9E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		4C1B1496215257C5004ADD9E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		4C1B149A21525830004ADD9E /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		4C1B149C2152583B004ADD9E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		4C1B149E215258B3004ADD9E /* SinoNews.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SinoNews.entitlements; sourceTree = "<group>"; };
 		4C1B5ADA2106D84600A47563 /* PopNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopNoticeView.h; sourceTree = "<group>"; };
 		4C1B5ADB2106D84600A47563 /* PopNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopNoticeView.m; sourceTree = "<group>"; };
 		4C1B5ADD2107268E00A47563 /* UIBarButtonItem+SXCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SXCreate.h"; sourceTree = "<group>"; };
@@ -1554,6 +1576,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C1B149D2152583B004ADD9E /* libz.tbd in Frameworks */,
+				4C1B149B21525830004ADD9E /* libresolv.tbd in Frameworks */,
+				4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */,
+				4C1B1495215257BE004ADD9E /* CoreFoundation.framework in Frameworks */,
+				4C1B1493215257B6004ADD9E /* CFNetwork.framework in Frameworks */,
+				4C1B149121525740004ADD9E /* jpush-ios-2.1.6.a in Frameworks */,
 				4C5BFD02211AF41300EF82DA /* AudioToolbox.framework in Frameworks */,
 				61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */,
 			);
@@ -1657,6 +1685,37 @@
 				4C17B4A220E250C900470AEB /* IFMShareItemCell.m */,
 			);
 			path = IFMShare;
+			sourceTree = "<group>";
+		};
+		4C1B148421525740004ADD9E /* CoreJPush */ = {
+			isa = PBXGroup;
+			children = (
+				4C1B148521525740004ADD9E /* CoreJPush.h */,
+				4C1B148B21525740004ADD9E /* CoreJPush.m */,
+				4C1B148621525740004ADD9E /* Common */,
+				4C1B148C21525740004ADD9E /* Lib */,
+			);
+			path = CoreJPush;
+			sourceTree = "<group>";
+		};
+		4C1B148621525740004ADD9E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4C1B148721525740004ADD9E /* AppDelegate+JPush.h */,
+				4C1B148A21525740004ADD9E /* AppDelegate+JPush.m */,
+				4C1B148821525740004ADD9E /* CoreJPushProtocol.h */,
+				4C1B148921525740004ADD9E /* CoreJPushSingleton.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4C1B148C21525740004ADD9E /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				4C1B148D21525740004ADD9E /* jpush-ios-2.1.6.a */,
+				4C1B148E21525740004ADD9E /* JPUSHService.h */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 		4C1D503020E5C8110002C53E /* Model */ = {
@@ -1874,6 +1933,7 @@
 		4C3F8F9E20BCD893003EC4FC /* SinoNews */ = {
 			isa = PBXGroup;
 			children = (
+				4C1B149E215258B3004ADD9E /* SinoNews.entitlements */,
 				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
 				4C5BFD03211AF44000EF82DA /* SoundSource */,
 				4C23B5CB20F6FD6600ACE380 /* ThemeJson */,
@@ -2226,6 +2286,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C1B148421525740004ADD9E /* CoreJPush */,
 				4C73383621465B0B0001B33F /* YJProgressHUDK */,
 				4C6E90A7213F5F06001535CA /* YYKit */,
 				4C6E9095213F5E00001535CA /* Utility */,
@@ -3480,6 +3541,11 @@
 		D713DEE0ADA588400E4230AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C1B149C2152583B004ADD9E /* libz.tbd */,
+				4C1B149A21525830004ADD9E /* libresolv.tbd */,
+				4C1B1496215257C5004ADD9E /* CoreTelephony.framework */,
+				4C1B1494215257BE004ADD9E /* CoreFoundation.framework */,
+				4C1B1492215257B6004ADD9E /* CFNetwork.framework */,
 				4C5BFD01211AF41200EF82DA /* AudioToolbox.framework */,
 				E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */,
 				4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */,
@@ -3561,6 +3627,14 @@
 					4C3F8F9B20BCD893003EC4FC = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 0940;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					4C3F8FB320BCD895003EC4FC = {
 						CreatedOnToolsVersion = 9.3.1;
@@ -3920,6 +3994,7 @@
 				4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */,
 				4C72347A20FD8C6D00D5C5D4 /* UIColor+PYSearchExtension.m in Sources */,
 				4C6E9169213F5F07001535CA /* NSObject+YYModel.m in Sources */,
+				4C1B149021525740004ADD9E /* CoreJPush.m in Sources */,
 				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
 				4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */,
@@ -4224,6 +4299,7 @@
 				4C6E919D213F5F07001535CA /* YYWeakProxy.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C7EF37D21212A0B0002166A /* HRColorPickerViewController.m in Sources */,
+				4C1B148F21525740004ADD9E /* AppDelegate+JPush.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */,
 				4C6E91A4213F5F07001535CA /* YYGestureRecognizer.m in Sources */,
@@ -4417,6 +4493,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SinoNews/SinoNews.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -4430,6 +4507,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/CoreJPush/Lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a9344b22-29a9-4722-9964-da03a73c6b22";
@@ -4438,6 +4519,11 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FLAnimatedImage/FLAnimatedImage",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/CoreJPush/Lib",
+				);
 			};
 			name = Debug;
 		};
@@ -4448,6 +4534,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SinoNews/SinoNews.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -4461,6 +4548,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/CoreJPush/Lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4dcb1b86-8ed0-46ac-b66a-bd13fef477fd";
@@ -4468,6 +4559,11 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/FLAnimatedImage/FLAnimatedImage",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/CoreJPush/Lib",
+				);
 			};
 			name = Release;
 		};

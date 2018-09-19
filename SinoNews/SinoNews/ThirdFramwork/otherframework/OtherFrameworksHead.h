@@ -53,4 +53,6 @@
 #import "HUD.h"
 #import "YJProgressHUD.h"
 
+#import "CoreJPush/CoreJPush.h"
+
 #endif /* OtherFrameworksHead_h */

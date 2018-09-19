@@ -194,13 +194,13 @@
     first = [UILabel new];
     first.isAttributedContent = YES;
     first.font = PFFontR(15);
-    [first addContentColorTheme];
+    [first addTitleColorTheme];
 //    first.userInteractionEnabled = YES;
     
     second = [UILabel new];
     second.isAttributedContent = YES;
     second.font = PFFontR(15);
-    [second addContentColorTheme];
+    [second addTitleColorTheme];
 //    second.userInteractionEnabled = YES;
     
     checkImg = [UIImageView new];

@@ -1058,7 +1058,9 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     
     NSString *shareUrl = AppendingString(DefaultDomainName, @"/share?");
-    shareUrl = [shareUrl stringByAppendingString:[NSString stringWithFormat:@"userId=%ld",self.user.userId]];
+//    arc4random()%100 + 1
+    shareUrl = [shareUrl stringByAppendingString:[NSString stringWithFormat:@"user=%u&r_=%@&u=%ld&s=0&&n_type=0&p_from=1&wd=分享APP",arc4random()%100000000 + 1,[NSString currentTimeStr],self.user.userId]];
+    shareUrl = AppendingString(@"注册启世录就送10元话费！领取1000积分兑换话费卡、购物卡、iphone XS手机等千种奖品！注册时输入推广码即可领取1000积分，现在就下载App吧！\n", shareUrl);
     pasteboard.string = shareUrl;
     LRToast(@"链接已复制");
 }

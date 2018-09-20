@@ -149,7 +149,8 @@ static bool isCollect = NO;
 +(void)showWithCollect:(BOOL)collect returnBlock:(void (^)(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform))clickBlock
 {
     isCollect = collect;
-    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[[self new] shareArray] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];
+//    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[[self new] shareArray] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];
+    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[NSArray new] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];
     shareView.itemSpace = 0;
     shareView.middleTopSpace = 5;
     shareView.middleBottomSpace = 0;

@@ -189,7 +189,7 @@
             bodyHeight += _shareCollectionView.frame.size.height;
         }
         if (_functionCollectionView) {
-            bodyHeight += (_shareCollectionView.frame.size.height + 0.5 + + _middleTopSpace + _middleBottomSpace);
+            bodyHeight += (_functionCollectionView.frame.size.height + 0.5 + _middleTopSpace + _middleBottomSpace);
         }
         height += bodyHeight;
     }
@@ -279,6 +279,9 @@
     if (_oneLine) {//如果在一行内展示
         height = _itemSize.height;
     }
+    if (number == 0) {
+        height = 0;
+    }
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     if (_oneLine) {
@@ -300,6 +303,8 @@
     if (self.functionItems.count) {
         //分割线
         self.middleLine.frame = CGRectMake(_middleLineEdgeSpace, shareCollectionView.frame.origin.y+shareCollectionView.frame.size.height + _middleTopSpace, self.frame.size.width - 2*_middleLineEdgeSpace, 0.5);
+        
+        self.middleLine.hidden = !number;
         
         UICollectionViewFlowLayout *functionflowLayout = [[UICollectionViewFlowLayout alloc] init];
         functionflowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

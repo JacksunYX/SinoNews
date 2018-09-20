@@ -923,7 +923,8 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             [self.navigationController pushViewController:mVC animated:YES];
         }else if (CompareString(title, @"分享")){
             
-            [self getShareData];
+//            [self getShareData];
+            [self newShareUrl];
         }
         
     }else if(indexPath.section == 1){
@@ -1049,6 +1050,17 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         [self shareToPlatform:sharePlateform];
     }];
+}
+
+//新的分享方法
+-(void)newShareUrl
+{
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    
+    NSString *shareUrl = AppendingString(DefaultDomainName, @"/share?");
+    shareUrl = [shareUrl stringByAppendingString:[NSString stringWithFormat:@"userId=%ld",self.user.userId]];
+    pasteboard.string = shareUrl;
+    LRToast(@"链接已复制");
 }
 
 //分享方法

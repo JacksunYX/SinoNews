@@ -10,7 +10,7 @@
 #import <XHLaunchAd.h>
 
 @interface AppDelegate ()<XHLaunchAdDelegate,CoreJPushProtocol>
-
+@property (nonatomic,assign) BOOL isBackground;
 @end
 
 @implementation AppDelegate
@@ -222,6 +222,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //进入后台
+    self.isBackground = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -232,6 +234,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //进入前台
+    self.isBackground = NO;
 }
 
 //app退出时调用
@@ -253,7 +257,13 @@ void uncaughtExceptionHandler(NSException *exception) {
 #pragma mark --- CoreJPushProtocol ---
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    
     GGLog(@"收到推送数据:%@",userInfo);
+    if (self.isBackground) {
+        GGLog(@"从后台进入的");
+    }else{
+        GGLog(@"从前台进入的");
+    }
 }
 
 @end

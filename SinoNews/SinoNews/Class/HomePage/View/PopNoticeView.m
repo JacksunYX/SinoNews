@@ -16,7 +16,7 @@ static CGFloat anumationTime = 0.3;
 {
     
     //背景视图
-    UIImageView *backView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];
+    UIImageView *backView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
 //    backView.backgroundColor = RGBA(0, 0, 0, 0);
     
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;

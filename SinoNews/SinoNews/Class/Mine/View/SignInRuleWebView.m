@@ -18,7 +18,7 @@ static CGFloat anumationTime = 0.3;
 +(void)showWithWebString:(NSString *)webStr
 {
     //背景视图
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
     backView.backgroundColor = RGBA(0, 0, 0, 0);
     //点击移除手势
     @weakify(backView)

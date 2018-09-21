@@ -98,7 +98,7 @@ static CGFloat anumationTime = 0.3;
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         
-        pasteboard.string = shareUrl;
+        pasteboard.string = AppendingString(noticeView.text,shareLaebl.text);
         GGLog(@"加密链接：%@",shareUrl);
         LRToast(@"链接已复制");
         

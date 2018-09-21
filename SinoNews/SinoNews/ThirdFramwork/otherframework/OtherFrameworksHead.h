@@ -55,4 +55,6 @@
 
 #import "CoreJPush/CoreJPush.h"
 
+#import "CryptLib.h"    //加密
+
 #endif /* OtherFrameworksHead_h */

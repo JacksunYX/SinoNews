@@ -45,6 +45,9 @@
 //获取用户提示信息(get)
 #define User_tips           @"/api/user/tips"
 
+//获取分享app的文本和链接(get)
+#define GetShareText        @"/api/user/getShareText"
+
 //添加文章(发布文章)(post)
 #define News_create         @"/api/news/create"
 

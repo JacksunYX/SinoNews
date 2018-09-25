@@ -63,7 +63,8 @@ CGFloat static titleViewHeight = 91;
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.voteUrl);
     GGLog(@"文章h5：%@",urlStr);
-    NSURL *url = UrlWithStr(urlStr);
+    NSString *result = [urlStr getUTF8String];
+    NSURL *url = UrlWithStr(result);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
     [self showOrHideLoadView:YES page:2];

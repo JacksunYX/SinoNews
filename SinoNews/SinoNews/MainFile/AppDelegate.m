@@ -98,6 +98,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 //集成友盟分享
 -(void)initThirdShare
 {
+#ifdef JoinThirdShare
     //初始化5b9f59a9b27b0a34710000da
     [MGSocialShareHelper configWithUMAppKey:@"5b9f59a9b27b0a34710000da" umSocialAppSecret:@"" openLog:NO usingHttpsWhenShareContent:NO];
     //配置分享平台
@@ -128,7 +129,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if ([MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
         GGLog(@"可以分享到新浪微博");
     }
- 
+#endif
 }
 
 //集成极光推送
@@ -245,6 +246,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [BrowsNewsSingleton.singleton saveBrowHistory];
 }
 
+#ifdef JoinThirdShare
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     BOOL result = [MGSocialShareHelper mg_handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
@@ -253,6 +255,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     return result;
 }
+#endif
 
 #pragma mark --- CoreJPushProtocol ---
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo

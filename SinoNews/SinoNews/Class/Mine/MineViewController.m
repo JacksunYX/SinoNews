@@ -923,11 +923,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
             MyCollectViewController *mVC = [MyCollectViewController new];
             [self.navigationController pushViewController:mVC animated:YES];
         }else if (CompareString(title, @"分享")){
-            
-            NSMutableDictionary *data = [NSMutableDictionary new];
-            data[@"userId"] = [NSString stringWithFormat:@"%ld",self.user.userId];
-            data[@"source"] = @"0";
-            [SharePopCopyView showWithData:data];
+            [self getShareData];
         }
         
     }else if(indexPath.section == 1){
@@ -1050,14 +1046,31 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //获取分享链接
 -(void)getShareData
 {
-    [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
-        [self shareToPlatform:sharePlateform];
+    ShowHudOnly;
+    [HttpRequest getWithURLString:GetShareText parameters:nil success:^(id responseObject) {
+
+        HiddenHudOnly;
+
+        [SharePopCopyView showWithData:responseObject[@"data"]];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
     }];
+    
+    /*
+    [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
+#ifdef JoinThirdShare
+        [self shareToPlatform:sharePlateform];
+#endif
+    }];
+     */
 }
+
 
 //分享方法
 -(void)shareToPlatform:(MGShareToPlateform)type
 {
+#ifdef JoinThirdShare
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
@@ -1097,6 +1110,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
     }];
+#endif
 }
 
 

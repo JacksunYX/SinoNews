@@ -109,7 +109,10 @@
     ;
     //加载页面
     GGLog(@"网页地址:%@",self.baseUrl);
-    NSURL *url = UrlWithStr(self.baseUrl);
+    //中文编码处理
+    NSString *result = [self.baseUrl getUTF8String];
+    NSURL *url = UrlWithStr(result);
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
     [self showOrHideLoadView:YES page:0];
@@ -118,8 +121,8 @@
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    
-    [self showOrHideLoadView:NO page:2];
+    GGLog(@"网页加载完成");
+    [self showOrHideLoadView:NO page:0];
     
     if (UserGetBool(@"NightMode")) {    //夜间模式
         //修改字体颜色  #9098b8

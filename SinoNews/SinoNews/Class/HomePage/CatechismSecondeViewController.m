@@ -427,7 +427,8 @@ CGFloat static titleViewHeight = 150;
     //加载页面
     NSString *urlStr = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
     GGLog(@"文章h5：%@",urlStr);
-    NSURL *url = UrlWithStr(urlStr);
+    NSString *result = [urlStr getUTF8String];
+    NSURL *url = UrlWithStr(result);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
     [self showOrHideLoadView:YES page:2];
@@ -558,13 +559,17 @@ CGFloat static titleViewHeight = 150;
     */
     [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self);
+#ifdef JoinThirdShare
         [self shareToPlatform:sharePlateform];
+#endif
     }];
 }
+
 
 //分享方法
 -(void)shareToPlatform:(MGShareToPlateform)type
 {
+#ifdef JoinThirdShare
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
@@ -590,6 +595,7 @@ CGFloat static titleViewHeight = 150;
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
         
     }];
+#endif
 }
 
 #pragma mark ----- WKNavigationDelegate

@@ -20,7 +20,7 @@ static bool isCollect = NO;
 {
     if (!_shareArray) {
         _shareArray = [NSMutableArray array];
-        
+#ifdef JoinThirdShare
         if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
             [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_wechat") title:@"微信好友" action:nil]];
             
@@ -38,6 +38,7 @@ static bool isCollect = NO;
         if ([MGSocialShareHelper canBeShareToPlatform:MGShareToSina]) {
             [_shareArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_sina") title:@"新浪微博" action:nil]];
         }
+#endif
         
         //        [_shareArray addObject:[[IFMShareItem alloc]initWithImage:UIImageNamed(@"share_email") title:@"邮件分享" actionName:IFMPlatformHandleEmail]];
         
@@ -87,8 +88,10 @@ static bool isCollect = NO;
     
     [shareView showFromControlle:[HttpRequest getCurrentVC]];
     
+    
     __block MGShareToPlateform sharePlateform;
     shareView.clickBlock = ^(NSInteger section, NSInteger row) {
+#ifdef JoinThirdShare
         if (section == 0 && row!=5) {
             //1先判断是否有微信
             
@@ -139,6 +142,7 @@ static bool isCollect = NO;
             }
             
         }
+#endif
         
         if (clickBlock) {
             clickBlock(section,row,sharePlateform);
@@ -185,6 +189,8 @@ static bool isCollect = NO;
     
     __block MGShareToPlateform sharePlateform;
     shareView.clickBlock = ^(NSInteger section, NSInteger row) {
+#ifdef JoinThirdShare
+        
         if (section == 0 && row!=5) {
             //1先判断是否有微信
             
@@ -235,6 +241,7 @@ static bool isCollect = NO;
             }
             
         }
+#endif
         
         if (clickBlock) {
             clickBlock(section,row,sharePlateform);

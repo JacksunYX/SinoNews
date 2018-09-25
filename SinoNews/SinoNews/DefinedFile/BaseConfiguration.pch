@@ -81,7 +81,9 @@
 
 #import <ReactiveObjC.h>
 
+#ifdef JoinThirdShare
 #import <MGSocialShareKit/MGSocialShareKit.h>
+#endif
 
 #import <RTRootNavigationController.h>
 //主题修改

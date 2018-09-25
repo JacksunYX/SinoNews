@@ -794,7 +794,9 @@ CGFloat static attentionBtnH = 26;
     [ShareAndFunctionView showWithCollect:self.newsModel.isCollection returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self)
         if (section == 0) {
+#ifdef JoinThirdShare
             [self shareToPlatform:sharePlateform];
+#endif
         }else if (section==1) {
             if (row == 0) {
                 [self fontsSelect];
@@ -876,7 +878,8 @@ CGFloat static attentionBtnH = 26;
         
         NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
         GGLog(@"加载网址:%@",urlStr);
-        NSURL *url = UrlWithStr(urlStr);
+        NSString *result = [urlStr getUTF8String];
+        NSURL *url = UrlWithStr(result);
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
         [self.webView loadRequest:request];
     }else{
@@ -1928,9 +1931,11 @@ CGFloat static attentionBtnH = 26;
     }];
 }
 
+
 //分享方法
 -(void)shareToPlatform:(MGShareToPlateform)type
 {
+#ifdef JoinThirdShare
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
@@ -1964,7 +1969,9 @@ CGFloat static attentionBtnH = 26;
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
     }];
+#endif
 }
+
 
 //支付一篇付费文章
 -(void)requestPayForNews

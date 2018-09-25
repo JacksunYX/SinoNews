@@ -735,7 +735,9 @@ CGFloat static titleViewHeight = 150;
     [ShareAndFunctionView showWithCollect:self.newsModel.isCollection returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
         @strongify(self)
         if (section == 0) {
+#ifdef JoinThirdShare
             [self shareToPlatform:sharePlateform];
+#endif
         }else if (section==1) {
             if (row == 0) {
                 [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
@@ -813,9 +815,11 @@ CGFloat static titleViewHeight = 150;
     [self requestNews_listAnswer];
 }
 
+
 //分享方法
 -(void)shareToPlatform:(MGShareToPlateform)type
 {
+#ifdef JoinThirdShare
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
@@ -845,7 +849,9 @@ CGFloat static titleViewHeight = 150;
     } failureBlock:^(MGShareResponseErrorCode errorCode) {
         GGLog(@"分享失败---- errorCode = %lu",(unsigned long)errorCode);
     }];
+#endif
 }
+
 
 #pragma mark ----- WKNavigationDelegate
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation

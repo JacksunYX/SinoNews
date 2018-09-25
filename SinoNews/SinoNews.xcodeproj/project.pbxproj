@@ -3584,7 +3584,6 @@
 				4C3F8F9920BCD893003EC4FC /* Frameworks */,
 				4C3F8F9A20BCD893003EC4FC /* Resources */,
 				E1134CE6230C2E832CFD1362 /* [CP] Copy Pods Resources */,
-				E877D78B5AADE452B38B6835 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3888,24 +3887,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E877D78B5AADE452B38B6835 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-frameworks.sh",
-				"${PODS_ROOT}/MGSocialShareKit/MGSocialShareKit/Cocoapods/MGSocialShareKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSocialShareKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8AD8C33F9EF23C5DF9CA1BC /* [CP] Check Pods Manifest.lock */ = {

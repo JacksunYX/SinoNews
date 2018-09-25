@@ -25,6 +25,14 @@ MJCodingImplementation
         UserSet(@"", @"avatar")
         UserSet(@"", @"username")
         [UserModel bg_clear:nil];
+        //清除通知别名
+        [CoreJPush setTags:nil alias:@"" resBlock:^(BOOL res, NSSet *tags, NSString *alias) {
+            if(res){
+                GGLog(@"注销别名成功：%@,%@",tags,alias);
+            }else{
+                GGLog(@"注销别名失败");
+            }
+        }];
         //    [NSArray bg_clearArrayWithName:@"columnArr"];
         [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginOutNotify object:nil];
         GGLog(@"本地用户信息已清除");

@@ -61,6 +61,14 @@
 //    UserSet(GetSaveString(response[@"data"][@"username"]), @"username");
     UserSet(GetSaveString(response[@"data"][@"token"]), @"token");
     UserModel *user = [UserModel mj_objectWithKeyValues:response[@"data"]];
+    //注册通知别名
+    [CoreJPush setTags:nil alias:[NSString stringWithFormat:@"%ld",user.userId] resBlock:^(BOOL res, NSSet *tags, NSString *alias) {
+        if(res){
+            GGLog(@"注册别名成功：%@,%@",tags,alias);
+        }else{
+            GGLog(@"注册别名失败");
+        }
+    }];
     [UserModel coverUserData:user];
     [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginSuccess object:nil];
 }

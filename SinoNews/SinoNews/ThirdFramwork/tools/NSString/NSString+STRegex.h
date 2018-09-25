@@ -77,5 +77,7 @@
 //判断是否全是空格
 + (BOOL)isEmpty:(NSString *)str;
 
+//utf8中文编码
+- (NSString *)getUTF8String;
 
 @end

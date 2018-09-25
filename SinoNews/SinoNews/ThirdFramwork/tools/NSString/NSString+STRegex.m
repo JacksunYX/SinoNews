@@ -419,7 +419,10 @@
 }
 
 
-
+-(NSString *)getUTF8String
+{
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+}
 
 
 

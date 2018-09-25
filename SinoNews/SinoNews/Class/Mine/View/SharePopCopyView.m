@@ -68,13 +68,17 @@ static CGFloat anumationTime = 0.3;
     .bottomSpaceToView(copyBtn, 20)
     .heightIs(13)
     ;
+    
+    
     NSString *shareUrl = AppendingString(DefaultDomainName, @"/share?");
+    /*
     NSString *userId = [NSString stringWithFormat:@"%@",data[@"userId"]];
 //    NSString *source = [NSString stringWithFormat:@"%@",data[@"source"]];
     
     NSString *field = [NSString stringWithFormat:@"u=%@",[self thirdDesWithText:userId]];
-    
-    shareUrl = AppendingString(shareUrl, field);
+    */
+    shareUrl = GetSaveString(data[@"url"]);
+     
     shareLaebl.text = shareUrl;
     
     noticeView.sd_layout
@@ -83,7 +87,8 @@ static CGFloat anumationTime = 0.3;
     .bottomSpaceToView(shareLaebl, 15)
     .topSpaceToView(centerView, 54 + 40)
     ;
-    noticeView.text = @"注册启世录就送10元话费！领取1000积分兑换话费卡、购物卡、iphone XS手机等千种奖品！注册时输入推广码即可领取1000积分，现在就下载App吧！";
+//    noticeView.text = @"注册启世录就送10元话费！领取1000积分兑换话费卡、购物卡、iphone XS手机等千种奖品！注册时输入推广码即可领取1000积分，现在就下载App吧！";
+    noticeView.text = GetSaveString(data[@"text"]);
     
     //出现动画
     [UIView animateWithDuration:anumationTime animations:^{

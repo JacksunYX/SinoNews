@@ -91,7 +91,8 @@ static CGFloat anumationTime = 0.3;
     }
     
     GGLog(@"文章h5：%@",urlStr);
-    NSURL *url = UrlWithStr(urlStr);
+    NSString *result = [urlStr getUTF8String];
+    NSURL *url = UrlWithStr(result);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0f];
     [webView loadRequest:request];
     

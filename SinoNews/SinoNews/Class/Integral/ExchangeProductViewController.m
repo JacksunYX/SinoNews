@@ -410,7 +410,8 @@
 //    [self.webView loadHTMLString:self.productModel.productDescription baseURL:nil];
     NSString *urlStr = AppendingString(DefaultDomainName, self.productModel.descriptionUrl);
     GGLog(@"文章h5：%@",urlStr);
-    NSURL *url = UrlWithStr(urlStr);
+    NSString *result = [urlStr getUTF8String];
+    NSURL *url = UrlWithStr(result);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [self.webView loadRequest:request];
 }

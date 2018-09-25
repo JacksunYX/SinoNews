@@ -11,4 +11,7 @@
 
 @interface RegisterViewController : UIViewController
 
+//注册成功回调
+@property (nonatomic,copy) void (^registerSuccess)(NSString *userName,NSString *password);
+
 @end

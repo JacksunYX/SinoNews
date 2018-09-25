@@ -32,6 +32,7 @@
 
 -(void)dealloc
 {
+    GGLog(@"登录界面已释放");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -139,6 +140,11 @@
     [[registBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
         RegisterViewController *rVC = [RegisterViewController new];
+        rVC.registerSuccess = ^(NSString *userName, NSString *password) {
+            self.username.text = userName;
+            self.password.text = password;
+            [self confirmAction];
+        };
         [self.navigationController pushViewController:rVC animated:YES];
     }];
     

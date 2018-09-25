@@ -49,21 +49,14 @@ static float afterTime = 0.5;
                                                          nil];
     //设置与后台对接的请求头
     NSString *token = GetSaveString(UserGet(@"token"));
-    //    if (!kStringIsEmpty(token)) {
+
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"device_no"];
     [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"app_version"];
     [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"os_version"];
     [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"device_platform"];
     [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"device_brand"];
-    [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"device_platform"];
-    
-//    parameters[@"version_name"] = [UIDevice appVersion];
-//    parameters[@"device_platform"] = @"iOS";
-//    parameters[@"device_brand"] = [DeviceTool sharedInstance].deviceModel;
-//    parameters[@"os_version"] = [UIDevice currentDevice].systemVersion;
-    
-    //    }
+
     return manager;
 }
 

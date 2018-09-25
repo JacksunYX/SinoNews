@@ -30,6 +30,12 @@
     return _keyboardUtil;
 }
 
+-(void)dealloc
+{
+    GGLog(@"注册界面已释放");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
@@ -317,6 +323,9 @@
                 LRToast(@"注册成功");
                 GCDAfterTime(1, ^{
                     [self.navigationController popViewControllerAnimated:YES];
+                    if (self.registerSuccess) {
+                        self.registerSuccess(self->username.text, self->password.text);
+                    }
                 });
             } failure:^(NSError *error) {
                 LRToast(@"注册失败");

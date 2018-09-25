@@ -28,6 +28,12 @@
     return _keyboardUtil;
 }
 
+-(void)dealloc
+{
+    GGLog(@"忘记密码界面已释放");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"找回密码";
@@ -132,9 +138,9 @@
     .heightIs(56)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入手机号/邮箱";
+    username.placeholder = @"请输入手机号";
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
-
+    
     password.sd_layout
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)

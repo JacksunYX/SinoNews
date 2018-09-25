@@ -62,7 +62,9 @@
     UserSet(GetSaveString(response[@"data"][@"token"]), @"token");
     UserModel *user = [UserModel mj_objectWithKeyValues:response[@"data"]];
     //注册通知别名
-    [CoreJPush setTags:nil alias:[NSString stringWithFormat:@"%ld",user.userId] resBlock:^(BOOL res, NSSet *tags, NSString *alias) {
+    NSSet *tags = [NSSet setWithArray:@[[NSString stringWithFormat:@"USER_%lu",(unsigned long)user.userId]]];
+    NSString *alias = [NSString stringWithFormat:@"USER_GROUP_%lu",(unsigned long)user.userGroupId];
+    [CoreJPush setTags:tags alias:alias resBlock:^(BOOL res, NSSet *tags, NSString *alias) {
         if(res){
             GGLog(@"注册别名成功：%@,%@",tags,alias);
         }else{

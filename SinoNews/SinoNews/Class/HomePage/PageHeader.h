@@ -21,5 +21,10 @@
 #import "PopNoticeView.h"
 #import "VersionCheckHelper.h"
 
+#import "MineViewController.h"
+#import "MessageViewController.h"
+#import "MessagePraiseViewController.h"
+#import "MessageFansViewController.h"
+#import "OfficialNotifyViewController.h"
 
 #endif /* PageHeader_h */

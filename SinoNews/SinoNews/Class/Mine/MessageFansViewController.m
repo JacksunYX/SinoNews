@@ -14,7 +14,7 @@
 {
     
 }
-@property (nonatomic,strong) BaseTableView *tableView;
+
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
 @end

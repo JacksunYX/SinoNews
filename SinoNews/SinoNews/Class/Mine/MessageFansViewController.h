@@ -10,5 +10,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MessageFansViewController : BaseViewController
-
+@property (nonatomic,strong) BaseTableView *tableView;
 @end

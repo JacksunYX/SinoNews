@@ -26,6 +26,7 @@ MJCodingImplementation
         UserSet(@"", @"username")
         [UserModel bg_clear:nil];
         //清除通知别名
+        /*
         NSSet *tags = [NSSet setWithArray:@[]];
         [CoreJPush setTags:tags alias:@"" resBlock:^(BOOL res, NSSet *tags, NSString *alias) {
             if(res){
@@ -34,6 +35,14 @@ MJCodingImplementation
                 GGLog(@"注销别名失败");
             }
         }];
+         */
+        [JPUSHService cleanTags:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
+            GGLog(@"清除tags成功:%@",iTags);
+        } seq:0];
+        [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            GGLog(@"清除alias成功:%@",iAlias);
+        } seq:0];
+        
         //    [NSArray bg_clearArrayWithName:@"columnArr"];
         [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginOutNotify object:nil];
         GGLog(@"本地用户信息已清除");

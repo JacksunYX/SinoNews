@@ -10,5 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @interface OfficialNotifyViewController : BaseViewController
-
+//获取私信列表(0loadTime之前的，1之后的)
+-(void)requestListMessagesWithLoadType:(NSInteger)loadType;
 @end

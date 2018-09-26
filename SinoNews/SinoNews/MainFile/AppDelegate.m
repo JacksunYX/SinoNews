@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import <XHLaunchAd.h>
 
-@interface AppDelegate ()<XHLaunchAdDelegate,CoreJPushProtocol>
+#import "AppDelegate+Push.h"
+
+@interface AppDelegate ()<XHLaunchAdDelegate>
 @property (nonatomic,assign) BOOL isBackground;
 @end
 
@@ -46,6 +48,7 @@
     [self initThirdShare];
     //集成极光推送
     [self initJPushWithOptions:launchOptions];
+    [self setJPush:application didFinishLaunchingWithOptions:launchOptions];
     //设置主页
     [self setMainVC];
     
@@ -136,9 +139,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 -(void)initJPushWithOptions:(NSDictionary *)launchOptions
 {
     //注册JPush
-    [CoreJPush registerJPush:launchOptions];
-    //添加一个监听者：此监听者是遵循了CoreJPushProtocol协议
-    [CoreJPush addJPushListener:self];
+//    [CoreJPush registerJPush:launchOptions];
+//    //添加一个监听者：此监听者是遵循了CoreJPushProtocol协议
+//    [CoreJPush addJPushListener:self];
 }
 
 //获取用户信息
@@ -225,10 +228,12 @@ void uncaughtExceptionHandler(NSException *exception) {
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     //进入后台
     self.isBackground = YES;
+    [self JPushDidEnterBackground:application];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [self JPushWillEnterForeground:application];
     //如果是强制需要更新的话，这里每次进入app也是要检测的
     [VersionCheckHelper requestToCheckVersion:nil popUpdateView:NO];
 }
@@ -257,6 +262,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 #endif
 
+/*
 #pragma mark --- CoreJPushProtocol ---
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -267,6 +273,28 @@ void uncaughtExceptionHandler(NSException *exception) {
     }else{
         GGLog(@"从前台进入的");
     }
+    //没有redirectType字段则不做处理
+    if ([[userInfo allKeys] containsObject:@"redirectType"]) {
+        NSInteger redirectType = [userInfo[@"redirectType"] integerValue];
+        switch (redirectType) {
+            case 0: //跳转到个人私信
+                if (self.isBackground) {
+                    [[HttpRequest currentViewController].navigationController pushViewController:[OfficialNotifyViewController new] animated:YES];
+                }else{
+                    MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                    [keyVC.tabBar showBadgeOnItemIndex:4];
+                }
+                break;
+            case 1: //跳转到个人兑换记录
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
 }
-
+*/
+ 
 @end

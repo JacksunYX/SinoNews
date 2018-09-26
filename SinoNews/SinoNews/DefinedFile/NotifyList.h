@@ -35,4 +35,10 @@
 //下载图片完成的通知
 #define kDownloadImageSuccessNotify @"kDownloadImageSuccessNotify"
 
+#pragma mark --- 推送相关通知名
+//新的推送信息来了(用于消息界面更新小红点)
+#define NewMessagePush          @"NewMessagePush"
+
+
+
 #endif /* NotifyList_h */

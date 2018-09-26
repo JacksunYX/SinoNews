@@ -14,4 +14,7 @@
 
 @property (nonatomic,strong) MineTipsModel *tipsModel;
 
+//更新指定下标红点
+-(void)updataTipStatus:(NSInteger)index;
+
 @end

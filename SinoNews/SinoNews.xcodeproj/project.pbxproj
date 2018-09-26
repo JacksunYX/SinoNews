@@ -37,9 +37,6 @@
 		4C17BC832100B47F0021055B /* AnswerDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C17BC822100B47F0021055B /* AnswerDetailModel.m */; };
 		4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */; };
 		4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */; };
-		4C1B148F21525740004ADD9E /* AppDelegate+JPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B148A21525740004ADD9E /* AppDelegate+JPush.m */; };
-		4C1B149021525740004ADD9E /* CoreJPush.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1B148B21525740004ADD9E /* CoreJPush.m */; };
-		4C1B149121525740004ADD9E /* jpush-ios-2.1.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B148D21525740004ADD9E /* jpush-ios-2.1.6.a */; };
 		4C1B1493215257B6004ADD9E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B1492215257B6004ADD9E /* CFNetwork.framework */; };
 		4C1B1495215257BE004ADD9E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B1494215257BE004ADD9E /* CoreFoundation.framework */; };
 		4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1B1496215257C5004ADD9E /* CoreTelephony.framework */; };
@@ -378,6 +375,7 @@
 		4C73382F214605AA0001B33F /* GetImageSizeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73382E214605AA0001B33F /* GetImageSizeTool.m */; };
 		4C73383A21465B0B0001B33F /* YJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73383721465B0B0001B33F /* YJProgressHUD.m */; };
 		4C73383B21465B0B0001B33F /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C73383821465B0B0001B33F /* images.bundle */; };
+		4C7A0987215B771400E0682A /* AppDelegate+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A0986215B771400E0682A /* AppDelegate+Push.m */; };
 		4C7EF32F21212A0B0002166A /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */; };
 		4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C921212A0A0002166A /* ZSStable@2x.png */; };
 		4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2CA21212A0A0002166A /* ZSSoutdent@2x.png */; };
@@ -636,14 +634,6 @@
 		4C1A29E320EEFD8D00D8A188 /* PraiseHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PraiseHistoryModel.m; sourceTree = "<group>"; };
 		4C1A29E820EF425500D8A188 /* ReciveMessageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReciveMessageModel.h; sourceTree = "<group>"; };
 		4C1A29E920EF425500D8A188 /* ReciveMessageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReciveMessageModel.m; sourceTree = "<group>"; };
-		4C1B148521525740004ADD9E /* CoreJPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreJPush.h; sourceTree = "<group>"; };
-		4C1B148721525740004ADD9E /* AppDelegate+JPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+JPush.h"; sourceTree = "<group>"; };
-		4C1B148821525740004ADD9E /* CoreJPushProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreJPushProtocol.h; sourceTree = "<group>"; };
-		4C1B148921525740004ADD9E /* CoreJPushSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreJPushSingleton.h; sourceTree = "<group>"; };
-		4C1B148A21525740004ADD9E /* AppDelegate+JPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+JPush.m"; sourceTree = "<group>"; };
-		4C1B148B21525740004ADD9E /* CoreJPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreJPush.m; sourceTree = "<group>"; };
-		4C1B148D21525740004ADD9E /* jpush-ios-2.1.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.6.a"; sourceTree = "<group>"; };
-		4C1B148E21525740004ADD9E /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		4C1B1492215257B6004ADD9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4C1B1494215257BE004ADD9E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		4C1B1496215257C5004ADD9E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -1309,6 +1299,8 @@
 		4C73383721465B0B0001B33F /* YJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJProgressHUD.m; sourceTree = "<group>"; };
 		4C73383821465B0B0001B33F /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		4C73383921465B0B0001B33F /* YJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJProgressHUD.h; sourceTree = "<group>"; };
+		4C7A0985215B771300E0682A /* AppDelegate+Push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Push.h"; sourceTree = "<group>"; };
+		4C7A0986215B771400E0682A /* AppDelegate+Push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Push.m"; sourceTree = "<group>"; };
 		4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		4C7EF2C621212A0A0002166A /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4C7EF2C721212A0A0002166A /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
@@ -1587,7 +1579,6 @@
 				4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */,
 				4C1B1495215257BE004ADD9E /* CoreFoundation.framework in Frameworks */,
 				4C1B1493215257B6004ADD9E /* CFNetwork.framework in Frameworks */,
-				4C1B149121525740004ADD9E /* jpush-ios-2.1.6.a in Frameworks */,
 				4C5BFD02211AF41300EF82DA /* AudioToolbox.framework in Frameworks */,
 				61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */,
 			);
@@ -1691,37 +1682,6 @@
 				4C17B4A220E250C900470AEB /* IFMShareItemCell.m */,
 			);
 			path = IFMShare;
-			sourceTree = "<group>";
-		};
-		4C1B148421525740004ADD9E /* CoreJPush */ = {
-			isa = PBXGroup;
-			children = (
-				4C1B148521525740004ADD9E /* CoreJPush.h */,
-				4C1B148B21525740004ADD9E /* CoreJPush.m */,
-				4C1B148621525740004ADD9E /* Common */,
-				4C1B148C21525740004ADD9E /* Lib */,
-			);
-			path = CoreJPush;
-			sourceTree = "<group>";
-		};
-		4C1B148621525740004ADD9E /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				4C1B148721525740004ADD9E /* AppDelegate+JPush.h */,
-				4C1B148A21525740004ADD9E /* AppDelegate+JPush.m */,
-				4C1B148821525740004ADD9E /* CoreJPushProtocol.h */,
-				4C1B148921525740004ADD9E /* CoreJPushSingleton.h */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		4C1B148C21525740004ADD9E /* Lib */ = {
-			isa = PBXGroup;
-			children = (
-				4C1B148D21525740004ADD9E /* jpush-ios-2.1.6.a */,
-				4C1B148E21525740004ADD9E /* JPUSHService.h */,
-			);
-			path = Lib;
 			sourceTree = "<group>";
 		};
 		4C1D503020E5C8110002C53E /* Model */ = {
@@ -1975,6 +1935,8 @@
 			children = (
 				4C3F8F9F20BCD893003EC4FC /* AppDelegate.h */,
 				4C3F8FA020BCD893003EC4FC /* AppDelegate.m */,
+				4C7A0985215B771300E0682A /* AppDelegate+Push.h */,
+				4C7A0986215B771400E0682A /* AppDelegate+Push.m */,
 				4C3F8FA520BCD893003EC4FC /* Main.storyboard */,
 				4C3F8FAA20BCD894003EC4FC /* LaunchScreen.storyboard */,
 				4C3F8FAD20BCD894003EC4FC /* Info.plist */,
@@ -2293,7 +2255,6 @@
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
 				4CB68B6B2154E14400ACE1D6 /* CryptLib */,
-				4C1B148421525740004ADD9E /* CoreJPush */,
 				4C73383621465B0B0001B33F /* YJProgressHUDK */,
 				4C6E90A7213F5F06001535CA /* YYKit */,
 				4C6E9095213F5E00001535CA /* Utility */,
@@ -3994,7 +3955,6 @@
 				4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */,
 				4C72347A20FD8C6D00D5C5D4 /* UIColor+PYSearchExtension.m in Sources */,
 				4C6E9169213F5F07001535CA /* NSObject+YYModel.m in Sources */,
-				4C1B149021525740004ADD9E /* CoreJPush.m in Sources */,
 				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
 				4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */,
@@ -4300,10 +4260,10 @@
 				4C6E919D213F5F07001535CA /* YYWeakProxy.m in Sources */,
 				4C8735F720BE8CC800B6A8B5 /* XLChannelItem.m in Sources */,
 				4C7EF37D21212A0B0002166A /* HRColorPickerViewController.m in Sources */,
-				4C1B148F21525740004ADD9E /* AppDelegate+JPush.m in Sources */,
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */,
 				4C6E91A4213F5F07001535CA /* YYGestureRecognizer.m in Sources */,
+				4C7A0987215B771400E0682A /* AppDelegate+Push.m in Sources */,
 				4C6E91A5213F5F07001535CA /* YYFileHash.m in Sources */,
 				4C7234E920FDEB1D00D5C5D4 /* AAPie.m in Sources */,
 				4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */,

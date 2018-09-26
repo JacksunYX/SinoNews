@@ -107,7 +107,7 @@
 
     }
     
-    [self timerRun];
+//    [self timerRun];
 }
 
 -(void)viewWillAppear:(BOOL)animated

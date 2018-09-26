@@ -53,7 +53,7 @@
 #import "HUD.h"
 #import "YJProgressHUD.h"
 
-#import "CoreJPush/CoreJPush.h"
+//#import "CoreJPush/CoreJPush.h"
 
 #import "CryptLib.h"    //加密
 

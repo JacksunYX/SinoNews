@@ -11,4 +11,7 @@
 
 @interface MineViewController : TopBaseViewController
 
+//获取用户提示信息,包括消息未读信息
+-(void)requestUser_tips;
+
 @end

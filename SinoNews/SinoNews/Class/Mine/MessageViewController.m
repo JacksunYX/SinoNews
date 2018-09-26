@@ -79,11 +79,11 @@
         .heightIs(50)
         .widthIs(100)
         ;
+        [btn updateLayout];
         btn.tag = 10086 + i;
         [btn addTarget:self action:@selector(touchToPush:) forControlEvents:UIControlEventTouchUpInside];
         [btn setImage:UIImageNamed(GetSaveString(img[i])) forState:UIControlStateNormal];
         [btn setTitle:GetSaveString(title[i]) forState:UIControlStateNormal];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
         
         UIView *redTip = [UIView new];
         redTip.backgroundColor = RedColor;
@@ -102,7 +102,11 @@
             redTip.hidden = YES;
         }else if (!self.tipsModel.hasNotice&&i == 2) {
             redTip.hidden = YES;
-            btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 35);
+        }
+        if (i == 2) {
+            btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+        }else{
+            btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
         }
         
         [self.tipsArr addObject:redTip];
@@ -161,7 +165,12 @@
     }
 }
 
-
+//更新指定下标红点
+-(void)updataTipStatus:(NSInteger)index
+{
+    UIView *tip = self.tipsArr[index];
+    tip.hidden = NO;
+}
 
 
 

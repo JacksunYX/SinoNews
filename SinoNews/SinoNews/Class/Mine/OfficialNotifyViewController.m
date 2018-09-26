@@ -190,9 +190,7 @@
         }
         [self requestListMessagesWithLoadType:1];
     }];
-    
     [self.tableView.mj_header beginRefreshing];
-    
     
 }
 

@@ -602,7 +602,7 @@ static float afterTime = 0.5;
         if ([vc isKindOfClass:[UITabBarController class]]) {
             vc = ((UITabBarController*)vc).selectedViewController;
             if ([vc isKindOfClass:[RTRootNavigationController class]]) {
-                vc = [(RTRootNavigationController *)vc rt_viewControllers][0];
+                vc = [[(RTRootNavigationController *)vc rt_viewControllers] lastObject];
             }
         }
         if ([vc isKindOfClass:[UINavigationController class]]) {

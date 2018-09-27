@@ -227,9 +227,9 @@
     [registerBtn setBackgroundImage:UIImageNamed(@"login_confirmBackS") forState:UIControlStateNormal];
     
     //键盘监听
-    WeakSelf
     [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
-        [keyboardUtil adaptiveViewHandleWithAdaptiveView:weakSelf.view, nil];
+        @strongify(self);
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.view, nil];
     }];
     
     //集合信号

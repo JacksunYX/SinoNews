@@ -19,15 +19,23 @@
     [super viewDidLoad];
     
     [self setUI];
+    self.view.backgroundColor = WhiteColor;
+    @weakify(self);
+    [self.view whenTap:^{
+        @strongify(self);
+        [self.view endEditing:YES];
+    }];
 }
 
 -(void)setUI
 {
     UILabel *topNotice = [UILabel new];
     topNotice.textColor = HexColor(#323232);
+//    [topNotice addTitleColorTheme];
     topNotice.font = PFFontL(24);
     UILabel *subNotice = [UILabel new];
     subNotice.textColor = HexColor(#323232);
+//    [subNotice addTitleColorTheme];
     subNotice.font = PFFontL(13);
     
     self.password = [TXLimitedTextField new];
@@ -35,6 +43,7 @@
     self.password.secureTextEntry = YES;
     self.password.delegate = self;
     self.password.textAlignment = NSTextAlignmentCenter;
+//    self.password.lee_theme.LeeConfigTextColor(@"titleColor");
     
     self.confirmBtn = [UIButton new];
     [self.confirmBtn setNormalTitleColor:WhiteColor];

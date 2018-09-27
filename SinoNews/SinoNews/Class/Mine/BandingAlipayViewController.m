@@ -9,17 +9,32 @@
 #import "BandingAlipayViewController.h"
 
 @interface BandingAlipayViewController ()<UITextFieldDelegate>
-@property (nonatomic,strong)TXLimitedTextField *username;
-@property (nonatomic,strong)TXLimitedTextField *password;
+@property (nonatomic,strong)TXLimitedTextField *account;
+@property (nonatomic,strong)TXLimitedTextField *name;
 @property (nonatomic,strong)UIButton *confirmBtn;   //绑定按钮
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 
 @implementation BandingAlipayViewController
 
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"绑定支付宝";
+    self.view.backgroundColor = WhiteColor;
     [self setUI];
+    @weakify(self);
+    [self.view whenTap:^{
+        @strongify(self);
+        [self.view endEditing:YES];
+    }];
 }
 
 -(void)setUI
@@ -36,15 +51,15 @@
     UIView *speLine2 = [UIView new];
     [speLine2 addCutLineColor];
     
-    self.username = [TXLimitedTextField new];
-    self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.username.delegate = self;
-    self.username.font = PFFontL(16);
+    self.account = [TXLimitedTextField new];
+    self.account.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.account.delegate = self;
+    self.account.font = PFFontL(16);
     
-    self.password = [TXLimitedTextField new];
-    self.password.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.password.delegate = self;
-    self.password.font = PFFontL(16);
+    self.name = [TXLimitedTextField new];
+    self.name.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.name.delegate = self;
+    self.name.font = PFFontL(16);
     
     self.confirmBtn = [UIButton new];
     [self.confirmBtn setNormalTitleColor:WhiteColor];
@@ -52,57 +67,57 @@
     self.confirmBtn.backgroundColor = HexColor(#3E9FFC);
     
     [self.view sd_addSubviews:@[
-                                self.username,
+                                self.account,
                                 accountLabel,
                                 speLine1,
                                 
-                                self.password,
+                                self.name,
                                 nameLabel,
                                 speLine2,
                                 
                                 self.confirmBtn,
                                 ]];
-    self.username.sd_layout
+    self.account.sd_layout
     .topEqualToView(self.view)
     .leftSpaceToView(self.view, 70)
     .rightSpaceToView(self.view, 10)
     .heightIs(50)
     ;
-    self.username.placeholder = @"请输入支付宝账号";
+    self.account.placeholder = @"请输入支付宝账号";
     
     accountLabel.sd_layout
     .leftSpaceToView(self.view, 10)
-    .centerYEqualToView(self.username)
+    .centerYEqualToView(self.account)
     .heightIs(16)
     ;
     [accountLabel setSingleLineAutoResizeWithMaxWidth:50];
     accountLabel.text = @"账号";
     
     speLine1.sd_layout
-    .topSpaceToView(self.username, 0)
+    .topSpaceToView(self.account, 0)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .heightIs(1)
     ;
     
-    self.password.sd_layout
+    self.name.sd_layout
     .topEqualToView(speLine1)
     .leftSpaceToView(self.view, 70)
     .rightSpaceToView(self.view, 10)
     .heightIs(50)
     ;
-    self.password.placeholder = @"请输入账号姓名";
+    self.name.placeholder = @"请输入账号姓名";
     
     nameLabel.sd_layout
     .leftSpaceToView(self.view, 10)
-    .centerYEqualToView(self.password)
+    .centerYEqualToView(self.name)
     .heightIs(16)
     ;
     [nameLabel setSingleLineAutoResizeWithMaxWidth:50];
     nameLabel.text = @"姓名";
     
     speLine2.sd_layout
-    .topSpaceToView(self.password, 0)
+    .topSpaceToView(self.name, 0)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .heightIs(1)
@@ -117,13 +132,20 @@
     [self.confirmBtn setSd_cornerRadius:@4];
     [self.confirmBtn setNormalTitle:@"确认绑定"];
     [self.confirmBtn addTarget:self action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //键盘监听
+    @weakify(self);
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        @strongify(self);
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.account,self.name, nil];
+    }];
 }
 
 -(void)confirmAction:(UIButton *)sender
 {
-    if ([NSString isEmpty:self.username.text]){
+    if ([NSString isEmpty:self.account.text]){
         LRToast(@"请输入支付宝账号");
-    }else if([NSString isEmpty:self.password.text]){
+    }else if([NSString isEmpty:self.name.text]){
         LRToast(@"请输入账号姓名");
     }else{
         //确认绑定

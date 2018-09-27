@@ -182,6 +182,9 @@
 		4C534F2720E1C6E800754695 /* NSString+AttText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2620E1C6E800754695 /* NSString+AttText.m */; };
 		4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2920E1D5F500754695 /* UserInfoCommentCell.m */; };
 		4C534F2D20E22A0D00754695 /* TopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C534F2C20E22A0D00754695 /* TopicViewController.m */; };
+		4C53D1B5215C774400AFC352 /* BandingAlipayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1B4215C774400AFC352 /* BandingAlipayViewController.m */; };
+		4C53D1B8215C777500AFC352 /* BandingBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */; };
+		4C53D1BB215C796D00AFC352 /* BandingVerifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1BA215C796D00AFC352 /* BandingVerifierViewController.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -929,6 +932,12 @@
 		4C534F2920E1D5F500754695 /* UserInfoCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoCommentCell.m; sourceTree = "<group>"; };
 		4C534F2B20E22A0D00754695 /* TopicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicViewController.h; sourceTree = "<group>"; };
 		4C534F2C20E22A0D00754695 /* TopicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicViewController.m; sourceTree = "<group>"; };
+		4C53D1B3215C774400AFC352 /* BandingAlipayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BandingAlipayViewController.h; sourceTree = "<group>"; };
+		4C53D1B4215C774400AFC352 /* BandingAlipayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BandingAlipayViewController.m; sourceTree = "<group>"; };
+		4C53D1B6215C777500AFC352 /* BandingBankCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BandingBankCardViewController.h; sourceTree = "<group>"; };
+		4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BandingBankCardViewController.m; sourceTree = "<group>"; };
+		4C53D1B9215C796D00AFC352 /* BandingVerifierViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BandingVerifierViewController.h; sourceTree = "<group>"; };
+		4C53D1BA215C796D00AFC352 /* BandingVerifierViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BandingVerifierViewController.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -2133,6 +2142,12 @@
 				4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */,
 				4C1C6DE320E468D200637E2A /* SignInViewController.h */,
 				4C1C6DE420E468D200637E2A /* SignInViewController.m */,
+				4C53D1B9215C796D00AFC352 /* BandingVerifierViewController.h */,
+				4C53D1BA215C796D00AFC352 /* BandingVerifierViewController.m */,
+				4C53D1B3215C774400AFC352 /* BandingAlipayViewController.h */,
+				4C53D1B4215C774400AFC352 /* BandingAlipayViewController.m */,
+				4C53D1B6215C777500AFC352 /* BandingBankCardViewController.h */,
+				4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */,
 				4C6332D020E0983C00D80056 /* Model */,
 				4C93496D20CF6DD100BD8F07 /* View */,
 			);
@@ -3944,6 +3959,7 @@
 				4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */,
 				4C3F902E20BD1CD6003EC4FC /* UIView+ViewController.m in Sources */,
 				4C6E915C213F5F07001535CA /* YYImageCache.m in Sources */,
+				4C53D1B5215C774400AFC352 /* BandingAlipayViewController.m in Sources */,
 				4C510B5B21103C1F00706185 /* NSObject+LCFastSingleton.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4C6E915B213F5F07001535CA /* YYMemoryCache.m in Sources */,
@@ -3954,6 +3970,7 @@
 				4C23B3D820F5935800ACE380 /* LMPhotoCollectionCell.m in Sources */,
 				4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */,
 				4C72347A20FD8C6D00D5C5D4 /* UIColor+PYSearchExtension.m in Sources */,
+				4C53D1BB215C796D00AFC352 /* BandingVerifierViewController.m in Sources */,
 				4C6E9169213F5F07001535CA /* NSObject+YYModel.m in Sources */,
 				4C3D111B20D8D58100480E03 /* CompanyDetailModel.m in Sources */,
 				4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */,
@@ -3976,6 +3993,7 @@
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
 				4C6E91AF213F648E001535CA /* ContentManager.m in Sources */,
+				4C53D1B8215C777500AFC352 /* BandingBankCardViewController.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C7EF37821212A0B0002166A /* ZSSRichTextEditor.m in Sources */,
 				4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */,

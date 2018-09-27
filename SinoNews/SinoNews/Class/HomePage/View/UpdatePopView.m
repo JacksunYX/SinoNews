@@ -26,8 +26,9 @@ static int tag = 15532;
     //检查一下是否重复
     for (UIView *subView in kWindow.subviews) {
         if (subView.tag == tag) {
-            [subView removeFromSuperview];
-            break;
+//            [subView removeFromSuperview];
+//            break;
+            return;
         }
     }
     

@@ -30,7 +30,7 @@
         }else{
             //后台返回的最新版本号
             NSString *versionName = response[@"data"][@"versionName"];
-            //0位为非强制更新，1为强制更新
+            //0为非强制更新，1为强制更新
             NSInteger type = [response[@"data"][@"type"] integerValue];
             switch (type) {
                 case 0:

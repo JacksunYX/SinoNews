@@ -12,6 +12,8 @@
 #import "BindingDataViewController.h"
 #import "ChangePasswordViewController.h"
 #import "AddressViewController.h"
+#import "BandingVerifierViewController.h"
+
 
 @interface PersonalDataViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic ,strong) BaseTableView *tableView;
@@ -90,10 +92,14 @@
                            @"绑定手机",
                            @"绑定邮箱",
                            @"修改密码",
+                           @"绑定支付宝",
+                           @"绑定银行卡",
                            @"退出登录",
                            ];
         
         NSArray *rightTitle = @[
+                                @"",
+                                @"",
                                 @"",
                                 @"",
                                 @"",
@@ -351,6 +357,16 @@
             [UserModel clearLocalData];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }];
+    }else if (CompareString(title, @"绑定支付宝")){
+        BandingAlipayViewController *baVC = [BandingAlipayViewController new];
+        BandingVerifierViewController *bvVC = [BandingVerifierViewController new];
+        bvVC.verifierType = 0;
+        [self.navigationController pushViewController:bvVC animated:YES];
+    }else if (CompareString(title, @"绑定银行卡")){
+        BandingBankCardViewController *bbcVC = [BandingBankCardViewController new];
+        BandingVerifierViewController *bvVC = [BandingVerifierViewController new];
+        bvVC.verifierType = 1;
+        [self.navigationController pushViewController:bvVC animated:YES];
     }
 }
 

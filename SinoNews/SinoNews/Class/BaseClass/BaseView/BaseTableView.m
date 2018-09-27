@@ -20,12 +20,10 @@
         if (@available(iOS 11.0, *)) {
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        if (@available(iOS 11.0,*)) {
-            self.estimatedRowHeight = 0;
-            self.estimatedSectionFooterHeight = 0;
-            self.estimatedSectionHeaderHeight = 0;
-            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
+        
+        self.estimatedRowHeight = 0;
+        self.estimatedSectionFooterHeight = 0;
+        self.estimatedSectionHeaderHeight = 0;
         
         self.dataSource = self;
         self.delegate = self;

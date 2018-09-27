@@ -185,6 +185,9 @@
 		4C53D1B5215C774400AFC352 /* BandingAlipayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1B4215C774400AFC352 /* BandingAlipayViewController.m */; };
 		4C53D1B8215C777500AFC352 /* BandingBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */; };
 		4C53D1BB215C796D00AFC352 /* BandingVerifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1BA215C796D00AFC352 /* BandingVerifierViewController.m */; };
+		4C53D1BE215CBE4E00AFC352 /* BankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1BD215CBE4E00AFC352 /* BankCardViewController.m */; };
+		4C53D1C1215CC78200AFC352 /* BankCardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1C0215CC78200AFC352 /* BankCardTableViewCell.m */; };
+		4C53D1C4215CC87000AFC352 /* BankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1C3215CC87000AFC352 /* BankCardModel.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -938,6 +941,12 @@
 		4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BandingBankCardViewController.m; sourceTree = "<group>"; };
 		4C53D1B9215C796D00AFC352 /* BandingVerifierViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BandingVerifierViewController.h; sourceTree = "<group>"; };
 		4C53D1BA215C796D00AFC352 /* BandingVerifierViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BandingVerifierViewController.m; sourceTree = "<group>"; };
+		4C53D1BC215CBE4E00AFC352 /* BankCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCardViewController.h; sourceTree = "<group>"; };
+		4C53D1BD215CBE4E00AFC352 /* BankCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCardViewController.m; sourceTree = "<group>"; };
+		4C53D1BF215CC78200AFC352 /* BankCardTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCardTableViewCell.h; sourceTree = "<group>"; };
+		4C53D1C0215CC78200AFC352 /* BankCardTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCardTableViewCell.m; sourceTree = "<group>"; };
+		4C53D1C2215CC87000AFC352 /* BankCardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCardModel.h; sourceTree = "<group>"; };
+		4C53D1C3215CC87000AFC352 /* BankCardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCardModel.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -2148,6 +2157,8 @@
 				4C53D1B4215C774400AFC352 /* BandingAlipayViewController.m */,
 				4C53D1B6215C777500AFC352 /* BandingBankCardViewController.h */,
 				4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */,
+				4C53D1BC215CBE4E00AFC352 /* BankCardViewController.h */,
+				4C53D1BD215CBE4E00AFC352 /* BankCardViewController.m */,
 				4C6332D020E0983C00D80056 /* Model */,
 				4C93496D20CF6DD100BD8F07 /* View */,
 			);
@@ -2574,6 +2585,8 @@
 				4C51B16B210F12E7007EF10B /* DailyTaskModel.m */,
 				4C44E3862122BE8D00C5D10A /* NewPublishModel.h */,
 				4C44E3872122BE8D00C5D10A /* NewPublishModel.m */,
+				4C53D1C2215CC87000AFC352 /* BankCardModel.h */,
+				4C53D1C3215CC87000AFC352 /* BankCardModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3355,6 +3368,8 @@
 				4C6332CE20E097CB00D80056 /* AddressTableViewCell.m */,
 				4C534F2820E1D5F500754695 /* UserInfoCommentCell.h */,
 				4C534F2920E1D5F500754695 /* UserInfoCommentCell.m */,
+				4C53D1BF215CC78200AFC352 /* BankCardTableViewCell.h */,
+				4C53D1C0215CC78200AFC352 /* BankCardTableViewCell.m */,
 				4C6B4E4720EB04A700BA0534 /* SignInPopView.h */,
 				4C6B4E4820EB04A700BA0534 /* SignInPopView.m */,
 				4C6B4E4A20EB11A400BA0534 /* PraisePopView.h */,
@@ -3994,6 +4009,7 @@
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
 				4C6E91AF213F648E001535CA /* ContentManager.m in Sources */,
 				4C53D1B8215C777500AFC352 /* BandingBankCardViewController.m in Sources */,
+				4C53D1BE215CBE4E00AFC352 /* BankCardViewController.m in Sources */,
 				4C3F903720BD2D10003EC4FC /* YXHeader.m in Sources */,
 				4C7EF37821212A0B0002166A /* ZSSRichTextEditor.m in Sources */,
 				4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */,
@@ -4005,6 +4021,7 @@
 				4C7234E120FDEB1D00D5C5D4 /* AABar.m in Sources */,
 				4C7EF37921212A0B0002166A /* ZSSBarButtonItem.m in Sources */,
 				4C7234DF20FDEB1D00D5C5D4 /* AAOptions3d.m in Sources */,
+				4C53D1C1215CC78200AFC352 /* BankCardTableViewCell.m in Sources */,
 				4C7234F520FEEB8800D5C5D4 /* CatechismSecondeViewController.m in Sources */,
 				4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */,
 				4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */,
@@ -4097,6 +4114,7 @@
 				4C17414820C5168600AA6D57 /* TXLimitedTextView.m in Sources */,
 				4C7234D420FDEB1D00D5C5D4 /* AASeries.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
+				4C53D1C4215CC87000AFC352 /* BankCardModel.m in Sources */,
 				4C7234E220FDEB1D00D5C5D4 /* AATitle.m in Sources */,
 				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
 				4C72350220FF373C00D5C5D4 /* JHTextView.m in Sources */,

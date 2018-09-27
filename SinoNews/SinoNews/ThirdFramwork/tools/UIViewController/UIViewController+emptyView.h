@@ -23,5 +23,7 @@
 //显隐导航栏下方横线
 -(void)showTopLine;
 -(void)hiddenTopLine;
+//设置导航栏下方横线的颜色
+-(void)setTopLineColor:(UIColor *)color;
 
 @end

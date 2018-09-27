@@ -187,18 +187,13 @@
 {
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-//    [self.tableView activateConstraints:^{
-//        self.tableView.top_attr = self.view.top_attr_safe;
-//        self.tableView.left_attr = self.view.left_attr_safe;
-//        self.tableView.right_attr = self.view.right_attr_safe;
-//        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-//    }];
     self.tableView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .topEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     ;
+    [self.tableView updateLayout];
     _tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         if (UserGetBool(@"NightMode")) {
             [(BaseTableView *)item setBackgroundColor:HexColor(#292d30)];

@@ -9,7 +9,7 @@
 #import "UIViewController+emptyView.h"
 
 static int tag1 = 206118;
-
+static int tag2 = 2061185;
 @implementation UIViewController (emptyView)
 
 -(void)showTopLine
@@ -19,6 +19,14 @@ static int tag1 = 206118;
 -(void)hiddenTopLine
 {
     [[self getLineViewInNavigationBar:self.navigationController.navigationBar] setHidden:YES];
+}
+
+-(void)setTopLineColor:(UIColor *)color
+{
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:ClearColor]
+                                                 forBarPosition:UIBarPositionAny
+                                                     barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:color]];
 }
 
 //显隐加载背景

@@ -253,13 +253,13 @@
     //先做邮箱判断
     if ([username.text containsString:@"@"]) {
         if (![username.text isValidEmail]) {
-            LRToast(@"邮箱有误！");
+            LRToast(@"邮箱有误");
             return;
         }
         
     }else{
         if (![username.text isValidPhone]) {
-            LRToast(@"手机号有误！");
+            LRToast(@"手机号有误");
             return;
         }
     }
@@ -300,13 +300,13 @@
         //先做邮箱判断
         if ([username.text containsString:@"@"]) {
             if (![username.text isValidEmail]) {
-                LRToast(@"邮箱有误！");
+                LRToast(@"邮箱有误");
                 return;
             }
             
         }else{
             if (![username.text isValidPhone]) {
-                LRToast(@"手机号有误！");
+                LRToast(@"手机号有误");
                 return;
             }
         }

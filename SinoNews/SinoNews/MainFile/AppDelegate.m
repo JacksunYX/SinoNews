@@ -27,12 +27,14 @@
 //    [[KafkaRefreshDefaults standardRefreshDefaults] setFootDefaultStyle:KafkaRefreshStyleAnimatableArrow];
     
 #if (DEBUG == 1)
-//    [STCObfuscator obfuscatorManager].unConfuseMethodPrefix = @[@"SD",@"ZSS",@"AAChart",@"AF",@"MJ"];
-    [STCObfuscator obfuscatorManager].unConfuseClassPrefix = @[@"RAC"];
-    [[STCObfuscator obfuscatorManager] confuseWithRootPath:[NSString stringWithFormat:@"%s", STRING(ROOT_PATH)] resultFilePath:[NSString stringWithFormat:@"%@/STCDefination.h", [NSString stringWithFormat:@"%s", STRING(ROOT_PATH)]] linkmapPath:[NSString stringWithFormat:@"%s", STRING(LINKMAP_FILE)]];
+//    STCObfuscator *manager = [STCObfuscator obfuscatorManager];
+//    manager.unConfuseClassNames = @[@"UserInfoViewController",@"YYFileHash",@"MJRefresh"];
+//    manager.unConfuseMethodPrefix = @[@"SD",@"ZSS",@"AAChart",@"AF",@"YY"];
+//    manager.unConfuseClassPrefix = @[@"RAC"];
+//    [manager confuseWithRootPath:[NSString stringWithFormat:@"%s", STRING(ROOT_PATH)] resultFilePath:[NSString stringWithFormat:@"%@/STCDefination.h", [NSString stringWithFormat:@"%s", STRING(ROOT_PATH)]] linkmapPath:[NSString stringWithFormat:@"%s", STRING(LINKMAP_FILE)]];
 #endif
     
-    GGLog(@"BrowsNewsSingleton:%@",BrowsNewsSingleton.singleton.idsArr);
+//    GGLog(@"BrowsNewsSingleton:%@",BrowsNewsSingleton.singleton.idsArr);
     if (UserGet(@"fontSize")) {
         
     }else{
@@ -171,7 +173,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 {
     [XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
     //注意:请求广告数据前,必须设置此属性,否则会先进入window的根控制器
-    [XHLaunchAd setWaitDataDuration:2];
+    [XHLaunchAd setWaitDataDuration:1.8];
     
     [RequestGather requestBannerWithADId:3 success:^(id response) {
         NSArray *adArr = response;
@@ -200,7 +202,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             imageAdconfiguration.skipButtonType = SkipTypeTimeText;
             //后台返回时,是否显示广告
             imageAdconfiguration.showEnterForeground = NO;
-            
+            imageAdconfiguration.duration = 4;
             //显示开屏广告
             [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];
         }

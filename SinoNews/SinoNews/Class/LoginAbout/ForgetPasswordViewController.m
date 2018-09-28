@@ -102,9 +102,9 @@
     username = [TXLimitedTextField new];
     username.clearButtonMode = UITextFieldViewModeWhileEditing;
     username.delegate = self;
-    username.limitedType = TXLimitedTextFieldTypeCustom;
-    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
-    username.limitedNumber = 11;
+//    username.limitedType = TXLimitedTextFieldTypeCustom;
+//    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+//    username.limitedNumber = 11;
     
     password = [TXLimitedTextField new];
     password.clearButtonMode = UITextFieldViewModeWhileEditing;

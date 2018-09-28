@@ -161,7 +161,8 @@
     time.textColor = RGBA(152, 152, 152, 1);
     [centerView addSubview:time];
     time.sd_layout
-    .topSpaceToView(centerView, 15)
+//    .topSpaceToView(centerView, 15)
+    .centerYEqualToView(centerView)
     .leftSpaceToView(centerView, 10)
     .rightSpaceToView(centerView, 10)
     .autoHeightRatio(0)
@@ -174,7 +175,8 @@
     integral.textAlignment = NSTextAlignmentCenter;
     [rightView addSubview:integral];
     integral.sd_layout
-    .topSpaceToView(rightView, 15)
+//    .topSpaceToView(rightView, 15)
+    .centerYEqualToView(rightView)
     .leftSpaceToView(rightView, 10)
     .rightSpaceToView(rightView, 10)
     .autoHeightRatio(0)
@@ -189,7 +191,8 @@
     [productImage sd_setImageWithURL:UrlWithStr(GetSaveString(model.productImage)) placeholderImage:UIImageNamed(@"placeholder_logo_small")];
     productName.text = GetSaveString(model.productName);
     time.text = GetSaveString(model.createTime);
-    integral.text = [NSString stringWithFormat:@"%ld",model.price];
+//    integral.text = [NSString stringWithFormat:@"%ld",model.price];
+    integral.text = GetSaveString(model.status);
 }
 
 @end

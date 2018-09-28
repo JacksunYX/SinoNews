@@ -616,7 +616,7 @@
         NSArray *headTitle = @[
                                @"商品详情",
                                @"时间",
-                               @"积分",
+                               @"状态",
                                ];
         CGFloat lrMargin = 10;
         CGFloat xMargin = 0;

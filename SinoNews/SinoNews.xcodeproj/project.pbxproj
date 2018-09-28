@@ -3884,7 +3884,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "dir=${SRCROOT}\nfile_count=0\nfile_list=`ls -R $dir 2> /dev/null | grep -v '^$'`\nfor file_name in $file_list\ndo\ntemp=`echo $file_name | sed 's/:.*$//g'`\nif [ \"$file_name\" != \"$temp\" ]; then\ncur_dir=$temp\nelse\nif [ ${file_name##*.} = a ]; then\nfind -P $dir -name $file_name > tmp.txt\nvar=$(cat tmp.txt)\nnm $var > ${file_name}.txt\nrm tmp.txt\nfi\nif [ ${file_name##*.} = framework ]; then\nfind -P $dir -name ${file_name%%.*} > tmp.txt\nvar=$(cat tmp.txt)\nnm $var > ${file_name}.txt\nrm tmp.txt\nfi\nfi\ndone\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-resources.sh\"\n";
 		};
 		F8AD8C33F9EF23C5DF9CA1BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4553,6 +4553,7 @@
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = N2Q42K578K;
 				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;

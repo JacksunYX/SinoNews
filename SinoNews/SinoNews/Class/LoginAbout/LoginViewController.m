@@ -85,9 +85,9 @@
     self.username = [TXLimitedTextField new];
     self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.username.delegate = self;
-    _username.limitedType = TXLimitedTextFieldTypeCustom;
-    _username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
-    _username.limitedNumber = 11;
+//    _username.limitedType = TXLimitedTextFieldTypeCustom;
+//    _username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+//    _username.limitedNumber = 11;
     
     UIView *passwordBackView = [UIView new];
     passwordBackView.backgroundColor = WhiteColor;
@@ -264,7 +264,7 @@
     
     //集合信号
     RAC(self.confirmBtn,enabled) = [RACSignal combineLatest:@[self.username.rac_textSignal,self.password.rac_textSignal] reduce:^id(NSString *username,NSString *password){
-        return @(username.length==11&&password.length>=6);
+        return @(username.length>=6&&password.length>=6);
     }];
     
 }
@@ -298,13 +298,13 @@
         //先做邮箱判断
         if ([self.username.text containsString:@"@"]) {
             if (![self.username.text isValidEmail]) {
-                LRToast(@"邮箱有误！");
+                LRToast(@"邮箱有误");
                 return;
             }
             
         }else{
             if (![self.username.text isValidPhone]) {
-                LRToast(@"手机号有误！");
+                LRToast(@"手机号有误");
                 return;
             }
         }

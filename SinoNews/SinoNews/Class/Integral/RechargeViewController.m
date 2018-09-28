@@ -601,9 +601,12 @@
         NSString *rechargeUrl = response[@"data"][@"rechargeUrl"];
         GGLog(@"充值地址：%@",rechargeUrl);
         
+        [[UIApplication sharedApplication] openURL:UrlWithStr(rechargeUrl)];
+        /*
         WebViewController *wVC = [WebViewController new];
         wVC.baseUrl = rechargeUrl;
         [self.navigationController pushViewController:wVC animated:YES];
+        */
     } failure:^(NSError *error) {
         
     } RefreshAction:^{

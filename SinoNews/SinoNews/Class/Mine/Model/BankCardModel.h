@@ -14,8 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSString *bankName;//银行名
 @property (nonatomic,strong) NSString *cardType;//卡类型
-@property (nonatomic,strong) NSString *cardNum; //卡号
-
+@property (nonatomic,strong) NSString *cardNo; //卡号
+@property (nonatomic,strong) NSString *cardholderName;  //持卡人
+@property (nonatomic,strong) NSString *depositBankName; //开户行
+@property (nonatomic,assign) NSInteger cardId;
 @end
 
 NS_ASSUME_NONNULL_END

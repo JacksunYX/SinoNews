@@ -358,22 +358,22 @@
             [self.navigationController popToRootViewControllerAnimated:NO];
         }];
     }
-    /*
+    
     else if (CompareString(title, @"绑定支付宝")){
-        BandingAlipayViewController *baVC = [BandingAlipayViewController new];
+//        BandingAlipayViewController *baVC = [BandingAlipayViewController new];
         BandingVerifierViewController *bvVC = [BandingVerifierViewController new];
         bvVC.verifierType = 0;
         [self.navigationController pushViewController:bvVC animated:YES];
     }else if (CompareString(title, @"绑定银行卡")){
-        BandingBankCardViewController *bbcVC = [BandingBankCardViewController new];
+//        BandingBankCardViewController *bbcVC = [BandingBankCardViewController new];
         BandingVerifierViewController *bvVC = [BandingVerifierViewController new];
         bvVC.verifierType = 1;
         
-        BankCardViewController *bcVC = [BankCardViewController new];
+//        BankCardViewController *bcVC = [BankCardViewController new];
         
-        [self.navigationController pushViewController:bcVC animated:YES];
+        [self.navigationController pushViewController:bvVC animated:YES];
     }
-     */
+     
 }
 
 #pragma mark ---- 请求发送

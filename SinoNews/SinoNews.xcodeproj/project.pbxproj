@@ -188,6 +188,7 @@
 		4C53D1BE215CBE4E00AFC352 /* BankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1BD215CBE4E00AFC352 /* BankCardViewController.m */; };
 		4C53D1C1215CC78200AFC352 /* BankCardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1C0215CC78200AFC352 /* BankCardTableViewCell.m */; };
 		4C53D1C4215CC87000AFC352 /* BankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1C3215CC87000AFC352 /* BankCardModel.m */; };
+		4C53D1C9215E18DC00AFC352 /* UserAlipayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C53D1C8215E18DC00AFC352 /* UserAlipayModel.m */; };
 		4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948A20CE20F600CB448E /* AttentionCollectionView.m */; };
 		4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54948E20CE228900CB448E /* AttentionRecommendFirstCell.m */; };
 		4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C54949120CE22D400CB448E /* AttentionRecommendSecondCell.m */; };
@@ -948,6 +949,8 @@
 		4C53D1C2215CC87000AFC352 /* BankCardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCardModel.h; sourceTree = "<group>"; };
 		4C53D1C3215CC87000AFC352 /* BankCardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCardModel.m; sourceTree = "<group>"; };
 		4C53D1C6215DF2C400AFC352 /* STCDefination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCDefination.h; sourceTree = SOURCE_ROOT; };
+		4C53D1C7215E18DC00AFC352 /* UserAlipayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAlipayModel.h; sourceTree = "<group>"; };
+		4C53D1C8215E18DC00AFC352 /* UserAlipayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserAlipayModel.m; sourceTree = "<group>"; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -2589,6 +2592,8 @@
 				4C44E3872122BE8D00C5D10A /* NewPublishModel.m */,
 				4C53D1C2215CC87000AFC352 /* BankCardModel.h */,
 				4C53D1C3215CC87000AFC352 /* BankCardModel.m */,
+				4C53D1C7215E18DC00AFC352 /* UserAlipayModel.h */,
+				4C53D1C8215E18DC00AFC352 /* UserAlipayModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4185,6 +4190,7 @@
 				4C23B3C720F592AB00ACE380 /* LMColorPickerView.m in Sources */,
 				4C6E909D213F5E21001535CA /* PhotoBrowser.m in Sources */,
 				4C510B62211049BB00706185 /* NSDictionary+Extension.m in Sources */,
+				4C53D1C9215E18DC00AFC352 /* UserAlipayModel.m in Sources */,
 				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C72347F20FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m in Sources */,
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,
@@ -4495,6 +4501,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = N2Q42K578K;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4543,6 +4550,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = N2Q42K578K;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

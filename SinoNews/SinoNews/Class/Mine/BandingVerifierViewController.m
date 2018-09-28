@@ -11,6 +11,9 @@
 @interface BandingVerifierViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong)TXLimitedTextField *password;
 @property (nonatomic,strong)UIButton *confirmBtn;   //确认按钮
+
+@property (nonatomic,strong)UserAlipayModel *aliModel;
+@property (strong, nonatomic) NSMutableArray <BankCardModel *>*dataSource;
 @end
 
 @implementation BandingVerifierViewController
@@ -25,6 +28,7 @@
         @strongify(self);
         [self.view endEditing:YES];
     }];
+    [self.password becomeFirstResponder];
 }
 
 -(void)setUI
@@ -95,25 +99,49 @@
 
 -(void)confirmAction:(UIButton *)sender
 {
-    if (kStringIsEmpty(self.password.text)){
+    if ([NSString isEmpty:self.password.text]){
         LRToast(@"请输入密码");
     }else{
+        [self.view endEditing:YES];
+        ShowHudOnly;
         //1.发送验证身份的网络请求
-        
-        //2.完成校验，跳转到对应界面
-        [self pushToEditVC];
+        [HttpRequest getWithURLString:CheckPassword parameters:@{@"password":self.password.text} success:^(id responseObject) {
+            HiddenHudOnly;
+            //2.完成校验，跳转到对应界面
+            if (self.verifierType==0) { //支付宝
+                [self getUserAlipay];
+            }else{  //银行卡
+                [self getUserBankCard];
+            }
+        } failure:^(NSError *error) {
+            LRToast(@"请求失败");
+            HiddenHudOnly;
+        }];
     }
 }
 
+//跳转
 -(void)pushToEditVC
 {
     UIViewController *vc;
     switch (self.verifierType) {
         case 0:
-            vc = [BandingAlipayViewController new];
+        {
+            BandingAlipayViewController *vc1 = [BandingAlipayViewController new];
+            vc1.aliModel = self.aliModel;
+            vc = vc1;
+        }
             break;
         case 1:
-            vc = [BandingBankCardViewController new];
+        {
+            if (self.dataSource.count>0) {
+                BankCardViewController *vc1 = [BankCardViewController new];
+                vc1.dataSource = self.dataSource;
+                vc = vc1;
+            }else{
+                vc = [BandingBankCardViewController new];
+            }
+        }
             break;
             
         default:
@@ -150,6 +178,30 @@
     if (action == @selector(selectAll:))// 禁止全选
         return NO;
     return [super canPerformAction:action withSender:sender];
+}
+
+#pragma mark --- 请求
+//获取用户支付宝
+-(void)getUserAlipay
+{
+    ShowHudOnly;
+    [HttpRequest getWithURLString:GetUserAlipay parameters:nil success:^(id responseObject) {
+        HiddenHudOnly;
+        self.aliModel = [UserAlipayModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self pushToEditVC];
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        LRToast(@"请求失败");
+    }];
+}
+
+//获取用户银行卡列表
+-(void)getUserBankCard
+{
+    [HttpRequest postWithURLString:ListMyBankCards parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        self.dataSource = [BankCardModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self pushToEditVC];
+    } failure:nil RefreshAction:nil];
 }
 
 @end

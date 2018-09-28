@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BandingBankCardViewController : BaseViewController
 
+@property (nonatomic,copy) void (^refreshCard)(void) ;
+
 @end
 
 NS_ASSUME_NONNULL_END

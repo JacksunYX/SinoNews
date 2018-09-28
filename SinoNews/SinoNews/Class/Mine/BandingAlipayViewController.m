@@ -27,7 +27,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"绑定支付宝";
+    if (self.aliModel) {
+        self.navigationItem.title = @"支付宝";
+    }else{
+        self.navigationItem.title = @"绑定支付宝";
+    }
     self.view.backgroundColor = WhiteColor;
     [self setUI];
     @weakify(self);
@@ -139,6 +143,12 @@
         @strongify(self);
         [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.account,self.name, nil];
     }];
+    
+    if (self.aliModel) {
+        self.name.text = GetSaveString(self.aliModel.fullName);
+        [self.confirmBtn removeFromSuperview];
+    }
+    self.account.text = @"支付宝账号默认为您注册时的手机号";
 }
 
 -(void)confirmAction:(UIButton *)sender
@@ -149,8 +159,31 @@
         LRToast(@"请输入账号姓名");
     }else{
         //确认绑定
-        
+        ShowHudOnly;
+        NSMutableDictionary *parameters = [NSMutableDictionary new];
+        parameters[@"fullName"] = self.name.text;
+        [HttpRequest getWithURLString:SaveUserAlipay parameters:parameters success:^(id responseObject) {
+            HiddenHudOnly;
+            LRToast(@"绑定成功");
+            GCDAfterTime(0.5, ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+            
+        } failure:^(NSError *error) {
+            HiddenHudOnly;
+        }];
     }
+}
+
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (self.aliModel) {
+        return NO;
+    }
+    if (textField==self.account) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

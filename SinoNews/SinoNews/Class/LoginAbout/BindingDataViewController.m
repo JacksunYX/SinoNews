@@ -261,6 +261,9 @@
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"account"] = username.text;
+    NSString *str = AppendingString(AppendKey, username.text);
+    NSString * str2 = [str md5String].lowercaseString;
+    parameters[@"sign"] = str2;
     
     ShowHudOnly
     [HttpRequest getWithURLString:SendValidCode parameters:parameters success:^(id responseObject) {

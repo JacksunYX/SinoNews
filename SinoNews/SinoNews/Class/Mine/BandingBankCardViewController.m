@@ -76,6 +76,8 @@ static CGFloat leftMargin = 114;
     self.cardNumber.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.cardNumber.delegate = self;
     self.cardNumber.font = PFFontL(16);
+    self.cardNumber.limitedType = TXLimitedTextFieldTypeCustom;
+    self.cardNumber.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
     
     self.cardHolder = [TXLimitedTextField new];
     self.cardHolder.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -164,6 +166,13 @@ static CGFloat leftMargin = 114;
     .heightIs(50)
     ;
 //    self.bankName.text = @"工商银行";
+    @weakify(self);
+    [self.bankName whenTap:^{
+        @strongify(self);
+        if ([self.bankName.text containsString:@"检测出错"]) {
+            [self checkBankNum:self.cardNumber.text];
+        }
+    }];
     
     banknameLabel.sd_layout
     .leftSpaceToView(self.view, 10)
@@ -204,7 +213,6 @@ static CGFloat leftMargin = 114;
     ;
     
     //键盘监听
-    @weakify(self);
     [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
         @strongify(self);
         [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.cardNumber,self.cardHolder,self.openingBank, nil];
@@ -225,14 +233,18 @@ static CGFloat leftMargin = 114;
 
 -(void)confirmAction:(UIButton *)sender
 {
+    [self.view endEditing:YES];
     if ([NSString isEmpty:self.cardNumber.text]){
         LRToast(@"请输入银行卡号");
     }else if([NSString isEmpty:self.cardHolder.text]){
         LRToast(@"请输入持卡人姓名");
-    }else if([NSString isEmpty:self.cardHolder.text]){
+    }else if([NSString isEmpty:self.openingBank.text]){
         LRToast(@"请输入开户行名称");
+    }else if([NSString isEmpty:self.bankName.text]||![self.bankName.text containsString:@"银行"]){
+        LRToast(@"银行名称有误");
     }else{
         //确认绑定
+        [self addBankCard];
     }
 }
 
@@ -241,7 +253,7 @@ static CGFloat leftMargin = 114;
 {
     if (textField == self.cardNumber) {
         GGLog(@"卡号结束编辑");
-        self.bankName.text = @"";
+        
         //先检测是否为空
         if (![NSString isEmpty:textField.text]) {
             //再判断是否有旧值，且新值位数小于6
@@ -259,6 +271,7 @@ static CGFloat leftMargin = 114;
                     }
                 }
             }else{
+                self.bankName.text = @"";
                 if (textField.text.length<6) {
                     //提醒输入正确的卡号
                     self.bankName.text = @"请输入正确的卡号";
@@ -304,6 +317,38 @@ static CGFloat leftMargin = 114;
 -(void)checkBankNum:(NSString *)num
 {
     self.bankName.text = @"卡号检测中...";
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"cardNo"] = GetSaveString(self.cardNumber.text);
+    [HttpRequest getWithURLString:CheckBankCard parameters:parameters success:^(id responseObject) {
+        HiddenHudOnly;
+        self.bankName.text = responseObject[@"data"];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        self.bankName.text = @"检测出错，点击重试";
+    }];
+}
+
+//添加银行卡信息
+-(void)addBankCard
+{
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"cardNo"] = GetSaveString(self.cardNumber.text);
+    parameters[@"cardholderName"] = GetSaveString(self.cardHolder.text);
+    parameters[@"bankName"] = GetSaveString(self.bankName.text);
+    parameters[@"depositBankName"] = GetSaveString(self.openingBank.text);
+    
+    [HttpRequest postWithURLString:AddBankCard parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"绑定成功");
+        GCDAfterTime(0.5, ^{
+            if (self.refreshCard) {
+                self.refreshCard();
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        
+    } failure:nil RefreshAction:nil];
 }
 
 @end

@@ -58,9 +58,21 @@
 //向系统发送私信(post)
 #define SendMessageToSystem @"/api/message/sendMessageToSystem"
 
+//校验密码(get)
+#define CheckPassword       @"/api/user/checkPassword"
+//保存支付宝账号(get)
+#define SaveUserAlipay      @"/api/user/saveUserAlipay"
+//获取用户支付宝账号(get)
+#define GetUserAlipay       @"/api/user/getUserAlipay"
 
-
-
+//查看用户银行卡列表(post)
+#define ListMyBankCards     @"/api/user/listMyBankCards"
+//查看某张卡的信息(post)
+#define GetMyBankCard       @"/api/user/getMyBankCard"
+//添加银行卡(post)
+#define AddBankCard         @"/api/user/addBankCard"
+//验证银行卡号
+#define CheckBankCard       @"/api/user/getBankName"
 
 #endif /* UserAboutNet_h */
 

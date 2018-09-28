@@ -7,11 +7,11 @@
 //
 
 #import "BankCardViewController.h"
-#import "BankCardTableViewCell.h"
+#import "BandingBankCardViewController.h"
 
 @interface BankCardViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) BaseTableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataSource;
+
 @end
 
 @implementation BankCardViewController
@@ -81,14 +81,14 @@
 #pragma mark --- UITableView Datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.dataSource.count;
-    return 1;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BankCardTableViewCell *cell = (BankCardTableViewCell *)[tableView dequeueReusableCellWithIdentifier:BankCardTableViewCellID];
     cell.backgroundColor = HexColor(#1c2023);
+    cell.model = self.dataSource[indexPath.row];
     return cell;
 }
 
@@ -146,9 +146,14 @@
         .rightEqualToView(footView)
         .heightIs(1)
         ;
-        
+        @weakify(self);
         [footView whenTap:^{
-            GGLog(@"更换银行卡");
+            @strongify(self);
+            BandingBankCardViewController *bbcVC = [BandingBankCardViewController new];
+            bbcVC.refreshCard = ^{
+                [self getUserBankCard];
+            };
+            [self.navigationController pushViewController:bbcVC animated:YES];
         }];
     }
     return footView;
@@ -159,5 +164,14 @@
     
 }
 
+
+//获取用户银行卡列表
+-(void)getUserBankCard
+{
+    [HttpRequest postWithURLString:ListMyBankCards parameters:nil isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        self.dataSource = [BankCardModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:nil];
+}
 
 @end

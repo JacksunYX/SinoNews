@@ -9,5 +9,9 @@
 #import "BankCardModel.h"
 
 @implementation BankCardModel
++(NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"cardId" : @"id"};
+}
 
 @end

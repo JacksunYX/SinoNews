@@ -82,7 +82,7 @@
     .heightIs(14)
     ;
     [cardType setSingleLineAutoResizeWithMaxWidth:200];
-    cardType.text = @"储蓄卡";
+    
     
     cardNum.sd_layout
     .leftSpaceToView(backImg, 20)
@@ -90,14 +90,16 @@
     .bottomSpaceToView(backImg, 15)
     .heightIs(20)
     ;
-    cardNum.text = @"**** **** **** 7678";
+    
     
     [self setupAutoHeightWithBottomView:backImg bottomMargin:15];
 }
 
 -(void)setModel:(BankCardModel *)model
 {
-    
+    bankName.text = GetSaveString(model.bankName);
+    cardType.text = GetSaveString(model.cardType);
+    cardNum.text = GetSaveString(model.cardNo);
 }
 
 @end

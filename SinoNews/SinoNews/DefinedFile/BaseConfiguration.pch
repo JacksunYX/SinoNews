@@ -11,6 +11,10 @@
 #ifndef BaseConfiguration_pch
 #define BaseConfiguration_pch
 
+#if (DEBUG != 1)
+#import "STCDefination.h"
+#endif
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>

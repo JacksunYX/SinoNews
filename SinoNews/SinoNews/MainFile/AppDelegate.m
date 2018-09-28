@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <XHLaunchAd.h>
-
+#import <STCObfuscator.h>
 #import "AppDelegate+Push.h"
 
 @interface AppDelegate ()<XHLaunchAdDelegate>
@@ -25,6 +25,12 @@
     //配置全局刷新参数
 //    [[KafkaRefreshDefaults standardRefreshDefaults] setHeadDefaultStyle:KafkaRefreshStyleAnimatableArrow];
 //    [[KafkaRefreshDefaults standardRefreshDefaults] setFootDefaultStyle:KafkaRefreshStyleAnimatableArrow];
+    
+#if (DEBUG == 1)
+//    [STCObfuscator obfuscatorManager].unConfuseMethodPrefix = @[@"SD",@"ZSS",@"AAChart",@"AF",@"MJ"];
+    [STCObfuscator obfuscatorManager].unConfuseClassPrefix = @[@"RAC"];
+    [[STCObfuscator obfuscatorManager] confuseWithRootPath:[NSString stringWithFormat:@"%s", STRING(ROOT_PATH)] resultFilePath:[NSString stringWithFormat:@"%@/STCDefination.h", [NSString stringWithFormat:@"%s", STRING(ROOT_PATH)]] linkmapPath:[NSString stringWithFormat:@"%s", STRING(LINKMAP_FILE)]];
+#endif
     
     GGLog(@"BrowsNewsSingleton:%@",BrowsNewsSingleton.singleton.idsArr);
     if (UserGet(@"fontSize")) {

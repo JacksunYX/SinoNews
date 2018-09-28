@@ -947,6 +947,7 @@
 		4C53D1C0215CC78200AFC352 /* BankCardTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCardTableViewCell.m; sourceTree = "<group>"; };
 		4C53D1C2215CC87000AFC352 /* BankCardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BankCardModel.h; sourceTree = "<group>"; };
 		4C53D1C3215CC87000AFC352 /* BankCardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BankCardModel.m; sourceTree = "<group>"; };
+		4C53D1C6215DF2C400AFC352 /* STCDefination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCDefination.h; sourceTree = SOURCE_ROOT; };
 		4C54948A20CE20F600CB448E /* AttentionCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionCollectionView.m; sourceTree = "<group>"; };
 		4C54948B20CE20F600CB448E /* AttentionCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionCollectionView.h; sourceTree = "<group>"; };
 		4C54948D20CE228900CB448E /* AttentionRecommendFirstCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendFirstCell.h; sourceTree = "<group>"; };
@@ -1917,6 +1918,7 @@
 		4C3F8F9E20BCD893003EC4FC /* SinoNews */ = {
 			isa = PBXGroup;
 			children = (
+				4C53D1C6215DF2C400AFC352 /* STCDefination.h */,
 				4C1B149E215258B3004ADD9E /* SinoNews.entitlements */,
 				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
 				4C5BFD03211AF44000EF82DA /* SoundSource */,
@@ -3877,8 +3879,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "dir=${SRCROOT}\nfile_count=0\nfile_list=`ls -R $dir 2> /dev/null | grep -v '^$'`\nfor file_name in $file_list\ndo\ntemp=`echo $file_name | sed 's/:.*$//g'`\nif [ \"$file_name\" != \"$temp\" ]; then\ncur_dir=$temp\nelse\nif [ ${file_name##*.} = a ]; then\nfind -P $dir -name $file_name > tmp.txt\nvar=$(cat tmp.txt)\nnm $var > ${file_name}.txt\nrm tmp.txt\nfi\nif [ ${file_name##*.} = framework ]; then\nfind -P $dir -name ${file_name%%.*} > tmp.txt\nvar=$(cat tmp.txt)\nnm $var > ${file_name}.txt\nrm tmp.txt\nfi\nfi\ndone\n";
 		};
 		F8AD8C33F9EF23C5DF9CA1BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4498,8 +4499,15 @@
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"LINKMAP_FILE=$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt",
+					"ROOT_PATH=\"${SRCROOT}\"",
+				);
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4541,6 +4549,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				INFOPLIST_FILE = SinoNews/MainFile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_GENERATE_MAP_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

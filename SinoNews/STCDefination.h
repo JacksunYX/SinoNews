@@ -1,4 +1,445 @@
 
+//warning underLineButton hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define underLineButton underLineButton 
+#define _underLineButton _underLineButton 
+#define setUnderLineButton setUnderLineButton 
+//warning linePositionModifier hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Text/Component/YYTextLayout.m
+#define linePositionModifier linePositionModifier 
+#define _linePositionModifier _linePositionModifier 
+#define setLinePositionModifier setLinePositionModifier 
+//warning colorDisplayView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define colorDisplayView colorDisplayView 
+#define _colorDisplayView _colorDisplayView 
+#define setColorDisplayView setColorDisplayView 
+//warning newsId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/PublishArticleViewController.m
+#define newsId newsId 
+#define _newsId _newsId 
+#define setNewsId setNewsId 
+//warning pie hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAChartModel.m
+#define pie pie 
+#define _pie _pie 
+#define setPie setPie 
+//warning createStamp hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/tools/UniversalMethod.m
+#define createStamp createStamp 
+#define _createStamp _createStamp 
+#define setCreateStamp setCreateStamp 
+//warning italicButton hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define italicButton italicButton 
+#define _italicButton _italicButton 
+#define setItalicButton setItalicButton 
+//warning AAChartView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAChartView.m
+#define AAChartView AAChartView 
+//warning selectedImageView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define selectedImageView selectedImageView 
+#define _selectedImageView _selectedImageView 
+#define setSelectedImageView setSelectedImageView 
+//warning taskIcon hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/SignInViewController.m
+#define taskIcon taskIcon 
+#define _taskIcon _taskIcon 
+#define setTaskIcon setTaskIcon 
+//warning XLChannelItem hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/XLChannelControl/XLChannelView.m
+#define XLChannelItem XLChannelItem 
+//warning checkAllReplay hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/View/CommentCell.m
+#define checkAllReplay checkAllReplay 
+#define _checkAllReplay _checkAllReplay 
+#define setCheckAllReplay setCheckAllReplay 
+//warning checkboxButton hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define checkboxButton checkboxButton 
+#define _checkboxButton _checkboxButton 
+#define setCheckboxButton setCheckboxButton 
+//warning newsType hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/PublishArticleViewController.m
+#define newsType newsType 
+#define _newsType _newsType 
+#define setNewsType setNewsType 
+//warning loadGifImage hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/Utility/NewsDetailAbout/NewsDetailsHeaderView.m
+#define loadGifImage loadGifImage 
+//warning toConstraints hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define toConstraints toConstraints 
+//warning pointer hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAOptions.m
+#define pointer pointer 
+#define _pointer _pointer 
+#define setPointer setPointer 
+//warning rankingName hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankDetailViewController.m
+#define rankingName rankingName 
+#define _rankingName _rankingName 
+#define setRankingName setRankingName 
+//warning areaspline hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAChartModel.m
+#define areaspline areaspline 
+#define _areaspline _areaspline 
+#define setAreaspline setAreaspline 
+//warning PlainTableViewCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/GroupShadowTableView/GroupShadowTableView.m
+#define PlainTableViewCell PlainTableViewCell 
+//warning columnrange hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAChartModel.m
+#define columnrange columnrange 
+#define _columnrange _columnrange 
+#define setColumnrange setColumnrange 
+//warning POST hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFHTTPSessionManager.m
+#define POST POST 
+//warning parentId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankDetailViewController.m
+#define parentId parentId 
+#define _parentId _parentId 
+#define setParentId setParentId 
+//warning LMStyleColorCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMStyleColorCell LMStyleColorCell 
+//warning AttentionRecommendFirstCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Attention/View/AttentionRecommendFirstCell.h
+#define AttentionRecommendFirstCell AttentionRecommendFirstCell 
+//warning PublishPageViewController hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/PublishArticleViewController.m
+#define PublishPageViewController PublishPageViewController 
+//warning FMDatabase hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/BGFMDB/BGFMDB/libs/FMDB/FMResultSet.m
+#define FMDatabase FMDatabase 
+//warning dataLabels hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAOptions.m
+#define dataLabels dataLabels 
+#define _dataLabels _dataLabels 
+#define setDataLabels setDataLabels 
+//warning runloopMode hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Image/YYAnimatedImageView.m
+#define runloopMode runloopMode 
+#define _runloopMode _runloopMode 
+#define setRunloopMode setRunloopMode 
+//warning mobile hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/EditAddressViewController.m
+#define mobile mobile 
+#define _mobile _mobile 
+#define setMobile setMobile 
+//warning categoryId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Integral/StoreChildViewController.m
+#define categoryId categoryId 
+#define _categoryId _categoryId 
+#define setCategoryId setCategoryId 
+//warning replyList hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/Model/CompanyCommentModel.m
+#define replyList replyList 
+#define _replyList _replyList 
+#define setReplyList setReplyList 
+//warning game hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/SignInViewController.m
+#define game game 
+#define _game _game 
+#define setGame setGame 
+//warning equalCenterX hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/SDAutoLayout/SDAutoLayoutDemo/SDAutoLayout/UIView+SDAutoLayout.m
+#define equalCenterX equalCenterX 
+#define _equalCenterX _equalCenterX 
+#define setEqualCenterX setEqualCenterX 
+//warning sel hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define sel sel 
+#define _sel _sel 
+#define setSel setSel 
+//warning keyboardWillChangeFrame hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/Utility/LEEAlert/LEEAlert.m
+#define keyboardWillChangeFrame keyboardWillChangeFrame 
+//warning textParser hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Text/YYTextView.m
+#define textParser textParser 
+#define _textParser _textParser 
+#define setTextParser setTextParser 
+//warning button1 hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define button1 button1 
+#define _button1 _button1 
+#define setButton1 setButton1 
+//warning equalBottom hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/SDAutoLayout/SDAutoLayoutDemo/SDAutoLayout/UIView+SDAutoLayout.m
+#define equalBottom equalBottom 
+#define _equalBottom _equalBottom 
+#define setEqualBottom setEqualBottom 
+//warning province hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/EditAddressViewController.m
+#define province province 
+#define _province _province 
+#define setProvince setProvince 
+//warning isOnlyWifiLoad hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/Utility/NewsDetailAbout/ContentManager.m
+#define isOnlyWifiLoad isOnlyWifiLoad 
+#define _isOnlyWifiLoad _isOnlyWifiLoad 
+#define setIsOnlyWifiLoad setIsOnlyWifiLoad 
+//warning truncationToken hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Text/Component/YYTextLayout.m
+#define truncationToken truncationToken 
+#define _truncationToken _truncationToken 
+#define setTruncationToken setTruncationToken 
+//warning textOutline hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAOptionsModel/AADataLabels.m
+#define textOutline textOutline 
+#define _textOutline _textOutline 
+#define setTextOutline setTextOutline 
+//warning handlerName hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/WebViewJavascriptBridge/WebViewJavascriptBridgeBase.m
+#define handlerName handlerName 
+//warning boldButton hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define boldButton boldButton 
+#define _boldButton _boldButton 
+#define setBoldButton setBoldButton 
+//warning _sel hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define _sel _sel 
+//warning fontSizeLabel hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define fontSizeLabel fontSizeLabel 
+#define _fontSizeLabel _fontSizeLabel 
+#define setFontSizeLabel setFontSizeLabel 
+//warning equalLeft hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/SDAutoLayout/SDAutoLayoutDemo/SDAutoLayout/UIView+SDAutoLayout.m
+#define equalLeft equalLeft 
+#define _equalLeft _equalLeft 
+#define setEqualLeft setEqualLeft 
+//warning news_id hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/Model/HomePageModel.m
+#define news_id news_id 
+#define _news_id _news_id 
+#define setNews_id setNews_id 
+//warning HEAD hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFURLRequestSerialization.m
+#define HEAD HEAD 
+//warning LMImagePreviewController hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMImagePreviewController LMImagePreviewController 
+//warning XLChannelHeader hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/XLChannelControl/XLChannelView.m
+#define XLChannelHeader XLChannelHeader 
+//warning topicNewsList hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/Model/TopicModel.m
+#define topicNewsList topicNewsList 
+#define _topicNewsList _topicNewsList 
+#define setTopicNewsList setTopicNewsList 
+//warning back hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/MainFile/Base.lproj/Main.storyboard
+#define back back 
+//warning labelName hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/HomePageChildVCViewController.m
+#define labelName labelName 
+#define _labelName _labelName 
+#define setLabelName setLabelName 
+//warning userIcon hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankListViewController.m
+#define userIcon userIcon 
+#define _userIcon _userIcon 
+#define setUserIcon setUserIcon 
+//warning LMImageSettingsController hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMImageSettingsController LMImageSettingsController 
+//warning textVerticalAlignment hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Text/YYTextView.m
+#define textVerticalAlignment textVerticalAlignment 
+#define _textVerticalAlignment _textVerticalAlignment 
+#define setTextVerticalAlignment setTextVerticalAlignment 
+//warning channelId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/HomePageChildVCViewController.m
+#define channelId channelId 
+#define _channelId _channelId 
+#define setChannelId setChannelId 
+//warning numberListButton hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define numberListButton numberListButton 
+#define _numberListButton _numberListButton 
+#define setNumberListButton setNumberListButton 
+//warning answerId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/CatechismSecondeViewController.m
+#define answerId answerId 
+#define _answerId _answerId 
+#define setAnswerId setAnswerId 
+//warning networkReachabilityStatus hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFNetworkReachabilityManager.m
+#define networkReachabilityStatus networkReachabilityStatus 
+#define _networkReachabilityStatus _networkReachabilityStatus 
+#define setNetworkReachabilityStatus setNetworkReachabilityStatus 
+//warning showYearView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/WSDatePickerView/WSDatePickerView.xib
+#define showYearView showYearView 
+#define _showYearView _showYearView 
+#define setShowYearView setShowYearView 
+//warning spline hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAChartModel.m
+#define spline spline 
+#define _spline _spline 
+#define setSpline setSpline 
+//warning doneAction hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define doneAction doneAction 
+//warning arearange hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAChartModel.m
+#define arearange arearange 
+#define _arearange _arearange 
+#define setArearange setArearange 
+//warning LMColorPickerView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMColorPickerView LMColorPickerView 
+//warning advertisements hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/Model/NormalNewsModel.m
+#define advertisements advertisements 
+#define _advertisements _advertisements 
+#define setAdvertisements setAdvertisements 
+//warning _FDFullscreenPopGestureRecognizerDelegate hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/MLMSegmentPageView/MLMSegmentScroll.m
+#define _FDFullscreenPopGestureRecognizerDelegate _FDFullscreenPopGestureRecognizerDelegate 
+//warning equalCenterY hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/SDAutoLayout/SDAutoLayoutDemo/SDAutoLayout/UIView+SDAutoLayout.m
+#define equalCenterY equalCenterY 
+#define _equalCenterY _equalCenterY 
+#define setEqualCenterY setEqualCenterY 
+//warning currPage hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankDetailViewController.m
+#define currPage currPage 
+#define _currPage _currPage 
+#define setCurrPage setCurrPage 
+//warning PATCH hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFHTTPSessionManager.m
+#define PATCH PATCH 
+//warning DELETE hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFURLRequestSerialization.m
+#define DELETE DELETE 
+//warning OfficialNotifyCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/View/OfficialNotifyCell.h
+#define OfficialNotifyCell OfficialNotifyCell 
+//warning displaysAsynchronously hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Utility/YYAsyncLayer.m
+#define displaysAsynchronously displaysAsynchronously 
+#define _displaysAsynchronously _displaysAsynchronously 
+#define setDisplaysAsynchronously setDisplaysAsynchronously 
+//warning WSDatePickerView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/WSDatePickerView/WSDatePickerView.xib
+#define WSDatePickerView WSDatePickerView 
+//warning textLayout hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Text/YYTextView.m
+#define textLayout textLayout 
+#define _textLayout _textLayout 
+#define setTextLayout setTextLayout 
+//warning rankingId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankListViewController.m
+#define rankingId rankingId 
+#define _rankingId _rankingId 
+#define setRankingId setRankingId 
+//warning Attribute hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define Attribute Attribute 
+//warning currentAnimatedImageIndex hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Image/YYAnimatedImageView.m
+#define currentAnimatedImageIndex currentAnimatedImageIndex 
+#define _currentAnimatedImageIndex _currentAnimatedImageIndex 
+#define setCurrentAnimatedImageIndex setCurrentAnimatedImageIndex 
+//warning LMStyleFontSizeCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMStyleFontSizeCell LMStyleFontSizeCell 
+//warning channelIds hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/PublishArticleViewController.m
+#define channelIds channelIds 
+#define _channelIds _channelIds 
+#define setChannelIds setChannelIds 
+//warning commentId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/CommentDetailViewController.m
+#define commentId commentId 
+#define _commentId _commentId 
+#define setCommentId setCommentId 
+//warning bar hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define bar bar 
+#define _bar _bar 
+#define setBar setBar 
+//warning uuidsOfUserDevices hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/FCUUID/FCUUID/FCUUID.m
+#define uuidsOfUserDevices uuidsOfUserDevices 
+//warning companyId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankDetailViewController.m
+#define companyId companyId 
+#define _companyId _companyId 
+#define setCompanyId setCompanyId 
+//warning LMStyleFormatCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMStyleFormatCell LMStyleFormatCell 
+//warning subTaskList hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/Model/DailyTaskModel.m
+#define subTaskList subTaskList 
+#define _subTaskList _subTaskList 
+#define setSubTaskList setSubTaskList 
+//warning fullAddress hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/EditAddressViewController.m
+#define fullAddress fullAddress 
+#define _fullAddress _fullAddress 
+#define setFullAddress setFullAddress 
+//warning str hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define str str 
+#define _str _str 
+#define setStr setStr 
+//warning toolbarView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define toolbarView toolbarView 
+#define _toolbarView _toolbarView 
+#define setToolbarView setToolbarView 
+//warning tableV hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define tableV tableV 
+#define _tableV _tableV 
+#define setTableV setTableV 
+//warning praisedCount hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/UserInfoViewController.m
+#define praisedCount praisedCount 
+#define _praisedCount _praisedCount 
+#define setPraisedCount setPraisedCount 
+//warning GET hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFURLRequestSerialization.m
+#define GET GET 
+//warning newsTitle hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/View/BrowsingHistoryCell.m
+#define newsTitle newsTitle 
+#define _newsTitle _newsTitle 
+#define setNewsTitle setNewsTitle 
+//warning advertsPositionId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/NetworkRequest/RequestGather.m
+#define advertsPositionId advertsPositionId 
+#define _advertsPositionId _advertsPositionId 
+#define setAdvertsPositionId setAdvertsPositionId 
+//warning LMStyleSettingsController hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMStyleSettingsController LMStyleSettingsController 
+//warning listButton hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define listButton listButton 
+#define _listButton _listButton 
+#define setListButton setListButton 
+//warning IFMShareItemCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/IFMShare/IFMShareItemCell.m
+#define IFMShareItemCell IFMShareItemCell 
+//warning imageNameOrURLString hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/XHLaunchAd/XHLaunchAd/XHLaunchAd/XHLaunchAd.m
+#define imageNameOrURLString imageNameOrURLString 
+#define _imageNameOrURLString _imageNameOrURLString 
+#define setImageNameOrURLString setImageNameOrURLString 
+//warning LMFontSizePickerView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMFontSizePickerView LMFontSizePickerView 
+//warning scroll hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define scroll scroll 
+//warning PUT hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/AFNetworking/AFHTTPSessionManager.m
+#define PUT PUT 
+//warning button2 hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define button2 button2 
+#define _button2 _button2 
+#define setButton2 setButton2 
+//warning AAChart hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/MainFile/AppDelegate.m
+#define AAChart AAChart 
+//warning consignee hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/EditAddressViewController.m
+#define consignee consignee 
+#define _consignee _consignee 
+#define setConsignee setConsignee 
+//warning autoPlayAnimatedImage hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/YYKit/Image/YYAnimatedImageView.m
+#define autoPlayAnimatedImage autoPlayAnimatedImage 
+#define _autoPlayAnimatedImage _autoPlayAnimatedImage 
+#define setAutoPlayAnimatedImage setAutoPlayAnimatedImage 
+//warning praiseUserInfo hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/Model/PraiseHistoryModel.m
+#define praiseUserInfo praiseUserInfo 
+#define _praiseUserInfo _praiseUserInfo 
+#define setPraiseUserInfo setPraiseUserInfo 
+//warning imageV hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define imageV imageV 
+#define _imageV _imageV 
+#define setImageV setImageV 
+//warning LMStyleParagraphCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMStyleParagraphCell LMStyleParagraphCell 
+//warning topicId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/TopicViewController.m
+#define topicId topicId 
+#define _topicId _topicId 
+#define setTopicId setTopicId 
+//warning formatTitleLabel hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define formatTitleLabel formatTitleLabel 
+#define _formatTitleLabel _formatTitleLabel 
+#define setFormatTitleLabel setFormatTitleLabel 
+//warning hasMessageTip hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Mine/MineViewController.m
+#define hasMessageTip hasMessageTip 
+#define _hasMessageTip _hasMessageTip 
+#define setHasMessageTip setHasMessageTip 
+//warning buttomView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/WSDatePickerView/WSDatePickerView.xib
+#define buttomView buttomView 
+#define _buttomView _buttomView 
+#define setButtomView setButtomView 
+//warning borderRadius hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/AAChartKitLib/AAChartConfiger/AAOptions.m
+#define borderRadius borderRadius 
+#define _borderRadius _borderRadius 
+#define setBorderRadius setBorderRadius 
+//warning colorPickerView hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define colorPickerView colorPickerView 
+#define _colorPickerView _colorPickerView 
+#define setColorPickerView setColorPickerView 
+//warning equalRight hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/SDAutoLayout/SDAutoLayoutDemo/SDAutoLayout/UIView+SDAutoLayout.m
+#define equalRight equalRight 
+#define _equalRight _equalRight 
+#define setEqualRight setEqualRight 
+//warning activityCount hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/AFNetworking/UIKit+AFNetworking/AFNetworkActivityIndicatorManager.m
+#define activityCount activityCount 
+#define _activityCount _activityCount 
+#define setActivityCount setActivityCount 
+//warning equalTop hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/SDAutoLayout/SDAutoLayoutDemo/SDAutoLayout/UIView+SDAutoLayout.m
+#define equalTop equalTop 
+#define _equalTop _equalTop 
+#define setEqualTop setEqualTop 
+//warning img hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/RankingList/RankDetailViewController.m
+#define img img 
+#define _img _img 
+#define setImg setImg 
+//warning LMStyleFontStyleCell hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ArticleEditor/LMWordView/Views/LMWord.storyboard
+#define LMStyleFontStyleCell LMStyleFontStyleCell 
+//warning relatedNews hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/Model/NormalNewsModel.m
+#define relatedNews relatedNews 
+#define _relatedNews _relatedNews 
+#define setRelatedNews setRelatedNews 
+//warning editor hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/ThirdFramwork/otherframework/ZSSRichTextEditor/Source/ZSSRichTextEditor.m
+#define editor editor 
+#define _editor _editor 
+#define setEditor setEditor 
+//warning product_id hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Integral/Model/ProductModel.m
+#define product_id product_id 
+#define _product_id _product_id 
+#define setProduct_id setProduct_id 
+//warning itemId hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/Model/HomePageModel.m
+#define itemId itemId 
+#define _itemId _itemId 
+#define setItemId setItemId 
+//warning descript hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/HomePage/Model/TopicModel.m
+#define descript descript 
+#define _descript _descript 
+#define setDescript setDescript 
+//warning avatar hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/Class/Integral/ManagerViewController.m
+#define avatar avatar 
+#define _avatar _avatar 
+#define setAvatar setAvatar 
+//warning redirectType hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/SinoNews/MainFile/AppDelegate.m
+#define redirectType redirectType 
+#define _redirectType _redirectType 
+#define setRedirectType setRedirectType 
+//warning videoNameOrURLString hardcode in /Users/Michael/Desktop/SinoNews/SinoNews/Pods/XHLaunchAd/XHLaunchAd/XHLaunchAd/XHLaunchAd.m
+#define videoNameOrURLString videoNameOrURLString 
+#define _videoNameOrURLString _videoNameOrURLString 
+#define setVideoNameOrURLString setVideoNameOrURLString 
+
 
 #if (DEBUG != 1)
 

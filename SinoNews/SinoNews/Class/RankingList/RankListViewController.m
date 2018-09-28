@@ -206,11 +206,14 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RankListTableViewCell *cell = (RankListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RankListTableViewCellID];
-    RankingListModel *model = self.dataSource[indexPath.row];
-    cell.model = model;
+    cell.tag = indexPath.row;
+    cell.model = self.dataSource[indexPath.row];
     
-    cell.toPlayBlock = ^{
-        [[UIApplication sharedApplication] openURL:UrlWithStr(model.companyUrl)];
+    @weakify(self);
+    cell.toPlayBlock = ^(NSInteger index){
+        @strongify(self);
+        RankingListModel *model = self.dataSource[index];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
     };
     [cell addBakcgroundColorTheme];
     return cell;

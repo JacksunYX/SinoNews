@@ -16,6 +16,6 @@
 
 @property (nonatomic,strong) RankingListModel *model;
 
-@property (nonatomic,copy) void(^toPlayBlock)(void);
+@property (nonatomic,copy) void(^toPlayBlock)(NSInteger index);
 
 @end

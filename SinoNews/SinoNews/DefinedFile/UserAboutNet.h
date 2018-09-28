@@ -10,6 +10,8 @@
 #ifndef UserAboutNet_h
 #define UserAboutNet_h
 
+#define AppendKey @"f4208c29d81c3c5c2af7da635988e9e0"
+
 //注册发送验证码(get)
 #define SendValidCode   @"/api/sendValidCode"
 //注册(post)

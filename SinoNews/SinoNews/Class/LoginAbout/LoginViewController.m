@@ -85,6 +85,9 @@
     self.username = [TXLimitedTextField new];
     self.username.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.username.delegate = self;
+    _username.limitedType = TXLimitedTextFieldTypeCustom;
+    _username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+    _username.limitedNumber = 11;
     
     UIView *passwordBackView = [UIView new];
     passwordBackView.backgroundColor = WhiteColor;
@@ -166,7 +169,7 @@
     .heightIs(56)
     ;
     [self.username updateLayout];
-    self.username.placeholder = @"请输入手机号/邮箱";
+    self.username.placeholder = @"请输入手机号";
     [self.username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     passwordBackView.sd_layout
@@ -261,7 +264,7 @@
     
     //集合信号
     RAC(self.confirmBtn,enabled) = [RACSignal combineLatest:@[self.username.rac_textSignal,self.password.rac_textSignal] reduce:^id(NSString *username,NSString *password){
-        return @(username.length>=6&&password.length>=6);
+        return @(username.length==11&&password.length>=6);
     }];
     
 }

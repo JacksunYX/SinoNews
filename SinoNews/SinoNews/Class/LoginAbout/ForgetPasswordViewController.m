@@ -102,6 +102,9 @@
     username = [TXLimitedTextField new];
     username.clearButtonMode = UITextFieldViewModeWhileEditing;
     username.delegate = self;
+    username.limitedType = TXLimitedTextFieldTypeCustom;
+    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+    username.limitedNumber = 11;
     
     password = [TXLimitedTextField new];
     password.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -216,19 +219,23 @@
     //先做邮箱判断
     if ([username.text containsString:@"@"]) {
         if (![username.text isValidEmail]) {
-            LRToast(@"邮箱有误！");
+            LRToast(@"邮箱有误");
             return;
         }
         
     }else{
         if (![username.text isValidPhone]) {
-            LRToast(@"手机号有误！");
+            LRToast(@"手机号有误");
             return;
         }
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"account"] = username.text;
+    parameters[@"account"] = username.text;
+    NSString *str = AppendingString(AppendKey, username.text);
+    NSString * str2 = [str md5String].lowercaseString;
+    parameters[@"sign"] = str2;
     ShowHudOnly;
     [HttpRequest getWithURLString:SendValidCodeForAuthentication parameters:parameters success:^(id responseObject) {
         LRToast(@"验证码已发送");
@@ -253,13 +260,13 @@
         //先做邮箱判断
         if ([username.text containsString:@"@"]) {
             if (![username.text isValidEmail]) {
-                LRToast(@"邮箱有误！");
+                LRToast(@"邮箱有误");
                 return;
             }
             
         }else{
             if (![username.text isValidPhone]) {
-                LRToast(@"手机号有误！");
+                LRToast(@"手机号有误");
                 return;
             }
         }

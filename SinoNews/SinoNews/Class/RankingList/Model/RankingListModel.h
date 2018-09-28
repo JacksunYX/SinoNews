@@ -14,6 +14,7 @@
 @property (nonatomic,strong) NSString *companyLogo;
 @property (nonatomic,strong) NSString *companyName;
 @property (nonatomic,strong) NSString *companyUrl;
+@property (nonatomic,strong) NSString *website;
 @property (nonatomic,assign) NSInteger currentRank;
 @property (nonatomic,assign) float currentScore;
 @property (nonatomic,assign) NSInteger lastRank;

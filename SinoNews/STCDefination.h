@@ -16,9 +16,6 @@
 #ifndef BandingBankCardViewController
 #define BandingBankCardViewController _STCA8BAE25AC345C2EBAF08E905DAB70791_
 #endif
-#ifndef XLChannelModel
-#define XLChannelModel _STCD46AA9455348197D5FE91491233B03B9_
-#endif
 #ifndef CasinoCollectViewController
 #define CasinoCollectViewController _STCC3186F6DC3720B71FF81E8A18B6DCD9C_
 #endif
@@ -243,9 +240,6 @@
 #endif
 #ifndef PublishArticleViewController
 #define PublishArticleViewController _STCA1137E7B84ECAF820CFA6FD81DDDE9DF_
-#endif
-#ifndef UserModel
-#define UserModel _STCE097B791707E5448B12FD31B016B9783_
 #endif
 #ifndef UpdatePopView
 #define UpdatePopView _STC508D49B79842032083DA415D5AADA46A_

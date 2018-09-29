@@ -56,6 +56,7 @@ static float afterTime = 0.5;
     [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"Os_Version"];
     [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"Device_Platform"];
     [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"Device_Brand"];
+    [manager.requestSerializer setValue:@"QSL" forHTTPHeaderField:@"User-Agent"];
 
     return manager;
 }

@@ -34,7 +34,7 @@
 //    [manager confuseWithRootPath:[NSString stringWithFormat:@"%s", STRING(ROOT_PATH)] resultFilePath:[NSString stringWithFormat:@"%@/STCDefination.h", [NSString stringWithFormat:@"%s", STRING(ROOT_PATH)]] linkmapPath:[NSString stringWithFormat:@"%s", STRING(LINKMAP_FILE)]];
 #endif
     
-//    GGLog(@"BrowsNewsSingleton:%@",BrowsNewsSingleton.singleton.idsArr);
+    GGLog(@"BrowsNewsSingleton:%@",BrowsNewsSingleton.singleton.idsArr);
     if (UserGet(@"fontSize")) {
         
     }else{

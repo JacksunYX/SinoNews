@@ -600,8 +600,9 @@
     [HttpRequest postWithURLString:Mall_recharge parameters:@{@"amount":@(amount)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         NSString *rechargeUrl = response[@"data"][@"rechargeUrl"];
         GGLog(@"充值地址：%@",rechargeUrl);
-        
-        [[UIApplication sharedApplication] openURL:UrlWithStr(rechargeUrl)];
+        NSString *result = [rechargeUrl getUTF8String];
+        NSURL *url = UrlWithStr(result);
+        [[UIApplication sharedApplication] openURL:url];
         /*
         WebViewController *wVC = [WebViewController new];
         wVC.baseUrl = rechargeUrl;

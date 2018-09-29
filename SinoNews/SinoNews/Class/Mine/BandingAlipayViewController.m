@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.aliModel) {
+    if (![NSString isEmpty:self.aliModel.fullName]) {
         self.navigationItem.title = @"支付宝";
     }else{
         self.navigationItem.title = @"绑定支付宝";
@@ -144,7 +144,7 @@
         [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.account,self.name, nil];
     }];
     
-    if (self.aliModel) {
+    if (![NSString isEmpty:self.aliModel.fullName]) {
         self.name.text = GetSaveString(self.aliModel.fullName);
         [self.confirmBtn removeFromSuperview];
     }
@@ -177,7 +177,7 @@
 
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (self.aliModel) {
+    if (![NSString isEmpty:self.aliModel.fullName]) {
         return NO;
     }
     if (textField==self.account) {

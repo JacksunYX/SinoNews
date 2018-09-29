@@ -61,7 +61,7 @@ static CGFloat anumationTime = 0.3;
         textView.textColor = HexColor(#cfd3d6);
     }
 //    textView.limitLength = 10;
-    textView.placeholder = @"写点什么吧";
+    textView.placeholder = @"写点什么吧(最少10个字符)";
     
     UIButton *cancelBtn = [UIButton new];
     UIButton *sendBtn = [UIButton new];
@@ -115,7 +115,7 @@ static CGFloat anumationTime = 0.3;
     //监听textfield的输入状态
     textView.textViewDidChangeBlock = ^(UITextView *textView) {
 //        GGLog(@"text:%@",textView.text);
-        if (textView.text.length>0) {
+        if (textView.text.length>9) {
             [sendBtn setNormalTitleColor:HexColor(#1282EE)];
         }else{
             [sendBtn setNormalTitleColor:HexColor(#989898)];

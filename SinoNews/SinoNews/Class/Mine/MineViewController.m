@@ -1048,7 +1048,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 {
     ShowHudOnly;
     [HttpRequest getWithURLString:GetShareText parameters:nil success:^(id responseObject) {
-
+        
         HiddenHudOnly;
 
         [SharePopCopyView showWithData:responseObject[@"data"]];

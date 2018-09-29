@@ -187,12 +187,8 @@
     ShowHudOnly;
     [HttpRequest getWithURLString:GetUserAlipay parameters:nil success:^(id responseObject) {
         HiddenHudOnly;
-        if ([responseObject[@"data"] allKeys].count>0) {
-            self.aliModel = [UserAlipayModel mj_objectWithKeyValues:responseObject[@"data"]];
-            [self pushToEditVC];
-        }else{
-            LRToast(@"请求到的数据有误");
-        }
+        self.aliModel = [UserAlipayModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self pushToEditVC];
     } failure:^(NSError *error) {
         HiddenHudOnly;
         LRToast(@"请求失败");

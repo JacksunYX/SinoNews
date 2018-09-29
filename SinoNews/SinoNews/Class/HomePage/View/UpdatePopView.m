@@ -24,10 +24,9 @@ static int tag = 15532;
     openUrl = UrlWithStr(GetSaveString(data[@"link"]));
     
     //检查一下是否重复
-    for (UIView *subView in kWindow.subviews) {
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    for (UIView *subView in keyWindow.subviews) {
         if (subView.tag == tag) {
-//            [subView removeFromSuperview];
-//            break;
             return;
         }
     }
@@ -35,8 +34,7 @@ static int tag = 15532;
     //背景视图
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
     backView.backgroundColor = RGBA(0, 0, 0, 0);
-    
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    backView.tag = tag;
     [keyWindow addSubview:backView];
     
     //中间视图

@@ -39,6 +39,7 @@
     [self addTableView];
     self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.title = GetSaveString(self.model.itemTitle);
     //使用这句话设置导航栏颜色
 //    [self.navigationController.navigationBar setBarTintColor:RedColor];
     
@@ -47,9 +48,15 @@
     [self requestShowTopicDetail];
 }
 
+-(void)setNavigationBarBackImageColor:(UIColor *)color
+{
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:color] forBarMetrics:UIBarMetricsDefault];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 //    self.tableView.delegate = self;
 //    [self scrollViewDidScroll:self.tableView];
 }
@@ -57,6 +64,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 //    self.tableView.delegate = nil;
 //    [self.navigationController.navigationBar lt_reset];
 }

@@ -132,9 +132,13 @@
     
     //添加显示控件
     productImage = [UIImageView new];
+    
     productName = [UILabel new];
     productName.font = PFFontL(13);
     productName.textColor = HexColor(#1282EE);
+    productName.textAlignment = NSTextAlignmentCenter;
+    productName.numberOfLines = 3;
+    
     [leftView sd_addSubviews:@[
                                productImage,
                                productName,
@@ -150,11 +154,12 @@
     
     productName.sd_layout
     .topEqualToView(productImage)
+    .bottomEqualToView(productImage)
     .leftSpaceToView(productImage, 10)
     .rightSpaceToView(leftView, 10)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
     ;
-    [productName setMaxNumberOfLinesToShow:3];
+//    [productName setMaxNumberOfLinesToShow:3];
     
     time = [UILabel new];
     time.font = PFFontL(12);

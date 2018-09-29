@@ -148,7 +148,8 @@
         self.name.text = GetSaveString(self.aliModel.fullName);
         [self.confirmBtn removeFromSuperview];
     }
-    self.account.text = @"支付宝账号默认为您注册时的手机号";
+    UserModel *user = [UserModel getLocalUserModel];
+    self.account.text = [NSString stringWithFormat:@"%ld",user.mobile];
 }
 
 -(void)confirmAction:(UIButton *)sender

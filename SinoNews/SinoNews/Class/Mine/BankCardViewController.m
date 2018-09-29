@@ -100,7 +100,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 40;
+        return 50;
     }
     return 0.01;
 }
@@ -131,14 +131,15 @@
                                    sepLine,
                                    ]];
         add.sd_layout
-        .leftSpaceToView(footView, 30)
+        .leftSpaceToView(footView, 10)
         .topSpaceToView(footView, 10)
-        .bottomSpaceToView(footView, 10)
+        .bottomSpaceToView(footView, 20)
         .widthIs(120)
         ;
         [add setNormalTitle:@"更换银行卡"];
         [add setNormalImage:UIImageNamed(@"bankCard_addIcon")];
         add.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+        add.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         
         sepLine.sd_layout
         .bottomEqualToView(footView)

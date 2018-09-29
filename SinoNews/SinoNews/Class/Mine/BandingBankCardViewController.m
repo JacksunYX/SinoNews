@@ -18,7 +18,7 @@
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @end
 static CGFloat noticMaxWidth = 100;
-static CGFloat leftMargin = 114;
+static CGFloat leftMargin = 110;
 @implementation BandingBankCardViewController
 -(ZYKeyboardUtil *)keyboardUtil
 {
@@ -30,7 +30,7 @@ static CGFloat leftMargin = 114;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"添加银行卡";
+    self.navigationItem.title = @"银行卡";
     self.view.backgroundColor = WhiteColor;
     [self setUI];
     @weakify(self);
@@ -95,14 +95,14 @@ static CGFloat leftMargin = 114;
     self.confirmBtn.backgroundColor = HexColor(#3E9FFC);
     
     [self.view sd_addSubviews:@[
-                                self.cardNumber,
-                                accountLabel,
-                                speLine1,
-                                
                                 self.cardHolder,
                                 nameLabel,
                                 speLine2,
                                 
+                                self.cardNumber,
+                                accountLabel,
+                                speLine1,
+
                                 self.bankName,
                                 banknameLabel,
                                 speLine3,
@@ -113,36 +113,16 @@ static CGFloat leftMargin = 114;
                                 
                                 self.confirmBtn,
                                 ]];
-    self.cardNumber.sd_layout
+    
+    
+    self.cardHolder.sd_layout
+//    .topEqualToView(speLine1)
     .topEqualToView(self.view)
     .leftSpaceToView(self.view, leftMargin)
     .rightSpaceToView(self.view, 10)
     .heightIs(50)
     ;
-    self.cardNumber.placeholder = @"请输入卡号";
-    
-    accountLabel.sd_layout
-    .leftSpaceToView(self.view, 10)
-    .centerYEqualToView(self.cardNumber)
-    .heightIs(16)
-    ;
-    [accountLabel setSingleLineAutoResizeWithMaxWidth:noticMaxWidth];
-    accountLabel.text = @"卡号";
-    
-    speLine1.sd_layout
-    .topSpaceToView(self.cardNumber, 0)
-    .leftSpaceToView(self.view, 10)
-    .rightSpaceToView(self.view, 10)
-    .heightIs(1)
-    ;
-    
-    self.cardHolder.sd_layout
-    .topEqualToView(speLine1)
-    .leftSpaceToView(self.view, leftMargin)
-    .rightSpaceToView(self.view, 10)
-    .heightIs(50)
-    ;
-    self.cardHolder.placeholder = @"请输入持卡人姓名";
+    self.cardHolder.placeholder = @"请输入持卡人";
     
     nameLabel.sd_layout
     .leftSpaceToView(self.view, 10)
@@ -159,8 +139,32 @@ static CGFloat leftMargin = 114;
     .heightIs(1)
     ;
     
-    self.bankName.sd_layout
+    self.cardNumber.sd_layout
+//    .topEqualToView(self.view)
     .topEqualToView(speLine2)
+    .leftSpaceToView(self.view, leftMargin)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(50)
+    ;
+    self.cardNumber.placeholder = @"请输入您本人的卡号";
+    
+    accountLabel.sd_layout
+    .leftSpaceToView(self.view, 10)
+    .centerYEqualToView(self.cardNumber)
+    .heightIs(16)
+    ;
+    [accountLabel setSingleLineAutoResizeWithMaxWidth:noticMaxWidth];
+    accountLabel.text = @"卡号";
+    
+    speLine1.sd_layout
+    .topSpaceToView(self.cardNumber, 0)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(1)
+    ;
+    
+    self.bankName.sd_layout
+    .topEqualToView(speLine1)
     .leftSpaceToView(self.view, leftMargin)
     .rightSpaceToView(self.view, 10)
     .heightIs(50)
@@ -180,7 +184,7 @@ static CGFloat leftMargin = 114;
     .heightIs(16)
     ;
     [banknameLabel setSingleLineAutoResizeWithMaxWidth:noticMaxWidth];
-    banknameLabel.text = @"银行名称";
+    banknameLabel.text = @"开户行";
     
     speLine3.sd_layout
     .topSpaceToView(self.bankName, 0)
@@ -195,7 +199,7 @@ static CGFloat leftMargin = 114;
     .rightSpaceToView(self.view, 10)
     .heightIs(50)
     ;
-    self.openingBank.placeholder = @"请输入开户行名称";
+    self.openingBank.placeholder = @"格式:xxx支行";
     
     openingBankLabel.sd_layout
     .leftSpaceToView(self.view, 10)
@@ -203,7 +207,7 @@ static CGFloat leftMargin = 114;
     .heightIs(16)
     ;
     [openingBankLabel setSingleLineAutoResizeWithMaxWidth:noticMaxWidth];
-    openingBankLabel.text = @"开户行名称";
+    openingBankLabel.text = @"银行网点";
     
     speLine4.sd_layout
     .topSpaceToView(self.openingBank, 0)

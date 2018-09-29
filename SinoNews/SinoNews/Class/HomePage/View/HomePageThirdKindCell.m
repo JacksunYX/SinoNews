@@ -12,7 +12,7 @@
 {
     UILabel *title;
     UIImageView *img;
-    
+    UILabel *bottomLabel;
 }
 @end
 
@@ -42,7 +42,7 @@
     title = [UILabel new];
     title.font = NewsTitleFont;
 //    title.textColor = HexColor(#323232);
-    title.lee_theme.LeeConfigTextColor(@"titleColor");
+    [title addTitleColorTheme];
     
     img = [UIImageView new];
     img.userInteractionEnabled = YES;
@@ -57,6 +57,11 @@
     label2.font = FontScale(11);
     label2.textColor = HexColor(#1282EE);
     label2.textAlignment = NSTextAlignmentCenter;
+    
+    bottomLabel = [UILabel new];
+    bottomLabel.font = FontScale(11);
+    [bottomLabel addTitleColorTheme];
+//    bottomLabel.textColor = HexColor(#1282EE);
     
     UIView *sepLine = [UIView new];
     //设置不同环境下的颜色
@@ -73,6 +78,7 @@
                                        img,
                                        label1,
 //                                       label2,
+                                       bottomLabel,
                                        sepLine,
                                        ]];
     
@@ -87,7 +93,6 @@
     .autoHeightRatio(0)
     ;
     [title setMaxNumberOfLinesToShow:2];
-    title.text = @"上班族注意啦！用贝壳app租房～没想到这么便宜上班族注意啦！用贝壳app租房～没想到这么便宜上班族注意啦！用贝壳app租房～没想到这么便宜";
     
     CGFloat imgW = (ScreenW - lrMargin*2);
     CGFloat imgH = imgW * 160.0 / 355;
@@ -98,7 +103,6 @@
     .heightIs(imgH)
     ;
     [img  setSd_cornerRadius:@4];
-//    [img cornerWithRadius:4];
     
     label1.sd_layout
     .rightSpaceToView(self.contentView, lrMargin)
@@ -118,6 +122,13 @@
     LRViewBorderRadius(label2, 2, 1, HexColor(#1282EE));
     label2.text = @"立即下载";
     
+    bottomLabel.sd_layout
+    .leftSpaceToView(self.contentView, lrMargin)
+    .centerYEqualToView(label1)
+    .heightIs(ScaleW * 16)
+    ;
+    [bottomLabel setSingleLineAutoResizeWithMaxWidth:250];
+    
     sepLine.sd_layout
     .leftSpaceToView(self.contentView, 10)
     .rightSpaceToView(self.contentView, 10)
@@ -126,6 +137,12 @@
     ;
     
     [self setupAutoHeightWithBottomView:label1 bottomMargin:tbMargin];
+}
+
+-(void)setType:(NSInteger)type
+{
+    _type = type;
+    
 }
 
 -(void)setModel:(ADModel *)model
@@ -140,6 +157,20 @@
         title.text = titletext;
     }
     [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
+    
+    CGFloat lrMargin = 10;  //左右间距
+    CGFloat imgW = (ScreenW - lrMargin*2);
+    CGFloat imgH = imgW * 160.0 / 355;
+    bottomLabel.text = @"";
+    if (self.type == 1) {
+        imgH = imgW * 80.0 / 355;
+        bottomLabel.text = GetSaveString(self.model.name);
+    }
+    img.sd_layout
+    .widthIs(imgW)
+    .heightIs(imgH)
+    ;
+    [img  setSd_cornerRadius:@4];
 }
 
 

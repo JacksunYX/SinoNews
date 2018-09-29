@@ -6,7 +6,7 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#define IPHONE_X (([[UIScreen mainScreen] bounds].size.height == 812) && ([[UIScreen mainScreen] bounds].size.width == 375))
+#define IPHONE_X (([[UIScreen mainScreen] bounds].size.height >= 812) && ([[UIScreen mainScreen] bounds].size.width >= 375))
 #define HEIGHT_Adaptation (IPHONE_X ? ([UIScreen mainScreen].bounds.size.height)/812 : ([UIScreen mainScreen].bounds.size.height)/667)
 #define NAVI_HEIGHT (IPHONE_X ? 88 : 64)
 #define BOTTOM_MARGIN (IPHONE_X ? 34 : 0)

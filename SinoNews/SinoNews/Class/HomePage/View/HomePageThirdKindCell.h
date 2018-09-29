@@ -15,6 +15,7 @@
 
 @interface HomePageThirdKindCell : UITableViewCell
 
+@property (nonatomic,assign) NSInteger type;    //0为首页，1为详情页
 @property (nonatomic,strong) ADModel *model;
 
 @end

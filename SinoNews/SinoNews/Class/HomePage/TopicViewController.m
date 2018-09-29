@@ -35,13 +35,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self hiddenTopLine];
+    [self setTopLineColor:ClearColor];
     [self addTableView];
     self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     //使用这句话设置导航栏颜色
 //    [self.navigationController.navigationBar setBarTintColor:RedColor];
-
     
     [self showOrHideLoadView:YES page:2];
     
@@ -51,15 +50,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    self.tableView.delegate = self;
-    [self scrollViewDidScroll:self.tableView];
+//    self.tableView.delegate = self;
+//    [self scrollViewDidScroll:self.tableView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.tableView.delegate = nil;
-    [self.navigationController.navigationBar lt_reset];
+//    self.tableView.delegate = nil;
+//    [self.navigationController.navigationBar lt_reset];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,7 +71,7 @@
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     self.tableView.sd_layout
-    .topSpaceToView(self.view, StatusBarHeight)
+    .topSpaceToView(self.view, 0)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)

@@ -1308,6 +1308,7 @@ CGFloat static attentionBtnH = 26;
     if (indexPath.section == 0&&!NoPayedNews) {
         ADModel *model = self.newsModel.advertisements[indexPath.row];
         HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+        cell3.type = 1;
         cell3.model = model;
         cell = (UITableViewCell *)cell3;
     }else if (indexPath.section == 1&&!NoPayedNews) {
@@ -1390,7 +1391,7 @@ CGFloat static attentionBtnH = 26;
     if (section == 0&&!NoPayedNews) {
         return 110;
     }else if (section == 1&&self.newsModel.relatedNews.count&&!NoPayedNews) {
-        return 30;
+        return 40;
     }else if (section == 2){
         if (NoPayedNews) {
             return 230;
@@ -1405,7 +1406,7 @@ CGFloat static attentionBtnH = 26;
     UIView *headView;
     if (section == 0&&!NoPayedNews) {
         headView = [UIView new];
-        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        [headView addBakcgroundColorTheme];
         UIButton *praiseBtn = [UIButton new];
         [praiseBtn addButtonTextColorTheme];
         UILabel *notice = [UILabel new];
@@ -1417,10 +1418,10 @@ CGFloat static attentionBtnH = 26;
                                    notice,
                                    ]];
         praiseBtn.sd_layout
+        .topSpaceToView(headView, 10)
+        .centerXEqualToView(headView)
         .widthIs(60)
         .heightEqualToWidth()
-        .centerXEqualToView(headView)
-        .topSpaceToView(headView, 10)
         ;
         [praiseBtn setSd_cornerRadius:@30];
         [praiseBtn setNormalTitle:[NSString stringWithFormat:@"%ld",self.newsModel.praiseCount]];
@@ -1473,20 +1474,20 @@ CGFloat static attentionBtnH = 26;
         notice.sd_layout
         .centerXEqualToView(headView)
         .heightIs(14)
-        .bottomSpaceToView(headView, 17)
+        .bottomSpaceToView(headView, 10)
         ;
         [notice setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
         notice.text = @"启世录好文章，需要你勤劳的小手指";
         
     }else if (section == 1&&self.newsModel.relatedNews.count&&!NoPayedNews) {
         headView = [UIView new];
-        headView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+        [headView addBakcgroundColorTheme];
         UILabel *title = [UILabel new];
         title.font = PFFontR(16);
         title.textAlignment = NSTextAlignmentCenter;
-        title.lee_theme.LeeConfigTextColor(@"titleColor");
+        [title addBakcgroundColorTheme];
+        
         UIView *line = [UIView new];
-        //        line.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
         line.backgroundColor = HexColor(#BCD5EE);
         
         [headView sd_addSubviews:@[

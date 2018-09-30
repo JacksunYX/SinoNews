@@ -187,8 +187,9 @@
     
     [self addNavigationView];
     
-    [self showTopLine]; self.collectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
-    self.tableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
+    [self showTopLine];
+    [self.collectionView addBakcgroundColorTheme];
+    [self.tableView addBakcgroundColorTheme];
 //    self.keyTableView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     @weakify(self)
     self.keyTableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {

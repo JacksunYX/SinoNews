@@ -41,7 +41,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     [scrollView updateLayout];
     

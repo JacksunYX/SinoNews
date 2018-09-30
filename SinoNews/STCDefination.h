@@ -385,7 +385,24 @@
 #ifndef requestChangePassword
 #define requestChangePassword _STCA2C7CF5E84F7D3CE494BB5BE0B595BB1_
 #endif
-
+#ifndef getUserAlipay
+#define getUserAlipay _STC9974DAE9A79E9A1EB832D2EE3D4CA740_
+#endif
+#ifndef getUserBankCard
+#define getUserBankCard _STC76430A5997EDF6C4A6C1E72A12D48F85_
+#endif
+#ifndef checkBankNum
+#define checkBankNum _STCE965B46A54CEE9E041E6A58AF94F96DD_
+#endif
+#ifndef addBankCard
+#define addBankCard _STC7513DC21DE0FC7AB07CB3E4C5F3D9EE3_
+#endif
+#ifndef setUI
+#define setUI _STCBE9D7E932FFAA1560B93822AB4DBDB92_
+#endif
+#ifndef setUI2
+#define setUI2 _STC63F0F5FD2168D557C1EB945CB4850FF0_
+#endif
 
 
 #endif

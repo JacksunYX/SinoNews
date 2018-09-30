@@ -191,7 +191,7 @@
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .topEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     [self.tableView updateLayout];
     _tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {

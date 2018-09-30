@@ -1153,6 +1153,7 @@ static NSString *photoAssetCollectionName = @"LEE";
         _HUD.mode = MBProgressHUDModeCustomView; //设置自定义视图模式
         
         _HUD.color = [UIColor clearColor];
+        _HUD.activityIndicatorColor = [UIColor whiteColor];
         
         _HUD.customView = self.roundProgressView;
     }

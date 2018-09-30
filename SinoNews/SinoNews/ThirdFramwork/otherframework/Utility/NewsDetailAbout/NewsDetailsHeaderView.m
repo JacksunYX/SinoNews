@@ -410,7 +410,9 @@ static NSString *const ScriptName_loadGifImage = @"loadGifImage";
                 
                 NSString *src = [weakSelf getElementAttributeValueWithElement:imgHtml Attribute:@"src"];
 //                src = @"http://demo-resources.oss-cn-beijing.aliyuncs.com/newsdetailsdemo/a3b81ed6cff11fa4658.gif";
-                CGSize imageSize = [GetImageSizeTool downloadImageSizeWithURL:src];
+//                CGSize imageSize = [GetImageSizeTool downloadImageSizeWithURL:src];
+                CGSize imageSize = [UIImage getImageSizeWithURL:src];
+                GGLog(@"图片的尺寸为：%@",NSStringFromCGSize(imageSize));
                 imgHtml = [imgHtml stringByAppendingString:[NSString stringWithFormat:@"width=\"%.f\" height=\"%.f\"",imageSize.width,imageSize.height]];
                 
                 NSString *width = [weakSelf getElementAttributeValueWithElement:imgHtml Attribute:@"width"];

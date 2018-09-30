@@ -200,6 +200,7 @@
 		4C5494A620CE799500CB448E /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5494A520CE799500CB448E /* NSString+Time.m */; };
 		4C56137920CA342B00C7FA5A /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137820CA342B00C7FA5A /* ADModel.m */; };
 		4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */; };
+		4C5AC7022160795A00F9A7F9 /* UIImage+ImgSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5AC7012160795A00F9A7F9 /* UIImage+ImgSize.m */; };
 		4C5BFD00211AD7E000EF82DA /* CasinoCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5BFCFF211AD7E000EF82DA /* CasinoCollectViewController.m */; };
 		4C5BFD02211AF41300EF82DA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BFD01211AF41200EF82DA /* AudioToolbox.framework */; };
 		4C5BFD05211AF5D800EF82DA /* like.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4C5BFD04211AF46200EF82DA /* like.caf */; };
@@ -973,6 +974,8 @@
 		4C56137820CA342B00C7FA5A /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
 		4C56137C20CA748600C7FA5A /* AttentionRecommendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttentionRecommendVC.h; sourceTree = "<group>"; };
 		4C56137D20CA748600C7FA5A /* AttentionRecommendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttentionRecommendVC.m; sourceTree = "<group>"; };
+		4C5AC7002160795900F9A7F9 /* UIImage+ImgSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImgSize.h"; sourceTree = "<group>"; };
+		4C5AC7012160795A00F9A7F9 /* UIImage+ImgSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImgSize.m"; sourceTree = "<group>"; };
 		4C5BFCFE211AD7E000EF82DA /* CasinoCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CasinoCollectViewController.h; sourceTree = "<group>"; };
 		4C5BFCFF211AD7E000EF82DA /* CasinoCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CasinoCollectViewController.m; sourceTree = "<group>"; };
 		4C5BFD01211AF41200EF82DA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -2275,6 +2278,8 @@
 			children = (
 				4C3F901920BD006C003EC4FC /* UIImage+Util.h */,
 				4C3F901A20BD006C003EC4FC /* UIImage+Util.m */,
+				4C5AC7002160795900F9A7F9 /* UIImage+ImgSize.h */,
+				4C5AC7012160795A00F9A7F9 /* UIImage+ImgSize.m */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -4311,6 +4316,7 @@
 				4C7234E920FDEB1D00D5C5D4 /* AAPie.m in Sources */,
 				4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */,
 				4C72346720FCC28300D5C5D4 /* UINavigationBar+Awesome.m in Sources */,
+				4C5AC7022160795A00F9A7F9 /* UIImage+ImgSize.m in Sources */,
 				4C6E91A2213F5F07001535CA /* YYDispatchQueuePool.m in Sources */,
 				4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */,
 				4C6E9180213F5F07001535CA /* UIBezierPath+YYAdd.m in Sources */,
@@ -4563,7 +4569,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4dcb1b86-8ed0-46ac-b66a-bd13fef477fd";
-				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "发布描述文件";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

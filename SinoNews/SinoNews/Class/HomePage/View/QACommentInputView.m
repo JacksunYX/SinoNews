@@ -111,11 +111,14 @@ static CGFloat anumationTime = 0.3;
     [sendBtn setBtnFont:PFFontL(16)];
     [sendBtn setNormalTitleColor:HexColor(#989898)];
     [sendBtn addBakcgroundColorTheme];
+    sendBtn.enabled = NO;
     
     //监听textfield的输入状态
     textView.textViewDidChangeBlock = ^(UITextView *textView) {
 //        GGLog(@"text:%@",textView.text);
+        sendBtn.enabled = NO;
         if (textView.text.length>9) {
+            sendBtn.enabled = YES;
             [sendBtn setNormalTitleColor:HexColor(#1282EE)];
         }else{
             [sendBtn setNormalTitleColor:HexColor(#989898)];

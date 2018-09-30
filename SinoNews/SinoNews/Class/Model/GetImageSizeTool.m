@@ -127,7 +127,6 @@ singleton_implementation(GetImageSizeTool)
         }
         
     }
-    GGLog(@"图片的尺寸为：%@",NSStringFromCGSize(size));
     
     return size;
 }

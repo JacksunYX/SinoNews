@@ -41,5 +41,6 @@
 #import "NSArray+Extension.h"
 #import "Util.h"
 #import "UITabBar+badge.h"
+#import "UIImage+ImgSize.h"
 
 #endif /* ToolsHeader_h */

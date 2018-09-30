@@ -870,9 +870,9 @@ CGFloat static titleViewHeight = 150;
         self.commentArr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:self.answerModel.comments];
         self.currPage = 1;
         
-        [self.tableView reloadData];
-        
         [self setWebViewLoad];
+        
+        [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];

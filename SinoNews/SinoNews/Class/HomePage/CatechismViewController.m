@@ -89,8 +89,6 @@ CGFloat static titleViewHeight = 150;
     
     [self configBlock];
     
-    [self showOrHideLoadView:YES page:2];
-    
     [self hiddenTopLine];
     
     [self requestNewData];
@@ -153,8 +151,6 @@ CGFloat static titleViewHeight = 150;
         }
         [self requestNews_listAnswer];
     }];
-    
-    [self refreshComments];
     
     _headerView = [[NewsDetailsHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
     
@@ -699,6 +695,7 @@ CGFloat static titleViewHeight = 150;
                 self.tableView.alpha = 1.0f;
                 [self showOrHideLoadView:NO page:2];
             }];
+            [self refreshComments];
             
         } else {
             
@@ -1180,6 +1177,7 @@ CGFloat static titleViewHeight = 150;
 -(void)requestNewData
 {
     [self showOrHideLoadView:YES page:2];
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.news_id);
     
@@ -1190,12 +1188,11 @@ CGFloat static titleViewHeight = 150;
         
         [self.tableView reloadData];
         
-//        [self setWebViewLoad];
-        
     } failure:^(NSError *error) {
         
         [self.tableView.mj_header endRefreshing];
     }];
+    
 }
 
 //获取回答列表

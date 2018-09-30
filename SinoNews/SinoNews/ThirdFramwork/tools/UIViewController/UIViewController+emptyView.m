@@ -8,7 +8,7 @@
 
 #import "UIViewController+emptyView.h"
 
-static int tag1 = 206118;
+static int tag = 206118;
 
 @implementation UIViewController (emptyView)
 
@@ -33,16 +33,16 @@ static int tag1 = 206118;
 //显隐加载背景
 -(void)showOrHideLoadView:(BOOL)show page:(NSInteger)pageType
 {
-    if ([[self.view viewWithTag:tag1] isKindOfClass:[UIImageView class]]) {
+    if ([[self.view viewWithTag:tag] isKindOfClass:[UIImageView class]]) {
 
-        [self show:show view:[self.view viewWithTag:tag1]];
+        [self show:show view:[self.view viewWithTag:tag]];
         
     }else{
         if (!show) {
             return;
         }
         UIImageView *loadingImg = [UIImageView new];
-        loadingImg.tag = tag1;
+        loadingImg.tag = tag;
         loadingImg.userInteractionEnabled = YES;
         [self.view addSubview:loadingImg];
         [self.view bringSubviewToFront:loadingImg];
@@ -53,14 +53,8 @@ static int tag1 = 206118;
         .bottomSpaceToView(self.view, BOTTOM_MARGIN)
         ;
         [loadingImg updateLayout];
-        
-        NSMutableArray *imageArr = [NSMutableArray new];
-        for (int i = 0;i < 6;i++) {
-            NSString *imageName = [NSString stringWithFormat:@"loading_pic_%d",i];
-            [imageArr addObject:UIImageNamed(imageName)];
-        }
 
-        [YJProgressHUD showCustomLoadingInview:loadingImg];
+        
         
         /*
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -93,6 +87,8 @@ static int tag1 = 206118;
                 [loadingImg addBakcgroundColorTheme];
                 break;
         }
+        
+        [YJProgressHUD showCustomLoadingInview:loadingImg];
         
         [self show:show view:loadingImg];
     }

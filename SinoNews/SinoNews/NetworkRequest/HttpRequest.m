@@ -51,13 +51,13 @@ static float afterTime = 0.5;
     NSString *token = GetSaveString(UserGet(@"token"));
 
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
-    [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"Device_No"];
-    [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"App_Version"];
-    [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"Os_Version"];
-    [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"Device_Platform"];
-    [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"Device_Brand"];
+    [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"Device-No"];
+    [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"App-Version"];
+    [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"Os-Version"];
+    [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"Device-Platform"];
+    [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"Device-Brand"];
     [manager.requestSerializer setValue:@"QSL" forHTTPHeaderField:@"User-Agent"];
-
+    
     return manager;
 }
 

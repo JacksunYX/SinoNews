@@ -2290,6 +2290,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C5AC7032160B0F600F9A7F9 /* AutoPacking */,
 				4CB68B6B2154E14400ACE1D6 /* CryptLib */,
 				4C73383621465B0B0001B33F /* YJProgressHUDK */,
 				4C6E90A7213F5F06001535CA /* YYKit */,
@@ -2559,6 +2560,13 @@
 				4C534F2620E1C6E800754695 /* NSString+AttText.m */,
 			);
 			path = NSString;
+			sourceTree = "<group>";
+		};
+		4C5AC7032160B0F600F9A7F9 /* AutoPacking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AutoPacking;
 			sourceTree = "<group>";
 		};
 		4C5BFD03211AF44000EF82DA /* SoundSource */ = {
@@ -4569,7 +4577,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4dcb1b86-8ed0-46ac-b66a-bd13fef477fd";
-				PROVISIONING_PROFILE_SPECIFIER = "发布描述文件";
+				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

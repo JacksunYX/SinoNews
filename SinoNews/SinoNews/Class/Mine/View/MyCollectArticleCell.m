@@ -43,7 +43,7 @@
 -(void)setUI
 {
     img = [UIImageView new];
-    img.backgroundColor = Arc4randomColor;
+//    img.backgroundColor = Arc4randomColor;
     
     title = [UILabel new];
     title.font = PFFontL(15);

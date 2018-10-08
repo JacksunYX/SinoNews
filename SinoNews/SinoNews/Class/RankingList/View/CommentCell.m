@@ -115,7 +115,7 @@
     .heightEqualToWidth()
     ;
     [avatar setSd_cornerRadius:@14];
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     
     praise.sd_layout
     .rightSpaceToView(fatherView, 10)

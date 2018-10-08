@@ -48,7 +48,7 @@
 {
     
     avatar = [UIImageView new];
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     
     username = [UILabel new];
     username.font = PFFontR(12);
@@ -71,13 +71,13 @@
     
     imgL = [UIImageView new];
     imgL.userInteractionEnabled = YES;
-    imgL.backgroundColor = Arc4randomColor;
+//    imgL.backgroundColor = Arc4randomColor;
     imgC = [UIImageView new];
     imgC.userInteractionEnabled = YES;
-    imgC.backgroundColor = Arc4randomColor;
+//    imgC.backgroundColor = Arc4randomColor;
     imgR = [UIImageView new];
     imgR.userInteractionEnabled = YES;
-    imgR.backgroundColor = Arc4randomColor;
+//    imgR.backgroundColor = Arc4randomColor;
     
     [self.contentView sd_addSubviews:@[
                                        avatar,

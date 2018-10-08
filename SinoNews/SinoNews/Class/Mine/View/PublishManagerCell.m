@@ -136,7 +136,7 @@
     .widthIs(46)
     .heightEqualToWidth()
     ;
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     [avatar setSd_cornerRadius:@23];
     
     username.sd_layout

@@ -70,17 +70,23 @@
 void uncaughtExceptionHandler(NSException *exception) {
     
     GGLog(@"reason: %@", exception.reason);
+//    GGLog(@"callStackSymbols: %@", exception.callStackSymbols);
     
+    NSMutableArray *reasonArr = [NSMutableArray arrayWithArray:exception.callStackSymbols];
+    [reasonArr insertObject:exception.reason atIndex:0];
+//    GGLog(@"%@",reasonArr);
     // Internal error reporting
     //上报至后台接口
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    parameters[@"message"] = exception.reason;
+    parameters[@"message"] = reasonArr;
     
     [HttpRequest postWithURLString:ErrorResponse parameters:parameters isShowToastd:NO isShowHud:NO isShowBlankPages:NO success:^(id response) {
         GGLog(@"已上报");
     } failure:nil RefreshAction:nil];
     sleep(2);
+    
 }
 
 //设置主界面内容

@@ -89,7 +89,7 @@ static float afterTime = 0.5;
                     //清空登录状态
                     [UserModel clearLocalData];
                 }else{
-                    LRToast(resultdic[@"alertMsg"]);
+                    LRToast(AppendingString(@"error:", resultdic[@"alertMsg"]));
                 }
                 if (failure) {
                     failure(nil);
@@ -101,7 +101,6 @@ static float afterTime = 0.5;
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-//        LRToast(@"请求失败");
         if (failure) {
             failure(error);
         }
@@ -151,7 +150,8 @@ static float afterTime = 0.5;
                 success(resultdic);
             }else{
                 if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
-                    LRToast(resultdic[@"alertMsg"]);
+                    LRToast(AppendingString(@"ERROR:", resultdic[@"alertMsg"]));
+                    
                 }else{
                     kWindow.userInteractionEnabled = NO;
                 }
@@ -189,8 +189,6 @@ static float afterTime = 0.5;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
         HiddenHudOnly;
-        
-//        LRToast(@"请求失败");
         if (failure) {
             //失败返回错误原因
             failure(error);
@@ -244,7 +242,7 @@ static float afterTime = 0.5;
                 success(resultdic);
             }else{
                 if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
-                    LRToast(resultdic[@"alertMsg"]);
+                    LRToast(AppendingString(@"ERROR:", resultdic[@"alertMsg"]));
                 }else{
                     kWindow.userInteractionEnabled = NO;
                 }
@@ -278,8 +276,6 @@ static float afterTime = 0.5;
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         //隐藏loding
         HiddenHudOnly;
-        
-//        LRToast(@"请求失败");
         
         if (failure) {
             
@@ -343,7 +339,7 @@ static float afterTime = 0.5;
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                LRToast(resultdic[@"alertMsg"]);
+                LRToast(AppendingString(@"ERROR:", resultdic[@"alertMsg"]));
                 GCDAfterTime(afterTime, ^{
                     //未登陆
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {

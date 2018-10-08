@@ -10,6 +10,7 @@
 
 @interface PGCustomBannerView ()
 @property (nonatomic, strong) UILabel *topicLabel;
+@property (nonatomic, strong) UIView *indexLabelBackView;
 @end
 
 @implementation PGCustomBannerView
@@ -20,6 +21,7 @@
     
     if (self) {
         [self addSubview:self.topicLabel];
+        [self addSubview:self.indexLabelBackView];
         [self addSubview:self.indexLabel];
     }
     
@@ -34,7 +36,8 @@
     
     self.mainImageView.frame = superViewBounds;
     self.coverView.frame = superViewBounds;
-    self.indexLabel.frame = CGRectMake(10, superViewBounds.size.height - 60, superViewBounds.size.width - 15, 50);
+    self.indexLabel.frame = CGRectMake(10, superViewBounds.size.height - 50, superViewBounds.size.width - 20, 50);
+    self.indexLabelBackView.frame = CGRectMake(0, superViewBounds.size.height - 50, superViewBounds.size.width, 50);
     self.topicLabel.frame = CGRectMake(10, CGRectGetMinY(self.indexLabel.frame) - 5 - 20, 35, 20);
     self.topicLabel.text = @"专题";
     [self.topicLabel cornerWithRadius:3];
@@ -50,6 +53,15 @@
         _indexLabel.numberOfLines = 2;
     }
     return _indexLabel;
+}
+
+-(UIView *)indexLabelBackView
+{
+    if (!_indexLabelBackView) {
+        _indexLabelBackView = [UIView new];
+        _indexLabelBackView.backgroundColor = kWhite(0.5);
+    }
+    return _indexLabelBackView;
 }
 
 -(UILabel *)topicLabel

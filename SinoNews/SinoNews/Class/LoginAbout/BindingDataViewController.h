@@ -11,7 +11,7 @@
 
 @interface BindingDataViewController : BaseViewController
 
-@property (nonatomic,assign) NSInteger bindingType;
+@property (nonatomic,assign) NSInteger bindingType; //1是手机
 @property (nonatomic,assign) BOOL isUpdate; //是更新还是直接设置
 
 @end

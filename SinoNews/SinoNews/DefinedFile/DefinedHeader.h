@@ -61,7 +61,7 @@
 //随机色
 #define Arc4randomColor RGB(arc4random_uniform(256),arc4random_uniform(256),arc4random_uniform(256))
 
-#define kWhite(x) [UIColor colorWithWhite:x alpha:1.0f]
+#define kWhite(x) [UIColor colorWithWhite:0 alpha:x]
 
 
 //从plist文件中查找相对应的字段请求地址

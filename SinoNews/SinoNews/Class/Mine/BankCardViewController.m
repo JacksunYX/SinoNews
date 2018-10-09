@@ -33,7 +33,12 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+    if (UserGetBool(@"NightMode")) {
+        UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
+    }else{
+        UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
+    }
+    
 }
 
 -(void)back

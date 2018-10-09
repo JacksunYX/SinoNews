@@ -11,14 +11,12 @@
 #define DefinedHeader_h
 
 //接口域名
-#define DefaultDomainName DebugDomain3
+#define DefaultDomainName DebugDomain
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087"
 #define DebugDomain2 @"http://192.168.2.144:8083"
 #define DebugDomain3 @"https://qsl.bravetroops.biz"
-
-//正式环境
 
 
 //图片域名

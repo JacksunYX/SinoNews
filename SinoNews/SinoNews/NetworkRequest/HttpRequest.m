@@ -9,6 +9,7 @@
 #import "HttpRequest.h"
 #import "AddressViewController.h"
 static float afterTime = 0.5;
+static NSString * const ErrorString = @"提示:";
 
 @implementation HttpRequest
 //获取通用的请求manager
@@ -89,7 +90,7 @@ static float afterTime = 0.5;
                     //清空登录状态
                     [UserModel clearLocalData];
                 }else{
-                    LRToast(AppendingString(@"error:", resultdic[@"alertMsg"]));
+                    LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
                 }
                 if (failure) {
                     failure(nil);
@@ -150,7 +151,7 @@ static float afterTime = 0.5;
                 success(resultdic);
             }else{
                 if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
-                    LRToast(AppendingString(@"ERROR:", resultdic[@"alertMsg"]));
+                    LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
                     
                 }else{
                     kWindow.userInteractionEnabled = NO;
@@ -242,7 +243,7 @@ static float afterTime = 0.5;
                 success(resultdic);
             }else{
                 if (isshowtoastd == YES&&[resultdic[@"statusCode"] integerValue] != 110001) {
-                    LRToast(AppendingString(@"ERROR:", resultdic[@"alertMsg"]));
+                    LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
                 }else{
                     kWindow.userInteractionEnabled = NO;
                 }
@@ -339,7 +340,7 @@ static float afterTime = 0.5;
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
             }else{
-                LRToast(AppendingString(@"ERROR:", resultdic[@"alertMsg"]));
+                LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
                 GCDAfterTime(afterTime, ^{
                     //未登陆
                     if ([resultdic[@"statusCode"] integerValue] == 110001) {

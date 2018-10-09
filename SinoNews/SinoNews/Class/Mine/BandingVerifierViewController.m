@@ -114,7 +114,6 @@
                 [self getUserBankCard];
             }
         } failure:^(NSError *error) {
-            LRToast(@"请求失败");
             HiddenHudOnly;
         }];
     }
@@ -158,11 +157,18 @@
     }];
 }
 
-//检测空格
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    //检测空格
     NSString *tem = [[string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]componentsJoinedByString:@""];
     if (![string isEqualToString:tem]) {
+        return NO;
+    }
+    //处理密文时自动清空的问题
+    NSString * textfieldContent = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (textField == self.password && textField.isSecureTextEntry) {
+        textField.text = textfieldContent;
         return NO;
     }
     return YES;
@@ -191,7 +197,6 @@
         [self pushToEditVC];
     } failure:^(NSError *error) {
         HiddenHudOnly;
-        LRToast(@"请求失败");
     }];
 }
 

@@ -6,6 +6,8 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
+#define dispatch_main_sync_safe
+
 #import "GetImageSizeTool.h"
 
 @implementation GetImageSizeTool
@@ -28,8 +30,6 @@ singleton_implementation(GetImageSizeTool)
         
     }
     
-    
-    
     if(URL == nil) {
         NSLog(@"网址有误!");
         return CGSizeZero;    // url为空则返回CGSizeZero
@@ -41,11 +41,17 @@ singleton_implementation(GetImageSizeTool)
     }
     NSString* absoluteString = URL.absoluteString;
     
+//    if ([[NSUserDefaults standardUserDefaults] objectForKey:absoluteString]) {
+//        
+//        //将最终的自适应的高度 本地化处理
+//        [[NSUserDefaults standardUserDefaults] setObject:@(13) forKey:absoluteString];
+//    }
+    
     //如果未使用SDWebImage，则忽略；检查是否缓存过该图片
     
 #ifdef dispatch_main_sync_safe
     
-    if([[SDImageCache sharedImageCache] diskImageExistsWithKey:absoluteString])
+    if([[SDImageCache sharedImageCache] diskImageDataExistsWithKey:absoluteString])
         
     {
         
@@ -104,9 +110,10 @@ singleton_implementation(GetImageSizeTool)
         
     {
         
-        // 如果获取文件头信息失败,发送异步请求请求原图
+        // 如果获取文件头信息失败,请求原图
         
-        NSData* data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:URL] returningResponse:nil error:nil];
+//        NSData* data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:URL] returningResponse:nil error:nil];
+        NSData* data = [NSData dataWithContentsOfURL:URL];
         
         UIImage* image = [UIImage imageWithData:data];
         
@@ -118,8 +125,8 @@ singleton_implementation(GetImageSizeTool)
             
 #ifdef dispatch_main_sync_safe
             
-            [[SDImageCache sharedImageCache] storeImage:image recalculateFromImage:YES imageData:data forKey:URL.absoluteString toDisk:YES];
-            
+//            [[SDImageCache sharedImageCache] storeImage:image imageData:data forKey:absoluteString toDisk:YES completion:nil];
+            [[SDImageCache sharedImageCache] storeImageDataToDisk:data forKey:absoluteString];
 #endif
             
             size = image.size;
@@ -165,7 +172,7 @@ singleton_implementation(GetImageSizeTool)
         
         [data getBytes:&h4 range:NSMakeRange(7, 1)];
         
-        int h = (h1 << 24) + (h2 << 16) + (h3 << 8) + h4;
+        long h = (h1 << 24) + (h2 << 16) + (h3 << 8) + h4;
         
         return CGSizeMake(w, h);
         

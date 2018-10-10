@@ -425,7 +425,7 @@
         }
         //限制最大输入长度
         else if (textField.text.length >= 5) {
-            textField.text = [textField.text substringToIndex:6];
+            textField.text = [textField.text substringToIndex:5];
             return NO;
         }
         

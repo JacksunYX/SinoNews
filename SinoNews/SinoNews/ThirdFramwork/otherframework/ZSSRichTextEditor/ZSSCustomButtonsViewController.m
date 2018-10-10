@@ -45,6 +45,9 @@
 -(void)setCustomBtns
 {
     CGFloat btnW = self.view.bounds.size.width/5;
+    if (self.hiddenSettingBtn) {
+        btnW = self.view.bounds.size.width/4;
+    }
     // Create the custom buttons
     UIButton *insertImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.0f, btnW, 49.0f)];
     [insertImageBtn setImage:[UIImage imageNamed:@"ZSSimage"] forState:UIControlStateNormal];
@@ -70,6 +73,7 @@
                 action:@selector(locationRedo)
       forControlEvents:UIControlEventTouchUpInside];
     
+    
     UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.0f, btnW, 49.0f)];
     [settingBtn setImage:[UIImage imageNamed:@"ZSSkeyboard"] forState:UIControlStateNormal];
     [settingBtn addTarget:self
@@ -92,8 +96,9 @@
     [self addCustomToolbarItemWithButton:boldBtn];
     [self addCustomToolbarItemWithButton:undoBtn];
     [self addCustomToolbarItemWithButton:redoBtn];
-    [self addCustomToolbarItemWithButton:settingBtn];
-    
+    if (!self.hiddenSettingBtn) {
+        [self addCustomToolbarItemWithButton:settingBtn];
+    }
 }
 
 //暂未使用

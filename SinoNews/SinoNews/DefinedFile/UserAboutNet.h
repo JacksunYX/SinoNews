@@ -53,6 +53,9 @@
 //添加文章(发布文章)(post)
 #define News_create         @"/api/news/create"
 
+//发布付费新闻(post)
+#define CreatePaid           @"/api/news/createPaid"
+
 //查看私信列表(get)
 #define ListMessages        @"/api/message/listMessages"
 //向系统发送私信(post)

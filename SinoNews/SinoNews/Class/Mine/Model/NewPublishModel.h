@@ -29,4 +29,8 @@
 
 //草稿专用-已选频道数组
 @property (nonatomic,strong) NSArray *channelIds;
+
+//新增
+@property (nonatomic,assign) NSInteger chargeType;  //是否是付费新闻
+
 @end

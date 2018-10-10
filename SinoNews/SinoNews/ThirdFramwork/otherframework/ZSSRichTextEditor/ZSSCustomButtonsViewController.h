@@ -14,6 +14,6 @@
 
 -(void)canTouch:(BOOL)yesOrNo;
 
-
+@property (nonatomic,assign) BOOL hiddenSettingBtn;   //是否隐藏设置按钮
 
 @end

@@ -42,8 +42,8 @@
         @strongify(self)
 //        PubLishChannelSelectVC *pcsVC = [PubLishChannelSelectVC new];
 //        [self.navigationController pushViewController:pcsVC animated:YES];
-        PublishArticleViewController *paVC = [PublishArticleViewController new];
-        [self.navigationController pushViewController:paVC animated:YES];
+        
+        [self selectArticleType];
     }];
     
     UIButton *secondBtn = [UIButton new];
@@ -93,7 +93,26 @@
     notice.text = @"请选择你要发布的类型";
 }
 
-
+-(void)selectArticleType
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"是否要发布付费文章?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        PublishArticleViewController *paVC = [PublishArticleViewController new];
+        [self.navigationController pushViewController:paVC animated:YES];
+    }];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        PublishArticleViewController *paVC = [PublishArticleViewController new];
+        paVC.isPayArticle = YES;
+        [self.navigationController pushViewController:paVC animated:YES];
+    }];
+    
+    [alertVC addAction:cancel];
+    [alertVC addAction:confirm];
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
 
 
 

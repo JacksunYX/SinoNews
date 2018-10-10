@@ -85,18 +85,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
-
+    
     [self showTopLine];
     
     NSString *title = @"发布文章";
+    if (self.isPayArticle) {
+        title = @"发布文章(免费内容)";
+    }
     self.topViewH = 54;
     if (self.editType == 1) {
         title = @"发布问答";
         self.topViewH = 0;
+    }else if(self.editType == 2){
+        title = @"发布文章(付费内容)";
+        self.topViewH = 0;
     }
     self.navigationItem.title = title;
     [self setNavigation];
-//    [self setUI];
+    //    [self setUI];
     [self setUI2];
 }
 
@@ -117,10 +123,15 @@
     editBtn.font = PFFontL(15);
     editBtn.textColor = RGBA(18, 130, 238, 1);
     editBtn.text = @"发布";
+    if (self.isPayArticle&&self.editType!=2) {
+        rightBtn.frame = CGRectMake(0, 0, 60, 40);
+        editBtn.text = @"下一步";
+        editBtn.frame = CGRectMake(0, 0, 60, 25);
+    }
     editBtn.layer.cornerRadius = 3;
     editBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
     editBtn.layer.borderWidth = 1;
-//    [rightBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
+    //    [rightBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
     @weakify(self);
     [rightBtn whenTap:^{
         @strongify(self);
@@ -130,7 +141,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     
-//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
+    //    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
 }
 
 -(void)back
@@ -154,7 +165,7 @@
         placehold = @"请输入问题";
         self.wordViewController.view.frame = self.view.bounds;
     }else{
-//        self.channelChoose.backgroundColor = WhiteColor;
+        //        self.channelChoose.backgroundColor = WhiteColor;
         self.wordViewController.view.frame = CGRectMake(0, self.topViewH, self.view.bounds.size.width, self.view.bounds.size.height - self.topViewH);
     }
     self.wordViewController.textView.titleTextField.placeholder = placehold;
@@ -206,44 +217,53 @@
             self.channelId = channelIdStr;
         };
     }
-
-    //标题
-    _titleInputField = [TXLimitedTextField new];
-    _titleInputField.font = PFFontL(17);
-    _titleInputField.placeholder = @"请输入标题";
-    _titleInputField.delegate = self;
-    [self.view addSubview:_titleInputField];
-    _titleInputField.sd_layout
-    .topSpaceToView(_channelSelectionView, 0)
-    .leftSpaceToView(self.view, 10)
-    .rightSpaceToView(self.view, 10)
-    .heightIs(43)
-    ;
-    [_titleInputField updateLayout];
-
-    UIView *sepLine = [UIView new];
-    [self.view addSubview:sepLine];
-    sepLine.sd_layout
-    .topSpaceToView(_titleInputField, 0)
-    .leftSpaceToView(self.view, 10)
-    .rightSpaceToView(self.view, 10)
-    .heightIs(1)
-    ;
-    [sepLine updateLayout];
-    //加虚线
-    [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
     
     //添加输入界面
     inputViewController = [[ZSSCustomButtonsViewController alloc]init];
+    if (self.isPayArticle) {
+        inputViewController.hiddenSettingBtn = YES;
+    }
     if (self.draftModel) {
         [inputViewController setHTML:self.draftModel.content];
     }
     
+    if (self.editType == 2&&self.isPayArticle) {
+        inputViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    }else{
+        //标题
+        _titleInputField = [TXLimitedTextField new];
+        _titleInputField.font = PFFontL(17);
+        _titleInputField.placeholder = @"请输入标题";
+        _titleInputField.delegate = self;
+        [self.view addSubview:_titleInputField];
+        _titleInputField.sd_layout
+        .topSpaceToView(_channelSelectionView, 0)
+        .leftSpaceToView(self.view, 10)
+        .rightSpaceToView(self.view, 10)
+        .heightIs(43)
+        ;
+        [_titleInputField updateLayout];
+        
+        UIView *sepLine = [UIView new];
+        [self.view addSubview:sepLine];
+        sepLine.sd_layout
+        .topSpaceToView(_titleInputField, 0)
+        .leftSpaceToView(self.view, 10)
+        .rightSpaceToView(self.view, 10)
+        .heightIs(1)
+        ;
+        [sepLine updateLayout];
+        //加虚线
+        [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
+        
+        inputViewController.view.frame = CGRectMake(0, CGRectGetMaxY(sepLine.frame) + 1, self.view.bounds.size.width, self.view.bounds.size.height - CGRectGetMaxY(sepLine.frame) - 1);
+    }
+    
+    
+    
     [self addChildViewController:inputViewController];
     
     [self.view addSubview:inputViewController.view];
-    
-    inputViewController.view.frame = CGRectMake(0, CGRectGetMaxY(sepLine.frame) + 1, self.view.bounds.size.width, self.view.bounds.size.height - CGRectGetMaxY(sepLine.frame) - 1);
     
     @weakify(self);
     inputViewController.selectedBlock = ^(NSInteger index) {
@@ -293,16 +313,16 @@
         LRToast(@"请选择频道");
         return;
     }
-//    else if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
-//        LRToast(@"请输入标题");
-//        return;
-//    }else if (self.wordViewController.textView.attributedText.length<=0){
-//        LRToast(@"还没编辑内容哟");
-//        return;
-//    }
-//    [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
+    //    else if ([NSString isEmpty:self.wordViewController.textView.titleTextField.text]) {
+    //        LRToast(@"请输入标题");
+    //        return;
+    //    }else if (self.wordViewController.textView.attributedText.length<=0){
+    //        LRToast(@"还没编辑内容哟");
+    //        return;
+    //    }
+    //    [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
     
-    else if ([NSString isEmpty:self.titleInputField.text]){
+    else if ([NSString isEmpty:self.titleInputField.text]&&self.editType == 0){
         LRToast(@"请输入标题");
         return;
     }else if ([NSString isEmpty:[inputViewController getText]]||[NSString isEmpty:[inputViewController getHTML]]){
@@ -310,10 +330,23 @@
         return;
     }
     //如果是问答，需要弹框提示填入悬赏积分
-    if (self.editType) {
-        [self popInputIntegralWithDraft:(BOOL)yesOrNo];
+    if (self.editType==1) {
+        [self popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:NO];
     }else{
-       [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
+        if (self.isPayArticle&&self.editType == 0) {
+            PublishArticleViewController *paVC = [PublishArticleViewController new];
+            paVC.isPayArticle = YES;
+            paVC.editType = 2;
+            paVC.channelId = self.channelId;
+            paVC.articleTitle = self.titleInputField.text;
+            paVC.freeContent = [inputViewController getHTML];
+            [self.navigationController pushViewController:paVC animated:YES];
+        }else if (self.isPayArticle&&self.editType == 2){
+            self.paidContent = [inputViewController getHTML];
+            [self popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:YES];
+        }else{
+          [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
+        }
     }
 }
 
@@ -332,10 +365,18 @@
     [self presentViewController:popVC animated:YES completion:nil];
 }
 
-//弹框输入悬赏积分
--(void)popInputIntegralWithDraft:(BOOL)yesOrNo
+//弹框输入悬赏(付费)积分
+-(void)popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:(BOOL)paid
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请输入悬赏积分" message:@"不输入默认为不悬赏" preferredStyle:UIAlertControllerStyleAlert];
+    NSString *title = @"请输入悬赏积分";
+    NSString *message = @"不输入默认为不悬赏";
+    if (paid) { //付费文章
+        title = @"请输入付费积分";
+        message = @"付费积分不能为0";
+    }
+    self.rewardPoint = 0;
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"0";
         textField.keyboardType = UIKeyboardTypeNumberPad;
@@ -346,12 +387,17 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *textField = [alertController.textFields objectAtIndex:0];
-        if (textField.text) {
-            self.rewardPoint = [textField.text integerValue];
+        self.rewardPoint = [textField.text integerValue];
+        if (paid) {
+            if (self.rewardPoint>0) {
+                [self requestPublishArticleWithPayPoints:self.rewardPoint];
+            }else{
+                LRToast(@"付费积分不能为0哦");
+            }
         }else{
-            self.rewardPoint = 0;
+            [self requestPublishArticleWithContent:[self->inputViewController getHTML] isDraft:yesOrNo];
         }
-        [self requestPublishArticleWithContent:[self->inputViewController getHTML] isDraft:yesOrNo];
+        
     }]];
     [self presentViewController:alertController animated:YES completion:NULL];
 }
@@ -413,14 +459,17 @@
 }
 
 #pragma make ----- 请求发送
-//发布文章或问答
+//发布文章或问答(草稿)
 -(void)requestPublishArticleWithContent:(NSString *)content isDraft:(BOOL)yesOrNo
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
-//    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
+    //    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
     parameters[@"title"] = self.titleInputField.text;
-    if (self.editType) {
+    if (self.editType == 2) {
+        parameters[@"title"] = self.articleTitle;
+    }
+    if (self.editType==1) {
         //问答频道后台可以直接通过newsType来判断
         parameters[@"channelIds"] = @"2";
         parameters[@"newsType"] = @(2);
@@ -444,7 +493,28 @@
     [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         //退回到文章管理界面
         for (id vc in self.navigationController.viewControllers) {
-//            GGLog(@"类名:%@",NSStringFromClass([vc class]));
+            //            GGLog(@"类名:%@",NSStringFromClass([vc class]));
+            if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
+                [self.navigationController popToViewController:vc animated:YES];
+            }
+        }
+        
+    } failure:nil RefreshAction:nil];
+}
+
+//发布付费文章
+-(void)requestPublishArticleWithPayPoints:(NSInteger)points
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"title"] = GetSaveString(self.articleTitle);
+    parameters[@"channelIds"] = GetSaveString(self.channelId);
+    parameters[@"freeContent"] = GetSaveString(self.freeContent);
+    parameters[@"paidContent"] = GetSaveString(self.paidContent);
+    parameters[@"payPoints"] = @(points);
+    
+    [HttpRequest postWithURLString:CreatePaid parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        //退回到文章管理界面
+        for (id vc in self.navigationController.viewControllers) {
             if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
                 [self.navigationController popToViewController:vc animated:YES];
             }

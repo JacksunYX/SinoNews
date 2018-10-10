@@ -344,10 +344,13 @@
         BindingDataViewController *bdVC = [BindingDataViewController new];
         bdVC.bindingType = 1;
         bdVC.isUpdate = self.user.mobile?YES:NO;
+        
         [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"绑定邮箱")){
         BindingDataViewController *bdVC = [BindingDataViewController new];
-        bdVC.isUpdate = self.user.email?YES:NO;
+        if (!kStringIsEmpty(self.user.email)) {
+            bdVC.isUpdate = YES;
+        }
         [self.navigationController pushViewController:bdVC animated:YES];
     }else if (CompareString(title, @"修改密码")){
         ChangePasswordViewController *cpVC = [ChangePasswordViewController new];

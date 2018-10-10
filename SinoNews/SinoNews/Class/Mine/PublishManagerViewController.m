@@ -20,7 +20,7 @@
 @end
 
 @implementation PublishManagerViewController
--(NSMutableArray *)_articlesArr
+-(NSMutableArray *)articlesArr
 {
     if (!_articlesArr) {
         _articlesArr = [NSMutableArray new];
@@ -211,6 +211,10 @@
         }
         [self.navigationController pushViewController:pushVC animated:YES];
     }else if (self.type==1||self.type==2){
+        if (model.chargeType&&self.type==1) {
+            LRToast(@"付费文章不提供编辑");
+            return;
+        }
         //跳转到草稿展示
         DraftDetailViewController *ddVC = [DraftDetailViewController new];
         ddVC.newsId = model.newsId;

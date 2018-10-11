@@ -175,10 +175,9 @@
 {
     _model = model;
     
-    [title addTitleColorTheme];
-    
     bottomLabel.textColor = HexColor(#889199);
     
+    [title addTitleColorTheme];
     //判断是否已经浏览过了
     if (model.hasBrows) {
         title.textColor = BrowsNewsTitleColor;

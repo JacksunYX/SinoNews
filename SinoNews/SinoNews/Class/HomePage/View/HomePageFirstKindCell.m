@@ -68,7 +68,6 @@
     title = [UILabel new];
     title.font = NewsTitleFont;
     title.isAttributedContent = YES;
-    [title addTitleColorTheme];
     
     tlLabel = [UILabel new];
     tlLabel.font = FontScale(11);
@@ -152,6 +151,7 @@
     
     bottomLabel.textColor = HexColor(#889199);
     
+    [title addTitleColorTheme];
     //判断是否已经浏览过了
     if (model.hasBrows) {
         title.textColor = BrowsNewsTitleColor;

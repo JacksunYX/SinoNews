@@ -360,7 +360,8 @@
         }
     });
     // 自定义输入限制类型
-    moneyInput.limitedType = TXLimitedTextFieldTypePrice;
+    moneyInput.limitedType = TXLimitedTextFieldTypeCustom;
+    moneyInput.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
     // 限制输入长度
     moneyInput.limitedNumber = 5;
     // 保留整数位
@@ -530,13 +531,14 @@
 //充值
 -(void)goToPay:(UIButton *)btn
 {
-    if (!kStringIsEmpty(moneyInput.text)) {
+    NSInteger money = [moneyInput.text integerValue];
+    if (!kStringIsEmpty(moneyInput.text)&&money>0) {
 //        NSDictionary *dic = self.rechargeType[payType];
 //        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
 //        LRToast(str);
         [self requestMall_rechargeWithAmount:[moneyInput.text doubleValue]];
     }else{
-        LRToast(@"请选择需要的金额再进行充值");
+        LRToast(@"请填入需要的金额再进行充值");
     }
     
 }

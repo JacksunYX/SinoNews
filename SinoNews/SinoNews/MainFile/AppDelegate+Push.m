@@ -11,7 +11,16 @@
 #define isIOS10 ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0)
 #define isIOS8 ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
 //需要替换的部分
-#define JPushKey      @"338d7414c564982fcee2bddb"
+#if DEBUG
+
+#define JPushKey    @"338d7414c564982fcee2bddb"
+
+#else
+
+#define JPushKey    @"a94281870b3a7e2799cef64c" //正式
+
+#endif
+
 //推送消息类型
 typedef NS_ENUM(NSInteger,JPushType) {
     JPushTypeMessage = 0,   //站内信

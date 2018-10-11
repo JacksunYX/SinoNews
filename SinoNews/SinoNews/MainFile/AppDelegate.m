@@ -55,7 +55,7 @@
     //集成友盟分享
     [self initThirdShare];
     //集成极光推送
-    [self initJPushWithOptions:launchOptions];
+//    [self initJPushWithOptions:launchOptions];
     [self setJPush:application didFinishLaunchingWithOptions:launchOptions];
     //设置主页
     [self setMainVC];

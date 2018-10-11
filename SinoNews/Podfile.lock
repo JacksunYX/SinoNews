@@ -48,7 +48,7 @@ PODS:
     - STCObfuscator/Ahocorasick (= 1.3.0)
   - STCObfuscator/Ahocorasick (1.3.0)
   - Toast (4.0.0)
-  - UICKeyChainStore (2.1.1)
+  - UICKeyChainStore (2.1.2)
   - UINavigation-SXFixSpace (1.0.7)
   - XHLaunchAd (3.9.7):
     - FLAnimatedImage (~> 1.0.12)
@@ -135,7 +135,7 @@ SPEC CHECKSUMS:
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   STCObfuscator: e72b67cd35a22a78d02489fb3b9d452a088b6ede
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
+  UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
   UINavigation-SXFixSpace: 02323ab6d50f3719bf0829afa22995acb9b2486b
   XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
   XXDeviceTool: 7c8d0d190682351c3cb9e10c269897b05a052fcb

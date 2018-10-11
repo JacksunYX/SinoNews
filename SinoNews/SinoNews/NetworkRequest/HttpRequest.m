@@ -56,6 +56,7 @@ static NSString * const ErrorString = @"提示:";
     [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"App-Version"];
     [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"Os-Version"];
     [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"Device-Platform"];
+    GGLog(@"设备型号:%@",[DeviceTool sharedInstance].deviceModel);
     [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"Device-Brand"];
     [manager.requestSerializer setValue:@"QSL" forHTTPHeaderField:@"User-Agent"];
     

@@ -13,11 +13,11 @@
 //需要替换的部分
 #if DEBUG
 
-#define JPushKey    @"338d7414c564982fcee2bddb"
+#define JPushKey    @"aee4b654a5bfe125ac3c4c6b" //测试
 
 #else
 
-#define JPushKey    @"a94281870b3a7e2799cef64c" //正式
+#define JPushKey    @"338d7414c564982fcee2bddb" //正式
 
 #endif
 

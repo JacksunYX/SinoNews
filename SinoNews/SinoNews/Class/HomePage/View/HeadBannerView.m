@@ -137,6 +137,7 @@
     
 //    bannerView.mainImageView.image = UIImageNamed(self.imageArray[index]);
     bannerView.indexLabel.hidden = !self.showTitle;
+    bannerView.indexLabelBackView.hidden = !self.showTitle;
     HomePageBannerModel *model = self.modelArray[index];
     bannerView.isTopic = model.topic;
     bannerView.indexLabel.text = self.titlesArray[index];

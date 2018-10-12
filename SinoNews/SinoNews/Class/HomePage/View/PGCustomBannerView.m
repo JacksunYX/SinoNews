@@ -10,7 +10,7 @@
 
 @interface PGCustomBannerView ()
 @property (nonatomic, strong) UILabel *topicLabel;
-@property (nonatomic, strong) UIView *indexLabelBackView;
+
 @end
 
 @implementation PGCustomBannerView

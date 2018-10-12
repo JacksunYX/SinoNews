@@ -10,35 +10,17 @@
 #ifndef DefinedHeader_h
 #define DefinedHeader_h
 
+#if DEBUG
 //接口域名
-#define DefaultDomainName DebugDomain1
+#define DefaultDomainName DebugDomain
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087"
 #define DebugDomain2 @"http://192.168.2.144:8083"
-#define DebugDomain3 @"https://qsl.bravetroops.biz"
 
-
-//图片域名
-#define defaultUrl DebugImgDomain
-//测试环境
-#define DebugImgDomain @"http://192.168.2.144:8083"
-//正式环境
-#define FormalImgDomain @"https://static.kuaiyishare.com"
-
-//商品分享域名
-#define GoodShareUrl DebugGoodShareDomain
-//测试环境
-#define DebugGoodShareDomain @"http://testweb.kuaiyishare.com/Mobile/Toshare/toshare"
-//正式环境
-#define FormalGoodShareDomain @""
-
-//店铺分享域名
-#define ShopShareUrl DebugShopShareDomain
-//测试环境
-#define DebugShopShareDomain @"http://testweb.kuaiyishare.com/Mobile/Toshare/shopgoodslist"
-//正式环境
-#define FormalShopShareDomain @""
+#else
+#define DefaultDomainName @"https://qsl.bravetroops.biz"
+#endif
 
 
 // rgb颜色转换（16进制->10进制）

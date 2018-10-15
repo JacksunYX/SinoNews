@@ -33,11 +33,11 @@
     if (CGRectEqualToRect(self.mainImageView.frame, superViewBounds)) {
         return;
     }
-    
+    CGFloat titleHeight = 30;
     self.mainImageView.frame = superViewBounds;
     self.coverView.frame = superViewBounds;
-    self.indexLabel.frame = CGRectMake(10, superViewBounds.size.height - 50, superViewBounds.size.width - 20, 50);
-    self.indexLabelBackView.frame = CGRectMake(0, superViewBounds.size.height - 50, superViewBounds.size.width, 50);
+    self.indexLabel.frame = CGRectMake(10, superViewBounds.size.height - titleHeight, superViewBounds.size.width - 20, titleHeight);
+    self.indexLabelBackView.frame = CGRectMake(0, superViewBounds.size.height - titleHeight, superViewBounds.size.width, titleHeight);
     self.topicLabel.frame = CGRectMake(10, CGRectGetMinY(self.indexLabel.frame) - 5 - 20, 35, 20);
     self.topicLabel.text = @"专题";
     [self.topicLabel cornerWithRadius:3];
@@ -50,7 +50,7 @@
         _indexLabel.backgroundColor = ClearColor;
         _indexLabel.font = PFFontM(16);
         _indexLabel.textColor = [UIColor whiteColor];
-        _indexLabel.numberOfLines = 2;
+        _indexLabel.numberOfLines = 1;
     }
     return _indexLabel;
 }

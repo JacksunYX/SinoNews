@@ -33,6 +33,7 @@
 //资讯展示tableview
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *newsArr;    //资讯数组
+@property (nonatomic,assign) NSInteger newPage;     //页码
 //搜索的娱乐城数组
 @property (nonatomic,strong) NSMutableArray *casinoArray;
 //推荐关键词视图
@@ -106,6 +107,12 @@
         [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
         
         _tableView.hidden = YES;
+        
+        @weakify(self);
+        _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+            @strongify(self);
+            [self loadFootNews];
+        }];
 
     }
     return _tableView;
@@ -524,8 +531,20 @@
         self.searchBar.text = self.choicenessNews[indexPath.row];
     }
     //发送请求
-    [self requestSearchNewsListWithText:self.searchBar.text];
+    [self loadHeadNews];
     
+}
+
+-(void)loadHeadNews
+{
+    _newPage = 1;
+    [self requestSearchNewsListWithText:self.searchBar.text];
+}
+
+-(void)loadFootNews
+{
+    _newPage ++;
+    [self requestSearchNewsListWithText:self.searchBar.text];
 }
 
 -(void)tap:(UITapGestureRecognizer *)gesture
@@ -555,7 +574,7 @@
         [self.navigationController pushViewController:ccVC animated:NO];
     }else if (self.selectIndex == 0){
         //发送请求
-        [self requestSearchNewsListWithText:searchBar.text];
+        [self loadHeadNews];
         //搜索关键词
         [self showWithStatus:1];
     }else if (self.selectIndex == 2){
@@ -706,7 +725,7 @@
         self.searchBar.text = self.keyArr[indexPath.row];
         if (self.selectIndex == 0) {
             //在当前界面搜索
-            [self requestSearchNewsListWithText:self.searchBar.text];
+            [self loadHeadNews];
         }else if (self.selectIndex == 1){
             CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
             ccVC.type = 1;
@@ -745,11 +764,15 @@
 -(void)requestSearchNewsListWithText:(NSString *)text
 {
     ShowHudOnly;
-    [YJProgressHUD showCustomLoadingInKeyWindow];
-    [HttpRequest getWithURLString:News_listForSearching parameters:@{@"keyword":text} success:^(id responseObject) {
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"keyword"] = text;
+    parameters[@"limit"] = @(10);
+    parameters[@"page"] = @(self.newPage);
+    [HttpRequest getWithURLString:News_listForSearching parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         HiddenHudOnly;
-        self.newsArr =  [dataArr mutableCopy];
+        self.newsArr = [self.tableView pullWithPage:self.newPage data:dataArr dataSource:self.newsArr];
+
         if (self.newsArr.count<=0) {
             self.noticeString = [NSString stringWithFormat:@"没有找到 %@ 相关内容",text];
         }else{

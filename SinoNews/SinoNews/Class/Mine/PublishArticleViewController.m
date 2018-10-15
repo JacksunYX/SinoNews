@@ -491,13 +491,20 @@
     }
     
     [HttpRequest postWithURLString:News_create parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        //退回到文章管理界面
-        for (id vc in self.navigationController.viewControllers) {
-            //            GGLog(@"类名:%@",NSStringFromClass([vc class]));
-            if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
-                [self.navigationController popToViewController:vc animated:YES];
-            }
+        if (yesOrNo) {
+            LRToast(@"草稿已保存");
+        }else{
+            LRToast(@"发布成功");
         }
+        GCDAfterTime(1, ^{
+            //退回到文章管理界面
+            for (id vc in self.navigationController.viewControllers) {
+                //            GGLog(@"类名:%@",NSStringFromClass([vc class]));
+                if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
+                    [self.navigationController popToViewController:vc animated:YES];
+                }
+            }
+        });
         
     } failure:nil RefreshAction:nil];
 }
@@ -514,11 +521,14 @@
     
     [HttpRequest postWithURLString:CreatePaid parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         //退回到文章管理界面
-        for (id vc in self.navigationController.viewControllers) {
-            if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
-                [self.navigationController popToViewController:vc animated:YES];
+        LRToast(@"发布成功");
+        GCDAfterTime(1, ^{
+            for (id vc in self.navigationController.viewControllers) {
+                if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
+                    [self.navigationController popToViewController:vc animated:YES];
+                }
             }
-        }
+        });
         
     } failure:nil RefreshAction:nil];
 }

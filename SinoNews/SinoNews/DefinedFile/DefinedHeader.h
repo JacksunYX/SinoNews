@@ -10,17 +10,16 @@
 #ifndef DefinedHeader_h
 #define DefinedHeader_h
 
-#if DEBUG
+
 //接口域名
-#define DefaultDomainName DebugDomain
+#define DefaultDomainName DebugDomain3
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087"
 #define DebugDomain2 @"http://192.168.2.144:8083"
+//正式
+#define DebugDomain3 @"https://qsl.bravetroops.biz"
 
-#else
-#define DefaultDomainName @"https://qsl.bravetroops.biz"
-#endif
 
 
 // rgb颜色转换（16进制->10进制）

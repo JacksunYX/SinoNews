@@ -133,7 +133,7 @@
 //    NSLog(@"图片地址:%@",self.imageArray[index]);
     //在这里下载网络图片
 //    NSString *imgstr = [NSString stringWithFormat:@"%@%@",defaultUrl,self.imageArray[index]];
-    [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(self.imageArray[index]) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    [bannerView.mainImageView sd_setImageWithURL:UrlWithStr(self.imageArray[index]) placeholderImage:UIImageNamed(@"placeholder_logo_day")];
     
 //    bannerView.mainImageView.image = UIImageNamed(self.imageArray[index]);
     bannerView.indexLabel.hidden = !self.showTitle;

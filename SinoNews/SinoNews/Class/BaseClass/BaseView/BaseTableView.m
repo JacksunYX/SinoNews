@@ -20,8 +20,8 @@
         if (@available(iOS 11.0, *)) {
             self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        
-        self.estimatedRowHeight = 0;
+
+//        self.estimatedRowHeight = 0;  //不知为何，加上这句，tableview刷新的时候会整个页面闪一下，但又不是所有的都这样
         self.estimatedSectionFooterHeight = 0;
         self.estimatedSectionHeaderHeight = 0;
         

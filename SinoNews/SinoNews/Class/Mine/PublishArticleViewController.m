@@ -17,11 +17,15 @@
 #import "ChannelSelectView.h"
 #import "NewPublishModel.h"
 
+//第三版编辑器
+#import "WGRichTextEditorVC.h"
 
 @interface PublishArticleViewController ()<YBPopupMenuDelegate,UITextFieldDelegate>
 {
     //不可以用作当前控制器的属性，否则会崩溃
     ZSSCustomButtonsViewController *inputViewController;
+    
+    WGRichTextEditorVC *wgrteVC;
 }
 
 @property (nonatomic, strong) LMWordViewController *wordViewController;
@@ -103,7 +107,8 @@
     self.navigationItem.title = title;
     [self setNavigation];
     //    [self setUI];
-    [self setUI2];
+//    [self setUI2];
+    [self setUI3];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -197,6 +202,7 @@
         .heightIs(self.topViewH)
         .widthIs(45)
         ;
+        [channelLabel updateLayout];
         channelLabel.text = @"频道：";
         
         self.selectView = [ChannelSelectView new];
@@ -210,6 +216,10 @@
         [self.selectView updateLayout];
         //构建视图
         [self.selectView setViewWithChannelArr:[self getAllChannels]];
+        //如果是文章草稿，需要设置已选的频道
+        if (self.draftModel) {
+            [self.selectView setSelectChannels:self.draftModel.channelIds];
+        }
         //回调
         @weakify(self);
         self.selectView.selectBlock = ^(NSString *channelIdStr) {
@@ -218,17 +228,9 @@
         };
     }
     
-    //添加输入界面
-    inputViewController = [[ZSSCustomButtonsViewController alloc]init];
-    if (self.isPayArticle) {
-        inputViewController.hiddenSettingBtn = YES;
-    }
-    if (self.draftModel) {
-        [inputViewController setHTML:self.draftModel.content];
-    }
-    
+    CGFloat topY = 0;
     if (self.editType == 2&&self.isPayArticle) {
-        inputViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+        topY = 0;
     }else{
         //标题
         _titleInputField = [TXLimitedTextField new];
@@ -255,15 +257,25 @@
         [sepLine updateLayout];
         //加虚线
         [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
-        
-        inputViewController.view.frame = CGRectMake(0, CGRectGetMaxY(sepLine.frame) + 1, self.view.bounds.size.width, self.view.bounds.size.height - CGRectGetMaxY(sepLine.frame) - 1);
+        topY = CGRectGetMaxY(sepLine.frame) + 1;
     }
     
+    //添加输入界面
+    inputViewController = [[ZSSCustomButtonsViewController alloc]init];
     
+    if (self.draftModel) {
+        [inputViewController setHTML:self.draftModel.content];
+    }
+    
+    if (self.isPayArticle) {
+        inputViewController.hiddenSettingBtn = YES;
+    }
     
     [self addChildViewController:inputViewController];
     
     [self.view addSubview:inputViewController.view];
+    
+    inputViewController.view.frame = CGRectMake(0, topY, self.view.bounds.size.width, self.view.bounds.size.height - topY);
     
     @weakify(self);
     inputViewController.selectedBlock = ^(NSInteger index) {
@@ -271,15 +283,94 @@
         [self processWithIndex:index];
     };
     
-    //如果是文章草稿，需要设置已选的频道
-    if (self.draftModel&&self.editType==0) {
-        [self.selectView setSelectChannels:self.draftModel.channelIds];
-    }
-    
     //现在使用的这个编辑器有个bug，如果在同一界面有其他可编辑的输入框，并且焦点在另外的输入框上，那么直接给这个第三方的编辑器设置内容，图片会显示不出来，所以需要先把编辑器的内容先加载出来，再设置其他输入框的内容
     if (self.draftModel) {
         _titleInputField.text = self.draftModel.title;
     }
+}
+
+-(void)setUI3
+{
+    //频道选择
+    _channelSelectionView = [UIView new];
+    [self.view addSubview:_channelSelectionView];
+    _channelSelectionView.sd_layout
+    .topEqualToView(self.view)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(self.topViewH)
+    ;
+    [_channelSelectionView updateLayout];
+    [_channelSelectionView addBorderTo:BorderTypeBottom borderColor:HexColor(#E3E3E3)];
+    
+    if (self.editType==0) {
+        UILabel *channelLabel = [UILabel new];
+        channelLabel.font = PFFontL(15);
+        channelLabel.textColor = HexColor(#626262);
+        [_channelSelectionView addSubview:channelLabel];
+        channelLabel.sd_layout
+        .topEqualToView(_channelSelectionView)
+        .leftEqualToView(_channelSelectionView)
+        .heightIs(self.topViewH)
+        .widthIs(45)
+        ;
+        [channelLabel updateLayout];
+        channelLabel.text = @"频道：";
+        
+        self.selectView = [ChannelSelectView new];
+        [_channelSelectionView addSubview:self.selectView];
+        self.selectView.sd_layout
+        .topEqualToView(_channelSelectionView)
+        .leftSpaceToView(channelLabel, 0)
+        .heightIs(self.topViewH-1)
+        .rightSpaceToView(_channelSelectionView, 0)
+        ;
+        [self.selectView updateLayout];
+        //构建视图
+        [self.selectView setViewWithChannelArr:[self getAllChannels]];
+        //如果是文章草稿，需要设置已选的频道
+        if (self.draftModel) {
+            [self.selectView setSelectChannels:self.draftModel.channelIds];
+        }
+        //回调
+        @weakify(self);
+        self.selectView.selectBlock = ^(NSString *channelIdStr) {
+            @strongify(self);
+            self.channelId = channelIdStr;
+        };
+    }
+    
+    wgrteVC = [WGRichTextEditorVC new];
+    
+    if (self.draftModel) {
+        wgrteVC.draftModel = self.draftModel;
+    }
+    
+    if (self.isPayArticle) {
+        wgrteVC.hiddenSettingBtn = YES;
+        if (self.editType == 2) {
+            wgrteVC.hiddenTitle = YES;
+        }
+    }
+    
+    [self addChildViewController:wgrteVC];
+    
+    [self.view addSubview:wgrteVC.view];
+    
+//    wgrteVC.view.frame = CGRectMake(0, self.topViewH, self.view.bounds.size.width, self.view.bounds.size.height - self.topViewH);
+    wgrteVC.view.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .topSpaceToView(self.view, self.topViewH)
+    .bottomSpaceToView(self.view, 0)
+    ;
+    
+    @weakify(self);
+    wgrteVC.selectedBlock = ^(NSInteger index) {
+        @strongify(self);
+        [self processWithIndex:index];
+    };
+    
 }
 
 //保存或者放弃编辑
@@ -322,11 +413,11 @@
     //    }
     //    [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
     
-    else if ([NSString isEmpty:self.titleInputField.text]&&self.editType == 0){
+    else if ([NSString isEmpty:[wgrteVC getTitle]]&&self.editType == 0){
         LRToast(@"请输入标题");
         return;
-    }else if ([NSString isEmpty:[inputViewController getText]]||[NSString isEmpty:[inputViewController getHTML]]){
-        LRToast(@"还没编辑内容哟");
+    }else if ([NSString isEmpty:[wgrteVC contentNoH5]]||[NSString isEmpty:[wgrteVC contentH5]]){
+        LRToast(@"内容必须有文字哦");
         return;
     }
     //如果是问答，需要弹框提示填入悬赏积分
@@ -338,11 +429,11 @@
             paVC.isPayArticle = YES;
             paVC.editType = 2;
             paVC.channelId = self.channelId;
-            paVC.articleTitle = self.titleInputField.text;
-            paVC.freeContent = [inputViewController getHTML];
+            paVC.articleTitle = [wgrteVC getTitle];
+            paVC.freeContent = [wgrteVC contentH5];
             [self.navigationController pushViewController:paVC animated:YES];
         }else if (self.isPayArticle&&self.editType == 2){
-            self.paidContent = [inputViewController getHTML];
+            self.paidContent = [wgrteVC contentH5];
             [self popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:YES];
         }else{
           [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
@@ -395,7 +486,7 @@
                 LRToast(@"付费积分不能为0哦");
             }
         }else{
-            [self requestPublishArticleWithContent:[self->inputViewController getHTML] isDraft:yesOrNo];
+            [self requestPublishArticleWithContent:[self->wgrteVC contentH5] isDraft:yesOrNo];
         }
         
     }]];
@@ -465,7 +556,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
     //    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
-    parameters[@"title"] = self.titleInputField.text;
+    parameters[@"title"] = [wgrteVC getTitle];
     if (self.editType == 2) {
         parameters[@"title"] = self.articleTitle;
     }

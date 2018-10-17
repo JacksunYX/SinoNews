@@ -164,7 +164,7 @@
     PYSearchViewController *searchViewController = [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"输入要搜索的娱乐城" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         //回调搜索
         [searchViewController dismissViewControllerAnimated:NO completion:nil];
-        [self requestCasinoDataWithKeyName:searchText];
+        [self requestCasinoDataWithKeyName2:searchText];
     }];
     // 3. present the searchViewController
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];

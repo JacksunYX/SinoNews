@@ -254,7 +254,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -781,6 +781,7 @@
         [self reloadViews];
     } failure:^(NSError *error) {
         HiddenHudOnly;
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 

@@ -127,7 +127,7 @@
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .topSpaceToView(topView, 0)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     
 //    [self.tableView addBakcgroundColorTheme];

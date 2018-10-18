@@ -49,7 +49,7 @@
     self.addAddress.sd_layout
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 16)
+    .bottomSpaceToView(self.view, 0 + 16)
     .heightIs(49)
     ;
     [self.addAddress updateLayout];
@@ -85,7 +85,7 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     [self.tableView updateLayout];
     

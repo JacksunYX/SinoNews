@@ -153,7 +153,7 @@
     .leftEqualToView(self.view)
     .topEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     [self.tableView updateLayout];
     

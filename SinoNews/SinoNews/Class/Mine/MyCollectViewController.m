@@ -219,7 +219,7 @@
     self.bottomView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     .heightIs(0)
     ;
     self.bottomView.hidden = YES;
@@ -286,7 +286,7 @@
     self.bottomView.sd_resetLayout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     .heightIs(hei)
     ;
 }

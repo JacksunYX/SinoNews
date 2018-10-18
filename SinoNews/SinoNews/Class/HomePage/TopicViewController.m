@@ -82,7 +82,7 @@
     .topSpaceToView(self.view, 0)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     [_tableView addBakcgroundColorTheme];
     _tableView.dataSource = self;

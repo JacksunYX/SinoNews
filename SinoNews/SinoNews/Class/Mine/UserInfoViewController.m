@@ -784,7 +784,7 @@
         self.attentionBtn.selected = status;
     } failure:nil RefreshAction:^{
         @strongify(self)
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 

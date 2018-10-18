@@ -105,7 +105,7 @@
     .topSpaceToView(self.view, 0)
     .leftSpaceToView(self.view, 0)
     .rightSpaceToView(self.view, 0)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     //加载页面
     GGLog(@"网页地址:%@",self.baseUrl);

@@ -45,17 +45,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.type == 0) {
-        self.navigationItem.title = @"收藏的娱乐城";
-        [self addNavigationBtn];
-        self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];
-    }else if (self.type == 1) {
-        self.navigationItem.title = @"搜索的娱乐城";
-    }
-    
     [self showTopLine];
     
     [self addTableViews];
+    
+    if (self.type == 0) {
+        self.navigationItem.title = @"收藏的娱乐城";
+        [self addNavigationBtn];
+        self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"点击左上角按钮搜索娱乐城并关注"];
+    }else if (self.type == 1) {
+        self.navigationItem.title = @"搜索的娱乐城";
+    }
     
 }
 
@@ -89,18 +89,19 @@
 {
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:self.tableView];
-//    self.tableView.sd_layout
-//    .topEqualToView(self.view)
-//    .leftEqualToView(self.view)
-//    .rightEqualToView(self.view)
-//    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
-//    ;
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr_safe;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-    }];
+    self.tableView.sd_layout
+    .topEqualToView(self.view)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, 0)
+    ;
+    [self.tableView updateLayout];
+//    [self.tableView activateConstraints:^{
+//        self.tableView.top_attr = self.view.top_attr_safe;
+//        self.tableView.left_attr = self.view.left_attr_safe;
+//        self.tableView.right_attr = self.view.right_attr_safe;
+//        self.tableView.bottom_attr = self.view.bottom_attr_safe;
+//    }];
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

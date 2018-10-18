@@ -62,6 +62,7 @@
     if(CompareString(GetSaveString(self.news_id), @"作者")){
         notice = @"点击左上角按钮搜索作者并关注";
     }
+    
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:notice];
     
     @weakify(self);

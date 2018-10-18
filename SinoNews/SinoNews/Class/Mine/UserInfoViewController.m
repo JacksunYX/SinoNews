@@ -478,6 +478,11 @@
     _idView.hidden = YES;
     if (self.user) {
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar)];
+        @weakify(self);
+        [self.userImg whenTap:^{
+            @strongify(self);
+            [self clickUser:self.user.avatar];
+        }];
         _userName.text = GetSaveString(self.user.username);
         _integral.text = [NSString stringWithFormat:@"%ld 积分",self.user.integral];
         pub = [NSString stringWithFormat:@"%lu",self.user.postCount];
@@ -604,6 +609,17 @@
 -(void)attentionAction:(UIButton *)sender
 {
     [self requestAttentionUser];
+}
+
+//点击头像
+-(void)clickUser:(NSString *)userUrl
+{
+    //创建图片浏览器
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    browser.isFullWidthForLandScape = NO;
+    browser.isNeedLandscape = NO;
+    browser.imageArray = @[userUrl];
+    [browser show];
 }
 
 #pragma mark ----- UITableViewDataSource

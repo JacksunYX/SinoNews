@@ -68,7 +68,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self hiddenTopLine];
     self.navigationItem.title = @"首页";
     
     [self showOrHideLoadView:YES page:1];

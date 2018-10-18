@@ -395,7 +395,13 @@ CGFloat static titleViewHeight = 150;
         [_naviTitle addSubview:username];
         
         _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);
-
+        
+        @weakify(self);
+        [self.naviTitle whenTap:^{
+            @strongify(self);
+            [UserModel toUserInforVcOrMine:self.newsModel.userId];
+        }];
+        
         self.navigationItem.titleView = _naviTitle;
     }
 }

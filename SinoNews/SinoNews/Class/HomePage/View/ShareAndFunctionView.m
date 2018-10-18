@@ -154,7 +154,7 @@ static bool isCollect = NO;
 {
     isCollect = collect;
 //    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[[self new] shareArray] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];
-    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[NSArray new] functionItems:[[self new] getFunctionArr] itemSize:CGSizeMake(99,116)];
+    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[NSArray new] functionItems:[[self new] getFunctionArr:YES] itemSize:CGSizeMake(99,116)];
     shareView.itemSpace = 0;
     shareView.middleTopSpace = 5;
     shareView.middleBottomSpace = 0;
@@ -249,8 +249,107 @@ static bool isCollect = NO;
     };
 }
 
+//没有收藏选项的弹出试图
++(void)showWithNoCollectreturnBlock:(void (^)(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform))clickBlock
+{
+    IFMShareView *shareView = [[IFMShareView alloc] initWithShareItems:[NSArray new] functionItems:[[self new] getFunctionArr:NO] itemSize:CGSizeMake(99,116)];
+    shareView.itemSpace = 0;
+    shareView.middleTopSpace = 5;
+    shareView.middleBottomSpace = 0;
+    
+    shareView.itemImageTopSpace = 15;
+    shareView.iconAndTitleSpace = 10;
+    //    shareView.showCancleButton = NO;
+    
+    shareView.itemImageSize = CGSizeMake(56, 56);
+    
+    shareView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        IFMShareView *share = item;
+        share.containViewColor = value;
+        share.cancleButton.backgroundColor = value;
+        
+        if (UserGetBool(@"NightMode")) {
+            share.itemTitleColor = HexColor(#CFD3D6);
+            share.cellimageBackgroundColor = HexColor(#3A4146);
+            [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:CutLineColorNight];
+        }else{
+            share.itemTitleColor = RGBA(152, 152, 152, 1);
+            share.cellimageBackgroundColor = WhiteColor;
+            [shareView.cancleButton addBorderTo:BorderTypeTop borderColor:CutLineColor];
+        }
+    });
+    
+    shareView.itemTitleFont = PFFontL(13);
+    shareView.cancleButton.titleLabel.font = PFFontR(17);
+    [shareView.cancleButton addButtonTextColorTheme];
+    
+    [shareView showFromControlle:[HttpRequest getCurrentVC]];
+    
+    __block MGShareToPlateform sharePlateform;
+    shareView.clickBlock = ^(NSInteger section, NSInteger row) {
+#ifdef JoinThirdShare
+        
+        if (section == 0 && row!=5) {
+            //1先判断是否有微信
+            
+            if ([MGSocialShareHelper canBeShareToPlatform:MGShareToWechatSession]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToWechatTimeline]) {
+                //有微信
+                if (row == 0) {
+                    sharePlateform = MGShareToWechatSession;
+                }else if (row == 1){
+                    sharePlateform = MGShareToWechatTimeline;
+                }else{
+                    
+                    //2.超过2个了,需要先判断有没有qq
+                    if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                        //有
+                        if (row == 2) {
+                            sharePlateform = MGShareToQQ;
+                        }else if (row == 3){
+                            sharePlateform = MGShareToQzone;
+                        }else if (row == 4){
+                            sharePlateform = MGShareToSina;
+                        }
+                    }else{
+                        //没有
+                        if (row == 2) {
+                            sharePlateform = MGShareToSina;
+                        }
+                    }
+                }
+                
+            }else{
+                //没有微信
+                //先判断是否有qq
+                if ([MGSocialShareHelper canBeShareToPlatform:MGShareToQQ]&&[MGSocialShareHelper canBeShareToPlatform:MGShareToQzone]) {
+                    //有
+                    if (row == 0) {
+                        sharePlateform = MGShareToQQ;
+                    }else if (row == 1){
+                        sharePlateform = MGShareToQzone;
+                    }else if (row == 2){
+                        sharePlateform = MGShareToSina;
+                    }
+                }else{
+                    //没有
+                    if (row == 0) {
+                        sharePlateform = MGShareToSina;
+                    }
+                }
+            }
+            
+        }
+#endif
+        
+        if (clickBlock) {
+            clickBlock(section,row,sharePlateform);
+        }
+    };
+}
+
+
 //创建功能性数组
--(NSMutableArray *)getFunctionArr
+-(NSMutableArray *)getFunctionArr:(BOOL)haveCollect
 {
     
     NSMutableArray *functionArray = [NSMutableArray array];
@@ -287,7 +386,10 @@ static bool isCollect = NO;
         collectImg = UIImageNamed(@"share_collected");
     }
     
-    [functionArray addObject:[[IFMShareItem alloc] initWithImage:collectImg title:collectTitle action:nil]];
+    if (haveCollect) {
+        [functionArray addObject:[[IFMShareItem alloc] initWithImage:collectImg title:collectTitle action:nil]];
+    }
+    
     [functionArray addObject:[[IFMShareItem alloc] initWithImage:UIImageNamed(@"share_copy") title:@"复制链接" action:nil]];
     
     return functionArray;

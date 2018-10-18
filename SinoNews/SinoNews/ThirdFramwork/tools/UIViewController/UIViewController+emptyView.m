@@ -14,7 +14,8 @@ static int tag = 206118;
 
 -(void)showTopLine
 {
-    [[self getLineViewInNavigationBar:self.navigationController.navigationBar] setHidden:NO];
+//    [[self getLineViewInNavigationBar:self.navigationController.navigationBar] setHidden:NO];
+    [self setTopLineColor:CutLineColorNight];
 }
 -(void)hiddenTopLine
 {

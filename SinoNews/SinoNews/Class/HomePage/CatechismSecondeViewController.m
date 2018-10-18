@@ -360,6 +360,12 @@ CGFloat static titleViewHeight = 150;
         
         _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);
         
+        @weakify(self);
+        [self.naviTitle whenTap:^{
+            @strongify(self);
+            [UserModel toUserInforVcOrMine:self.answerModel.userId];
+        }];
+        
         self.navigationItem.titleView = _naviTitle;
         
     }
@@ -557,11 +563,32 @@ CGFloat static titleViewHeight = 150;
         }
     }];
     */
-    [ShareAndFunctionView showWithReturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
-        @strongify(self);
-#ifdef JoinThirdShare
-        [self shareToPlatform:sharePlateform];
-#endif
+    [ShareAndFunctionView showWithNoCollectreturnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
+        if (section==1) {
+            switch (row) {
+                case 0:
+                {
+                    [FontAndNightModeView show:^(BOOL open, NSInteger fontIndex) {
+                        @strongify(self)
+                        [self setWebViewLoad];
+                    }];
+                }
+                    break;
+                case 1:
+                    [self.webView reload];
+                    break;
+                case 2:
+                {
+                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                    pasteboard.string = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
+                    LRToast(@"链接已复制");
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
     }];
 }
 

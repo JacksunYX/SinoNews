@@ -60,6 +60,14 @@ typedef NS_ENUM(NSUInteger, MGShareToPlateform) {
  */
 +(void)showWithCollect:(BOOL)collect returnBlock:(void(^)(NSInteger section,NSInteger row, MGShareToPlateform sharePlateform)) clickBlock;
 
+
+/**
+ 无收藏选项的弹出框
+
+ @param clickBlock 点击回调
+ */
++(void)showWithNoCollectreturnBlock:(void (^)(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform))clickBlock;
+
 //只显示分享items
 +(void)showWithReturnBlock:(void (^)(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform))clickBlock;
 

@@ -36,6 +36,7 @@
     self.titleFont = [UIFont systemFontOfSize:14];
 }
 
+
 //-(void)layoutSubviews{
 //    [super layoutSubviews];
 //    [self initView];
@@ -70,6 +71,13 @@
     [btn sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    _selectedIndex = selectedIndex;
+    UIButton *btn = (UIButton *)self.btnArray[selectedIndex];
+    [self btnClick:btn];
+}
+
 -(void)btnClick:(UIButton *)btn{
 
     if (btn.selected) {
@@ -84,7 +92,7 @@
     }];
     
     btn.selected = YES;
-    
+    _selectedIndex = btn.tag;
     if (self.lxSegmentBtnSelectIndexBlock) {
         self.lxSegmentBtnSelectIndexBlock(btn.tag,btn);
     }
@@ -109,6 +117,13 @@
     for (UIButton *btn in self.btnArray) {
         [btn setTitleColor:btnTitleSelectColor forState:UIControlStateSelected];
     }
+}
+
+-(void)setBordColor:(UIColor *)bordColor
+{
+    _bordColor = bordColor;
+    self.layer.borderColor = bordColor.CGColor;
+    self.layer.borderWidth = 1.0;
 }
 
 -(void)setBtnBackgroundNormalColor:(UIColor *)btnBackgroundNormalColor

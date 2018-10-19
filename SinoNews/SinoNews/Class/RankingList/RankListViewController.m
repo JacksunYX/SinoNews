@@ -9,7 +9,7 @@
 #import "RankListViewController.h"
 #import "GroupShadowTableView.h"
 #import "RankListTableViewCell.h"
-#import "RankDetailViewController.h"
+
 
 @interface RankListViewController ()<GroupShadowTableViewDelegate,GroupShadowTableViewDataSource,UITableViewDataSource,UITableViewDelegate>
 //@property (strong, nonatomic) GroupShadowTableView *tableView;
@@ -158,6 +158,8 @@
     [self.tableView updateLayout];
     
     [self.tableView registerClass:[RankListTableViewCell class] forCellReuseIdentifier:RankListTableViewCellID];
+    [self.tableView registerClass:[RankListTableViewCell2 class] forCellReuseIdentifier:RankListTableViewCell2ID];
+    
     _currPage = 1;
     WEAK(weakSelf, self);
     self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
@@ -205,7 +207,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RankListTableViewCell *cell = (RankListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RankListTableViewCellID];
+    RankListTableViewCell2 *cell = (RankListTableViewCell2 *)[tableView dequeueReusableCellWithIdentifier:RankListTableViewCell2ID];
     cell.tag = indexPath.row;
     cell.model = self.dataSource[indexPath.row];
     
@@ -221,12 +223,12 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
-    RankingListModel *model = self.dataSource[indexPath.row];
-    if (model.currentRank<4) {
-        return 100;
-    }
-    return 73;
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+//    RankingListModel *model = self.dataSource[indexPath.row];
+//    if (model.currentRank<4) {
+//        return 100;
+//    }
+//    return 73;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -245,7 +247,6 @@
     RankDetailViewController *rdVC = [RankDetailViewController new];
     RankingListModel *model = self.dataSource[indexPath.row];
     rdVC.companyId = model.companyId;
-    
     [self.navigationController pushViewController:rdVC animated:YES];
 }
 
@@ -301,9 +302,7 @@
 }
 
 
-#pragma mark ----- 
-
-
+#pragma mark -----
 //请求详细榜单
 -(void)requestCompanyRankingWithCompanyName:(NSString *)companyname
 {

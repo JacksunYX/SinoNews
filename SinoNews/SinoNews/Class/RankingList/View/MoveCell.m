@@ -49,6 +49,16 @@
         .topEqualToView(self.imageV)
         .bottomEqualToView(self.imageV)
         ;
+        
+        UIView *bottomView = [UIView new];
+        [bottomView addBakcgroundColorTheme];
+        [self.imageV addSubview:bottomView];
+        bottomView.sd_layout
+        .leftEqualToView(self.imageV)
+        .rightEqualToView(self.imageV)
+        .heightIs(8)
+        .bottomSpaceToView(self.imageV, 0)
+        ;
 
         self.label = [UILabel new];
         self.label.numberOfLines = 1;

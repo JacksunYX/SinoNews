@@ -31,6 +31,8 @@ typedef void(^lxSegmentBtnSelectIndexBlock)(NSInteger index,UIButton *btn);
 
 @property (nonatomic , strong) UIColor *btnBackgroundSelectColor;
 
+@property (nonatomic , strong) UIColor *bordColor;  //整体边框色
+
 @property (nonatomic , strong) UIFont *titleFont;
 
 @property (nonatomic , assign) NSInteger selectedIndex;

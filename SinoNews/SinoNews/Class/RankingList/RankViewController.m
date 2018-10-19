@@ -26,15 +26,20 @@
 @property (nonatomic,strong) NSMutableArray *adArr; //轮播广告数组
 //中间的排行视图
 @property (nonatomic, strong) UICollectionView *lineCollectionView;
-@property (nonatomic, strong) NSMutableArray *datasource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *leftDataSource;
 //替换成新的视图展示
 @property (nonatomic, strong) UITableView *tableV;
+@property (nonatomic, strong) UITableView *tableLeft;
 
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
 @property (nonatomic ,strong) NSMutableArray *adDatasource;
 
 @property (nonatomic,strong) UIView *naviTitle;
+
+@property (nonatomic,strong) LXSegmentBtnView *segmentView;
+
 @end
 
 @implementation RankViewController
@@ -46,68 +51,104 @@
     return _adArr;
 }
 
--(NSMutableArray *)datasource
-{
-    if (!_datasource) {
-//        NSArray *title = @[
-//                           @"综合排行",
-//                           @"体育投注排行",
-//                           @"真人游戏排行",
-//                           @"男性玩家排行",
-//                           @"女性玩家排行",
-//                           @"未成年玩家排行",
-//                           ];
-//        NSArray *backImg = @[
-//                                @"rank_banner0",
-//                                @"rank_banner1",
-//                                @"rank_banner2",
-//                                @"rank_banner3",
-//                                @"rank_banner0",
-//                                @"rank_banner1",
-//                                ];
-//
-//        NSArray *updateTime = @[
-//                                   @"2018年5月30日",
-//                                   @"2018年5月31日",
-//                                   @"2018年5月15日",
-//                                   @"2018年6月1日",
-//                                   @"2018年4月23日",
-//                                   @"2018年1月1日",
-//                                   ];
-        _datasource = [NSMutableArray new];
-//
-//        for (int i = 0; i < title.count; i ++) {
-//            NSMutableDictionary *dic = [NSMutableDictionary new];
-//            dic[@"title"] = title[i];
-//            dic[@"backImg"] = backImg[i];
-//            dic[@"updateTime"] = updateTime[i];
-//            [_datasource addObject:dic];
-//        }
-        
-    }
-    return _datasource;
-}
-
 -(NSMutableArray *)adDatasource
 {
     if (!_adDatasource) {
         _adDatasource  = [NSMutableArray new];
-//        for (int i = 0; i < 4; i ++) {
-//            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
-//            [_adDatasource addObject:imgStr];
-//        }
+        //        for (int i = 0; i < 4; i ++) {
+        //            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
+        //            [_adDatasource addObject:imgStr];
+        //        }
     }
     return _adDatasource;
 }
 
+-(LXSegmentBtnView *)segmentView
+{
+    if (!_segmentView) {
+        _segmentView = [LXSegmentBtnView new];
+        [self.view addSubview:_segmentView];
+        
+        _segmentView.btnTitleNormalColor = HexColor(#1282EE);
+        _segmentView.btnTitleSelectColor = WhiteColor;
+        _segmentView.btnBackgroundNormalColor = WhiteColor;
+        _segmentView.btnBackgroundSelectColor = HexColor(#1282EE);
+        _segmentView.bordColor = HexColor(#1282EE);
+        
+        _segmentView.sd_layout
+        .topSpaceToView(self.headView, 0)
+        .centerXEqualToView(self.view)
+        .widthIs(330)
+        .heightIs(30)
+        ;
+        [_segmentView updateLayout];
+        _segmentView.btnTitleArray = [NSArray arrayWithObjects:@"综合排行",@"单项排行",nil];
+        @weakify(self);
+        _segmentView.lxSegmentBtnSelectIndexBlock = ^(NSInteger index, UIButton *btn) {
+            @strongify(self);
+            [self reloadTableWithIndex:index];
+        };
+    }
+    return _segmentView;
+}
+
+-(NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        //        NSArray *title = @[
+        //                           @"综合排行",
+        //                           @"体育投注排行",
+        //                           @"真人游戏排行",
+        //                           @"男性玩家排行",
+        //                           @"女性玩家排行",
+        //                           @"未成年玩家排行",
+        //                           ];
+        //        NSArray *backImg = @[
+        //                                @"rank_banner0",
+        //                                @"rank_banner1",
+        //                                @"rank_banner2",
+        //                                @"rank_banner3",
+        //                                @"rank_banner0",
+        //                                @"rank_banner1",
+        //                                ];
+        //
+        //        NSArray *updateTime = @[
+        //                                   @"2018年5月30日",
+        //                                   @"2018年5月31日",
+        //                                   @"2018年5月15日",
+        //                                   @"2018年6月1日",
+        //                                   @"2018年4月23日",
+        //                                   @"2018年1月1日",
+        //                                   ];
+        _dataSource = [NSMutableArray new];
+        //
+        //        for (int i = 0; i < title.count; i ++) {
+        //            NSMutableDictionary *dic = [NSMutableDictionary new];
+        //            dic[@"title"] = title[i];
+        //            dic[@"backImg"] = backImg[i];
+        //            dic[@"updateTime"] = updateTime[i];
+        //            [_datasource addObject:dic];
+        //        }
+        
+    }
+    return _dataSource;
+}
+
+-(NSMutableArray *)leftDataSource
+{
+    if (!_leftDataSource) {
+        _leftDataSource = [NSMutableArray new];
+    }
+    return _leftDataSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.navigationItem.title = @"排行榜";
     
     [self setNaviTitle];
     
     [self addViews];
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -118,6 +159,12 @@
     }
     if (self.adDatasource.count<=0) {
         [self requestBottomBanner];
+    }
+    if (self.dataSource.count<=0) {
+        [self requestRanking];
+    }
+    if (self.leftDataSource.count<=0) {
+        [self.tableLeft.mj_header beginRefreshing];
     }
 }
 
@@ -131,11 +178,28 @@
 {
     [self addTopLoopView];
     [self addBottomADView];
-//    [self addCenterRankView];
+    //    [self addCenterRankView];
+    self.segmentView.titleFont = PFFontM(14);
+//    self.segmentView.selectedIndex = 1;
+    
+    [self createTableLeft];
     
     [self createTable];
     
-    [self requestRanking];
+}
+
+//根据不同情况显隐世图
+-(void)reloadTableWithIndex:(NSInteger)index
+{
+    if (index==1) {
+        [self.tableV setHidden:NO];
+        [self.tableLeft setHidden:YES];
+        [self.tableV reloadData];
+    }else{
+        [self.tableV setHidden:YES];
+        [self.tableLeft setHidden:NO];
+        [self.tableLeft reloadData];
+    }
 }
 
 //添加上方轮播图
@@ -154,6 +218,9 @@
     [self.headView updateLayout];
     
     self.headView.type = NormalType;
+    if (self.adArr.count<=1) {
+        self.headView.hiddenPageControl = YES;
+    }
     [self.headView setupUIWithModels:self.adArr];
     
     @weakify(self)
@@ -181,7 +248,7 @@
     self.lineCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.lineCollectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:self.lineCollectionView];
-
+    
     self.lineCollectionView.sd_layout
     .topSpaceToView(self.view, 0)
     .leftEqualToView(self.view)
@@ -222,14 +289,41 @@
     self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableV];
     self.tableV.sd_layout
-    .topSpaceToView(self.headView, 0)
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
+    .topSpaceToView(self.segmentView, 20)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
     .bottomSpaceToView(self.adCollectionView, 0)
     ;
     
     [self.tableV registerClass:[MoveCell class] forCellReuseIdentifier:@"cell"];
     
+    [self.tableV setHidden:YES];
+}
+
+-(void)createTableLeft
+{
+    self.tableLeft = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.tableLeft addBakcgroundColorTheme];
+    self.tableLeft.delegate = self;
+    self.tableLeft.dataSource = self;
+    self.tableLeft.showsVerticalScrollIndicator = NO;
+    //取消cell边框
+    self.tableLeft.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableLeft];
+    self.tableLeft.sd_layout
+    .topSpaceToView(self.segmentView, 20)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .bottomSpaceToView(self.adCollectionView, 0)
+    ;
+    
+    [self.tableLeft registerClass:[RankListTableViewCell2 class] forCellReuseIdentifier:RankListTableViewCell2ID];
+    
+    @weakify(self);
+    self.tableLeft.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self requestCompanyRanking];
+    }];
 }
 
 //添加下方广告视图
@@ -246,7 +340,7 @@
     self.adCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:adLayout];
     self.adCollectionView.lee_theme.LeeConfigBackgroundColor(@"backgroundColor");
     [self.view addSubview:self.adCollectionView];
-
+    
     self.adCollectionView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
@@ -293,7 +387,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (collectionView == self.lineCollectionView) {
-        return self.datasource.count;
+        return self.dataSource.count;
     }
     return self.adDatasource.count;
 }
@@ -302,7 +396,7 @@
     UICollectionViewCell *cell;
     if (collectionView == self.lineCollectionView) {
         LineCollectionViewCell *cell1 = [collectionView dequeueReusableCellWithReuseIdentifier:LineCollectionViewCellID forIndexPath:indexPath];
-        RankingModel *model = self.datasource[indexPath.row];
+        RankingModel *model = self.dataSource[indexPath.row];
         cell1.model = model;
         cell = cell1;
     }
@@ -322,7 +416,7 @@
         .bottomEqualToView(cell.contentView)
         ;
         ADModel *model = self.adDatasource[indexPath.row];
-//        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
+        //        adImg.image = UIImageNamed(self.adDatasource[indexPath.row]);
         [adImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
     }
     [cell addBakcgroundColorTheme];
@@ -333,7 +427,7 @@
 {
     if (collectionView == self.lineCollectionView) {
         RankListViewController *rlVC = [RankListViewController new];
-        RankingModel *model = self.datasource[indexPath.row];
+        RankingModel *model = self.dataSource[indexPath.row];
         rlVC.rankingId = model.rankingId;
         rlVC.navigationItem.title = model.rankingName;
         [self.navigationController pushViewController:rlVC animated:YES];
@@ -346,44 +440,75 @@
 #pragma mark ---- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.datasource.count;
+    
+    if (tableView == self.tableV) {
+        return self.dataSource.count;
+    }
+    return self.leftDataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MoveCell *cell = [self.tableV dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    RankingModel *model = self.datasource[indexPath.row];
+    UITableViewCell *cell;
     
-    [cell cellGetModel:model tag:indexPath.row];
-//    [cell cellGetImage:[NSString stringWithFormat:@"banner%u",arc4random()%4] tag:indexPath.row];
-
+    if (tableView == self.tableV) {
+        MoveCell *cell1 = [self.tableV dequeueReusableCellWithIdentifier:@"cell"];
+        RankingModel *model = self.dataSource[indexPath.row];
+        
+        [cell1 cellGetModel:model tag:indexPath.row];
+        cell = cell1;
+    }else{
+        RankListTableViewCell2 *cell0 = [self.tableLeft dequeueReusableCellWithIdentifier:RankListTableViewCell2ID];
+        cell0.model = self.leftDataSource[indexPath.row];
+        @weakify(self);
+        cell0.toPlayBlock = ^(NSInteger index){
+            @strongify(self);
+            RankingListModel *model = self.leftDataSource[index];
+            [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
+        };
+        
+        cell = cell0;
+    }
+    [cell addBakcgroundColorTheme];
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return SCellHeight;
+    if (tableView == self.tableV) {
+        return SCellHeight;
+    }
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"%.2f", cell.frame.origin.y);
+    //    NSLog(@"%.2f", cell.frame.origin.y);
     //cell第一次出现时调用计算偏移量
-    MoveCell *getCell = (MoveCell *)cell;
-    
-    [getCell cellOffsetOnTabelView:tableView];
+    if (tableView == self.tableV) {
+        MoveCell *getCell = (MoveCell *)cell;
+        
+        [getCell cellOffsetOnTabelView:tableView];
+    }
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //改变图片的坐标cell的点击方法不准确所以用手势代替
-//    GGLog(@"点击了第%ld个",indexPath.row);
-    RankListViewController *rlVC = [RankListViewController new];
-    RankingModel *model = self.datasource[indexPath.row];
-    rlVC.rankingId = model.rankingId;
-    rlVC.navigationItem.title = model.rankingName;
-    [self.navigationController pushViewController:rlVC animated:YES];
+    if (tableView == self.tableV) {
+        RankListViewController *rlVC = [RankListViewController new];
+        RankingModel *model = self.dataSource[indexPath.row];
+        rlVC.rankingId = model.rankingId;
+        rlVC.navigationItem.title = model.rankingName;
+        [self.navigationController pushViewController:rlVC animated:YES];
+    }else{
+        RankDetailViewController *rdVC = [RankDetailViewController new];
+        RankingListModel *model = self.leftDataSource[indexPath.row];
+        rdVC.companyId = model.companyId;
+        [self.navigationController pushViewController:rdVC animated:YES];
+    }
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -406,17 +531,17 @@
 {
     [RequestGather requestBannerWithADId:7 success:^(id response) {
         self.adArr = response;
-        CGFloat headHeight = WIDTH_SCALE * 108 + 30;
+//        CGFloat headHeight = WIDTH_SCALE * 108 + 30;
         if (!kArrayIsEmpty(self.adArr)) {
             [self addTopLoopView];
             
         }
-        self.tableV.sd_resetLayout
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .topSpaceToView(self.view, headHeight)
-        .bottomSpaceToView(self.adCollectionView, 0)
-        ;
+//        self.tableV.sd_resetLayout
+//        .leftEqualToView(self.view)
+//        .rightEqualToView(self.view)
+//        .topSpaceToView(self.view, headHeight)
+//        .bottomSpaceToView(self.adCollectionView, 0)
+//        ;
         
     } failure:nil];
 }
@@ -449,14 +574,32 @@
     [HttpRequest getWithURLString:Ranking parameters:nil success:^(id responseObject) {
         NSArray *data = [RankingModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (!kArrayIsEmpty(data)) {
-            self.datasource = [data mutableCopy];
+            self.dataSource = [data mutableCopy];
         }
-//        [self.lineCollectionView.mj_header endRefreshing];
-//        [self.lineCollectionView reloadData];
+        //        [self.lineCollectionView.mj_header endRefreshing];
+        //        [self.lineCollectionView reloadData];
         [self.tableV reloadData];
     } failure:^(NSError *error) {
-//        [self.lineCollectionView.mj_header endRefreshing];
+        //        [self.lineCollectionView.mj_header endRefreshing];
     }];
+}
+
+//请求综合排名
+-(void)requestCompanyRanking
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"rankingId"] = @(-1);
+    
+    [HttpRequest getWithURLString:CompanyRanking parameters:parameters success:^(id responseObject) {
+        NSArray *data = [RankingListModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [self.tableLeft.mj_header endRefreshing];
+        self.leftDataSource = [data mutableCopy];
+        
+        [self.tableLeft reloadData];
+    } failure:^(NSError *error) {
+        [self.tableLeft.mj_header endRefreshing];
+    }];
+    
 }
 
 @end

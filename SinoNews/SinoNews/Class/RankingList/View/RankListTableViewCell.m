@@ -19,7 +19,7 @@
     UILabel *score; //分数
     UILabel *subTitle;
     UIImageView *status;
-    //中
+    //右
     UIButton *detailBtn;
     UIButton *toPlayBtn;
     UIImageView *upOrDown;

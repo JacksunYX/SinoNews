@@ -595,6 +595,7 @@
 		4CC2898C2105A21D00BC4D92 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2898B2105A21D00BC4D92 /* WebViewController.m */; };
 		4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289922105AFA300BC4D92 /* UIDevice+Version.m */; };
 		4CC289962105BD5F00BC4D92 /* VoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289952105BD5F00BC4D92 /* VoteViewController.m */; };
+		4CCCBBCF2179B3680064E5C9 /* RankListTableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCBBCE2179B3680064E5C9 /* RankListTableViewCell2.m */; };
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
@@ -1710,6 +1711,8 @@
 		4CC289922105AFA300BC4D92 /* UIDevice+Version.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Version.m"; sourceTree = "<group>"; };
 		4CC289942105BD5F00BC4D92 /* VoteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoteViewController.h; sourceTree = "<group>"; };
 		4CC289952105BD5F00BC4D92 /* VoteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoteViewController.m; sourceTree = "<group>"; };
+		4CCCBBCD2179B3680064E5C9 /* RankListTableViewCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListTableViewCell2.h; sourceTree = "<group>"; };
+		4CCCBBCE2179B3680064E5C9 /* RankListTableViewCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankListTableViewCell2.m; sourceTree = "<group>"; };
 		4CCCF01820EA1B72000EC6BD /* MyFansViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansViewController.h; sourceTree = "<group>"; };
 		4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansViewController.m; sourceTree = "<group>"; };
 		4CCCF01E20EA1D2E000EC6BD /* MyFansTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewCell.h; sourceTree = "<group>"; };
@@ -3456,6 +3459,8 @@
 				4C83E64220BFE32C00C99AAB /* LineLayout.m */,
 				4CE121D920C0E14100A44782 /* RankListTableViewCell.h */,
 				4CE121DA20C0E14100A44782 /* RankListTableViewCell.m */,
+				4CCCBBCD2179B3680064E5C9 /* RankListTableViewCell2.h */,
+				4CCCBBCE2179B3680064E5C9 /* RankListTableViewCell2.m */,
 				4C3D112320D90BF900480E03 /* CommentCell.h */,
 				4C3D112420D90BF900480E03 /* CommentCell.m */,
 				4C72348520FDE8F000D5C5D4 /* RankScoreCell.h */,
@@ -4537,6 +4542,7 @@
 				4C992FEE217717680092DDCF /* HXDatePhotoViewPresentTransition.m in Sources */,
 				4C17B4A620E250C900470AEB /* IFMShareItemCell.m in Sources */,
 				4C73382F214605AA0001B33F /* GetImageSizeTool.m in Sources */,
+				4CCCBBCF2179B3680064E5C9 /* RankListTableViewCell2.m in Sources */,
 				4C72345F20FC6E4200D5C5D4 /* UIView+LYExtension.m in Sources */,
 				4C3F904C20BD58C8003EC4FC /* LWDPageControl.m in Sources */,
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,

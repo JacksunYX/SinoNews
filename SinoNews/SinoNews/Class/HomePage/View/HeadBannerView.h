@@ -21,7 +21,8 @@ typedef void(^clickHandleBlock)(NSInteger index);
 
 @property (nonatomic,copy) clickHandleBlock selectBlock;
 @property (nonatomic,assign) BannerType type;
-@property (nonatomic,assign) BOOL showTitle;    //是否显示标题
+@property (nonatomic,assign) BOOL showTitle;        //是否显示标题
+@property (nonatomic,assign) BOOL hiddenPageControl;//隐藏页数控制
 -(void)setupUIWithImageUrls:(NSArray *)imgs;
 -(void)setupUIWithModels:(NSArray <ADModel*> *)models;
 -(void)setupUIWithModels2:(NSArray <HomePageBannerModel*> *)models; //替换

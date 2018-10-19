@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger,JPushType) {
     JPushTypeProduct = 1,   //兑换详情
     JPushTypePraise = 2,    //点赞
     JPushTypeFans = 3,      //粉丝关注
+    JPushTypeNews = 4,      //新闻
+    JPushTypeCompany = 5,   //公司
 };
 
 @implementation AppDelegate (Push)

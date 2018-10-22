@@ -12,11 +12,11 @@
 
 
 //接口域名
-#define DefaultDomainName DebugDomain3
+#define DefaultDomainName DebugDomain1
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
-#define DebugDomain1 @"http://192.168.2.142:8087"
-#define DebugDomain2 @"http://192.168.2.144:8083"
+#define DebugDomain1 @"http://192.168.2.142:8087" //Tony
+#define DebugDomain2 @"http://192.168.2.144:8083" //Edison
 //正式
 #define DebugDomain3 @"https://qsl.bravetroops.biz"
 

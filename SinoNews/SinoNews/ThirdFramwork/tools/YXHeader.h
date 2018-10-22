@@ -32,6 +32,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface YXHeader : NSObject
 
 + (BOOL)checkLogin;

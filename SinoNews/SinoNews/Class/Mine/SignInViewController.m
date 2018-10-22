@@ -131,6 +131,12 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
+//    self.tableView.sd_layout
+//    .topEqualToView(self.view)
+//    .leftEqualToView(self.view)
+//    .rightEqualToView(self.view)
+//    .bottomEqualToView(self.view)
+//    ;
 //    [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -614,8 +620,9 @@
         taskAward.text = @"去完成";
         taskAward.textColor = HexColor(#F25747);
         taskAward.layer.borderColor = HexColor(#F25747).CGColor;
+        @weakify(self);
         [taskAward whenTap:^{
-            
+            @strongify(self);
             MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
             RTRootNavigationController *bvc = keyVC.viewControllers[3];
             IntegralViewController *ivC = (IntegralViewController *)bvc.rt_viewControllers[0];

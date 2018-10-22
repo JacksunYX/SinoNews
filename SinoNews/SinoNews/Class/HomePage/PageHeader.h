@@ -10,7 +10,11 @@
 #ifndef PageHeader_h
 #define PageHeader_h
 
+#import "LoginViewController.h"
+#import "RegisterViewController.h"
+#import "ForgetPasswordViewController.h"
 
+#import "NewsDetailViewController.h"
 #import "CatechismViewController.h"
 #import "WebViewController.h"
 #import "VoteViewController.h"
@@ -26,5 +30,7 @@
 #import "MessagePraiseViewController.h"
 #import "MessageFansViewController.h"
 #import "OfficialNotifyViewController.h"
+
+#import "RankDetailViewController.h"
 
 #endif /* PageHeader_h */

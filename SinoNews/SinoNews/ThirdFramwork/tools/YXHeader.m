@@ -7,7 +7,6 @@
 //
 
 #import "YXHeader.h"
-#import "LoginViewController.h"
 
 @implementation YXHeader
 + (BOOL)checkLogin

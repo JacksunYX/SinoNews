@@ -12,8 +12,8 @@
 #define isIOS8 ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
 //需要替换的部分
 
-//#define JPushKey    @"aee4b654a5bfe125ac3c4c6b" //测试
-#define JPushKey    @"338d7414c564982fcee2bddb" //正式
+#define JPushKey    @"aee4b654a5bfe125ac3c4c6b" //测试
+//#define JPushKey    @"338d7414c564982fcee2bddb" //正式
 
 
 //推送消息类型
@@ -120,13 +120,13 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
         //ios 10前台获取推送消息内容
-        //前台收到消息直接对消息处理 不点击
+        //前台收到消息直接对消息处理 不弹框点击
         [self handleNotificationForground:userInfo];
         
     }else {
         // 判断为本地通知
     }
-//    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+    //    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
 }
 
 //ios 10在这里处理通知点击跳转
@@ -146,7 +146,7 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 #pragma clang diagnostic pop
 //点击推送弹窗进行的处理
 - (void)handleNotification:(NSDictionary *)userInfo{
-    GGLog(@"点击进入推送回调了~~~");
+    GGLog(@"点击进入推送回调了~~~:%@",userInfo);
     if ([[userInfo allKeys] containsObject:@"redirectType"]) {
         
         UIViewController *currentVC = [HttpRequest currentViewController];
@@ -167,7 +167,9 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
                 break;
             case JPushTypeProduct:
             {
-                
+                [currentVC.navigationController popToRootViewControllerAnimated:NO];
+                MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                [keyVC setSelectedIndex:4];
             }
                 break;
             case JPushTypePraise:
@@ -187,6 +189,34 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
                     [currentVC.navigationController pushViewController:[MessageFansViewController new] animated:YES];
                 }else{
                     [[(MessageFansViewController *)currentVC tableView].mj_header beginRefreshing];
+                }
+            }
+                break;
+            case JPushTypeNews:
+            {
+                //如果是present出来的VC
+                if ([currentVC isKindOfClass:[LoginViewController class]]||[currentVC isKindOfClass:[RegisterViewController class]]) {
+                    //先dismiss
+                    [currentVC dismissViewControllerAnimated:NO completion:^{
+                        [self pushItemType:[userInfo[@"itemType"] integerValue] newId:[userInfo[@"itemId"] integerValue]];
+                    }];
+                    
+                }else{
+                    [self pushItemType:[userInfo[@"itemType"] integerValue] newId:[userInfo[@"itemId"] integerValue]];
+                }
+            }
+                break;
+            case JPushTypeCompany:
+            {
+                //如果是present出来的VC
+                if ([currentVC isKindOfClass:[LoginViewController class]]||[currentVC isKindOfClass:[RegisterViewController class]]) {
+                    //先dismiss
+                    [currentVC dismissViewControllerAnimated:NO completion:^{
+                        [self pushCompanyId:[userInfo[@"companyId"] integerValue]];
+                    }];
+                    
+                }else{
+                    [self pushCompanyId:[userInfo[@"companyId"] integerValue]];
                 }
             }
                 break;
@@ -300,7 +330,7 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 
 /**
  处理通知推送的数据
-
+ 
  @param userInfo 推送数据
  @param forground 是否是在前台收到的推送
  */
@@ -314,6 +344,38 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
         
     }
 }
+
+
+//跳转文章详情页
+-(void)pushItemType:(NSInteger)itemType newId:(NSInteger)itemId
+{
+    UIViewController *pushVC;
+    if (itemType>=400&&itemType<500) { //投票
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = itemId;
+        ndVC.isVote = YES;
+        pushVC = ndVC;
+    }else if (itemType>=500&&itemType<600) { //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = itemId;
+            pushVC = cVC;
+    }else{
+        NewsDetailViewController *ndVC = [NewsDetailViewController new];
+        ndVC.newsId = itemId;
+        pushVC = ndVC;
+    }
+    [[HttpRequest currentViewController].navigationController pushViewController:pushVC animated:YES];
+}
+
+//跳转公司详情页
+-(void)pushCompanyId:(NSInteger)companyId
+{
+    RankDetailViewController *rdVC = [RankDetailViewController new];
+    rdVC.companyId = [NSString stringWithFormat:@"%ld",companyId];
+    [[HttpRequest currentViewController].navigationController pushViewController:rdVC animated:YES];
+}
+
+
 
 @end
 

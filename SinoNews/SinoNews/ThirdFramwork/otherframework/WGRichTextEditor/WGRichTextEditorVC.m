@@ -16,6 +16,7 @@
 
 NSString *const kEditorURL = @"richText_editor";
 NSString *const kEditorURL_noTitle = @"richText_editor_noTitle";
+NSString *const kEditorURL_contentDisable = @"richText_editor_contentDisable";
 
 @interface WGRichTextEditorVC ()<UITextViewDelegate,UIWebViewDelegate,KWEditorBarDelegate,HXAlbumListViewControllerDelegate,UIAlertViewDelegate,YBPopupMenuDelegate>
 
@@ -49,6 +50,9 @@ NSString *const kEditorURL_noTitle = @"richText_editor_noTitle";
         if (self.hiddenTitle) {
             resource = kEditorURL_noTitle;
         }
+        if (self.disableEdit) {
+            resource = kEditorURL_contentDisable;
+        }
         NSString * htmlPath = [[NSBundle mainBundle] pathForResource:resource                                                              ofType:@"html"];
         NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
                                                         encoding:NSUTF8StringEncoding
@@ -68,21 +72,26 @@ NSString *const kEditorURL_noTitle = @"richText_editor_noTitle";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = WhiteColor;
     [self.view addSubview:self.webView];
-    [self.view addSubview:self.toolBarView];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    
-    self.toolBarView.delegate = self;
-    
+    if (!self.disableEdit) {
+        [self.view addSubview:self.toolBarView];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+        
+        self.toolBarView.delegate = self;
+    }
     
 }
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     
-    self.webView.frame = CGRectMake(0,0, self.view.frame.size.width,self.view.frame.size.height - KWEditorBar_Height);
+    if (self.disableEdit) {
+        self.webView.frame = CGRectMake(0,0, self.view.frame.size.width,self.view.frame.size.height-0);
+    }else{
+        self.webView.frame = CGRectMake(0,0, self.view.frame.size.width,self.view.frame.size.height - KWEditorBar_Height);
+    }
 }
 
 -(NSString *)getTitle
@@ -100,6 +109,12 @@ NSString *const kEditorURL_noTitle = @"richText_editor_noTitle";
     return [self.webView contentHtmlText];
 }
 
+-(void)setContent:(NSString *)content
+{
+    _content = content;
+    [self.webView setupContent:content];
+}
+
 #pragma mark -webviewdelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"webViewDidFinishLoad");
@@ -109,8 +124,19 @@ NSString *const kEditorURL_noTitle = @"richText_editor_noTitle";
         [webView setupContent:draft];
         [webView clearContentPlaceholder];
     }
+    if (self.newsTitle) {
+        [webView setupTitle:self.newsTitle];
+    }
+    if (self.content) {
+        [webView clearContentPlaceholder];
+        [webView setupContent:self.content];
+    }
     
-    if (_hiddenTitle) {
+    if (self.disableEdit) {
+        [webView setupContentDisable:self.disableEdit];
+    }
+    
+    if (self.hiddenTitle) {
         [webView showKeyboardContent];
     }
 }

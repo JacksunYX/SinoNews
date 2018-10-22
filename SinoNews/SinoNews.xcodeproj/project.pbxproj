@@ -592,6 +592,8 @@
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
 		4CB68B6A2154DE3300ACE1D6 /* SharePopCopyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68B692154DE3300ACE1D6 /* SharePopCopyView.m */; };
 		4CB68B6E2154E15700ACE1D6 /* CryptLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68B6C2154E15600ACE1D6 /* CryptLib.m */; };
+		4CBEF665217DE00100C6F8DA /* richText_editor_contentDisable.html in Resources */ = {isa = PBXBuildFile; fileRef = 4CBEF664217DE00100C6F8DA /* richText_editor_contentDisable.html */; };
+		4CBEF668217DEED000C6F8DA /* PaidEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CBEF667217DEED000C6F8DA /* PaidEditViewController.m */; };
 		4CC2898C2105A21D00BC4D92 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2898B2105A21D00BC4D92 /* WebViewController.m */; };
 		4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289922105AFA300BC4D92 /* UIDevice+Version.m */; };
 		4CC289962105BD5F00BC4D92 /* VoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC289952105BD5F00BC4D92 /* VoteViewController.m */; };
@@ -1705,6 +1707,9 @@
 		4CB68B692154DE3300ACE1D6 /* SharePopCopyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharePopCopyView.m; sourceTree = "<group>"; };
 		4CB68B6C2154E15600ACE1D6 /* CryptLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptLib.m; sourceTree = "<group>"; };
 		4CB68B6D2154E15600ACE1D6 /* CryptLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptLib.h; sourceTree = "<group>"; };
+		4CBEF664217DE00100C6F8DA /* richText_editor_contentDisable.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = richText_editor_contentDisable.html; sourceTree = "<group>"; };
+		4CBEF666217DEED000C6F8DA /* PaidEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaidEditViewController.h; sourceTree = "<group>"; };
+		4CBEF667217DEED000C6F8DA /* PaidEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaidEditViewController.m; sourceTree = "<group>"; };
 		4CC2898A2105A21D00BC4D92 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		4CC2898B2105A21D00BC4D92 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		4CC289912105AFA300BC4D92 /* UIDevice+Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Version.h"; sourceTree = "<group>"; };
@@ -2296,6 +2301,8 @@
 				4CA141FC20F4528600536E77 /* PublishManagerViewController.m */,
 				4CA1420120F48A6900536E77 /* PublishArticleViewController.h */,
 				4CA1420220F48A6900536E77 /* PublishArticleViewController.m */,
+				4CBEF666217DEED000C6F8DA /* PaidEditViewController.h */,
+				4CBEF667217DEED000C6F8DA /* PaidEditViewController.m */,
 				4C44E3802122832700C5D10A /* DraftDetailViewController.h */,
 				4C44E3812122832700C5D10A /* DraftDetailViewController.m */,
 				4C49F06220D0C74D009DC42B /* MyAttentionViewController.h */,
@@ -3756,13 +3763,14 @@
 		4C993000217717710092DDCF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4C993001217717710092DDCF /* richText_editor_noTitle.html */,
 				4C993002217717710092DDCF /* icon_refresh.png */,
 				4C993003217717710092DDCF /* article_editor.js */,
 				4C993004217717710092DDCF /* style.css */,
 				4C993005217717710092DDCF /* normalize.css */,
 				4C993006217717710092DDCF /* jquery.js */,
 				4C993007217717710092DDCF /* richText_editor.html */,
+				4C993001217717710092DDCF /* richText_editor_noTitle.html */,
+				4CBEF664217DE00100C6F8DA /* richText_editor_contentDisable.html */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -4095,6 +4103,7 @@
 				4C3F8FA920BCD894003EC4FC /* Assets.xcassets in Resources */,
 				4C7EF34921212A0B0002166A /* ZSSunorderedlist.png in Resources */,
 				4C3F8FA720BCD893003EC4FC /* Main.storyboard in Resources */,
+				4CBEF665217DE00100C6F8DA /* richText_editor_contentDisable.html in Resources */,
 				4C9D7ABD211BD7BC00EDCDBC /* tabbarClick.mp3 in Resources */,
 				4C7EF35821212A0B0002166A /* ZSSimageDevice.png in Resources */,
 				4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */,
@@ -4646,6 +4655,7 @@
 				4C4E4959211159600078864D /* HomeSearchTView.m in Sources */,
 				4C6E9174213F5F07001535CA /* YYTextDebugOption.m in Sources */,
 				4C6E917F213F5F07001535CA /* UITextField+YYAdd.m in Sources */,
+				4CBEF668217DEED000C6F8DA /* PaidEditViewController.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,
 				4C51B169210EC690007EF10B /* MineTipsModel.m in Sources */,
 				4C54949220CE22D400CB448E /* AttentionRecommendSecondCell.m in Sources */,

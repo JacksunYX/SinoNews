@@ -220,7 +220,7 @@
 }
 
 - (void)setupContentDisable:(BOOL)disable{
-    NSString *trigger = [NSString stringWithFormat:@"RE.canFocus(\"%@\");",disable?@"true":@"false"];
+    NSString *trigger = [NSString stringWithFormat:@"RE.canFocus(\"%@\");",disable?@"false":@"true"];
     [self stringByEvaluatingJavaScriptFromString:trigger];
     
     [self stringByEvaluatingJavaScriptFromString:@"RE.restorerange();"];

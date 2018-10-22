@@ -20,12 +20,16 @@
 //第三版编辑器
 #import "WGRichTextEditorVC.h"
 
+//内容编辑页面
+#import "PaidEditViewController.h"
+
 @interface PublishArticleViewController ()<YBPopupMenuDelegate,UITextFieldDelegate>
 {
     //不可以用作当前控制器的属性，否则会崩溃
     ZSSCustomButtonsViewController *inputViewController;
     
-    WGRichTextEditorVC *wgrteVC;
+    WGRichTextEditorVC *wgrteFirstVC;
+    WGRichTextEditorVC *wgrteSecondVC;
 }
 
 @property (nonatomic, strong) LMWordViewController *wordViewController;
@@ -91,10 +95,11 @@
     self.view.backgroundColor = WhiteColor;
     
     [self showTopLine];
+    self.fd_interactivePopDisabled = YES;
     
     NSString *title = @"发布文章";
     if (self.isPayArticle) {
-        title = @"发布文章(免费内容)";
+        title = @"发布付费文章";
     }
     self.topViewH = 54;
     if (self.editType == 1) {
@@ -128,15 +133,15 @@
     editBtn.font = PFFontL(15);
     editBtn.textColor = RGBA(18, 130, 238, 1);
     editBtn.text = @"发布";
-    if (self.isPayArticle&&self.editType!=2) {
-        rightBtn.frame = CGRectMake(0, 0, 60, 40);
-        editBtn.text = @"下一步";
-        editBtn.frame = CGRectMake(0, 0, 60, 25);
-    }
+//    if (self.isPayArticle&&self.editType!=2) {
+//        rightBtn.frame = CGRectMake(0, 0, 60, 40);
+//        editBtn.text = @"下一步";
+//        editBtn.frame = CGRectMake(0, 0, 60, 25);
+//    }
     editBtn.layer.cornerRadius = 3;
     editBtn.layer.borderColor = RGBA(18, 130, 238, 1).CGColor;
     editBtn.layer.borderWidth = 1;
-    //    [rightBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [rightBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
     @weakify(self);
     [rightBtn whenTap:^{
         @strongify(self);
@@ -328,49 +333,192 @@
         [self.selectView updateLayout];
         //构建视图
         [self.selectView setViewWithChannelArr:[self getAllChannels]];
-        //如果是文章草稿，需要设置已选的频道
-        if (self.draftModel) {
-            [self.selectView setSelectChannels:self.draftModel.channelIds];
-        }
+        
         //回调
         @weakify(self);
         self.selectView.selectBlock = ^(NSString *channelIdStr) {
             @strongify(self);
             self.channelId = channelIdStr;
         };
-    }
-    
-    wgrteVC = [WGRichTextEditorVC new];
-    
-    if (self.draftModel) {
-        wgrteVC.draftModel = self.draftModel;
-    }
-    
-    if (self.isPayArticle) {
-        wgrteVC.hiddenSettingBtn = YES;
-        if (self.editType == 2) {
-            wgrteVC.hiddenTitle = YES;
+        
+        //如果是文章草稿，需要设置已选的频道
+        if (self.draftModel) {
+            [self.selectView setSelectChannels:self.draftModel.channelIds];
+        }
+        
+        //标题
+        if (self.isPayArticle) {
+            _titleInputField = [TXLimitedTextField new];
+            _titleInputField.font = PFFontR(24);
+            _titleInputField.placeholder = @"请输入标题";
+            _titleInputField.delegate = self;
+            [self.view addSubview:_titleInputField];
+            _titleInputField.sd_layout
+            .topSpaceToView(_channelSelectionView, 0)
+            .leftSpaceToView(self.view, 25)
+            .rightSpaceToView(self.view, 25)
+            .heightIs(70)
+            ;
+            [_titleInputField updateLayout];
+            
+            UIView *sepLine = [UIView new];
+            [self.view addSubview:sepLine];
+            sepLine.sd_layout
+            .topSpaceToView(_titleInputField, 0)
+            .leftSpaceToView(self.view, 10)
+            .rightSpaceToView(self.view, 10)
+            .heightIs(1)
+            ;
+            [sepLine updateLayout];
+            //加虚线
+            [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
+            self.topViewH = CGRectGetMaxY(sepLine.frame);
         }
     }
     
-    [self addChildViewController:wgrteVC];
+    wgrteFirstVC = [WGRichTextEditorVC new];
     
-    [self.view addSubview:wgrteVC.view];
+    if (self.draftModel) {
+        wgrteFirstVC.draftModel = self.draftModel;
+    }
     
-//    wgrteVC.view.frame = CGRectMake(0, self.topViewH, self.view.bounds.size.width, self.view.bounds.size.height - self.topViewH);
-    wgrteVC.view.sd_layout
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .topSpaceToView(self.view, self.topViewH)
-    .bottomSpaceToView(self.view, 0)
-    ;
+    if (self.isPayArticle) {
+        wgrteFirstVC.hiddenSettingBtn = YES;
+        if (self.editType == 2) {
+            wgrteFirstVC.hiddenTitle = YES;
+        }
+        wgrteFirstVC.disableEdit = YES;
+        wgrteFirstVC.content = @"免费部分";
+    }
+    
+    [self addChildViewController:wgrteFirstVC];
+    
+    [self.view addSubview:wgrteFirstVC.view];
+    
+    if (self.isPayArticle) {
+        CGFloat webH = (ScreenH - NAVI_HEIGHT - self.topViewH - 5)/2;
+        wgrteFirstVC.view.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .topSpaceToView(self.view, self.topViewH)
+        .heightIs(webH)
+        ;
+        wgrteFirstVC.view.tag = 100;
+        //添加一个编辑按钮
+        [self addEditBtnOnFatherView:wgrteFirstVC.view];
+        
+        [self addSecondEditorView:webH];
+    }else{
+        wgrteFirstVC.view.sd_layout
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .topSpaceToView(self.view, self.topViewH)
+        .bottomSpaceToView(self.view, 0)
+        ;
+    }
     
     @weakify(self);
-    wgrteVC.selectedBlock = ^(NSInteger index) {
+    wgrteFirstVC.selectedBlock = ^(NSInteger index) {
         @strongify(self);
         [self processWithIndex:index];
     };
     
+}
+
+//添加编辑付费部分的试图
+-(void)addSecondEditorView:(CGFloat)height
+{
+    wgrteSecondVC = [WGRichTextEditorVC new];
+    
+    wgrteSecondVC.hiddenSettingBtn = YES;
+    
+    wgrteSecondVC.hiddenTitle = YES;
+    
+    wgrteSecondVC.disableEdit = YES;
+    wgrteSecondVC.content = @"付费部分";
+    [self addChildViewController:wgrteSecondVC];
+    
+    [self.view addSubview:wgrteSecondVC.view];
+    
+    wgrteSecondVC.view.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .heightIs(height)
+    .bottomSpaceToView(self.view, 0)
+    ;
+    wgrteSecondVC.view.tag = 101;
+    //添加一个编辑按钮
+    [self addEditBtnOnFatherView:wgrteSecondVC.view];
+    
+    UIView *sepLine = [UIView new];
+    [self.view addSubview:sepLine];
+    sepLine.sd_layout
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .heightIs(1)
+    .bottomSpaceToView(wgrteSecondVC.view, 2)
+    ;
+    [sepLine updateLayout];
+    //加虚线
+    [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
+}
+
+//添加编辑按钮
+-(void)addEditBtnOnFatherView:(UIView *)fatherView
+{
+    UIButton *editBtn = [UIButton new];
+    [fatherView addSubview:editBtn];
+    editBtn.sd_layout
+    .bottomSpaceToView(fatherView, 5)
+    .rightSpaceToView(fatherView, 20)
+    .widthIs(50)
+    .heightIs(20)
+    ;
+    editBtn.sd_cornerRadius = @10;
+    [editBtn setNormalTitle:@"编辑"];
+    [editBtn setBtnFont:PFFontL(14)];
+    editBtn.backgroundColor = HexColor(#1282EE);
+    editBtn.tag = fatherView.tag - 100;
+    [editBtn addTarget:self action:@selector(editClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//编辑按钮点击事件
+-(void)editClick:(UIButton *)sender
+{
+    @weakify(self);
+    switch (sender.tag) {
+        case 0:
+        {
+            GGLog(@"编辑免费部分");
+            PaidEditViewController *peVC = [PaidEditViewController new];
+            peVC.type = 0;
+            peVC.content = self.freeContent;
+            peVC.editBlock = ^(NSString * _Nonnull editContent) {
+                @strongify(self);
+                self.freeContent = editContent;
+                [self->wgrteFirstVC setContent:editContent];
+            };
+            [self.navigationController pushViewController:peVC animated:YES];
+        }
+            break;
+        case 1:
+        {
+            GGLog(@"编辑付费部分");
+            PaidEditViewController *peVC = [PaidEditViewController new];
+            peVC.type = 1;
+            peVC.content = self.paidContent;
+            peVC.editBlock = ^(NSString * _Nonnull editContent) {
+                @strongify(self);
+                self.paidContent = editContent;
+                [self->wgrteSecondVC setContent:editContent];
+            };
+            [self.navigationController pushViewController:peVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 //保存或者放弃编辑
@@ -397,9 +545,9 @@
 //发布检测
 -(void)publishActionWithDraft:(BOOL)yesOrNo
 {
-    GGLog(@"html:%@",[inputViewController getHTML]);
-    GGLog(@"输入了：%@",[inputViewController getText]);
-    
+//    GGLog(@"html:%@",[inputViewController getHTML]);
+//    GGLog(@"输入了：%@",[inputViewController getText]);
+    /*
     if (kStringIsEmpty(self.channelId)&&self.editType==0){
         LRToast(@"请选择频道");
         return;
@@ -413,32 +561,84 @@
     //    }
     //    [self requestPublishArticleWithContent:[self. wordViewController exportHTML]];
     
-    else if ([NSString isEmpty:[wgrteVC getTitle]]&&self.editType == 0){
-        LRToast(@"请输入标题");
-        return;
-    }else if ([NSString isEmpty:[wgrteVC contentNoH5]]||[NSString isEmpty:[wgrteVC contentH5]]){
+    else if (self.editType == 0){
+        if (self.isPayArticle) {
+            if ([NSString isEmpty:_titleInputField.text]) {
+                LRToast(@"请输入标题");
+                return;
+            }
+        }else{
+            if ([NSString isEmpty:[wgrteFirstVC getTitle]]) {
+                LRToast(@"请输入标题");
+                return;
+            }
+        }
+    }else if ([NSString isEmpty:[wgrteFirstVC contentNoH5]]||[NSString isEmpty:[wgrteFirstVC contentH5]]){
         LRToast(@"内容必须有文字哦");
         return;
     }
+    */
+    
+    if (self.editType == 0) {
+        //1.先判断频道是否为空
+        if (kStringIsEmpty(self.channelId)) {
+            LRToast(@"请选择频道");
+            return;
+        }
+        //2.再根据是否收费判断标题
+        else if (self.isPayArticle) {
+            if ([NSString isEmpty:_titleInputField.text]) {
+                LRToast(@"请输入标题");
+                return;
+            }
+            //3.1判断免费部分内容是否为空
+            if ([NSString isEmpty:self.freeContent]) {
+                LRToast(@"免费内容还未填充内容呢");
+                return;
+            }
+            //3.2判断免费部分内容是否为空
+            if ([NSString isEmpty:self.paidContent]){
+                LRToast(@"付费内容还未填充内容呢");
+                return;
+            }
+            //3.3发布付费文章
+            [self popInputIntegralWithDraft:yesOrNo isPaid:YES];
+        }else{
+            if ([NSString isEmpty:[wgrteFirstVC getTitle]]) {
+                LRToast(@"请输入标题");
+                return;
+            }
+            //3.4判断内容是否为空
+            if ([NSString isEmpty:[wgrteFirstVC contentH5]]||[NSString isEmpty:[wgrteFirstVC contentNoH5]]) {
+                LRToast(@"内容必须要有文字哦");
+                return;
+            }
+            [self requestPublishArticleWithContent:[wgrteFirstVC contentH5] isDraft:yesOrNo];
+        }
+        
+    }else
     //如果是问答，需要弹框提示填入悬赏积分
     if (self.editType==1) {
         [self popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:NO];
-    }else{
+    }
+    /*
+    else{
         if (self.isPayArticle&&self.editType == 0) {
             PublishArticleViewController *paVC = [PublishArticleViewController new];
             paVC.isPayArticle = YES;
             paVC.editType = 2;
             paVC.channelId = self.channelId;
-            paVC.articleTitle = [wgrteVC getTitle];
-            paVC.freeContent = [wgrteVC contentH5];
+            paVC.articleTitle = [wgrteFirstVC getTitle];
+            paVC.freeContent = [wgrteFirstVC contentH5];
             [self.navigationController pushViewController:paVC animated:YES];
         }else if (self.isPayArticle&&self.editType == 2){
-            self.paidContent = [wgrteVC contentH5];
+            self.paidContent = [wgrteFirstVC contentH5];
             [self popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:YES];
         }else{
-          [self requestPublishArticleWithContent:[inputViewController getHTML] isDraft:yesOrNo];
+          [self requestPublishArticleWithContent:[wgrteFirstVC contentH5] isDraft:yesOrNo];
         }
     }
+     */
 }
 
 //询问用户是否放弃编辑
@@ -486,7 +686,7 @@
                 LRToast(@"付费积分不能为0哦");
             }
         }else{
-            [self requestPublishArticleWithContent:[self->wgrteVC contentH5] isDraft:yesOrNo];
+            [self requestPublishArticleWithContent:[self->wgrteFirstVC contentH5] isDraft:yesOrNo];
         }
         
     }]];
@@ -556,7 +756,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     //所属频道需要自己提前保存
     //    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
-    parameters[@"title"] = [wgrteVC getTitle];
+    parameters[@"title"] = [wgrteFirstVC getTitle];
     if (self.editType == 2) {
         parameters[@"title"] = self.articleTitle;
     }

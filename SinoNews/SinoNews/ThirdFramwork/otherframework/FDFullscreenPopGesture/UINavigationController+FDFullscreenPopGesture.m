@@ -37,6 +37,13 @@
     if (self.navigationController.viewControllers.count <= 1) {
         return NO;
     }
+    //因为嵌套了第三方的导航栏h控制器，所以需要考虑这个特殊情况
+    if ([self.navigationController isKindOfClass:[RTRootNavigationController class]]) {
+        UIViewController *topViewController = [[(RTRootNavigationController *)self.navigationController rt_viewControllers] lastObject];
+        if (topViewController.fd_interactivePopDisabled) {
+            return NO;
+        }
+    }
     
     // Ignore when the active view controller doesn't allow interactive pop.
     UIViewController *topViewController = self.navigationController.viewControllers.lastObject;

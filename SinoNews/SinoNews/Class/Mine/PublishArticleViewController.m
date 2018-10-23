@@ -95,7 +95,8 @@
     self.view.backgroundColor = WhiteColor;
     
     [self showTopLine];
-    self.fd_interactivePopDisabled = NO;
+    
+    self.fd_interactivePopDisabled = YES;
     
     NSString *title = @"发布文章";
     if (self.isPayArticle) {
@@ -114,6 +115,11 @@
     //    [self setUI];
 //    [self setUI2];
     [self setUI3];
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {

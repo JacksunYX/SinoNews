@@ -807,7 +807,9 @@ CGFloat static attentionBtnH = 26;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
-                [self newLoadWeb];
+                if (self.isVote) {
+                   [self newLoadWeb];
+                }
             }else if (row == 2) {
                 [self requestCollectNews];
             }else if (row == 3) {
@@ -976,7 +978,6 @@ CGFloat static attentionBtnH = 26;
     NewsDetailsModel *headModel = [NewsDetailsModel new];
     headModel.newsHtml = self.newsModel.fullContent;
     self.headerView.model = headModel;
-    
 }
 
 //下载图片

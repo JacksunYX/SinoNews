@@ -7,6 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+/*最小值的cell大小*/
+#define SCellHeight 105 //150
+/*最大值的cell大小*/
+#define BCellHeight 160 //230
+
 @class RankingModel;
 
 @interface MoveCell : UITableViewCell

@@ -10,9 +10,6 @@
 #import "RankingModel.h"
 
 
-#define SCellHeight 150
-
-#define BCellHeight 230
 
 //普通字体大小
 #define FontSize 16
@@ -56,7 +53,7 @@
         bottomView.sd_layout
         .leftEqualToView(self.imageV)
         .rightEqualToView(self.imageV)
-        .heightIs(8)
+        .heightIs(0)
         .bottomSpaceToView(self.imageV, 0)
         ;
 

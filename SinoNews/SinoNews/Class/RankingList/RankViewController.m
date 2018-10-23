@@ -15,10 +15,7 @@
 #import "LineLayout.h"
 #import "MoveCell.h"
 
-/*最小值的cell大小*/
-#define SCellHeight 150
-/*最大值的cell大小*/
-#define BCellHeight 230
+
 
 @interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 //上方的滚动视图
@@ -76,7 +73,7 @@
         _segmentView.bordColor = HexColor(#1282EE);
         
         _segmentView.sd_layout
-        .topSpaceToView(self.headView, 0)
+        .topSpaceToView(self.headView, 10)
         .centerXEqualToView(self.view)
         .widthIs(330)
         .heightIs(30)
@@ -188,7 +185,7 @@
     
 }
 
-//根据不同情况显隐世图
+//根据不同情况显隐试图
 -(void)reloadTableWithIndex:(NSInteger)index
 {
     if (index==1) {
@@ -213,11 +210,12 @@
     .topEqualToView(self.view)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(WIDTH_SCALE * 108 + 30)
+    .heightIs(WIDTH_SCALE * 108)
     ;
     [self.headView updateLayout];
     
     self.headView.type = NormalType;
+    
     if (self.adArr.count<=1) {
         self.headView.hiddenPageControl = YES;
     }
@@ -289,7 +287,7 @@
     self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableV];
     self.tableV.sd_layout
-    .topSpaceToView(self.segmentView, 20)
+    .topSpaceToView(self.segmentView, 10)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .bottomSpaceToView(self.adCollectionView, 0)
@@ -370,7 +368,7 @@
         
         UILabel *username = [UILabel new];
         [username addTitleColorTheme];
-        username.text = @"娱乐城排行榜";
+        username.text = @"娱乐场排行榜";
         [username sizeToFit];
         CGFloat labelW = CGRectGetWidth(username.frame);
         if (labelW>150*ScaleW) {

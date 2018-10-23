@@ -23,6 +23,7 @@ typedef void(^clickHandleBlock)(NSInteger index);
 @property (nonatomic,assign) BannerType type;
 @property (nonatomic,assign) BOOL showTitle;        //是否显示标题
 @property (nonatomic,assign) BOOL hiddenPageControl;//隐藏页数控制
+@property (nonatomic,assign) CGFloat bottomHeight;  //下方分页空白的高度
 -(void)setupUIWithImageUrls:(NSArray *)imgs;
 -(void)setupUIWithModels:(NSArray <ADModel*> *)models;
 -(void)setupUIWithModels2:(NSArray <HomePageBannerModel*> *)models; //替换

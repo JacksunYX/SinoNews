@@ -22,7 +22,7 @@
 #import "HomePageThirdKindCell.h"
 #import "HomePageFourthCell.h"
 
-#define HeadViewHeight (ScreenW * 172 / 345 + 30)
+#define HeadViewHeight (ScreenW * 172 / 345)
 
 @interface HomePageChildVCViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -116,6 +116,7 @@
     ;
     [headView updateLayout];
     headView.showTitle = YES;
+    headView.bottomHeight = 5;
     [headView setupUIWithModels2:self.adArr];
     
     @weakify(self)

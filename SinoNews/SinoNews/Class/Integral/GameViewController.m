@@ -67,14 +67,15 @@
     [self.view addSubview:self.headView];
     
     self.headView.sd_layout
-    .topSpaceToView(self.view, 10)
+    .topSpaceToView(self.view, 0)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(WIDTH_SCALE * 108 + 30)
+    .heightIs(WIDTH_SCALE * 108)
     ;
     [self.headView updateLayout];
     
     self.headView.type = NormalType;
+    self.headView.bottomHeight = 5;
     [self.headView setupUIWithModels:self.adArr];
     
     @weakify(self)
@@ -91,7 +92,7 @@
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
-        [self.tableView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 30];
+        [self.tableView.top_attr equalTo:self.view.top_attr_safe constant:WIDTH_SCALE * 108 + 20];
         self.tableView.left_attr = self.view.left_attr_safe;
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;

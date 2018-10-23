@@ -63,14 +63,18 @@
     [self.view addSubview:self.headView];
     
     self.headView.sd_layout
-    .topSpaceToView(self.view, 10)
+    .topSpaceToView(self.view, 0)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(WIDTH_SCALE * 108 + 30)
+    .heightIs(WIDTH_SCALE * 108)
     ;
     [self.headView updateLayout];
     
     self.headView.type = NormalType;
+    self.headView.bottomHeight = 5;
+    if (self.adArr.count<=1) {
+        self.headView.hiddenPageControl = YES;
+    }
     [self.headView setupUIWithModels:self.adArr];
     
     @weakify(self)
@@ -89,7 +93,7 @@
     if (_segHead) {
         [_segHead removeFromSuperview];
     }
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, WIDTH_SCALE * 108 + 30 , SCREEN_WIDTH, 42) titles:titles headStyle:1 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, WIDTH_SCALE * 108 + 20 , SCREEN_WIDTH, 42) titles:titles headStyle:1 layoutStyle:0];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;

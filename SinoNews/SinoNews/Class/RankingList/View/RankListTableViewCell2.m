@@ -47,7 +47,7 @@
 -(void)setupUI
 {
     userIcon = [UIImageView new];
-    userIcon.backgroundColor = Arc4randomColor;
+//    userIcon.backgroundColor = Arc4randomColor;
     
     num = [UILabel new];
     num.font = PFFontR(15);

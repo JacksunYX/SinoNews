@@ -496,10 +496,6 @@ static NSString * const ErrorString = @"提示:";
     
     NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
-    if (![MBProgressHUD allHUDsForView:kWindow].count)
-        
-        kShowHUDAndActivity;
-    
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -522,7 +518,7 @@ static NSString * const ErrorString = @"提示:";
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // 在主线程中更新 UI
-                kHiddenHUDAndAvtivity;
+                
             });
             
         }

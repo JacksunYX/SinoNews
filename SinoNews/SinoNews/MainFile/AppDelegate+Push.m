@@ -12,8 +12,8 @@
 #define isIOS8 ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
 //需要替换的部分
 
-#define JPushKey    @"aee4b654a5bfe125ac3c4c6b" //测试
-//#define JPushKey    @"338d7414c564982fcee2bddb" //正式
+//#define JPushKey    @"aee4b654a5bfe125ac3c4c6b" //测试
+#define JPushKey    @"338d7414c564982fcee2bddb" //正式
 
 
 //推送消息类型

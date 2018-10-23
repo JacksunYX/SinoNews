@@ -6,27 +6,21 @@
 //  Copyright © 2018年 Sino. All rights reserved.
 //
 
-#define IPHONE_X (([[UIScreen mainScreen] bounds].size.height >= 812) && ([[UIScreen mainScreen] bounds].size.width >= 375))
-#define HEIGHT_Adaptation (IPHONE_X ? ([UIScreen mainScreen].bounds.size.height)/812 : ([UIScreen mainScreen].bounds.size.height)/667)
+// 判断是否为iPhone X 系列  这样写消除了在Xcode10上的警告。
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
 #define NAVI_HEIGHT (IPHONE_X ? 88 : 64)
 #define BOTTOM_MARGIN (IPHONE_X ? 34 : 0)
 #define StatusBarHeight (IPHONE_X ? 44 : 20)
 
 #define TAB_HEIGHT (IPHONE_X ? 83 : 49)
 #define ScaleWidth(width) width * WIDTH_SCALE
-#define ScaleHeight(height) height * HEIGHT_SCALE
 #define WIDTH_SCALE (([UIScreen mainScreen].bounds.size.width)/375.0)
-
-#define HEIGHT_SCALE (IPHONE_X ? ([UIScreen mainScreen].bounds.size.height)/812 : ([UIScreen mainScreen].bounds.size.height)/667)
-
-#define kDefaultBGColor [UIColor colorWithHexString:@"efefef"]
-#define kColor333 [UIColor colorWithHexString:@"333333"]
-#define kColor666 [UIColor colorWithHexString:@"666666"]
-#define kColor999 [UIColor colorWithHexString:@"999999"]
-#define kColord40 [UIColor colorWithHexString:@"d40000"]
-
-
-
 
 
 

@@ -49,9 +49,6 @@
 //拼接图片的宏
 #define JointImgUrl(imgUrlStr) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DefaultDomainName,imgUrlStr]]
 
-//导航栏颜色
-#define NAVIGATIONBAR_COLOR  [UIColor colorWithRed:225.0f/255.0f green:39.0f/255.0f blue:39.0f/255.0f alpha:1.0f]
-
 
 //设置字体
 #define PFR [[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? @"PingFangSC-Regular" : @"PingFangSC-Light"
@@ -67,12 +64,6 @@
 #define PFR11Font [UIFont fontWithName:PFR size:11]
 #define PFR10Font [UIFont fontWithName:PFR size:10]
 #define PFR9Font [UIFont fontWithName:PFR size:9]
-
-#define AlipayPublicKey  @""
-
-
-//进行rsa公钥加密
-#define ENCRYPTSTR(str) [NSString_Validation encryptString:str publicKey:@"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDaPXzkgIgZ2pi9yZmrde80IyBK/OFLvQgAQtVAuxwiVEKw7McTU+drygX+p/yHmZehg31xMzUs5kRJ2qBD9KesTzF0BEEEUn/E8/+FwtIBZ6KdDnIBFTBrdY0Re8AT+zH1mHQ0+MpSp/a2mVgdlPkzQrIQDDO7lf3WAsMVDnEP/wIDAQAB"]
 
 
 
@@ -97,11 +88,6 @@
 
 
 //-------------------获取设备大小-------------------------
-//NavBar高度
-#define NAVIGATION_BAR_HEIGHT 64
-/** 底部tab高度 */
-#define NAVIGATION_TAB_HEIGHT 49
-
 //获取屏幕 宽度、高度
 
 #define ScreenW ([UIScreen mainScreen].bounds.size.width)
@@ -123,8 +109,9 @@
 
 
 //获取系统版本
-#define IOS_VERSION [[UIDevice currentDevice] systemVersion] floatValue]
 #define CurrentSystemVersion [[UIDevice currentDevice] systemVersion]
+//判断设备的操做系统是不是ios7
+#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0]
 
 
 //获取当前语言
@@ -134,12 +121,6 @@
 #define is_Retina ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [UIScreen mainScreen] currentMode].size) : NO)
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [UIScreen mainScreen] currentMode].size) : NO)
 #define is_Pad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
-//判断设备的操做系统是不是ios7
-#define IOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0]
-
-//判断当前设备是不是iphone5
-#define kScreenIphone5 (([UIScreen mainScreen] bounds].size.height)>=568)
 
 
 //定义一个define函数
@@ -153,6 +134,7 @@
 #if TARGET_IPHONE_SIMULATOR
 //iPhone Simulator
 #endif
+
 
 //检查系统版本
 #define SYSTEM_VERSION_EQUAL_TO(v) ([[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
@@ -245,8 +227,7 @@
 
 #define UserGetBool(key) [USER_DEFAULT boolForKey:key]
 
-#define UserInfoData [DCUserInfo findAll].lastObject
-
+//通知中心
 #define kNotificationCenter [NSNotificationCenter defaultCenter]
 
 
@@ -354,13 +335,6 @@ return MAXFLOAT;\
 //----------------------提示框----------------------------
 
 //设置加载提示框（第三方框架：MBProgressHUD）
-// 加载
-#define kShowNetworkActivityIndicator() [UIApplication sharedApplication].networkActivityIndicatorVisible = YES
-// 收起加载
-#define HideNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
-// 设置加载
-#define NetworkActivityIndicatorVisible(x)  [UIApplication sharedApplication].networkActivityIndicatorVisible = x
-
 //#define kWindow [UIApplication sharedApplication].keyWindow
 #define kWindow \
 ({\
@@ -394,23 +368,6 @@ aView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3]; \
 [kWindow addSubview:aView]; \
 } \
 } \
-
-#define kShowHUDAndActivity kBackView;[MBProgressHUD showHUDAddedTo:kWindow animated:YES];kShowNetworkActivityIndicator()
-
-#define kHiddenHUD [MBProgressHUD hideAllHUDsForView:kWindow animated:YES]
-
-#define kRemoveBackView         for (UIView *item in kWindow.subviews) { \
-if(item.tag == 10000) \
-{ \
-[UIView animateWithDuration:0.4 animations:^{ \
-item.alpha = 0.0; \
-} completion:^(BOOL finished) { \
-[item removeFromSuperview]; \
-}]; \
-} \
-} \
-
-#define kHiddenHUDAndAvtivity kRemoveBackView;kHiddenHUD;HideNetworkActivityIndicator()
 
 //只显示hud
 //#define ShowHudOnly [MBProgressHUD showHUDAddedTo:kWindow animated:YES];

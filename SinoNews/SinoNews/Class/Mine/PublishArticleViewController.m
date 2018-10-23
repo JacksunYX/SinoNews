@@ -95,7 +95,7 @@
     self.view.backgroundColor = WhiteColor;
     
     [self showTopLine];
-    self.fd_interactivePopDisabled = YES;
+    self.fd_interactivePopDisabled = NO;
     
     NSString *title = @"发布文章";
     if (self.isPayArticle) {
@@ -396,7 +396,7 @@
     [self.view addSubview:wgrteFirstVC.view];
     
     if (self.isPayArticle) {
-        CGFloat webH = (ScreenH - NAVI_HEIGHT - self.topViewH - 5)/2;
+        CGFloat webH = (ScreenH - NAVI_HEIGHT - self.topViewH - BOTTOM_MARGIN - 5)/2;
         wgrteFirstVC.view.sd_layout
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
@@ -444,7 +444,7 @@
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .heightIs(height)
-    .bottomSpaceToView(self.view, 0)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     ;
     wgrteSecondVC.view.tag = 101;
     //添加一个编辑按钮

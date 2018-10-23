@@ -136,7 +136,7 @@ NSString *const kEditorURL_contentDisable = @"richText_editor_contentDisable";
         [webView setupContentDisable:self.disableEdit];
     }
     
-    if (self.hiddenTitle) {
+    if (self.hiddenTitle&&kStringIsEmpty(self.content)) {
         [webView showKeyboardContent];
     }
 }

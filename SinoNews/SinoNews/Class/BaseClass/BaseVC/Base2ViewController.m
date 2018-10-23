@@ -13,6 +13,11 @@
 @end
 
 @implementation Base2ViewController
+-(void)dealloc
+{
+    GGLog(@"%@释放了",[self class]);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

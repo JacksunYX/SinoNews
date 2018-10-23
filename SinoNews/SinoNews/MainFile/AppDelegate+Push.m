@@ -167,9 +167,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
                 break;
             case JPushTypeProduct:
             {
+                /*这里的逻辑需要在后面界面调整后再改
                 [currentVC.navigationController popToRootViewControllerAnimated:NO];
                 MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
                 [keyVC setSelectedIndex:4];
+                 */
             }
                 break;
             case JPushTypePraise:

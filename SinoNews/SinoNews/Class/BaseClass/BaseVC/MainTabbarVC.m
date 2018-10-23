@@ -13,6 +13,7 @@
 #import "RankViewController.h"
 #import "IntegralViewController.h"
 #import "MineViewController.h"
+#import "CommunityTabbarVC.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -26,9 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addBakcgroundColorTheme];
+    self.delegate = self;
     [self addChildVC];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,40 +42,44 @@
     
     NSArray *tabTitles = @[
                            @"主页",
+                           @"社区",
                            @"关注",
                            @"排行榜",
-                           @"积分",
+//                           @"积分",
                            @"我的",
                            ];
     
     NSArray *vcs = @[
                      [HomePageViewController new],
+                     [UIViewController new],
                      [AttentionViewController new],
                      [RankViewController new],
-                     [IntegralViewController new],
+//                     [IntegralViewController new],
                      [MineViewController new],
                      
                      ];
     
     NSArray *tabImgUnselect = @[
                                 @"homepage_unselect",
+                                @"integral_unselect",
                                 @"attention_unselect",
                                 @"rankinglist_unselect",
-                                @"integral_unselect",
+                                
                                 @"mine_unselect",
                                 ];
     NSArray *tabImgSelected = @[
                                 @"homepage_selected",
+                                @"integral_selected",
                                 @"attention_selected",
                                 @"rankinglist_selected",
-                                @"integral_selected",
+                                
                                 @"mine_selected",
                                 ];
     
     NSMutableArray *vcsArr = [NSMutableArray new];
     for (int i = 0; i < vcs.count; i ++) {
-        RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:vcs[i]];
         
+        RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:vcs[i]];
         navi.lee_theme.LeeCustomConfig(@"tabbarColor", ^(id item, id value) {
 //            GGLog(@"进入了");
             NSString *imgStr = tabImgUnselect[i];
@@ -134,6 +139,16 @@
         }];
     }
     
+}
+
+//拦截点击事件
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+
+    if (viewController ==self.viewControllers[1] ) {
+        [self presentViewController:[CommunityTabbarVC new] animated:NO completion:nil];
+        return NO;
+    }
+    return  YES;
 }
 
 -(void)addAnimationOnLayer:(CALayer *)layer

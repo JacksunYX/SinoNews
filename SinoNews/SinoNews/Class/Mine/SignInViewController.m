@@ -627,9 +627,11 @@
             RTRootNavigationController *bvc = keyVC.viewControllers[3];
             IntegralViewController *ivC = (IntegralViewController *)bvc.rt_viewControllers[0];
             if ([taskModel.taskName containsString:@"游戏"]) {
+                return ;
                 [keyVC setSelectedIndex:3];
                 [ivC setSelectIndex:1];
             }else if ([taskModel.taskName containsString:@"充值"]) {
+                return ;
                 [keyVC setSelectedIndex:3];
                 [ivC setSelectIndex:2];
             }else{

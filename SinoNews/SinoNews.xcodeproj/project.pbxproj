@@ -601,6 +601,10 @@
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
+		4CD692F0217F0F1E00A76312 /* CommunityTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692EF217F0F1E00A76312 /* CommunityTabbarVC.m */; };
+		4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F2217F10D000A76312 /* ForumViewController.m */; };
+		4CD692F6217F116800A76312 /* ReadThePostMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F5217F116800A76312 /* ReadThePostMainVC.m */; };
+		4CD692F9217F11A700A76312 /* EditSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F8217F11A700A76312 /* EditSelectViewController.m */; };
 		4CDD0DD22147A11600036A0A /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD0DD12147A11600036A0A /* UITabBar+badge.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
@@ -1724,6 +1728,14 @@
 		4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansTableViewCell.m; sourceTree = "<group>"; };
 		4CCCF02120EA1E14000EC6BD /* MyFansModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansModel.h; sourceTree = "<group>"; };
 		4CCCF02220EA1E14000EC6BD /* MyFansModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansModel.m; sourceTree = "<group>"; };
+		4CD692EE217F0F1E00A76312 /* CommunityTabbarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunityTabbarVC.h; sourceTree = "<group>"; };
+		4CD692EF217F0F1E00A76312 /* CommunityTabbarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommunityTabbarVC.m; sourceTree = "<group>"; };
+		4CD692F1217F10D000A76312 /* ForumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumViewController.h; sourceTree = "<group>"; };
+		4CD692F2217F10D000A76312 /* ForumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumViewController.m; sourceTree = "<group>"; };
+		4CD692F4217F116800A76312 /* ReadThePostMainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadThePostMainVC.h; sourceTree = "<group>"; };
+		4CD692F5217F116800A76312 /* ReadThePostMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadThePostMainVC.m; sourceTree = "<group>"; };
+		4CD692F7217F11A700A76312 /* EditSelectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditSelectViewController.h; sourceTree = "<group>"; };
+		4CD692F8217F11A700A76312 /* EditSelectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditSelectViewController.m; sourceTree = "<group>"; };
 		4CDD0DD02147A11600036A0A /* UITabBar+badge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+badge.h"; sourceTree = "<group>"; };
 		4CDD0DD12147A11600036A0A /* UITabBar+badge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+badge.m"; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
@@ -2138,6 +2150,7 @@
 		4C3F8FD420BCDC0C003EC4FC /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				4CD692ED217F0E8600A76312 /* Community */,
 				4C21ABCE20D34A0300615F20 /* LoginAbout */,
 				4CE9C92020C90B5D004550B9 /* Model */,
 				4C3F8FFA20BCF792003EC4FC /* BaseClass */,
@@ -3804,6 +3817,21 @@
 			path = UIDevice;
 			sourceTree = "<group>";
 		};
+		4CD692ED217F0E8600A76312 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				4CD692EE217F0F1E00A76312 /* CommunityTabbarVC.h */,
+				4CD692EF217F0F1E00A76312 /* CommunityTabbarVC.m */,
+				4CD692F1217F10D000A76312 /* ForumViewController.h */,
+				4CD692F2217F10D000A76312 /* ForumViewController.m */,
+				4CD692F7217F11A700A76312 /* EditSelectViewController.h */,
+				4CD692F8217F11A700A76312 /* EditSelectViewController.m */,
+				4CD692F4217F116800A76312 /* ReadThePostMainVC.h */,
+				4CD692F5217F116800A76312 /* ReadThePostMainVC.m */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
 		4CDD0DCF2147A0F300036A0A /* UITabbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -4332,6 +4360,7 @@
 				4C510B5B21103C1F00706185 /* NSObject+LCFastSingleton.m in Sources */,
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4C6E915B213F5F07001535CA /* YYMemoryCache.m in Sources */,
+				4CD692F6217F116800A76312 /* ReadThePostMainVC.m in Sources */,
 				4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */,
 				4C6E91C4213F65D7001535CA /* LEEAlert.m in Sources */,
 				4C6E91A1213F5F07001535CA /* YYTransaction.m in Sources */,
@@ -4485,6 +4514,7 @@
 				4C7234D420FDEB1D00D5C5D4 /* AASeries.m in Sources */,
 				4C3F901020BCFDC2003EC4FC /* UIButton+ImageTitleSpacing.m in Sources */,
 				4C53D1C4215CC87000AFC352 /* BankCardModel.m in Sources */,
+				4CD692F0217F0F1E00A76312 /* CommunityTabbarVC.m in Sources */,
 				4C7234E220FDEB1D00D5C5D4 /* AATitle.m in Sources */,
 				4C93497920CF94F500BD8F07 /* MessagePraiseViewController.m in Sources */,
 				4C72350220FF373C00D5C5D4 /* JHTextView.m in Sources */,
@@ -4569,6 +4599,7 @@
 				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C72347F20FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m in Sources */,
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,
+				4CD692F9217F11A700A76312 /* EditSelectViewController.m in Sources */,
 				4C6332D320E0985C00D80056 /* AddressModel.m in Sources */,
 				4CA23273212E9F6C006709E6 /* UpdatePopView.m in Sources */,
 				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
@@ -4625,6 +4656,7 @@
 				4C4EC3082112E3E800591F12 /* ZXYShineLayer.m in Sources */,
 				4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
+				4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
 				4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */,
 				4C1F0AE120ECA02A00C3A2E7 /* RecommendUserModel.m in Sources */,

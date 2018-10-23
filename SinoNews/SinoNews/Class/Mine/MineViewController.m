@@ -927,6 +927,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
         }
         
     }else if(indexPath.section == 1){
+        return;
         RTRootNavigationController *bvc = keyVC.viewControllers[3];
         IntegralViewController *ivC = (IntegralViewController *)bvc.rt_viewControllers[0];
         

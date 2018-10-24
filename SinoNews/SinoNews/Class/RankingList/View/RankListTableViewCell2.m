@@ -19,6 +19,7 @@
     UILabel *subTitle;
     //右
     UIButton *toPlayBtn;
+    UIImageView *status;
 }
 @end
 
@@ -70,6 +71,9 @@
     toPlayBtn.backgroundColor = HexColor(#1282EE);
     [toPlayBtn setNormalTitleColor:WhiteColor];
     
+    status = [UIImageView new];
+    status.contentMode = 1;
+    
     UIView *line = [UIView new];
     [line addCutLineColor];
     
@@ -78,6 +82,7 @@
                                        toPlayBtn,
                                        num,
                                        score,
+                                       status,
                                        title,
                                        subTitle,
                                        line,
@@ -116,6 +121,13 @@
     [score setSingleLineAutoResizeWithMaxWidth:100];
 //    score.text = @"99.5分";
     
+    status.sd_resetLayout
+    .leftSpaceToView(score, 10)
+    .centerYEqualToView(score)
+    .widthIs(11)
+    .heightIs(14)
+    ;
+    
     title.sd_layout
     .leftSpaceToView(num, 10)
     .rightSpaceToView(score, 10)
@@ -145,10 +157,24 @@
 {
     _model = model;
     [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(model.companyLogo))];
-    [num setText:[NSString stringWithFormat:@"%lu",model.currentRank]];
+    [num setText:[NSString stringWithFormat:@"%ld",(long)model.currentRank]];
     score.text = [NSString stringWithFormat:@"%.1f分",model.currentScore];
     title.text = GetSaveString(model.companyName);
     subTitle.text = GetSaveString(model.promos);
+    
+    switch (self.model.status) {
+        case -1:
+            status.image = UIImageNamed(@"down_icon");
+            break;
+        case 0:
+            status.image = UIImageNamed(@"invariable_icon");
+            break;
+        case 1:
+            status.image = UIImageNamed(@"up_icon");
+            break;
+        default:
+            break;
+    }
     
     @weakify(self);
     [toPlayBtn whenTap:^{

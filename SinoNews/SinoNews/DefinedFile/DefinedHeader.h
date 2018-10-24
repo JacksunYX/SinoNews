@@ -172,7 +172,7 @@
 //----------------------图片----------------------------
 
 //读取本地图片
-#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[NSBundle mainBundle]pathForResource:file ofType:ext］
+#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[NSBundle mainBundle]pathForResource:file ofType:ext]
 
 //定义UIImage对象
 #define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]

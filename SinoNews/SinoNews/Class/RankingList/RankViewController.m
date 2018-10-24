@@ -309,7 +309,7 @@
     self.tableLeft.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableLeft];
     self.tableLeft.sd_layout
-    .topSpaceToView(self.segmentView, 20)
+    .topSpaceToView(self.segmentView, 10)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
     .bottomSpaceToView(self.adCollectionView, 0)

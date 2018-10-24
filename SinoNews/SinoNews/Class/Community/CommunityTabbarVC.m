@@ -91,7 +91,7 @@
 //拦截点击事件
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     
-    if (viewController ==self.viewControllers[1] ) {
+    if (viewController == self.viewControllers[1]) {
         [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:[EditSelectViewController new]] animated:YES completion:nil];
         return NO;
     }

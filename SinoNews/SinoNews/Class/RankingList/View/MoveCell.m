@@ -53,7 +53,7 @@
         bottomView.sd_layout
         .leftEqualToView(self.imageV)
         .rightEqualToView(self.imageV)
-        .heightIs(0)
+        .heightIs(5)
         .bottomSpaceToView(self.imageV, 0)
         ;
 

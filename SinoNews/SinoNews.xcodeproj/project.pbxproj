@@ -12,6 +12,7 @@
 		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
 		4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */; };
 		4C138EBA21815F4F00FA2667 /* ChangeAttentionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */; };
+		4C138EBD2181A03400FA2667 /* ReadPostChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EBC2181A03400FA2667 /* ReadPostChildViewController.m */; };
 		4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96420C67263009115C1 /* CZHAddressPickerView.m */; };
 		4C13E96D20C67263009115C1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C13E96920C67263009115C1 /* city.plist */; };
 		4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */; };
@@ -657,6 +658,8 @@
 		4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionCell.m; sourceTree = "<group>"; };
 		4C138EB821815F4F00FA2667 /* ChangeAttentionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionReusableView.h; sourceTree = "<group>"; };
 		4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionReusableView.m; sourceTree = "<group>"; };
+		4C138EBB2181A03400FA2667 /* ReadPostChildViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadPostChildViewController.h; sourceTree = "<group>"; };
+		4C138EBC2181A03400FA2667 /* ReadPostChildViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadPostChildViewController.m; sourceTree = "<group>"; };
 		4C13E96420C67263009115C1 /* CZHAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHAddressPickerView.m; sourceTree = "<group>"; };
 		4C13E96520C67263009115C1 /* AddressPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerHeader.h; sourceTree = "<group>"; };
 		4C13E96620C67263009115C1 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
@@ -3865,6 +3868,8 @@
 				4CD692F8217F11A700A76312 /* EditSelectViewController.m */,
 				4CD692F4217F116800A76312 /* ReadThePostMainVC.h */,
 				4CD692F5217F116800A76312 /* ReadThePostMainVC.m */,
+				4C138EBB2181A03400FA2667 /* ReadPostChildViewController.h */,
+				4C138EBC2181A03400FA2667 /* ReadPostChildViewController.m */,
 				4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */,
 				4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */,
 				4C5B5B0521804D6F00B52329 /* Model */,
@@ -4681,6 +4686,7 @@
 				4C6E9163213F5F07001535CA /* UIButton+YYWebImage.m in Sources */,
 				4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */,
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
+				4C138EBD2181A03400FA2667 /* ReadPostChildViewController.m in Sources */,
 				4C3D112520D90BF900480E03 /* CommentCell.m in Sources */,
 				4C5494A620CE799500CB448E /* NSString+Time.m in Sources */,
 				4C7234DB20FDEB1D00D5C5D4 /* AAYAxis.m in Sources */,

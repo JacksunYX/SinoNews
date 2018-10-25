@@ -198,6 +198,7 @@
         }
         title.text = titletext;
     }
+    [title updateLayout];
 }
 
 

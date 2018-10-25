@@ -252,7 +252,7 @@
         }
         title.text = titletext;
     }
-    
+    [title updateLayout];
     /*
     @weakify(self)
     imgL.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {

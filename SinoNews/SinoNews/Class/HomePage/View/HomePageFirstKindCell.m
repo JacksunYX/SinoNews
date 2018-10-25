@@ -236,7 +236,7 @@
         }
         title.text = titletext;
     }
-    
+    [title updateLayout];
 //    @weakify(self)
 //    rightImg.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
 //        @strongify(self)

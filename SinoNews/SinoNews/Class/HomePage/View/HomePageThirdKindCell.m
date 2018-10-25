@@ -156,6 +156,7 @@
     }else{
         title.text = titletext;
     }
+    [title updateLayout];
     [img sd_setImageWithURL:UrlWithStr(GetSaveString(model.url))];
     
     CGFloat lrMargin = 10;  //左右间距

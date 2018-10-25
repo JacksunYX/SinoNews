@@ -129,7 +129,7 @@
         self.indexFlag = index;
     }
     
-    if (index==1) {
+    if (index==2) {
         [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
             if (login) {
                 

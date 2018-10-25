@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
+		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
+		4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */; };
+		4C138EBA21815F4F00FA2667 /* ChangeAttentionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */; };
 		4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96420C67263009115C1 /* CZHAddressPickerView.m */; };
 		4C13E96D20C67263009115C1 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C13E96920C67263009115C1 /* city.plist */; };
 		4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */; };
@@ -648,6 +651,12 @@
 		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		4C03F5342101DE5900574136 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
 		4C03F5352101DE5900574136 /* ArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
+		4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionViewController.h; sourceTree = "<group>"; };
+		4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionViewController.m; sourceTree = "<group>"; };
+		4C138EB5218155EE00FA2667 /* ChangeAttentionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionCell.h; sourceTree = "<group>"; };
+		4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionCell.m; sourceTree = "<group>"; };
+		4C138EB821815F4F00FA2667 /* ChangeAttentionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionReusableView.h; sourceTree = "<group>"; };
+		4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionReusableView.m; sourceTree = "<group>"; };
 		4C13E96420C67263009115C1 /* CZHAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHAddressPickerView.m; sourceTree = "<group>"; };
 		4C13E96520C67263009115C1 /* AddressPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerHeader.h; sourceTree = "<group>"; };
 		4C13E96620C67263009115C1 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
@@ -2762,6 +2771,10 @@
 				4C5B5B0721804D9E00B52329 /* ForumLeftTableViewCell.m */,
 				4C5B5B0921804DC000B52329 /* ForumRightTableViewCell.h */,
 				4C5B5B0A21804DC000B52329 /* ForumRightTableViewCell.m */,
+				4C138EB5218155EE00FA2667 /* ChangeAttentionCell.h */,
+				4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */,
+				4C138EB821815F4F00FA2667 /* ChangeAttentionReusableView.h */,
+				4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3852,6 +3865,8 @@
 				4CD692F8217F11A700A76312 /* EditSelectViewController.m */,
 				4CD692F4217F116800A76312 /* ReadThePostMainVC.h */,
 				4CD692F5217F116800A76312 /* ReadThePostMainVC.m */,
+				4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */,
+				4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */,
 				4C5B5B0521804D6F00B52329 /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
 			);
@@ -4413,6 +4428,7 @@
 				4C93497F20CF953400BD8F07 /* MessageNotifyViewController.m in Sources */,
 				4C23B3DA20F5935800ACE380 /* LMStyleParagraphCell.m in Sources */,
 				4C510B5E211049A600706185 /* NSArray+Extension.m in Sources */,
+				4C138EBA21815F4F00FA2667 /* ChangeAttentionReusableView.m in Sources */,
 				4C992FFD217717680092DDCF /* HXDateVideoEditViewController.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C6E9192213F5F07001535CA /* NSThread+YYAdd.m in Sources */,
@@ -4470,6 +4486,7 @@
 				4C992FF7217717680092DDCF /* HXDatePhotoViewTransition.m in Sources */,
 				4C7EF4BD21217EE90002166A /* ChannelSelectView.m in Sources */,
 				4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */,
+				4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */,
 				4C6E9196213F5F07001535CA /* NSDate+YYAdd.m in Sources */,
 				4C03F5362101DE5900574136 /* ArticleModel.m in Sources */,
 				4C6E9165213F5F07001535CA /* MKAnnotationView+YYWebImage.m in Sources */,
@@ -4494,6 +4511,7 @@
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,
+				4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C992F7D2177175D0092DDCF /* KWEditorBar.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,

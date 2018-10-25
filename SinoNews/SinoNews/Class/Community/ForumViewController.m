@@ -7,6 +7,8 @@
 //
 
 #import "ForumViewController.h"
+#import "ChangeAttentionViewController.h"
+
 #import "ForumLeftTableViewCell.h"
 #import "ForumRightTableViewCell.h"
 
@@ -107,7 +109,8 @@
 
 -(void)searchAction
 {
-    GGLog(@"点击了搜索");
+    ChangeAttentionViewController *vc = [ChangeAttentionViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)setUI

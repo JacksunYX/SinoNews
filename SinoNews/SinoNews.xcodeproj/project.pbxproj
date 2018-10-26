@@ -618,6 +618,11 @@
 		4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DA20C0E14100A44782 /* RankListTableViewCell.m */; };
 		4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DD20C11DA000A44782 /* RankDetailViewController.m */; };
 		4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121E020C13BC800A44782 /* YSProgressView.m */; };
+		4CE336E921829F420037F9D2 /* AdjustAttentionSortVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */; };
+		4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336EB2182AB710037F9D2 /* Mine2ViewController.m */; };
+		4CE336EF2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336EE2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m */; };
+		4CE336F22182B40A0037F9D2 /* Mine2SecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336F12182B40A0037F9D2 /* Mine2SecondTableViewCell.m */; };
+		4CE336FC2182C66F0037F9D2 /* KCGradientLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336FA2182C66F0037F9D2 /* KCGradientLabel.m */; };
 		4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91720C7C380004550B9 /* ZZYPhotoHelper.m */; };
 		4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91A20C7D508004550B9 /* SettingViewController.m */; };
 		4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91E20C8E1A2004550B9 /* NSObject+save.m */; };
@@ -1769,6 +1774,16 @@
 		4CE121DD20C11DA000A44782 /* RankDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankDetailViewController.m; sourceTree = "<group>"; };
 		4CE121E020C13BC800A44782 /* YSProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSProgressView.m; sourceTree = "<group>"; };
 		4CE121E120C13BC800A44782 /* YSProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSProgressView.h; sourceTree = "<group>"; };
+		4CE336E721829F420037F9D2 /* AdjustAttentionSortVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdjustAttentionSortVC.h; sourceTree = "<group>"; };
+		4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdjustAttentionSortVC.m; sourceTree = "<group>"; };
+		4CE336EA2182AB710037F9D2 /* Mine2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine2ViewController.h; sourceTree = "<group>"; };
+		4CE336EB2182AB710037F9D2 /* Mine2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mine2ViewController.m; sourceTree = "<group>"; };
+		4CE336ED2182B3DE0037F9D2 /* Mine2FirstTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine2FirstTableViewCell.h; sourceTree = "<group>"; };
+		4CE336EE2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mine2FirstTableViewCell.m; sourceTree = "<group>"; };
+		4CE336F02182B40A0037F9D2 /* Mine2SecondTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine2SecondTableViewCell.h; sourceTree = "<group>"; };
+		4CE336F12182B40A0037F9D2 /* Mine2SecondTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mine2SecondTableViewCell.m; sourceTree = "<group>"; };
+		4CE336FA2182C66F0037F9D2 /* KCGradientLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCGradientLabel.m; sourceTree = "<group>"; };
+		4CE336FB2182C66F0037F9D2 /* KCGradientLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCGradientLabel.h; sourceTree = "<group>"; };
 		4CE9C91620C7C37F004550B9 /* ZZYPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZYPhotoHelper.h; sourceTree = "<group>"; };
 		4CE9C91720C7C380004550B9 /* ZZYPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZYPhotoHelper.m; sourceTree = "<group>"; };
 		4CE9C91920C7D508004550B9 /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -2298,6 +2313,8 @@
 			children = (
 				4C3F8FF720BCEF45003EC4FC /* MineViewController.h */,
 				4C3F8FF820BCEF45003EC4FC /* MineViewController.m */,
+				4CE336EA2182AB710037F9D2 /* Mine2ViewController.h */,
+				4CE336EB2182AB710037F9D2 /* Mine2ViewController.m */,
 				4C9D7AB9211BCE3C00EDCDBC /* NewSettingViewController.h */,
 				4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */,
 				4CE9C91920C7D508004550B9 /* SettingViewController.h */,
@@ -2487,6 +2504,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4CE336F92182C66F0037F9D2 /* KCGradientLabel */,
 				4C992F70217717330092DDCF /* WGRichTextEditor */,
 				4C5AC7032160B0F600F9A7F9 /* AutoPacking */,
 				4CB68B6B2154E14400ACE1D6 /* CryptLib */,
@@ -3626,6 +3644,10 @@
 				4C7EF4BC21217EE90002166A /* ChannelSelectView.m */,
 				4CB68B682154DE3300ACE1D6 /* SharePopCopyView.h */,
 				4CB68B692154DE3300ACE1D6 /* SharePopCopyView.m */,
+				4CE336ED2182B3DE0037F9D2 /* Mine2FirstTableViewCell.h */,
+				4CE336EE2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m */,
+				4CE336F02182B40A0037F9D2 /* Mine2SecondTableViewCell.h */,
+				4CE336F12182B40A0037F9D2 /* Mine2SecondTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3870,6 +3892,8 @@
 				4CD692F5217F116800A76312 /* ReadThePostMainVC.m */,
 				4C138EBB2181A03400FA2667 /* ReadPostChildViewController.h */,
 				4C138EBC2181A03400FA2667 /* ReadPostChildViewController.m */,
+				4CE336E721829F420037F9D2 /* AdjustAttentionSortVC.h */,
+				4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */,
 				4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */,
 				4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */,
 				4C5B5B0521804D6F00B52329 /* Model */,
@@ -3913,6 +3937,15 @@
 				4CE121E120C13BC800A44782 /* YSProgressView.h */,
 			);
 			path = YSProgress;
+			sourceTree = "<group>";
+		};
+		4CE336F92182C66F0037F9D2 /* KCGradientLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4CE336FA2182C66F0037F9D2 /* KCGradientLabel.m */,
+				4CE336FB2182C66F0037F9D2 /* KCGradientLabel.h */,
+			);
+			path = KCGradientLabel;
 			sourceTree = "<group>";
 		};
 		4CE9C91520C7C374004550B9 /* ZZYPhotoHelper */ = {
@@ -4437,6 +4470,7 @@
 				4C992FFD217717680092DDCF /* HXDateVideoEditViewController.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C6E9192213F5F07001535CA /* NSThread+YYAdd.m in Sources */,
+				4CE336E921829F420037F9D2 /* AdjustAttentionSortVC.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
 				4C6E91AF213F648E001535CA /* ContentManager.m in Sources */,
@@ -4476,10 +4510,12 @@
 				4C6E9199213F5F07001535CA /* NSDictionary+YYAdd.m in Sources */,
 				4C7234D220FDEB1D00D5C5D4 /* AAAreaspline.m in Sources */,
 				4C23B3D720F5935800ACE380 /* LMStyleColorCell.m in Sources */,
+				4CE336EF2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m in Sources */,
 				4C6E918C213F5F07001535CA /* UIFont+YYAdd.m in Sources */,
 				4C992FE7217717680092DDCF /* UIView+HXExtension.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C992F74217717530092DDCF /* WGUploadPictureModel.m in Sources */,
+				4CE336F22182B40A0037F9D2 /* Mine2SecondTableViewCell.m in Sources */,
 				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
 				4C6E9187213F5F07001535CA /* UIView+YYAdd.m in Sources */,
@@ -4596,6 +4632,7 @@
 				4C7234ED20FDEB1D00D5C5D4 /* AAOptions.m in Sources */,
 				4C6E916D213F5F07001535CA /* YYTextContainerView.m in Sources */,
 				4C992FEB217717680092DDCF /* HXDatePhotoViewFlowLayout.m in Sources */,
+				4CE336FC2182C66F0037F9D2 /* KCGradientLabel.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C6E917A213F5F07001535CA /* NSAttributedString+YYText.m in Sources */,
 				4C6E9197213F5F07001535CA /* NSString+YYAdd.m in Sources */,
@@ -4715,6 +4752,7 @@
 				4C17BC80210076500021055B /* AnswerModel.m in Sources */,
 				4C6E915E213F5F07001535CA /* YYSpriteSheetImage.m in Sources */,
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
+				4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
 				4C6E916C213F5F07001535CA /* YYTextMagnifier.m in Sources */,

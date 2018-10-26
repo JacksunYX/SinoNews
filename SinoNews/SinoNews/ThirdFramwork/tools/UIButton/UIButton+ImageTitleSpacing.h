@@ -39,6 +39,15 @@ typedef NS_ENUM(NSUInteger, MKButtonEdgeInsetsStyle) {
 //高亮状态下的文字
 -(void)setHighLightTitle:(NSString *)title;
 
+//设置普通状态下的富文本文字
+-(void)setNormalAttributedTitle:(NSAttributedString *)title;
+
+//设置选中状态下的富文本文字
+-(void)setSelectedAttributedTitle:(NSAttributedString *)title;
+
+//设置高亮状态下的富文本文字
+-(void)setHighLightAttributedTitle:(NSAttributedString *)title;
+
 //普通状态下的文字颜色
 -(void)setNormalTitleColor:(UIColor *)color;
 

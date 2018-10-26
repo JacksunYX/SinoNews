@@ -59,4 +59,7 @@
 
 #import "CryptLib.h"    //加密
 
+#import "KCGradientLabel.h" //渐变色label
+
+
 #endif /* OtherFrameworksHead_h */

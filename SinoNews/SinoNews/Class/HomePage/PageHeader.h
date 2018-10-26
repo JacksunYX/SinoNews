@@ -26,6 +26,7 @@
 #import "VersionCheckHelper.h"
 
 #import "MineViewController.h"
+#import "Mine2ViewController.h"
 #import "MessageViewController.h"
 #import "MessagePraiseViewController.h"
 #import "MessageFansViewController.h"

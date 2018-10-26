@@ -55,7 +55,7 @@
                      [AttentionViewController new],
                      [RankViewController new],
 //                     [IntegralViewController new],
-                     [MineViewController new],
+                     [Mine2ViewController new],
                      
                      ];
     

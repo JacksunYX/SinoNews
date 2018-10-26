@@ -102,6 +102,24 @@
     [self setTitle:title forState:UIControlStateHighlighted];
 }
 
+//设置普通状态下的富文本文字
+-(void)setNormalAttributedTitle:(NSAttributedString *)title
+{
+    [self setAttributedTitle:title forState:UIControlStateNormal];
+}
+
+//设置选中状态下的富文本文字
+-(void)setSelectedAttributedTitle:(NSAttributedString *)title
+{
+    [self setAttributedTitle:title forState:UIControlStateSelected];
+}
+
+//设置高亮状态下的富文本文字
+-(void)setHighLightAttributedTitle:(NSAttributedString *)title
+{
+    [self setAttributedTitle:title forState:UIControlStateHighlighted];
+}
+
 //普通状态下的文字颜色
 -(void)setNormalTitleColor:(UIColor *)color
 {

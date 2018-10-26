@@ -34,6 +34,10 @@
         "myfans_attention"  : "myFans_unAttention",
         "myfans_attentioned": "myFans_attentioned",
         "other_attention"   : "myFans_tick",
+        
+        "mine_Shadow_small"  : "shadow_small",
+        "mine_Shadow_middle" : "shadow_middle",
+        "mine_Shadow_big"    : "shadow_big",
     },
     "other": {
         

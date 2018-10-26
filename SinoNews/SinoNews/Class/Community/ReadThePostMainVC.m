@@ -8,6 +8,7 @@
 
 #import "ReadThePostMainVC.h"
 #import "ReadPostChildViewController.h"
+#import "AdjustAttentionSortVC.h"
 
 
 @interface ReadThePostMainVC ()<MLMSegmentHeadDelegate>

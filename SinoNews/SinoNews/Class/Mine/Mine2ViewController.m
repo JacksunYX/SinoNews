@@ -13,9 +13,18 @@
 #import "NewSettingViewController.h"
 #import "MyAttentionViewController.h"
 #import "MyFansViewController.h"
+#import "PublishPageViewController.h"
+#import "BrowsingHistoryVC.h"
+#import "MyCollectViewController.h"
+
+#import "StoreViewController.h"
+#import "GameViewController.h"
+#import "RechargeViewController.h"
+#import "ManagerViewController.h"
 
 #import "Mine2FirstTableViewCell.h"
 #import "Mine2SecondTableViewCell.h"
+#import "Mine3SecondTableViewCell.h"
 #import "SharePopCopyView.h"
 #import "PraisePopView.h"
 
@@ -130,7 +139,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
                          @"mine_setting",
                          ];
         NSArray *rightTitle = @[
-                                @"分享的积分",
+                                @"邀请朋友注册双方各得1000分",
                                 @"",
                                 ];
         for (int i = 0 ; i < title.count; i ++) {
@@ -223,13 +232,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     .widthIs(110 * ScaleW)
     ;
     
-//    _signIn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-//        if (UserGetBool(@"NightMode")) {
-//            [(UIButton *)item setBackgroundColor:HexColor(#0E2643)];
-//        }else{
-//            [(UIButton *)item setBackgroundColor:RGBA(178, 217, 249, 1)];
-//        }
-//    });
     [_signIn setNormalTitle:@"签到领积分"];
     _signIn.titleLabel.font = FontScale(13);
     
@@ -344,7 +346,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     .heightIs(20)
     ;
     [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    _userName.text = @"谢梦一场";
     
     _idView.sd_layout
     .heightIs(20)
@@ -355,7 +356,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     _integral.sd_layout
     .leftEqualToView(backView)
     .bottomEqualToView(backView)
-    .widthIs(60)
+    .widthIs(100)
     .heightIs(20)
     ;
     [_integral setSd_cornerRadius:@10];
@@ -402,6 +403,10 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     shakeImg.hidden = NO;
     _idView.hidden = YES;
     _messageBtn.hidden = YES;
+    [_attention setNormalTitle:@"关注"];
+    [_praise setNormalTitle:@"获赞"];
+    [_fans setNormalTitle:@"粉丝"];
+    
     if (login) {
         
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar) placeholderImage:UIImageNamed(@"userDefault_icon")];
@@ -413,6 +418,10 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         _level.hidden = self.user.level?NO:YES;
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
         _messageBtn.hidden = NO;
+        
+        [_attention setNormalTitle:[NSString stringWithFormat:@"关注  %lu",(unsigned long)self.user.followCount]];
+        [_praise setNormalTitle:[NSString stringWithFormat:@"获赞  %lu",(unsigned long)self.user.praisedCount]];
+        [_fans setNormalTitle:[NSString stringWithFormat:@"粉丝  %lu",(unsigned long)self.user.fansCount]];
     }
     
     if (self.user.hasSignIn) {
@@ -486,7 +495,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }
 }
 
-//设置关注、获赞、粉丝
+//设置关注、获赞、粉丝视图
 -(void)setAttentionAbout:(UIView *)fatherView
 {
     _attention = [UIButton new];
@@ -517,7 +526,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     .widthRatioToView(fatherView, 1/3.0)
     ;
     [_attention updateLayout];
-    [_attention setNormalTitle:@"关注  1"];
+    [_attention setNormalTitle:@"关注  "];
     [_attention setNormalImage:UIImageNamed(@"myAttention_icon")];
 //    NSMutableAttributedString *astr1 = [NSString leadString:@"关注" tailString:@"  1" font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
 //    [_attention setNormalAttributedTitle:astr1];
@@ -530,7 +539,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     ;
     [_praise updateLayout];
     [_praise addBorderTo:BorderTypeLeft borderSize:CGSizeMake(1, 16) borderColor:HexColor(#D2DAE1)];
-    [_praise setNormalTitle:@"获赞  6"];
+    [_praise setNormalTitle:@"获赞  "];
     [_praise setNormalImage:UIImageNamed(@"myPraise_icon")];
     
     _fans.sd_layout
@@ -541,7 +550,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     ;
     [_fans updateLayout];
     [_fans addBorderTo:BorderTypeLeft borderSize:CGSizeMake(1, 16) borderColor:HexColor(#D2DAE1)];
-    [_fans setNormalTitle:@"粉丝  8"];
+    [_fans setNormalTitle:@"粉丝  "];
     [_fans setNormalImage:UIImageNamed(@"myFans_icon")];
     
     //添加点击事件
@@ -550,6 +559,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [_fans addTarget:self action:@selector(tapViewWithIndex:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+//关注、获赞、粉丝
 -(void)tapViewWithIndex:(UIButton *)sender
 {
     if (![YXHeader checkNormalBackLogin]) {
@@ -580,6 +590,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }
 }
 
+//头像点击
 -(void)userTouch
 {
     if ([YXHeader checkNormalBackLogin]) {
@@ -617,7 +628,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     //注册
     [self.tableView registerClass:[Mine2FirstTableViewCell class] forCellReuseIdentifier:Mine2FirstTableViewCellID];
     [self.tableView registerClass:[Mine2SecondTableViewCell class] forCellReuseIdentifier:Mine2SecondTableViewCellID];
-    
+    [self.tableView registerClass:[Mine3SecondTableViewCell class] forCellReuseIdentifier:Mine3SecondTableViewCellID];
 }
 
 //给view添加指定圆角
@@ -628,6 +639,81 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     maskLayer.frame = view.bounds;
     maskLayer.path = maskPath.CGPath;
     view.layer.mask = maskLayer;
+}
+
+//跳转我的帖子、新闻、收藏、浏览历史
+-(void)pushToMyVC:(NSInteger)index
+{
+    if (![YXHeader checkNormalBackLogin]) {
+        return;
+    }
+    switch (index) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            PublishPageViewController *ppVC = [PublishPageViewController new];
+            [self.navigationController pushViewController:ppVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            MyCollectViewController *mVC = [MyCollectViewController new];
+            [self.navigationController pushViewController:mVC animated:YES];
+        }
+            break;
+        case 3:
+        {
+            BrowsingHistoryVC *bhVC = [BrowsingHistoryVC new];
+            [self.navigationController pushViewController:bhVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+//跳转到积分充值、游戏、商城、管理
+-(void)pushToIntegerVC:(NSInteger)index
+{
+    if (![YXHeader checkNormalBackLogin]) {
+        return;
+    }
+    
+    switch (index) {
+        case 0:
+        {
+            RechargeViewController *rvc = [RechargeViewController new];
+            [self.navigationController pushViewController:rvc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            GameViewController *gvc = [GameViewController new];
+            [self.navigationController pushViewController:gvc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            StoreViewController *svc = [StoreViewController new];
+            [self.navigationController pushViewController:svc animated:YES];
+        }
+            break;
+        case 3:
+        {
+            ManagerViewController *mvc = [ManagerViewController new];
+            [self.navigationController pushViewController:mvc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 #pragma mark ----- UITableViewDataSource
@@ -648,15 +734,33 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
+    @weakify(self);
     if (indexPath.section == 0) {
         Mine2FirstTableViewCell *cell0 = (Mine2FirstTableViewCell *)[tableView dequeueReusableCellWithIdentifier:Mine2FirstTableViewCellID];
-        [cell0 setData:@{}];
+        [cell0 setData:@{
+                         @"canGet"  : @"60",
+                         @"haveGet" : @"33",
+                         }];
+        cell0.clickBlock = ^(NSInteger index) {
+            GGLog(@"点击了index:%ld",index);
+            @strongify(self);
+            if (index==2) {
+                //是否登录
+                if (![YXHeader checkNormalBackLogin]) {
+                    return;
+                }
+                SignInViewController *siVC = [SignInViewController new];
+                [self.navigationController pushViewController:siVC animated:YES];
+            }
+        };
         cell = cell0;
     }else if (indexPath.section == 1){
         Mine2SecondTableViewCell *cell1 = (Mine2SecondTableViewCell *)[tableView dequeueReusableCellWithIdentifier:Mine2SecondTableViewCellID];
         [cell1 setData:self.mainDatasource[1]];
         cell1.clickBlock = ^(NSInteger index) {
             GGLog(@"点击了下标:%ld",index);
+            @strongify(self);
+            [self pushToMyVC:index];
         };
         cell = cell1;
     }else if (indexPath.section == 2){
@@ -664,30 +768,19 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         [cell2 setData:self.mainDatasource[2]];
         cell2.clickBlock = ^(NSInteger index) {
             GGLog(@"点击了下标:%ld",index);
+            @strongify(self);
+            [self pushToIntegerVC:index];
         };
         cell = cell2;
     }else if (indexPath.section == 3) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"MianCell"];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:1 reuseIdentifier:@"MineCell"];
-            cell.textLabel.font = PFFontL(14);
-            cell.detailTextLabel.font = PFFontL(14);
-            cell.detailTextLabel.textColor = RGBA(188, 188, 188, 1);
-            cell.accessoryType = 1;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
+        Mine3SecondTableViewCell *cell3 = (Mine3SecondTableViewCell *)[tableView dequeueReusableCellWithIdentifier:Mine3SecondTableViewCellID];
+        
         NSMutableArray *section3 = self.mainDatasource[indexPath.section];
         NSDictionary *model = section3[indexPath.row];
-        cell.textLabel.text = GetSaveString(model[@"title"]);
-        [cell addTitleColorTheme];
-        cell.imageView.lee_theme.LeeCustomConfig(@"mineBackImg", ^(id item, id value) {
-            NSString *imgStr = GetSaveString(model[@"img"]);
-            if (UserGetBool(@"NightMode")) {
-                imgStr = [GetSaveString(model[@"img"]) stringByAppendingString:@"_night"];
-            }
-            
-            [(UIImageView *)item setImage:UIImageNamed(imgStr)];
-        });
+        
+        [cell3 setData:model];
+        
+        cell = cell3;
     }
     
     [cell addBakcgroundColorTheme];
@@ -699,7 +792,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     if (indexPath.section!=3) {
         return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
     }
-    return 44;
+    return 45;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

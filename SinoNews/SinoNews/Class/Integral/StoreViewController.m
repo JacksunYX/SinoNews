@@ -109,7 +109,7 @@
     if (_segScroll) {
         [_segScroll removeFromSuperview];
     }
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT - CGRectGetMaxY(_segHead.frame)) vcOrViews:[self vcArr:titles.count]];
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - CGRectGetMaxY(_segHead.frame)) vcOrViews:[self vcArr:titles.count]];
     _segScroll.countLimit = 0;
     
     WEAK(weakself, self);

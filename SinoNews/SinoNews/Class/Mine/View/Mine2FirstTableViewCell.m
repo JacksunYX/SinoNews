@@ -96,6 +96,27 @@ NSString *const Mine2FirstTableViewCellID = @"Mine2FirstTableViewCellID";
     
     [self setupAutoHeightWithBottomView:backView bottomMargin:TBX];
     
+    //添加点击事件
+    @weakify(self);
+    [leftView whenTap:^{
+        @strongify(self);
+        if (self.clickBlock) {
+            self.clickBlock(0);
+        }
+    }];
+    [centerView whenTap:^{
+        @strongify(self);
+        if (self.clickBlock) {
+            self.clickBlock(1);
+        }
+    }];
+    [rightView whenTap:^{
+        @strongify(self);
+        if (self.clickBlock) {
+            self.clickBlock(2);
+        }
+    }];
+    
 }
 
 //添加视图到
@@ -128,7 +149,7 @@ NSString *const Mine2FirstTableViewCellID = @"Mine2FirstTableViewCellID";
     .heightIs(18)
     ;
     [leftInteger setSingleLineAutoResizeWithMaxWidth:fatherView.width];
-    leftInteger.text = @"40";
+    leftInteger.text = @"";
 }
 
 -(void)addCenterView:(UIView *)fatherView
@@ -160,13 +181,17 @@ NSString *const Mine2FirstTableViewCellID = @"Mine2FirstTableViewCellID";
     .heightIs(18)
     ;
     [centerInteger setSingleLineAutoResizeWithMaxWidth:fatherView.width];
-    centerInteger.text = @"500";
+    centerInteger.text = @"";
 }
 
 -(void)addRightView:(UIView *)fatherView
 {
     rightLabel = [KCGradientLabel new];
-    [fatherView addSubview:rightLabel];
+    UIImageView *icon = [UIImageView new];
+    [fatherView sd_addSubviews:@[
+                                 rightLabel,
+                                 icon,
+                                 ]];
     rightLabel.sd_layout
     .centerYEqualToView(fatherView)
     .centerXEqualToView(fatherView)
@@ -178,11 +203,20 @@ NSString *const Mine2FirstTableViewCellID = @"Mine2FirstTableViewCellID";
     rightLabel.gradientColors = @[HexColor(#CA65E7),HexColor(#2E199C)];
     rightLabel.font = PFFontR(15);
     rightLabel.gradientDirection = KCGradientLabelGradientDirectionHorizontal;
+    
+    icon.sd_layout
+    .leftSpaceToView(rightLabel, 0)
+    .centerYEqualToView(rightLabel)
+    .widthIs(6)
+    .heightIs(9)
+    ;
+    icon.image = UIImageNamed(@"little_ arrow");
 }
 
 -(void)setData:(NSDictionary *)data
 {
-    
+    leftInteger.text = data[@"haveGet"];
+    centerInteger.text = data[@"canGet"];
 }
 
 @end

@@ -194,6 +194,11 @@
         }
         
         [footerView setData:dic];
+        footerView.checkMoreBlock = ^{
+            NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+            sectionDic[@"haveUnFold"] = @(YES);
+            [self.collectionView reloadSections:set];
+        };
         footerView.backgroundColor = BACKGROUND_COLOR;
         reusableview = footerView;
     }

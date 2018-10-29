@@ -13,7 +13,7 @@ extern NSString *const ChangeAttentionReusableViewID;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChangeAttentionReusableView : UICollectionReusableView
-
+@property (nonatomic,copy) void (^checkMoreBlock)(void);
 -(void)setData:(NSDictionary *)model;
 
 @end

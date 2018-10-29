@@ -52,7 +52,7 @@ NSString *const ForumLeftTableViewCellID = @"ForumLeftTableViewCell";
     line.sd_layout
     .leftEqualToView(backgroundViews)
     .centerYEqualToView(backgroundViews)
-    .widthIs(3)
+    .widthIs(4)
     .heightIs(20)
     ;
     
@@ -63,6 +63,7 @@ NSString *const ForumLeftTableViewCellID = @"ForumLeftTableViewCell";
 {
     title = [UILabel new];
     title.textColor = BlackColor;
+    title.font = PFFontL(14);
     title.highlightedTextColor = HexColor(#1282ee);
     title.textAlignment = NSTextAlignmentCenter;
     title.numberOfLines = 1;
@@ -71,7 +72,7 @@ NSString *const ForumLeftTableViewCellID = @"ForumLeftTableViewCell";
     title.sd_layout
     .centerXEqualToView(self.contentView)
     .topSpaceToView(self.contentView, 15)
-    .heightIs(14)
+    .heightIs(20)
     ;
     [title setSingleLineAutoResizeWithMaxWidth:ScreenH * 0.3 - 20];
     

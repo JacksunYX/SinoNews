@@ -13,6 +13,7 @@ NSString *const ChangeAttentionReusableViewID = @"NSString *const ChangeAttentio
 @interface ChangeAttentionReusableView ()
 {
     UILabel *title;
+    UIView *topView;
 }
 @end
 
@@ -29,24 +30,43 @@ NSString *const ChangeAttentionReusableViewID = @"NSString *const ChangeAttentio
 -(void)setUI
 {
     title = [UILabel new];
-    title.font = PFFontR(14);
-    title.textColor = LightGrayColor;
+    title.font = PFFontL(14);
+    title.textColor = HexColor(#161A24);
     [self addSubview:title];
     
     title.sd_layout
-    .leftSpaceToView(self, 20)
+    .leftSpaceToView(self, 10)
     .centerYEqualToView(self)
     .rightSpaceToView(self, 20)
     .heightIs(20)
     ;
+    
+    topView = [UIView new];
+    topView.backgroundColor = WhiteColor;
+    topView.hidden = YES;
+    [self addSubview:topView];
+    topView.sd_layout
+    .topEqualToView(self)
+    .leftEqualToView(self)
+    .rightEqualToView(self)
+    .bottomSpaceToView(self, 10)
+    ;
+    
+    UILabel *noticeLabel = [UILabel new];
+    UIImage *icon = [UIImageView new];
 }
 
 -(void)setData:(NSDictionary *)model
 {
-    if (model.allKeys.count>0) {
-        title.text = [NSString stringWithFormat:@"%@(%ld)",model[@"name"],[model[@"num"] integerValue]];
-    }else{
-        title.text = @"";
+    title.text = @"";
+    if ([model.allKeys containsObject:@"unFold"]) {
+        BOOL unFold = [model[@"unFold"] boolValue];
+        topView.hidden = unFold;
+        [topView whenTap:^{
+            
+        }];
+    }else if (model.allKeys.count>0) {
+        title.text = [NSString stringWithFormat:@"%@（%ld）",model[@"name"],[model[@"num"] integerValue]];
     }
 }
 

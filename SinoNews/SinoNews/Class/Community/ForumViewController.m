@@ -63,6 +63,9 @@
                 NSMutableDictionary *model = [NSMutableDictionary new];
                 model[@"logo"] = logo[arc4random()%(logo.count)];
                 model[@"communityName"] = communityName[arc4random()%(communityName.count)];
+                if (i == 0) {
+                    break;
+                }
                 [arr3 addObject:model];
             }
             [arr2 addObject:arr3];
@@ -109,8 +112,7 @@
 
 -(void)searchAction
 {
-    ChangeAttentionViewController *vc = [ChangeAttentionViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 -(void)setUI
@@ -120,7 +122,8 @@
     _leftTable.delegate = self;
     _leftTable.dataSource = self;
     _leftTable.showsVerticalScrollIndicator = NO;
-    _leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _leftTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _leftTable.separatorColor = CutLineColor;
     [self.view addSubview:_leftTable];
     _leftTable.sd_layout
     .topSpaceToView(self.view, 0)
@@ -212,6 +215,18 @@
     return 0.01;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (tableView == _rightTable&&self.leftSelectedIndex == 0) {
+        NSMutableArray *arr2 = self.dataSource[1];
+        NSMutableArray *arr3 = arr2[0];
+        if (arr3.count<=0) {
+            return 213;
+        }
+    }
+    return 0.01;
+}
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *head;
@@ -233,6 +248,48 @@
     }
     
     return head;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footView;
+    if (tableView == _rightTable&&self.leftSelectedIndex == 0){
+        NSMutableArray *arr2 = self.dataSource[1];
+        NSMutableArray *arr3 = arr2[0];
+        if (arr3.count<=0) {
+            footView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 213)];
+            UIImageView *addImg = [UIImageView new];
+            UILabel *noticeLabel = [UILabel new];
+            noticeLabel.font = PFFontL(14);
+            noticeLabel.textColor = HexColor(#A8A8A8);
+            [footView sd_addSubviews:@[
+                                       addImg,
+                                       noticeLabel,
+                                       ]];
+            addImg.sd_layout
+            .topSpaceToView(footView, 74)
+            .centerXEqualToView(footView)
+            .widthIs(81)
+            .heightEqualToWidth()
+            ;
+            addImg.image = UIImageNamed(@"section_add");
+            @weakify(self);
+            [addImg whenTap:^{
+                @strongify(self);
+                ChangeAttentionViewController *vc = [ChangeAttentionViewController new];
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+            
+            noticeLabel.sd_layout
+            .topSpaceToView(addImg, 34)
+            .centerXEqualToView(footView)
+            .heightIs(16)
+            ;
+            [noticeLabel setSingleLineAutoResizeWithMaxWidth:_rightTable.frame.size.width - 20];
+            noticeLabel.text = @"添加感兴趣的版块";
+        }
+    }
+    return footView;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

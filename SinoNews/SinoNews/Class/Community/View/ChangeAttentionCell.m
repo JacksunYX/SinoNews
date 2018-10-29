@@ -35,12 +35,13 @@ NSString *const ChangeAttentionCellID = @"ChangeAttentionCellID";
     logo = [UIImageView new];
     
     selectedImage = [UIImageView new];
-    selectedImage.backgroundColor = HexColor(#1282ee);
-    selectedImage.contentMode = 4;
+//    selectedImage.backgroundColor = HexColor(#1282ee);
+//    selectedImage.contentMode = 4;
     
     name = [UILabel new];
     name.textAlignment = NSTextAlignmentCenter;
-    name.font = PFFontM(12);
+    name.font = PFFontL(12);
+    name.textColor = HexColor(#465867);
     
     [self.contentView sd_addSubviews:@[
                                        logo,
@@ -49,11 +50,13 @@ NSString *const ChangeAttentionCellID = @"ChangeAttentionCellID";
     logo.sd_layout
     .centerXEqualToView(self.contentView)
     .topSpaceToView(self.contentView, 0)
-    .widthIs(50)
+    .widthIs(41)
     .heightEqualToWidth()
     ;
     [logo updateLayout];
     logo.sd_cornerRadius = @(logo.width/2);
+    logo.layer.borderColor = HexColor(#CED3D8).CGColor;
+    logo.layer.borderWidth = 1.0f;
     
     name.sd_layout
     .leftEqualToView(self.contentView)
@@ -67,12 +70,14 @@ NSString *const ChangeAttentionCellID = @"ChangeAttentionCellID";
     selectedImage.sd_layout
     .bottomEqualToView(logo)
     .centerYEqualToView(logo)
-    .widthRatioToView(logo, 1)
-    .heightRatioToView(logo, 0.5)
+//    .widthRatioToView(logo, 1)
+//    .heightRatioToView(logo, 0.5)
+    .widthIs(39)
+    .heightIs(13.5)
     ;
     [selectedImage updateLayout];
-    selectedImage.image = UIImageNamed(@"myFans_tick");
-    [selectedImage cornerWithRadius:selectedImage.height/2 direction:CornerDirectionTypeBottom];
+    selectedImage.image = UIImageNamed(@"section_selected");
+//    [selectedImage cornerWithRadius:selectedImage.height/2 direction:CornerDirectionTypeBottom];
     selectedImage.hidden = YES;
 }
 

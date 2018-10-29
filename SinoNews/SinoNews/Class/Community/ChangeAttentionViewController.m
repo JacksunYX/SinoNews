@@ -51,10 +51,11 @@
             NSMutableDictionary *sectionDic = [NSMutableDictionary new];
             sectionDic[@"sectionName"] = sectionTitle[arc4random()%sectionTitle.count];
             sectionDic[@"sectionNum"] = @(arc4random()/30+5);
+            sectionDic[@"haveUnFold"] = @(0);
             
             NSMutableArray *dataArr = [NSMutableArray new];
             sectionDic[@"data"] = dataArr;
-            for (int j = 0; j < arc4random()%10+3; j++) {
+            for (int j = 0; j < arc4random()%10+8; j++) {
                 NSMutableDictionary *model = [NSMutableDictionary new];
                 model[@"name"] = name[arc4random()%name.count];
                 model[@"logo"] = logo[arc4random()%logo.count];
@@ -101,7 +102,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"版块推荐";
+    self.navigationItem.title = @"全部版块";
     [self addNavigationView];
     [self setUI];
 }
@@ -109,12 +110,27 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(finishSelect) title:@"完成"];
+    
+    //设置导航栏标题颜色和大小
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:HexColor(#FFFFFF), NSFontAttributeName:PFFontR(16)}];
+    //设置导航栏背景色
+    self.navigationController.navigationBar.barTintColor = HexColor(#1282EE);
+    //设置导航栏按钮的字体颜色
+    self.navigationController.navigationBar.tintColor = HexColor(#FFFFFF);
+
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(finishSelect) title:@"完成" font:PFFontR(14) titleColor:HexColor(#FFFFFF) highlightedColor:HexColor(#FFFFFF) titleEdgeInsets:UIEdgeInsetsZero];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:UIImageNamed(@"section_close") style:UIBarButtonItemStylePlain target:self action:@selector(back)];
 }
 
 -(void)setUI
 {
     self.collectionView.backgroundColor = WhiteColor;
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //完成选择
@@ -131,8 +147,13 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSDictionary *sectionDic = self.dataSource[section];
+    NSMutableDictionary *sectionDic = self.dataSource[section];
     NSArray *dataArr = sectionDic[@"data"];
+    if (dataArr.count>8) {
+        if (0 == [sectionDic[@"haveUnFold"] integerValue]) {
+            return 8;
+        }
+    }
     return dataArr.count;
 }
 
@@ -161,7 +182,18 @@
         reusableview = headerView;
     }else{
         ChangeAttentionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ChangeAttentionReusableViewID forIndexPath:indexPath];
-        [footerView setData:@{}];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        
+        NSMutableDictionary *sectionDic = self.dataSource[indexPath.section];
+        NSArray *dataArr = sectionDic[@"data"];
+        if (dataArr.count>8) {
+            if (0 == [sectionDic[@"haveUnFold"] integerValue]) {
+                dic[@"unFold"] = @(NO);
+            }
+        }
+        
+        [footerView setData:dic];
         footerView.backgroundColor = BACKGROUND_COLOR;
         reusableview = footerView;
     }
@@ -172,13 +204,20 @@
 //头高度
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(ScreenW, 40);
+    return CGSizeMake(ScreenW, 53);
 }
 
 //尾高度
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return CGSizeMake(ScreenW, 15);
+    NSMutableDictionary *sectionDic = self.dataSource[section];
+    NSArray *dataArr = sectionDic[@"data"];
+    if (dataArr.count>8) {
+        if (0 == [sectionDic[@"haveUnFold"] integerValue]) {
+            return CGSizeMake(ScreenW, 44);
+        }
+    }
+    return CGSizeMake(ScreenW, 10);
 }
 
 //点击方法

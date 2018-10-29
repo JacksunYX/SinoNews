@@ -61,18 +61,16 @@
     
     NSArray *tabImgUnselect = @[
                                 @"homepage_unselect",
-                                @"integral_unselect",
+                                @"community_unselect",
                                 @"attention_unselect",
                                 @"rankinglist_unselect",
-                                
                                 @"mine_unselect",
                                 ];
     NSArray *tabImgSelected = @[
                                 @"homepage_selected",
-                                @"integral_selected",
+                                @"community_unselect",
                                 @"attention_selected",
                                 @"rankinglist_selected",
-                                
                                 @"mine_selected",
                                 ];
     

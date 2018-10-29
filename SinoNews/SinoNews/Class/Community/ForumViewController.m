@@ -16,6 +16,7 @@
 
 @property (nonatomic,strong) BaseTableView *leftTable;
 @property (nonatomic,strong) BaseTableView *rightTable;
+@property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger leftSelectedIndex;
 @end
@@ -58,14 +59,14 @@
                                           ].mutableCopy;
         for (int i = 0; i < arr1.count; i ++) {
             NSMutableArray *arr3 = [NSMutableArray new];
-            NSInteger arr2Count = arc4random()%10 + 1;
+            NSInteger arr2Count = arc4random()%10 + 10;
             for (int j = 0; j < arr2Count; j++) {
                 NSMutableDictionary *model = [NSMutableDictionary new];
                 model[@"logo"] = logo[arc4random()%(logo.count)];
                 model[@"communityName"] = communityName[arc4random()%(communityName.count)];
-                if (i == 0) {
-                    break;
-                }
+//                if (i == 0) {
+//                    break;
+//                }
                 [arr3 addObject:model];
             }
             [arr2 addObject:arr3];
@@ -76,6 +77,36 @@
     return _dataSource;
 }
 
+-(UIView *)bottomView
+{
+    if (!_bottomView) {
+        _bottomView = [UIView new];
+        [self.view addSubview:_bottomView];
+        _bottomView.sd_layout
+        .rightEqualToView(self.view)
+        .heightIs(0)
+        .bottomEqualToView(self.view)
+        .widthIs(ScreenW*0.7)
+        ;
+        
+        //添加控价
+        UILabel *attentionMore = [UILabel new];
+        attentionMore.textAlignment = NSTextAlignmentCenter;
+        attentionMore.font = PFFontL(14);
+        attentionMore.textColor = HexColor(#1282EE);
+        [_bottomView addSubview:attentionMore];
+        attentionMore.sd_layout
+        .heightIs(14)
+        .leftEqualToView(_bottomView)
+        .rightEqualToView(_bottomView)
+        .centerYEqualToView(_bottomView)
+        ;
+        attentionMore.text = @"关注更多 >";
+        
+    }
+    return _bottomView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"版块";
@@ -83,6 +114,8 @@
     [self addNavigationView];
     
     [self setUI];
+    
+    [self setBottomView];
 }
 
 //修改导航栏显示
@@ -117,8 +150,8 @@
 
 -(void)setUI
 {
-    _leftTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _leftTable.backgroundColor = BACKGROUND_COLOR;
+    _leftTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _leftTable.backgroundColor = HexColor(#EEEEEE);
     _leftTable.delegate = self;
     _leftTable.dataSource = self;
     _leftTable.showsVerticalScrollIndicator = NO;
@@ -136,7 +169,15 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     
-    _rightTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.bottomView.backgroundColor = WhiteColor;
+    @weakify(self);
+    [self.bottomView whenTap:^{
+        @strongify(self);
+        ChangeAttentionViewController *vc = [ChangeAttentionViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+    
+    _rightTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _rightTable.backgroundColor = WhiteColor;
     _rightTable.delegate = self;
     _rightTable.dataSource = self;
@@ -147,11 +188,35 @@
     .topSpaceToView(self.view, 0)
     .leftSpaceToView(_leftTable, 0)
     .rightSpaceToView(self.view, 0)
-    .bottomSpaceToView(self.view, 0)
+    .bottomSpaceToView(self.bottomView, 0)
     ;
     [_rightTable updateLayout];
     [_rightTable registerClass:[ForumRightTableViewCell class] forCellReuseIdentifier:ForumRightTableViewCellID];
     
+}
+
+//设置关注更多视图
+-(void)setBottomView
+{
+    if (self.leftSelectedIndex == 0) {
+        NSMutableArray *arr2 = self.dataSource[1];
+        NSMutableArray *arr3 = arr2[0];
+        CGFloat height = 40;
+        if (arr3.count<=0) {
+            height = 0;
+            self.bottomView.hidden = YES;
+        }else{
+            self.bottomView.hidden = NO;
+        }
+        self.bottomView.sd_layout
+        .heightIs(height)
+        ;
+    }else{
+        self.bottomView.hidden = YES;
+        self.bottomView.sd_layout
+        .heightIs(0)
+        ;
+    }
 }
 
 #pragma mark --- UITableViewDataSource
@@ -208,7 +273,7 @@
 {
     if (tableView == _rightTable) {
         if (arc4random()%2) {
-            return 100;
+            return 135;
         }
         return 0.01;
     }
@@ -231,7 +296,7 @@
 {
     UIView *head;
     if (tableView == _rightTable) {
-        head = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 100)];
+        head = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 135)];
         UIImageView *ADImage = [UIImageView new];
         [head addSubview:ADImage];
         ADImage.sd_layout
@@ -300,6 +365,7 @@
         }
         self.leftSelectedIndex = indexPath.row;
         [_rightTable reloadData];
+        [self setBottomView];
     }else if (tableView == _rightTable) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         NSMutableArray *arr2 = self.dataSource[1];

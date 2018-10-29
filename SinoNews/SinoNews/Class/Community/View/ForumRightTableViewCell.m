@@ -44,11 +44,12 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     logo = [UIImageView new];
     
     communityName = [UILabel new];
-    communityName.font = PFFontM(14);
+    communityName.font = PFFontL(15);
+    communityName.textColor = HexColor(#161A24);
     
     postNum = [UILabel new];
-    postNum.font = PFFontM(12);
-    postNum.textColor = LightGrayColor;
+    postNum.font = PFFontL(12);
+    postNum.textColor = HexColor(#ABB2C3);
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -59,7 +60,7 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     logo.sd_layout
     .leftSpaceToView(fatherView, 10)
     .topSpaceToView(fatherView, 10)
-    .widthIs(40)
+    .widthIs(38)
     .heightEqualToWidth()
     ;
     
@@ -75,7 +76,7 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     .centerYEqualToView(logo)
     .heightIs(14)
     ;
-    [postNum setSingleLineAutoResizeWithMaxWidth:50];
+    [postNum setSingleLineAutoResizeWithMaxWidth:100];
     
     [self setupAutoHeightWithBottomView:logo bottomMargin:10];
 }

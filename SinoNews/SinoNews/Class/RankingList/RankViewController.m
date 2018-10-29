@@ -457,6 +457,7 @@
         cell = cell1;
     }else{
         RankListTableViewCell2 *cell0 = [self.tableLeft dequeueReusableCellWithIdentifier:RankListTableViewCell2ID];
+        cell0.tag = indexPath.row;
         cell0.model = self.leftDataSource[indexPath.row];
         @weakify(self);
         cell0.toPlayBlock = ^(NSInteger index){

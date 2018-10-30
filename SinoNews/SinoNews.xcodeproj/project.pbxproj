@@ -394,6 +394,9 @@
 		4C7B5DE52187E81D00B76E47 /* CommunitySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DE42187E81D00B76E47 /* CommunitySearchVC.m */; };
 		4C7B5DE82187F8D400B76E47 /* ThePostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */; };
 		4C7B5DEB2187F8FD00B76E47 /* TheAuthorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */; };
+		4C7B5DF721882D8300B76E47 /* TFDropDownMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DEE21882D8300B76E47 /* TFDropDownMenuView.m */; };
+		4C7B5DF821882D8300B76E47 /* TFIndexPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DF021882D8300B76E47 /* TFIndexPatch.m */; };
+		4C7B5DF921882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DF421882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m */; };
 		4C7EF32F21212A0B0002166A /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */; };
 		4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C921212A0A0002166A /* ZSStable@2x.png */; };
 		4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2CA21212A0A0002166A /* ZSSoutdent@2x.png */; };
@@ -1422,6 +1425,14 @@
 		4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostListViewController.m; sourceTree = "<group>"; };
 		4C7B5DE92187F8FD00B76E47 /* TheAuthorListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TheAuthorListViewController.h; sourceTree = "<group>"; };
 		4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheAuthorListViewController.m; sourceTree = "<group>"; };
+		4C7B5DED21882D8300B76E47 /* TFDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDropDownMenu.h; sourceTree = "<group>"; };
+		4C7B5DEE21882D8300B76E47 /* TFDropDownMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDropDownMenuView.m; sourceTree = "<group>"; };
+		4C7B5DF021882D8300B76E47 /* TFIndexPatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFIndexPatch.m; sourceTree = "<group>"; };
+		4C7B5DF121882D8300B76E47 /* TFDropDownMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDropDownMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		4C7B5DF221882D8300B76E47 /* TFMenuDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFMenuDefinition.h; sourceTree = "<group>"; };
+		4C7B5DF321882D8300B76E47 /* TFIndexPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFIndexPatch.h; sourceTree = "<group>"; };
+		4C7B5DF421882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDropDownMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		4C7B5DF521882D8300B76E47 /* TFDropDownMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDropDownMenuView.h; sourceTree = "<group>"; };
 		4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		4C7EF2C621212A0A0002166A /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4C7EF2C721212A0A0002166A /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
@@ -2516,6 +2527,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C7B5DEC21882D8300B76E47 /* TFDropDownMenu */,
 				4CE336F92182C66F0037F9D2 /* KCGradientLabel */,
 				4C992F70217717330092DDCF /* WGRichTextEditor */,
 				4C5AC7032160B0F600F9A7F9 /* AutoPacking */,
@@ -3389,6 +3401,29 @@
 				4C73383921465B0B0001B33F /* YJProgressHUD.h */,
 			);
 			path = YJProgressHUDK;
+			sourceTree = "<group>";
+		};
+		4C7B5DEC21882D8300B76E47 /* TFDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4C7B5DED21882D8300B76E47 /* TFDropDownMenu.h */,
+				4C7B5DEE21882D8300B76E47 /* TFDropDownMenuView.m */,
+				4C7B5DEF21882D8300B76E47 /* Custom */,
+				4C7B5DF521882D8300B76E47 /* TFDropDownMenuView.h */,
+			);
+			path = TFDropDownMenu;
+			sourceTree = "<group>";
+		};
+		4C7B5DEF21882D8300B76E47 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				4C7B5DF021882D8300B76E47 /* TFIndexPatch.m */,
+				4C7B5DF121882D8300B76E47 /* TFDropDownMenuCollectionViewCell.h */,
+				4C7B5DF221882D8300B76E47 /* TFMenuDefinition.h */,
+				4C7B5DF321882D8300B76E47 /* TFIndexPatch.h */,
+				4C7B5DF421882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		4C7EF2C3212129C60002166A /* ZSSRichTextEditor */ = {
@@ -4415,6 +4450,7 @@
 				4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */,
 				4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */,
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
+				4C7B5DF821882D8300B76E47 /* TFIndexPatch.m in Sources */,
 				4C8735F420BE8CC800B6A8B5 /* XLChannelControl.m in Sources */,
 				4C7EF37E21212A0B0002166A /* HRColorPickerView.m in Sources */,
 				4C6E918A213F5F07001535CA /* UIImage+YYAdd.m in Sources */,
@@ -4726,6 +4762,7 @@
 				4C992FF9217717680092DDCF /* HXAlbumModel.m in Sources */,
 				4C6E9176213F5F07001535CA /* YYTextRunDelegate.m in Sources */,
 				4C5B5B0B21804DC000B52329 /* ForumRightTableViewCell.m in Sources */,
+				4C7B5DF721882D8300B76E47 /* TFDropDownMenuView.m in Sources */,
 				4C1DE9FB213D339600350313 /* WebViewJavascriptBridge.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */,
@@ -4776,6 +4813,7 @@
 				4C17BC80210076500021055B /* AnswerModel.m in Sources */,
 				4C6E915E213F5F07001535CA /* YYSpriteSheetImage.m in Sources */,
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
+				4C7B5DF921882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m in Sources */,
 				4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,

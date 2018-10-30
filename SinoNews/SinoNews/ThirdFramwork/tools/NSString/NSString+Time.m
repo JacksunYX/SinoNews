@@ -52,7 +52,45 @@
     return timeStr;
 }
 
+//加密方式
++(NSString *)encryptPlainText:(NSString *)plainText
+{
+    NSString *key = @"qazxrfvb";
+    NSString *iv = @"0000000000000000";
+    
+    CryptLib *cryptoLib = [[CryptLib alloc] init];
+    NSString *encryptedString = [cryptoLib encryptPlainText:plainText key:key iv:iv];
+    GGLog(@"encryptedString :%@", encryptedString);
+    return encryptedString;
+}
 
+//解密
++(NSString *)decryptCipherText:(NSString *)cipherText
+{
+    NSString *key = @"qazxrfvb";
+    NSString *iv = @"0000000000000000";
+    CryptLib *cryptoLib = [[CryptLib alloc] init];
+    NSString *decryptString = [cryptoLib decryptCipherText:cipherText key:key iv:iv];
+    GGLog(@"decryptString :%@", decryptString);
+    return decryptString;
+}
 
++(NSString *)encryptWithText:(NSString *)string
+{
+    NSString *key = @"qazxrfvb";
+    CryptLib *cryptoLib = [[CryptLib alloc] init];
+    NSString *encryptedString = [cryptoLib encryptPlainTextRandomIVWithPlainText:string key:key];
+    GGLog(@"encryptedString :%@", encryptedString);
+    return encryptedString;
+}
+
++(NSString *)decryptWithText:(NSString *)string
+{
+    NSString *key = @"qazxrfvb";
+    CryptLib *cryptoLib = [[CryptLib alloc] init];
+    NSString *decryptString = [cryptoLib decryptCipherTextRandomIVWithCipherText:string key:key];
+    GGLog(@"decryptString :%@", decryptString);
+    return decryptString;
+}
 
 @end

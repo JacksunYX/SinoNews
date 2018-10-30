@@ -814,7 +814,7 @@ CGFloat static attentionBtnH = 26;
                 [self requestCollectNews];
             }else if (row == 3) {
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+                pasteboard.string = AppendingString(DomainString, self.newsModel.freeContentUrl);
                 LRToast(@"链接已复制");
             }
             
@@ -884,7 +884,7 @@ CGFloat static attentionBtnH = 26;
         //投票比较特殊
         //        NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
         
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DomainString,VersionNum, News_iosContent,self.newsId,self.user.userId];
         GGLog(@"加载网址:%@",urlStr);
         NSString *result = [urlStr getUTF8String];
         NSURL *url = UrlWithStr(result);
@@ -1947,9 +1947,9 @@ CGFloat static attentionBtnH = 26;
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
-    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    NSString *urlStr = AppendingString(DomainString, self.newsModel.freeContentUrl);
     if (self.isVote) {
-        urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DefaultDomainName,VersionNum, News_iosContent,self.newsId,self.user.userId];
+        urlStr = [NSString stringWithFormat:@"%@%@%@?id=%ld&userId=%ld",DomainString,VersionNum, News_iosContent,self.newsId,self.user.userId];
     }
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的

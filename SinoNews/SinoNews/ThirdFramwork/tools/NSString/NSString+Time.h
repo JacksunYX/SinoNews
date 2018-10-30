@@ -21,4 +21,9 @@
 //字符串转时间戳 如：2017-4-10 17:15:10
 +(NSString *)getTimeStrWithString:(NSString *)str;
 
++(NSString *)encryptPlainText:(NSString *)plainText;
++(NSString *)decryptCipherText:(NSString *)cipherText;
+
++(NSString *)encryptWithText:(NSString *)string;
++(NSString *)decryptWithText:(NSString *)string;
 @end

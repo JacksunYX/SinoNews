@@ -87,7 +87,7 @@ static CGFloat anumationTime = 0.3;
     //加载网页
     NSString *urlStr;
     if (!kStringIsEmpty(webStr)) {
-        urlStr = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, webStr)];
+        urlStr = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, webStr)];
     }
     
     GGLog(@"文章h5：%@",urlStr);

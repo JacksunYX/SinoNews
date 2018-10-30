@@ -61,7 +61,7 @@ CGFloat static titleViewHeight = 91;
     [self.webView addBakcgroundColorTheme];
     
     //加载页面
-    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.voteUrl);
+    NSString *urlStr = AppendingString(DomainString, self.newsModel.voteUrl);
     GGLog(@"文章h5：%@",urlStr);
     NSString *result = [urlStr getUTF8String];
     NSURL *url = UrlWithStr(result);

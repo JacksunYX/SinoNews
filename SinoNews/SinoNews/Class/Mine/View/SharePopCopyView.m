@@ -70,12 +70,12 @@ static CGFloat anumationTime = 0.3;
     ;
     
     
-    NSString *shareUrl = AppendingString(DefaultDomainName, @"/share?");
+    NSString *shareUrl = AppendingString(DomainString, @"/share?");
     /*
     NSString *userId = [NSString stringWithFormat:@"%@",data[@"userId"]];
 //    NSString *source = [NSString stringWithFormat:@"%@",data[@"source"]];
     
-    NSString *field = [NSString stringWithFormat:@"u=%@",[self thirdDesWithText:userId]];
+    NSString *field = [NSString stringWithFormat:@"u=%@",[self encryptPlainText:userId]];
     */
     shareUrl = GetSaveString(data[@"url"]);
      
@@ -126,16 +126,6 @@ static CGFloat anumationTime = 0.3;
 
 }
 
-//加密方式
-+(NSString *)thirdDesWithText:(NSString *)plainText
-{
-    NSString *key = @"qazxrfvb";
-    NSString *iv = @"0000000000000000";
-    
-    CryptLib *cryptoLib = [[CryptLib alloc] init];
-    NSString *encryptedString = [cryptoLib encryptPlainText:plainText key:key iv:iv];
-    GGLog(@"encryptedString %@", encryptedString);
-    return encryptedString;
-}
+
 
 @end

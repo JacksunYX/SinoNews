@@ -38,12 +38,22 @@
 {
     self.domainsArr = [NSMutableArray new];
     //添加
-    self.domainsArr = @[
-                        @"http://api.52softs.cn",
-                        @"http://api1.52softs.cn",
-                        @"http://api2.52softs.cn",
-                        @"http://api3.52softs.cn",
-                        ].mutableCopy;
+    NSArray *arr = @[
+                     @"https://qsl.bravetroops.biz",
+                     @"https://www.sadasd2.info",
+                     @"https://www.d43d439.info",
+                     @"https://www.243223ew.info",
+                     @"https://www.fsfs2df.info",
+                     @"https://www.f43th7.info",
+                     @"https://www.32r3rew.info",
+                     @"https://www.32e23e.info",
+                     @"https://www.dsfs6dafs.info",
+                     @"https://www.g56y65h.info",
+                     ];
+    for (int i = 0; i < arr.count; i ++) {
+        NSString *string = arr[i];
+        [self.domainsArr addObject:[NSString encryptWithText:string]];
+    }
     [self.domainsArr bg_saveArrayWithName:@"domainsArr"];
     GGLog(@"domains已保存");
 }

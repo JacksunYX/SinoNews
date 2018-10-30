@@ -24,11 +24,12 @@ const NSString * DomainString = nil;
         NSUInteger count = BrowsNewsSingleton.singleton.domainsArr.count;
         if (count>0) {
             if (kStringIsEmpty(DomainString)) {
-//                DomainString = BrowsNewsSingleton.singleton.domainsArr[arc4random()%count];
                 //遍历数组，找到第一个能用的即可
                 for (NSString *domain in BrowsNewsSingleton.singleton.domainsArr) {
-                    if ([[UIApplication sharedApplication] canOpenURL:UrlWithStr(domain)]) {
-                        DomainString = domain;
+                    NSString *domainString = [NSString decryptWithText:domain];
+//                    GGLog(@"解密后的域名domainString:%@",domainString);
+                    if ([[UIApplication sharedApplication] canOpenURL:UrlWithStr(domainString)]) {
+                        DomainString = domainString;
                         GGLog(@"有效");
                         break;
                     }else{

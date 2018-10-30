@@ -40,7 +40,7 @@ pod 'UINavigation-SXFixSpace'
 pod 'XXDeviceTool',:git => 'https://github.com/XXCommonTools/XXDeviceTool.git'
 pod 'JPush', '~> 3.0.5'
 pod 'STCObfuscator'
-
+pod 'Masonry'
 
 #pod 'KafkaRefresh'
 #pod 'MLeaksFinder'

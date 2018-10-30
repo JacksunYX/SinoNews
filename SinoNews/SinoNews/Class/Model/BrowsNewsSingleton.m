@@ -40,15 +40,9 @@
     //添加
     self.domainsArr = @[
                         @"http://api.52softs.cn",
-                        @"https://qsl.bravetroops.biz",
-                        @"http://api.52softs.cn",
-                        @"http://192.168.2.142:8087",
-                        @"http://api.52softs.cn",
-                        @"http://192.168.2.142:8087",
-                        @"http://api.52softs.cn",
-                        @"http://192.168.2.142:8087",
-                        @"http://api.52softs.cn",
-                        @"http://192.168.2.142:8087",
+                        @"http://api1.52softs.cn",
+                        @"http://api2.52softs.cn",
+                        @"http://api3.52softs.cn",
                         ].mutableCopy;
     [self.domainsArr bg_saveArrayWithName:@"domainsArr"];
     GGLog(@"domains已保存");

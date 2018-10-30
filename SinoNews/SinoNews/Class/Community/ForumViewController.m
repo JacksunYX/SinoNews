@@ -153,9 +153,41 @@
     sVC.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
     sVC.hotSearchStyle = PYHotSearchStyleRankTag;
     sVC.searchHistoryTitle = @"历史搜索";
+    sVC.searchBarBackgroundColor = HexColor(#F3F5F4);
+    sVC.searchBarCornerRadius = 4;
+    [sVC.cancelButton setBtnFont:PFFontL(14)];
+    [sVC.cancelButton setNormalTitleColor:HexColor(#161A24)];
+    
+    //修改搜索框
+    //取出输入框
+    UIView *searchTextField = nil;
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0) {
+        searchTextField = [sVC.searchBar valueForKey:@"_searchField"];
+    }else{
+        for (UIView *subView in sVC.searchBar.subviews) {
+            if ([subView isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+                searchTextField = subView;
+                break;
+            }
+        }
+    }
+    if (searchTextField) {
+//        searchTextField.backgroundColor = [UIColor colorFromHexString:@"#27dcfb"];
+//        searchTextField.layer.masksToBounds = YES;
+//        searchTextField.layer.cornerRadius = 3.0f;
+//        searchTextField.layer.borderColor = [UIColor whiteColor].CGColor;
+//        searchTextField.layer.borderWidth = 0.5;
+//        ((UITextField *)searchTextField).textColor = [UIColor whiteColor];
+        //备注文字颜色
+        [((UITextField *)searchTextField) setValue:HexColor(#939393) forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    //修改输入框左边的搜索图标
+    [sVC.searchBar setImage:UIImageNamed(@"attention_search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    //修改输入框右边的清除图标
+//    [sVC.searchBar setImage:UIImageNamed(@"") forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     
     // 3. present the searchViewController
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sVC];
+    RTRootNavigationController *nav = [[RTRootNavigationController alloc] initWithRootViewController:sVC];
     [self presentViewController:nav animated:NO completion:nil];
 }
 

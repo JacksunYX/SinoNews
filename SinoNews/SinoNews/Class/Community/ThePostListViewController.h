@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThePostListViewController : BaseViewController
 
+-(void)hiddenMenu;
+
 @end
 
 NS_ASSUME_NONNULL_END

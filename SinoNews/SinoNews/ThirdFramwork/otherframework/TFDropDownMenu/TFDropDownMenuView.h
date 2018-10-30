@@ -74,5 +74,7 @@
 @property (strong, nonatomic) NSMutableArray *customViews;
 /**动画时间, 默认0.25*/
 @property (assign, nonatomic) CGFloat kAnimationDuration;
+//新增，收起才到
+-(void)hiddenMenu;
 
 @end

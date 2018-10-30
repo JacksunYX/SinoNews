@@ -9,10 +9,13 @@
 #import "CommunitySearchVC.h"
 #import "ThePostListViewController.h"
 #import "TheAuthorListViewController.h"
+#import "UserAttentionOrFansVC.h"
+
 
 @interface CommunitySearchVC ()<MLMSegmentHeadDelegate>
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
+@property (nonatomic, strong) NSMutableArray *vcArr;
 @end
 
 @implementation CommunitySearchVC
@@ -70,19 +73,26 @@
 
 - (NSArray *)getvcArrWith:(NSArray *)titles
 {
-    NSMutableArray *arr = [NSMutableArray array];
+    _vcArr = [NSMutableArray array];
     ThePostListViewController *tplVC = [ThePostListViewController new];
-    TheAuthorListViewController *talVC = [TheAuthorListViewController new];
-    [arr addObject:tplVC];
-    [arr addObject:talVC];
-    return arr;
+//    TheAuthorListViewController *talVC = [TheAuthorListViewController new];
+    UserAttentionOrFansVC *uaofVC = [UserAttentionOrFansVC new];
+    uaofVC.type = 1;
+    uaofVC.userId = [UserModel getLocalUserModel].userId;
+    [_vcArr addObject:tplVC];
+    [_vcArr addObject:uaofVC];
+    return _vcArr;
 }
 
 
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
-    
+//    GGLog(@"当前下标:%ld",index);
+    if (index!=0) {
+        ThePostListViewController *tplVC = (ThePostListViewController *)_vcArr[0];
+        [tplVC hiddenMenu];
+    }
 }
 
 @end

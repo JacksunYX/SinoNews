@@ -12,7 +12,7 @@
 @interface UserAttentionOrFansVC : BaseViewController
 
 @property (nonatomic,assign) NSInteger userId;  //用户id
-
-@property (nonatomic,assign) NSInteger type;    //0关注、1粉丝
+//0关注、1粉丝、2搜索作者
+@property (nonatomic,assign) NSInteger type;
 
 @end

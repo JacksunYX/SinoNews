@@ -30,8 +30,10 @@
     [super viewDidLoad];
     if (self.type == 0) {
         self.navigationItem.title = @"TA的关注";
-    }else{
+    }else if(self.type == 1) {
         self.navigationItem.title = @"他的粉丝";
+    }else if(self.type == 2) {
+        self.navigationItem.title = @"搜索作者";
     }
     
     [self addTableview];
@@ -72,6 +74,11 @@
     //注册
     [self.tableView registerClass:[MyFansTableViewCell class] forCellReuseIdentifier:MyFansTableViewCellID];
     
+    if (self.type == 2) {
+        //发送搜索请求
+        
+        return;
+    }
     @weakify(self);
     _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);

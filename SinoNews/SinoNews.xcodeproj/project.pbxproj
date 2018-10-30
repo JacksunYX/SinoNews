@@ -397,6 +397,7 @@
 		4C7B5DF721882D8300B76E47 /* TFDropDownMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DEE21882D8300B76E47 /* TFDropDownMenuView.m */; };
 		4C7B5DF821882D8300B76E47 /* TFIndexPatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DF021882D8300B76E47 /* TFIndexPatch.m */; };
 		4C7B5DF921882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DF421882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m */; };
+		4C7B5DFD2188580B00B76E47 /* ThePostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DFC2188580B00B76E47 /* ThePostListTableViewCell.m */; };
 		4C7EF32F21212A0B0002166A /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */; };
 		4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C921212A0A0002166A /* ZSStable@2x.png */; };
 		4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2CA21212A0A0002166A /* ZSSoutdent@2x.png */; };
@@ -1433,6 +1434,8 @@
 		4C7B5DF321882D8300B76E47 /* TFIndexPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFIndexPatch.h; sourceTree = "<group>"; };
 		4C7B5DF421882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFDropDownMenuCollectionViewCell.m; sourceTree = "<group>"; };
 		4C7B5DF521882D8300B76E47 /* TFDropDownMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFDropDownMenuView.h; sourceTree = "<group>"; };
+		4C7B5DFB2188580B00B76E47 /* ThePostListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThePostListTableViewCell.h; sourceTree = "<group>"; };
+		4C7B5DFC2188580B00B76E47 /* ThePostListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostListTableViewCell.m; sourceTree = "<group>"; };
 		4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		4C7EF2C621212A0A0002166A /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4C7EF2C721212A0A0002166A /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
@@ -2820,6 +2823,8 @@
 				4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */,
 				4C138EB821815F4F00FA2667 /* ChangeAttentionReusableView.h */,
 				4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */,
+				4C7B5DFB2188580B00B76E47 /* ThePostListTableViewCell.h */,
+				4C7B5DFC2188580B00B76E47 /* ThePostListTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4768,6 +4773,7 @@
 				4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */,
 				4C7234EC20FDEB1D00D5C5D4 /* AAChartModel.m in Sources */,
 				4C7234EA20FDEB1D00D5C5D4 /* AAChart.m in Sources */,
+				4C7B5DFD2188580B00B76E47 /* ThePostListTableViewCell.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,

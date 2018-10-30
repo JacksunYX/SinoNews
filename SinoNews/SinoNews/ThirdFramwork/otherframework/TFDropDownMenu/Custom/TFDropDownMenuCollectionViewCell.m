@@ -14,6 +14,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.titleLabel = [[UILabel alloc] initWithFrame:self.contentView.bounds];
+        self.titleLabel.layer.borderColor = CutLineColor.CGColor;
+        self.titleLabel.layer.borderWidth = 1;
+        
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

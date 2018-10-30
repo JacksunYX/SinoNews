@@ -194,9 +194,9 @@
 - (UICollectionView *)leftCollectionView {
     if (!_leftCollectionView) {
         UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
-        collectionViewLayout.itemSize = CGSizeMake((self.bounds.size.width-2)/2, _cellHeight);
-        collectionViewLayout.minimumInteritemSpacing = 1;
-        collectionViewLayout.minimumLineSpacing = 1;
+        collectionViewLayout.itemSize = CGSizeMake((self.bounds.size.width-30)/2, _cellHeight);
+        collectionViewLayout.minimumInteritemSpacing = 10;
+        collectionViewLayout.minimumLineSpacing = 10;
         
         _leftCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + self.bounds.size.height, self.bounds.size.width * _ratioLeftToScreen, 0) collectionViewLayout:collectionViewLayout];
         _leftCollectionView.delegate = self;
@@ -243,7 +243,7 @@
     
     //textLayer
     CATextLayer *textLayer = [[CATextLayer alloc] init];
-    textLayer.bounds = CGRectMake(0, 0, textLayerWidth, textSize.height);
+    textLayer.bounds = CGRectMake(0, 0, textLayerWidth, textSize.height+1);
     textLayer.fontSize = _itemFontSize;
     textLayer.string = text;
     textLayer.alignmentMode = kCAAlignmentCenter;
@@ -427,6 +427,22 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+        UILabel *centerLabel = UILabel.new;
+        centerLabel.textAlignment = NSTextAlignmentCenter;
+        centerLabel.tag = 10088;
+        centerLabel.font = PFFontL(15);
+        centerLabel.textColor = HexColor(#161A24);
+        [cell.contentView addSubview:centerLabel];
+        centerLabel.sd_layout
+        .leftEqualToView(cell.contentView)
+        .rightEqualToView(cell.contentView)
+        .topEqualToView(cell.contentView)
+        .bottomEqualToView(cell.contentView)
+        ;
+        centerLabel.textColor = _cellTextUnSelectColor;
+        centerLabel.highlightedTextColor = _cellTextSelectColor;
+        
+        /*
         cell.textLabel.textColor = _cellTextUnSelectColor;
         cell.textLabel.highlightedTextColor = _cellTextSelectColor;
         cell.textLabel.font = [UIFont systemFontOfSize:_cellTitleFontSize];
@@ -434,13 +450,16 @@
         cell.detailTextLabel.highlightedTextColor = _cellTextSelectColor;
         cell.detailTextLabel.font = [UIFont systemFontOfSize:_cellDetailTitleFontSize];
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+         */
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
         cell.selectedBackgroundView.backgroundColor = _cellSelectBackgroundColor;
     }
     
     if (tableView == _leftTableView) {
         // 一级列表
-        cell.textLabel.text = [self titleForColumn:_currentSelectColumn section:indexPath.row];
+        UILabel *centerLabel = (UILabel *)[cell.contentView viewWithTag:10088];
+        centerLabel.text = [self titleForColumn:_currentSelectColumn section:indexPath.row];
+//        cell.textLabel.text = [self titleForColumn:_currentSelectColumn section:indexPath.row];
         cell.detailTextLabel.text = [self detailTextForColumn:_currentSelectColumn section:indexPath.row];
         // image
         NSString *imagename = [self imageNameForColumn:_currentSelectColumn section:indexPath.row];
@@ -565,7 +584,11 @@
     cell.backgroundColor = _cellUnselectBackgroundColor;
     if (collectionView == _leftCollectionView) {
         // 一级列表
-        cell.titleLabel.text = [self titleForColumn:_currentSelectColumn section:indexPath.row];
+        NSString *title = [self titleForColumn:_currentSelectColumn section:indexPath.row];
+        NSString *detail = [self detailTextForColumn:_currentSelectColumn section:indexPath.row];
+        detail = AppendingString(@"（", detail);
+        detail = AppendingString(detail,@"）");
+        cell.titleLabel.text = AppendingString(title, detail);
         // 选中上次选择的行
         NSInteger select = [NSString stringWithFormat:@"%@", _currentSelectSections[_currentSelectColumn]].integerValue;
         if (select == indexPath.row) {
@@ -637,8 +660,9 @@
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(0.5, 0.5, 0.5, 0.5);
+//    return UIEdgeInsetsMake(0.5, 0.5, 0.5, 0.5);
     
+    return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
 //MARK: 事件Action
@@ -688,6 +712,14 @@
 
 /**背景点击*/
 - (void)backTapped:(UITapGestureRecognizer *)sender {
+    [self animateForIndicator:_currentIndicatorLayers[_currentSelectColumn] titlelayer:_currentTitleLayers[_currentSelectColumn] show:NO complete:^{
+        self.isShow = NO;
+    }];
+}
+
+//收起菜单
+-(void)hiddenMenu
+{
     [self animateForIndicator:_currentIndicatorLayers[_currentSelectColumn] titlelayer:_currentTitleLayers[_currentSelectColumn] show:NO complete:^{
         self.isShow = NO;
     }];

@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const ChangeAttentionCellID;
+extern NSString * _Nullable const ChangeAttentionCellID;
 
 NS_ASSUME_NONNULL_BEGIN
 

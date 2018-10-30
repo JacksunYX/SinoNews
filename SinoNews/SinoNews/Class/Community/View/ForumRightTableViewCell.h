@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const ForumRightTableViewCellID;
+extern NSString * _Nullable const ForumRightTableViewCellID;
 
 NS_ASSUME_NONNULL_BEGIN
 

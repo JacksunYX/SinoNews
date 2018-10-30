@@ -14,7 +14,7 @@ const NSString * DomainString = nil;
 
 @implementation HttpRequest
 //获取通用的请求manager
-+ (AFHTTPSessionManager *)getQuestManager
++ (nullable AFHTTPSessionManager *)getQuestManager
 {
 #if DEBUG
     DomainString = DefaultDomainName;
@@ -42,8 +42,11 @@ const NSString * DomainString = nil;
     }
     if (kStringIsEmpty(DomainString)) {
         GGLog(@"无可用域名");
+        
+        return nil;
     }
 #endif
+    
 //    GGLog(@"DomainString:%@",DomainString);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //无条件的信任服务器上的证书
@@ -99,7 +102,10 @@ const NSString * DomainString = nil;
                  failure:(void (^)(NSError *))failure {
     
     AFHTTPSessionManager *manager = [self getQuestManager];
-    
+    if (!manager) {
+        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
+        return;
+    }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
@@ -152,7 +158,10 @@ const NSString * DomainString = nil;
             RefreshAction:(void (^)())RefreshAction{
     
     AFHTTPSessionManager *manager = [self getQuestManager];
-    
+    if (!manager) {
+        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
+        return;
+    }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
@@ -243,7 +252,10 @@ const NSString * DomainString = nil;
                  RefreshAction:(void (^)())RefreshAction{
     
     AFHTTPSessionManager *manager = [self getQuestManager];
-    
+    if (!manager) {
+        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
+        return;
+    }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
@@ -330,7 +342,10 @@ const NSString * DomainString = nil;
 {
     
     AFHTTPSessionManager *manager = [self getQuestManager];
-    
+    if (!manager) {
+        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
+        return;
+    }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);

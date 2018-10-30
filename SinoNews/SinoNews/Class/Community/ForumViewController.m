@@ -8,6 +8,7 @@
 
 #import "ForumViewController.h"
 #import "ChangeAttentionViewController.h"
+#import "CommunitySearchVC.h"
 
 #import "ForumLeftTableViewCell.h"
 #import "ForumRightTableViewCell.h"
@@ -64,9 +65,9 @@
                 NSMutableDictionary *model = [NSMutableDictionary new];
                 model[@"logo"] = logo[arc4random()%(logo.count)];
                 model[@"communityName"] = communityName[arc4random()%(communityName.count)];
-//                if (i == 0) {
-//                    break;
-//                }
+                //                if (i == 0) {
+                //                    break;
+                //                }
                 [arr3 addObject:model];
             }
             [arr2 addObject:arr3];
@@ -145,7 +146,17 @@
 
 -(void)searchAction
 {
+    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[@"12312",@"adasldjl",@"sld;."] searchBarPlaceholder:@"启世录快速通道" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
+        searchViewController.searchResultController = [CommunitySearchVC new];
+    }];
+    sVC.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
+    sVC.hotSearchStyle = PYHotSearchStyleRankTag;
+    sVC.searchHistoryTitle = @"历史搜索";
     
+    // 3. present the searchViewController
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sVC];
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 -(void)setUI

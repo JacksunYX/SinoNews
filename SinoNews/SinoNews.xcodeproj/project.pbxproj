@@ -391,6 +391,9 @@
 		4C73383A21465B0B0001B33F /* YJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73383721465B0B0001B33F /* YJProgressHUD.m */; };
 		4C73383B21465B0B0001B33F /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C73383821465B0B0001B33F /* images.bundle */; };
 		4C7A0987215B771400E0682A /* AppDelegate+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A0986215B771400E0682A /* AppDelegate+Push.m */; };
+		4C7B5DE52187E81D00B76E47 /* CommunitySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DE42187E81D00B76E47 /* CommunitySearchVC.m */; };
+		4C7B5DE82187F8D400B76E47 /* ThePostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */; };
+		4C7B5DEB2187F8FD00B76E47 /* TheAuthorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */; };
 		4C7EF32F21212A0B0002166A /* ZSSRichTextEditor.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */; };
 		4C7EF33021212A0B0002166A /* ZSStable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2C921212A0A0002166A /* ZSStable@2x.png */; };
 		4C7EF33121212A0B0002166A /* ZSSoutdent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EF2CA21212A0A0002166A /* ZSSoutdent@2x.png */; };
@@ -1413,6 +1416,12 @@
 		4C73383921465B0B0001B33F /* YJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJProgressHUD.h; sourceTree = "<group>"; };
 		4C7A0985215B771300E0682A /* AppDelegate+Push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Push.h"; sourceTree = "<group>"; };
 		4C7A0986215B771400E0682A /* AppDelegate+Push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Push.m"; sourceTree = "<group>"; };
+		4C7B5DE32187E81D00B76E47 /* CommunitySearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunitySearchVC.h; sourceTree = "<group>"; };
+		4C7B5DE42187E81D00B76E47 /* CommunitySearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommunitySearchVC.m; sourceTree = "<group>"; };
+		4C7B5DE62187F8D400B76E47 /* ThePostListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThePostListViewController.h; sourceTree = "<group>"; };
+		4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostListViewController.m; sourceTree = "<group>"; };
+		4C7B5DE92187F8FD00B76E47 /* TheAuthorListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TheAuthorListViewController.h; sourceTree = "<group>"; };
+		4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheAuthorListViewController.m; sourceTree = "<group>"; };
 		4C7EF2C521212A0A0002166A /* ZSSRichTextEditor.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSRichTextEditor.js; sourceTree = "<group>"; };
 		4C7EF2C621212A0A0002166A /* ZSSBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSBarButtonItem.h; sourceTree = "<group>"; };
 		4C7EF2C721212A0A0002166A /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
@@ -3901,6 +3910,12 @@
 				4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */,
 				4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */,
 				4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */,
+				4C7B5DE32187E81D00B76E47 /* CommunitySearchVC.h */,
+				4C7B5DE42187E81D00B76E47 /* CommunitySearchVC.m */,
+				4C7B5DE62187F8D400B76E47 /* ThePostListViewController.h */,
+				4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */,
+				4C7B5DE92187F8FD00B76E47 /* TheAuthorListViewController.h */,
+				4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */,
 				4C5B5B0521804D6F00B52329 /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
 			);
@@ -4519,6 +4534,7 @@
 				4C6E918C213F5F07001535CA /* UIFont+YYAdd.m in Sources */,
 				4C992FE7217717680092DDCF /* UIView+HXExtension.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
+				4C7B5DE82187F8D400B76E47 /* ThePostListViewController.m in Sources */,
 				4C992F74217717530092DDCF /* WGUploadPictureModel.m in Sources */,
 				4CE336F22182B40A0037F9D2 /* Mine2SecondTableViewCell.m in Sources */,
 				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
@@ -4656,6 +4672,7 @@
 				4C992FE5217717680092DDCF /* HXAlbumListViewController.m in Sources */,
 				4C992FFC217717680092DDCF /* HXCircleProgressView.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
+				4C7B5DEB2187F8FD00B76E47 /* TheAuthorListViewController.m in Sources */,
 				4C7234FB20FF34C900D5C5D4 /* QACommentInputView.m in Sources */,
 				4C992F7C2177175D0092DDCF /* KWFontStyleBar.m in Sources */,
 				4C72347C20FD8C6D00D5C5D4 /* PYSearchSuggestionViewController.m in Sources */,
@@ -4751,6 +4768,7 @@
 				4C4EC3082112E3E800591F12 /* ZXYShineLayer.m in Sources */,
 				4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
+				4C7B5DE52187E81D00B76E47 /* CommunitySearchVC.m in Sources */,
 				4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
 				4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */,

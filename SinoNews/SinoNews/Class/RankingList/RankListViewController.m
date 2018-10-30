@@ -189,6 +189,8 @@
         [searchViewController dismissViewControllerAnimated:NO completion:nil];
         [self requestCompanyRankingWithCompanyName:searchText];
     }];
+    
+    
     // 3. present the searchViewController
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:nav animated:NO completion:nil];

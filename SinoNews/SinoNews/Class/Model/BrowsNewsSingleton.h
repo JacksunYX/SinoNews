@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong) NSMutableArray *idsArr;    //保存阅读过的文章id
 
+@property (nonatomic,strong) NSMutableArray *domainsArr;
+
 //比对获取到的新闻模型中是否有已经阅读过的了
 -(NSMutableArray *)compareBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData;
 

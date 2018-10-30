@@ -70,7 +70,7 @@ static CGFloat anumationTime = 0.3;
     ;
     
     
-    NSString *shareUrl = AppendingString(DefaultDomainName, @"/share?");
+    NSString *shareUrl = AppendingString(DomainString, @"/share?");
     /*
     NSString *userId = [NSString stringWithFormat:@"%@",data[@"userId"]];
 //    NSString *source = [NSString stringWithFormat:@"%@",data[@"source"]];

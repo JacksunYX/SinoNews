@@ -27,6 +27,8 @@ typedef NS_ENUM(NSUInteger,HttpRequestType) {
     HttpRequestTypePost
 };
 
+extern const NSString * DomainString;
+
 @interface HttpRequest : NSObject
 /**
  *  发送get请求

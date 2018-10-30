@@ -431,7 +431,7 @@ CGFloat static titleViewHeight = 150;
     }];
     
     //加载页面
-    NSString *urlStr = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
+    NSString *urlStr = AppendingString(DomainString, self.answerModel.contentUrl);
     GGLog(@"文章h5：%@",urlStr);
     NSString *result = [urlStr getUTF8String];
     NSURL *url = UrlWithStr(result);
@@ -580,7 +580,7 @@ CGFloat static titleViewHeight = 150;
                 case 2:
                 {
                     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                    pasteboard.string = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
+                    pasteboard.string = AppendingString(DomainString, self.answerModel.contentUrl);
                     LRToast(@"链接已复制");
                 }
                     break;
@@ -600,7 +600,7 @@ CGFloat static titleViewHeight = 150;
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
-    NSString *urlStr = AppendingString(DefaultDomainName, self.answerModel.contentUrl);
+    NSString *urlStr = AppendingString(DomainString, self.answerModel.contentUrl);
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;

@@ -408,7 +408,7 @@
     self.webView.userInteractionEnabled = NO;
     //加载内容
 //    [self.webView loadHTMLString:self.productModel.productDescription baseURL:nil];
-    NSString *urlStr = AppendingString(DefaultDomainName, self.productModel.descriptionUrl);
+    NSString *urlStr = AppendingString(DomainString, self.productModel.descriptionUrl);
     GGLog(@"文章h5：%@",urlStr);
     NSString *result = [urlStr getUTF8String];
     NSURL *url = UrlWithStr(result);

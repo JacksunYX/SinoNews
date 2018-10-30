@@ -10,11 +10,40 @@
 #import "AddressViewController.h"
 static float afterTime = 0.5;
 static NSString * const ErrorString = @"提示:";
+const NSString * DomainString = nil;
 
 @implementation HttpRequest
 //获取通用的请求manager
 + (AFHTTPSessionManager *)getQuestManager
 {
+#if DEBUG
+    DomainString = DefaultDomainName;
+#else
+
+    if (kStringIsEmpty(DomainString)) {
+        NSUInteger count = BrowsNewsSingleton.singleton.domainsArr.count;
+        if (count>0) {
+            if (kStringIsEmpty(DomainString)) {
+//                DomainString = BrowsNewsSingleton.singleton.domainsArr[arc4random()%count];
+                //遍历数组，找到第一个能用的即可
+                for (NSString *domain in BrowsNewsSingleton.singleton.domainsArr) {
+                    if ([[UIApplication sharedApplication] canOpenURL:UrlWithStr(domain)]) {
+                        DomainString = domain;
+                        GGLog(@"有效");
+                        break;
+                    }else{
+                        GGLog(@"无效");
+                    }
+                }
+            }
+        }
+        
+    }
+    if (kStringIsEmpty(DomainString)) {
+        GGLog(@"无可用域名");
+    }
+#endif
+//    GGLog(@"DomainString:%@",DomainString);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //无条件的信任服务器上的证书
     
@@ -50,7 +79,7 @@ static NSString * const ErrorString = @"提示:";
                                                          nil];
     //设置与后台对接的请求头
     NSString *token = GetSaveString(UserGet(@"token"));
-
+    
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"Device-No"];
     [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"App-Version"];
@@ -70,7 +99,7 @@ static NSString * const ErrorString = @"提示:";
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
@@ -124,7 +153,7 @@ static NSString * const ErrorString = @"提示:";
     AFHTTPSessionManager *manager = [self getQuestManager];
     
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
@@ -215,7 +244,7 @@ static NSString * const ErrorString = @"提示:";
     AFHTTPSessionManager *manager = [self getQuestManager];
     
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
     //判断显示loding
     if (isshowhud == YES) {
@@ -301,7 +330,7 @@ static NSString * const ErrorString = @"提示:";
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     
-    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DefaultDomainName,AppendingString(VersionNum, URLString)];
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     ShowHudOnly;
@@ -401,7 +430,7 @@ static NSString * const ErrorString = @"提示:";
                                                          @"text/json",
                                                          nil];
     
-    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DomainString,URLString];
     
     [parameters setValue:@"1" forKey:@"client_id"];
     
@@ -488,7 +517,7 @@ static NSString * const ErrorString = @"提示:";
                                                          nil];
     
     
-    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DefaultDomainName,URLString];
+    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DomainString,URLString];
     
     [parameters setValue:@"1" forKey:@"client_id"];
     

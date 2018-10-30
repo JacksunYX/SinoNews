@@ -753,7 +753,7 @@ CGFloat static titleViewHeight = 150;
                 [self requestCollectNews];
             }else if (row == 3){
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+                pasteboard.string = AppendingString(DomainString, self.newsModel.freeContentUrl);
                 LRToast(@"链接已复制");
             }
             
@@ -826,7 +826,7 @@ CGFloat static titleViewHeight = 150;
     //创建分享对象
     MGSocialShareModel *shareModel = [MGSocialShareModel new];
     
-    NSString *urlStr = AppendingString(DefaultDomainName, self.newsModel.freeContentUrl);
+    NSString *urlStr = AppendingString(DomainString, self.newsModel.freeContentUrl);
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;

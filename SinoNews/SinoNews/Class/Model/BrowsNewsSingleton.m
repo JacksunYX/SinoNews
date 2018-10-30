@@ -14,14 +14,44 @@
 {
     // Default settings.
     //读取本地保存数据
-    NSArray* newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+    NSArray * newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+    NSArray *domainsArr = [NSArray bg_arrayWithName:@"domainsArr"];
     if (kArrayIsEmpty(newsIdArr)) {
         self.idsArr = [NSMutableArray new];
     }else{
         self.idsArr = [newsIdArr mutableCopy];
     }
+    if (kArrayIsEmpty(domainsArr)) {
+        //为空的话就要创建一个并保存在本地
+        [self saveDomainsArr];
+    }else{
+        self.domainsArr = [domainsArr mutableCopy];
+        GGLog(@"domainsArr:%@\ndomain个数：%ld",self.domainsArr,self.domainsArr.count);
+    }
+    
     GGLog(@"idsArr:%ld",self.idsArr.count);
     return self;
+}
+
+//保存domainsArr到本地
+-(void)saveDomainsArr
+{
+    self.domainsArr = [NSMutableArray new];
+    //添加
+    self.domainsArr = @[
+                        @"http://api.52softs.cn",
+                        @"https://qsl.bravetroops.biz",
+                        @"http://api.52softs.cn",
+                        @"http://192.168.2.142:8087",
+                        @"http://api.52softs.cn",
+                        @"http://192.168.2.142:8087",
+                        @"http://api.52softs.cn",
+                        @"http://192.168.2.142:8087",
+                        @"http://api.52softs.cn",
+                        @"http://192.168.2.142:8087",
+                        ].mutableCopy;
+    [self.domainsArr bg_saveArrayWithName:@"domainsArr"];
+    GGLog(@"domains已保存");
 }
 
 //比对获取到的新闻模型中是否有已经阅读过的了

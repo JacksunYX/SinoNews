@@ -1086,7 +1086,7 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
 //        shareModel.image = UIImageNamed(@"ad_banner0");
 //    }
     
-    NSString *shareUrl = AppendingString(DefaultDomainName, @"/share?");
+    NSString *shareUrl = AppendingString(DomainString, @"/share?");
     shareUrl = [shareUrl stringByAppendingString:[NSString stringWithFormat:@"userId=%ld",self.user.userId]];
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的

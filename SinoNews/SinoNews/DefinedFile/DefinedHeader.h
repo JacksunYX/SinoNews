@@ -47,7 +47,7 @@
 #define NetRequestUrl(key) [[[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"NetRequestUrl" ofType:@"plist"]] objectForKey:@#key]
 
 //拼接图片的宏
-#define JointImgUrl(imgUrlStr) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DefaultDomainName,imgUrlStr]]
+#define JointImgUrl(imgUrlStr) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",DomainString,imgUrlStr]]
 
 
 //设置字体

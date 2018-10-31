@@ -8,7 +8,6 @@
 
 #import "MyCollectViewController.h"
 #import "MyCollectArticleCell.h"
-#import "MyCollectCasinoCell.h"
 #import "RankDetailViewController.h"
 #import "HomePageFirstKindCell.h"
 #import "NewsDetailViewController.h"
@@ -23,12 +22,13 @@
 
 @property (nonatomic,strong) BaseTableView *tableView;
 
-@property (nonatomic,assign) NSInteger currPage;    //页码
+@property (nonatomic,assign) NSInteger currPage0;    //页码
+@property (nonatomic,assign) NSInteger currPage1;    //页码1
 
 //文章数据源数组
 @property (nonatomic,strong) NSMutableArray *articleArray;
-//娱乐城数据源数组
-@property (nonatomic,strong) NSMutableArray *casinoArray;
+//帖子数据源数组
+@property (nonatomic,strong) NSMutableArray *postArray;
 //存储选择要删除数据数组
 @property (nonatomic,strong) NSMutableArray *deleteArray;
 
@@ -57,16 +57,12 @@
     return _articleArray;
 }
 
-- (NSMutableArray *)casinoArray
+- (NSMutableArray *)postArray
 {
-    if (!_casinoArray) {
-        _casinoArray = [NSMutableArray array];
-        //        for (int i = 0; i< 5; i++) {
-        //            NSString *string = [NSString stringWithFormat:@"测试测试测试测试测试测试测试测试%d",arc4random()%100];
-        //            [_casinoArray addObject:string];
-        //        }
+    if (!_postArray) {
+        _postArray = [NSMutableArray array];
     }
-    return _casinoArray;
+    return _postArray;
 }
 
 - (NSMutableArray *)deleteArray
@@ -82,8 +78,8 @@
     self.navigationItem.title = @"内容";
     [self showTopLine];
     [self getButtonAndView];
-    selectedIndex = 1;
-//    [self setTitleView];
+    selectedIndex = 0;
+    [self setTitleView];
     [self addTableViews];
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无任何收藏"];
@@ -102,7 +98,7 @@
 
 -(void)setTitleView
 {
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"娱乐城",@"文章"] headStyle:0 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"文章",@"帖子"] headStyle:0 layoutStyle:0];
     //    _segHead.fontScale = .85;
     //    _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;
@@ -120,18 +116,13 @@
         self.navigationItem.titleView = self.segHead;
     }];
     [_segHead.titlesScroll addBakcgroundColorTheme];
-    self.selectedBtn.hidden = !selectedIndex;
+//    self.selectedBtn.hidden = !selectedIndex;
     
     _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
         [(MLMSegmentHead *)item setSelectColor:value];
-        //来回滑动一次，解决显示问题
-        [(MLMSegmentHead *)item changeIndex:1 completion:YES];
-        [(MLMSegmentHead *)item changeIndex:0 completion:YES];
     });
     
-    [_segHead changeIndex:1 completion:YES];
-    _segHead.hidden = YES;
-    _segHead.userInteractionEnabled = NO;
+//    [_segHead changeIndex:1 completion:YES];
     
 }
 
@@ -158,7 +149,7 @@
     //注册
     [self.tableView registerClass:[MyCollectArticleCell class] forCellReuseIdentifier:MyCollectArticleCellID];
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
-    [self.tableView registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];
+    
     
     @weakify(self);
     _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
@@ -167,13 +158,14 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
-        self.currPage = 1;
-        if (self->selectedIndex==0) {
-            [self requestCompanyList];
-        }else{
-            [self requestNewsList];
-        }
         
+        if (self->selectedIndex==0) {
+            self.currPage0 = 1;
+            [self requestNewsList];
+        }else{
+            self.currPage1 = 1;
+            [self requestPostList];
+        }
     }];
     
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -182,15 +174,21 @@
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
-        if (!self.articleArray.count) {
-            self.currPage = 1;
-        }else{
-            self.currPage++;
-        }
+        
         if (self->selectedIndex==0) {
-            [self requestCompanyList];
-        }else{
+            if (!self.articleArray.count) {
+                self.currPage0 = 1;
+            }else{
+                self.currPage0++;
+            }
             [self requestNewsList];
+        }else{
+            if (!self.postArray.count) {
+                self.currPage1 = 1;
+            }else{
+                self.currPage1++;
+            }
+            [self requestPostList];
         }
     }];
     
@@ -219,7 +217,7 @@
     self.bottomView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, 0)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     .heightIs(0)
     ;
     self.bottomView.hidden = YES;
@@ -286,7 +284,7 @@
     self.bottomView.sd_resetLayout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, 0)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     .heightIs(hei)
     ;
 }
@@ -297,9 +295,9 @@
 {
     NSMutableArray *arr;
     if (selectedIndex == 0) {
-        arr = self.casinoArray;
-    }else if (selectedIndex == 1){
         arr = self.articleArray;
+    }else if (selectedIndex == 1){
+        arr = self.postArray;
     }
     if (arr.count) {
         btn.selected = !btn.selected;
@@ -320,9 +318,9 @@
     
     //批量删除
     if (selectedIndex == 0) {
-        [self requestCancelCompanysCollects];
-    }else if (selectedIndex == 1) {
         [self requestCancelNewsCollects];
+    }else if (selectedIndex == 1) {
+        [self requestCancelPostCollects];
     }
     
 }
@@ -338,9 +336,16 @@
     //先判断是全选还是反选
     if (btn.selected) { //全选
         //文章
-        if (selectedIndex == 1) {
+        if (selectedIndex == 0) {
             [self.deleteArray addObjectsFromArray:self.articleArray];
             for (int i = 0; i< self.articleArray.count; i++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+                [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+            }
+        }else if (selectedIndex == 1) {
+            //帖子
+            [self.deleteArray addObjectsFromArray:self.postArray];
+            for (int i = 0; i< self.postArray.count; i++) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
                 [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
             }
@@ -358,9 +363,9 @@
 {
     NSMutableArray *arr;
     if (self->selectedIndex == 0) {
-        arr = self.casinoArray;
-    }else if (self->selectedIndex == 1){
         arr = self.articleArray;
+    }else if (self->selectedIndex == 1){
+        arr = self.postArray;
     }
     //将数据源数组中包含有删除数组中的数据删除掉
     [arr removeObjectsInArray:self.deleteArray];
@@ -378,10 +383,10 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (selectedIndex == 1) {
+    if (selectedIndex == 0){
         return self.articleArray.count;
-    }else if (selectedIndex == 0){
-        return self.casinoArray.count;
+    }else if (selectedIndex == 1) {
+        return self.postArray.count;
     }
     return 0;
 }
@@ -390,14 +395,15 @@
 {
     UITableViewCell *cell;
     if (selectedIndex == 0){
-        MyCollectCasinoCell *cell1 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
-        cell1.model = self.casinoArray[indexPath.row];
-        cell = (MyCollectCasinoCell *)cell1;
+        HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+        
+        cell0.model = self.articleArray[indexPath.row];
+        cell = cell0;
     }else if (selectedIndex == 1) {
         HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         
-        cell1.model = self.articleArray[indexPath.row];
-        cell = (UITableViewCell *)cell1;
+        cell1.model = self.postArray[indexPath.row];
+        cell = cell1;
         
     }
     [cell addBakcgroundColorTheme];
@@ -406,13 +412,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (selectedIndex == 1) {
-        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
-    }else if (selectedIndex == 0){
-//        return 128;
-        return 70;
-    }
-    return 0;
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -429,10 +429,10 @@
 {
     if (self.tableView.editing) {
         NSArray *arr;
-        if (selectedIndex == 1) {
+        if (selectedIndex == 0) {
             arr = self.articleArray;
-        }else if (selectedIndex == 0){
-            arr = self.casinoArray;
+        }else if (selectedIndex == 1){
+            arr = self.postArray;
         }
         [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
         if (self.deleteArray.count<arr.count) {
@@ -441,23 +441,21 @@
             self.selectAllBtn.selected = YES;
         }
     }else{
-        if (selectedIndex == 1) {
-            HomePageModel *model = self.articleArray[indexPath.row];
-            if ([model.newsType intValue]==0) { //新闻
-                NewsDetailViewController *ndVC = [NewsDetailViewController new];
-                ndVC.newsId = [(HomePageModel *)model itemId];
-                [self.navigationController pushViewController:ndVC animated:YES];
-            }else if ([model.newsType intValue]==2){    //问答
-                CatechismViewController *cVC = [CatechismViewController new];
-                cVC.news_id = model.itemId;
-                [self.navigationController pushViewController:cVC animated:YES];
-            }
-        }else if (selectedIndex == 0){
-            //跳转到公司详情
-            RankDetailViewController *rdVC = [RankDetailViewController new];
-            CompanyDetailModel *model = self.casinoArray[indexPath.row];
-            rdVC.companyId = model.companyId;
-            [self.navigationController pushViewController:rdVC animated:YES];
+        HomePageModel *model;
+        if (selectedIndex == 0) {
+            model = self.articleArray[indexPath.row];
+        }else if (selectedIndex == 1) {
+            model = self.postArray[indexPath.row];
+        }
+        NSInteger type = [model.newsType intValue];
+        if (type==0||type==1) { //新闻,收费文章后台居然给的1
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = [(HomePageModel *)model itemId];
+            [self.navigationController pushViewController:ndVC animated:YES];
+        }else if (type==2){    //问答
+            CatechismViewController *cVC = [CatechismViewController new];
+            cVC.news_id = model.itemId;
+            [self.navigationController pushViewController:cVC animated:YES];
         }
     }
     [self.deleteBtn setTitle:[NSString stringWithFormat:@"删除(%ld)",self.deleteArray.count] forState:UIControlStateNormal];
@@ -470,10 +468,10 @@
     if (self.tableView.editing) {
         
         NSArray *arr;
-        if (selectedIndex == 1) {
+        if (selectedIndex == 0) {
             arr = self.articleArray;
-        }else if (selectedIndex == 0){
-            arr = self.casinoArray;
+        }else if (selectedIndex == 1){
+            arr = self.postArray;
         }
         [self.deleteArray removeObject:[arr objectAtIndex:indexPath.row]];
         if (self.deleteArray.count<arr.count) {
@@ -498,13 +496,13 @@
 //}
 
 // 定义编辑样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (selectedIndex == 0) {
-        return UITableViewCellEditingStyleDelete;
-    }
-    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
-
-}
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (selectedIndex == 0) {
+//        return UITableViewCellEditingStyleDelete;
+//    }
+//    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
+//
+//}
 
 // 进入编辑模式，按下出现的编辑按钮后,进行删除操作
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -520,6 +518,7 @@
 //    return @"取消收藏";
 //}
 
+/*
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (selectedIndex == 0) {
@@ -527,9 +526,9 @@
         UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             NSArray *arr;
             if (self->selectedIndex == 0) {
-                arr = self.casinoArray;
-            }else if (self->selectedIndex == 1){
                 arr = self.articleArray;
+            }else if (self->selectedIndex == 1){
+                arr = self.postArray;
             }
             [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
             [self requestCancelCompanysCollects];
@@ -540,12 +539,13 @@
     }
     return nil;
 }
+*/
 
 #pragma mark ---- MLMSegmentHeadDelegate
 - (void)didSelectedIndex:(NSInteger)index
 {
     selectedIndex = index;
-    self.selectedBtn.hidden = !index;
+//    self.selectedBtn.hidden = !index;
     [self showOrHiddenTheSelections:NO];
     [self.tableView.mj_footer setHidden:!index];
     
@@ -555,40 +555,14 @@
 
 
 #pragma mark ---- 请求发送
-//收藏的游戏公司列表
--(void)requestCompanyList
-{
-    [self.tableView ly_startLoading];
-    @weakify(self)
-    [HttpRequest getWithURLString:ListConcernedCompanyForUser parameters:nil success:^(id responseObject) {
-        @strongify(self)
-        self.casinoArray = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
-        [self.tableView ly_endLoading];
-    } failure:nil];
-}
-
 //收藏的文章列表
 -(void)requestNewsList
 {
     [self.tableView ly_startLoading];
-    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage0)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
-        self.articleArray = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.articleArray];
-//        if (self.currPage == 1) {
-//            self.articleArray = [dataArr mutableCopy];
-//            [self.tableView.mj_header endRefreshing];
-//        }else{
-//            [self.articleArray addObjectsFromArray:dataArr];
-//        }
-//
-//        if (dataArr.count) {
-//            [self.tableView.mj_footer endRefreshing];
-//        }else{
-//            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//        }
+        self.articleArray = [self.tableView pullWithPage:self.currPage0 data:dataArr dataSource:self.articleArray];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
@@ -600,25 +574,23 @@
     }];
 }
 
-//批量取消关注游戏公司
--(void)requestCancelCompanysCollects
+//收藏的帖子列表
+-(void)requestPostList
 {
-    NSMutableArray *array = [NSMutableArray new];
-    for (CompanyDetailModel *model in self.deleteArray) {
-        [array addObject:model.companyId];
-    }
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    @weakify(self)
-    [HttpRequest postWithURLString:CancelCompanysCollects parameters:@{@"companyIds":jsonString} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        @strongify(self)
-        [self resetStatus];
-    } failure:nil RefreshAction:^{
-        @strongify(self)
+    [self.tableView ly_startLoading];
+    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage1)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
+        
+        self.postArray = [self.tableView pullWithPage:self.currPage1 data:dataArr dataSource:self.postArray];
+        [self.tableView reloadData];
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
+    } RefreshAction:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];
-    
 }
 
 //批量取消关注文章
@@ -639,8 +611,23 @@
     }];
 }
 
-
-
+//批量取消关注帖子
+-(void)requestCancelPostCollects
+{
+    NSMutableString *str = [@"" mutableCopy];
+    for (HomePageModel *model in self.deleteArray) {
+        [str appendString:[NSString stringWithFormat:@"%ld,",model.itemId]];
+    }
+    [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
+    @weakify(self)
+    [HttpRequest postWithURLString:Unfavors parameters:@{@"newsIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        @strongify(self)
+        [self resetStatus];
+    } failure:nil RefreshAction:^{
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
 
 
 

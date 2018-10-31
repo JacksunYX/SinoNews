@@ -16,9 +16,9 @@ const NSString * DomainString = nil;
 //获取通用的请求manager
 + (nullable AFHTTPSessionManager *)getQuestManager
 {
-//#if DEBUG
-//    DomainString = DefaultDomainName;
-//#else
+#if DEBUG
+    DomainString = DefaultDomainName;
+#else
 
     if (kStringIsEmpty(DomainString)) {
         NSUInteger count = BrowsNewsSingleton.singleton.domainsArr.count;
@@ -45,7 +45,7 @@ const NSString * DomainString = nil;
         
         return nil;
     }
-//#endif
+#endif
     
 //    GGLog(@"DomainString:%@",DomainString);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

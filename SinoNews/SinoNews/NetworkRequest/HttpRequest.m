@@ -42,7 +42,15 @@ const NSString * DomainString = nil;
     }
     if (kStringIsEmpty(DomainString)) {
         GGLog(@"无可用域名");
-        
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            GCDAsynMain(^{
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"无法连接服务器\n请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
+                [alertVC addAction:cancel];
+                [[HttpRequest currentViewController] presentViewController:alertVC animated:YES completion:nil];
+            });
+        });
         return nil;
     }
 #endif
@@ -103,16 +111,6 @@ const NSString * DomainString = nil;
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     if (!manager) {
-        
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            GCDAsynMain(^{
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
-                [alertVC addAction:cancel];
-                [[HttpRequest currentViewController] presentViewController:alertVC animated:YES completion:nil];
-            });
-        });
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
@@ -168,7 +166,6 @@ const NSString * DomainString = nil;
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     if (!manager) {
-        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
         return;
     }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
@@ -262,7 +259,6 @@ const NSString * DomainString = nil;
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     if (!manager) {
-        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
         return;
     }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
@@ -352,7 +348,6 @@ const NSString * DomainString = nil;
     
     AFHTTPSessionManager *manager = [self getQuestManager];
     if (!manager) {
-        LRToast(@"无法连接服务器请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com");
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];

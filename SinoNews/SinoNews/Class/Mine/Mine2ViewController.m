@@ -16,6 +16,7 @@
 #import "PublishPageViewController.h"
 #import "BrowsingHistoryVC.h"
 #import "MyCollectViewController.h"
+#import "MyPostViewController.h"
 
 #import "StoreViewController.h"
 #import "GameViewController.h"
@@ -650,7 +651,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     switch (index) {
         case 0:
         {
-            
+            MyPostViewController *mpVC = [MyPostViewController new];
+            [self.navigationController pushViewController:mpVC animated:YES];
         }
             break;
         case 1:

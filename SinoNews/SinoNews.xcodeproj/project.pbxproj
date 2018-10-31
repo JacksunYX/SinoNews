@@ -145,6 +145,8 @@
 		4C3F905220BD7075003EC4FC /* HomePageSecondKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905120BD7075003EC4FC /* HomePageSecondKindCell.m */; };
 		4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */; };
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
+		4C4082522189400800390F42 /* MyPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4082512189400800390F42 /* MyPostViewController.m */; };
+		4C4082552189428F00390F42 /* PostingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4082542189428F00390F42 /* PostingListViewController.m */; };
 		4C423B492186A802000731E4 /* Mine3SecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C423B482186A802000731E4 /* Mine3SecondTableViewCell.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
 		4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */; };
@@ -943,6 +945,10 @@
 		4C3F905420BD7082003EC4FC /* HomePageThirdKindCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageThirdKindCell.m; sourceTree = "<group>"; };
 		4C3F905720BD7102003EC4FC /* HomePageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageModel.h; sourceTree = "<group>"; };
 		4C3F905820BD7102003EC4FC /* HomePageModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageModel.m; sourceTree = "<group>"; };
+		4C4082502189400800390F42 /* MyPostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPostViewController.h; sourceTree = "<group>"; };
+		4C4082512189400800390F42 /* MyPostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPostViewController.m; sourceTree = "<group>"; };
+		4C4082532189428F00390F42 /* PostingListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostingListViewController.h; sourceTree = "<group>"; };
+		4C4082542189428F00390F42 /* PostingListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostingListViewController.m; sourceTree = "<group>"; };
 		4C423B472186A802000731E4 /* Mine3SecondTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine3SecondTableViewCell.h; sourceTree = "<group>"; };
 		4C423B482186A802000731E4 /* Mine3SecondTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mine3SecondTableViewCell.m; sourceTree = "<group>"; };
 		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
@@ -2407,6 +2413,10 @@
 				4C53D1B7215C777500AFC352 /* BandingBankCardViewController.m */,
 				4C53D1BC215CBE4E00AFC352 /* BankCardViewController.h */,
 				4C53D1BD215CBE4E00AFC352 /* BankCardViewController.m */,
+				4C4082502189400800390F42 /* MyPostViewController.h */,
+				4C4082512189400800390F42 /* MyPostViewController.m */,
+				4C4082532189428F00390F42 /* PostingListViewController.h */,
+				4C4082542189428F00390F42 /* PostingListViewController.m */,
 				4C6332D020E0983C00D80056 /* Model */,
 				4C93496D20CF6DD100BD8F07 /* View */,
 			);
@@ -4475,6 +4485,7 @@
 				4C6E9193213F5F07001535CA /* NSKeyedUnarchiver+YYAdd.m in Sources */,
 				4C3F903B20BD2EDF003EC4FC /* HttpRequest.m in Sources */,
 				4C1A29E420EEFD8D00D8A188 /* PraiseHistoryModel.m in Sources */,
+				4C4082522189400800390F42 /* MyPostViewController.m in Sources */,
 				4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */,
 				4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */,
 				4C13E96F20C67263009115C1 /* UIButton+CZHExtension.m in Sources */,
@@ -4560,6 +4571,7 @@
 				4C6E917C213F5F07001535CA /* YYTextAttribute.m in Sources */,
 				4C4E495F2111A7A90078864D /* ExchangeRecordModel.m in Sources */,
 				4C3F904620BD40D7003EC4FC /* NewPagedFlowView.m in Sources */,
+				4C4082552189428F00390F42 /* PostingListViewController.m in Sources */,
 				4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */,
 				4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,

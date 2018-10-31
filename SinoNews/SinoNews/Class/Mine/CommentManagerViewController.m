@@ -27,8 +27,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSString *title = @"";
+    NSString *notice = @"";
+    if (self.type == 0) {
+        title = @"我的评论";
+        notice = @"暂无评论";
+    }else
+    if (self.type == 1) {
+        title = @"我的回复";
+        notice = @"暂无回复";
+    }
+    self.navigationItem.title = title;
     [self addTableView];
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noComment" title:@"暂无评论"];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noComment" title:notice];
 }
 
 - (void)didReceiveMemoryWarning {

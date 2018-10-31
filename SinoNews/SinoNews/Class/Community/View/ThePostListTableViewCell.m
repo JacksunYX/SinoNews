@@ -45,12 +45,14 @@ NSString * _Nullable const ThePostListTableViewCellID = @"ThePostListTableViewCe
 -(void)setUI
 {
     title = [UILabel new];
-    title.textColor = HexColor(#161A24);
+//    title.textColor = HexColor(#161A24);
+    [title addTitleColorTheme];
     title.font = PFFontL(15);
     title.isAttributedContent = YES;
     
     bottomLabel = [UILabel new];
-    bottomLabel.textColor = HexColor(#ABB2C3);
+//    bottomLabel.textColor = HexColor(#ABB2C3);
+    [bottomLabel addContentColorTheme];
     bottomLabel.font = PFFontL(12);
     
     readNum = [UILabel new];

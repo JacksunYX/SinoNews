@@ -19,11 +19,16 @@
 #import "HomePageFourthCell.h"
 #import "UserInfoModel.h"
 
+#import "PostDraftTableViewCell.h"
+
+
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
 @property (nonatomic,strong) NSMutableArray *articlesArr;   //文章数组
+@property (nonatomic,strong) NSMutableArray *postsArr;  //帖子数组
+@property (nonatomic,strong) NSMutableArray *replysArr; //回复数组
 //用户信息
 @property (nonatomic ,strong) UIImageView *userImg;
 @property (nonatomic ,strong) UIImageView *isApproved;//是否认证
@@ -45,6 +50,11 @@
 
 @property (nonatomic ,assign) NSInteger currPage0;   //页码0
 @property (nonatomic ,assign) NSInteger currPage1;   //页码1
+//新增帖子、回复
+@property (nonatomic ,assign) NSInteger currPage2;   //页码2
+@property (nonatomic ,assign) NSInteger currPage3;   //页码3
+
+@property (nonatomic, strong) CAGradientLayer *gradient;
 @end
 
 @implementation UserInfoViewController
@@ -56,12 +66,28 @@
     return _commentsArr;
 }
 
--(NSMutableArray *)_articlesArr
+-(NSMutableArray *)articlesArr
 {
     if (!_articlesArr) {
         _articlesArr = [NSMutableArray new];
     }
     return _articlesArr;
+}
+
+-(NSMutableArray *)postsArr
+{
+    if (!_postsArr) {
+        _postsArr = [NSMutableArray new];
+    }
+    return _postsArr;
+}
+
+-(NSMutableArray *)replysArr
+{
+    if (!_replysArr) {
+        _replysArr = [NSMutableArray new];
+    }
+    return _replysArr;
 }
 
 -(UIView *)getSectionView
@@ -70,7 +96,7 @@
         self.sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 34)];
         [self.sectionView addBakcgroundColorTheme];
         
-        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"评论",@"文章"] headStyle:1 layoutStyle:1];
+        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"文章",@"评论",@"帖子",@"回复"] headStyle:1 layoutStyle:1];
         //    _segHead.fontScale = .85;
         self.segHead.lineScale = 0.3;
         self.segHead.fontSize = 15;
@@ -86,10 +112,10 @@
             }
         });
         self.segHead.deSelectColor = HexColor(#989898);
-        self.segHead.maxTitles = 2;
+        self.segHead.maxTitles = 4;
         self.segHead.bottomLineHeight = 1;
 //        self.segHead.bottomLineColor = RGBA(227, 227, 227, 1);
-        self.segHead.singleW_Add = 90;
+        self.segHead.singleW_Add = 60;
         self.segHead.delegate = self;
         @weakify(self)
         [MLMSegmentManager associateHead:self.segHead withScroll:nil completion:^{
@@ -100,6 +126,24 @@
         
     }
     return self.sectionView;
+}
+
+- (CAGradientLayer *)gradient
+{
+    if (!_gradient) {
+        _gradient = [CAGradientLayer layer];
+        _gradient.frame = CGRectMake(0, 0, ScreenW, 50);
+        //渐变色
+        _gradient.colors = @[
+                             (__bridge id)[UIColor colorWithRed:11/255.0 green:146/255.0 blue:208/255.0 alpha:1].CGColor,
+                             (__bridge id)[UIColor colorWithRed:1/255.0 green:84/255.0 blue:177/255.0 alpha:1].CGColor,
+                             ];
+        //分界
+        _gradient.startPoint = CGPointMake(0, 0);
+        _gradient.endPoint = CGPointMake(1, 1);
+        _gradient.locations = @[@(0.0),@(1.0f)];
+    }
+    return _gradient;
 }
 
 - (void)viewDidLoad {
@@ -137,6 +181,8 @@
     [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
+    //新增
+    [_tableView registerClass:[PostDraftTableViewCell class] forCellReuseIdentifier:PostDraftTableViewCellID];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
     
@@ -147,12 +193,18 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
-        if (self.selectedIndex == 1) {
-            self.currPage1 = 1;
-            [self requestUserPushNews];
-        }else{
+        if (self.selectedIndex == 0) {
             self.currPage0 = 1;
+            [self requestUserPushNews];
+        }else if(self.selectedIndex ==1) {
+            self.currPage1 = 1;
             [self requestUserComments];
+        }else if (self.selectedIndex ==2){
+            self.currPage2 = 1;
+            
+        }else if (self.selectedIndex ==3){
+            self.currPage3 = 1;
+            
         }
         
     }];
@@ -164,20 +216,34 @@
             return ;
         }
         
-        if (self.selectedIndex == 1) {
+        if (self.selectedIndex == 0) {
             if (!self.articlesArr.count) {
-                self.currPage1 = 1;
-            }else{
-                self.currPage1 ++;
-            }
-            [self requestUserPushNews];
-        }else{
-            if (!self.commentsArr.count) {
                 self.currPage0 = 1;
             }else{
                 self.currPage0 ++;
             }
+            [self requestUserPushNews];
+        }else if(self.selectedIndex == 1){
+            if (!self.commentsArr.count) {
+                self.currPage1 = 1;
+            }else{
+                self.currPage1 ++;
+            }
             [self requestUserComments];
+        }else if (self.selectedIndex ==2){
+            if (!self.postsArr.count) {
+                self.currPage2 = 1;
+            }else{
+                self.currPage2 ++;
+            }
+            
+        }else if (self.selectedIndex ==3){
+            if (!self.replysArr.count) {
+                self.currPage3 = 1;
+            }else{
+                self.currPage3 ++;
+            }
+            
         }
         
     }];
@@ -195,6 +261,9 @@
     headView.lee_theme.LeeConfigImage(@"mineBackImg");
     self.tableView.tableHeaderView = headView;
     
+    self.gradient.frame = CGRectMake(0, CGRectGetHeight(headView.frame) - 50, ScreenW, 50);
+    [headView.layer addSublayer:self.gradient];
+    
     UIView *backView = [UIView new];
     backView.backgroundColor = ClearColor;
     
@@ -207,7 +276,8 @@
     _userName = [UILabel new];
     _userName.font = PFFontL(18);
 //    _userName.textColor = RGBA(72, 72, 72, 1);
-    [_userName addTitleColorTheme];
+//    [_userName addTitleColorTheme];
+    _userName.textColor = WhiteColor;
     
     _idView = [UIView new];
     _idView.backgroundColor = ClearColor;
@@ -215,13 +285,15 @@
     _integral = [UILabel new];
     _integral.font = PFFontL(14);
 //    _integral.textColor = RGBA(50, 50, 50, 1);
-    [_integral addTitleColorTheme];
+//    [_integral addTitleColorTheme];
+    _integral.textColor = WhiteColor;
     
     _level = [UILabel new];
     _level.font = PFFontM(12);
     _level.textAlignment = NSTextAlignmentCenter;
     _level.textColor = WhiteColor;
     _level.backgroundColor = HexColor(#1282EE);
+    _level.hidden = YES;
     
     _attentionBtn = [UIButton new];
     
@@ -388,7 +460,7 @@
     _publish.sd_layout
     .topSpaceToView(_userImg, 40)
     .leftEqualToView(headView)
-    .bottomSpaceToView(headView, 10)
+    .bottomSpaceToView(headView, 0)
     .widthIs(ScreenW/4)
     ;
     [_publish updateLayout];
@@ -408,7 +480,6 @@
     _attention.sd_layout
     .topEqualToView(_publish)
     .leftSpaceToView(_publish, 0)
-    //    .bottomSpaceToView(headView, 20)
     .bottomEqualToView(_publish)
     .widthIs(ScreenW/4)
     ;
@@ -492,13 +563,14 @@
         _idView.hidden = NO;
         _level.hidden = self.user.level?NO:YES;
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
+        _level.hidden = YES;
     }
     [self setIdViewWithIDs];
     
-    _publish.attributedText = [NSString leadString:pub tailString:@"发表" font:Font(12) color:RGBA(134, 144, 153, 1) lineBreak:YES];
-    _attention.attributedText = [NSString leadString:att tailString:@"关注" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
-    _fans.attributedText = [NSString leadString:fan tailString:@"粉丝" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
-    _praise.attributedText = [NSString leadString:pra tailString:@"获赞" font:Font(12) color:RGBA(134, 144, 153, 1)  lineBreak:YES];
+    _publish.attributedText = [NSString leadString:pub tailString:@"发表" font:Font(12) color:WhiteColor lineBreak:YES];
+    _attention.attributedText = [NSString leadString:att tailString:@"关注" font:Font(12) color:WhiteColor  lineBreak:YES];
+    _fans.attributedText = [NSString leadString:fan tailString:@"粉丝" font:Font(12) color:WhiteColor  lineBreak:YES];
+    _praise.attributedText = [NSString leadString:pra tailString:@"获赞" font:Font(12) color:WhiteColor  lineBreak:YES];
     
 }
 
@@ -561,8 +633,9 @@
 -(UILabel *)getLabel
 {
     UILabel *label = [UILabel new];
-//    label.textColor = RGBA(50, 50, 50, 1);
-    [label addTitleColorTheme];
+    label.textColor = WhiteColor;
+//    [label addTitleColorTheme];
+    
     label.font = PFFontL(16);
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 2;
@@ -631,18 +704,18 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_selectedIndex == 0) {
-        return self.commentsArr.count;
-    }
-    if (_selectedIndex == 1) {
         return self.articlesArr.count;
     }
-    return 0;
+    if (_selectedIndex == 1) {
+        return self.commentsArr.count;
+    }
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 1) {
         UserInfoCommentCell *cell0 = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         cell0.model = model;
@@ -659,7 +732,7 @@
         };
         
         cell = (UITableViewCell *)cell0;
-    }else if (_selectedIndex == 1){
+    }else if (_selectedIndex == 0){
         
         id model = self.articlesArr[indexPath.row];
         if ([model isKindOfClass:[HomePageModel class]]) {
@@ -711,8 +784,36 @@
             cell3.model = model;
             cell = (UITableViewCell *)cell3;
         }
+    }else if (_selectedIndex == 2){
+        PostDraftTableViewCell *cell1 = (PostDraftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PostDraftTableViewCellID];
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        dic[@"imgs"] = @"0";
+        if (indexPath.row == 1) {
+            dic[@"imgs"] = @"1";
+        }else if(indexPath.row == 2){
+            dic[@"imgs"] = @"3";
+        }
+        [cell1 setData:dic];
+        cell = cell1;
+    }else if (_selectedIndex == 3){
+        UserInfoCommentCell *cell0 = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        cell0.model = model;
+        
+        @weakify(self)
+        cell0.clickNewBlock = ^{
+            @strongify(self)
+            if (model.newsType == 0) {
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = [model.newsId integerValue];
+                [self.navigationController pushViewController:ndVC animated:YES];
+            }
+            
+        };
+        cell = (UITableViewCell *)cell0;
     }
     cell.selectedBackgroundView.backgroundColor = ClearColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell addBakcgroundColorTheme];
     return cell;
 }
@@ -740,7 +841,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex == 1) {
+    if (self.selectedIndex == 0) {
         id model = self.articlesArr[indexPath.row];
         [UniversalMethod pushToAssignVCWithNewmodel:model];
     }
@@ -754,9 +855,9 @@
     
     [self.tableView reloadData];
     
-    if (index == 1&&!self.articlesArr.count) {
+    if (index == 0&&!self.articlesArr.count) {
         [self.tableView.mj_header beginRefreshing];
-    }else if (index == 0&&!self.commentsArr.count){
+    }else if (index == 1&&!self.commentsArr.count){
         [self.tableView.mj_header beginRefreshing];
     }
 }
@@ -826,12 +927,12 @@
 -(void)requestUserComments
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.currPage0);
+    parameters[@"page"] = @(self.currPage1);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:GetUserComments parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
-        self.commentsArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.commentsArr];
+        self.commentsArr = [self.tableView pullWithPage:self.currPage1 data:arr dataSource:self.commentsArr];
         
 //        if (self.currPage0 == 1) {
 //            [self.tableView.mj_header endRefreshing];
@@ -861,13 +962,13 @@
 -(void)requestUserPushNews
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.currPage1);
+    parameters[@"page"] = @(self.currPage0);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:GetUserNews parameters:parameters success:^(id responseObject) {
 //        NSArray *arr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         NSMutableArray *arr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         
-        self.articlesArr = [self.tableView pullWithPage:self.currPage1 data:arr dataSource:self.articlesArr];
+        self.articlesArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.articlesArr];
 //        if (self.currPage1 == 1) {
 //            [self.tableView.mj_header endRefreshing];
 //            if (arr.count) {

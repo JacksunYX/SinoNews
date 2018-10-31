@@ -51,6 +51,7 @@
 
 @property (nonatomic ,strong) UserModel *user;
 @property (nonatomic ,strong) MineTipsModel *tipsmodel;    //保存提示信息
+@property (nonatomic ,strong) UIView *redNotice;
 
 @end
 
@@ -154,6 +155,15 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         
     }
     return _mainDatasource;
+}
+
+-(UIView *)redNotice
+{
+    if (!_redNotice) {
+        _redNotice = [UIView new];
+        _redNotice.backgroundColor = RedColor;
+    }
+    return _redNotice;
 }
 
 - (void)viewDidLoad {
@@ -328,6 +338,15 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         [self.navigationController pushViewController:mVC animated:YES];
     }];
     
+    [self.messageBtn addSubview:self.redNotice];
+    self.redNotice.sd_layout
+    .rightSpaceToView(self.messageBtn, 0)
+    .topSpaceToView(self.messageBtn, 0)
+    .widthIs(4)
+    .heightEqualToWidth()
+    ;
+    [self.redNotice setSd_cornerRadius:@2];
+    
     backView.sd_layout
     .leftSpaceToView(_userImg, 15)
     .centerYEqualToView(_userImg)
@@ -423,6 +442,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         [_attention setNormalTitle:[NSString stringWithFormat:@"关注  %lu",(unsigned long)self.user.followCount]];
         [_praise setNormalTitle:[NSString stringWithFormat:@"获赞  %lu",(unsigned long)self.user.praisedCount]];
         [_fans setNormalTitle:[NSString stringWithFormat:@"粉丝  %lu",(unsigned long)self.user.fansCount]];
+        
     }
     
     if (self.user.hasSignIn) {
@@ -718,6 +738,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
 }
 
+
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -864,6 +885,9 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [HttpRequest getWithURLString:User_tips parameters:nil success:^(id responseObject) {
         self.tipsmodel = [MineTipsModel mj_objectWithKeyValues:responseObject[@"data"]];
         
+        //是否显示红点
+        self.redNotice.hidden = !self.tipsmodel.hasMessageTip;
+        
         [self.tableView reloadData];
         
         MainTabbarVC *keyVC = (MainTabbarVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
@@ -913,5 +937,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         [self requestToGetUserInfo];
     }];
 }
+
+
 
 @end

@@ -57,7 +57,7 @@
         [(MLMSegmentHead *)item setDeSelectColor:value];
     });
     _segHead.bottomLineHeight = 1;
-    _segHead.bottomLineColor = CutLineColor;
+    _segHead.bottomLineColor = CutLineColorNight;
     _segHead.singleW_Add = 50;
     _segHead.delegate = self;
     if (_segScroll) {

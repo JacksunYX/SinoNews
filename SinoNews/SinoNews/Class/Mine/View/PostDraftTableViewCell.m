@@ -46,7 +46,8 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
 {
     title = [UILabel new];
     title.font = PFFontL(15);
-    title.textColor = HexColor(#161A24);
+//    title.textColor = HexColor(#161A24);
+    [title addTitleColorTheme];
     
     leftImg = [UIImageView new];
     centerImg = [UIImageView new];
@@ -72,7 +73,7 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
     ;
     title.text = @"如视频所说，一直挑剔，剩下的就是自己，所以要脚 踏实地的努力……";
     CGFloat imgW = (ScreenW - 40)/3;
-    CGFloat imgH = imgW*67/112;
+//    CGFloat imgH = imgW*67/112;
     leftImg.sd_layout
     .topSpaceToView(title, 5)
     .leftSpaceToView(fatherView, 10)

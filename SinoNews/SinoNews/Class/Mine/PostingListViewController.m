@@ -48,7 +48,8 @@
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _tableView.separatorColor = CutLineColor;
+    _tableView.separatorColor = CutLineColorNight;
+    [_tableView addBakcgroundColorTheme];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
         self.tableView.top_attr = self.view.top_attr_safe;
@@ -90,7 +91,7 @@
         [cell1 setData:dic];
         cell = cell1;
     }
-    
+    [cell addBakcgroundColorTheme];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

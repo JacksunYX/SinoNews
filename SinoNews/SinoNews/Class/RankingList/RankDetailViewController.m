@@ -891,7 +891,7 @@
 //跳转到网页
 -(void)openUrlWithString:(NSString *)str
 {
-    NSURL *url = [NSURL URLWithString:str];
+    NSURL *url = [NSURL URLWithString:[NSString deleteHeadAndFootSpace:str]];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
@@ -900,7 +900,7 @@
 //网址是否能打开
 -(BOOL)canopenUrl:(NSString *)urlStr
 {
-    if ([[UIApplication sharedApplication] canOpenURL:UrlWithStr(GetSaveString(urlStr))]) {
+    if ([[UIApplication sharedApplication] canOpenURL:UrlWithStr(GetSaveString([NSString deleteHeadAndFootSpace:urlStr]))]) {
         return YES;
     }
     return NO;
@@ -930,12 +930,6 @@
 }
 
 -(void)tapActions:(UITapGestureRecognizer *)tap {
-    
-}
-
-//ping一下网址
--(void)pingWithWebsite:(NSString *)website
-{
     
 }
 
@@ -973,7 +967,7 @@
 {
     
     __block BOOL isvalid;
-    NSURL * candidate = UrlWithStr(GetSaveString(website));
+    NSURL * candidate = UrlWithStr(GetSaveString([NSString deleteHeadAndFootSpace:website]));
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:candidate];
     
     [request setHTTPMethod:@"HEAD"];

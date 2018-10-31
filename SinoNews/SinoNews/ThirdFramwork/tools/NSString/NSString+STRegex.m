@@ -424,6 +424,11 @@
     return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 }
 
-
++(NSString *)deleteHeadAndFootSpace:(NSString *)string
+{
+    NSString *newString = [string stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    newString = [newString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return newString;
+}
 
 @end

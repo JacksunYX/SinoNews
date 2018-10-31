@@ -79,5 +79,7 @@
 
 //utf8中文编码
 - (NSString *)getUTF8String;
+//去除首位空格
++(NSString *)deleteHeadAndFootSpace:(NSString *)string;
 
 @end

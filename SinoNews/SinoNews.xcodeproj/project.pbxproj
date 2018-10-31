@@ -606,6 +606,7 @@
 		4CB4196A20D9F86A00EBF202 /* NormalNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196920D9F86A00EBF202 /* NormalNewsModel.m */; };
 		4CB4196D20DA5ADF00EBF202 /* TopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4196C20DA5ADF00EBF202 /* TopicModel.m */; };
 		4CB4197120DA793A00EBF202 /* UIScrollView+Direction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */; };
+		4CB46B9621894BEE00EF6A79 /* PostDraftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB46B9521894BEE00EF6A79 /* PostDraftTableViewCell.m */; };
 		4CB68B6A2154DE3300ACE1D6 /* SharePopCopyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68B692154DE3300ACE1D6 /* SharePopCopyView.m */; };
 		4CB68B6E2154E15700ACE1D6 /* CryptLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB68B6C2154E15600ACE1D6 /* CryptLib.m */; };
 		4CBEF665217DE00100C6F8DA /* richText_editor_contentDisable.html in Resources */ = {isa = PBXBuildFile; fileRef = 4CBEF664217DE00100C6F8DA /* richText_editor_contentDisable.html */; };
@@ -1762,6 +1763,8 @@
 		4CB4196C20DA5ADF00EBF202 /* TopicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopicModel.m; sourceTree = "<group>"; };
 		4CB4196F20DA793A00EBF202 /* UIScrollView+Direction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Direction.h"; sourceTree = "<group>"; };
 		4CB4197020DA793A00EBF202 /* UIScrollView+Direction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Direction.m"; sourceTree = "<group>"; };
+		4CB46B9421894BEE00EF6A79 /* PostDraftTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostDraftTableViewCell.h; sourceTree = "<group>"; };
+		4CB46B9521894BEE00EF6A79 /* PostDraftTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostDraftTableViewCell.m; sourceTree = "<group>"; };
 		4CB68B682154DE3300ACE1D6 /* SharePopCopyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharePopCopyView.h; sourceTree = "<group>"; };
 		4CB68B692154DE3300ACE1D6 /* SharePopCopyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharePopCopyView.m; sourceTree = "<group>"; };
 		4CB68B6C2154E15600ACE1D6 /* CryptLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptLib.m; sourceTree = "<group>"; };
@@ -3712,6 +3715,8 @@
 				4CE336F12182B40A0037F9D2 /* Mine2SecondTableViewCell.m */,
 				4C423B472186A802000731E4 /* Mine3SecondTableViewCell.h */,
 				4C423B482186A802000731E4 /* Mine3SecondTableViewCell.m */,
+				4CB46B9421894BEE00EF6A79 /* PostDraftTableViewCell.h */,
+				4CB46B9521894BEE00EF6A79 /* PostDraftTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4835,6 +4840,7 @@
 				4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
+				4CB46B9621894BEE00EF6A79 /* PostDraftTableViewCell.m in Sources */,
 				4C6E916C213F5F07001535CA /* YYTextMagnifier.m in Sources */,
 				4C7234D720FDEB1D00D5C5D4 /* AADataLabels.m in Sources */,
 				4C23B3BC20F5924800ACE380 /* LMImagePreviewController.m in Sources */,

@@ -9,6 +9,7 @@
 #import "PostingListViewController.h"
 
 #import "ThePostListTableViewCell.h"
+#import "PostDraftTableViewCell.h"
 
 @interface PostingListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -56,6 +57,7 @@
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
     [_tableView registerClass:[ThePostListTableViewCell class] forCellReuseIdentifier:ThePostListTableViewCellID];
+    [_tableView registerClass:[PostDraftTableViewCell class] forCellReuseIdentifier:PostDraftTableViewCellID];
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -66,13 +68,29 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ThePostListTableViewCell *cell = (ThePostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostListTableViewCellID];
-    [cell setData:@{}];
+    UITableViewCell *cell;
+    if (self.type == 0) {
+        ThePostListTableViewCell *cell0 = (ThePostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostListTableViewCellID];
+        [cell0 setData:@{}];
+        cell = cell0;
+    }else if (self.type == 1){
+        PostDraftTableViewCell *cell1 = (PostDraftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PostDraftTableViewCellID];
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        dic[@"imgs"] = @"0";
+        if (indexPath.row == 1) {
+            dic[@"imgs"] = @"1";
+        }else if(indexPath.row == 2){
+            dic[@"imgs"] = @"3";
+        }
+        [cell1 setData:dic];
+        cell = cell1;
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

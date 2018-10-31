@@ -12,20 +12,22 @@
 #import "HomePageFourthCell.h"
 #import "NewsDetailViewController.h"
 
-@interface BrowsingHistoryVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface BrowsingHistoryVC ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 {
-    
+    NSInteger selectedIndex;    //选择的下标
 }
+@property (nonatomic,strong) MLMSegmentHead *segHead;
 @property (nonatomic,strong) BaseTableView *tableView;
-@property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *newsArr;
+@property (nonatomic,strong) NSMutableArray *postsArr;
 @end
 
 @implementation BrowsingHistoryVC
 
--(NSMutableArray *)dataSource
+-(NSMutableArray *)newsArr
 {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray new];
+    if (!_newsArr) {
+        _newsArr = [NSMutableArray new];
         NSArray *sections = @[
                               @"2018年05月25日  星期五",
                               @"2018年05月24日  星期四",
@@ -76,16 +78,26 @@
                 [models addObject:model];
             }
             sectionDic[@"models"] = models;
-//            [_dataSource addObject:sectionDic];
+//            [_newsArr addObject:sectionDic];
         }
         
     }
-    return _dataSource;
+    return _newsArr;
+}
+
+-(NSMutableArray *)postsArr
+{
+    if (!_postsArr) {
+        _postsArr = [NSMutableArray new];
+    }
+    return _postsArr;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"浏览历史";
+    
+    [self setTitleView];
     
     [self addNavigationView];
     
@@ -98,7 +110,8 @@
 {
     [super viewWillAppear:animated];
     [self.tableView ly_startLoading];
-    self.dataSource = [[HomePageModel getSortedHistory] mutableCopy];
+    self.newsArr = [[HomePageModel getSortedHistory] mutableCopy];
+    self.postsArr = [[HomePageModel getSortedHistory] mutableCopy];
     [self.tableView reloadData];
     [self.tableView ly_endLoading];
 }
@@ -113,6 +126,32 @@
 {
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(clearAction) image:nil hightimage:nil andTitle:@"清空"];
 //    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(clearAction) title:@"清空"];
+}
+
+-(void)setTitleView
+{
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"新闻",@"帖子"] headStyle:0 layoutStyle:0];
+    //    _segHead.fontScale = .85;
+    //    _segHead.lineScale = 0.6;
+    _segHead.fontSize = 16;
+    //    _segHead.lineHeight = 3;
+    //    _segHead.lineColor = HexColor(#1282EE);
+    _segHead.selectColor = RGBA(50, 50, 50, 1);
+    _segHead.deSelectColor = RGBA(152, 152, 152, 1);
+    _segHead.maxTitles = 2;
+    _segHead.bottomLineHeight = 0;
+    _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
+    _segHead.delegate = self;
+    @weakify(self)
+    [MLMSegmentManager associateHead:_segHead withScroll:nil completion:^{
+        @strongify(self)
+        self.navigationItem.titleView = self.segHead;
+    }];
+    [_segHead.titlesScroll addBakcgroundColorTheme];
+    
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+    });
 }
 
 //添加tableview
@@ -142,7 +181,10 @@
 //清空浏览历史
 -(void)clearAction
 {
-    if (!self.dataSource.count) {
+    if (!self.newsArr.count&&selectedIndex == 0) {
+        LRToast(@"没有可以清空的历史哦");
+        return;
+    }else if (!self.postsArr.count&&selectedIndex == 1){
         LRToast(@"没有可以清空的历史哦");
         return;
     }
@@ -163,19 +205,31 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataSource.count;
+    if (selectedIndex==0) {
+        return self.newsArr.count;
+    }
+    return self.postsArr.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *arr = self.dataSource[section];
+    if (selectedIndex==0) {
+        NSArray *arr = self.newsArr[section];
+        return arr.count;
+    }
+    NSArray *arr = self.postsArr[section];
     return arr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    id model = self.dataSource[indexPath.section][indexPath.row];
+    id model;
+    if (selectedIndex == 0) {
+        model = self.newsArr[indexPath.section][indexPath.row];
+    }else{
+        model = self.postsArr[indexPath.section][indexPath.row];
+    }
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = (HomePageModel *)model;
         //暂时只分2种
@@ -206,7 +260,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([self.dataSource[section] count]) {
+    if ([self.newsArr[section] count]&&selectedIndex==0) {
+        return 40;
+    }else if ([self.postsArr[section] count]&&selectedIndex==1) {
         return 40;
     }
     return 0.01;
@@ -215,7 +271,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if ([self.dataSource[section] count]) {
+    if (([self.newsArr[section] count]&&selectedIndex==0)||([self.postsArr[section] count]&&selectedIndex==1)) {
         headView = [UIView new];
         
         headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
@@ -237,7 +293,12 @@
         .autoHeightRatio(0)
         ;
         [title setMaxNumberOfLinesToShow:1];
-        HomePageModel *model = [self.dataSource[section] firstObject];
+        HomePageModel *model;
+        if (selectedIndex==0) {
+            model = [self.newsArr[section] firstObject];
+        }else if (selectedIndex==1) {
+            model = [self.postsArr[section] firstObject];
+        }
         NSString *sectionTitle = [NSString getDateStringWithTimeStr:model.saveTimeStr];
         title.text = GetSaveString(sectionTitle);
         
@@ -248,7 +309,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id model = self.dataSource[indexPath.section][indexPath.row];
+    id model;
+    if (selectedIndex == 0) {
+        model = self.newsArr[indexPath.section][indexPath.row];
+    }else if (selectedIndex==1) {
+        model = self.postsArr[indexPath.section][indexPath.row];
+    }
+    
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = (HomePageModel *)model;
         //获取当前时间戳字符串作为存储时的标记
@@ -259,7 +326,14 @@
     }
 }
 
-
+#pragma mark ---- MLMSegmentHeadDelegate
+- (void)didSelectedIndex:(NSInteger)index
+{
+    selectedIndex = index;
+    [self.tableView ly_startLoading];
+    [self.tableView reloadData];
+    [self.tableView ly_endLoading];
+}
 
 
 @end

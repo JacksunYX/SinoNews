@@ -46,7 +46,7 @@ const NSString * DomainString = nil;
         dispatch_once(&onceToken, ^{
             GCDAsynMain(^{
                 UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"无法连接服务器\n请切换wifi网络尝试或直接发送邮件联系客服info@qsl365.com" preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
                 [alertVC addAction:cancel];
                 [[HttpRequest currentViewController] presentViewController:alertVC animated:YES completion:nil];
             });

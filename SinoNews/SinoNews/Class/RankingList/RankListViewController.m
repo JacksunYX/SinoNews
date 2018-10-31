@@ -217,7 +217,7 @@
     cell.toPlayBlock = ^(NSInteger index){
         @strongify(self);
         RankingListModel *model = self.dataSource[index];
-        [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
+        [[UIApplication sharedApplication] openURL:UrlWithStr([NSString deleteHeadAndFootSpace:model.website])];
     };
     [cell addBakcgroundColorTheme];
     return cell;

@@ -463,7 +463,8 @@
         cell0.toPlayBlock = ^(NSInteger index){
             @strongify(self);
             RankingListModel *model = self.leftDataSource[index];
-            [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
+            //记得去掉首尾空格
+            [[UIApplication sharedApplication] openURL:UrlWithStr([NSString deleteHeadAndFootSpace:model.website])];
         };
         
         cell = cell0;

@@ -130,17 +130,9 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
     .heightIs(h2)
     ;
     
-    [self layoutSubviews];
-}
-
--(void)layoutSubviews
-{
-    
-    
-    
-    
     leftImg.image = UIImageNamed(@"gameAd_0");
     centerImg.image = UIImageNamed(@"gameAd_1");
     rightImg.image = UIImageNamed(@"gameAd_2");
 }
+
 @end

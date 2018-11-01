@@ -10,8 +10,11 @@
 
 #import "ReadPostListTableViewCell.h"
 
-@interface ReadPostChildViewController ()
+@interface ReadPostChildViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) NSMutableArray *topBtnArr;
+@property (nonatomic,strong) UIView *topView;
+@property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic,strong) NSMutableArray *dataSource;
 @end
 
 @implementation ReadPostChildViewController
@@ -23,25 +26,33 @@
     return _topBtnArr;
 }
 
+-(NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray new];
+    }
+    return _dataSource;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addTopView];
+    [self setUpTableView];
 }
 
 -(void)addTopView
 {
-    UIView *topView = [UIView new];
-    topView.backgroundColor = WhiteColor;
-    [self.view addSubview:topView];
-    topView.sd_layout
+    _topView = [UIView new];
+    _topView.backgroundColor = WhiteColor;
+    [self.view addSubview:_topView];
+    _topView.sd_layout
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
     .topEqualToView(self.view)
     .heightIs(40)
     ;
-    [topView updateLayout];
+    [_topView updateLayout];
     
     NSArray *titleArr = @[
                           @"发帖时间",
@@ -50,18 +61,18 @@
                           @"最新好文",
                           ];
     CGFloat wid = ScreenW/4;
-    CGFloat hei = topView.height;
+    CGFloat hei = _topView.height;
     for (int i = 0; i <4; i ++) {
         UIButton *btn = [UIButton new];
         btn.tag = 100+i;
         [btn setBtnFont:PFFontM(12)];
         [btn setNormalTitleColor:LightGrayColor];
         [btn setSelectedTitleColor:HexColor(#1282ee)];
-        [topView addSubview:btn];
+        [_topView addSubview:btn];
         [self.topBtnArr addObject:btn];
         btn.sd_layout
-        .leftSpaceToView(topView, wid*i)
-        .topEqualToView(topView)
+        .leftSpaceToView(_topView, wid*i)
+        .topEqualToView(_topView)
         .widthIs(wid)
         .heightIs(hei)
         ;
@@ -70,6 +81,26 @@
     }
     
     [self selectIndex:0];
+}
+
+-(void)setUpTableView
+{
+    _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView.backgroundColor = WhiteColor;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.separatorColor = CutLineColor;
+    [self.view addSubview:_tableView];
+    _tableView.sd_layout
+    .topSpaceToView(self.topView, 0)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomEqualToView(self.view)
+    ;
+    [_tableView updateLayout];
+    [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
 }
 
 //按钮点击事件
@@ -98,6 +129,45 @@
     }
 }
 
+#pragma mark --- UITableViewDataSource ---
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    dic[@"imgs"] = @"0";
+    if (indexPath.row == 1) {
+        dic[@"imgs"] = @"1";
+    }else if(indexPath.row == 2){
+        dic[@"imgs"] = @"3";
+    }
+    [cell setData:dic];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
 
 @end

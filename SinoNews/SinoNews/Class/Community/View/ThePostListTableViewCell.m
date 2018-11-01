@@ -41,7 +41,6 @@ NSString * _Nullable const ThePostListTableViewCellID = @"ThePostListTableViewCe
     return self;
 }
 
-
 -(void)setUI
 {
     title = [UILabel new];

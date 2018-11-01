@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C02F900218A9CE200CB0169 /* ReadPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */; };
 		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
 		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
@@ -663,6 +664,8 @@
 /* Begin PBXFileReference section */
 		1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.release.xcconfig"; sourceTree = "<group>"; };
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C02F8FE218A9CE200CB0169 /* ReadPostListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadPostListTableViewCell.h; sourceTree = "<group>"; };
+		4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadPostListTableViewCell.m; sourceTree = "<group>"; };
 		4C03F52E2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		4C03F5342101DE5900574136 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
@@ -2835,6 +2838,8 @@
 				4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */,
 				4C7B5DFB2188580B00B76E47 /* ThePostListTableViewCell.h */,
 				4C7B5DFC2188580B00B76E47 /* ThePostListTableViewCell.m */,
+				4C02F8FE218A9CE200CB0169 /* ReadPostListTableViewCell.h */,
+				4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4449,6 +4454,7 @@
 				4C992FFB217717680092DDCF /* HXCustomPreviewView.m in Sources */,
 				4C7234E420FDEB1D00D5C5D4 /* AAAnimation.m in Sources */,
 				4C17412A20C4C7E300AA6D57 /* GameViewController.m in Sources */,
+				4C02F900218A9CE200CB0169 /* ReadPostListTableViewCell.m in Sources */,
 				4C7234E520FDEB1D00D5C5D4 /* AALegend.m in Sources */,
 				4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */,
 				4C6E9179213F5F07001535CA /* YYTextParser.m in Sources */,

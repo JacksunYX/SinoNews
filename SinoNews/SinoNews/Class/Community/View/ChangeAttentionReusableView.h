@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const ChangeAttentionReusableViewID;
+extern NSString * _Nonnull const ChangeAttentionReusableViewID;
 
 NS_ASSUME_NONNULL_BEGIN
 

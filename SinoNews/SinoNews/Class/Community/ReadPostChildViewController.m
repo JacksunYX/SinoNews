@@ -8,6 +8,8 @@
 
 #import "ReadPostChildViewController.h"
 
+#import "ReadPostListTableViewCell.h"
+
 @interface ReadPostChildViewController ()
 @property (nonatomic,strong) NSMutableArray *topBtnArr;
 @end

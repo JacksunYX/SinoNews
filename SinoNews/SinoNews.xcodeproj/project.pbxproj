@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4C02F900218A9CE200CB0169 /* ReadPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */; };
+		4C02F903218ADC6C00CB0169 /* ForumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F902218ADC6C00CB0169 /* ForumDetailViewController.m */; };
+		4C02F906218AE4A800CB0169 /* ForumDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F905218AE4A800CB0169 /* ForumDetailTableViewCell.m */; };
 		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
 		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
@@ -666,6 +668,10 @@
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C02F8FE218A9CE200CB0169 /* ReadPostListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadPostListTableViewCell.h; sourceTree = "<group>"; };
 		4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadPostListTableViewCell.m; sourceTree = "<group>"; };
+		4C02F901218ADC6C00CB0169 /* ForumDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumDetailViewController.h; sourceTree = "<group>"; };
+		4C02F902218ADC6C00CB0169 /* ForumDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumDetailViewController.m; sourceTree = "<group>"; };
+		4C02F904218AE4A800CB0169 /* ForumDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumDetailTableViewCell.h; sourceTree = "<group>"; };
+		4C02F905218AE4A800CB0169 /* ForumDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumDetailTableViewCell.m; sourceTree = "<group>"; };
 		4C03F52E2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		4C03F5342101DE5900574136 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
@@ -2832,6 +2838,8 @@
 				4C5B5B0721804D9E00B52329 /* ForumLeftTableViewCell.m */,
 				4C5B5B0921804DC000B52329 /* ForumRightTableViewCell.h */,
 				4C5B5B0A21804DC000B52329 /* ForumRightTableViewCell.m */,
+				4C02F904218AE4A800CB0169 /* ForumDetailTableViewCell.h */,
+				4C02F905218AE4A800CB0169 /* ForumDetailTableViewCell.m */,
 				4C138EB5218155EE00FA2667 /* ChangeAttentionCell.h */,
 				4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */,
 				4C138EB821815F4F00FA2667 /* ChangeAttentionReusableView.h */,
@@ -3957,6 +3965,8 @@
 				4CD692EF217F0F1E00A76312 /* CommunityTabbarVC.m */,
 				4CD692F1217F10D000A76312 /* ForumViewController.h */,
 				4CD692F2217F10D000A76312 /* ForumViewController.m */,
+				4C02F901218ADC6C00CB0169 /* ForumDetailViewController.h */,
+				4C02F902218ADC6C00CB0169 /* ForumDetailViewController.m */,
 				4CD692F7217F11A700A76312 /* EditSelectViewController.h */,
 				4CD692F8217F11A700A76312 /* EditSelectViewController.m */,
 				4CD692F4217F116800A76312 /* ReadThePostMainVC.h */,
@@ -4499,6 +4509,7 @@
 				4C510B57210FFE3700706185 /* BrowsNewsSingleton.m in Sources */,
 				4C6E918D213F5F07001535CA /* NSArray+YYAdd.m in Sources */,
 				4C992FF6217717680092DDCF /* HXCustomNavigationController.m in Sources */,
+				4C02F906218AE4A800CB0169 /* ForumDetailTableViewCell.m in Sources */,
 				4C992FEC217717680092DDCF /* HXDatePhotoViewController.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
@@ -4830,6 +4841,7 @@
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4C7B5DE52187E81D00B76E47 /* CommunitySearchVC.m in Sources */,
 				4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */,
+				4C02F903218ADC6C00CB0169 /* ForumDetailViewController.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
 				4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */,
 				4C1F0AE120ECA02A00C3A2E7 /* RecommendUserModel.m in Sources */,

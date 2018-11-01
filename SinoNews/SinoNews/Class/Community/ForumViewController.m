@@ -9,6 +9,7 @@
 #import "ForumViewController.h"
 #import "ChangeAttentionViewController.h"
 #import "CommunitySearchVC.h"
+#import "ForumDetailViewController.h"
 
 #import "ForumLeftTableViewCell.h"
 #import "ForumRightTableViewCell.h"
@@ -414,6 +415,9 @@
         NSMutableArray *arr2 = self.dataSource[1];
         NSMutableArray *arr3 = arr2[self.leftSelectedIndex];
         NSDictionary *model = arr3[indexPath.row];
+        ForumDetailViewController *fdVC = [ForumDetailViewController new];
+        fdVC.navigationItem.title = GetSaveString(model[@"communityName"]);
+        [self.navigationController pushViewController:fdVC animated:YES];
     }
 }
 

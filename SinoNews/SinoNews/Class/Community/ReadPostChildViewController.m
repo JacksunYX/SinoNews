@@ -93,19 +93,12 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.separatorColor = CutLineColor;
     [self.view addSubview:_tableView];
-//    _tableView.sd_layout
-//    .topSpaceToView(self.topView, 0)
-//    .leftEqualToView(self.view)
-//    .rightEqualToView(self.view)
-//    .bottomEqualToView(self.view)
-//    ;
     [self.tableView activateConstraints:^{
         self.tableView.top_attr = self.topView.bottom_attr;
         self.tableView.left_attr = self.view.left_attr_safe;
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
-    [_tableView updateLayout];
     [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
 }
 

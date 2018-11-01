@@ -158,4 +158,7 @@ extern const NSString * DomainString;
 //进行相对应的请求参数的拼接加密方法
 +(NSString *)ParameterFormattingSplicing:(NSMutableDictionary *)requestparameterdic WithKey:(NSString *)keyStr;
 
+//监听网络
++ (void)yx_hasNetwork:(void(^)(bool has))hasNet;
+
 @end

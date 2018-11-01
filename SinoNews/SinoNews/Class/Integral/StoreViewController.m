@@ -47,12 +47,25 @@
 //
 //    }];
     
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"无商品"];
+//    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"无商品"];
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
+        @strongify(self);
+        [self requestBanner];
+        
+        [self requestMallcCategory];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    GGLog(@"商城界面出现了");
 }
 
 //添加上方轮播图
@@ -109,8 +122,9 @@
     if (_segScroll) {
         [_segScroll removeFromSuperview];
     }
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - CGRectGetMaxY(_segHead.frame)) vcOrViews:[self vcArr:titles.count]];
-    _segScroll.countLimit = 0;
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame), SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT - CGRectGetMaxY(_segHead.frame)) vcOrViews:[self vcArr:titles.count]];
+    _segScroll.addTiming = SegmentAddScale;
+    _segScroll.addScale = 0.3;
     
     WEAK(weakself, self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{

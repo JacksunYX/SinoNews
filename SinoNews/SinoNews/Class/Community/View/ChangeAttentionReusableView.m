@@ -55,6 +55,7 @@ NSString *const ChangeAttentionReusableViewID = @"NSString *const ChangeAttentio
     UILabel *noticeLabel = [UILabel new];
     noticeLabel.font = PFFontL(14);
     noticeLabel.textColor = HexColor(#ABB2C3);
+    
     UIImageView *icon = [UIImageView new];
     [topView sd_addSubviews:@[
                               noticeLabel,

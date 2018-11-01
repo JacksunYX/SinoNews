@@ -12,12 +12,42 @@
 #import "ReadPostListTableViewCell.h"
 
 @interface ForumDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic,strong) UIButton *attentionBtn;
+@property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) BOOL haveUnFold;   //是否已展开
+@property (nonatomic,strong) UIView *footView;
 @end
 
 @implementation ForumDetailViewController
+-(UIView *)footView
+{
+    if (!_footView) {
+        _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 40)];
+        _footView.backgroundColor = HexColor(#F3F5F4);
+        
+        UIButton *topBtn = [UIButton new];
+        topBtn.backgroundColor = WhiteColor;
+        [_footView addSubview:topBtn];
+        topBtn.sd_layout
+        .topEqualToView(_footView)
+        .leftEqualToView(_footView)
+        .rightEqualToView(_footView)
+        .bottomSpaceToView(_footView, 10)
+        ;
+        [topBtn setBtnFont:PFFontL(12)];
+        [topBtn setNormalTitle:@"展开查看更多"];
+        [topBtn setSelectedTitle:@"收起"];
+        [topBtn setNormalTitleColor:HexColor(#ABB2C3)];
+        [topBtn setSelectedTitleColor:HexColor(#ABB2C3)];
+        [topBtn setNormalImage:UIImageNamed(@"forum_downArrow")];
+        [topBtn setSelectedImage:UIImageNamed(@"forum_upArrow")];
+        topBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+        topBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -170);
+        [topBtn addTarget:self action:@selector(checkMoreAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _footView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,6 +104,19 @@
     sender.selected = !sender.selected;
 }
 
+//查看更多、收起点击事件
+-(void)checkMoreAction:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    self.haveUnFold = sender.selected;
+    if (sender.selected) {
+        sender.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -70);
+    }else{
+        sender.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -170);
+    }
+    [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -82,8 +125,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return 10;
+    if (section == 1) {
+        return 10;
+    }
+    if (_haveUnFold) {
+        return 10;
+    }
+    return 4;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,12 +177,31 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (section==0) {
+        return 40;
+    }
     return 0.01;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        UIView *view = self.footView;
+        
+        return view;
+    }
+    return nil;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    return nil;
 }
 
 @end

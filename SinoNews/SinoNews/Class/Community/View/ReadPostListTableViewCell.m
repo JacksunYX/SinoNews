@@ -188,10 +188,10 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
 -(void)setUpBottomView
 {
     bottomView.sd_layout
-    .topSpaceToView(publishTime, 15)
+    .topSpaceToView(publishTime, 0)
     .leftEqualToView(nickName)
     .rightSpaceToView(self.contentView, 10)
-    .heightIs(30)
+    .heightIs(0)
     ;
     bottomView.backgroundColor = HexColor(#F3F3F3);
     
@@ -201,7 +201,6 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightIs(16)
     ;
     [childCommentUser setSingleLineAutoResizeWithMaxWidth:80];
-    childCommentUser.text = @"幻影痴迷者";
     
     childComment.sd_layout
     .leftSpaceToView(childCommentUser, 0)
@@ -209,16 +208,18 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .rightSpaceToView(bottomView, 10)
     .heightRatioToView(childCommentUser, 1)
     ;
-    childComment.text = @"：尤为值得关注的是，高新技术投资是亮点。京东金融副总裁、首席经济学家沈建光指出，专用设备制造业、电气机械和器材制造业、计算机";
+
 }
 
 -(void)setData:(NSDictionary *)model
 {
     NSInteger type = [model[@"imgs"] integerValue];
+    NSInteger showComment = [model[@"ShowChildComment"] integerValue];
     CGFloat imgW = (ScreenW - 30 - 44)/3;
     CGFloat imgH = imgW*60/100;
     CGFloat h = 0;
     CGFloat h2 = 0;
+    
     if (type!=0) {
         //说明只有一张图片
         if (type==1) {
@@ -229,6 +230,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
             h2 = imgH;
         }
     }
+    
     leftImg.sd_layout
     .widthIs(imgW)
     .heightIs(h)
@@ -244,6 +246,21 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     centerImg.image = UIImageNamed(@"gameAd_1");
     rightImg.image = UIImageNamed(@"gameAd_2");
     
+    if (showComment) {
+        bottomView.sd_layout
+        .topSpaceToView(publishTime, 15)
+        .heightIs(30)
+        ;
+        childComment.text = @"：尤为值得关注的是，高新技术投资是亮点。京东金融副总裁、首席经济学家沈建光指出，专用设备制造业、电气机械和器材制造业、计算机";
+        childCommentUser.text = @"幻影痴迷者";
+    }else{
+        bottomView.sd_layout
+        .topSpaceToView(publishTime, 0)
+        .heightIs(0)
+        ;
+        childComment.text = @"";
+        childCommentUser.text = @"";
+    }
 }
 
 @end

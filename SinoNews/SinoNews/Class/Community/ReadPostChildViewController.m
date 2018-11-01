@@ -137,7 +137,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 10;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -150,6 +150,7 @@
     }else if(indexPath.row == 2){
         dic[@"imgs"] = @"3";
     }
+    dic[@"ShowChildComment"] = @(arc4random()%2);
     [cell setData:dic];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

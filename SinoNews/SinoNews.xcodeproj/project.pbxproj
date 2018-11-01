@@ -629,7 +629,6 @@
 		4CE121DB20C0E14100A44782 /* RankListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DA20C0E14100A44782 /* RankListTableViewCell.m */; };
 		4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121DD20C11DA000A44782 /* RankDetailViewController.m */; };
 		4CE121E220C13BC800A44782 /* YSProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121E020C13BC800A44782 /* YSProgressView.m */; };
-		4CE336E921829F420037F9D2 /* AdjustAttentionSortVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */; };
 		4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336EB2182AB710037F9D2 /* Mine2ViewController.m */; };
 		4CE336EF2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336EE2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m */; };
 		4CE336F22182B40A0037F9D2 /* Mine2SecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE336F12182B40A0037F9D2 /* Mine2SecondTableViewCell.m */; };
@@ -1809,8 +1808,6 @@
 		4CE121DD20C11DA000A44782 /* RankDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RankDetailViewController.m; sourceTree = "<group>"; };
 		4CE121E020C13BC800A44782 /* YSProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSProgressView.m; sourceTree = "<group>"; };
 		4CE121E120C13BC800A44782 /* YSProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSProgressView.h; sourceTree = "<group>"; };
-		4CE336E721829F420037F9D2 /* AdjustAttentionSortVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdjustAttentionSortVC.h; sourceTree = "<group>"; };
-		4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdjustAttentionSortVC.m; sourceTree = "<group>"; };
 		4CE336EA2182AB710037F9D2 /* Mine2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine2ViewController.h; sourceTree = "<group>"; };
 		4CE336EB2182AB710037F9D2 /* Mine2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mine2ViewController.m; sourceTree = "<group>"; };
 		4CE336ED2182B3DE0037F9D2 /* Mine2FirstTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine2FirstTableViewCell.h; sourceTree = "<group>"; };
@@ -3961,8 +3958,6 @@
 				4CD692F5217F116800A76312 /* ReadThePostMainVC.m */,
 				4C138EBB2181A03400FA2667 /* ReadPostChildViewController.h */,
 				4C138EBC2181A03400FA2667 /* ReadPostChildViewController.m */,
-				4CE336E721829F420037F9D2 /* AdjustAttentionSortVC.h */,
-				4CE336E821829F420037F9D2 /* AdjustAttentionSortVC.m */,
 				4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */,
 				4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */,
 				4C7B5DE32187E81D00B76E47 /* CommunitySearchVC.h */,
@@ -4547,7 +4542,6 @@
 				4C992FFD217717680092DDCF /* HXDateVideoEditViewController.m in Sources */,
 				4C1D503320E5C8300002C53E /* ProductModel.m in Sources */,
 				4C6E9192213F5F07001535CA /* NSThread+YYAdd.m in Sources */,
-				4CE336E921829F420037F9D2 /* AdjustAttentionSortVC.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
 				4C6E91AF213F648E001535CA /* ContentManager.m in Sources */,

@@ -122,4 +122,15 @@
     }];
 }
 
+-(void)setNaviTitle:(NSString *)naviTitle
+{
+    _nav.topViewController.title = naviTitle;
+}
+
+-(void)setCannotDelete:(BOOL)cannotDelete
+{
+    _cannotDelete = cannotDelete;
+    _channelView.cannotDelete = cannotDelete;
+}
+
 @end

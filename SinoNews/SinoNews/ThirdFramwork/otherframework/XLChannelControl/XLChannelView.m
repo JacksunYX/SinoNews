@@ -192,6 +192,9 @@ static CGFloat CellMarginY = 20.0f;
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    if (self.cannotDelete) {
+        return 1;
+    }
     return 2;
 }
 
@@ -202,6 +205,11 @@ static CGFloat CellMarginY = 20.0f;
     if (indexPath.section == 0) {
         headerView.title = @"我的频道";
         headerView.subTitle = @"点击进入频道";
+        //如果是不可删除，则显示也不一样
+        if (self.cannotDelete) {
+            headerView.title = @"我的版块";
+            headerView.subTitle = @"点击编辑后排序";
+        }
         if (canEdit) {
             headerView.rightTitle = @"完成";
             headerView.subTitle = @"按住拖动调整排序";
@@ -247,6 +255,10 @@ static CGFloat CellMarginY = 20.0f;
     }else{
         item.canDelete = NO;
     }
+    //如果不能移除，就把删除标记隐藏
+    if (self.cannotDelete) {
+        item.canDelete = NO;
+    }
     
     item.isNew = model.isNew;
     
@@ -256,6 +268,10 @@ static CGFloat CellMarginY = 20.0f;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //如果不能移除，不管是否是在编辑状态，都不允许点击交互
+    if (self.cannotDelete) {
+        return;
+    }
     if (canEdit) {
         
         if (indexPath.section == 0) {
@@ -310,6 +326,11 @@ static CGFloat CellMarginY = 20.0f;
 -(void)reloadData
 {
     [_collectionView reloadData];
+}
+
+-(void)setCannotDelete:(BOOL)cannotDelete
+{
+    _cannotDelete = cannotDelete;
 }
 
 @end

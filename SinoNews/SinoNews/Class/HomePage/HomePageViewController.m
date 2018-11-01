@@ -346,7 +346,10 @@
     UserSetBool(NO, @"NewAttentionChannel");
     btn.selected = NO;
     @weakify(self)
-    [[XLChannelControl shareControl] showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
+    XLChannelControl *xccc = [XLChannelControl shareControl];
+    xccc.naviTitle = @"全部频道";
+    xccc.cannotDelete = NO;
+    [xccc showChannelViewWithInUseTitles:self.titleList unUseTitles:self.leaveTitleList finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
         @strongify(self)
         GGLog(@"返回标题数组");
         //看是否并没有改变数组
@@ -381,7 +384,6 @@
     }
     return arr;
 }
-
 
 //将title分离出一个数组
 -(NSArray *)getTitlesArrFromArr:(NSArray *)arr

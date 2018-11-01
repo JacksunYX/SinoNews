@@ -8,16 +8,40 @@
 
 #import "ReadThePostMainVC.h"
 #import "ReadPostChildViewController.h"
-#import "AdjustAttentionSortVC.h"
 
+#import "XLChannelControl.h"        //频道管理页面
 
 @interface ReadThePostMainVC ()<MLMSegmentHeadDelegate>
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 @property (nonatomic, strong) MLMSegmentScroll *segScroll;
 @property (nonatomic, strong) UIView *customTitleView;
+@property (nonatomic, strong) NSMutableArray *titleList; //频道数组
 @end
 
 @implementation ReadThePostMainVC
+-(NSMutableArray *)titleList
+{
+    if (!_titleList) {
+        _titleList = [NSMutableArray new];
+        NSArray *titles = @[
+                            @"关注",
+                            @"直播",
+                            @"全部",
+                            @"航空",
+                            @"酒店",
+                            @"信用卡",
+                            ];
+        for (int i = 0; i < titles.count; i ++) {
+            XLChannelModel *model = [XLChannelModel new];
+            model.channelName = titles[i];
+            if (i == 0) {
+                model.status = 2;
+            }
+            [_titleList addObject:model];
+        }
+    }
+    return _titleList;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,6 +94,7 @@
     .heightEqualToWidth()
     ;
     [addChannel setNormalImage:UIImageNamed(@"bankCard_addIcon")];
+    [addChannel addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *sepLine = [UIView new];
 //    sepLine.backgroundColor = kWhite(0.1);
@@ -144,10 +169,29 @@
     return arr;
 }
 
+//全部频道
+-(void)more:(UIButton *)btn
+{
+    @weakify(self)
+    XLChannelControl *xccc = [XLChannelControl shareControl];
+    xccc.naviTitle = @"全部版块";
+    xccc.cannotDelete = YES;
+    [xccc showChannelViewWithInUseTitles:self.titleList unUseTitles:nil finish:^(NSArray *inUseTitles, NSArray *unUseTitles) {
+        @strongify(self)
+        GGLog(@"返回标题数组:%@",inUseTitles);
+        
+        
+    } click:^(NSString *title) {
+        
+    }];
+}
+
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
     
 }
+
+
 
 @end

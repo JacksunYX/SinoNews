@@ -18,6 +18,9 @@ typedef void(^handleBlock)(NSString *clickTitle);
 
 @property (nonatomic,copy) handleBlock clickBlock;
 
+//是否不可删除频道，默认为no，也就是可以删除频道
+@property (nonatomic,assign) BOOL cannotDelete;
+
 -(void)reloadData;
 
 @end

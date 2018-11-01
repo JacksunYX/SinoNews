@@ -93,12 +93,18 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.separatorColor = CutLineColor;
     [self.view addSubview:_tableView];
-    _tableView.sd_layout
-    .topSpaceToView(self.topView, 0)
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomEqualToView(self.view)
-    ;
+//    _tableView.sd_layout
+//    .topSpaceToView(self.topView, 0)
+//    .leftEqualToView(self.view)
+//    .rightEqualToView(self.view)
+//    .bottomEqualToView(self.view)
+//    ;
+    [self.tableView activateConstraints:^{
+        self.tableView.top_attr = self.topView.bottom_attr;
+        self.tableView.left_attr = self.view.left_attr_safe;
+        self.tableView.right_attr = self.view.right_attr_safe;
+        self.tableView.bottom_attr = self.view.bottom_attr_safe;
+    }];
     [_tableView updateLayout];
     [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
 }
@@ -145,12 +151,16 @@
     ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
     NSMutableDictionary *dic = [NSMutableDictionary new];
     dic[@"imgs"] = @"0";
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
+        dic[@"ShowChildComment"] = @(1);
+    }else if (indexPath.row == 1) {
         dic[@"imgs"] = @"1";
+        dic[@"ShowChildComment"] = @(1);
     }else if(indexPath.row == 2){
         dic[@"imgs"] = @"3";
+        dic[@"ShowChildComment"] = @(1);
     }
-    dic[@"ShowChildComment"] = @(arc4random()%2);
+    
     [cell setData:dic];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

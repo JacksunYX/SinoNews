@@ -51,7 +51,12 @@
     
     [self requestBanner];
     
-    [self addTableView];
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
+        @strongify(self);
+        [self requestBanner];
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +90,8 @@
         ADModel *model = self.adArr[index];
         [UniversalMethod jumpWithADModel:model];
     };
+    
+    [self addTableView];
 }
 
 -(void)addTableView

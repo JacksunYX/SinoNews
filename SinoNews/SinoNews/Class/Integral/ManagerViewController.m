@@ -164,8 +164,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"管理";
     
-    [self setupTopViews];
-    [self addTableView];
+//    [self setupTopViews];
+//    [self addTableView];
     
     //监听登录
     @weakify(self)
@@ -185,17 +185,22 @@
         [self updateDataSource];
     }];
     
-    if (self.user) {
-        [self setTopViews];
-    }else{
+//    if (self.user) {
+//        [self setTopViews];
+//    }else{
         [self requestToGetUserInfo];
-    }
+//    }
+    
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
+        @strongify(self);
+        [self requestToGetUserInfo];
+    }];
 }
 
 //重置数据
 -(void)resetDataSource
 {
-    [self requestToGetUserInfo];
+//    [self requestToGetUserInfo];
     [self.dataSource removeAllObjects];
     [self.exchangeRecordArr removeAllObjects];
     [self.tableView reloadData];
@@ -712,17 +717,20 @@
             //覆盖之前保存的信息
             [UserModel coverUserData:model];
             self.user = model;
-            [self->userIcon sd_setImageWithURL:UrlWithStr(model.avatar)];
-            self->userName.text = GetSaveString(model.username);
-            [self->userName updateLayout];
-            self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
-            [self->integer updateLayout];
+//            [self->userIcon sd_setImageWithURL:UrlWithStr(model.avatar)];
+//            self->userName.text = GetSaveString(model.username);
+//            [self->userName updateLayout];
+//            self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
+//            [self->integer updateLayout];
         }else{
             [UserModel clearLocalData];
-            [self->userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
-            self->userName.text = @"";
-            self->integer.text = @"";
+//            [self->userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
+//            self->userName.text = @"";
+//            self->integer.text = @"";
         }
+        [self setupTopViews];
+        [self addTableView];
+        [self setTopViews];
     } failure:nil];
 }
 

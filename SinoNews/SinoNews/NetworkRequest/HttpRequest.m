@@ -661,5 +661,32 @@ const NSString * DomainString = nil;
     return vc;
 }
 
++ (void)yx_hasNetwork:(void(^)(bool has))hasNet
+{
+    //创建网络监听对象
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    //开始监听
+    [manager startMonitoring];
+    //监听改变
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                GGLog(@"未知网络");
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                GGLog(@"无网络");
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                GGLog(@"运营商网络");
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                GGLog(@"WiFi网络");
+                break;
+        }
+    }];
+    //结束监听
+//    [manager stopMonitoring];
+}
+
 
 @end

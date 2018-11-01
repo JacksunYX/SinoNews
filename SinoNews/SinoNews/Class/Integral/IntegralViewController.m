@@ -37,6 +37,12 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    GGLog(@"积分界面出现了");
+}
+
 //设置下方分页联动
 -(void)reloadChildVCWithTitles:(NSArray *)titles
 {
@@ -62,7 +68,8 @@
         [_segScroll removeFromSuperview];
     }
     _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self vcArr:titles.count]];
-    _segScroll.countLimit = 0;
+    _segScroll.addTiming = SegmentAddScale;
+    _segScroll.addScale = 0.3;
     
     WEAK(weakself, self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{

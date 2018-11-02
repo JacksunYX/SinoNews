@@ -63,4 +63,8 @@
 
 #import "TFDropDownMenu.h"  //下拉菜单
 
+#import "FSTextView.h"
+
+#import "TZImagePickerController.h"
+
 #endif /* OtherFrameworksHead_h */

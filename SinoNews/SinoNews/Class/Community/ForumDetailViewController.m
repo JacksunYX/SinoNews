@@ -11,15 +11,26 @@
 #import "ForumDetailTableViewCell.h"
 #import "ReadPostListTableViewCell.h"
 
-@interface ForumDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ForumDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MLMSegmentHeadDelegate>
 @property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) BOOL haveUnFold;   //是否已展开
+@property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) UIView *footView;
+@property (nonatomic, strong) MLMSegmentHead *segHead;
 @end
 
 @implementation ForumDetailViewController
+-(UIView *)headView
+{
+    if (!_headView) {
+        _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
+        _headView.backgroundColor = WhiteColor;
+    }
+    return _headView;
+}
+
 -(UIView *)footView
 {
     if (!_footView) {
@@ -82,14 +93,77 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.separatorColor = CutLineColor;
     [self.view addSubview:_tableView];
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr_safe;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-    }];
+    self.tableView.sd_layout
+    .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
+    ;
+//    [self.tableView activateConstraints:^{
+//        self.tableView.top_attr = self.view.top_attr_safe;
+//        self.tableView.left_attr = self.view.left_attr_safe;
+//        self.tableView.right_attr = self.view.right_attr_safe;
+//        self.tableView.bottom_attr = self.view.bottom_attr_safe;
+//    }];
     [_tableView registerClass:[ForumDetailTableViewCell class] forCellReuseIdentifier:ForumDetailTableViewCellID];
     [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
+}
+
+-(void)addSegment
+{
+    if (_segHead) {
+        return;
+    }
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW - 80, 44) titles:@[@"全部",@"热门",@"好文",@"南方航空",@"求助问答",@"心得攻略",@"活动优惠",] headStyle:1 layoutStyle:2];
+    //    _segHead.fontScale = .85;
+    _segHead.lineScale = 0.2;
+    _segHead.fontSize = 16;
+    _segHead.lineHeight = 2;
+    _segHead.maxTitles = 5;
+    _segHead.lineColor = HexColor(#1282EE);
+    _segHead.selectColor = HexColor(#1282EE);
+    //    _segHead.deSelectColor = HexColor(#323232);
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setDeSelectColor:value];
+    });
+    _segHead.bottomLineHeight = 0;
+    _segHead.singleW_Add = 40;
+    _segHead.delegate = self;
+    
+    @weakify(self);
+    [MLMSegmentManager associateHead:_segHead withScroll:nil completion:^{
+        @strongify(self);
+        [self.headView addSubview:self.segHead];
+    }];
+    
+    UIView *sepLine = [UIView new];
+    //    sepLine.backgroundColor = kWhite(0.1);
+    [self.headView addSubview:sepLine];
+    sepLine.sd_layout
+    .rightSpaceToView(self.headView, 80)
+    .centerYEqualToView(self.headView)
+    .widthIs(1)
+    .heightIs(20)
+    ;
+    //添加阴影
+    
+    sepLine.layer.shadowColor = GrayColor.CGColor;
+    sepLine.layer.shadowOffset = CGSizeMake(-1, 0);
+    sepLine.layer.shadowOpacity = 1;
+    sepLine.layer.shouldRasterize = NO;
+    sepLine.layer.shadowPath = [UIBezierPath bezierPathWithRect:sepLine.bounds].CGPath;
+    
+    UIButton *sortBtn = [UIButton new];
+    [self.headView addSubview:sortBtn];
+    sortBtn.sd_layout
+    .rightSpaceToView(self.headView, 10)
+    .leftSpaceToView(sepLine, 10)
+    .heightIs(20)
+    .centerYEqualToView(self.headView)
+    ;
+    [sortBtn setNormalTitle:@"按回复"];
+    [sortBtn setSelectedTitle:@"按发帖"];
+    [sortBtn setNormalTitleColor:HexColor(#626262)];
+    [sortBtn setSelectedTitleColor:HexColor(#626262)];
+    [sortBtn setBtnFont:PFFontL(14)];
+    [sortBtn addTarget:self action:@selector(sortClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //搜索点击
@@ -115,6 +189,24 @@
         sender.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -170);
     }
     [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+}
+
+//排序点击
+-(void)sortClick:(UIButton *)sender
+{
+
+    UIAlertController *popVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *sortByReplyTime = [UIAlertAction actionWithTitle:@"按回复时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        sender.selected = NO;
+    }];
+    UIAlertAction *sortByPostTime = [UIAlertAction actionWithTitle:@"按发帖时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        sender.selected = YES;
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [popVC addAction:sortByReplyTime];
+    [popVC addAction:sortByPostTime];
+    [popVC addAction:cancel];
+    [self presentViewController:popVC animated:YES completion:nil];
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -185,6 +277,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section == 1) {
+        return 50;
+    }
     return 0.01;
 }
 
@@ -200,8 +295,18 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
+    if (section == 1) {
+        UIView *view = self.headView;
+        [self addSegment];
+        return view;
+    }
     return nil;
+}
+
+#pragma mark --- MLMSegmentHeadDelegate
+-(void)didSelectedIndex:(NSInteger)index
+{
+    GGLog(@"下标:%ld",index);
 }
 
 @end

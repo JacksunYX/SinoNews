@@ -8,6 +8,10 @@
 
 #import "EditSelectViewController.h"
 
+#import "FastPostingViewController.h"
+#import "SeniorPostingViewController.h"
+#import "VotePostingViewController.h"
+
 @interface EditSelectViewController ()
 @property (nonatomic,strong) UIButton *closeBtn;
 @end
@@ -105,9 +109,50 @@
     [btn2 setNormalImage:UIImageNamed(@"SeniorPosts_icon")];
     [btn3 setNormalTitle:@"发起投票"];
     [btn3 setNormalImage:UIImageNamed(@"Avote_icon")];
+    
+    btn1.tag = 10058+0;
+    btn2.tag = 10058+1;
+    btn3.tag = 10058+2;
+    [btn1 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [btn2 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [btn3 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-
+//点击事件
+-(void)clickAction:(UIButton *)sender
+{
+    NSInteger index = sender.tag - 10058;
+    GGLog(@"下标：%ld",index);
+    UIViewController *presentVC;
+    switch (index) {
+        case 0:
+        {
+            FastPostingViewController *fpVC = [FastPostingViewController new];
+            presentVC = fpVC;
+        }
+            break;
+        case 1:
+        {
+            SeniorPostingViewController *spVC = [SeniorPostingViewController new];
+            presentVC = spVC;
+        }
+            break;
+        case 2:
+        {
+            VotePostingViewController *vpVC = [VotePostingViewController new];
+            presentVC = vpVC;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    //跳转的同时移除界面
+    [self.rt_navigationController pushViewController:presentVC animated:YES complete:^(BOOL finished) {
+        [self.rt_navigationController removeViewController:self];
+    }];
+    
+}
 
 
 

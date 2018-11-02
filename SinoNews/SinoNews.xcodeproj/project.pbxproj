@@ -641,6 +641,9 @@
 		4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91E20C8E1A2004550B9 /* NSObject+save.m */; };
 		4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C92220C90B9B004550B9 /* UserModel.m */; };
 		4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */; };
+		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
+		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
+		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -1835,6 +1838,12 @@
 		4CE9C92220C90B9B004550B9 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		4CEA61732117FB3800AAB8B0 /* PubLishChannelSelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubLishChannelSelectVC.h; sourceTree = "<group>"; };
 		4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubLishChannelSelectVC.m; sourceTree = "<group>"; };
+		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
+		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
+		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
+		4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostingViewController.m; sourceTree = "<group>"; };
+		4CF35CB1218BE49F0064B1BA /* VotePostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VotePostingViewController.h; sourceTree = "<group>"; };
+		4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VotePostingViewController.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -3981,6 +3990,7 @@
 				4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */,
 				4C7B5DE92187F8FD00B76E47 /* TheAuthorListViewController.h */,
 				4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */,
+				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4C5B5B0521804D6F00B52329 /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
 			);
@@ -4063,6 +4073,19 @@
 				4CA141F120F4485E00536E77 /* ModelHeader.h */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4CF35CAA218BE3690064B1BA /* PostingAbout */ = {
+			isa = PBXGroup;
+			children = (
+				4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */,
+				4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */,
+				4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */,
+				4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */,
+				4CF35CB1218BE49F0064B1BA /* VotePostingViewController.h */,
+				4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */,
+			);
+			path = PostingAbout;
 			sourceTree = "<group>";
 		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
@@ -4640,6 +4663,7 @@
 				4C6E9181213F5F07001535CA /* UIColor+YYAdd.m in Sources */,
 				4C23B3C520F592AB00ACE380 /* LMTextHTMLParser.m in Sources */,
 				4C1FF1D9211C4FB700DA05F4 /* MoveCell.m in Sources */,
+				4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */,
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,
@@ -4675,6 +4699,7 @@
 				4C7EF38021212A0B0002166A /* CYRLayoutManager.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C992FDE217717680092DDCF /* HXDatePhotoPreviewBottomView.m in Sources */,
+				4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */,
 				4C6E9182213F5F07001535CA /* UIDevice+YYAdd.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
 				4C23B47720F5ED2700ACE380 /* Test.swift in Sources */,
@@ -4816,6 +4841,7 @@
 				4C3F8FAF20BCD894003EC4FC /* main.m in Sources */,
 				4C6E9163213F5F07001535CA /* UIButton+YYWebImage.m in Sources */,
 				4C49F06720D0E74C009DC42B /* MyAttentionFirstCell.m in Sources */,
+				4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */,
 				4C83E65120BFFB9C00C99AAB /* YXAutoNormalFooter.m in Sources */,
 				4C138EBD2181A03400FA2667 /* ReadPostChildViewController.m in Sources */,
 				4C3D112520D90BF900480E03 /* CommentCell.m in Sources */,

@@ -7,7 +7,10 @@
 //
 
 #import "FastPostingViewController.h"
+#import "RemindOthersToReadViewController.h"
+
 #import "SelectImagesView.h"
+#import "RemindOthersToReadView.h"
 
 @interface FastPostingViewController ()<UITextViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
@@ -15,7 +18,8 @@
 @property (nonatomic,strong) FSTextView *titleView;
 @property (nonatomic,strong) FSTextView *contentView;
 @property (nonatomic,strong) SelectImagesView *addImageView;
-@property (nonatomic,strong) UIButton *addTitle;    //添加标题
+@property (nonatomic,strong) RemindOthersToReadView *remindView;
+@property (nonatomic,strong) UIButton *addTitle;    //添加标题按钮
 @property (nonatomic,strong) UIView *bottomView;    //下方视图
 @property (nonatomic,strong) UIButton *showKeyboard;
 @property (nonatomic,strong) UIButton *publishBtn;
@@ -92,6 +96,9 @@
     _addImageView = [SelectImagesView new];
 //    _addImageView.backgroundColor = GreenColor;
     
+    _remindView = [RemindOthersToReadView new];
+    _remindView.backgroundColor = WhiteColor;
+    
     [self.view sd_addSubviews:@[
                                 _mainScrollView,
                                 ]];
@@ -104,6 +111,7 @@
                                       _titleView,
                                       _contentView,
                                       _addImageView,
+                                      _remindView,
                                       ]];
     _titleView.sd_layout
     .leftEqualToView(_mainScrollView)
@@ -164,7 +172,20 @@
     _addImageView.numPerRow = 4;
     _addImageView.imagesArr = [NSMutableArray new];
     
-    [_mainScrollView setupAutoContentSizeWithBottomView:_addImageView bottomMargin:10];
+    _remindView.sd_layout
+    .topSpaceToView(_addImageView, 0)
+    .leftEqualToView(_mainScrollView)
+    .rightEqualToView(_mainScrollView)
+    .heightIs(74)
+    ;
+    _remindView.remindArr = [NSMutableArray new];
+    [_remindView whenTap:^{
+        @strongify(self);
+        RemindOthersToReadViewController *rotrVC = [RemindOthersToReadViewController new];
+        [self.navigationController pushViewController:rotrVC animated:YES];
+    }];
+    
+    [_mainScrollView setupAutoContentSizeWithBottomView:_remindView bottomMargin:10];
     
     //键盘监听
     [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {

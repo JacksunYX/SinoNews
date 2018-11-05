@@ -102,6 +102,8 @@
 		4C23B5D320F7023D00ACE380 /* NormalTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C23B5D120F7023D00ACE380 /* NormalTheme.json */; };
 		4C23B5D620F7480F00ACE380 /* UIView+AddThemeMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */; };
 		4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C24DCD220DD071D003DC53A /* NSString+FileSize.m */; };
+		4C30D74321904483008B8E45 /* RemindOthersToReadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C30D74221904482008B8E45 /* RemindOthersToReadView.m */; };
+		4C30D746219044AE008B8E45 /* RemindOthersToReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C30D745219044AE008B8E45 /* RemindOthersToReadViewController.m */; };
 		4C3CB3C7213D0E8700E48A97 /* HZWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CB3BF213D0E8700E48A97 /* HZWaitingView.m */; };
 		4C3CB3C8213D0E8700E48A97 /* HZPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CB3C1213D0E8700E48A97 /* HZPhotoBrowser.m */; };
 		4C3CB3C9213D0E8700E48A97 /* HZPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C3CB3C4213D0E8700E48A97 /* HZPhotoBrowser.bundle */; };
@@ -872,6 +874,10 @@
 		4C23B5D520F7480F00ACE380 /* UIView+AddThemeMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddThemeMode.m"; sourceTree = "<group>"; };
 		4C24DCD120DD071D003DC53A /* NSString+FileSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+FileSize.h"; sourceTree = "<group>"; };
 		4C24DCD220DD071D003DC53A /* NSString+FileSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileSize.m"; sourceTree = "<group>"; };
+		4C30D74121904482008B8E45 /* RemindOthersToReadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindOthersToReadView.h; sourceTree = "<group>"; };
+		4C30D74221904482008B8E45 /* RemindOthersToReadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindOthersToReadView.m; sourceTree = "<group>"; };
+		4C30D744219044AE008B8E45 /* RemindOthersToReadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindOthersToReadViewController.h; sourceTree = "<group>"; };
+		4C30D745219044AE008B8E45 /* RemindOthersToReadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindOthersToReadViewController.m; sourceTree = "<group>"; };
 		4C3CB3BF213D0E8700E48A97 /* HZWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZWaitingView.m; sourceTree = "<group>"; };
 		4C3CB3C0213D0E8700E48A97 /* HZPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPhotoBrowserConfig.h; sourceTree = "<group>"; };
 		4C3CB3C1213D0E8700E48A97 /* HZPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZPhotoBrowser.m; sourceTree = "<group>"; };
@@ -2947,6 +2953,8 @@
 				4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */,
 				4CF35CB8218C474B0064B1BA /* SelectImagesView.h */,
 				4CF35CB9218C474B0064B1BA /* SelectImagesView.m */,
+				4C30D74121904482008B8E45 /* RemindOthersToReadView.h */,
+				4C30D74221904482008B8E45 /* RemindOthersToReadView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4080,6 +4088,8 @@
 				4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */,
 				4C7B5DE92187F8FD00B76E47 /* TheAuthorListViewController.h */,
 				4C7B5DEA2187F8FD00B76E47 /* TheAuthorListViewController.m */,
+				4C30D744219044AE008B8E45 /* RemindOthersToReadViewController.h */,
+				4C30D745219044AE008B8E45 /* RemindOthersToReadViewController.m */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4C5B5B0521804D6F00B52329 /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
@@ -4999,6 +5009,7 @@
 				4C7EF38421212A0B0002166A /* HRColorUtil.m in Sources */,
 				4C1C6DE820E4D65700637E2A /* PayNewsViewController.m in Sources */,
 				4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */,
+				4C30D74321904483008B8E45 /* RemindOthersToReadView.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
 				4C6E916B213F5F07001535CA /* YYTextView.m in Sources */,
 				4C6E9190213F5F07001535CA /* NSObject+YYAdd.m in Sources */,
@@ -5026,6 +5037,7 @@
 				4C992FF1217717680092DDCF /* HXCustomCollectionReusableView.m in Sources */,
 				4C1F7B1F20CFB56100C49B11 /* FansTableViewCell.m in Sources */,
 				4C992FE1217717680092DDCF /* UIImageView+HXExtension.m in Sources */,
+				4C30D746219044AE008B8E45 /* RemindOthersToReadViewController.m in Sources */,
 				4CB68B6E2154E15700ACE1D6 /* CryptLib.m in Sources */,
 				4CA141FD20F4528600536E77 /* PublishManagerViewController.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,

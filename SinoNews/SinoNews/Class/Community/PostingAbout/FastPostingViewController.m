@@ -18,6 +18,7 @@
 @property (nonatomic,strong) UIButton *addTitle;    //添加标题
 @property (nonatomic,strong) UIView *bottomView;    //下方视图
 @property (nonatomic,strong) UIButton *showKeyboard;
+@property (nonatomic,strong) UIButton *publishBtn;
 @end
 
 @implementation FastPostingViewController
@@ -37,9 +38,12 @@
     [self setUI];
     [self setUpBottomView];
     
+    _contentView.text = @"";
+    
     //监听键盘通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowChangeFrameNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
+    
 }
 
 //修改导航栏显示
@@ -49,6 +53,18 @@
     [self setTopLineColor:HexColor(#E3E3E3)];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:UIImageNamed(@"return_left")];
     
+    _publishBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [_publishBtn setNormalTitle:@"发表"];
+    [_publishBtn setNormalTitleColor:HexColor(#1282EE)];
+    
+    [_publishBtn setBtnFont:PFFontL(14)];
+    [_publishBtn addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_publishBtn];
+}
+
+-(void)publishAction:(UIButton *)sender
+{
+    LRToast(@"发表中...");
 }
 
 -(void)back
@@ -102,6 +118,7 @@
     // 限制输入最大字符数.
     _titleView.maxLength = 25;
     // 添加输入改变Block回调.
+    @weakify(self);
     [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
         // 文本改变后的相应操作.
         
@@ -123,8 +140,16 @@
     _contentView.placeholderFont = PFFontL(15);
     // 添加输入改变Block回调.
     [_contentView addTextDidChangeHandler:^(FSTextView *textView) {
+        @strongify(self);
         // 文本改变后的相应操作.
-        
+        NSString *string = textView.formatText;
+        if (string.length>0) {
+            self.publishBtn.enabled = YES;
+            [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
+        }else{
+            self.publishBtn.enabled = NO;
+            [self.publishBtn setNormalTitleColor:HexColor(#959595)];
+        }
     }];
     _contentView.borderColor = HexColor(#E3E3E3);
     _contentView.borderWidth = 1;
@@ -142,7 +167,6 @@
     [_mainScrollView setupAutoContentSizeWithBottomView:_addImageView bottomMargin:10];
     
     //键盘监听
-    @weakify(self);
     [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
         @strongify(self);
         [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.view, nil];

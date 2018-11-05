@@ -112,7 +112,7 @@
     NSMutableArray *copyArr = [NSMutableArray arrayWithArray:_imagesArr];
     [copyArr addObject:@"addImageOrVedio_icon"];
     [self removeAllSubviews];
-    [_imagesArr removeAllObjects];
+    [_imageViewsArr removeAllObjects];
     //平均宽高
     CGFloat wid = self.frame.size.width;
     CGFloat avgSpaceX = 10;
@@ -136,7 +136,7 @@
             imageView.tag = 22222;
             imageView.image = UIImageNamed(GetSaveString(copyArr[i]));
         }else{
-            [_imagesArr addObject:imageView];
+            [_imageViewsArr addObject:imageView];
             UIImageView *delete = [[UIImageView alloc]initWithFrame:CGRectMake(imageView.width - 8, -8, 16, 16)];
             delete.userInteractionEnabled = YES;
             delete.image = UIImageNamed(@"deleteSelectedImage_icon");
@@ -155,13 +155,13 @@
                     GGLog(@"上传视频");
                     [RequestGather uploadVideo:photoModel.videoData Success:^(id response) {
                         //上传成功(这里取数组中保存的视图，是为了防止某些资源(比如视频)正在上传时，用户又添加了另外一个资源，此时如果不这么获取，原来的视图已经被移除，无法再修改其状态了)
-                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        SelectedImage *imageV = (SelectedImage *)self.imageViewsArr[i];
                         imageV.status = UploadSuccess;
                         photoModel.status = UploadSuccess;
                         photoModel.videoUrl = GetSaveString(response[@"data"]);
                     } failure:^(NSError *error) {
                         //上传失败
-                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        SelectedImage *imageV = (SelectedImage *)self.imageViewsArr[i];
                         imageV.status = UploadFailure;
                         photoModel.status = UploadFailure;
                     }];
@@ -171,13 +171,13 @@
                     //上传过程
                     [RequestGather uploadSingleImage:photoModel.image Success:^(id response) {
                         //上传成功
-                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        SelectedImage *imageV = (SelectedImage *)self.imageViewsArr[i];
                         imageV.status = UploadSuccess;
                         photoModel.status = UploadSuccess;
                         photoModel.imageUrl = GetSaveString(response[@"data"]);
                     } failure:^(NSError *error) {
                         //上传失败
-                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        SelectedImage *imageV = (SelectedImage *)self.imageViewsArr[i];
                         imageV.status = UploadFailure;
                         photoModel.status = UploadFailure;
                     }];

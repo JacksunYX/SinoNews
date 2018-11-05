@@ -10,12 +10,12 @@
 
 @implementation QACommentInputView
 
-static CGFloat anumationTime = 0.3;
+static CGFloat anumationTime = 0.25;
 
 +(void)showAndSendHandle:(void(^)(NSString *inputText))block
 {
     //背景视图
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN)];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH)];
     backView.backgroundColor = RGBA(0, 0, 0, 0);
     
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
@@ -136,7 +136,7 @@ static CGFloat anumationTime = 0.3;
     .topSpaceToView(sepLine, 10)
     .leftSpaceToView(bottomView, 10)
     .rightSpaceToView(bottomView, 10)
-    .bottomSpaceToView(bottomView, 10)
+    .bottomSpaceToView(bottomView, BOTTOM_MARGIN)
     ;
     
     //发送按钮回调
@@ -172,7 +172,7 @@ static CGFloat anumationTime = 0.3;
         CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
         
         [UIView animateWithDuration:anumationTime animations:^{
-            bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame) - keyboardSize.height - bottomViewHeight + BOTTOM_MARGIN, ScreenW, bottomViewHeight);
+            bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame) - keyboardSize.height - bottomViewHeight , ScreenW, bottomViewHeight);
         }];
     }];
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(NSNotification * _Nullable x) {

@@ -36,12 +36,16 @@
                  failure:(void (^)(NSError *error))failure
 {
     [HttpRequest uploadFileImage:FileUpload parameters:@{} uploadImage:image success:^(id response){
-        LRToast(@"上传图片成功");
+//        LRToast(@"上传图片成功");
         if (success) {
             success(response);
         }
         
-    } failure:nil RefreshAction:nil];
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    } RefreshAction:nil];
 }
 
 //分享成功后需要上报到后台

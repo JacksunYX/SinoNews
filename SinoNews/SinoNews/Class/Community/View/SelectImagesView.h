@@ -9,7 +9,27 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 NS_ASSUME_NONNULL_BEGIN
+
+@interface SelectImageModel : NSObject
+@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong) PHAsset *asset;    //视频资源
+@property (nonatomic,assign) BOOL isUploaded;   //是否已上传
+@end
+
+typedef enum : NSUInteger {
+    UploadingNone = 0,
+    Uploading,
+    UploadSuccess,
+    UploadFailure,
+} UploadStatus;
+
+@interface SelectedImage : UIView
+@property (nonatomic,strong) UIImage * _Nullable image;
+@property (nonatomic,assign) UploadStatus status;
+@end
 
 @interface SelectImagesView : UIView
 @property (nonatomic, strong) NSMutableArray *imagesArr;

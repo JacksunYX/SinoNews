@@ -13,18 +13,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SelectImageModel : NSObject
-@property (nonatomic,strong) UIImage *image;
-@property (nonatomic,strong) PHAsset *asset;    //视频资源
-@property (nonatomic,assign) BOOL isUploaded;   //是否已上传
-@end
-
 typedef enum : NSUInteger {
     UploadingNone = 0,
     Uploading,
     UploadSuccess,
     UploadFailure,
 } UploadStatus;
+
+@interface SelectImageModel : NSObject
+@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong) NSData *videoData;    //视频资源
+@property (nonatomic,strong) NSString *videoUrl;
+@property (nonatomic,strong) NSString *imageUrl;
+@property (nonatomic,assign) UploadStatus status;  //上传状态
+@end
 
 @interface SelectedImage : UIView
 @property (nonatomic,strong) UIImage * _Nullable image;

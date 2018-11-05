@@ -84,7 +84,8 @@
 
 
 @interface SelectImagesView ()<TZImagePickerControllerDelegate>
-
+//保存创建的图片视图
+@property (nonatomic,strong) NSMutableArray *imageViewsArr;
 @end
 
 @implementation SelectImagesView
@@ -95,6 +96,7 @@
         _numPerRow = 3;
         _maxNum = 9;
         _imagesArr = [NSMutableArray new];
+        _imageViewsArr = [NSMutableArray new];
     }
     return self;
 }
@@ -110,7 +112,7 @@
     NSMutableArray *copyArr = [NSMutableArray arrayWithArray:_imagesArr];
     [copyArr addObject:@"addImageOrVedio_icon"];
     [self removeAllSubviews];
-    
+    [_imagesArr removeAllObjects];
     //平均宽高
     CGFloat wid = self.frame.size.width;
     CGFloat avgSpaceX = 10;
@@ -134,6 +136,7 @@
             imageView.tag = 22222;
             imageView.image = UIImageNamed(GetSaveString(copyArr[i]));
         }else{
+            [_imagesArr addObject:imageView];
             UIImageView *delete = [[UIImageView alloc]initWithFrame:CGRectMake(imageView.width - 8, -8, 16, 16)];
             delete.userInteractionEnabled = YES;
             delete.image = UIImageNamed(@"deleteSelectedImage_icon");
@@ -141,25 +144,42 @@
             
             SelectImageModel *photoModel = copyArr[i];
             imageView.image = photoModel.image;
-            if (photoModel.isUploaded) {
-                imageView.status = UploadSuccess;
+            //已经有上传操作了
+            if (photoModel.status != UploadingNone) {
+                imageView.status = photoModel.status;
             }else{
-                imageView.status = Uploading;
                 
-                if (photoModel.asset) {
+                imageView.status = Uploading;
+                photoModel.status = Uploading;
+                if (photoModel.videoData) {
                     GGLog(@"上传视频");
-                    imageView.status = UploadSuccess;
-                    photoModel.isUploaded = YES;
+                    [RequestGather uploadVideo:photoModel.videoData Success:^(id response) {
+                        //上传成功(这里取数组中保存的视图，是为了防止某些资源(比如视频)正在上传时，用户又添加了另外一个资源，此时如果不这么获取，原来的视图已经被移除，无法再修改其状态了)
+                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        imageV.status = UploadSuccess;
+                        photoModel.status = UploadSuccess;
+                        photoModel.videoUrl = GetSaveString(response[@"data"]);
+                    } failure:^(NSError *error) {
+                        //上传失败
+                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        imageV.status = UploadFailure;
+                        photoModel.status = UploadFailure;
+                    }];
+                    
                 }else{
                     GGLog(@"上传图片");
                     //上传过程
                     [RequestGather uploadSingleImage:photoModel.image Success:^(id response) {
                         //上传成功
-                        imageView.status = UploadSuccess;
-                        photoModel.isUploaded = YES;
+                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        imageV.status = UploadSuccess;
+                        photoModel.status = UploadSuccess;
+                        photoModel.imageUrl = GetSaveString(response[@"data"]);
                     } failure:^(NSError *error) {
                         //上传失败
-                        imageView.status = UploadFailure;
+                        SelectedImage *imageV = (SelectedImage *)self.imagesArr[i];
+                        imageV.status = UploadFailure;
+                        photoModel.status = UploadFailure;
                     }];
                 }
             }
@@ -204,14 +224,20 @@
         NSInteger index = tag - 10089;
         GGLog(@"点击了:%ld",index);
         SelectImageModel *model = self.imagesArr[index];
+        if (model.status == Uploading) {
+            LRToast(@"请等待上传完成");
+            return;
+        }
         NSString *noticeStr = @"确认删除图片";
-        if (model.asset) {
+        if (model.videoData) {
             noticeStr = @"确认删除视频";
         }
         UIAlertController *popNotice = [UIAlertController alertControllerWithTitle:noticeStr message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //从数组删除
+            [self.imagesArr removeObjectAtIndex:index];
+            [self.imageViewsArr removeObjectAtIndex:index];
             
-            [self.imagesArr removeObject:model];
             [self setUI];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"放弃" style:UIAlertActionStyleCancel handler:nil];
@@ -249,7 +275,7 @@
     for (UIImage *image in photos) {
         SelectImageModel *photoModel = [SelectImageModel new];
         photoModel.image = image;
-        photoModel.isUploaded = NO;
+        photoModel.status = UploadingNone;
         [_imagesArr addObject:photoModel];
     }
     [self setUI];
@@ -258,12 +284,22 @@
 //选择视频后会进入该代理方法，返回了封面和视频资源文件
 -(void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(PHAsset *)asset
 {
-    SelectImageModel *photoModel = [SelectImageModel new];
-    photoModel.image = coverImage;
-    photoModel.asset = asset;
-    photoModel.isUploaded = NO;
-    [_imagesArr addObject:photoModel];
-    [self setUI];
+    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPreset640x480 success:^(NSString *outputPath) {
+        GGLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
+        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
+        NSURL *videoURL = [NSURL fileURLWithPath:outputPath];
+        NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
+        
+        SelectImageModel *photoModel = [SelectImageModel new];
+        photoModel.image = coverImage;
+        photoModel.videoData = videoData;
+        photoModel.status = UploadingNone;
+        [self.imagesArr addObject:photoModel];
+        [self setUI];
+    } failure:^(NSString *errorMessage, NSError *error) {
+        NSLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+    }];
+    
 }
 
 @end

@@ -134,7 +134,7 @@ extern const NSString * DomainString;
 +(void)uploadFileVideo:(NSString *)URLString
             parameters:(id)parameters
        uploadVideoData:(NSData *)uploadVideoData
-               success:(void (^)())success
+               success:(void (^)(id response))success
                failure:(void (^)(NSError *error))failure;
 
 

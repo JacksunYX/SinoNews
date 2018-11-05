@@ -48,6 +48,22 @@
     } RefreshAction:nil];
 }
 
+//上传视频
++(void)uploadVideo:(NSData *)videoData
+           Success:(void (^)(id response))success
+           failure:(void (^)(NSError *error))failure
+{
+    [HttpRequest uploadFileVideo:FileUpload parameters:@{} uploadVideoData:videoData success:^(id response){
+        if (success) {
+            success(response);
+        }
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
 //分享成功后需要上报到后台
 +(void)shareWithNewsId:(NSInteger)newsId
                Success:(void (^)(id response))success

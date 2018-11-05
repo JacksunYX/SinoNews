@@ -77,7 +77,7 @@ const NSString * DomainString = nil;
     //    manager.operationQueue.maxConcurrentOperationCount = 5;
     
     //设置请求超时时长
-    manager.requestSerializer.timeoutInterval = 10;
+    manager.requestSerializer.timeoutInterval = 20;
     
     //设置请求头中请求数据类型
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:
@@ -417,7 +417,7 @@ const NSString * DomainString = nil;
         //隐藏loding
         HiddenHudOnly;
         
-        LRToast(@"图片上传失败");
+//        LRToast(@"图片上传失败");
         if (failure) {
             failure(error);
         }
@@ -517,52 +517,35 @@ const NSString * DomainString = nil;
 +(void)uploadFileVideo:(NSString *)URLString
             parameters:(id)parameters
        uploadVideoData:(NSData *)uploadVideoData
-               success:(void (^)())success
+               success:(void (^)(id response))success
                failure:(void (^)(NSError *error))failure {
     
-    //    //在token获取成功之后进行相应的请求
-    //    [self gettoken:^(id tokenStr) {
+    AFHTTPSessionManager *manager = [self getQuestManager];
+    if (!manager) {
+        return;
+    }
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //接收类型不一致请替换一致text/html或别的
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
-                                                         @"text/html",
-                                                         @"image/jpeg",
-                                                         @"image/png",
-                                                         @"application/octet-stream",
-                                                         @"text/json",@"text/plain",
-                                                         nil];
-    
-    
-    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DomainString,URLString];
-    
-    [parameters setValue:@"1" forKey:@"client_id"];
-    
-    [parameters setValue:[HttpRequest  getapi_tokenwithurlstring:URLString] forKey:@"api_token"];
-    
-    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-        formatter.dateFormat =@"yyyyMMddHHmmss";
+        formatter.dateFormat = @"yyyyMMddHHmmss";
         NSString *str = [formatter stringFromDate:[NSDate date]];
         NSString *fileName = [NSString stringWithFormat:@"%@.mp4", str];
         
-        //上传的参数(上传图片，以文件流的格式)
+        //上传的参数(上传视频，以文件流的格式)
         [formData appendPartWithFileData:uploadVideoData
-                                    name:@"video"
+                                    name:@"file"//这里name是后台取数据对应的字段，所以不能乱写
                                 fileName:fileName
-                                mimeType:@"video/mpeg4"];
+                                mimeType:@"application/octet-stream"];
         
     } progress:^(NSProgress *_Nonnull uploadProgress) {
         
         //打印下上传进度
-        NSLog(@"uploadProgress.fractionCompleted---%f",uploadProgress.fractionCompleted);
-        
+        GGLog(@"uploadProgress.fractionCompleted---%f",uploadProgress.fractionCompleted);
+        /*
         if (uploadProgress.fractionCompleted==1.0) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -571,34 +554,27 @@ const NSString * DomainString = nil;
             });
             
         }
-        
+        */
     } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
         
         //上传成功
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        NSLog(@"responseObject-------%@",resultdic);
+        GGLog(@"responseObject-------%@",resultdic);
         
-        //显示提示用户信息
-        NSString *msg= [NSString stringWithFormat:@"%@",[resultdic objectForKey:@"mess"]];
-        
-        LRToast(msg);
-        
-        if (success) {
+        if (success&&[resultdic[@"success"] integerValue] == 1) {
             success(resultdic);
         }
         
     } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
         //上传失败
-        NSLog(@"error-------%@",error);
+        GGLog(@"error-------%@",error);
         
         if (failure) {
             failure(error);
         }
         
     }];
-    
-    //    }];
     
 }
 

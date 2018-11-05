@@ -27,7 +27,7 @@
 //获取当前登录用户信息(get)
 #define GetCurrentUserInformation @"/api/user/getCurrentUserInformation"
 
-//上传文件(post)
+//上传文件(post)视频、图片等都可以使用
 #define FileUpload          @"/api/fileupload"
 //上传并更新用户头像(post)
 #define User_updateAvata    @"/api/user/updateAvatar"

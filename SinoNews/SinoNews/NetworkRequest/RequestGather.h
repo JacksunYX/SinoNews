@@ -35,6 +35,17 @@
 
 
 /**
+ 上传视频至服务器
+
+ @param videoData 视频资源
+ @param success 上传成功回调
+ @param failure 失败回调
+ */
++(void)uploadVideo:(NSData *)videoData
+           Success:(void (^)(id response))success
+           failure:(void (^)(NSError *error))failure;
+
+/**
  分享成功后需要上报到后台
 
  @param newsId 文章id

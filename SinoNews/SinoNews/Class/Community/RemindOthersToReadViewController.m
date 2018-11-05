@@ -16,17 +16,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setUI];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)setUI
+{
+    UIButton *confirmBtn = [UIButton new];
+    confirmBtn.backgroundColor = HexColor(#A1C5E5);
+    [confirmBtn setNormalTitleColor:WhiteColor];
+    [confirmBtn setBtnFont:PFFontL(16)];
+    [self.view addSubview:confirmBtn];
+    confirmBtn.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .heightIs(46)
+    ;
+    [confirmBtn setNormalTitle:@"确定"];
+    
 }
-*/
 
 @end

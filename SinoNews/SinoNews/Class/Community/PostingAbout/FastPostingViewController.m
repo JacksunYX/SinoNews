@@ -181,8 +181,7 @@
     _remindView.remindArr = [NSMutableArray new];
     [_remindView whenTap:^{
         @strongify(self);
-        RemindOthersToReadViewController *rotrVC = [RemindOthersToReadViewController new];
-        [self.navigationController pushViewController:rotrVC animated:YES];
+        [self setRemindPeoples];
     }];
     
     [_mainScrollView setupAutoContentSizeWithBottomView:_remindView bottomMargin:10];
@@ -211,6 +210,54 @@
     _addTitle.sd_cornerRadius = @15;
     [_addTitle setNormalTitle:@"添加标题"];
     [_addTitle addTarget:self action:@selector(addTitleAction:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//跳转设置需要@的人
+-(void)setRemindPeoples
+{
+    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"搜索你要@的人" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
+        searchViewController.searchResultController = [RemindOthersToReadViewController new];
+    }];
+    sVC.showSearchResultWhenSearchBarRefocused = YES;
+    sVC.showHotSearch = NO;
+    sVC.showSearchHistory = NO;
+    sVC.searchBarBackgroundColor = HexColor(#F3F5F4);
+    sVC.searchBarCornerRadius = 4;
+    [sVC.cancelButton setBtnFont:PFFontL(14)];
+    [sVC.cancelButton setNormalTitleColor:HexColor(#939393)];
+    
+    //修改搜索框
+    //取出输入框
+    UIView *searchTextField = nil;
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0) {
+        searchTextField = [sVC.searchBar valueForKey:@"_searchField"];
+    }else{
+        for (UIView *subView in sVC.searchBar.subviews) {
+            if ([subView isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+                searchTextField = subView;
+                break;
+            }
+        }
+    }
+    if (searchTextField) {
+        //        searchTextField.backgroundColor = [UIColor colorFromHexString:@"#27dcfb"];
+        //        searchTextField.layer.masksToBounds = YES;
+        //        searchTextField.layer.cornerRadius = 3.0f;
+        //        searchTextField.layer.borderColor = [UIColor whiteColor].CGColor;
+        //        searchTextField.layer.borderWidth = 0.5;
+        //        ((UITextField *)searchTextField).textColor = [UIColor whiteColor];
+        //备注文字颜色
+        [((UITextField *)searchTextField) setValue:HexColor(#939393) forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    //修改输入框左边的搜索图标
+    [sVC.searchBar setImage:UIImageNamed(@"attention_search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    //修改输入框右边的清除图标
+    //    [sVC.searchBar setImage:UIImageNamed(@"") forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    
+    // 3. present the searchViewController
+    RTRootNavigationController *nav = [[RTRootNavigationController alloc] initWithRootViewController:sVC];
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 //添加下方视图

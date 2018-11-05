@@ -36,16 +36,16 @@
     [self removeAllSubviews];
     
     _remindArr = @[
-                   @"1",
-                   @"2",
-                   @"321",
-                   @"1231",
-                   @"asdas",
-                   @"fa",
-                   @"c",
-                   @"asd",
-                   @"sdf",
-                   @"dfg",
+//                   @"1",
+//                   @"2",
+//                   @"321",
+//                   @"1231",
+//                   @"asdas",
+//                   @"fa",
+//                   @"c",
+//                   @"asd",
+//                   @"sdf",
+//                   @"dfg",
                    ].mutableCopy;
     
     UILabel *leftLabel = [UILabel new];
@@ -69,6 +69,22 @@
     .heightIs(10)
     ;
     rightArrow.image = UIImageNamed(@"rightArrow_icon");
+    
+    if (_remindArr.count<=0) {
+        UILabel *rightLabel = [UILabel new];
+        rightLabel.font = PFFontL(12);
+        rightLabel.textColor = HexColor(#939393);
+        [self addSubview:rightLabel];
+        rightLabel.sd_layout
+        .centerYEqualToView(self)
+        .rightSpaceToView(rightArrow, 10)
+        .heightIs(18)
+        ;
+        [rightLabel setSingleLineAutoResizeWithMaxWidth:100];
+        rightLabel.text = @"请选择";
+        
+        return;
+    }
     
     //添加右方视图
     UIView *rightView = [UIView new];

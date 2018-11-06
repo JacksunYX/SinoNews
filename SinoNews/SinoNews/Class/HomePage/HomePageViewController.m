@@ -71,6 +71,13 @@
     [self hiddenTopLine];
     self.navigationItem.title = @"首页";
     
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
+        @strongify(self);
+        [self showOrHideLoadView:YES page:1];
+        [self requestChnanel:NO];
+    }];
+    
     [self showOrHideLoadView:YES page:1];
     
     [self addNavigationView];
@@ -107,12 +114,7 @@
 
     }
     
-    @weakify(self);
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
-        @strongify(self);
-        [self showOrHideLoadView:YES page:1];
-        [self requestChnanel:NO];
-    }];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -309,6 +311,8 @@
     }
     _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_segHead.frame) + 5, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_segHead.frame) - NAVI_HEIGHT - TAB_HEIGHT - 5) vcOrViews:[self getvcArr]];
     _segScroll.countLimit = 0;
+    _segScroll.addTiming = SegmentAddScale;
+    _segScroll.addScale = 0.2;
     
     WEAK(weakself, self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{

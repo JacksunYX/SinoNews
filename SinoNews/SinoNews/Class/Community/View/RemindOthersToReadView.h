@@ -11,10 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MyFansModel;
+@class RemindPeople;
 @interface RemindOthersToReadView : UIView
 
-@property (nonatomic ,strong) NSMutableArray <MyFansModel *> *remindArr;
+@property (nonatomic ,strong) NSMutableArray <RemindPeople *> *remindArr;
 @end
 
 NS_ASSUME_NONNULL_END

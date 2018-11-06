@@ -26,6 +26,8 @@
 
 @property (nonatomic,strong) NSMutableArray *attentionArr;
 @property (nonatomic,strong) NSMutableArray *selectedArr;
+@property (nonatomic,strong) UIButton *confirmBtn;
+@property (nonatomic,strong) BaseTableView *tableView2;
 @end
 
 @implementation FastPostingViewController
@@ -248,79 +250,23 @@
 //跳转设置需要@的人
 -(void)setRemindPeoples
 {
-    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"搜索你要@的人" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
-        searchViewController.searchResultController = [RemindOthersToReadViewController new];
-    }];
-    sVC.showSearchResultWhenSearchBarRefocused = YES;
-    sVC.showHotSearch = NO;
-    sVC.showSearchHistory = NO;
-    sVC.searchBarBackgroundColor = HexColor(#F3F5F4);
-    sVC.searchBarCornerRadius = 4;
-    [sVC.cancelButton setBtnFont:PFFontL(14)];
-    [sVC.cancelButton setNormalTitleColor:HexColor(#939393)];
-    
-    
-    UIButton *confirmBtn = [UIButton new];
-    confirmBtn.backgroundColor = HexColor(#A1C5E5);
-    [confirmBtn setNormalTitleColor:WhiteColor];
-    [confirmBtn setBtnFont:PFFontL(16)];
-    [sVC.view addSubview:confirmBtn];
-    confirmBtn.sd_layout
-    .leftEqualToView(sVC.view)
-    .rightEqualToView(sVC.view)
-    .bottomSpaceToView(sVC.view, BOTTOM_MARGIN)
-    .heightIs(46)
-    ;
-    [confirmBtn setNormalTitle:@"确定"];
-    BaseTableView *tableView2 = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView2.backgroundColor = WhiteColor;
-    tableView2.delegate = self;
-    tableView2.dataSource = self;
-    tableView2.showsVerticalScrollIndicator = NO;
-    tableView2.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    tableView2.separatorColor = CutLineColor;
-    [sVC.view addSubview:tableView2];
-    tableView2.sd_layout
-    .topEqualToView(sVC.view)
-    .leftEqualToView(sVC.view)
-    .rightEqualToView(sVC.view)
-    .bottomSpaceToView(confirmBtn, 0)
-    ;
-    
-    [tableView2 registerClass:[RemindSelectTableViewCell class] forCellReuseIdentifier:RemindSelectTableViewCellID];
-    
-    //修改搜索框
-    //取出输入框
-    UIView *searchTextField = nil;
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0) {
-        searchTextField = [sVC.searchBar valueForKey:@"_searchField"];
-    }else{
-        for (UIView *subView in sVC.searchBar.subviews) {
-            if ([subView isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
-                searchTextField = subView;
-                break;
-            }
-        }
+    RemindOthersToReadViewController *rotrVC = [RemindOthersToReadViewController new];
+    rotrVC.selectedArr = self.remindView.remindArr;
+    @weakify(self);
+    rotrVC.selectBlock = ^(NSMutableArray * _Nonnull selectArr) {
+        GGLog(@"1级页面回调");
+        @strongify(self);
+        self.remindView.remindArr = selectArr;
+    };
+    [self.navigationController pushViewController:rotrVC animated:YES];
+}
+
+//确认事件
+-(void)confirmAction:(UIButton *)sender
+{
+    if (self.selectedArr.count>0) {
+        
     }
-    if (searchTextField) {
-        //        searchTextField.backgroundColor = [UIColor colorFromHexString:@"#27dcfb"];
-        //        searchTextField.layer.masksToBounds = YES;
-        //        searchTextField.layer.cornerRadius = 3.0f;
-        //        searchTextField.layer.borderColor = [UIColor whiteColor].CGColor;
-        //        searchTextField.layer.borderWidth = 0.5;
-        //        ((UITextField *)searchTextField).textColor = [UIColor whiteColor];
-        //备注文字颜色
-        [((UITextField *)searchTextField) setValue:HexColor(#939393) forKeyPath:@"_placeholderLabel.textColor"];
-    }
-    //修改输入框左边的搜索图标
-    [sVC.searchBar setImage:UIImageNamed(@"attention_search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    //修改输入框右边的清除图标
-    //    [sVC.searchBar setImage:UIImageNamed(@"") forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
-    
-    // 3. present the searchViewController
-    RTRootNavigationController *nav = [[RTRootNavigationController alloc] initWithRootViewController:sVC];
-    [self presentViewController:nav animated:NO completion:nil];
 }
 
 //添加下方视图
@@ -474,6 +420,22 @@
 {
     RemindPeople *model = self.attentionArr[indexPath.row];
     model.isSelected = !model.isSelected;
+    if (model.isSelected) {
+        [self.selectedArr addObject:model];
+    }else{
+        [self.selectedArr removeObject:model];
+    }
+    UIColor *backgroundColor;
+    NSString *string = @"确定";
+    if (self.selectedArr.count>0) {
+        string = [string stringByAppendingFormat:@"(%ld)",self.selectedArr.count];
+        backgroundColor = HexColor(#1282EE);
+    }else{
+        backgroundColor = HexColor(#A1C5E5);
+    }
+    [self.confirmBtn setNormalTitle:string];
+    self.confirmBtn.backgroundColor = backgroundColor;
+    
     [tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
 }
 

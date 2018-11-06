@@ -8,6 +8,7 @@
 
 #import "RemindOthersToReadView.h"
 #import "MyFansModel.h"
+#import "RemindPeople.h"
 
 @interface RemindOthersToReadView ()
 {
@@ -34,19 +35,6 @@
 -(void)setUI
 {
     [self removeAllSubviews];
-    
-    _remindArr = @[
-//                   @"1",
-//                   @"2",
-//                   @"321",
-//                   @"1231",
-//                   @"asdas",
-//                   @"fa",
-//                   @"c",
-//                   @"asd",
-//                   @"sdf",
-//                   @"dfg",
-                   ].mutableCopy;
     
     UILabel *leftLabel = [UILabel new];
     leftLabel.font = PFFontL(15);
@@ -112,6 +100,8 @@
         imageView.backgroundColor = Arc4randomColor;
         imageView.tag = 10099 + i;
         [rightView addSubview:imageView];
+        RemindPeople *model = _remindArr[i];
+        imageView.image = UIImageNamed(model.avatar);
         
         NSInteger morethan = (i+1)%5;
         if (morethan == 0) {

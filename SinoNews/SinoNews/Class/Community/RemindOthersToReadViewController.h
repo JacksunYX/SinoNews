@@ -14,6 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RemindOthersToReadViewController : BaseViewController
 
+@property (nonatomic,copy) void(^selectBlock)(NSMutableArray *selectArr);
+//选中要@的用户数据数组(1级)
+@property (nonatomic,strong) NSMutableArray *selectedArr;
+//选中要@的用户数据数组(2级页面接受到从1级选中的数组)
+@property (nonatomic,strong) NSMutableArray *selected2Arr;
+@property (nonatomic,assign) NSInteger type;//默认1级，其他为2级
+@property (nonatomic,strong) NSString *keyword;//查询关键字
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -239,8 +239,7 @@
         }
         [cell0 setData:dic];
         cell = cell0;
-    }else
-    if (indexPath.section == 1) {
+    }else if (indexPath.section == 1) {
         ReadPostListTableViewCell *cell1 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         NSMutableDictionary *dic = [NSMutableDictionary new];
         dic[@"imgs"] = @"0";

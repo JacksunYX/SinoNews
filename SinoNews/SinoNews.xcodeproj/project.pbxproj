@@ -642,6 +642,8 @@
 		4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F2217F10D000A76312 /* ForumViewController.m */; };
 		4CD692F6217F116800A76312 /* ReadThePostMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F5217F116800A76312 /* ReadThePostMainVC.m */; };
 		4CD692F9217F11A700A76312 /* EditSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F8217F11A700A76312 /* EditSelectViewController.m */; };
+		4CDC73EE2191416C0079EB3E /* RemindSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC73ED2191416C0079EB3E /* RemindSelectTableViewCell.m */; };
+		4CDC73F1219147B20079EB3E /* RemindPeople.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC73F0219147B20079EB3E /* RemindPeople.m */; };
 		4CDD0DD22147A11600036A0A /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD0DD12147A11600036A0A /* UITabBar+badge.m */; };
 		4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121CE20C00A6400A44782 /* RankListViewController.m */; };
 		4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE121D220C0148700A44782 /* NSObject+DLClass.m */; };
@@ -1857,6 +1859,10 @@
 		4CD692F5217F116800A76312 /* ReadThePostMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadThePostMainVC.m; sourceTree = "<group>"; };
 		4CD692F7217F11A700A76312 /* EditSelectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditSelectViewController.h; sourceTree = "<group>"; };
 		4CD692F8217F11A700A76312 /* EditSelectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditSelectViewController.m; sourceTree = "<group>"; };
+		4CDC73EC2191416C0079EB3E /* RemindSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindSelectTableViewCell.h; sourceTree = "<group>"; };
+		4CDC73ED2191416C0079EB3E /* RemindSelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindSelectTableViewCell.m; sourceTree = "<group>"; };
+		4CDC73EF219147B20079EB3E /* RemindPeople.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RemindPeople.h; path = SinoNews/Class/Community/Model/RemindPeople.h; sourceTree = SOURCE_ROOT; };
+		4CDC73F0219147B20079EB3E /* RemindPeople.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RemindPeople.m; path = SinoNews/Class/Community/Model/RemindPeople.m; sourceTree = SOURCE_ROOT; };
 		4CDD0DD02147A11600036A0A /* UITabBar+badge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+badge.h"; sourceTree = "<group>"; };
 		4CDD0DD12147A11600036A0A /* UITabBar+badge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+badge.m"; sourceTree = "<group>"; };
 		4CE121CD20C00A6400A44782 /* RankListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RankListViewController.h; sourceTree = "<group>"; };
@@ -2955,15 +2961,10 @@
 				4CF35CB9218C474B0064B1BA /* SelectImagesView.m */,
 				4C30D74121904482008B8E45 /* RemindOthersToReadView.h */,
 				4C30D74221904482008B8E45 /* RemindOthersToReadView.m */,
+				4CDC73EC2191416C0079EB3E /* RemindSelectTableViewCell.h */,
+				4CDC73ED2191416C0079EB3E /* RemindSelectTableViewCell.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		4C5B5B0521804D6F00B52329 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4C5BFD03211AF44000EF82DA /* SoundSource */ = {
@@ -4091,10 +4092,19 @@
 				4C30D744219044AE008B8E45 /* RemindOthersToReadViewController.h */,
 				4C30D745219044AE008B8E45 /* RemindOthersToReadViewController.m */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
-				4C5B5B0521804D6F00B52329 /* Model */,
+				4CDC73F3219149530079EB3E /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
 			);
 			path = Community;
+			sourceTree = "<group>";
+		};
+		4CDC73F3219149530079EB3E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4CDC73EF219147B20079EB3E /* RemindPeople.h */,
+				4CDC73F0219147B20079EB3E /* RemindPeople.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4CDD0DCF2147A0F300036A0A /* UITabbar */ = {
@@ -4783,6 +4793,7 @@
 				4C1FF1D9211C4FB700DA05F4 /* MoveCell.m in Sources */,
 				4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */,
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
+				4CDC73F1219147B20079EB3E /* RemindPeople.m in Sources */,
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,
 				4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */,
@@ -4900,6 +4911,7 @@
 				4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */,
 				4C6E918E213F5F07001535CA /* NSNumber+YYAdd.m in Sources */,
 				4C992F88217717610092DDCF /* UIControl+KWButtonExtension.m in Sources */,
+				4CDC73EE2191416C0079EB3E /* RemindSelectTableViewCell.m in Sources */,
 				4C992FFE217717680092DDCF /* HXDatePhotoToolManager.m in Sources */,
 				4C1DE9FA213D339600350313 /* WKWebViewJavascriptBridge.m in Sources */,
 				4C992FEE217717680092DDCF /* HXDatePhotoViewPresentTransition.m in Sources */,

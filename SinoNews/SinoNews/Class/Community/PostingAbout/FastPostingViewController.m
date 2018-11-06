@@ -12,7 +12,7 @@
 #import "SelectImagesView.h"
 #import "RemindOthersToReadView.h"
 
-@interface FastPostingViewController ()<UITextViewDelegate>
+@interface FastPostingViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) UIScrollView *mainScrollView;
 @property (nonatomic,strong) FSTextView *titleView;
@@ -23,6 +23,9 @@
 @property (nonatomic,strong) UIView *bottomView;    //下方视图
 @property (nonatomic,strong) UIButton *showKeyboard;
 @property (nonatomic,strong) UIButton *publishBtn;
+
+@property (nonatomic,strong) NSMutableArray *attentionArr;
+@property (nonatomic,strong) NSMutableArray *selectedArr;
 @end
 
 @implementation FastPostingViewController
@@ -32,6 +35,36 @@
         _keyboardUtil = [[ZYKeyboardUtil alloc]init];
     }
     return _keyboardUtil;
+}
+
+-(NSMutableArray *)attentionArr
+{
+    if (!_attentionArr) {
+        _attentionArr = [NSMutableArray new];
+        NSArray *nickname = @[
+                              @"李白",
+                              @"床前明月光",
+                              @"疑是地上霜",
+                              @"举头望明月",
+                              @"低头思故乡",
+                              ];
+        for (int i = 0; i < nickname.count; i ++) {
+            RemindPeople *model = [RemindPeople new];
+            model.avatar = @"testAvatar";
+            model.userId = i + 1055;
+            model.nickname = nickname[i];
+            [_attentionArr addObject:model];
+        }
+    }
+    return _attentionArr;
+}
+
+-(NSMutableArray *)selectedArr
+{
+    if (!_selectedArr) {
+        _selectedArr = [NSMutableArray new];
+    }
+    return _selectedArr;
 }
 
 - (void)viewDidLoad {
@@ -227,6 +260,36 @@
     [sVC.cancelButton setBtnFont:PFFontL(14)];
     [sVC.cancelButton setNormalTitleColor:HexColor(#939393)];
     
+    
+    UIButton *confirmBtn = [UIButton new];
+    confirmBtn.backgroundColor = HexColor(#A1C5E5);
+    [confirmBtn setNormalTitleColor:WhiteColor];
+    [confirmBtn setBtnFont:PFFontL(16)];
+    [sVC.view addSubview:confirmBtn];
+    confirmBtn.sd_layout
+    .leftEqualToView(sVC.view)
+    .rightEqualToView(sVC.view)
+    .bottomSpaceToView(sVC.view, BOTTOM_MARGIN)
+    .heightIs(46)
+    ;
+    [confirmBtn setNormalTitle:@"确定"];
+    BaseTableView *tableView2 = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    tableView2.backgroundColor = WhiteColor;
+    tableView2.delegate = self;
+    tableView2.dataSource = self;
+    tableView2.showsVerticalScrollIndicator = NO;
+    tableView2.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    tableView2.separatorColor = CutLineColor;
+    [sVC.view addSubview:tableView2];
+    tableView2.sd_layout
+    .topEqualToView(sVC.view)
+    .leftEqualToView(sVC.view)
+    .rightEqualToView(sVC.view)
+    .bottomSpaceToView(confirmBtn, 0)
+    ;
+    
+    [tableView2 registerClass:[RemindSelectTableViewCell class] forCellReuseIdentifier:RemindSelectTableViewCellID];
+    
     //修改搜索框
     //取出输入框
     UIView *searchTextField = nil;
@@ -373,6 +436,45 @@
     
 }
 
+#pragma mark --- UITableViewDataSource ---
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.attentionArr.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RemindSelectTableViewCell *cell = (RemindSelectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RemindSelectTableViewCellID];
+    cell.model = self.attentionArr[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RemindPeople *model = self.attentionArr[indexPath.row];
+    model.isSelected = !model.isSelected;
+    [tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+}
 
 @end

@@ -8,6 +8,7 @@
 //@其他人一级界面
 
 #import "BaseViewController.h"
+#import "RemindSelectTableViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

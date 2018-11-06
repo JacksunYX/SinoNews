@@ -107,6 +107,12 @@
 
     }
     
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
+        @strongify(self);
+        [self showOrHideLoadView:YES page:1];
+        [self requestChnanel:NO];
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -448,7 +454,12 @@
             
             [self reloadChildVCWithTitles:self.titleList];
         }
-    } failure:nil];
+    } failure:^(NSError *error) {
+        if (compare==NO) {
+            GGLog(@"没有加载出频道，本地也没有保存");
+            [self showOrHideLoadView:NO page:1];
+        }
+    }];
 }
 
 //比对2个频道数组是否不同

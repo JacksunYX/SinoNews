@@ -14,6 +14,8 @@
 //无数据空白
 + (instancetype)noDataEmptyWithImage:(NSString *)imgStr refreshBlock:(void(^)(void))block;
 
++ (instancetype)noDataEmptyWithImage:(NSString *)imgStr title:(NSString *)title refreshBlock:(void(^)(void))block;
+
 //无网络空白
 + (instancetype)noNetEmpty;
 

@@ -33,6 +33,12 @@
     return [MyEmptyView emptyActionViewWithImageStr:imgStr titleStr:@"无数据" detailStr:@"" btnTitleStr:@"重新加载" btnClickBlock:block];
 }
 
+//无数据空白
++ (instancetype)noDataEmptyWithImage:(NSString *)imgStr title:(NSString *)title refreshBlock:(void(^)(void))block
+{
+    return [MyEmptyView emptyActionViewWithImageStr:imgStr titleStr:title detailStr:@"" btnTitleStr:@"重新加载" btnClickBlock:block];
+}
+
 //无网络空白
 + (instancetype)noNetEmpty
 {

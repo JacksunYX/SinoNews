@@ -12,7 +12,7 @@
 #import "SelectImagesView.h"
 #import "RemindOthersToReadView.h"
 
-@interface FastPostingViewController ()<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface FastPostingViewController ()<UITextViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) UIScrollView *mainScrollView;
 @property (nonatomic,strong) FSTextView *titleView;
@@ -24,10 +24,7 @@
 @property (nonatomic,strong) UIButton *showKeyboard;
 @property (nonatomic,strong) UIButton *publishBtn;
 
-@property (nonatomic,strong) NSMutableArray *attentionArr;
-@property (nonatomic,strong) NSMutableArray *selectedArr;
-@property (nonatomic,strong) UIButton *confirmBtn;
-@property (nonatomic,strong) BaseTableView *tableView2;
+
 @end
 
 @implementation FastPostingViewController
@@ -37,36 +34,6 @@
         _keyboardUtil = [[ZYKeyboardUtil alloc]init];
     }
     return _keyboardUtil;
-}
-
--(NSMutableArray *)attentionArr
-{
-    if (!_attentionArr) {
-        _attentionArr = [NSMutableArray new];
-        NSArray *nickname = @[
-                              @"李白",
-                              @"床前明月光",
-                              @"疑是地上霜",
-                              @"举头望明月",
-                              @"低头思故乡",
-                              ];
-        for (int i = 0; i < nickname.count; i ++) {
-            RemindPeople *model = [RemindPeople new];
-            model.avatar = @"testAvatar";
-            model.userId = i + 1055;
-            model.nickname = nickname[i];
-            [_attentionArr addObject:model];
-        }
-    }
-    return _attentionArr;
-}
-
--(NSMutableArray *)selectedArr
-{
-    if (!_selectedArr) {
-        _selectedArr = [NSMutableArray new];
-    }
-    return _selectedArr;
 }
 
 - (void)viewDidLoad {
@@ -251,22 +218,18 @@
 -(void)setRemindPeoples
 {
     RemindOthersToReadViewController *rotrVC = [RemindOthersToReadViewController new];
-    rotrVC.selectedArr = self.remindView.remindArr;
+    
+    rotrVC.selectedArr = self.remindView.remindArr.mutableCopy;
+    
     @weakify(self);
     rotrVC.selectBlock = ^(NSMutableArray * _Nonnull selectArr) {
         GGLog(@"1级页面回调");
         @strongify(self);
-        self.remindView.remindArr = selectArr;
-    };
-    [self.navigationController pushViewController:rotrVC animated:YES];
-}
-
-//确认事件
--(void)confirmAction:(UIButton *)sender
-{
-    if (self.selectedArr.count>0) {
+        self.remindView.remindArr = selectArr.mutableCopy;
         
-    }
+    };
+    
+    [self.navigationController pushViewController:rotrVC animated:YES];
 }
 
 //添加下方视图
@@ -382,61 +345,5 @@
     
 }
 
-#pragma mark --- UITableViewDataSource ---
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.attentionArr.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    RemindSelectTableViewCell *cell = (RemindSelectTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RemindSelectTableViewCellID];
-    cell.model = self.attentionArr[indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 0.01;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0.01;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    RemindPeople *model = self.attentionArr[indexPath.row];
-    model.isSelected = !model.isSelected;
-    if (model.isSelected) {
-        [self.selectedArr addObject:model];
-    }else{
-        [self.selectedArr removeObject:model];
-    }
-    UIColor *backgroundColor;
-    NSString *string = @"确定";
-    if (self.selectedArr.count>0) {
-        string = [string stringByAppendingFormat:@"(%ld)",self.selectedArr.count];
-        backgroundColor = HexColor(#1282EE);
-    }else{
-        backgroundColor = HexColor(#A1C5E5);
-    }
-    [self.confirmBtn setNormalTitle:string];
-    self.confirmBtn.backgroundColor = backgroundColor;
-    
-    [tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
-}
 
 @end

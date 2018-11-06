@@ -65,13 +65,13 @@
     return _searchArr;
 }
 
--(NSMutableArray *)selectedArr
-{
-    if (!_selectedArr) {
-        _selectedArr = [NSMutableArray new];
-    }
-    return _selectedArr;
-}
+//-(NSMutableArray *)selectedArr
+//{
+//    if (!_selectedArr) {
+//        _selectedArr = [NSMutableArray new];
+//    }
+//    return _selectedArr;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -266,10 +266,8 @@
 //确认事件
 -(void)confirmAction:(UIButton *)sender
 {
-    if (self.selectedArr.count>0) {
-        if (self.selectBlock) {
-            self.selectBlock(self.selectedArr);
-        }
+    if (self.selectBlock) {
+        self.selectBlock(self.selectedArr);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

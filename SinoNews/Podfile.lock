@@ -71,7 +71,7 @@ DEPENDENCIES:
   - MJRefresh
   - NSLayoutConstraint-SSLayout
   - ReactiveObjC
-  - RTRootNavigationController
+  - RTRootNavigationController (~> 0.6.7)
   - SDAutoLayout (~> 2.1.3)
   - SDWebImage
   - SDWebImage/GIF
@@ -145,6 +145,6 @@ SPEC CHECKSUMS:
   XXDeviceTool: 7c8d0d190682351c3cb9e10c269897b05a052fcb
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 963cf72a034cd13ebba562df962750ec6b3cea16
+PODFILE CHECKSUM: a14d9c5b9f81d9cb7983f8cd9b3c9f15753b73c8
 
 COCOAPODS: 1.5.3

@@ -89,7 +89,7 @@
 #import <MGSocialShareKit/MGSocialShareKit.h>
 #endif
 
-#import <RTRootNavigationController.h>
+#import "RTRootNavigationController.h"
 //主题修改
 #import <LEETheme.h>
 //导航栏左右按钮间隙调整

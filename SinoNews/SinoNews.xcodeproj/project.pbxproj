@@ -613,6 +613,8 @@
 		4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91E20C8E1A2004550B9 /* NSObject+save.m */; };
 		4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C92220C90B9B004550B9 /* UserModel.m */; };
 		4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */; };
+		4CFB96F02193220F0016924A /* UIViewController+RTRootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96EE2193220E0016924A /* UIViewController+RTRootNavigationController.m */; };
+		4CFB96F12193220F0016924A /* RTRootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96EF2193220E0016924A /* RTRootNavigationController.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -1749,6 +1751,10 @@
 		4CE9C92220C90B9B004550B9 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		4CEA61732117FB3800AAB8B0 /* PubLishChannelSelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubLishChannelSelectVC.h; sourceTree = "<group>"; };
 		4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubLishChannelSelectVC.m; sourceTree = "<group>"; };
+		4CFB96EC2193220E0016924A /* RTRootNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRootNavigationController.h; sourceTree = "<group>"; };
+		4CFB96ED2193220E0016924A /* UIViewController+RTRootNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RTRootNavigationController.h"; sourceTree = "<group>"; };
+		4CFB96EE2193220E0016924A /* UIViewController+RTRootNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RTRootNavigationController.m"; sourceTree = "<group>"; };
+		4CFB96EF2193220E0016924A /* RTRootNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRootNavigationController.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2456,8 +2462,8 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4CFB96EB219322030016924A /* RTRootNavigationController */,
 				4C992F70217717330092DDCF /* WGRichTextEditor */,
-				4C5AC7032160B0F600F9A7F9 /* AutoPacking */,
 				4CB68B6B2154E14400ACE1D6 /* CryptLib */,
 				4C73383621465B0B0001B33F /* YJProgressHUDK */,
 				4C6E90A7213F5F06001535CA /* YYKit */,
@@ -2727,13 +2733,6 @@
 				4C534F2620E1C6E800754695 /* NSString+AttText.m */,
 			);
 			path = NSString;
-			sourceTree = "<group>";
-		};
-		4C5AC7032160B0F600F9A7F9 /* AutoPacking */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AutoPacking;
 			sourceTree = "<group>";
 		};
 		4C5BFD03211AF44000EF82DA /* SoundSource */ = {
@@ -3873,6 +3872,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4CFB96EB219322030016924A /* RTRootNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				4CFB96EC2193220E0016924A /* RTRootNavigationController.h */,
+				4CFB96EF2193220E0016924A /* RTRootNavigationController.m */,
+				4CFB96ED2193220E0016924A /* UIViewController+RTRootNavigationController.h */,
+				4CFB96EE2193220E0016924A /* UIViewController+RTRootNavigationController.m */,
+			);
+			path = RTRootNavigationController;
+			sourceTree = "<group>";
+		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4363,6 +4373,7 @@
 				4C6E9192213F5F07001535CA /* NSThread+YYAdd.m in Sources */,
 				4C21ABD420D34A5100615F20 /* LoginViewController.m in Sources */,
 				4CA1420020F4596000536E77 /* PublishManagerCell.m in Sources */,
+				4CFB96F02193220F0016924A /* UIViewController+RTRootNavigationController.m in Sources */,
 				4C6E91AF213F648E001535CA /* ContentManager.m in Sources */,
 				4C53D1B8215C777500AFC352 /* BandingBankCardViewController.m in Sources */,
 				4C53D1BE215CBE4E00AFC352 /* BankCardViewController.m in Sources */,
@@ -4461,6 +4472,7 @@
 				4C6E919E213F5F07001535CA /* YYAsyncLayer.m in Sources */,
 				4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */,
 				4C6E915A213F5F07001535CA /* YYKVStorage.m in Sources */,
+				4CFB96F12193220F0016924A /* RTRootNavigationController.m in Sources */,
 				4C95FFE020DE1B490040E348 /* LogoutNoticeView.m in Sources */,
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C6E9194213F5F07001535CA /* NSTimer+YYAdd.m in Sources */,

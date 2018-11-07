@@ -186,12 +186,12 @@
     }
 }
 
-//处理选中数组
+//处理选中数组(每次搜索都要比对)
 -(void)processSelectArr
 {
     if (self.type) {
         if (self.selected2Arr.count>0) {
-            //比对搜索结果,如果关键字有类似的需要置顶(每次搜索都要比对)
+            //比对搜索结果,如果关键字有类似的需要置顶
             NSMutableArray *copyArr = [self.searchArr mutableCopy];
             self.stripArr = [self.selected2Arr mutableCopy];
             [self.deselectedArr removeAllObjects];

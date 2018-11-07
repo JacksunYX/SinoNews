@@ -7,6 +7,7 @@
 //
 
 #import "SeniorPostingViewController.h"
+#import "SelectPublishChannelViewController.h"
 
 @interface SeniorPostingViewController ()
 

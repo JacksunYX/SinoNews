@@ -8,6 +8,7 @@
 
 #import "FastPostingViewController.h"
 #import "RemindOthersToReadViewController.h"
+#import "SelectPublishChannelViewController.h"
 
 #import "SelectImagesView.h"
 #import "RemindOthersToReadView.h"
@@ -70,7 +71,8 @@
 
 -(void)publishAction:(UIButton *)sender
 {
-    LRToast(@"发表中...");
+    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
+    [self.navigationController pushViewController:spcVC animated:YES];
 }
 
 -(void)back

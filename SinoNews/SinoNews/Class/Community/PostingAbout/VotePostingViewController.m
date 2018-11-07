@@ -7,6 +7,7 @@
 //
 
 #import "VotePostingViewController.h"
+#import "SelectPublishChannelViewController.h"
 
 @interface VotePostingViewController ()
 

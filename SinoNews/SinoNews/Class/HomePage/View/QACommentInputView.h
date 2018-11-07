@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/7/18.
 //  Copyright © 2018年 Sino. All rights reserved.
 //
-//自定义问答输入框
+//自定义问答输入框(目前用于新闻的评论)
 
 #import <UIKit/UIKit.h>
 

@@ -169,7 +169,15 @@
 //搜索点击
 -(void)searchAction
 {
-    
+    PopReplyViewController *prVC = [PopReplyViewController new];
+    prVC.selectImages = [NSMutableArray new];
+    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
+        GGLog(@"发布回调");
+    };
+    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
+        GGLog(@"取消回调");
+    };
+    [self.navigationController pushViewController:prVC animated:NO];
 }
 
 //关注点击

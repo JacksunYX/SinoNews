@@ -669,6 +669,8 @@
 		4CFB967F2192B97B0016924A /* SelectPublishChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */; };
 		4CFB96822192C7DC0016924A /* ReplyThePostPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96812192C7DC0016924A /* ReplyThePostPopView.m */; };
 		4CFB96862192DAE60016924A /* PopReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96852192DAE60016924A /* PopReplyViewController.m */; };
+		4CFB96F721932C1B0016924A /* UIViewController+RTRootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96F521932C1A0016924A /* UIViewController+RTRootNavigationController.m */; };
+		4CFB96F821932C1B0016924A /* RTRootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96F621932C1A0016924A /* RTRootNavigationController.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -1919,6 +1921,10 @@
 		4CFB96832192CA310016924A /* CommunityHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunityHeader.h; sourceTree = "<group>"; };
 		4CFB96842192DAE60016924A /* PopReplyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopReplyViewController.h; sourceTree = "<group>"; };
 		4CFB96852192DAE60016924A /* PopReplyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopReplyViewController.m; sourceTree = "<group>"; };
+		4CFB96F321932C1A0016924A /* RTRootNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTRootNavigationController.h; sourceTree = "<group>"; };
+		4CFB96F421932C1A0016924A /* UIViewController+RTRootNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RTRootNavigationController.h"; sourceTree = "<group>"; };
+		4CFB96F521932C1A0016924A /* UIViewController+RTRootNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RTRootNavigationController.m"; sourceTree = "<group>"; };
+		4CFB96F621932C1A0016924A /* RTRootNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTRootNavigationController.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2633,12 +2639,12 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4CFB96F221932C0F0016924A /* RTRootNavigationController */,
 				4C4C9586218FF29200627B07 /* TZImagePickerController */,
 				4CF35CB4218BF2C30064B1BA /* FSTextView */,
 				4C7B5DEC21882D8300B76E47 /* TFDropDownMenu */,
 				4CE336F92182C66F0037F9D2 /* KCGradientLabel */,
 				4C992F70217717330092DDCF /* WGRichTextEditor */,
-				4C5AC7032160B0F600F9A7F9 /* AutoPacking */,
 				4CB68B6B2154E14400ACE1D6 /* CryptLib */,
 				4C73383621465B0B0001B33F /* YJProgressHUDK */,
 				4C6E90A7213F5F06001535CA /* YYKit */,
@@ -2944,13 +2950,6 @@
 				4C534F2620E1C6E800754695 /* NSString+AttText.m */,
 			);
 			path = NSString;
-			sourceTree = "<group>";
-		};
-		4C5AC7032160B0F600F9A7F9 /* AutoPacking */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AutoPacking;
 			sourceTree = "<group>";
 		};
 		4C5B5B0421804D6500B52329 /* View */ = {
@@ -4229,6 +4228,17 @@
 			path = FSTextView;
 			sourceTree = "<group>";
 		};
+		4CFB96F221932C0F0016924A /* RTRootNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				4CFB96F321932C1A0016924A /* RTRootNavigationController.h */,
+				4CFB96F621932C1A0016924A /* RTRootNavigationController.m */,
+				4CFB96F421932C1A0016924A /* UIViewController+RTRootNavigationController.h */,
+				4CFB96F521932C1A0016924A /* UIViewController+RTRootNavigationController.m */,
+			);
+			path = RTRootNavigationController;
+			sourceTree = "<group>";
+		};
 		AD2679BAFEEEFCD841C6B2C5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4811,6 +4821,7 @@
 				4C3CB3C7213D0E8700E48A97 /* HZWaitingView.m in Sources */,
 				4C992FDB217717680092DDCF /* HXPhotoConfiguration.m in Sources */,
 				4C992FE0217717680092DDCF /* HXCollectionView.m in Sources */,
+				4CFB96F721932C1B0016924A /* UIViewController+RTRootNavigationController.m in Sources */,
 				4C4ED9EB20E39B3400347974 /* UIViewController+emptyView.m in Sources */,
 				4C54949620CE263B00CB448E /* AttentionRecommendModel.m in Sources */,
 				4C17414520C5168600AA6D57 /* TXDynamicDelegate.m in Sources */,
@@ -4958,6 +4969,7 @@
 				4C510B62211049BB00706185 /* NSDictionary+Extension.m in Sources */,
 				4C53D1C9215E18DC00AFC352 /* UserAlipayModel.m in Sources */,
 				4C992FDD217717680092DDCF /* HXPhoto3DTouchViewController.m in Sources */,
+				4CFB96F821932C1B0016924A /* RTRootNavigationController.m in Sources */,
 				4C95FFED20DE4C7A0040E348 /* WSDatePickerView.m in Sources */,
 				4C72347F20FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m in Sources */,
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,

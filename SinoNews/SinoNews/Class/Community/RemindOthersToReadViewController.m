@@ -15,6 +15,10 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 //搜索用户数据数组
 @property (nonatomic,strong) NSMutableArray *searchArr;
+//2级界面中，用1级界面中的选中数组减去当前搜索结果中选中@用户后的剩余选中@用户
+@property (nonatomic,strong) NSMutableArray *stripArr;
+//保存原本在1级界面选中，而在2级界面中取消选中的@用户
+@property (nonatomic,strong) NSMutableArray *deselectedArr;
 @property (nonatomic,assign) NSInteger page;
 @property (nonatomic,strong) UIButton *confirmBtn;
 @end
@@ -53,6 +57,10 @@
                               @"低头思故乡",
                               @"可恶啊",
                               @"去年买包超耐磨",
+                              @"S8冠军属于LPL！",
+                              @"明年加油哦",
+                              @"以后没时间追剧了",
+                              @"最后一次",
                               ];
         for (int i = 0; i < nickname.count; i ++) {
             RemindPeople *model = [RemindPeople new];
@@ -65,13 +73,29 @@
     return _searchArr;
 }
 
-//-(NSMutableArray *)selectedArr
-//{
-//    if (!_selectedArr) {
-//        _selectedArr = [NSMutableArray new];
-//    }
-//    return _selectedArr;
-//}
+-(NSMutableArray *)selectedArr
+{
+    if (!_selectedArr) {
+        _selectedArr = [NSMutableArray new];
+    }
+    return _selectedArr;
+}
+
+-(NSMutableArray *)stripArr
+{
+    if (!_stripArr) {
+        _stripArr = [NSMutableArray new];
+    }
+    return _stripArr;
+}
+
+-(NSMutableArray *)deselectedArr
+{
+    if (!_deselectedArr) {
+        _deselectedArr = [NSMutableArray new];
+    }
+    return _deselectedArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -116,6 +140,7 @@
     .heightIs(30)
     ;
     self.searchField.sd_cornerRadius = @4;
+    self.searchField.placeholder = @"搜索你想@的人";
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 20)];
     UIImageView *searchIcon = [[UIImageView alloc]initWithImage:UIImageNamed(@"leftSearch_icon")];
     [leftView addSubview:searchIcon];
@@ -166,8 +191,10 @@
 {
     if (self.type) {
         if (self.selected2Arr.count>0) {
-            //比对搜索结果,如果关键字有类似的需要置顶
+            //比对搜索结果,如果关键字有类似的需要置顶(每次搜索都要比对)
             NSMutableArray *copyArr = [self.searchArr mutableCopy];
+            self.stripArr = [self.selected2Arr mutableCopy];
+            [self.deselectedArr removeAllObjects];
             for (int i = 0; i < copyArr.count; i++) {
                 RemindPeople *model = copyArr[i];
                 for (RemindPeople *model2 in self.selected2Arr) {
@@ -178,6 +205,7 @@
                     }
                 }
             }
+            [self setConfirmBtnShowStatus];
         }
     }else{
         if (self.selectedArr.count>0) {
@@ -188,6 +216,7 @@
                 //从其他界面进入1级界面
                 //有一种特殊情况，就是保存的草稿里有@某个人，但是后来取消了对这个人的关注，然后用户又对这篇草稿继续编辑，进入@选择界面
                 NSMutableArray *copyArr = [self.selectedArr mutableCopy];
+                
                 for (int i = 0; i < copyArr.count; i++) {
                     RemindPeople *model = copyArr[i];
                     //遍历原有数组
@@ -223,10 +252,17 @@
     [self.selectedArr addObject:model];
     [arr removeObjectAtIndex:index];
     [arr insertObject:model atIndex:0];
+    //从数组中剥离这个数据,最后保存的就是当前2级界面没有展示出的并且也是选中的@用户的数据
+    for (RemindPeople *removeModel in self.stripArr) {
+        if (removeModel.userId == model.userId) {
+            [self.stripArr removeObject:removeModel];
+            break;
+        }
+    }
 }
 
 //处理从2级界面传递过来的选中数组
--(void)processSecondSelectArr:(NSMutableArray *)selectArr
+-(void)processSecondSelectArr:(NSMutableArray *)selectArr deSelectArr:(NSMutableArray *)deselectArr
 {
     if (selectArr.count>0) {
         NSMutableArray *copyArr = [selectArr mutableCopy];
@@ -253,9 +289,34 @@
             [self.dataSource addObjectsFromArray:selectArr];
             [self.selectedArr addObjectsFromArray:selectArr];
         }
-        [self setConfirmBtnShowStatus];
-        [self.tableView reloadData];
     }
+    if (deselectArr.count>0) {
+        NSMutableArray *copyArr = [deselectArr mutableCopy];
+        for (int i = 0; i < copyArr.count; i++) {
+            RemindPeople *model = copyArr[i];
+            //遍历原有数组
+            for (RemindPeople *model2 in self.dataSource) {
+                //如果回调的数组中有当前界面的
+                if (model2.userId == model.userId) {
+                    //如果当前有这条数据，置为未选中
+                    if (model2.isSelected) {
+                        //置为选中
+                        model2.isSelected = NO;
+                        //如果选中数组中有这个数据，需要清除
+                        for (RemindPeople *selectModel in self.selectedArr) {
+                            if (selectModel.userId == model2.userId) {
+                                [self.selectedArr removeObject:selectModel];
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    [self setConfirmBtnShowStatus];
+    [self.tableView reloadData];
 }
 
 -(void)back
@@ -266,9 +327,14 @@
 //确认事件
 -(void)confirmAction:(UIButton *)sender
 {
-    if (self.selectBlock) {
-        self.selectBlock(self.selectedArr);
+    if (self.type&&self.select2Block) {
+        self.select2Block(self.selectedArr, self.deselectedArr);
+    }else{
+        if (self.selectBlock) {
+            self.selectBlock(self.selectedArr);
+        }
     }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -339,8 +405,27 @@
     }
     
     model.isSelected = !model.isSelected;
+    //余数
+    NSInteger remainder = 10 - self.stripArr.count;
     if (model.isSelected) {
+        if (self.selectedArr.count>=10) {
+            model.isSelected = NO;
+            LRToast(@"@总人数不可超过10个哟");
+            return;
+        }else if (self.selectedArr.count>=remainder){
+            model.isSelected = NO;
+            NSString *notice = [NSString stringWithFormat:@"本次搜索@人数不能超过个%ld哦",remainder];
+            LRToast(notice);
+            return;
+        }
         [self.selectedArr addObject:model];
+        //查看是否需要从取消选中数组中移除
+        for (RemindPeople *selectModel in self.deselectedArr) {
+            if (model.userId == selectModel.userId) {
+                [self.deselectedArr removeObject:selectModel];
+                break;
+            }
+        }
     }else{
         //找到相同id的移除
         for (RemindPeople *removeModel in self.selectedArr) {
@@ -349,11 +434,18 @@
                 break;
             }
         }
+        //查看是否需要加入取消选中数组
+        for (RemindPeople *selectModel in self.selected2Arr) {
+            if (model.userId == selectModel.userId) {
+                [self.deselectedArr addObject:selectModel];
+                break;
+            }
+        }
     }
     
     [self setConfirmBtnShowStatus];
-    
-    [tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+    [tableView reloadData];
+//    [tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark --- UITextFieldDelegate ---
@@ -369,12 +461,12 @@
                 RemindOthersToReadViewController *rotrVC = [RemindOthersToReadViewController new];
                 rotrVC.type = 1;
                 rotrVC.keyword = self.searchField.text;
-                rotrVC.selected2Arr = self.selectedArr;
+                rotrVC.selected2Arr = self.selectedArr.mutableCopy;
                 @weakify(self);
-                rotrVC.selectBlock = ^(NSMutableArray * _Nonnull selectArr) {
-                    GGLog(@"2级页面回调");
+                rotrVC.select2Block = ^(NSMutableArray * _Nonnull selectArr, NSMutableArray * _Nonnull deselectArr) {
+//                    GGLog(@"2级页面回调selectArr:%@\ndeselectArr:%@",selectArr,deselectArr);
                     @strongify(self);
-                    [self processSecondSelectArr:selectArr];
+                    [self processSecondSelectArr:selectArr deSelectArr:deselectArr];
                 };
                 [self.navigationController pushViewController:rotrVC animated:YES];
             }else{

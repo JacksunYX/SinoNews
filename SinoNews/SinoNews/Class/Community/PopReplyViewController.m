@@ -45,7 +45,7 @@ static CGFloat animationTime = 0.25;
     self.view.backgroundColor = ClearColor;
     
     //下方视图
-    CGFloat bottomViewHeight = 225 + BOTTOM_MARGIN;
+    CGFloat bottomViewHeight = (225 + BOTTOM_MARGIN);
     
     _bottomView = [UIView new];
     _bottomView.backgroundColor = WhiteColor;
@@ -53,26 +53,15 @@ static CGFloat animationTime = 0.25;
     [self.view addSubview:_bottomView];
     
     _bottomView.sd_layout
+    .topSpaceToView(self.view, ScreenH)
     .leftEqualToView(self.view)
     .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, -bottomViewHeight)
     .heightIs(bottomViewHeight)
     ;
     [_bottomView updateLayout];
-//    _bottomView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame), ScreenW, bottomViewHeight);
+
     //只为上部分添加圆角
     [_bottomView cornerWithRadius:8 direction:CornerDirectionTypeTop];
-    
-    [UIView animateWithDuration:animationTime animations:^{
-        self.view.backgroundColor = BlackColor;
-//        self.bottomView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - bottomViewHeight, ScreenW, bottomViewHeight);
-        self.bottomView.sd_resetLayout
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .heightIs(bottomViewHeight)
-        .bottomEqualToView(self.view)
-        ;
-    }];
     
     //添加图片视图
     [self setShowSelectImagesView];
@@ -223,42 +212,10 @@ static CGFloat animationTime = 0.25;
     };
     
     //取消
-    [_cancelBtn whenTap:^{
-        @strongify(self);
-        if (self.cancelBlock) {
-            self.cancelBlock(@{});
-        }
-        [UIView animateWithDuration:animationTime animations:^{
-            self.view.backgroundColor = ClearColor;
-            self.bottomView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame), ScreenW, bottomViewHeight);
-        } completion:^(BOOL finished) {
-            [self.navigationController popViewControllerAnimated:NO];
-        }];
-    }];
+    [_cancelBtn addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //发布
-    [[_sendBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        @strongify(self);
-        
-        if ([NSString isEmpty:self.textView.text]) {
-            return ;
-        }
-        if (self.finishBlock) {
-            self.finishBlock(@{});
-        }
-        
-        [UIView animateWithDuration:animationTime animations:^{
-            self.view.backgroundColor = ClearColor;
-            self.bottomView.sd_layout
-            .leftEqualToView(self.view)
-            .rightEqualToView(self.view)
-            .bottomSpaceToView(self.view, -bottomViewHeight)
-            .heightIs(bottomViewHeight)
-            ;
-        } completion:^(BOOL finished) {
-            [self.navigationController popViewControllerAnimated:NO];
-        }];
-    }];
+    [_sendBtn addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
     
     //下方功能按钮点击事件
     [_emojiKeyboard whenTap:^{
@@ -273,22 +230,17 @@ static CGFloat animationTime = 0.25;
         [self showOrHideKeyboard];
     }];
     
-    //添加监听
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillShowNotification object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self);
-        NSDictionary *info = x.userInfo;
-        CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-        
-        [UIView animateWithDuration:animationTime animations:^{
-            self.bottomView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - keyboardSize.height - bottomViewHeight , ScreenW, bottomViewHeight);
-        }];
+    [UIView animateWithDuration:animationTime animations:^{
+        self.view.backgroundColor = BlackColor;
+        self.bottomView.sd_layout
+        .bottomEqualToView(self.view)
+        ;
+        [self.bottomView updateLayout];
     }];
-    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardWillHideNotification object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        @strongify(self);
-        [UIView animateWithDuration:animationTime animations:^{
-            self.bottomView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - bottomViewHeight, ScreenW, bottomViewHeight);
-        }];
-    }];
+    
+    //监听键盘通知
+    [kNotificationCenter addObserver:self selector:@selector(keyboardWillShowChangeFrameNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [kNotificationCenter addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 //设置选择的图片视图
@@ -375,6 +327,74 @@ static CGFloat animationTime = 0.25;
     }else{
         [self.textView resignFirstResponder];
     }
+}
+
+-(void)cancelAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:animationTime animations:^{
+        self.view.backgroundColor = ClearColor;
+        self.bottomView.sd_layout
+        .bottomSpaceToView(self.view, -self.bottomView.height)
+        ;
+        [self.bottomView updateLayout];
+    } completion:^(BOOL finished) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }];
+}
+
+-(void)sendAction:(UIButton *)sender
+{
+    if ([NSString isEmpty:self.textView.text]) {
+        return ;
+    }
+    if (self.finishBlock) {
+        self.finishBlock(@{});
+    }
+    
+    [UIView animateWithDuration:animationTime animations:^{
+        self.view.backgroundColor = ClearColor;
+        self.bottomView.sd_layout
+        .bottomSpaceToView(self.view, -self.bottomView.height)
+        ;
+        [self.bottomView updateLayout];
+    } completion:^(BOOL finished) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }];
+}
+
+-(void)keyboardWillShowChangeFrameNotification:(NSNotification *)note{
+    
+    //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    //计算控制器的view需要平移的距离
+    CGFloat transformY = keyboardFrame.size.height;
+    
+    //执行动画
+    [UIView animateWithDuration:duration animations:^{
+        //平移
+        self.bottomView.sd_layout
+        .bottomSpaceToView(self.view, transformY)
+        ;
+        [self.bottomView updateLayout];
+    }];
+}
+
+-(void)keyboardWillHideChangeFrameNotification:(NSNotification *)note{
+    
+    //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    //执行动画
+    [UIView animateWithDuration:duration animations:^{
+        self.bottomView.sd_layout
+        .bottomSpaceToView(self.view, 0)
+        ;
+        [self.bottomView updateLayout];
+        
+    }];
 }
 
 #pragma mark --- TZImagePickerControllerDelegate ---

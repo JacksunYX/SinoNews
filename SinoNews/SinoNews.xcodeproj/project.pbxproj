@@ -666,6 +666,7 @@
 		4CF35CB7218BF2C40064B1BA /* FSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB6218BF2C30064B1BA /* FSTextView.m */; };
 		4CF35CBA218C474B0064B1BA /* SelectImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB9218C474B0064B1BA /* SelectImagesView.m */; };
 		4CFB967C219292F00016924A /* SelectPublishChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */; };
+		4CFB967F2192B97B0016924A /* SelectPublishChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */; };
 		61D71A244548924A9C8EE6FF /* libPods-SinoNews.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */; };
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
@@ -1909,6 +1910,8 @@
 		4CF35CB9218C474B0064B1BA /* SelectImagesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectImagesView.m; sourceTree = "<group>"; };
 		4CFB967A219292F00016924A /* SelectPublishChannelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPublishChannelViewController.h; sourceTree = "<group>"; };
 		4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPublishChannelViewController.m; sourceTree = "<group>"; };
+		4CFB967D2192B97B0016924A /* SelectPublishChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPublishChannelCell.h; sourceTree = "<group>"; };
+		4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPublishChannelCell.m; sourceTree = "<group>"; };
 		77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C67A7916C77F66D5F17746EB /* Pods-SinoNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2966,6 +2969,8 @@
 				4C30D74221904482008B8E45 /* RemindOthersToReadView.m */,
 				4CDC73EC2191416C0079EB3E /* RemindSelectTableViewCell.h */,
 				4CDC73ED2191416C0079EB3E /* RemindSelectTableViewCell.m */,
+				4CFB967D2192B97B0016924A /* SelectPublishChannelCell.h */,
+				4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4666,6 +4671,7 @@
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
 				4CB68B6A2154DE3300ACE1D6 /* SharePopCopyView.m in Sources */,
+				4CFB967F2192B97B0016924A /* SelectPublishChannelCell.m in Sources */,
 				4C4EC3052112E3E800591F12 /* ZXYShineAngleLayer.m in Sources */,
 				4C7234DD20FDEB1D00D5C5D4 /* AAColumn.m in Sources */,
 				4C7EF37F21212A0B0002166A /* HRBrightnessCursor.m in Sources */,

@@ -43,7 +43,7 @@ NSString *const ForumLeftTableViewCellID = @"ForumLeftTableViewCell";
 //修改选中时的背景
 -(void)addSelectedBackgroundView
 {
-    self.backgroundColor = HexColor(#F3F5F4);
+    
     UIView *backgroundViews = [[UIView alloc]initWithFrame:self.frame];
     backgroundViews.backgroundColor = WhiteColor;
     UIView *line = [UIView new];
@@ -61,6 +61,7 @@ NSString *const ForumLeftTableViewCellID = @"ForumLeftTableViewCell";
 
 -(void)setUI
 {
+    self.backgroundColor = HexColor(#F3F5F4);
     title = [UILabel new];
     title.textColor = HexColor(#161A24);
     title.font = PFFontL(14);

@@ -9,6 +9,7 @@
 #import "SelectPublishChannelViewController.h"
 
 #import "ForumLeftTableViewCell.h"
+#import "SelectPublishChannelCell.h"
 
 @interface SelectPublishChannelViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -61,6 +62,11 @@
     [super viewDidLoad];
     [self addNavigationView];
     [self setUI];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 //修改导航栏显示
@@ -102,8 +108,6 @@
     ;
     [_leftTable updateLayout];
     [_leftTable registerClass:[ForumLeftTableViewCell class] forCellReuseIdentifier:ForumLeftTableViewCellID];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     
     _centerTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _centerTable.backgroundColor = WhiteColor;
@@ -119,7 +123,7 @@
     .widthIs(avgW)
     ;
     [_centerTable updateLayout];
-    [_centerTable registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [_centerTable registerClass:[SelectPublishChannelCell class] forCellReuseIdentifier:SelectPublishChannelCellID];
     
     _rightTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _rightTable.backgroundColor = WhiteColor;
@@ -135,7 +139,7 @@
     .widthIs(avgW)
     ;
     [_rightTable updateLayout];
-    [_rightTable registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [_rightTable registerClass:[SelectPublishChannelCell class] forCellReuseIdentifier:SelectPublishChannelCellID];
     
 }
 
@@ -166,23 +170,24 @@
 {
     UITableViewCell *cell;
     if (tableView == _leftTable) {
-        ForumLeftTableViewCell *cell1 = (ForumLeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumLeftTableViewCellID];
+        ForumLeftTableViewCell *cell0 = (ForumLeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumLeftTableViewCellID];
         NSMutableArray *arr1 = self.dataSource[0];
         NSString *title = arr1[indexPath.row];
-        [cell1 setTitle:title];
-        cell = cell1;
+        [cell0 setTitle:title];
+        cell = cell0;
     }else if (tableView == _centerTable) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        cell.textLabel.highlighted = HexColor(#1282EE);
+        SelectPublishChannelCell *cell1 = (SelectPublishChannelCell *)[tableView dequeueReusableCellWithIdentifier:SelectPublishChannelCellID];
+        cell1.type = 1;
         NSMutableArray *arr2 = self.dataSource[1];
         NSString *title = arr2[indexPath.row];
-        cell.textLabel.text = title;
+        [cell1 setTitle:title];
+        cell = cell1;
     }else if (tableView == _rightTable) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        cell.textLabel.highlighted = HexColor(#1282EE);
+        SelectPublishChannelCell *cell2 = (SelectPublishChannelCell *)[tableView dequeueReusableCellWithIdentifier:SelectPublishChannelCellID];
         NSMutableArray *arr3 = self.dataSource[2];
         NSString *title = arr3[indexPath.row];
-        cell.textLabel.text = title;
+        [cell2 setTitle:title];
+        cell = cell2;
     }
     
     return cell;
@@ -190,10 +195,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _leftTable) {
-        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:_leftTable.frame.size.width tableView:tableView];
-    }
-    return 50;
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:_leftTable.frame.size.width tableView:tableView];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -208,6 +210,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (tableView == _leftTable) {
         if (self.leftSelectedIndex == indexPath.row) {
             return;
@@ -216,6 +219,9 @@
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }else if (tableView == _centerTable){NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
 }

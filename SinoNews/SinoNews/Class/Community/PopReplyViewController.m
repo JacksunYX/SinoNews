@@ -22,10 +22,19 @@
 //顶部选择的图片
 @property (nonatomic,strong) UIView *headImages;
 @property (nonatomic,strong) UIImageView *imageArrow;   //白色箭头
+
+@property (nonatomic,strong) NSMutableArray *selectImages;
 @end
 
 @implementation PopReplyViewController
 static CGFloat animationTime = 0.25;
+-(NSMutableArray *)selectImages
+{
+    if (!_selectImages) {
+        _selectImages = [NSMutableArray new];
+    }
+    return _selectImages;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,9 +44,12 @@ static CGFloat animationTime = 0.25;
     [self setUI];
 }
 
--(void)setSelectImages:(NSMutableArray *)selectImages
+-(void)setInputData:(NSMutableDictionary *)inputData
 {
-    _selectImages = selectImages;
+    _inputData = inputData;
+    if (inputData) {
+        [self.selectImages addObjectsFromArray:inputData[@"images"]];
+    }
 }
 
 -(void)setUI
@@ -63,8 +75,7 @@ static CGFloat animationTime = 0.25;
     //只为上部分添加圆角
     [_bottomView cornerWithRadius:8 direction:CornerDirectionTypeTop];
     
-    //添加图片视图
-    [self setShowSelectImagesView];
+    
     
     //添加输入框和其他控件
     _textView = [JHTextView new];
@@ -238,9 +249,14 @@ static CGFloat animationTime = 0.25;
         [self.bottomView updateLayout];
     }];
     
+    //添加图片视图
+    [self setShowSelectImagesView];
+    
     //监听键盘通知
     [kNotificationCenter addObserver:self selector:@selector(keyboardWillShowChangeFrameNotification:) name:UIKeyboardWillShowNotification object:nil];
     [kNotificationCenter addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
 }
 
 //设置选择的图片视图
@@ -284,15 +300,31 @@ static CGFloat animationTime = 0.25;
         for (int i = 0; i < self.selectImages.count; i ++) {
             
             UIImageView *imageView = [UIImageView new];
-            imageView.backgroundColor = Arc4randomColor;
-            imageView.tag = 10089 + i;
-            [self.headImages addSubview:imageView];
+//            imageView.backgroundColor = Arc4randomColor;
+//            imageView.tag = 10089 + i;
+            UIButton *deleteBtn = [UIButton new];
+            deleteBtn.tag = 10089 + i;
+            
+            [self.headImages sd_addSubviews:@[
+                                              imageView,
+                                              deleteBtn,
+                                              ]];
             imageView.sd_layout
             .topSpaceToView(self.headImages, 6)
             .leftSpaceToView(lastView, avgSpaceX)
             .widthIs(avgW)
             .heightIs(avgH)
             ;
+            imageView.image = self.selectImages[i];
+            
+            deleteBtn.sd_layout
+            .rightEqualToView(imageView)
+            .topEqualToView(imageView)
+            .widthIs(16)
+            .heightEqualToWidth()
+            ;
+            [deleteBtn setNormalImage:UIImageNamed(@"deleteImage_icon")];
+            [deleteBtn addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
             
             lastView = imageView;
         }
@@ -304,6 +336,15 @@ static CGFloat animationTime = 0.25;
     }
 }
 
+//删除图片
+-(void)deleteAction:(UIButton *)sender
+{
+    NSInteger index = sender.tag - 10089;
+    //移除指定下标的图片，并重新生成界面
+    [self.selectImages removeObjectAtIndex:index];
+    [self setShowSelectImagesView];
+}
+
 //弹出选择图片
 -(void)popToSelectImages
 {
@@ -311,7 +352,8 @@ static CGFloat animationTime = 0.25;
         LRToast(@"最多只能选择三张照片");
         return;
     }
-    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:(3 - self.selectImages.count) delegate:self];
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:0 delegate:self];
+    imagePicker.maxImagesCount = 3 - self.selectImages.count;
     imagePicker.sortAscendingByModificationDate = NO;
     imagePicker.allowPickingVideo = NO;
     [[HttpRequest currentViewController] presentViewController:imagePicker animated:YES completion:nil];
@@ -329,8 +371,19 @@ static CGFloat animationTime = 0.25;
     }
 }
 
--(void)cancelAction:(UIButton *)sender
+//发布点击
+-(void)sendAction:(UIButton *)sender
 {
+    if ([NSString isEmpty:self.textView.text]) {
+        return ;
+    }
+    if (self.finishBlock) {
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        data[@"images"] = self.selectImages;
+        data[@"text"] = self.textView.text;
+        self.finishBlock(data);
+    }
+    
     [UIView animateWithDuration:animationTime animations:^{
         self.view.backgroundColor = ClearColor;
         self.bottomView.sd_layout
@@ -342,15 +395,15 @@ static CGFloat animationTime = 0.25;
     }];
 }
 
--(void)sendAction:(UIButton *)sender
+//取消点击
+-(void)cancelAction:(UIButton *)sender
 {
-    if ([NSString isEmpty:self.textView.text]) {
-        return ;
+    if (self.cancelBlock) {
+        NSMutableDictionary *data = [NSMutableDictionary new];
+        data[@"images"] = self.selectImages;
+        data[@"text"] = self.textView.text;
+        self.cancelBlock(data);
     }
-    if (self.finishBlock) {
-        self.finishBlock(@{});
-    }
-    
     [UIView animateWithDuration:animationTime animations:^{
         self.view.backgroundColor = ClearColor;
         self.bottomView.sd_layout

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) void(^finishBlock)(NSDictionary *inputData);
 @property (nonatomic ,copy) void(^cancelBlock)(NSDictionary *cancelData);
 
-@property (nonatomic,strong) NSMutableArray *selectImages;
+@property (nonatomic,strong) NSMutableDictionary *inputData;
 @end
 
 NS_ASSUME_NONNULL_END

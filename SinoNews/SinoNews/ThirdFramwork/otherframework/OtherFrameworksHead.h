@@ -67,4 +67,6 @@
 
 #import "TZImagePickerController.h"
 
+#import "WTEEmotIconHead.h"
+
 #endif /* OtherFrameworksHead_h */

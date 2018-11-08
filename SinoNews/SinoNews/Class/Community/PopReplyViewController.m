@@ -8,13 +8,13 @@
 
 #import "PopReplyViewController.h"
 
-@interface PopReplyViewController ()<TZImagePickerControllerDelegate>
+@interface PopReplyViewController ()<TZImagePickerControllerDelegate,YYTextViewDelegate,EmotionKeyBoardDelegate>
 @property (nonatomic,strong) UIView *bottomView;
 //上方功能按钮
 @property (nonatomic,strong) UIButton *cancelBtn;
 @property (nonatomic,strong) UIButton *sendBtn;
 //输入框
-@property (nonatomic,strong) JHTextView *textView;
+@property (nonatomic,strong) YYTextView *textView;
 //下方功能按钮
 @property (nonatomic,strong) UIButton *emojiKeyboard;
 @property (nonatomic,strong) UIButton *addImage;
@@ -24,6 +24,9 @@
 @property (nonatomic,strong) UIImageView *imageArrow;   //白色箭头
 
 @property (nonatomic,strong) NSMutableArray *selectImages;
+
+//emoji键盘
+@property (nonatomic,strong) WTEmoticonInputView *emoticonInputView;
 @end
 
 @implementation PopReplyViewController
@@ -34,6 +37,15 @@ static CGFloat animationTime = 0.25;
         _selectImages = [NSMutableArray new];
     }
     return _selectImages;
+}
+
+-(WTEmoticonInputView *)emoticonInputView
+{
+    if (!_emoticonInputView) {
+        _emoticonInputView = [[WTEmoticonInputView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kKeyBoardH)];
+        _emoticonInputView.delegate = self;
+    }
+    return _emoticonInputView;
 }
 
 - (void)viewDidLoad {
@@ -75,18 +87,29 @@ static CGFloat animationTime = 0.25;
     //只为上部分添加圆角
     [_bottomView cornerWithRadius:8 direction:CornerDirectionTypeTop];
     
-    
-    
     //添加输入框和其他控件
-    _textView = [JHTextView new];
-    _textView.limitLength = 200;
+    _textView = [YYTextView new];
     _textView.font = PFFontL(16);
-    _textView.placeholderLabel.font = PFFontL(16);
+    _textView.delegate = self;
+    _textView.placeholderText = @"写点什么吧(最少10个字符)";
     [_textView addBakcgroundColorTheme];
     if (UserGetBool(@"NightMode")) {
         _textView.textColor = HexColor(#cfd3d6);
     }
-    _textView.placeholder = @"写点什么吧(最少10个字符)";
+    //设置本地表情识别
+    NSMutableDictionary *mapper = [NSMutableDictionary new];
+    for (int i = 0; i < [WTUtils getEmoticonData].allKeys.count; i ++) {
+        NSString *valueString = [NSString stringWithFormat:@"%.0f", ((CGFloat)i)];
+        YYImage *image = [YYImage imageNamed:[NSString stringWithFormat:@"smiley_%@", valueString]];
+        image.preloadAllAnimatedImageFrames = YES;
+        [mapper setObject:image
+                   forKey:[[WTUtils getEmoticonData] allKeysForObject:valueString][0]];
+    }
+    
+    YYTextSimpleEmoticonParser *parser = [YYTextSimpleEmoticonParser new];
+    parser.emoticonMapper = mapper;
+    
+    _textView.textParser = parser;
     
     _cancelBtn = [UIButton new];
     _sendBtn = [UIButton new];
@@ -181,7 +204,7 @@ static CGFloat animationTime = 0.25;
     .heightEqualToWidth()
     ;
     [_emojiKeyboard setNormalImage:UIImageNamed(@"emojiKeyBoard_icon")];
-    [_emojiKeyboard setSelectedImage:UIImageNamed(@"showKeyboard_icon")];
+    [_emojiKeyboard setSelectedImage:UIImageNamed(@"systemKeyboard_icon")];
     
     _addImage.sd_layout
     .leftSpaceToView(_emojiKeyboard, 30)
@@ -194,33 +217,11 @@ static CGFloat animationTime = 0.25;
     _showKeyboard.sd_layout
     .rightSpaceToView(fuctionView, 15)
     .centerYEqualToView(fuctionView)
-    .widthIs(23)
-    .heightIs(19)
+    .widthIs(26)
+    .heightIs(24)
     ;
     [_showKeyboard setNormalImage:UIImageNamed(@"showKeyboard_icon")];
     [_showKeyboard setSelectedImage:UIImageNamed(@"hiddenKeyboard_icon")];
-    
-    @weakify(self)
-    //监听textfield的输入状态
-    _textView.textViewDidChangeBlock = ^(UITextView *textView) {
-        @strongify(self);
-        self.sendBtn.enabled = NO;
-        if (textView.text.length>9) {
-            self.sendBtn.enabled = YES;
-            [self.sendBtn setNormalTitleColor:HexColor(#1282EE)];
-        }else{
-            [self.sendBtn setNormalTitleColor:HexColor(#989898)];
-        }
-    };
-    
-    _textView.textViewDidBeginEditingBlock = ^(UITextView *textView) {
-        @strongify(self);
-        self.showKeyboard.selected = YES;
-    };
-    _textView.textViewDidEndEditingBlock = ^(UITextView *textView) {
-        @strongify(self);
-        self.showKeyboard.selected = NO;
-    };
     
     //取消
     [_cancelBtn addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -228,9 +229,11 @@ static CGFloat animationTime = 0.25;
     //发布
     [_sendBtn addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
     
+    @weakify(self)
     //下方功能按钮点击事件
     [_emojiKeyboard whenTap:^{
-        GGLog(@"点击了表情按钮");
+        @strongify(self);
+        [self changeKeyboardType];
     }];
     [_addImage whenTap:^{
         @strongify(self);
@@ -360,6 +363,7 @@ static CGFloat animationTime = 0.25;
     
 }
 
+//显隐键盘
 -(void)showOrHideKeyboard
 {
     self.showKeyboard.selected = !self.showKeyboard.selected;
@@ -368,6 +372,24 @@ static CGFloat animationTime = 0.25;
         [self.textView becomeFirstResponder];
     }else{
         [self.textView resignFirstResponder];
+    }
+}
+
+//切换emoji键盘或系统键盘
+-(void)changeKeyboardType
+{
+    self.emojiKeyboard.selected = !self.emojiKeyboard.selected;
+    if (self.emojiKeyboard.selected) {
+        //替换emoji键盘
+        self.textView.inputView = self.emoticonInputView;
+    }else{
+        //换回系统键盘
+        self.textView.inputView = nil;
+    }
+    [self.textView reloadInputViews];
+    
+    if (!self.textView.isFirstResponder) {
+        [self.textView becomeFirstResponder];
     }
 }
 
@@ -415,6 +437,7 @@ static CGFloat animationTime = 0.25;
     }];
 }
 
+//键盘监听
 -(void)keyboardWillShowChangeFrameNotification:(NSNotification *)note{
     
     //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
@@ -455,6 +478,40 @@ static CGFloat animationTime = 0.25;
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
     [self.selectImages addObjectsFromArray:photos];
     [self setShowSelectImagesView];
+}
+
+#pragma mark --- EmotionKeyBoardDelegate ---
+- (void)clickEmotionName:(NSString *)name
+{
+    NSString *emotionString = [[WTUtils getEmoticonData] allKeysForObject:name][0];
+    [_textView replaceRange:_textView.selectedTextRange withText:emotionString];
+}
+
+- (void)clickDelete
+{
+    [self.textView deleteBackward];
+}
+
+#pragma mark --- YYTextViewDelegate ---
+- (void)textViewDidBeginEditing:(YYTextView *)textView
+{
+    self.showKeyboard.selected = YES;
+}
+
+- (void)textViewDidEndEditing:(YYTextView *)textView
+{
+    self.showKeyboard.selected = NO;
+}
+
+- (void)textViewDidChange:(YYTextView *)textView
+{
+    self.sendBtn.enabled = NO;
+    if (textView.text.length>9) {
+        self.sendBtn.enabled = YES;
+        [self.sendBtn setNormalTitleColor:HexColor(#1282EE)];
+    }else{
+        [self.sendBtn setNormalTitleColor:HexColor(#989898)];
+    }
 }
 
 @end

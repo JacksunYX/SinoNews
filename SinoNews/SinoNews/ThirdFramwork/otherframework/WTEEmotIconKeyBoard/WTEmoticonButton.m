@@ -15,7 +15,9 @@
     _emotionName = emotionName;
     
     NSString *name = [NSString stringWithFormat:@"smiley_%@", emotionName];
-    UIImage *image = [UIImage imageNamed:name];
+    NSString *fileStr = [[NSBundle mainBundle]pathForResource:name ofType:@".png"];
+    UIImage *image = [UIImage imageWithContentsOfFile:fileStr];
+    
     if (image) {[self setImage:image forState:UIControlStateNormal];}
     self.userInteractionEnabled = image == nil ? NO : YES;
 }

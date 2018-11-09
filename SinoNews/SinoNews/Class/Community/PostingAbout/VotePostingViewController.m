@@ -15,6 +15,7 @@
 #import "VoteChooseInputModel.h"
 
 @interface VotePostingViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,strong) UIButton *publishBtn;
@@ -26,11 +27,43 @@
 
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) UIButton *footView;
+
+@property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic,strong) UIButton *showKeyboard;
 @end
 
 static NSInteger limitMinNum = 2;
 static NSInteger limitMaxNum = 20;
 @implementation VotePostingViewController
+-(ZYKeyboardUtil *)keyboardUtil
+{
+    if (!_keyboardUtil) {
+        _keyboardUtil = [[ZYKeyboardUtil alloc]init];
+    }
+    return _keyboardUtil;
+}
+
+-(UIView *)bottomView
+{
+    if (!_bottomView) {
+        _bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ScreenH, ScreenW, 50)];
+        _bottomView.backgroundColor = WhiteColor;
+        [self.view addSubview:_bottomView];
+        
+        _showKeyboard = [UIButton new];
+        [_bottomView addSubview:_showKeyboard];
+        _showKeyboard.sd_layout
+        .rightSpaceToView(_bottomView, 15)
+        .centerYEqualToView(_bottomView)
+        .widthIs(26)
+        .heightIs(24)
+        ;
+        [_showKeyboard setNormalImage:UIImageNamed(@"hiddenKeyboard_icon")];
+        [_showKeyboard addTarget:self action:@selector(showOrHideKeyboard:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _bottomView;
+}
 
 -(NSMutableArray *)dataSource
 {
@@ -61,6 +94,16 @@ static NSInteger limitMaxNum = 20;
     _validTime = @"7天";
     [self setUI];
     
+    //键盘监听
+    @weakify(self);
+    [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
+        @strongify(self);
+        [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.view, nil];
+    }];
+    
+    //监听键盘通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowChangeFrameNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 //修改导航栏显示
@@ -154,7 +197,7 @@ static NSInteger limitMaxNum = 20;
             GGLog(@"移除下标:%ld",indexPath.row);
             if (self.chooseArr.count>limitMinNum) {
                 [self.chooseArr removeObjectAtIndex:indexPath.row];
-                [tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+                [tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
             }else{
                 [self popNotice:NO];
             }
@@ -325,8 +368,44 @@ static NSInteger limitMaxNum = 20;
         VoteChooseInputModel *chooseModel = [VoteChooseInputModel new];
         chooseModel.content = @"";
         [self.chooseArr addObject:chooseModel];
-        [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+-(void)keyboardWillShowChangeFrameNotification:(NSNotification *)note{
+    
+    //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    //取得键盘最后的frame(根据userInfo的key----UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 227}, {320, 253}}";)
+    CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    //计算控制器的view需要平移的距离
+    CGFloat transformY = keyboardFrame.size.height;
+    
+    //执行动画
+    [UIView animateWithDuration:duration animations:^{
+        //平移
+        self.bottomView.frame = CGRectMake(0, ScreenH - transformY - 50 - NAVI_HEIGHT, ScreenW, 50);
+    }];
+}
+
+-(void)keyboardWillHideChangeFrameNotification:(NSNotification *)note{
+    
+    //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    //执行动画
+    [UIView animateWithDuration:duration animations:^{
+        //平移
+        self.bottomView.frame = CGRectMake(0, ScreenH , ScreenW, 50);
+    }];
+}
+
+//隐藏键盘
+-(void)showOrHideKeyboard:(UIButton *)sender
+{
+    [self.view endEditing:YES];
 }
 
 @end

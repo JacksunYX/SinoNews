@@ -78,9 +78,9 @@ NSString * const VotePostingTableViewCellID = @"VotePostingTableViewCellID";
     sortLabel.layer.borderWidth = 1;
     
     deleteBtn.sd_layout
-    .rightSpaceToView(fatherView, 15)
+    .rightSpaceToView(fatherView, 5)
     .centerYEqualToView(fatherView)
-    .widthIs(15)
+    .widthIs(30)
     .heightEqualToWidth()
     ;
     [deleteBtn setNormalImage:UIImageNamed(@"voteDelete_icon")];
@@ -110,6 +110,12 @@ NSString * const VotePostingTableViewCellID = @"VotePostingTableViewCellID";
     if (self.deleteBlock) {
         self.deleteBlock();
     }
+}
+
+-(void)setInputAccessoryView:(UIView *)inputAccessoryView
+{
+    _inputAccessoryView = inputAccessoryView;
+    content.inputAccessoryView = inputAccessoryView;
 }
 
 -(void)setSortNum:(NSInteger)num

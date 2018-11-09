@@ -14,7 +14,7 @@
 
 #import "VoteChooseInputModel.h"
 
-@interface VotePostingViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface VotePostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -26,6 +26,8 @@
 @property (nonatomic,assign) BOOL isVisible;    //是否可见
 
 @property (nonatomic,strong) UIView *headView;
+@property (nonatomic,strong) FSTextView *titleView;
+@property (nonatomic,strong) FSTextView *contentView;
 @property (nonatomic,strong) UIButton *footView;
 
 @property (nonatomic,strong) UIView *bottomView;
@@ -43,12 +45,84 @@ static NSInteger limitMaxNum = 20;
     return _keyboardUtil;
 }
 
+-(UIView *)headView
+{
+    if (!_headView) {
+        _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 183)];
+        
+        _titleView = [FSTextView textView];
+        _titleView.font = PFFontR(20);
+        _titleView.textColor = BlackColor;
+        _titleView.delegate = self;
+        _titleView.inputAccessoryView = self.bottomView;
+        
+        _contentView = [FSTextView textView];
+        _contentView.font = PFFontL(15);
+        _contentView.textColor = BlackColor;
+        _contentView.delegate = self;
+        _contentView.inputAccessoryView = self.bottomView;
+        
+        [_headView sd_addSubviews:@[
+                                    _titleView,
+                                    _contentView,
+                                    ]];
+        _titleView.sd_layout
+        .leftEqualToView(_headView)
+        .topEqualToView(_headView)
+        .rightEqualToView(_headView)
+        .heightIs(69)
+        ;
+        
+        _titleView.placeholder = @"起个引人关注的标题哦～";
+        _titleView.placeholderColor = HexColor(#BAC3C7);
+        _titleView.placeholderFont = PFFontR(20);
+        // 限制输入最大字符数.
+        _titleView.maxLength = 25;
+        // 添加输入改变Block回调.
+        @weakify(self);
+        [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
+            // 文本改变后的相应操作.
+            
+        }];
+        // 添加到达最大限制Block回调.
+        [_titleView addTextLengthDidMaxHandler:^(FSTextView *textView) {
+            // 达到最大限制数后的相应操作.
+            LRToast(@"帖子标题最多支持25个字符");
+        }];
+        
+        _contentView.sd_layout
+        .topSpaceToView(_titleView, 0)
+        .leftEqualToView(_headView)
+        .rightEqualToView(_headView)
+        .bottomEqualToView(_headView)
+        ;
+        _contentView.placeholder = @"填写投票描述，详细的描述会让更多的启世录用户参与投票哦～";
+        _contentView.placeholderColor = HexColor(#B9C3C7);
+        _contentView.placeholderFont = PFFontL(15);
+        // 添加输入改变Block回调.
+        [_contentView addTextDidChangeHandler:^(FSTextView *textView) {
+            @strongify(self);
+            // 文本改变后的相应操作.
+            NSString *string = textView.formatText;
+            if (string.length>0) {
+                self.publishBtn.enabled = YES;
+                [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
+            }else{
+                self.publishBtn.enabled = NO;
+                [self.publishBtn setNormalTitleColor:HexColor(#959595)];
+            }
+        }];
+        _contentView.borderColor = HexColor(#E3E3E3);
+        _contentView.borderWidth = 1;
+    }
+    return _headView;
+}
+
 -(UIView *)bottomView
 {
     if (!_bottomView) {
-        _bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ScreenH, ScreenW, 50)];
+        _bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
         _bottomView.backgroundColor = WhiteColor;
-        [self.view addSubview:_bottomView];
         
         _showKeyboard = [UIButton new];
         [_bottomView addSubview:_showKeyboard];
@@ -78,7 +152,7 @@ static NSInteger limitMaxNum = 20;
     if (!_chooseArr) {
         _chooseArr = [NSMutableArray new];
         
-        for (int i = 0; i < 2; i ++) {
+        for (int i = 0; i < limitMinNum; i ++) {
             VoteChooseInputModel *chooseModel = [VoteChooseInputModel new];
             chooseModel.content = @"";
             [_chooseArr addObject:chooseModel];
@@ -101,9 +175,8 @@ static NSInteger limitMaxNum = 20;
         [keyboardUtil adaptiveViewHandleWithAdaptiveView:self.view, nil];
     }];
     
-    //监听键盘通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowChangeFrameNotification:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
+//    [_titleView becomeFirstResponder];
+    
 }
 
 //修改导航栏显示
@@ -129,6 +202,14 @@ static NSInteger limitMaxNum = 20;
 -(void)publishAction:(UIButton *)sender
 {
     [self.view endEditing:YES];
+    if ([NSString isEmpty:self.titleView.formatText]) {
+        LRToast(@"标题不能为空哦");
+        return;
+    }else if ([NSString isEmpty:self.contentView.formatText]) {
+        LRToast(@"投票描述不能为空哦");
+        return;
+    }
+    
     //需要判断选项是否没有内容
     for (VoteChooseInputModel *model in self.chooseArr) {
         if ([NSString isEmpty:model.content]) {
@@ -158,9 +239,10 @@ static NSInteger limitMaxNum = 20;
     .topSpaceToView(self.view, 0)
     .leftSpaceToView(self.view, 0)
     .rightSpaceToView(self.view, 0)
-    .bottomSpaceToView(self.view, BOTTOM_MARGIN)
+    .bottomSpaceToView(self.view, 0)
     ;
     [_tableView updateLayout];
+    _tableView.tableHeaderView = self.headView;
     [_tableView registerClass:[VotePostingTableViewCell class] forCellReuseIdentifier:VotePostingTableViewCellID];
     [_tableView registerClass:[VotePostingTableViewCell2 class] forCellReuseIdentifier:VotePostingTableViewCell2ID];
 }
@@ -198,6 +280,13 @@ static NSInteger limitMaxNum = 20;
             if (self.chooseArr.count>limitMinNum) {
                 [self.chooseArr removeObjectAtIndex:indexPath.row];
                 [tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
+                //比较是否当前选项数量已少于用户之前选的最大可选数
+                NSMutableString *num = self.asmuchSelect.mutableCopy;
+                [num deleteCharactersInRange:NSMakeRange(1, 1)];
+                if (self.chooseArr.count<[num integerValue]) {
+                    self.asmuchSelect = [NSString stringWithFormat:@"%ld项",self.chooseArr.count];
+                    [tableView reloadRow:0 inSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
             }else{
                 [self popNotice:NO];
             }
@@ -205,7 +294,7 @@ static NSInteger limitMaxNum = 20;
         cell0.inputBlock = ^(NSString * _Nonnull inputString) {
             chooseModel.content = inputString;
         };
-        
+        cell0.inputAccessoryView = self.bottomView;
         cell = cell0;
     }else if (indexPath.section == 1) {
         VotePostingTableViewCell2 *cell1 = (VotePostingTableViewCell2 *)[tableView dequeueReusableCellWithIdentifier:VotePostingTableViewCell2ID];
@@ -217,6 +306,8 @@ static NSInteger limitMaxNum = 20;
                 self.isVisible = switchisOn;
                 GGLog(@"开关状态:%d",switchisOn);
             };
+        }else{
+            cell1.type = 0;
         }
         switch (indexPath.row) {
                 case 0:{
@@ -370,36 +461,6 @@ static NSInteger limitMaxNum = 20;
         [self.chooseArr addObject:chooseModel];
         [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
     }
-}
-
--(void)keyboardWillShowChangeFrameNotification:(NSNotification *)note{
-    
-    //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
-    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    //取得键盘最后的frame(根据userInfo的key----UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 227}, {320, 253}}";)
-    CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    //计算控制器的view需要平移的距离
-    CGFloat transformY = keyboardFrame.size.height;
-    
-    //执行动画
-    [UIView animateWithDuration:duration animations:^{
-        //平移
-        self.bottomView.frame = CGRectMake(0, ScreenH - transformY - 50 - NAVI_HEIGHT, ScreenW, 50);
-    }];
-}
-
--(void)keyboardWillHideChangeFrameNotification:(NSNotification *)note{
-    
-    //取出键盘动画的时间(根据userInfo的key----UIKeyboardAnimationDurationUserInfoKey)
-    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    
-    //执行动画
-    [UIView animateWithDuration:duration animations:^{
-        //平移
-        self.bottomView.frame = CGRectMake(0, ScreenH , ScreenW, 50);
-    }];
 }
 
 //隐藏键盘

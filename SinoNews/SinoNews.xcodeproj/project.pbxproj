@@ -152,6 +152,11 @@
 		4C3F905920BD7102003EC4FC /* HomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F905820BD7102003EC4FC /* HomePageModel.m */; };
 		4C4082522189400800390F42 /* MyPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4082512189400800390F42 /* MyPostViewController.m */; };
 		4C4082552189428F00390F42 /* PostingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4082542189428F00390F42 /* PostingListViewController.m */; };
+		4C40C74A21951ED5006408DE /* VotePostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C40C74921951ED5006408DE /* VotePostingTableViewCell.m */; };
+		4C40C74D219527C4006408DE /* VotePostingTableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C40C74C219527C4006408DE /* VotePostingTableViewCell2.m */; };
+		4C40C75221955FB2006408DE /* LZPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C40C75021955FB1006408DE /* LZPickerView.xib */; };
+		4C40C75321955FB2006408DE /* LZPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C40C75121955FB1006408DE /* LZPickerView.m */; };
+		4C40C75621957182006408DE /* VoteChooseInputModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C40C75521957182006408DE /* VoteChooseInputModel.m */; };
 		4C423B492186A802000731E4 /* Mine3SecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C423B482186A802000731E4 /* Mine3SecondTableViewCell.m */; };
 		4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44AB6920C93DAF000E2C42 /* XLChannelModel.m */; };
 		4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C44E37E212261B600C5D10A /* NewPublishManagerVC.m */; };
@@ -1114,6 +1119,15 @@
 		4C4082512189400800390F42 /* MyPostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPostViewController.m; sourceTree = "<group>"; };
 		4C4082532189428F00390F42 /* PostingListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostingListViewController.h; sourceTree = "<group>"; };
 		4C4082542189428F00390F42 /* PostingListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostingListViewController.m; sourceTree = "<group>"; };
+		4C40C74821951ED5006408DE /* VotePostingTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VotePostingTableViewCell.h; sourceTree = "<group>"; };
+		4C40C74921951ED5006408DE /* VotePostingTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VotePostingTableViewCell.m; sourceTree = "<group>"; };
+		4C40C74B219527C4006408DE /* VotePostingTableViewCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VotePostingTableViewCell2.h; sourceTree = "<group>"; };
+		4C40C74C219527C4006408DE /* VotePostingTableViewCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VotePostingTableViewCell2.m; sourceTree = "<group>"; };
+		4C40C74F21955FB1006408DE /* LZPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZPickerView.h; sourceTree = "<group>"; };
+		4C40C75021955FB1006408DE /* LZPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LZPickerView.xib; sourceTree = "<group>"; };
+		4C40C75121955FB1006408DE /* LZPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZPickerView.m; sourceTree = "<group>"; };
+		4C40C75421957182006408DE /* VoteChooseInputModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoteChooseInputModel.h; sourceTree = "<group>"; };
+		4C40C75521957182006408DE /* VoteChooseInputModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoteChooseInputModel.m; sourceTree = "<group>"; };
 		4C423B472186A802000731E4 /* Mine3SecondTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mine3SecondTableViewCell.h; sourceTree = "<group>"; };
 		4C423B482186A802000731E4 /* Mine3SecondTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mine3SecondTableViewCell.m; sourceTree = "<group>"; };
 		4C44AB6820C93DAF000E2C42 /* XLChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLChannelModel.h; sourceTree = "<group>"; };
@@ -2891,6 +2905,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C40C74E21955F9F006408DE /* LZPickerView */,
 				4CAD566B2194224F00BD77E0 /* WTEEmotIconKeyBoard */,
 				4CFB96F221932C0F0016924A /* RTRootNavigationController */,
 				4C4C9586218FF29200627B07 /* TZImagePickerController */,
@@ -3033,6 +3048,16 @@
 				4C44E3842122B33200C5D10A /* HomePageBannerModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4C40C74E21955F9F006408DE /* LZPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				4C40C74F21955FB1006408DE /* LZPickerView.h */,
+				4C40C75121955FB1006408DE /* LZPickerView.m */,
+				4C40C75021955FB1006408DE /* LZPickerView.xib */,
+			);
+			path = LZPickerView;
 			sourceTree = "<group>";
 		};
 		4C49F05720D0A303009DC42B /* Model */ = {
@@ -3232,6 +3257,10 @@
 				4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */,
 				4CFB96802192C7DC0016924A /* ReplyThePostPopView.h */,
 				4CFB96812192C7DC0016924A /* ReplyThePostPopView.m */,
+				4C40C74821951ED5006408DE /* VotePostingTableViewCell.h */,
+				4C40C74921951ED5006408DE /* VotePostingTableViewCell.m */,
+				4C40C74B219527C4006408DE /* VotePostingTableViewCell2.h */,
+				4C40C74C219527C4006408DE /* VotePostingTableViewCell2.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4538,6 +4567,8 @@
 			children = (
 				4CDC73EF219147B20079EB3E /* RemindPeople.h */,
 				4CDC73F0219147B20079EB3E /* RemindPeople.m */,
+				4C40C75421957182006408DE /* VoteChooseInputModel.h */,
+				4C40C75521957182006408DE /* VoteChooseInputModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4891,6 +4922,7 @@
 				4C7EF35A21212A0B0002166A /* ZSSlink@2x.png in Resources */,
 				4CAD57282194224F00BD77E0 /* smiley_31.png in Resources */,
 				4C4EC3072112E3E800591F12 /* ShineButton.bundle in Resources */,
+				4C40C75221955FB2006408DE /* LZPickerView.xib in Resources */,
 				4CAD57492194225000BD77E0 /* smiley_3.png in Resources */,
 				4C7EF34021212A0B0002166A /* ZSSundo.png in Resources */,
 				4C993009217717710092DDCF /* icon_refresh.png in Resources */,
@@ -5179,10 +5211,12 @@
 				4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C6E9167213F5F07001535CA /* YYAnimatedImageView.m in Sources */,
+				4C40C75621957182006408DE /* VoteChooseInputModel.m in Sources */,
 				4C7234E720FDEB1D00D5C5D4 /* AASpline.m in Sources */,
 				4C6E9198213F5F07001535CA /* NSNotificationCenter+YYAdd.m in Sources */,
 				4C6332C920E08E6500D80056 /* AddressViewController.m in Sources */,
 				4C72345D20FC6E4200D5C5D4 /* LYEmptyBaseView.m in Sources */,
+				4C40C75321955FB2006408DE /* LZPickerView.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
 				4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */,
 				4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */,
@@ -5323,6 +5357,7 @@
 				4CE336EF2182B3DE0037F9D2 /* Mine2FirstTableViewCell.m in Sources */,
 				4C6E918C213F5F07001535CA /* UIFont+YYAdd.m in Sources */,
 				4C992FE7217717680092DDCF /* UIView+HXExtension.m in Sources */,
+				4C40C74D219527C4006408DE /* VotePostingTableViewCell2.m in Sources */,
 				4C17414420C5168600AA6D57 /* TXMatchManager.m in Sources */,
 				4C7B5DE82187F8D400B76E47 /* ThePostListViewController.m in Sources */,
 				4C992F74217717530092DDCF /* WGUploadPictureModel.m in Sources */,
@@ -5597,6 +5632,7 @@
 				4C3D112220D8FD1A00480E03 /* CompanyCommentModel.m in Sources */,
 				4C30D74321904483008B8E45 /* RemindOthersToReadView.m in Sources */,
 				4CE9C91B20C7D508004550B9 /* SettingViewController.m in Sources */,
+				4C40C74A21951ED5006408DE /* VotePostingTableViewCell.m in Sources */,
 				4C6E916B213F5F07001535CA /* YYTextView.m in Sources */,
 				4C6E9190213F5F07001535CA /* NSObject+YYAdd.m in Sources */,
 				4C49F06120D0C2DE009DC42B /* UIView+Gesture.m in Sources */,

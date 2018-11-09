@@ -69,4 +69,6 @@
 
 #import "WTEEmotIconHead.h"
 
+#import "LZPickerView.h"
+
 #endif /* OtherFrameworksHead_h */

@@ -10,6 +10,8 @@
 #import "SelectPublishChannelViewController.h"
 #import "AddNewTitleViewController.h"
 #import "AddNewContentViewController.h"
+#import "EditImageViewController.h"
+#import "EditVideoViewController.h"
 
 #import "SeniorPostingAddTitleCell.h"
 #import "SeniorPostingAddContentCell.h"
@@ -224,7 +226,10 @@
             break;
         case 3:
         {
-            
+            for (SeniorPostingAddElementModel *model in self.dataSource) {
+                NSDictionary *dic = [model mj_keyValues];
+                GGLog(@"添加的内容:%@",dic);
+            }
         }
             break;
             
@@ -637,12 +642,28 @@
             break;
         case 2://图片
         {
-            
+            EditImageViewController *eiVC = [EditImageViewController new];
+            eiVC.model = model;
+            @weakify(self);
+            eiVC.finishBlock = ^(SeniorPostingAddElementModel * _Nonnull finishModel) {
+                @strongify(self);
+                self.dataSource[indexPath.row] = finishModel;
+                [self.tableView reloadData];
+            };
+            [self.navigationController pushViewController:eiVC animated:YES];
         }
             break;
         case 3://视频
         {
-            
+            EditVideoViewController *evVC = [EditVideoViewController new];
+            evVC.model = model;
+            @weakify(self);
+            evVC.finishBlock = ^(SeniorPostingAddElementModel * _Nonnull finishModel) {
+                @strongify(self);
+                self.dataSource[indexPath.row] = finishModel;
+                [self.tableView reloadData];
+            };
+            [self.navigationController pushViewController:evVC animated:YES];
         }
             break;
             
@@ -651,6 +672,9 @@
     }
     
 }
+
+
+
 
 
 @end

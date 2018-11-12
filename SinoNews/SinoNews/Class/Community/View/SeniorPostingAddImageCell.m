@@ -66,9 +66,9 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     ;
     imageDescript.textColor = HexColor(#161A24);
     imageDescript.font = PFFontR(15);
-    imageDescript.editable = NO;
     imageDescript.placeholder = @"给图片配点文案～";
     imageDescript.placeholderColor = HexColor(#B9C3C7);
+    imageDescript.userInteractionEnabled = NO;
     
     [selectImage addSubview:uploadStatus];
     uploadStatus.sd_layout
@@ -94,7 +94,7 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
 {
     _model = model;
     selectImage.image = model.image;
-    
+    imageDescript.text = GetSaveString(model.imageDes);
 }
 
 @end

@@ -797,6 +797,8 @@
 		4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91E20C8E1A2004550B9 /* NSObject+save.m */; };
 		4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C92220C90B9B004550B9 /* UserModel.m */; };
 		4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */; };
+		4CEEE5552199966100DFEC0A /* EditImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEE5542199966100DFEC0A /* EditImageViewController.m */; };
+		4CEEE55821999F0D00DFEC0A /* EditVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */; };
 		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
 		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
@@ -2198,6 +2200,10 @@
 		4CE9C92220C90B9B004550B9 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		4CEA61732117FB3800AAB8B0 /* PubLishChannelSelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubLishChannelSelectVC.h; sourceTree = "<group>"; };
 		4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubLishChannelSelectVC.m; sourceTree = "<group>"; };
+		4CEEE5532199966100DFEC0A /* EditImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditImageViewController.h; sourceTree = "<group>"; };
+		4CEEE5542199966100DFEC0A /* EditImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditImageViewController.m; sourceTree = "<group>"; };
+		4CEEE55621999F0D00DFEC0A /* EditVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditVideoViewController.h; sourceTree = "<group>"; };
+		4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditVideoViewController.m; sourceTree = "<group>"; };
 		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
 		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
 		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
@@ -4611,6 +4617,10 @@
 				4CD157CE2199200100178FBF /* AddNewTitleViewController.m */,
 				4CD157D021992A9600178FBF /* AddNewContentViewController.h */,
 				4CD157D121992A9600178FBF /* AddNewContentViewController.m */,
+				4CEEE5532199966100DFEC0A /* EditImageViewController.h */,
+				4CEEE5542199966100DFEC0A /* EditImageViewController.m */,
+				4CEEE55621999F0D00DFEC0A /* EditVideoViewController.h */,
+				4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4CDC73F3219149530079EB3E /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
@@ -5382,6 +5392,7 @@
 				4C4C95A6218FF29200627B07 /* TZVideoPlayerController.m in Sources */,
 				4C992FDF217717680092DDCF /* NSBundle+HXWeiboPhotoPicker.m in Sources */,
 				4C6E916F213F5F07001535CA /* YYTextInput.m in Sources */,
+				4CEEE5552199966100DFEC0A /* EditImageViewController.m in Sources */,
 				4C17413020C4C83200AA6D57 /* ManagerViewController.m in Sources */,
 				4C95FFD520DDE8FA0040E348 /* CLSlider.m in Sources */,
 				4C49F05A20D0A321009DC42B /* RankingModel.m in Sources */,
@@ -5553,6 +5564,7 @@
 				4CE336FC2182C66F0037F9D2 /* KCGradientLabel.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C6E917A213F5F07001535CA /* NSAttributedString+YYText.m in Sources */,
+				4CEEE55821999F0D00DFEC0A /* EditVideoViewController.m in Sources */,
 				4C6E9197213F5F07001535CA /* NSString+YYAdd.m in Sources */,
 				4C6E90A6213F5EA7001535CA /* HUD.m in Sources */,
 				4C6E917D213F5F07001535CA /* YYTextArchiver.m in Sources */,

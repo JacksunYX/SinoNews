@@ -68,9 +68,9 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     ;
     videoDescript.textColor = HexColor(#161A24);
     videoDescript.font = PFFontR(15);
-    videoDescript.editable = NO;
     videoDescript.placeholder = @"给视频配点文案～";
     videoDescript.placeholderColor = HexColor(#B9C3C7);
+    videoDescript.userInteractionEnabled = NO;
     
     [selectVideo addSubview:videoIcon];
     videoIcon.sd_layout
@@ -108,6 +108,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
 {
     _model = model;
     selectVideo.image = model.image;
+    videoDescript.text = GetSaveString(model.videoDes);
 }
 
 @end

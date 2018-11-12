@@ -49,7 +49,7 @@ NSString * const SeniorPostingAddContentCellID = @"SeniorPostingAddContentCellID
     ;
     content.textColor = HexColor(#161A24);
     content.font = PFFontR(15);
-    content.editable = NO;
+    content.userInteractionEnabled = NO;
     
     [self setupAutoHeightWithBottomView:content bottomMargin:20];
 }

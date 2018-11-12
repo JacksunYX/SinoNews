@@ -396,7 +396,6 @@
 //功能按钮点击事件
 -(void)functionActions:(UIButton *)sender
 {
-    @weakify(self);
     switch (sender.tag) {
         case 0:
         {
@@ -405,36 +404,12 @@
             break;
         case 1:
         {
-            AddNewTitleViewController *atVC = [AddNewTitleViewController new];
-            RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:atVC];
-            atVC.finishBlock = ^(NSString * _Nonnull inputTitle) {
-                GGLog(@"回调小标题：%@",inputTitle);
-                @strongify(self);
-                SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
-                model.addtType = 0;
-                model.title = inputTitle;
-                [self.dataSource addObject:model];
-                [self.tableView reloadData];
-            };
-            [self presentViewController:navi animated:YES completion:nil];
-            
+            [self setChildTitleWithModel:nil];
         }
             break;
         case 2:
         {
-            AddNewContentViewController *ancVC = [AddNewContentViewController new];
-            RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:ancVC];
-            ancVC.finishBlock = ^(NSString * _Nonnull inputContent) {
-                GGLog(@"回调文本：%@",inputContent);
-                @strongify(self);
-                SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
-                model.addtType = 1;
-                model.content = inputContent;
-                [self.dataSource addObject:model];
-                [self.tableView reloadData];
-            };
-            [self presentViewController:navi animated:YES completion:nil];
-            
+            [self setChildContentWithModel:nil];
         }
             break;
         case 3:
@@ -463,6 +438,63 @@
     }
 }
 
+//添加/修改小标题
+-(void)setChildTitleWithModel:(SeniorPostingAddElementModel *)data
+{
+    AddNewTitleViewController *atVC = [AddNewTitleViewController new];
+    if (data) {
+        atVC.lastTitle = data.title;
+    }
+    RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:atVC];
+    @weakify(self);
+    atVC.finishBlock = ^(NSString * _Nonnull inputTitle) {
+        GGLog(@"回调小标题：%@",inputTitle);
+        @strongify(self);
+        
+        if (data) {
+            data.addtType = 0;
+            data.title = inputTitle;
+            [self.tableView reloadData];
+        }else{
+            SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
+            model.addtType = 0;
+            model.title = inputTitle;
+            [self.dataSource addObject:model];
+            [self.tableView reloadData];
+            [self scrollToBottom];
+        }
+    };
+    [self presentViewController:navi animated:YES completion:nil];
+}
+
+//添加/修改文本
+-(void)setChildContentWithModel:(SeniorPostingAddElementModel *)data
+{
+    AddNewContentViewController *ancVC = [AddNewContentViewController new];
+    if (data) {
+        ancVC.lastContent = data.content;
+    }
+    RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:ancVC];
+    @weakify(self);
+    ancVC.finishBlock = ^(NSString * _Nonnull inputContent) {
+        GGLog(@"回调文本：%@",inputContent);
+        @strongify(self);
+        if (data) {
+            data.addtType = 1;
+            data.content = inputContent;
+            [self.tableView reloadData];
+        }else{
+            SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
+            model.addtType = 1;
+            model.content = inputContent;
+            [self.dataSource addObject:model];
+            [self.tableView reloadData];
+            [self scrollToBottom];
+        }
+    };
+    [self presentViewController:navi animated:YES completion:nil];
+}
+
 //选择图片
 - (void)checkLocalPhoto{
     //最大数初始化为1，且不让允许选择图片时，就变成了单选视频了
@@ -484,6 +516,12 @@
     [[HttpRequest currentViewController] presentViewController:imagePicker animated:YES completion:nil];
 }
 
+//滚动至tableView最下方
+-(void)scrollToBottom
+{
+    [self.tableView scrollToRow:self.dataSource.count - 1 inSection:0 atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
 #pragma mark --- TZImagePickerControllerDelegate ---
 //选择图片后会进入该代理方法，
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
@@ -494,6 +532,7 @@
         [self.dataSource addObject:model];
     }
     [self.tableView reloadData];
+    [self scrollToBottom];
 }
 
 //选择视频后会进入该代理方法，返回了封面和视频资源文件
@@ -515,6 +554,7 @@
         [self.dataSource addObject:model];
     
         [self.tableView reloadData];
+        [self scrollToBottom];
     } failure:^(NSString *errorMessage, NSError *error) {
         HiddenHudOnly;
         LRToast(@"视频导出失败");
@@ -579,19 +619,36 @@
     return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 0.01;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    return 0.01;
-//}
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [self.view endEditing:YES];
+    
+    SeniorPostingAddElementModel *model = self.dataSource[indexPath.row];
+    switch (model.addtType) {
+        case 0://标题
+        {
+            [self setChildTitleWithModel:model];
+        }
+            break;
+        case 1://文本
+        {
+            [self setChildContentWithModel:model];
+        }
+            break;
+        case 2://图片
+        {
+            
+        }
+            break;
+        case 3://视频
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
 }
 

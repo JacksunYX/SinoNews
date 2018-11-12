@@ -79,8 +79,8 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     .widthIs(42)
     .heightEqualToWidth()
     ;
-    videoIcon.backgroundColor = kWhite(0.4);
-    videoIcon.sd_cornerRadius = @21;
+//    videoIcon.backgroundColor = kWhite(0.4);
+//    videoIcon.sd_cornerRadius = @21;
     videoIcon.image = UIImageNamed(@"videoCover_icon");
     
     /*

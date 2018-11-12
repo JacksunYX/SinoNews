@@ -11,7 +11,7 @@
 NSString * const SeniorPostingAddContentCellID = @"SeniorPostingAddContentCellID";
 @interface SeniorPostingAddContentCell ()
 {
-    
+    FSTextView *content;
 }
 @end
 
@@ -39,12 +39,25 @@ NSString * const SeniorPostingAddContentCellID = @"SeniorPostingAddContentCellID
 
 -(void)setUI
 {
+    content = [FSTextView textView];
+    [self.contentView addSubview:content];
+    content.sd_layout
+    .topSpaceToView(self.contentView, 0)
+    .leftSpaceToView(self.contentView, 5)
+    .rightSpaceToView(self.contentView, 5)
+    .heightIs(200)
+    ;
+    content.textColor = HexColor(#161A24);
+    content.font = PFFontR(15);
+    content.editable = NO;
     
+    [self setupAutoHeightWithBottomView:content bottomMargin:20];
 }
 
 -(void)setModel:(SeniorPostingAddElementModel *)model
 {
     _model = model;
+    content.text = GetSaveString(model.content);
 }
 
 @end

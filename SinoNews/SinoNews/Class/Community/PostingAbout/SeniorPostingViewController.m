@@ -16,7 +16,7 @@
 #import "SeniorPostingAddImageCell.h"
 #import "SeniorPostingAddVideoCell.h"
 
-@interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -247,6 +247,7 @@
     
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.separatorColor = CutLineColor;
     [self.view addSubview:_tableView];
     _tableView.sd_layout
@@ -301,6 +302,7 @@
     UIButton *addPeopleBtn = [UIButton new];
     UIButton *showKeyboardBtn = [UIButton new];
     //布局
+    CGFloat avgSpaceX = 20;
     [functionView sd_addSubviews:@[
                                    emojiBtn,
                                    addTitleBtn,
@@ -321,7 +323,7 @@
     
     addTitleBtn.sd_layout
     .centerYEqualToView(functionView)
-    .leftSpaceToView(emojiBtn, 30)
+    .leftSpaceToView(emojiBtn, avgSpaceX)
     .widthIs(15)
     .heightIs(19)
     ;
@@ -329,7 +331,7 @@
     
     addContentBtn.sd_layout
     .centerYEqualToView(functionView)
-    .leftSpaceToView(addTitleBtn, 30)
+    .leftSpaceToView(addTitleBtn, avgSpaceX)
     .widthIs(22)
     .heightEqualToWidth()
     ;
@@ -337,7 +339,7 @@
     
     addImageBtn.sd_layout
     .centerYEqualToView(functionView)
-    .leftSpaceToView(addContentBtn, 30)
+    .leftSpaceToView(addContentBtn, avgSpaceX)
     .widthIs(22)
     .heightEqualToWidth()
     ;
@@ -345,7 +347,7 @@
     
     addVideoBtn.sd_layout
     .centerYEqualToView(functionView)
-    .leftSpaceToView(addImageBtn, 30)
+    .leftSpaceToView(addImageBtn, avgSpaceX)
     .widthIs(25)
     .heightIs(19)
     ;
@@ -353,7 +355,7 @@
     
     addPeopleBtn.sd_layout
     .centerYEqualToView(functionView)
-    .leftSpaceToView(addVideoBtn, 30)
+    .leftSpaceToView(addVideoBtn, avgSpaceX)
     .widthIs(22)
     .heightEqualToWidth()
     ;
@@ -394,6 +396,7 @@
 //功能按钮点击事件
 -(void)functionActions:(UIButton *)sender
 {
+    @weakify(self);
     switch (sender.tag) {
         case 0:
         {
@@ -406,6 +409,12 @@
             RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:atVC];
             atVC.finishBlock = ^(NSString * _Nonnull inputTitle) {
                 GGLog(@"回调小标题：%@",inputTitle);
+                @strongify(self);
+                SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
+                model.addtType = 0;
+                model.title = inputTitle;
+                [self.dataSource addObject:model];
+                [self.tableView reloadData];
             };
             [self presentViewController:navi animated:YES completion:nil];
             
@@ -417,6 +426,12 @@
             RTRootNavigationController *navi = [[RTRootNavigationController alloc]initWithRootViewController:ancVC];
             ancVC.finishBlock = ^(NSString * _Nonnull inputContent) {
                 GGLog(@"回调文本：%@",inputContent);
+                @strongify(self);
+                SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
+                model.addtType = 1;
+                model.content = inputContent;
+                [self.dataSource addObject:model];
+                [self.tableView reloadData];
             };
             [self presentViewController:navi animated:YES completion:nil];
             
@@ -424,12 +439,12 @@
             break;
         case 3:
         {
-            GGLog(@"添加图片");
+            [self checkLocalPhoto];
         }
             break;
         case 4:
         {
-            GGLog(@"添加视频");
+            [self checkLocalVedio];
         }
             break;
         case 5:
@@ -448,7 +463,71 @@
     }
 }
 
+//选择图片
+- (void)checkLocalPhoto{
+    //最大数初始化为1，且不让允许选择图片时，就变成了单选视频了
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:3 delegate:self];
+    imagePicker.sortAscendingByModificationDate = NO;
+    imagePicker.allowPickingVideo = NO;
+    [[HttpRequest currentViewController] presentViewController:imagePicker animated:YES completion:nil];
+}
+
+//选择视频
+-(void)checkLocalVedio
+{
+    //最大数初始化为1，且不让允许选择图片时，就变成了单选视频了
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+    imagePicker.sortAscendingByModificationDate = NO;
+    imagePicker.allowTakePicture = NO;
+    imagePicker.allowPickingOriginalPhoto = NO;
+    imagePicker.allowPickingImage = NO;
+    [[HttpRequest currentViewController] presentViewController:imagePicker animated:YES completion:nil];
+}
+
+#pragma mark --- TZImagePickerControllerDelegate ---
+//选择图片后会进入该代理方法，
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
+    for (UIImage *image in photos) {
+        SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
+        model.addtType = 2;
+        model.image = image;
+        [self.dataSource addObject:model];
+    }
+    [self.tableView reloadData];
+}
+
+//选择视频后会进入该代理方法，返回了封面和视频资源文件
+-(void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(PHAsset *)asset
+{
+    ShowHudOnly;
+    [[TZImageManager manager] getVideoOutputPathWithAsset:asset presetName:AVAssetExportPreset640x480 success:^(NSString *outputPath) {
+        HiddenHudOnly;
+        GGLog(@"视频导出到本地完成,沙盒路径为:%@",outputPath);
+        // 导出完成，在这里写上传代码，通过路径或者通过NSData上传
+        NSURL *videoURL = [NSURL fileURLWithPath:outputPath];
+        NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
+        
+        SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
+        model.addtType = 3;
+        model.videoData = videoData;
+        model.image = coverImage;
+        model.videoUrl = outputPath;
+        [self.dataSource addObject:model];
+    
+        [self.tableView reloadData];
+    } failure:^(NSString *errorMessage, NSError *error) {
+        HiddenHudOnly;
+        LRToast(@"视频导出失败");
+        GGLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+    }];
+}
+
 #pragma mark --- UITableViewDataSource ---
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
@@ -456,7 +535,41 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    UITableViewCell *cell;
+    SeniorPostingAddElementModel *model = self.dataSource[indexPath.row];
+    switch (model.addtType) {
+        case 0://标题
+        {
+            SeniorPostingAddTitleCell *cell0 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddTitleCellID];
+            cell0.model = model;
+            cell = cell0;
+        }
+            break;
+        case 1://文本
+        {
+            SeniorPostingAddContentCell *cell1 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddContentCellID];
+            cell1.model = model;
+            cell = cell1;
+        }
+            break;
+        case 2://图片
+        {
+            SeniorPostingAddImageCell *cell2 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddImageCellID];
+            cell2.model = model;
+            cell = cell2;
+        }
+            break;
+        case 3://视频
+        {
+            SeniorPostingAddVideoCell *cell3 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddVideoCellID];
+            cell3.model = model;
+            cell = cell3;
+        }
+            break;
+            
+        default:
+            break;
+    }
     
     return cell;
 }

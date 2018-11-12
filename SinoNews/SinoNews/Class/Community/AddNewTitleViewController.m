@@ -48,6 +48,7 @@
     if (self.lastTitle) {
         _titleView.text = self.lastTitle;
     }
+    [_titleView becomeFirstResponder];
 }
 
 -(void)setUpNavigation
@@ -91,10 +92,12 @@
         [self.view endEditing:YES];
         LRToast(@"帖子标题最多支持25个字符");
     }];
+    
 }
 
 -(void)back
 {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -104,8 +107,9 @@
     if ([NSString isEmpty:_titleView.formatText]) {
         LRToast(@"请输入有效文本");
     }else{
+        [self.view endEditing:YES];
         if (self.finishBlock) {
-            self.finishBlock(_titleView.text);
+            self.finishBlock(self.titleView.text);
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     }

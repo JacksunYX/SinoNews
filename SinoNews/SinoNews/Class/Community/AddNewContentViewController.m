@@ -47,7 +47,7 @@
     if (self.lastContent) {
         _contentView.text = self.lastContent;
     }
-    
+    [_contentView becomeFirstResponder];
 }
 
 -(void)setUpNavigation
@@ -69,7 +69,7 @@
     .leftEqualToView(self.view)
     .topEqualToView(self.view)
     .rightEqualToView(self.view)
-    .heightIs(300)
+    .heightIs(200)
     ;
     [_contentView updateLayout];
     [_contentView addBorderTo:BorderTypeBottom borderColor:HexColor(#e3e3e3)];
@@ -80,6 +80,7 @@
 
 -(void)back
 {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -89,6 +90,7 @@
     if ([NSString isEmpty:_contentView.formatText]) {
         LRToast(@"请输入有效文本");
     }else{
+        [self.view endEditing:YES];
         if (self.finishBlock) {
             self.finishBlock(_contentView.text);
         }

@@ -297,7 +297,7 @@
         [self.imagesArr addObject:photoModel];
         [self setUI];
     } failure:^(NSString *errorMessage, NSError *error) {
-        NSLog(@"视频导出失败:%@,error:%@",errorMessage, error);
+        GGLog(@"视频导出失败:%@,error:%@",errorMessage, error);
     }];
     
 }

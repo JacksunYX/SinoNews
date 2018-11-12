@@ -765,6 +765,16 @@
 		4CCCF01A20EA1B72000EC6BD /* MyFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01920EA1B72000EC6BD /* MyFansViewController.m */; };
 		4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */; };
 		4CCCF02320EA1E14000EC6BD /* MyFansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCF02220EA1E14000EC6BD /* MyFansModel.m */; };
+		4CD157C021991AD700178FBF /* SeniorPostingAddTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157BF21991AD700178FBF /* SeniorPostingAddTitleCell.m */; };
+		4CD157C321991AED00178FBF /* SeniorPostingAddContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157C221991AED00178FBF /* SeniorPostingAddContentCell.m */; };
+		4CD157C621991AFB00178FBF /* SeniorPostingAddImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157C521991AFB00178FBF /* SeniorPostingAddImageCell.m */; };
+		4CD157C921991B0700178FBF /* SeniorPostingAddVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157C821991B0700178FBF /* SeniorPostingAddVideoCell.m */; };
+		4CD157CC21991CB700178FBF /* SeniorPostingAddElementModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157CB21991CB700178FBF /* SeniorPostingAddElementModel.m */; };
+		4CD157CF2199200100178FBF /* AddNewTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157CE2199200100178FBF /* AddNewTitleViewController.m */; };
+		4CD157D221992A9600178FBF /* AddNewContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157D121992A9600178FBF /* AddNewContentViewController.m */; };
+		4CD157DA2199566000178FBF /* ZYKeyBoardSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157D72199566000178FBF /* ZYKeyBoardSender.m */; };
+		4CD157DB2199566000178FBF /* ZYKeyBoardResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157D82199566000178FBF /* ZYKeyBoardResponder.m */; };
+		4CD157DC2199566000178FBF /* ZYKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD157D92199566000178FBF /* ZYKeyBoardManager.m */; };
 		4CD692F0217F0F1E00A76312 /* CommunityTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692EF217F0F1E00A76312 /* CommunityTabbarVC.m */; };
 		4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F2217F10D000A76312 /* ForumViewController.m */; };
 		4CD692F6217F116800A76312 /* ReadThePostMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD692F5217F116800A76312 /* ReadThePostMainVC.m */; };
@@ -2123,6 +2133,26 @@
 		4CCCF01F20EA1D2E000EC6BD /* MyFansTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansTableViewCell.m; sourceTree = "<group>"; };
 		4CCCF02120EA1E14000EC6BD /* MyFansModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFansModel.h; sourceTree = "<group>"; };
 		4CCCF02220EA1E14000EC6BD /* MyFansModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFansModel.m; sourceTree = "<group>"; };
+		4CD157BE21991AD700178FBF /* SeniorPostingAddTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingAddTitleCell.h; sourceTree = "<group>"; };
+		4CD157BF21991AD700178FBF /* SeniorPostingAddTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostingAddTitleCell.m; sourceTree = "<group>"; };
+		4CD157C121991AED00178FBF /* SeniorPostingAddContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingAddContentCell.h; sourceTree = "<group>"; };
+		4CD157C221991AED00178FBF /* SeniorPostingAddContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostingAddContentCell.m; sourceTree = "<group>"; };
+		4CD157C421991AFB00178FBF /* SeniorPostingAddImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingAddImageCell.h; sourceTree = "<group>"; };
+		4CD157C521991AFB00178FBF /* SeniorPostingAddImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostingAddImageCell.m; sourceTree = "<group>"; };
+		4CD157C721991B0700178FBF /* SeniorPostingAddVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingAddVideoCell.h; sourceTree = "<group>"; };
+		4CD157C821991B0700178FBF /* SeniorPostingAddVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostingAddVideoCell.m; sourceTree = "<group>"; };
+		4CD157CA21991CB700178FBF /* SeniorPostingAddElementModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingAddElementModel.h; sourceTree = "<group>"; };
+		4CD157CB21991CB700178FBF /* SeniorPostingAddElementModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostingAddElementModel.m; sourceTree = "<group>"; };
+		4CD157CD2199200100178FBF /* AddNewTitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNewTitleViewController.h; sourceTree = "<group>"; };
+		4CD157CE2199200100178FBF /* AddNewTitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNewTitleViewController.m; sourceTree = "<group>"; };
+		4CD157D021992A9600178FBF /* AddNewContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNewContentViewController.h; sourceTree = "<group>"; };
+		4CD157D121992A9600178FBF /* AddNewContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNewContentViewController.m; sourceTree = "<group>"; };
+		4CD157D42199566000178FBF /* ZYKeyBoardResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYKeyBoardResponder.h; sourceTree = "<group>"; };
+		4CD157D52199566000178FBF /* ZYKeyBoardSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYKeyBoardSender.h; sourceTree = "<group>"; };
+		4CD157D62199566000178FBF /* ZYKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYKeyBoardManager.h; sourceTree = "<group>"; };
+		4CD157D72199566000178FBF /* ZYKeyBoardSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYKeyBoardSender.m; sourceTree = "<group>"; };
+		4CD157D82199566000178FBF /* ZYKeyBoardResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYKeyBoardResponder.m; sourceTree = "<group>"; };
+		4CD157D92199566000178FBF /* ZYKeyBoardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYKeyBoardManager.m; sourceTree = "<group>"; };
 		4CD692EE217F0F1E00A76312 /* CommunityTabbarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunityTabbarVC.h; sourceTree = "<group>"; };
 		4CD692EF217F0F1E00A76312 /* CommunityTabbarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommunityTabbarVC.m; sourceTree = "<group>"; };
 		4CD692F1217F10D000A76312 /* ForumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumViewController.h; sourceTree = "<group>"; };
@@ -2905,6 +2935,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4CD157D32199566000178FBF /* ZYKeyBoardManager */,
 				4C40C74E21955F9F006408DE /* LZPickerView */,
 				4CAD566B2194224F00BD77E0 /* WTEEmotIconKeyBoard */,
 				4CFB96F221932C0F0016924A /* RTRootNavigationController */,
@@ -3261,6 +3292,14 @@
 				4C40C74921951ED5006408DE /* VotePostingTableViewCell.m */,
 				4C40C74B219527C4006408DE /* VotePostingTableViewCell2.h */,
 				4C40C74C219527C4006408DE /* VotePostingTableViewCell2.m */,
+				4CD157BE21991AD700178FBF /* SeniorPostingAddTitleCell.h */,
+				4CD157BF21991AD700178FBF /* SeniorPostingAddTitleCell.m */,
+				4CD157C121991AED00178FBF /* SeniorPostingAddContentCell.h */,
+				4CD157C221991AED00178FBF /* SeniorPostingAddContentCell.m */,
+				4CD157C421991AFB00178FBF /* SeniorPostingAddImageCell.h */,
+				4CD157C521991AFB00178FBF /* SeniorPostingAddImageCell.m */,
+				4CD157C721991B0700178FBF /* SeniorPostingAddVideoCell.h */,
+				4CD157C821991B0700178FBF /* SeniorPostingAddVideoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4525,6 +4564,19 @@
 			path = UIDevice;
 			sourceTree = "<group>";
 		};
+		4CD157D32199566000178FBF /* ZYKeyBoardManager */ = {
+			isa = PBXGroup;
+			children = (
+				4CD157D62199566000178FBF /* ZYKeyBoardManager.h */,
+				4CD157D92199566000178FBF /* ZYKeyBoardManager.m */,
+				4CD157D52199566000178FBF /* ZYKeyBoardSender.h */,
+				4CD157D72199566000178FBF /* ZYKeyBoardSender.m */,
+				4CD157D42199566000178FBF /* ZYKeyBoardResponder.h */,
+				4CD157D82199566000178FBF /* ZYKeyBoardResponder.m */,
+			);
+			path = ZYKeyBoardManager;
+			sourceTree = "<group>";
+		};
 		4CD692ED217F0E8600A76312 /* Community */ = {
 			isa = PBXGroup;
 			children = (
@@ -4555,6 +4607,10 @@
 				4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */,
 				4CFB96842192DAE60016924A /* PopReplyViewController.h */,
 				4CFB96852192DAE60016924A /* PopReplyViewController.m */,
+				4CD157CD2199200100178FBF /* AddNewTitleViewController.h */,
+				4CD157CE2199200100178FBF /* AddNewTitleViewController.m */,
+				4CD157D021992A9600178FBF /* AddNewContentViewController.h */,
+				4CD157D121992A9600178FBF /* AddNewContentViewController.m */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4CDC73F3219149530079EB3E /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
@@ -4569,6 +4625,8 @@
 				4CDC73F0219147B20079EB3E /* RemindPeople.m */,
 				4C40C75421957182006408DE /* VoteChooseInputModel.h */,
 				4C40C75521957182006408DE /* VoteChooseInputModel.m */,
+				4CD157CA21991CB700178FBF /* SeniorPostingAddElementModel.h */,
+				4CD157CB21991CB700178FBF /* SeniorPostingAddElementModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5255,6 +5313,7 @@
 				4C992FF6217717680092DDCF /* HXCustomNavigationController.m in Sources */,
 				4C4C95AC218FF29200627B07 /* TZProgressView.m in Sources */,
 				4C02F906218AE4A800CB0169 /* ForumDetailTableViewCell.m in Sources */,
+				4CD157DC2199566000178FBF /* ZYKeyBoardManager.m in Sources */,
 				4C992FEC217717680092DDCF /* HXDatePhotoViewController.m in Sources */,
 				4CE121DE20C11DA000A44782 /* RankDetailViewController.m in Sources */,
 				4C17B4A320E250C900470AEB /* IFMShareItem.m in Sources */,
@@ -5329,6 +5388,7 @@
 				4C6E9195213F5F07001535CA /* NSObject+YYAddForARC.m in Sources */,
 				4CFB96822192C7DC0016924A /* ReplyThePostPopView.m in Sources */,
 				4C7234E120FDEB1D00D5C5D4 /* AABar.m in Sources */,
+				4CD157CC21991CB700178FBF /* SeniorPostingAddElementModel.m in Sources */,
 				4C7EF37921212A0B0002166A /* ZSSBarButtonItem.m in Sources */,
 				4C7234DF20FDEB1D00D5C5D4 /* AAOptions3d.m in Sources */,
 				4C53D1C1215CC78200AFC352 /* BankCardTableViewCell.m in Sources */,
@@ -5376,6 +5436,7 @@
 				4C7EF4BD21217EE90002166A /* ChannelSelectView.m in Sources */,
 				4C72350120FF373C00D5C5D4 /* JHTextField.m in Sources */,
 				4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */,
+				4CD157DB2199566000178FBF /* ZYKeyBoardResponder.m in Sources */,
 				4C6E9196213F5F07001535CA /* NSDate+YYAdd.m in Sources */,
 				4C03F5362101DE5900574136 /* ArticleModel.m in Sources */,
 				4C6E9165213F5F07001535CA /* MKAnnotationView+YYWebImage.m in Sources */,
@@ -5419,6 +5480,7 @@
 				4C7234D920FDEB1D00D5C5D4 /* AATooltip.m in Sources */,
 				4CCCF02020EA1D2E000EC6BD /* MyFansTableViewCell.m in Sources */,
 				4C149CBB20E4FCC500D57D12 /* ExchangeProductViewController.m in Sources */,
+				4CD157DA2199566000178FBF /* ZYKeyBoardSender.m in Sources */,
 				4C3F904520BD40D7003EC4FC /* PGIndexBannerSubiew.m in Sources */,
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4C6E919B213F5F07001535CA /* YYCGUtilities.m in Sources */,
@@ -5468,8 +5530,10 @@
 				4C3CB3CA213D0E8700E48A97 /* HZPhotoBrowserView.m in Sources */,
 				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
+				4CD157C621991AFB00178FBF /* SeniorPostingAddImageCell.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C992F86217717610092DDCF /* UIWebView+KWHideAccessoryView.m in Sources */,
+				4CD157C321991AED00178FBF /* SeniorPostingAddContentCell.m in Sources */,
 				4C6E91A7213F5F07001535CA /* YYThreadSafeArray.m in Sources */,
 				4C6E9166213F5F07001535CA /* CALayer+YYWebImage.m in Sources */,
 				4C4EC3032112E3E800591F12 /* ZXYShineClickLayer.m in Sources */,
@@ -5564,6 +5628,8 @@
 				4C7B5DF721882D8300B76E47 /* TFDropDownMenuView.m in Sources */,
 				4C1DE9FB213D339600350313 /* WebViewJavascriptBridge.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
+				4CD157C921991B0700178FBF /* SeniorPostingAddVideoCell.m in Sources */,
+				4CD157C021991AD700178FBF /* SeniorPostingAddTitleCell.m in Sources */,
 				4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */,
 				4C7234EC20FDEB1D00D5C5D4 /* AAChartModel.m in Sources */,
 				4C7234EA20FDEB1D00D5C5D4 /* AAChart.m in Sources */,
@@ -5692,6 +5758,7 @@
 				4C6E91A4213F5F07001535CA /* YYGestureRecognizer.m in Sources */,
 				4C7A0987215B771400E0682A /* AppDelegate+Push.m in Sources */,
 				4C6E91A5213F5F07001535CA /* YYFileHash.m in Sources */,
+				4CD157D221992A9600178FBF /* AddNewContentViewController.m in Sources */,
 				4C992FF8217717680092DDCF /* HXPhotoSubViewCell.m in Sources */,
 				4C7234E920FDEB1D00D5C5D4 /* AAPie.m in Sources */,
 				4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */,
@@ -5699,6 +5766,7 @@
 				4C5AC7022160795A00F9A7F9 /* UIImage+ImgSize.m in Sources */,
 				4C6E91A2213F5F07001535CA /* YYDispatchQueuePool.m in Sources */,
 				4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */,
+				4CD157CF2199200100178FBF /* AddNewTitleViewController.m in Sources */,
 				4C6E9180213F5F07001535CA /* UIBezierPath+YYAdd.m in Sources */,
 				4C51FFD920D2758A0018387B /* UIView+GFCorner.m in Sources */,
 				4C3F904920BD4177003EC4FC /* HeadBannerView.m in Sources */,

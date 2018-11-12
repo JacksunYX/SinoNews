@@ -34,6 +34,7 @@
 @property (nonatomic,strong) UIButton *showKeyboard;
 @end
 
+//可添加投票选项的最小、最大数
 static NSInteger limitMinNum = 2;
 static NSInteger limitMaxNum = 20;
 @implementation VotePostingViewController

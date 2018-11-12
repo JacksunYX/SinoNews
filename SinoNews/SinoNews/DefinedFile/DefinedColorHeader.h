@@ -29,4 +29,6 @@
 //新闻列表下文字字体
 #define NewsBottomTitle PFFontR(10)
 
+#define ThemeColor      HexColor(#1282EE)
+
 #endif /* DefinedColorHeader_h */

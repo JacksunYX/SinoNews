@@ -9,7 +9,10 @@
 #ifndef CommunityHeader_h
 #define CommunityHeader_h
 
-#import "ReplyThePostPopView.h"
+//高级发帖元素模型
+#import "SeniorPostingAddElementModel.h"
+
+//帖子回复弹窗控制器
 #import "PopReplyViewController.h"
 
 #endif /* CommunityHeader_h */

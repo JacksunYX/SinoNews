@@ -71,4 +71,6 @@
 
 #import "LZPickerView.h"
 
+#import "ZYKeyBoardManager.h"   //键盘管理
+
 #endif /* OtherFrameworksHead_h */

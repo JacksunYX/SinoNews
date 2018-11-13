@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/11/12.
 //  Copyright © 2018 Sino. All rights reserved.
 //
-//高级发帖-编辑已选图片、描述
+//高级发帖-编辑已选图片描述
 
 #import "BaseViewController.h"
 

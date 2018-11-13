@@ -8,12 +8,12 @@
 
 #import "RemindOthersToReadView.h"
 #import "MyFansModel.h"
-#import "RemindPeople.h"
 
 @interface RemindOthersToReadView ()
 {
     
 }
+
 @end
 
 @implementation RemindOthersToReadView

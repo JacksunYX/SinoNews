@@ -542,6 +542,10 @@
 		4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360220BEAB4F00B6A8B5 /* SearchCollectionViewCell.m */; };
 		4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */; };
 		4C890731211D34FF00F86220 /* STSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C89072F211D34FE00F86220 /* STSegmentView.m */; };
+		4C8D5C37219AC26C008C13A9 /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C2A219AC26B008C13A9 /* CAAnimation+WAnimation.m */; };
+		4C8D5C38219AC26C008C13A9 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C2F219AC26B008C13A9 /* UIBarButtonItem+WZLBadge.m */; };
+		4C8D5C39219AC26C008C13A9 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C30219AC26B008C13A9 /* UITabBarItem+WZLBadge.m */; };
+		4C8D5C3A219AC26C008C13A9 /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C36219AC26B008C13A9 /* UIView+WZLBadge.m */; };
 		4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */; };
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
@@ -1814,6 +1818,16 @@
 		4C87360520BEABB700B6A8B5 /* SearchHeadReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHeadReusableView.m; sourceTree = "<group>"; };
 		4C89072F211D34FE00F86220 /* STSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSegmentView.m; sourceTree = "<group>"; };
 		4C890730211D34FE00F86220 /* STSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSegmentView.h; sourceTree = "<group>"; };
+		4C8D5C2A219AC26B008C13A9 /* CAAnimation+WAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+WAnimation.m"; sourceTree = "<group>"; };
+		4C8D5C2B219AC26B008C13A9 /* CAAnimation+WAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+WAnimation.h"; sourceTree = "<group>"; };
+		4C8D5C2D219AC26B008C13A9 /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
+		4C8D5C2E219AC26B008C13A9 /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
+		4C8D5C2F219AC26B008C13A9 /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
+		4C8D5C30219AC26B008C13A9 /* UITabBarItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+WZLBadge.m"; sourceTree = "<group>"; };
+		4C8D5C31219AC26B008C13A9 /* WZLBadgeImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeImport.h; sourceTree = "<group>"; };
+		4C8D5C33219AC26B008C13A9 /* WZLBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeProtocol.h; sourceTree = "<group>"; };
+		4C8D5C35219AC26B008C13A9 /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
+		4C8D5C36219AC26B008C13A9 /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
 		4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryVC.h; sourceTree = "<group>"; };
 		4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryVC.m; sourceTree = "<group>"; };
 		4C93496C20CF677600BD8F07 /* BaseViewHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewHead.h; sourceTree = "<group>"; };
@@ -2950,6 +2964,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C8D5C28219AC26B008C13A9 /* WZLBadge */,
 				4CD157D32199566000178FBF /* ZYKeyBoardManager */,
 				4C40C74E21955F9F006408DE /* LZPickerView */,
 				4CAD566B2194224F00BD77E0 /* WTEEmotIconKeyBoard */,
@@ -4139,6 +4154,55 @@
 				4C890730211D34FE00F86220 /* STSegmentView.h */,
 			);
 			path = STSegmentView;
+			sourceTree = "<group>";
+		};
+		4C8D5C28219AC26B008C13A9 /* WZLBadge */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D5C29219AC26B008C13A9 /* CategorySupport */,
+				4C8D5C2C219AC26B008C13A9 /* BarItem */,
+				4C8D5C31219AC26B008C13A9 /* WZLBadgeImport.h */,
+				4C8D5C32219AC26B008C13A9 /* Protocol */,
+				4C8D5C34219AC26B008C13A9 /* View */,
+			);
+			path = WZLBadge;
+			sourceTree = "<group>";
+		};
+		4C8D5C29219AC26B008C13A9 /* CategorySupport */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D5C2A219AC26B008C13A9 /* CAAnimation+WAnimation.m */,
+				4C8D5C2B219AC26B008C13A9 /* CAAnimation+WAnimation.h */,
+			);
+			path = CategorySupport;
+			sourceTree = "<group>";
+		};
+		4C8D5C2C219AC26B008C13A9 /* BarItem */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D5C2D219AC26B008C13A9 /* UIBarButtonItem+WZLBadge.h */,
+				4C8D5C2E219AC26B008C13A9 /* UITabBarItem+WZLBadge.h */,
+				4C8D5C2F219AC26B008C13A9 /* UIBarButtonItem+WZLBadge.m */,
+				4C8D5C30219AC26B008C13A9 /* UITabBarItem+WZLBadge.m */,
+			);
+			path = BarItem;
+			sourceTree = "<group>";
+		};
+		4C8D5C32219AC26B008C13A9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D5C33219AC26B008C13A9 /* WZLBadgeProtocol.h */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		4C8D5C34219AC26B008C13A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D5C35219AC26B008C13A9 /* UIView+WZLBadge.h */,
+				4C8D5C36219AC26B008C13A9 /* UIView+WZLBadge.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4C93496D20CF6DD100BD8F07 /* View */ = {
@@ -5494,6 +5558,7 @@
 				4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C992F7D2177175D0092DDCF /* KWEditorBar.m in Sources */,
+				4C8D5C3A219AC26C008C13A9 /* UIView+WZLBadge.m in Sources */,
 				4C49F05D20D0AF5C009DC42B /* RankingListModel.m in Sources */,
 				4C3CB3C8213D0E8700E48A97 /* HZPhotoBrowser.m in Sources */,
 				4C4E495C2111A1380078864D /* ExchangeRecordCell.m in Sources */,
@@ -5602,6 +5667,7 @@
 				4C992F7C2177175D0092DDCF /* KWFontStyleBar.m in Sources */,
 				4C72347C20FD8C6D00D5C5D4 /* PYSearchSuggestionViewController.m in Sources */,
 				4C5BFD00211AD7E000EF82DA /* CasinoCollectViewController.m in Sources */,
+				4C8D5C37219AC26C008C13A9 /* CAAnimation+WAnimation.m in Sources */,
 				4C1B5ADF2107268E00A47563 /* UIBarButtonItem+SXCreate.m in Sources */,
 				4C6E9161213F5F07001535CA /* YYFrameImage.m in Sources */,
 				4C95FFEF20DE4C7A0040E348 /* UIView+Extension.m in Sources */,
@@ -5638,6 +5704,7 @@
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,
 				4CD692F9217F11A700A76312 /* EditSelectViewController.m in Sources */,
 				4C6332D320E0985C00D80056 /* AddressModel.m in Sources */,
+				4C8D5C39219AC26C008C13A9 /* UITabBarItem+WZLBadge.m in Sources */,
 				4CA23273212E9F6C006709E6 /* UpdatePopView.m in Sources */,
 				4C54949F20CE5DF900CB448E /* AttentionRecommendThirdCell.m in Sources */,
 				4C992FE2217717680092DDCF /* UIFont+HXExtension.m in Sources */,
@@ -5645,6 +5712,7 @@
 				4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */,
 				4C3F903F20BD40BB003EC4FC /* PGCustomBannerView.m in Sources */,
 				4C51B16C210F12E7007EF10B /* DailyTaskModel.m in Sources */,
+				4C8D5C38219AC26C008C13A9 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				4C6E916E213F5F07001535CA /* YYTextEffectWindow.m in Sources */,
 				4C6E9173213F5F07001535CA /* YYTextKeyboardManager.m in Sources */,
 				4C6E91A6213F5F07001535CA /* YYTimer.m in Sources */,

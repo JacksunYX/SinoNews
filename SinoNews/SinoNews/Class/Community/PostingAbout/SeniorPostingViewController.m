@@ -13,6 +13,7 @@
 #import "EditImageViewController.h"
 #import "EditVideoViewController.h"
 #import "LeftPopDirectoryViewController.h"
+#import "RemindOthersToReadViewController.h"
 
 #import "SeniorPostingAddTitleCell.h"
 #import "SeniorPostingAddContentCell.h"
@@ -23,6 +24,7 @@
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray <RemindPeople *>*remindArr;
 
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) FSTextView *titleView;
@@ -31,6 +33,7 @@
 //title、content输入输入时键盘的辅助视图
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *showKeyboard;
+@property (nonatomic,strong) UIButton *addPeopleBtn;  //@按钮
 
 //是否正在排序中
 @property (nonatomic,assign) BOOL isSorting;
@@ -342,7 +345,7 @@
     UIButton *addContentBtn = [UIButton new];
     UIButton *addImageBtn = [UIButton new];
     UIButton *addVideoBtn = [UIButton new];
-    UIButton *addPeopleBtn = [UIButton new];
+    _addPeopleBtn = [UIButton new];
     UIButton *showKeyboardBtn = [UIButton new];
     //布局
     CGFloat avgSpaceX = 20;
@@ -352,7 +355,7 @@
                                    addContentBtn,
                                    addImageBtn,
                                    addVideoBtn,
-                                   addPeopleBtn,
+                                   _addPeopleBtn,
                                    showKeyboardBtn,
                                    
                                    ]];
@@ -396,14 +399,14 @@
     ;
     [addVideoBtn setNormalImage:UIImageNamed(@"addVedio_post")];
     
-    addPeopleBtn.sd_layout
+    _addPeopleBtn.sd_layout
     .centerYEqualToView(functionView)
     .leftSpaceToView(addVideoBtn, avgSpaceX)
     .widthIs(22)
     .heightEqualToWidth()
     ;
-    [addPeopleBtn setNormalImage:UIImageNamed(@"attentionPeople_normal")];
-    [addPeopleBtn setSelectedImage:UIImageNamed(@"attentionPeople_light")];
+    [_addPeopleBtn setNormalImage:UIImageNamed(@"attentionPeople_normal")];
+    [_addPeopleBtn setSelectedImage:UIImageNamed(@"attentionPeople_light")];
     
     showKeyboardBtn.sd_layout
     .centerYEqualToView(functionView)
@@ -418,7 +421,7 @@
     addContentBtn.tag = 2;
     addImageBtn.tag = 3;
     addVideoBtn.tag = 4;
-    addPeopleBtn.tag = 5;
+    _addPeopleBtn.tag = 5;
     showKeyboardBtn.tag = 6;
     
     [emojiBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -426,7 +429,7 @@
     [addContentBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [addImageBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [addVideoBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
-    [addPeopleBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+    [_addPeopleBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [showKeyboardBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -470,7 +473,7 @@
             break;
         case 5:
         {
-            GGLog(@"添加@的人");
+            [self setRemindPeoples];
         }
             break;
         case 6:
@@ -499,6 +502,31 @@
         GGLog(@"滚动至下标为:%ld的cell",index);
         [self.tableView scrollToRow:index inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:YES];
     };
+}
+
+//跳转设置需要@的人
+-(void)setRemindPeoples
+{
+    RemindOthersToReadViewController *rotrVC = [RemindOthersToReadViewController new];
+    
+    rotrVC.selectedArr = self.remindArr.mutableCopy;
+    
+    @weakify(self);
+    rotrVC.selectBlock = ^(NSMutableArray * _Nonnull selectArr) {
+        GGLog(@"1级页面回调");
+        @strongify(self);
+        self.remindArr = selectArr.mutableCopy;
+        //修改角标状态
+        if (self.remindArr.count>0) {
+            [self.addPeopleBtn showBadgeWithStyle:WBadgeStyleNumber value:self.remindArr.count animationType:WBadgeAnimTypeNone];
+            self.addPeopleBtn.badgeBgColor = HexColor(#FF5858);
+        }else{
+            [self.addPeopleBtn clearBadge];
+        }
+        self.addPeopleBtn.selected = self.remindArr.count>0?YES:NO;
+    };
+    
+    [self.navigationController pushViewController:rotrVC animated:YES];
 }
 
 //添加/修改小标题

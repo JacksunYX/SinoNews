@@ -73,4 +73,6 @@
 
 #import "ZYKeyBoardManager.h"   //键盘管理
 
+#import "WZLBadgeImport.h"  //角标库
+
 #endif /* OtherFrameworksHead_h */

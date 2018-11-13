@@ -11,7 +11,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class RemindPeople;
 @interface RemindOthersToReadView : UIView
 
 @property (nonatomic ,strong) NSMutableArray <RemindPeople *> *remindArr;

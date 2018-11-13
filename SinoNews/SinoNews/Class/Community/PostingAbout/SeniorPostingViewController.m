@@ -12,6 +12,7 @@
 #import "AddNewContentViewController.h"
 #import "EditImageViewController.h"
 #import "EditVideoViewController.h"
+#import "LeftPopDirectoryViewController.h"
 
 #import "SeniorPostingAddTitleCell.h"
 #import "SeniorPostingAddContentCell.h"
@@ -33,6 +34,10 @@
 
 //是否正在排序中
 @property (nonatomic,assign) BOOL isSorting;
+
+//目录按钮
+@property (nonatomic,strong) UIButton *directoryBtn;
+@property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
 @end
 
@@ -152,6 +157,8 @@
     [super viewDidLoad];
     [self setUpNavigationView:NO];
     [self setUI];
+    
+    [self reloadDataWithDataArrUpperCase];
     
     //键盘监听
     @weakify(self);
@@ -291,6 +298,17 @@
     _tableView.tableHeaderView = self.headView;
     
     [self setFuctionView];
+    
+    _directoryBtn = [UIButton new];
+    [self.view addSubview:_directoryBtn];
+    _directoryBtn.sd_layout
+    .leftSpaceToView(self.view, 0)
+    .widthIs(80)
+    .heightIs(60)
+    .bottomSpaceToView(self.view, 49 + BOTTOM_MARGIN + 20)
+    ;
+    [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
+    [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //下方的功能按钮视图
@@ -466,6 +484,23 @@
     }
 }
 
+//弹出目录侧边栏
+-(void)popDirectoryAction
+{
+    self.menu = [LeftPopDirectoryViewController new];
+    self.menu.dataSource = self.dataSource;
+    self.menu.view.frame = CGRectMake(0, 0, 260, ScreenH);
+    [self.menu initSlideFoundationWithDirection:SlideDirectionFromLeft];
+    [self.menu show];
+    
+    @weakify(self);
+    self.menu.clickBlock = ^(NSInteger index) {
+        @strongify(self);
+        GGLog(@"滚动至下标为:%ld的cell",index);
+        [self.tableView scrollToRow:index inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    };
+}
+
 //添加/修改小标题
 -(void)setChildTitleWithModel:(SeniorPostingAddElementModel *)data
 {
@@ -553,8 +588,8 @@
 //处理小标题大写问题
 -(void)reloadDataWithDataArrUpperCase
 {
+    int j = 1;//标记有几个小标题分区
     if (self.dataSource.count>0) {
-        int j = 1;//标记有几个小标题分区
         //遍历数据源
         for (int i = 0; i < self.dataSource.count; i ++) {
             SeniorPostingAddElementModel *model = self.dataSource[i];
@@ -566,6 +601,11 @@
         }
     }
     
+    if (j == 1) {   //j没有变化，说明没有小标题了，隐藏目录按钮
+        _directoryBtn.hidden = YES;
+    }else{
+        _directoryBtn.hidden = NO;
+    }
     [self.tableView reloadData];
 }
 
@@ -620,7 +660,19 @@
         default:
             break;
     }
-    [self.tableView reloadData];
+    [self reloadDataWithDataArrUpperCase];
+    if (self.dataSource.count<=0) {
+        [self finishAction];
+    }
+}
+
+#pragma mark --- UITextViewDelegate ---
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    //禁止标题输入换行
+    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark --- TZImagePickerControllerDelegate ---

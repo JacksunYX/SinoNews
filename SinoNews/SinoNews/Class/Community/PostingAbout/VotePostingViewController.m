@@ -248,6 +248,15 @@ static NSInteger limitMaxNum = 20;
     [_tableView registerClass:[VotePostingTableViewCell2 class] forCellReuseIdentifier:VotePostingTableViewCell2ID];
 }
 
+#pragma mark --- UITextViewDelegate ---
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    //禁止标题输入换行
+    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

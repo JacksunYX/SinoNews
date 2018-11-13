@@ -81,6 +81,7 @@
     .bottomEqualToView(self.view)
     .heightIs(100)
     ;
+    [descrip updateLayout];
     descrip.inputAccessoryView = self.bottomView;
     descrip.placeholder = @"给图片配点文字吧";
     descrip.textColor = HexColor(#161A24);
@@ -103,7 +104,7 @@
     imageView.image = self.model.image;
     imageView.contentMode = 1;
     
-    GCDAfterTime(0.5, ^{
+    GCDAfterTime(0.8, ^{
         [descrip becomeFirstResponder];
     });
 }

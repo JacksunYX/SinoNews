@@ -804,6 +804,9 @@
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
 		4CF35CB7218BF2C40064B1BA /* FSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB6218BF2C30064B1BA /* FSTextView.m */; };
 		4CF35CBA218C474B0064B1BA /* SelectImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB9218C474B0064B1BA /* SelectImagesView.m */; };
+		4CF811D3219AA7920001DE52 /* UIViewController+SlideFromSide.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF811D1219AA7920001DE52 /* UIViewController+SlideFromSide.m */; };
+		4CF811D6219AA8F20001DE52 /* LeftPopDirectoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */; };
+		4CF811D9219AB6A00001DE52 /* DirectoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF811D8219AB6A00001DE52 /* DirectoryTableViewCell.m */; };
 		4CFB967C219292F00016924A /* SelectPublishChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */; };
 		4CFB967F2192B97B0016924A /* SelectPublishChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */; };
 		4CFB96822192C7DC0016924A /* ReplyThePostPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96812192C7DC0016924A /* ReplyThePostPopView.m */; };
@@ -2214,6 +2217,12 @@
 		4CF35CB6218BF2C30064B1BA /* FSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTextView.m; sourceTree = "<group>"; };
 		4CF35CB8218C474B0064B1BA /* SelectImagesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectImagesView.h; sourceTree = "<group>"; };
 		4CF35CB9218C474B0064B1BA /* SelectImagesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectImagesView.m; sourceTree = "<group>"; };
+		4CF811D1219AA7920001DE52 /* UIViewController+SlideFromSide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SlideFromSide.m"; sourceTree = "<group>"; };
+		4CF811D2219AA7920001DE52 /* UIViewController+SlideFromSide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SlideFromSide.h"; sourceTree = "<group>"; };
+		4CF811D4219AA8F20001DE52 /* LeftPopDirectoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeftPopDirectoryViewController.h; sourceTree = "<group>"; };
+		4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftPopDirectoryViewController.m; sourceTree = "<group>"; };
+		4CF811D7219AB6A00001DE52 /* DirectoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectoryTableViewCell.h; sourceTree = "<group>"; };
+		4CF811D8219AB6A00001DE52 /* DirectoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectoryTableViewCell.m; sourceTree = "<group>"; };
 		4CFB967A219292F00016924A /* SelectPublishChannelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPublishChannelViewController.h; sourceTree = "<group>"; };
 		4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPublishChannelViewController.m; sourceTree = "<group>"; };
 		4CFB967D2192B97B0016924A /* SelectPublishChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPublishChannelCell.h; sourceTree = "<group>"; };
@@ -3194,6 +3203,8 @@
 		4C4ED9E820E39B1500347974 /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4CF811D2219AA7920001DE52 /* UIViewController+SlideFromSide.h */,
+				4CF811D1219AA7920001DE52 /* UIViewController+SlideFromSide.m */,
 				4C4ED9E920E39B3400347974 /* UIViewController+emptyView.h */,
 				4C4ED9EA20E39B3400347974 /* UIViewController+emptyView.m */,
 			);
@@ -3306,6 +3317,8 @@
 				4CD157C521991AFB00178FBF /* SeniorPostingAddImageCell.m */,
 				4CD157C721991B0700178FBF /* SeniorPostingAddVideoCell.h */,
 				4CD157C821991B0700178FBF /* SeniorPostingAddVideoCell.m */,
+				4CF811D7219AB6A00001DE52 /* DirectoryTableViewCell.h */,
+				4CF811D8219AB6A00001DE52 /* DirectoryTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4621,6 +4634,8 @@
 				4CEEE5542199966100DFEC0A /* EditImageViewController.m */,
 				4CEEE55621999F0D00DFEC0A /* EditVideoViewController.h */,
 				4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */,
+				4CF811D4219AA8F20001DE52 /* LeftPopDirectoryViewController.h */,
+				4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4CDC73F3219149530079EB3E /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
@@ -5416,6 +5431,7 @@
 				4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */,
 				4C6332CF20E097CB00D80056 /* AddressTableViewCell.m in Sources */,
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
+				4CF811D9219AB6A00001DE52 /* DirectoryTableViewCell.m in Sources */,
 				4C4E49622111B43D0078864D /* ExchangePopView.m in Sources */,
 				4CAD57662194225000BD77E0 /* WTConst.m in Sources */,
 				4C7234D820FDEB1D00D5C5D4 /* AALine.m in Sources */,
@@ -5581,6 +5597,7 @@
 				4C992FFC217717680092DDCF /* HXCircleProgressView.m in Sources */,
 				4C3F904F20BD7048003EC4FC /* HomePageFirstKindCell.m in Sources */,
 				4C7B5DEB2187F8FD00B76E47 /* TheAuthorListViewController.m in Sources */,
+				4CF811D3219AA7920001DE52 /* UIViewController+SlideFromSide.m in Sources */,
 				4C7234FB20FF34C900D5C5D4 /* QACommentInputView.m in Sources */,
 				4C992F7C2177175D0092DDCF /* KWFontStyleBar.m in Sources */,
 				4C72347C20FD8C6D00D5C5D4 /* PYSearchSuggestionViewController.m in Sources */,
@@ -5651,6 +5668,7 @@
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,
 				4C6E9172213F5F07001535CA /* YYTextSelectionView.m in Sources */,
 				4C7234D320FDEB1D00D5C5D4 /* AALabels.m in Sources */,
+				4CF811D6219AA8F20001DE52 /* LeftPopDirectoryViewController.m in Sources */,
 				4C51B166210EAFD4007EF10B /* UIScrollView+PullUpOrDown.m in Sources */,
 				4C992FED217717680092DDCF /* HXPhotoManager.m in Sources */,
 				4C6E9159213F5F07001535CA /* YYCache.m in Sources */,

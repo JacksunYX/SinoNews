@@ -78,12 +78,12 @@ static int tag = 1238129;
 }
 
 //添加虚线框
--(void)addBorderLineOnView
+-(void)addBorderLineOnView:(UIColor *)color
 {
     CAShapeLayer *border = [CAShapeLayer layer];
     GGLog(@"bound:%@",NSStringFromCGRect(self.bounds));
     //虚线的颜色
-    border.strokeColor = [UIColor redColor].CGColor;
+    border.strokeColor = color.CGColor;
     //填充的颜色
     border.fillColor = [UIColor clearColor].CGColor;
     
@@ -94,7 +94,7 @@ static int tag = 1238129;
     
     border.frame = self.bounds;
     //虚线的宽度
-    border.lineWidth = 1.f;
+    border.lineWidth = 0.5f;
     
     
     //设置线条的样式

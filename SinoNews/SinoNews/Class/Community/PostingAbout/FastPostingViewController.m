@@ -347,5 +347,12 @@
     
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    //禁止标题输入换行
+    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
+        return NO;
+    }
+    return YES;
+}
 
 @end

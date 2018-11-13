@@ -42,5 +42,6 @@
 #import "Util.h"
 #import "UITabBar+badge.h"
 #import "UIImage+ImgSize.h"
+#import "UIViewController+SlideFromSide.h"//侧边栏
 
 #endif /* ToolsHeader_h */

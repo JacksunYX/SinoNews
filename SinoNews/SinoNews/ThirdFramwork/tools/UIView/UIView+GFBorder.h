@@ -42,6 +42,6 @@ typedef NS_OPTIONS(NSInteger, BorderDirectionType) {
 - (void)addBorderTo:(BorderDirectionType)borderType borderSize:(CGSize)size borderColor:(UIColor*) color; 
 
 //添加虚线框
--(void)addBorderLineOnView;
+-(void)addBorderLineOnView:(UIColor *)color;
 
 @end

@@ -546,6 +546,10 @@
 		4C8D5C38219AC26C008C13A9 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C2F219AC26B008C13A9 /* UIBarButtonItem+WZLBadge.m */; };
 		4C8D5C39219AC26C008C13A9 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C30219AC26B008C13A9 /* UITabBarItem+WZLBadge.m */; };
 		4C8D5C3A219AC26C008C13A9 /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C36219AC26B008C13A9 /* UIView+WZLBadge.m */; };
+		4C8D5C3D219AC6EC008C13A9 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C3C219AC6EC008C13A9 /* PreviewViewController.m */; };
+		4C8D5C40219AC986008C13A9 /* SeniorPostDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */; };
+		4C8D5C43219AD3FD008C13A9 /* PreviewTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C42219AD3FD008C13A9 /* PreviewTextTableViewCell.m */; };
+		4C8D5C46219AD40C008C13A9 /* PreviewImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C45219AD40C008C13A9 /* PreviewImageTableViewCell.m */; };
 		4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */; };
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
@@ -1828,6 +1832,14 @@
 		4C8D5C33219AC26B008C13A9 /* WZLBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeProtocol.h; sourceTree = "<group>"; };
 		4C8D5C35219AC26B008C13A9 /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
 		4C8D5C36219AC26B008C13A9 /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
+		4C8D5C3B219AC6EC008C13A9 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		4C8D5C3C219AC6EC008C13A9 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		4C8D5C3E219AC986008C13A9 /* SeniorPostDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostDataModel.h; sourceTree = "<group>"; };
+		4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeniorPostDataModel.m; sourceTree = "<group>"; };
+		4C8D5C41219AD3FD008C13A9 /* PreviewTextTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewTextTableViewCell.h; sourceTree = "<group>"; };
+		4C8D5C42219AD3FD008C13A9 /* PreviewTextTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewTextTableViewCell.m; sourceTree = "<group>"; };
+		4C8D5C44219AD40C008C13A9 /* PreviewImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewImageTableViewCell.h; sourceTree = "<group>"; };
+		4C8D5C45219AD40C008C13A9 /* PreviewImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewImageTableViewCell.m; sourceTree = "<group>"; };
 		4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryVC.h; sourceTree = "<group>"; };
 		4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryVC.m; sourceTree = "<group>"; };
 		4C93496C20CF677600BD8F07 /* BaseViewHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewHead.h; sourceTree = "<group>"; };
@@ -3334,6 +3346,10 @@
 				4CD157C821991B0700178FBF /* SeniorPostingAddVideoCell.m */,
 				4CF811D7219AB6A00001DE52 /* DirectoryTableViewCell.h */,
 				4CF811D8219AB6A00001DE52 /* DirectoryTableViewCell.m */,
+				4C8D5C41219AD3FD008C13A9 /* PreviewTextTableViewCell.h */,
+				4C8D5C42219AD3FD008C13A9 /* PreviewTextTableViewCell.m */,
+				4C8D5C44219AD40C008C13A9 /* PreviewImageTableViewCell.h */,
+				4C8D5C45219AD40C008C13A9 /* PreviewImageTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4700,6 +4716,8 @@
 				4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */,
 				4CF811D4219AA8F20001DE52 /* LeftPopDirectoryViewController.h */,
 				4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */,
+				4C8D5C3B219AC6EC008C13A9 /* PreviewViewController.h */,
+				4C8D5C3C219AC6EC008C13A9 /* PreviewViewController.m */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4CDC73F3219149530079EB3E /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
@@ -4716,6 +4734,8 @@
 				4C40C75521957182006408DE /* VoteChooseInputModel.m */,
 				4CD157CA21991CB700178FBF /* SeniorPostingAddElementModel.h */,
 				4CD157CB21991CB700178FBF /* SeniorPostingAddElementModel.m */,
+				4C8D5C3E219AC986008C13A9 /* SeniorPostDataModel.h */,
+				4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5514,6 +5534,7 @@
 				4C992F74217717530092DDCF /* WGUploadPictureModel.m in Sources */,
 				4CE336F22182B40A0037F9D2 /* Mine2SecondTableViewCell.m in Sources */,
 				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
+				4C8D5C40219AC986008C13A9 /* SeniorPostDataModel.m in Sources */,
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
 				4C6E9187213F5F07001535CA /* UIView+YYAdd.m in Sources */,
 				4C6E9171213F5F07001535CA /* YYTextLine.m in Sources */,
@@ -5556,6 +5577,7 @@
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,
 				4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */,
+				4C8D5C46219AD40C008C13A9 /* PreviewImageTableViewCell.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C992F7D2177175D0092DDCF /* KWEditorBar.m in Sources */,
 				4C8D5C3A219AC26C008C13A9 /* UIView+WZLBadge.m in Sources */,
@@ -5586,6 +5608,7 @@
 				4C72348020FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m in Sources */,
 				4C23B3C620F592AB00ACE380 /* LMSegmentedControl.m in Sources */,
 				4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */,
+				4C8D5C3D219AC6EC008C13A9 /* PreviewViewController.m in Sources */,
 				4C7EF38021212A0B0002166A /* CYRLayoutManager.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
 				4C992FDE217717680092DDCF /* HXDatePhotoPreviewBottomView.m in Sources */,
@@ -5758,6 +5781,7 @@
 				4CF35CBA218C474B0064B1BA /* SelectImagesView.m in Sources */,
 				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */,
+				4C8D5C43219AD3FD008C13A9 /* PreviewTextTableViewCell.m in Sources */,
 				4C6E9183213F5F07001535CA /* UIApplication+YYAdd.m in Sources */,
 				4C7234DC20FDEB1D00D5C5D4 /* AACrosshair.m in Sources */,
 				4C93497C20CF951800BD8F07 /* MessageFansViewController.m in Sources */,

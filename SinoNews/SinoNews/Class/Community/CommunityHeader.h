@@ -13,6 +13,8 @@
 #import "SeniorPostingAddElementModel.h"
 //@的用户模型
 #import "RemindPeople.h"
+//帖子模型
+#import "SeniorPostDataModel.h"
 
 //帖子回复弹窗控制器
 #import "PopReplyViewController.h"

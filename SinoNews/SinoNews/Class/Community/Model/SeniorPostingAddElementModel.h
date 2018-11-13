@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UIImage *image;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,strong) NSString *imageDes;
+@property (nonatomic,assign) CGFloat imageW;
+@property (nonatomic,assign) CGFloat imageH;
 //视频相关
 @property (nonatomic,strong) NSData *videoData;    //视频资源
 @property (nonatomic,strong) NSString *videoUrl;

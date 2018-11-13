@@ -5,6 +5,7 @@
 //  Created by Michael on 2018/11/2.
 //  Copyright © 2018 Sino. All rights reserved.
 //
+//
 
 #import "SeniorPostingViewController.h"
 #import "SelectPublishChannelViewController.h"
@@ -14,6 +15,7 @@
 #import "EditVideoViewController.h"
 #import "LeftPopDirectoryViewController.h"
 #import "RemindOthersToReadViewController.h"
+#import "PreviewViewController.h"
 
 #import "SeniorPostingAddTitleCell.h"
 #import "SeniorPostingAddContentCell.h"
@@ -23,8 +25,9 @@
 @interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
-@property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray <SeniorPostingAddElementModel *>*dataSource;
 @property (nonatomic,strong) NSMutableArray <RemindPeople *>*remindArr;
+@property (nonatomic,strong) SeniorPostDataModel *postModel;
 
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) FSTextView *titleView;
@@ -59,6 +62,14 @@
         _dataSource = [NSMutableArray new];
     }
     return _dataSource;
+}
+
+-(SeniorPostDataModel *)postModel
+{
+    if (!_postModel) {
+        _postModel = [SeniorPostDataModel new];
+    }
+    return _postModel;
 }
 
 -(UIView *)headView
@@ -97,13 +108,15 @@
         @weakify(self);
         [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
             // 文本改变后的相应操作.
-            
+            @strongify(self);
+            self.postModel.postTitle = textView.formatText;
         }];
         // 添加到达最大限制Block回调.
         [_titleView addTextLengthDidMaxHandler:^(FSTextView *textView) {
             // 达到最大限制数后的相应操作.
             LRToast(@"帖子标题最多支持25个字符");
             @strongify(self);
+            
             [self.view endEditing:YES];
         }];
         
@@ -119,6 +132,7 @@
         // 添加输入改变Block回调.
         [_contentView addTextDidChangeHandler:^(FSTextView *textView) {
             @strongify(self);
+            self.postModel.postContent = textView.formatText;
             // 文本改变后的相应操作.
             NSString *string = textView.formatText;
             if (string.length>0) {
@@ -228,6 +242,7 @@
 -(void)navigationAction:(UIButton *)sender
 {
     GGLog(@"%@",sender.titleLabel.text);
+    [self.view endEditing:YES];
     switch (sender.tag) {
         case 0:
         {
@@ -236,7 +251,17 @@
             break;
         case 1:
         {
-            
+            //如果没有子元素时,必须当标题跟内容同时有内容时才能预览
+            //如果只有子元素，可以直接预览
+            if (self.dataSource.count>0) {
+                [self pushToPreviewVC];
+            }else if ([NSString isEmpty:_titleView.formatText]) {
+                LRToast(@"标题不能空缺哦");
+            }else if ([NSString isEmpty:_contentView.formatText]){
+                LRToast(@"内容不能空缺哦");
+            }else{
+                [self pushToPreviewVC];
+            }
         }
             break;
         case 2:
@@ -504,6 +529,14 @@
     };
 }
 
+//跳转预览界面
+-(void)pushToPreviewVC
+{
+    PreviewViewController *pVC = [PreviewViewController new];
+    pVC.dataModel = self.postModel;
+    [self.navigationController pushViewController:pVC animated:YES];
+}
+
 //跳转设置需要@的人
 -(void)setRemindPeoples
 {
@@ -634,6 +667,7 @@
     }else{
         _directoryBtn.hidden = NO;
     }
+    self.postModel.dataSource = self.dataSource;
     [self.tableView reloadData];
 }
 
@@ -710,6 +744,8 @@
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
         model.addtType = 2;
         model.image = image;
+        model.imageW = image.size.width;
+        model.imageH = image.size.height;
         [self.dataSource addObject:model];
     }
     [self.tableView reloadData];

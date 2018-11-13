@@ -64,7 +64,13 @@
     _contentView.textColor = BlackColor;
     _contentView.inputAccessoryView = self.bottomView;
     
-    [self.view addSubview:_contentView];
+    UIView *line = [UIView new];
+    line.backgroundColor = HexColor(#e3e3e3);
+    
+    [self.view sd_addSubviews:@[
+                                _contentView,
+                                line,
+                                ]];
     _contentView.sd_layout
     .leftEqualToView(self.view)
     .topEqualToView(self.view)
@@ -72,7 +78,14 @@
     .heightIs(200)
     ;
     [_contentView updateLayout];
-    [_contentView addBorderTo:BorderTypeBottom borderColor:HexColor(#e3e3e3)];
+    
+    line.sd_layout
+    .topSpaceToView(_contentView, 0)
+    .leftEqualToView(_contentView)
+    .rightEqualToView(_contentView)
+    .heightIs(1)
+    ;
+    
     _contentView.placeholder = @"来吧，尽情发挥吧！";
     _contentView.placeholderColor = HexColor(#BAC3C7);
     _contentView.placeholderFont = PFFontR(20);

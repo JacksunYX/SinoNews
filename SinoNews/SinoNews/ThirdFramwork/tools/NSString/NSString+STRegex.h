@@ -82,4 +82,9 @@
 //去除首位空格
 +(NSString *)deleteHeadAndFootSpace:(NSString *)string;
 
+/**
+ *  将阿拉伯数字转换为中文数字
+ */
++(NSString *)getChineseWithNum:(NSInteger)arabicNum;
+
 @end

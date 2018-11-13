@@ -14,7 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SeniorPostingAddElementModel : NSObject
 //默认0小标题，1文本，2图片，3视频
 @property (nonatomic,assign) NSInteger addtType;
+//标记第几个分区小标题
+@property (nonatomic,assign) NSInteger sectionNum;
+//小标题
 @property (nonatomic,strong) NSString *title;
+//子内容
 @property (nonatomic,strong) NSString *content;
 
 @property (nonatomic,strong) UIImage *image;

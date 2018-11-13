@@ -70,6 +70,7 @@
         @strongify(self);
         self.model.videoDes = textView.formatText;
     }];
+    [descrip becomeFirstResponder];
     
     imageView.sd_layout
     .topEqualToView(self.view)
@@ -79,11 +80,13 @@
     ;
     imageView.image = self.model.image;
     imageView.contentMode = 1;
+    
 }
 
 //完成事件
 -(void)finishAction
 {
+    [self.view endEditing:YES];
     if (self.finishBlock) {
         self.finishBlock(self.model);
     }

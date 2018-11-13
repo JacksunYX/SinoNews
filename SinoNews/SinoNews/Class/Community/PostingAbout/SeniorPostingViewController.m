@@ -465,7 +465,7 @@
             model.addtType = 0;
             model.title = inputTitle;
             [self.dataSource addObject:model];
-            [self.tableView reloadData];
+            [self reloadDataWithDataArrUpperCase];
             [self scrollToBottom];
         }
     };
@@ -525,6 +525,25 @@
 -(void)scrollToBottom
 {
     [self.tableView scrollToRow:self.dataSource.count - 1 inSection:0 atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+//处理小标题大写问题
+-(void)reloadDataWithDataArrUpperCase
+{
+    if (self.dataSource.count>0) {
+        int j = 1;//标记有几个小标题分区
+        //遍历数据源
+        for (int i = 0; i < self.dataSource.count; i ++) {
+            SeniorPostingAddElementModel *model = self.dataSource[i];
+            if (model.addtType==0) {//说明是小标题
+                //标记是第几个小分区标题
+                model.sectionNum = j;
+                j ++;
+            }
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark --- TZImagePickerControllerDelegate ---

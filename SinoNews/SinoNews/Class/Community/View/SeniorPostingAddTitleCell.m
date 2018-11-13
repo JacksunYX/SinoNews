@@ -57,7 +57,8 @@ NSString * const SeniorPostingAddTitleCellID = @"SeniorPostingAddTitleCellID";
 -(void)setModel:(SeniorPostingAddElementModel *)model
 {
     _model = model;
-    title.text = GetSaveString(model.title);
+    
+    title.text = [NSString stringWithFormat:@"%@、%@",[NSString getChineseWithNum:model.sectionNum],GetSaveString(model.title)];
 }
 
 @end

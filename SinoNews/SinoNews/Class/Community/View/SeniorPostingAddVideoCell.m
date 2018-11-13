@@ -64,7 +64,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     .widthIs(105)
     .heightEqualToWidth()
     ;
-    selectVideo.backgroundColor = Arc4randomColor;
+//    selectVideo.backgroundColor = Arc4randomColor;
     
     videoDescript.sd_layout
     .topEqualToView(selectVideo)

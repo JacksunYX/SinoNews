@@ -133,14 +133,14 @@
             @strongify(self);
             self.postModel.postContent = textView.formatText;
             // 文本改变后的相应操作.
-            NSString *string = textView.formatText;
-            if (string.length>0) {
-                self.publishBtn.enabled = YES;
-                [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
-            }else{
-                self.publishBtn.enabled = NO;
-                [self.publishBtn setNormalTitleColor:HexColor(#959595)];
-            }
+//            NSString *string = textView.formatText;
+//            if (string.length>0) {
+//                self.publishBtn.enabled = YES;
+//                [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
+//            }else{
+//                self.publishBtn.enabled = NO;
+//                [self.publishBtn setNormalTitleColor:HexColor(#959595)];
+//            }
         }];
         _contentView.borderColor = HexColor(#E3E3E3);
         _contentView.borderWidth = 1;

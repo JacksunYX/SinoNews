@@ -18,5 +18,7 @@
 
 //帖子回复弹窗控制器
 #import "PopReplyViewController.h"
+//侧边栏目录
+#import "LeftPopDirectoryViewController.h"
 
 #endif /* CommunityHeader_h */

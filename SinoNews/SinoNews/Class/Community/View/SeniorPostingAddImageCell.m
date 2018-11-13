@@ -13,7 +13,7 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
 {
     UIImageView *selectImage;
     UIButton *uploadStatus;
-    FSTextView *imageDescript;
+    UILabel *imageDescript;
     //排序视图
     UIView *sortBackView;
     UIImageView *goUpTouch;
@@ -49,7 +49,7 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
 {
     selectImage = [UIImageView new];
     uploadStatus = [UIButton new];
-    imageDescript = [FSTextView textView];
+    imageDescript = [UILabel new];
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -68,12 +68,11 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     .topEqualToView(selectImage)
     .leftSpaceToView(selectImage, 10)
     .rightSpaceToView(fatherView, 10)
-    .bottomEqualToView(selectImage)
+    .autoHeightRatio(0)
     ;
+    [imageDescript setMaxNumberOfLinesToShow:5];
     imageDescript.textColor = HexColor(#161A24);
     imageDescript.font = PFFontR(15);
-    imageDescript.placeholder = @"给图片配点文案～";
-    imageDescript.placeholderColor = HexColor(#B9C3C7);
     imageDescript.userInteractionEnabled = NO;
     
     [selectImage addSubview:uploadStatus];
@@ -175,7 +174,15 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     }
     
     selectImage.image = model.image;
-    imageDescript.text = GetSaveString(model.imageDes);
+    
+    NSString *text = GetSaveString(model.imageDes);
+    if ([NSString isEmpty:text]) {
+        imageDescript.text = @"给图片配点文案～";
+        imageDescript.textColor = HexColor(#B9C3C7);
+    }else{
+        imageDescript.text = text;
+        imageDescript.textColor = HexColor(#161A24);
+    }
 }
 
 @end

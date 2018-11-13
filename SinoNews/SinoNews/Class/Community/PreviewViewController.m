@@ -14,7 +14,9 @@
 @interface PreviewViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) UIView *headView;
-
+//目录按钮
+@property (nonatomic,strong) UIButton *directoryBtn;
+@property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 @end
 
 @implementation PreviewViewController
@@ -46,6 +48,17 @@
     [_tableView registerClass:[PreviewTextTableViewCell class] forCellReuseIdentifier:PreviewTextTableViewCellID];
     [_tableView registerClass:[PreviewImageTableViewCell class] forCellReuseIdentifier:PreviewImageTableViewCellID];
     [self setUpHeadView];
+    
+    _directoryBtn = [UIButton new];
+    [self.view addSubview:_directoryBtn];
+    _directoryBtn.sd_layout
+    .leftSpaceToView(self.view, 0)
+    .widthIs(80)
+    .heightIs(60)
+    .bottomSpaceToView(self.view, 49 + BOTTOM_MARGIN + 20)
+    ;
+    [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
+    [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //设置标题和内容
@@ -86,6 +99,23 @@
     _tableView.tableHeaderView = self.headView;
 }
 
+//弹出目录侧边栏
+-(void)popDirectoryAction
+{
+    self.menu = [LeftPopDirectoryViewController new];
+    self.menu.dataSource = self.dataModel.dataSource;
+    self.menu.view.frame = CGRectMake(0, 0, 260, ScreenH);
+    [self.menu initSlideFoundationWithDirection:SlideDirectionFromLeft];
+    [self.menu show];
+    
+    @weakify(self);
+    self.menu.clickBlock = ^(NSInteger index) {
+        @strongify(self);
+        GGLog(@"滚动至下标为:%ld的cell",index);
+        [self.tableView scrollToRow:index inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    };
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -119,11 +149,12 @@
     SeniorPostingAddElementModel *model = self.dataModel.dataSource[indexPath.row];
     if (model.addtType == 3) {
         return 0;
-    }else if (model.addtType == 2){
-        //根据不同屏幕宽度等比例比例计算图片高度高度
-        CGFloat h = (ScreenW * model.imageH)/model.imageW;
-        return h;
     }
+//    else if (model.addtType == 2){
+//        //根据不同屏幕宽度等比例比例计算图片高度高度
+//        CGFloat h = (ScreenW * model.imageH)/model.imageW;
+//        return h;
+//    }
     return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
 }
 

@@ -14,7 +14,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
 {
     UIImageView *selectVideo;
     UIButton *uploadStatus;
-    FSTextView *videoDescript;
+    UILabel *videoDescript;
     //排序视图
     UIView *sortBackView;
     UIImageView *goUpTouch;
@@ -51,7 +51,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     selectVideo = [UIImageView new];
     UIImageView *videoIcon = [UIImageView new];
     uploadStatus = [UIButton new];
-    videoDescript = [FSTextView textView];
+    videoDescript = [UILabel new];
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -70,12 +70,11 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     .topEqualToView(selectVideo)
     .leftSpaceToView(selectVideo, 10)
     .rightSpaceToView(fatherView, 10)
-    .bottomEqualToView(selectVideo)
+    .autoHeightRatio(0)
     ;
     videoDescript.textColor = HexColor(#161A24);
     videoDescript.font = PFFontR(15);
-    videoDescript.placeholder = @"给视频配点文案～";
-    videoDescript.placeholderColor = HexColor(#B9C3C7);
+    [videoDescript setMaxNumberOfLinesToShow:5];
     videoDescript.userInteractionEnabled = NO;
     
     [selectVideo addSubview:videoIcon];
@@ -189,7 +188,15 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     }
     
     selectVideo.image = model.image;
-    videoDescript.text = GetSaveString(model.videoDes);
+    
+    NSString *text = GetSaveString(model.videoDes);
+    if ([NSString isEmpty:text]) {
+        videoDescript.text = @"给视频配点文案～";
+        videoDescript.textColor = HexColor(#B9C3C7);
+    }else{
+        videoDescript.text = text;
+        videoDescript.textColor = HexColor(#161A24);
+    }
 }
 
 @end

@@ -14,6 +14,11 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     UIImageView *selectImage;
     UIButton *uploadStatus;
     FSTextView *imageDescript;
+    //排序视图
+    UIView *sortBackView;
+    UIImageView *goUpTouch;
+    UIImageView *goDownTouch;
+    UIImageView *deleteTouch;
 }
 @end
 
@@ -35,6 +40,7 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self setUI];
+        [self addSortView];
     }
     return self;
 }
@@ -90,9 +96,84 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     [self setupAutoHeightWithBottomView:selectImage bottomMargin:15];
 }
 
+//添加排序视图
+-(void)addSortView
+{
+    sortBackView = [UIView new];
+    [self.contentView addSubview:sortBackView];
+    sortBackView.sd_layout
+    .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
+    //添加上升、删除、下降
+    goUpTouch = UIImageView.new;
+    goDownTouch = UIImageView.new;
+    deleteTouch = UIImageView.new;
+    
+    [sortBackView sd_addSubviews:@[
+                                   deleteTouch,
+                                   goUpTouch,
+                                   goDownTouch,
+                                   ]];
+    deleteTouch.sd_layout
+    .centerXEqualToView(sortBackView)
+    .centerYEqualToView(sortBackView)
+    .widthIs(42)
+    .heightEqualToWidth()
+    ;
+    deleteTouch.image = UIImageNamed(@"sortContent_delete");
+    
+    goUpTouch.sd_layout
+    .centerYEqualToView(deleteTouch)
+    .rightSpaceToView(deleteTouch, 40)
+    .widthRatioToView(deleteTouch, 1)
+    .heightEqualToWidth()
+    ;
+    goUpTouch.image = UIImageNamed(@"sortContent_up");
+    
+    goDownTouch.sd_layout
+    .centerYEqualToView(deleteTouch)
+    .leftSpaceToView(deleteTouch, 40)
+    .widthRatioToView(deleteTouch, 1)
+    .heightEqualToWidth()
+    ;
+    goDownTouch.image = UIImageNamed(@"sortContent_down");
+}
+
 -(void)setModel:(SeniorPostingAddElementModel *)model
 {
     _model = model;
+    sortBackView.hidden = !model.isSort;
+    if (model.isSort) {
+        @weakify(self);
+        [sortBackView whenTap:^{
+            
+        }];
+        //排序操作
+        [deleteTouch whenTap:^{
+            @strongify(self);
+            if (self.deleteBlock) {
+                self.deleteBlock();
+            }
+        }];
+        [goUpTouch whenTap:^{
+            @strongify(self);
+            if (self.goUpBlock) {
+                self.goUpBlock();
+            }
+        }];
+        [goDownTouch whenTap:^{
+            @strongify(self);
+            if (self.goDownBlock) {
+                self.goDownBlock();
+            }
+        }];
+        
+    }else{
+        sortBackView.gestureRecognizers = nil;
+        deleteTouch.gestureRecognizers = nil;
+        goUpTouch.gestureRecognizers = nil;
+        goDownTouch.gestureRecognizers = nil;
+    }
+    
     selectImage.image = model.image;
     imageDescript.text = GetSaveString(model.imageDes);
 }

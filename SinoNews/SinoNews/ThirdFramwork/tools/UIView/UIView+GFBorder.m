@@ -10,7 +10,8 @@
 
 @implementation UIView (GFBorder)
 static int tag = 1238129;
-- (void)addBorderTo:(BorderDirectionType)borderType borderColor:(UIColor*) color {
+- (void)addBorderTo:(BorderDirectionType)borderType borderColor:(UIColor*) color
+{
     CGFloat width = self.bounds.size.width;
     CGFloat height = self.bounds.size.height;
     
@@ -44,7 +45,9 @@ static int tag = 1238129;
     }
     
 }
-- (void)addBorderTo:(BorderDirectionType)borderType borderSize:(CGSize)size borderColor:(UIColor*) color {
+
+- (void)addBorderTo:(BorderDirectionType)borderType borderSize:(CGSize)size borderColor:(UIColor*) color
+{
     CGFloat layerWidth = self.layer.bounds.size.width;
     CGFloat layerheight = self.layer.bounds.size.height;
     
@@ -73,4 +76,38 @@ static int tag = 1238129;
     
     
 }
+
+//添加虚线框
+-(void)addBorderLineOnView
+{
+    CAShapeLayer *border = [CAShapeLayer layer];
+    GGLog(@"bound:%@",NSStringFromCGRect(self.bounds));
+    //虚线的颜色
+    border.strokeColor = [UIColor redColor].CGColor;
+    //填充的颜色
+    border.fillColor = [UIColor clearColor].CGColor;
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:0];
+    
+    //设置路径
+    border.path = path.CGPath;
+    
+    border.frame = self.bounds;
+    //虚线的宽度
+    border.lineWidth = 1.f;
+    
+    
+    //设置线条的样式
+    //    border.lineCap = @"square";
+    //虚线的间隔
+    border.lineDashPattern = @[@4, @2];
+    
+    self.layer.cornerRadius = 5.f;
+    self.layer.masksToBounds = YES;
+    
+    [self.layer addSublayer:border];
+    
+}
+
+
 @end

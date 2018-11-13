@@ -20,14 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *title;
 //子内容
 @property (nonatomic,strong) NSString *content;
-
+//图片相关
 @property (nonatomic,strong) UIImage *image;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,strong) NSString *imageDes;
-
+//视频相关
 @property (nonatomic,strong) NSData *videoData;    //视频资源
 @property (nonatomic,strong) NSString *videoUrl;
 @property (nonatomic,strong) NSString *videoDes;
+//是否显示排序视图
+@property (nonatomic,assign) BOOL isSort;
 
 @end
 

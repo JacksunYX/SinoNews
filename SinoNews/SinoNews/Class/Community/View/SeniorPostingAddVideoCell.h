@@ -16,6 +16,10 @@ extern NSString * const SeniorPostingAddVideoCellID;
 @property (nonatomic,strong) SeniorPostingAddElementModel *model;
 //文本改变回调
 @property (nonatomic,copy) void(^inputChangeBlock)(NSString *inputContent);
+//排序回调
+@property (nonatomic,copy) void(^deleteBlock)(void);
+@property (nonatomic,copy) void(^goUpBlock)(void);
+@property (nonatomic,copy) void(^goDownBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

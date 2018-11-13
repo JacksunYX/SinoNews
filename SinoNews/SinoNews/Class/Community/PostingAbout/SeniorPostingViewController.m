@@ -31,6 +31,9 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *showKeyboard;
 
+//是否正在排序中
+@property (nonatomic,assign) BOOL isSorting;
+
 @end
 
 @implementation SeniorPostingViewController
@@ -147,7 +150,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNavigationView];
+    [self setUpNavigationView:NO];
     [self setUI];
     
     //键盘监听
@@ -159,42 +162,49 @@
 }
 
 //修改导航栏显示
--(void)addNavigationView
+-(void)setUpNavigationView:(BOOL)openSort
 {
-//    self.navigationItem.title = @"高级发帖";
+    //    self.navigationItem.title = @"高级发帖";
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:UIImageNamed(@"return_left")];
     
-    UIButton *saveBtn = [self geyBtnWithIcon:@"saveThePostDraft" title:@"保存"];
-    UIButton *previewBtn = [self geyBtnWithIcon:@"previewThePost" title:@"预览"];
-    UIButton *composeBtn = [self geyBtnWithIcon:@"composeThePost" title:@"排版"];
-    _publishBtn = [self geyBtnWithIcon:@"publishThePost" title:@"发表"];
-    saveBtn.tag = 0;
-    previewBtn.tag = 1;
-    composeBtn.tag = 2;
-    _publishBtn.tag = 3;
-    [saveBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
-    [previewBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
-    [composeBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_publishBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
+    if (openSort) {
+        UIBarButtonItem *rightBarBtn = [UIBarButtonItem itemWithTarget:self action:@selector(finishAction) title:@"完成" font:PFFontR(14) titleColor:ThemeColor highlightedColor:ThemeColor titleEdgeInsets:UIEdgeInsetsZero];
+        self.navigationItem.rightBarButtonItems = @[rightBarBtn];
+        
+    }else{
+        UIButton *saveBtn = [self geyBtnWithIcon:@"saveThePostDraft" title:@"保存"];
+        UIButton *previewBtn = [self geyBtnWithIcon:@"previewThePost" title:@"预览"];
+        UIButton *composeBtn = [self geyBtnWithIcon:@"composeThePost" title:@"排版"];
+        _publishBtn = [self geyBtnWithIcon:@"publishThePost" title:@"发表"];
+        saveBtn.tag = 0;
+        previewBtn.tag = 1;
+        composeBtn.tag = 2;
+        _publishBtn.tag = 3;
+        [saveBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
+        [previewBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
+        [composeBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_publishBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *barbutton1 = [[UIBarButtonItem alloc]initWithCustomView:_publishBtn];
+        UIBarButtonItem *barbutton2 = [[UIBarButtonItem alloc]initWithCustomView:composeBtn];
+        UIBarButtonItem *barbutton3 = [[UIBarButtonItem alloc]initWithCustomView:previewBtn];
+        UIBarButtonItem *barbutton4 = [[UIBarButtonItem alloc]initWithCustomView:saveBtn];
+        
+        self.navigationItem.rightBarButtonItems = @[
+                                                    barbutton1,
+                                                    barbutton2,
+                                                    barbutton3,
+                                                    barbutton4,
+                                                    ];
+    }
     
-    UIBarButtonItem *barbutton1 = [[UIBarButtonItem alloc]initWithCustomView:_publishBtn];
-    UIBarButtonItem *barbutton2 = [[UIBarButtonItem alloc]initWithCustomView:composeBtn];
-    UIBarButtonItem *barbutton3 = [[UIBarButtonItem alloc]initWithCustomView:previewBtn];
-    UIBarButtonItem *barbutton4 = [[UIBarButtonItem alloc]initWithCustomView:saveBtn];
-    
-    self.navigationItem.rightBarButtonItems = @[
-                                                barbutton1,
-                                                barbutton2,
-                                                barbutton3,
-                                                barbutton4,
-                                                ];
 }
 
 //统一创建导航栏按钮
 -(UIButton *)geyBtnWithIcon:(NSString *)icon title:(NSString *)bntTitle
 {
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 26, 40)];
-//    btn.backgroundColor = Arc4randomColor;
+    //    btn.backgroundColor = Arc4randomColor;
     [btn setBtnFont:PFFontL(13)];
     [btn setNormalTitleColor:HexColor(#161A24)];
     [btn setNormalTitle:bntTitle];
@@ -221,7 +231,11 @@
             break;
         case 2:
         {
-            
+            //无元素，不需要排序
+            if (self.dataSource.count<=0) {
+                break;
+            }
+            [self openOrCloseSort:YES];
         }
             break;
         case 3:
@@ -236,6 +250,12 @@
         default:
             break;
     }
+}
+
+//排序完成点击事件
+-(void)finishAction
+{
+    [self openOrCloseSort:NO];
 }
 
 -(void)back
@@ -401,6 +421,9 @@
 //功能按钮点击事件
 -(void)functionActions:(UIButton *)sender
 {
+    if (_isSorting) {
+        return;
+    }
     switch (sender.tag) {
         case 0:
         {
@@ -546,8 +569,62 @@
     [self.tableView reloadData];
 }
 
+//是否开启排序
+-(void)openOrCloseSort:(BOOL)open
+{
+    //重新处理模型中的排序参数
+    for (int i = 0; i < self.dataSource.count; i ++) {
+        SeniorPostingAddElementModel *model = self.dataSource[i];
+        model.isSort = open;
+    }
+    _isSorting = open;
+    [self.tableView reloadData];
+    [self setUpNavigationView:open];
+}
+
+/**
+ 排序
+ 
+ @param index 需要排序的下标
+ @param type 操作类型：0删除，1上升，2下降
+ */
+-(void)sortWithIndex:(NSInteger)index operationType:(NSInteger)type
+{
+    switch (type) {
+        case 0: //删除
+        {
+            [self.dataSource removeObjectAtIndex:index];
+        }
+            break;
+        case 1://上升
+        {
+            //当前位置是首位时，无法上升
+            if (index == 0) {
+                return;
+            }else{
+                [self.dataSource exchangeObjectAtIndex:index withObjectAtIndex:index - 1];
+            }
+        }
+            break;
+        case 2://下降
+        {
+            //当前位置是末位时，无法下降
+            if (index == self.dataSource.count - 1) {
+                return;
+            }else{
+                [self.dataSource exchangeObjectAtIndex:index withObjectAtIndex:index + 1];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+    [self.tableView reloadData];
+}
+
 #pragma mark --- TZImagePickerControllerDelegate ---
-//选择图片后会进入该代理方法，
+//选择图片后会进入该代理方法
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
     for (UIImage *image in photos) {
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
@@ -576,7 +653,7 @@
         model.image = coverImage;
         model.videoUrl = outputPath;
         [self.dataSource addObject:model];
-    
+        
         [self.tableView reloadData];
         [self scrollToBottom];
     } failure:^(NSString *errorMessage, NSError *error) {
@@ -600,12 +677,22 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
+    cell.tag = indexPath.row;
     SeniorPostingAddElementModel *model = self.dataSource[indexPath.row];
     switch (model.addtType) {
         case 0://标题
         {
             SeniorPostingAddTitleCell *cell0 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddTitleCellID];
             cell0.model = model;
+            cell0.deleteBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:0];
+            };
+            cell0.goUpBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:1];
+            };
+            cell0.goDownBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:2];
+            };
             cell = cell0;
         }
             break;
@@ -613,6 +700,15 @@
         {
             SeniorPostingAddContentCell *cell1 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddContentCellID];
             cell1.model = model;
+            cell1.deleteBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:0];
+            };
+            cell1.goUpBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:1];
+            };
+            cell1.goDownBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:2];
+            };
             cell = cell1;
         }
             break;
@@ -620,6 +716,15 @@
         {
             SeniorPostingAddImageCell *cell2 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddImageCellID];
             cell2.model = model;
+            cell2.deleteBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:0];
+            };
+            cell2.goUpBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:1];
+            };
+            cell2.goDownBlock = ^{
+                [self sortWithIndex:indexPath.row operationType:2];
+            };
             cell = cell2;
         }
             break;
@@ -627,6 +732,15 @@
         {
             SeniorPostingAddVideoCell *cell3 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddVideoCellID];
             cell3.model = model;
+            cell3.deleteBlock = ^{
+                GGLog(@"删除第%ld个元素",indexPath.row);
+            };
+            cell3.goUpBlock = ^{
+                GGLog(@"上升第%ld个元素",indexPath.row);
+            };
+            cell3.goDownBlock = ^{
+                GGLog(@"下降第%ld个元素",indexPath.row);
+            };
             cell = cell3;
         }
             break;

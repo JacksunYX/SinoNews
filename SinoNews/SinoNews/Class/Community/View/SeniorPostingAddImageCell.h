@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const SeniorPostingAddImageCellID;
 @interface SeniorPostingAddImageCell : UITableViewCell
 @property (nonatomic,strong) SeniorPostingAddElementModel *model;
+//排序回调
+@property (nonatomic,copy) void(^deleteBlock)(void);
+@property (nonatomic,copy) void(^goUpBlock)(void);
+@property (nonatomic,copy) void(^goDownBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

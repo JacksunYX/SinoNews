@@ -13,6 +13,8 @@
 @interface ThePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
+//帖子中包含的图片数组
+@property (nonatomic,strong) NSMutableArray *imagesArr;
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
@@ -48,6 +50,23 @@ CGFloat static attentionBtnH = 26;
         _user = [UserModel getLocalUserModel];
     }
     return _user;
+}
+
+-(NSMutableArray *)imagesArr
+{
+    if (!_imagesArr) {
+        _imagesArr = [NSMutableArray new];
+        for (int i = 0; i < _postModel.dataSource.count; i ++) {
+            SeniorPostingAddElementModel *model = _postModel.dataSource[i];
+            //只过滤图片
+            if (model.addtType == 2) {
+                [_imagesArr addObject:model.imageUrl];
+            }else{
+                continue;
+            }
+        }
+    }
+    return _imagesArr;
 }
 
 - (void)viewDidLoad {
@@ -452,6 +471,21 @@ CGFloat static attentionBtnH = 26;
     
 }
 
+//查看图片的方式
+-(void)showImageBrowser:(NSString *)imageUrl
+{
+    GGLog(@"点击的图片:%@",imageUrl);
+    //获取下标
+    int i = [self.imagesArr indexOfObject:imageUrl];
+    //创建图片浏览器
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    browser.isFullWidthForLandScape = YES;
+    browser.isNeedLandscape = YES;
+    browser.currentImageIndex = i;
+    browser.imageArray = self.imagesArr;
+    [browser show];
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -580,21 +614,20 @@ CGFloat static attentionBtnH = 26;
     if (indexPath.section == 0) {
         SeniorPostingAddElementModel *model = self.postModel.dataSource[indexPath.row];
         if (model.addtType == 3) {
-            //使用MP播放视频(效果不太好，而且已经被警告了)
-//            MPMoviePlayerViewController *mpVC = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL fileURLWithPath:model.videoUrl]];
-//            mpVC.view.frame = CGRectMake(0, NAVI_HEIGHT, ScreenW, ScreenH - NAVI_HEIGHT);
-//            [self presentViewController:mpVC animated:YES completion:nil];
             //使用AV播放视频(iOS9.0以后适用,支持画中画)
             AVPlayerViewController *avVC = [[AVPlayerViewController alloc]init];
-            
-            avVC.player = [[AVPlayer alloc]initWithURL:[NSURL fileURLWithPath:model.videoUrl]];
+            //本地地址
+            NSURL *url = [NSURL fileURLWithPath:model.videoUrl];
+            //网络地址
+//            url = UrlWithStr(model.videoUrl);
+            avVC.player = [[AVPlayer alloc]initWithURL:url];
             [self presentViewController:avVC animated:YES completion:^{
                 //跳转后自动播放
                 [avVC.player play];
             }];
         }else if(model.addtType == 2){
             //图片
-            
+            [self showImageBrowser:model.imageUrl];
         }
     }
 }

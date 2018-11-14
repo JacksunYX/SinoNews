@@ -880,13 +880,13 @@
             SeniorPostingAddVideoCell *cell3 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddVideoCellID];
             cell3.model = model;
             cell3.deleteBlock = ^{
-                GGLog(@"删除第%ld个元素",indexPath.row);
+                [self sortWithIndex:indexPath.row operationType:0];
             };
             cell3.goUpBlock = ^{
-                GGLog(@"上升第%ld个元素",indexPath.row);
+                [self sortWithIndex:indexPath.row operationType:1];
             };
             cell3.goDownBlock = ^{
-                GGLog(@"下降第%ld个元素",indexPath.row);
+                [self sortWithIndex:indexPath.row operationType:2];
             };
             cell = cell3;
         }

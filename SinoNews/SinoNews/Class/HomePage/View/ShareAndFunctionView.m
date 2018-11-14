@@ -185,7 +185,7 @@ static bool isCollect = NO;
     shareView.cancleButton.titleLabel.font = PFFontR(17);
     [shareView.cancleButton addButtonTextColorTheme];
     
-    [shareView showFromControlle:[HttpRequest getCurrentVC]];
+    [shareView showFromControlle:[HttpRequest currentViewController]];
     
     __block MGShareToPlateform sharePlateform;
     shareView.clickBlock = ^(NSInteger section, NSInteger row) {

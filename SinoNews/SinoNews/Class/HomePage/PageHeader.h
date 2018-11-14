@@ -24,6 +24,7 @@
 #import "QACommentInputView.h"
 #import "PopNoticeView.h"
 #import "VersionCheckHelper.h"
+#import "ShareAndFunctionView.h"
 
 #import "MineViewController.h"
 #import "Mine2ViewController.h"

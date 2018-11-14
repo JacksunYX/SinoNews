@@ -25,7 +25,7 @@
 @property (nonatomic,strong) UIButton *showKeyboard;
 @property (nonatomic,strong) UIButton *publishBtn;
 
-
+@property (nonatomic,strong) SeniorPostDataModel *postModel;
 @end
 
 @implementation FastPostingViewController
@@ -35,6 +35,14 @@
         _keyboardUtil = [[ZYKeyboardUtil alloc]init];
     }
     return _keyboardUtil;
+}
+
+-(SeniorPostDataModel *)postModel
+{
+    if (!_postModel) {
+        _postModel = [SeniorPostDataModel new];
+    }
+    return _postModel;
 }
 
 - (void)viewDidLoad {
@@ -71,6 +79,37 @@
 
 -(void)publishAction:(UIButton *)sender
 {
+    NSMutableArray *elementArr = [NSMutableArray new];
+    //因为模型不同，需要转换一下
+    if (self.addImageView.imagesArr) {
+        for (SelectImageModel *model in self.addImageView.imagesArr) {
+            SeniorPostingAddElementModel *newModel = [SeniorPostingAddElementModel new];
+            //视频
+            if (model.videoData||model.videoUrl) {
+                newModel.videoData = model.videoData;
+                newModel.videoUrl = model.videoUrl;
+                
+            }else{//图片
+                newModel.imageUrl = model.imageUrl;
+                
+                if (model.status==Uploading) {
+                    newModel.imageStatus = ImageUploading;
+                }else if (model.status==UploadSuccess){
+                    newModel.imageStatus = ImageUploadSuccess;
+                }else if (model.status==UploadFailure){
+                    newModel.imageStatus = ImageUploadFailure;
+                }else{
+                    newModel.imageStatus = ImageUploadNone;
+                }
+            }
+            newModel.image = model.image;
+            newModel.imageW = model.imageW;
+            newModel.imageH = model.imageH;
+            [elementArr addObject:newModel];
+        }
+    }
+    self.postModel.dataSource = elementArr;
+    
     SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
     [self.navigationController pushViewController:spcVC animated:YES];
 }
@@ -133,7 +172,8 @@
     @weakify(self);
     [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
         // 文本改变后的相应操作.
-        
+        @strongify(self);
+        self.postModel.postTitle = textView.formatText;
     }];
     // 添加到达最大限制Block回调.
     [_titleView addTextLengthDidMaxHandler:^(FSTextView *textView) {
@@ -162,6 +202,7 @@
             self.publishBtn.enabled = NO;
             [self.publishBtn setNormalTitleColor:HexColor(#959595)];
         }
+        self.postModel.postContent = textView.formatText;
     }];
     _contentView.borderColor = HexColor(#E3E3E3);
     _contentView.borderWidth = 1;
@@ -297,6 +338,7 @@
         }else{
             [self.contentView becomeFirstResponder];
         }
+        [self.mainScrollView scrollToTopAnimated:YES];
     }else{
         [self.view endEditing:YES];
     }

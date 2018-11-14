@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/11/13.
 //  Copyright © 2018 Sino. All rights reserved.
 //
-//高级发帖-预览文本cell
+//高级发帖-预览文本cell(也用于详情页)
 
 #import <UIKit/UIKit.h>
 

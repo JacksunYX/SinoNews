@@ -15,6 +15,7 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 {
     UIImageView *imageV;
     UILabel *descripion;    //描述
+    UIButton *playBtn;
 }
 @end
 
@@ -66,6 +67,17 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
     descripion.font = PFFontL(14);
     descripion.textColor = HexColor(#B9C3C7);
     
+    playBtn = [UIButton new];
+    [imageV addSubview:playBtn];
+    playBtn.sd_layout
+    .centerXEqualToView(imageV)
+    .centerYEqualToView(imageV)
+    .widthIs(0)
+    .heightEqualToWidth()
+    ;
+    
+    [playBtn setNormalImage:UIImageNamed(@"videoCover_icon")];
+    
     [self setupAutoHeightWithBottomView:descripion bottomMargin:10];
 }
 
@@ -78,8 +90,18 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
     .heightIs(imageW * model.imageH/model.imageW)
     ;
     [imageV updateLayout];
+    CGFloat playW = 0;
     
-    descripion.text = GetSaveString(model.imageDes);
+    NSString *des = GetSaveString(model.imageDes);
+    if (model.addtType == 3) {
+        playW = 42;
+        des = GetSaveString(model.videoDes);
+    }
+    playBtn.sd_layout
+    .widthIs(playW)
+    ;
+    
+    descripion.text = des;
 }
 
 @end

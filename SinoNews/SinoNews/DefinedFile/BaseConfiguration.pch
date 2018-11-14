@@ -18,6 +18,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 
 #import "AppDelegate.h"
 //通用宏

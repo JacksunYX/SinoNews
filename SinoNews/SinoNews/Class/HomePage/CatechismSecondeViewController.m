@@ -11,7 +11,6 @@
 #import "AnswerDetailModel.h"
 
 #import "QACommentInputView.h"
-#import "ShareAndFunctionView.h"
 #import "FontAndNightModeView.h"
 
 #import "CommentCell.h"

@@ -275,6 +275,8 @@
     for (UIImage *image in photos) {
         SelectImageModel *photoModel = [SelectImageModel new];
         photoModel.image = image;
+        photoModel.imageW = image.size.width;
+        photoModel.imageH = image.size.height;
         photoModel.status = UploadingNone;
         [_imagesArr addObject:photoModel];
     }
@@ -292,6 +294,8 @@
         
         SelectImageModel *photoModel = [SelectImageModel new];
         photoModel.image = coverImage;
+        photoModel.imageW = coverImage.size.width;
+        photoModel.imageH = coverImage.size.height;
         photoModel.videoData = videoData;
         photoModel.status = UploadingNone;
         [self.imagesArr addObject:photoModel];

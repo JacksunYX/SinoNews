@@ -807,6 +807,9 @@
 		4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */; };
 		4CEEE5552199966100DFEC0A /* EditImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEE5542199966100DFEC0A /* EditImageViewController.m */; };
 		4CEEE55821999F0D00DFEC0A /* EditVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */; };
+		4CF1A7E1219BB92F0031B1A9 /* ThePostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7E0219BB92F0031B1A9 /* ThePostDetailViewController.m */; };
+		4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF1A7E6219C0BF30031B1A9 /* AVFoundation.framework */; };
+		4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */; };
 		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
 		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
@@ -2233,6 +2236,10 @@
 		4CEEE5542199966100DFEC0A /* EditImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditImageViewController.m; sourceTree = "<group>"; };
 		4CEEE55621999F0D00DFEC0A /* EditVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditVideoViewController.h; sourceTree = "<group>"; };
 		4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditVideoViewController.m; sourceTree = "<group>"; };
+		4CF1A7DF219BB92F0031B1A9 /* ThePostDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThePostDetailViewController.h; sourceTree = "<group>"; };
+		4CF1A7E0219BB92F0031B1A9 /* ThePostDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostDetailViewController.m; sourceTree = "<group>"; };
+		4CF1A7E6219C0BF30031B1A9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
 		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
 		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
@@ -2276,6 +2283,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */,
+				4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */,
 				4C1B149D2152583B004ADD9E /* libz.tbd in Frameworks */,
 				4C1B149B21525830004ADD9E /* libresolv.tbd in Frameworks */,
 				4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */,
@@ -4718,6 +4727,7 @@
 				4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */,
 				4C8D5C3B219AC6EC008C13A9 /* PreviewViewController.h */,
 				4C8D5C3C219AC6EC008C13A9 /* PreviewViewController.m */,
+				4CF1A7E2219BB9380031B1A9 /* ThePostDetailAbout */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4CDC73F3219149530079EB3E /* Model */,
 				4C5B5B0421804D6500B52329 /* View */,
@@ -4818,6 +4828,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4CF1A7E2219BB9380031B1A9 /* ThePostDetailAbout */ = {
+			isa = PBXGroup;
+			children = (
+				4CF1A7DF219BB92F0031B1A9 /* ThePostDetailViewController.h */,
+				4CF1A7E0219BB92F0031B1A9 /* ThePostDetailViewController.m */,
+			);
+			path = ThePostDetailAbout;
+			sourceTree = "<group>";
+		};
 		4CF35CAA218BE3690064B1BA /* PostingAbout */ = {
 			isa = PBXGroup;
 			children = (
@@ -4867,6 +4886,8 @@
 		D713DEE0ADA588400E4230AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */,
+				4CF1A7E6219C0BF30031B1A9 /* AVFoundation.framework */,
 				4C1B149C2152583B004ADD9E /* libz.tbd */,
 				4C1B149A21525830004ADD9E /* libresolv.tbd */,
 				4C1B1496215257C5004ADD9E /* CoreTelephony.framework */,
@@ -5488,6 +5509,7 @@
 				4C7EF37821212A0B0002166A /* ZSSRichTextEditor.m in Sources */,
 				4CA141F420F4517300536E77 /* PublishPageViewController.m in Sources */,
 				4C992F87217717610092DDCF /* UIWebView+KWWebViewJSTool.m in Sources */,
+				4CF1A7E1219BB92F0031B1A9 /* ThePostDetailViewController.m in Sources */,
 				4C4C95A6218FF29200627B07 /* TZVideoPlayerController.m in Sources */,
 				4C992FDF217717680092DDCF /* NSBundle+HXWeiboPhotoPicker.m in Sources */,
 				4C6E916F213F5F07001535CA /* YYTextInput.m in Sources */,

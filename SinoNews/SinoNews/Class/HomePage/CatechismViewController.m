@@ -14,7 +14,6 @@
 
 #import "CateChismTableViewCell.h"
 
-#import "ShareAndFunctionView.h"
 #import "FontAndNightModeView.h"
 
 @interface CatechismViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>

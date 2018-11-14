@@ -8,8 +8,6 @@
 
 #import "PreviewViewController.h"
 
-#import "PreviewTextTableViewCell.h"
-#import "PreviewImageTableViewCell.h"
 
 @interface PreviewViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -26,6 +24,7 @@
     self.navigationItem.title = @"帖子预览";
     
     [self setUI];
+    [self reloadDataWithDataArrUpperCase];
 }
 
 - (void)setUI
@@ -35,7 +34,6 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     
-    _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     _tableView.sd_layout
@@ -59,6 +57,7 @@
     ;
     [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
     [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 //设置标题和内容
@@ -97,6 +96,30 @@
         [_headView setupAutoHeightWithBottomView:content bottomMargin:10];
     }
     _tableView.tableHeaderView = self.headView;
+}
+
+//检查是否需要显示目录按钮
+-(void)reloadDataWithDataArrUpperCase
+{
+    int j = 1;//标记有几个小标题分区
+    if (self.dataModel.dataSource.count>0) {
+        //遍历数据源
+        for (int i = 0; i < self.dataModel.dataSource.count; i ++) {
+            SeniorPostingAddElementModel *model = self.dataModel.dataSource[i];
+            if (model.addtType==0) {//说明是小标题
+                //标记是第几个小分区标题
+                model.sectionNum = j;
+                j ++;
+            }
+        }
+    }
+    
+    if (j == 1) {   //j没有变化，说明没有小标题了，隐藏目录按钮
+        _directoryBtn.hidden = YES;
+    }else{
+        _directoryBtn.hidden = NO;
+    }
+    [self.tableView reloadData];
 }
 
 //弹出目录侧边栏

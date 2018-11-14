@@ -18,7 +18,7 @@
 
 #import "HomePageModel.h"
 #import "FontAndNightModeView.h"
-#import "ShareAndFunctionView.h"
+
 
 #import <SDWebImageManager.h>
 #import <CommonCrypto/CommonDigest.h>

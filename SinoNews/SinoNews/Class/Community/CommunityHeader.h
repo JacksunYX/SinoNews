@@ -18,7 +18,12 @@
 
 //帖子回复弹窗控制器
 #import "PopReplyViewController.h"
-//侧边栏目录
-#import "LeftPopDirectoryViewController.h"
+
+#import "LeftPopDirectoryViewController.h"  //侧边栏目录
+#import "ThePostDetailViewController.h"     //帖子详情
+
+//帖子详情页复用cell
+#import "PreviewTextTableViewCell.h"
+#import "PreviewImageTableViewCell.h"
 
 #endif /* CommunityHeader_h */

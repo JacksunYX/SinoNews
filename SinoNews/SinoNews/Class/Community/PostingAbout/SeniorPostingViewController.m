@@ -274,10 +274,14 @@
             break;
         case 3:
         {
-            for (SeniorPostingAddElementModel *model in self.dataSource) {
-                NSDictionary *dic = [model mj_keyValues];
-                GGLog(@"添加的内容:%@",dic);
-            }
+//            for (SeniorPostingAddElementModel *model in self.dataSource) {
+//                NSDictionary *dic = [model mj_keyValues];
+//                GGLog(@"添加的内容:%lf\n%lf",model.imageW,model.imageH);
+//            }
+            //跳转到详情页测试
+            ThePostDetailViewController *pVC = [ThePostDetailViewController new];
+            pVC.postModel = self.postModel;
+            [self.navigationController pushViewController:pVC animated:YES];
         }
             break;
             
@@ -503,6 +507,7 @@
         case 6:
         {
             [self.titleView becomeFirstResponder];
+            [self.tableView scrollToTopAnimated:YES];
         }
             break;
             
@@ -533,6 +538,7 @@
 {
     PreviewViewController *pVC = [PreviewViewController new];
     pVC.dataModel = self.postModel;
+    
     [self.navigationController pushViewController:pVC animated:YES];
 }
 
@@ -790,6 +796,8 @@
         model.addtType = 3;
         model.videoData = videoData;
         model.image = coverImage;
+        model.imageW = coverImage.size.width;
+        model.imageH = coverImage.size.height;
         model.videoUrl = outputPath;
         [self.dataSource addObject:model];
         

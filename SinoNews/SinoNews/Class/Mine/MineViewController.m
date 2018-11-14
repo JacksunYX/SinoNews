@@ -23,7 +23,6 @@
 
 #import "PraisePopView.h"
 #import "SignInRuleWebView.h"
-#import "ShareAndFunctionView.h"
 #import "SharePopCopyView.h"
 
 

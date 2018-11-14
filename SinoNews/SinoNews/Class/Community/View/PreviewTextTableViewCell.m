@@ -13,7 +13,7 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
 
 @interface PreviewTextTableViewCell ()
 {
-    UILabel *textLabel;
+    UICopyLabel *textLabel;
 }
 @end
 
@@ -41,7 +41,7 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
 
 -(void)setUI
 {
-    textLabel = [UILabel new];
+    textLabel = [UICopyLabel new];
     [self.contentView addSubview:textLabel];
     textLabel.sd_layout
     .leftSpaceToView(self.contentView, 10)

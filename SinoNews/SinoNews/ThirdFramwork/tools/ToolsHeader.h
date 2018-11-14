@@ -43,5 +43,6 @@
 #import "UITabBar+badge.h"
 #import "UIImage+ImgSize.h"
 #import "UIViewController+SlideFromSide.h"//侧边栏
+#import "UICopyLabel.h" //可复制的label
 
 #endif /* ToolsHeader_h */

@@ -22,7 +22,7 @@
 @property (nonatomic,strong) UILabel *authorName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic,strong) UILabel *creatTime;
-@property (nonatomic,strong) UILabel *contentLaebl;
+@property (nonatomic,strong) UICopyLabel *contentLaebl;
 @property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
 
@@ -182,7 +182,7 @@ CGFloat static attentionBtnH = 26;
         _creatTime.font = PFFontR(12);
         _creatTime.textColor = HexColor(#889199);
         
-        _contentLaebl = [UILabel new];
+        _contentLaebl = [UICopyLabel new];
         _contentLaebl.font = PFFontL(15);
         _contentLaebl.textColor = HexColor(#1A1A1A);
         
@@ -476,7 +476,7 @@ CGFloat static attentionBtnH = 26;
 {
     GGLog(@"点击的图片:%@",imageUrl);
     //获取下标
-    int i = [self.imagesArr indexOfObject:imageUrl];
+    int i = (int)[self.imagesArr indexOfObject:imageUrl];
     //创建图片浏览器
     HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
     browser.isFullWidthForLandScape = YES;

@@ -810,6 +810,7 @@
 		4CF1A7E1219BB92F0031B1A9 /* ThePostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7E0219BB92F0031B1A9 /* ThePostDetailViewController.m */; };
 		4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF1A7E6219C0BF30031B1A9 /* AVFoundation.framework */; };
 		4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */; };
+		4CF1A7EC219C1AE70031B1A9 /* UICopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */; };
 		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
 		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
@@ -2240,6 +2241,8 @@
 		4CF1A7E0219BB92F0031B1A9 /* ThePostDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostDetailViewController.m; sourceTree = "<group>"; };
 		4CF1A7E6219C0BF30031B1A9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		4CF1A7EA219C1AE70031B1A9 /* UICopyLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICopyLabel.h; sourceTree = "<group>"; };
+		4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UICopyLabel.m; sourceTree = "<group>"; };
 		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
 		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
 		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
@@ -2581,6 +2584,8 @@
 			children = (
 				4C3D111E20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.h */,
 				4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */,
+				4CF1A7EA219C1AE70031B1A9 /* UICopyLabel.h */,
+				4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */,
 			);
 			path = UILabel;
 			sourceTree = "<group>";
@@ -3470,10 +3475,10 @@
 		4C6E90A7213F5F06001535CA /* YYKit */ = {
 			isa = PBXGroup;
 			children = (
+				4C6E90D2213F5F06001535CA /* YYKit.h */,
 				4C6E90A8213F5F06001535CA /* Cache */,
 				4C6E90B1213F5F06001535CA /* Image */,
 				4C6E90CD213F5F06001535CA /* Model */,
-				4C6E90D2213F5F06001535CA /* YYKit.h */,
 				4C6E90D3213F5F06001535CA /* Text */,
 				4C6E90FE213F5F06001535CA /* Base */,
 				4C6E913F213F5F06001535CA /* Utility */,
@@ -3551,12 +3556,12 @@
 		4C6E90D3213F5F06001535CA /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				4C6E90D4213F5F06001535CA /* YYTextView.m */,
-				4C6E90D5213F5F06001535CA /* Component */,
+				4C6E90FD213F5F06001535CA /* YYLabel.h */,
 				4C6E90E8213F5F06001535CA /* YYLabel.m */,
 				4C6E90E9213F5F06001535CA /* YYTextView.h */,
+				4C6E90D4213F5F06001535CA /* YYTextView.m */,
+				4C6E90D5213F5F06001535CA /* Component */,
 				4C6E90EA213F5F06001535CA /* String */,
-				4C6E90FD213F5F06001535CA /* YYLabel.h */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -5917,6 +5922,7 @@
 				4C72348720FDE8F000D5C5D4 /* RankScoreCell.m in Sources */,
 				4C6E9175213F5F07001535CA /* YYLabel.m in Sources */,
 				4C23B3E020F5938000ACE380 /* LMParagraphConfig.m in Sources */,
+				4CF1A7EC219C1AE70031B1A9 /* UICopyLabel.m in Sources */,
 				4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */,
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,

@@ -175,6 +175,29 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     
     selectImage.image = model.image;
     
+    uploadStatus.backgroundColor = kWhite(0.36);
+    uploadStatus.selected = NO;
+    switch (model.imageStatus) {
+        case ImageUploadSuccess:
+        {
+            uploadStatus.selected = YES;
+            uploadStatus.backgroundColor = HexColor(#1282EE);
+        }
+            break;
+        case ImageUploadFailure:
+        {
+            [uploadStatus setNormalTitle:@"上传失败"];
+        }
+            break;
+            
+        default:
+        {
+            //默认正在上传
+            [uploadStatus setNormalTitle:@"正在上传"];
+        }
+            break;
+    }
+    
     NSString *text = GetSaveString(model.imageDes);
     if ([NSString isEmpty:text]) {
         imageDescript.text = @"给图片配点文案～";

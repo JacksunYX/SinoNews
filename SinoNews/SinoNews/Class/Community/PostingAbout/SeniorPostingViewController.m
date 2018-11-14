@@ -642,7 +642,7 @@
 //滚动至tableView最下方
 -(void)scrollToBottom
 {
-    [self.tableView scrollToRow:self.dataSource.count - 1 inSection:0 atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.tableView scrollToRow:self.dataSource.count - 1 inSection:0 atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
 
 //处理小标题大写问题
@@ -727,6 +727,21 @@
     }
 }
 
+//刷新指定位置的图片状态
+-(void)refreshRowWithModel:(SeniorPostingAddElementModel *)model
+{
+    for (int i = 0; i < self.dataSource.count; i ++) {
+        SeniorPostingAddElementModel *model2 = self.dataSource[i];
+        //找到类型一致，图片也相同的元素
+        if (model2.addtType == model.addtType&&model2.image == model.image) {
+            //刷新该cell即可
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        }
+    }
+}
+
 #pragma mark --- UITextViewDelegate ---
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     //禁止标题输入换行
@@ -743,6 +758,15 @@
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
         model.addtType = 2;
         model.image = image;
+        model.imageStatus = ImageUploading;
+        [RequestGather uploadSingleImage:image Success:^(id response) {
+            model.imageUrl = response[@"data"];
+            model.imageStatus = ImageUploadSuccess;
+            [self refreshRowWithModel:model];
+        } failure:^(NSError *error) {
+            model.imageStatus = ImageUploadFailure;
+            [self refreshRowWithModel:model];
+        }];
         model.imageW = image.size.width;
         model.imageH = image.size.height;
         [self.dataSource addObject:model];

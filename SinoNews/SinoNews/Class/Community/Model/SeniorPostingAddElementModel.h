@@ -11,6 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum : NSUInteger {
+    ImageUploadNone = 0,
+    ImageUploading,
+    ImageUploadSuccess,
+    ImageUploadFailure,
+} ImageUploadStatus;
+
 @interface SeniorPostingAddElementModel : NSObject
 //默认0小标题，1文本，2图片，3视频
 @property (nonatomic,assign) NSInteger addtType;
@@ -21,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 //子内容
 @property (nonatomic,strong) NSString *content;
 //图片相关
+@property (nonatomic,assign) ImageUploadStatus imageStatus;
 @property (nonatomic,strong) UIImage *image;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,strong) NSString *imageDes;

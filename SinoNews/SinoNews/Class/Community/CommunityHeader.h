@@ -25,5 +25,10 @@
 //帖子详情页复用cell
 #import "PreviewTextTableViewCell.h"
 #import "PreviewImageTableViewCell.h"
+//帖子评论、回复cell
+#import "ThePostCommentTableViewCell.h"
+#import "ThePostCommentReplyTableViewCell.h"
+//弹出选择评论分页
+#import "SelectCommentPageView.h"
 
 #endif /* CommunityHeader_h */

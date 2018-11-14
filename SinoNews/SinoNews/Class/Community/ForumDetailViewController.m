@@ -170,21 +170,7 @@
 //搜索点击
 -(void)searchAction
 {
-    PopReplyViewController *prVC = [PopReplyViewController new];
-    prVC.inputData = self.lastReplyDic.mutableCopy;
-    @weakify(self);
-    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
-        GGLog(@"发布回调:%@",inputData);
-        @strongify(self);
-        self.lastReplyDic = inputData;
-        //这里发布后把该数据清空就行了
-    };
-    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
-        GGLog(@"取消回调:%@",cancelData);
-        @strongify(self);
-        self.lastReplyDic = cancelData;
-    };
-    [self.navigationController pushViewController:prVC animated:NO];
+    
 }
 
 //关注点击

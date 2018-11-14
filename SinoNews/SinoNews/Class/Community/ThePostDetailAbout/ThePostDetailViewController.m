@@ -32,10 +32,20 @@
 
 @property (nonatomic,strong) UIView *naviTitle;
 
-@property (nonatomic,strong) UIButton *directoryBtn;//目录按钮
+@property (nonatomic,strong) UIView *section1View;
+@property (nonatomic,strong) UILabel *allComment;
+@property (nonatomic,strong) UILabel *ascendingLabel;
+@property (nonatomic,strong) UILabel *descendingLabel;
+//目录按钮
+@property (nonatomic,strong) UIButton *directoryBtn;
+//评论分页按钮
+@property (nonatomic,strong) UIButton *commentPagingBtn;
 @property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
 @property (nonatomic,strong) UserModel *user;
+//保存评论时选取的图片等数据
+@property (nonatomic,strong) NSDictionary *lastReplyDic;
+
 @end
 
 @implementation ThePostDetailViewController
@@ -69,6 +79,14 @@ CGFloat static attentionBtnH = 26;
     return _imagesArr;
 }
 
+-(NSMutableArray *)commentsArr
+{
+    if (!_commentsArr) {
+        _commentsArr = [NSMutableArray new];
+    }
+    return _commentsArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"帖子详情";
@@ -84,7 +102,7 @@ CGFloat static attentionBtnH = 26;
 - (void)setUI
 {
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.backgroundColor = WhiteColor;
+    _tableView.backgroundColor = HexColor(#F3F5F4);
     [self.view addSubview:_tableView];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -101,7 +119,8 @@ CGFloat static attentionBtnH = 26;
     
     [_tableView registerClass:[PreviewTextTableViewCell class] forCellReuseIdentifier:PreviewTextTableViewCellID];
     [_tableView registerClass:[PreviewImageTableViewCell class] forCellReuseIdentifier:PreviewImageTableViewCellID];
-    
+    [_tableView registerClass:[ThePostCommentTableViewCell class] forCellReuseIdentifier:ThePostCommentTableViewCellID];
+    [_tableView registerClass:[ThePostCommentReplyTableViewCell class] forCellReuseIdentifier:ThePostCommentReplyTableViewCellID];
     
     _directoryBtn = [UIButton new];
     [self.view addSubview:_directoryBtn];
@@ -113,6 +132,19 @@ CGFloat static attentionBtnH = 26;
     ;
     [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
     [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    _commentPagingBtn = [UIButton new];
+    [self.view addSubview:_commentPagingBtn];
+    _commentPagingBtn.sd_layout
+    .rightSpaceToView(self.view, 10)
+    .widthIs(40)
+    .heightIs(28)
+    .bottomSpaceToView(self.view, 49 + BOTTOM_MARGIN + 20)
+    ;
+    [_commentPagingBtn setNormalTitle:@"2/3"];
+    _commentPagingBtn.sd_cornerRadius = @3;
+    _commentPagingBtn.backgroundColor = HexColor(#45474A);
+    [_commentPagingBtn addTarget:self action:@selector(popCommentPagingAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //设置导航栏标题
@@ -164,7 +196,7 @@ CGFloat static attentionBtnH = 26;
     if (!self.titleView) {
         @weakify(self);
         self.titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1)];
-        
+        self.titleView.backgroundColor = WhiteColor;
         _titleLabel = [UILabel new];
         _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:ScaleWidth(20)];
         _titleLabel.numberOfLines = 0;
@@ -335,6 +367,11 @@ CGFloat static attentionBtnH = 26;
             [self moreSelect];
         }];
         
+        [commentInput whenTap:^{
+            @strongify(self);
+            [self popCommentVC];
+        }];
+        
         [self.bottomView sd_addSubviews:@[
                                           shareBtn,
                                           _collectBtn,
@@ -440,6 +477,13 @@ CGFloat static attentionBtnH = 26;
     };
 }
 
+//弹出选择分页的视图
+-(void)popCommentPagingAction
+{
+    SelectCommentPageView *scPV = [SelectCommentPageView new];
+    [scPV showAllNum:10 defaultSelect:0];
+}
+
 //更多
 -(void)moreSelect
 {
@@ -471,6 +515,141 @@ CGFloat static attentionBtnH = 26;
     
 }
 
+//评论弹框
+-(void)popCommentVC
+{
+    PopReplyViewController *prVC = [PopReplyViewController new];
+    prVC.inputData = self.lastReplyDic.mutableCopy;
+    @weakify(self);
+    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
+        GGLog(@"发布回调:%@",inputData);
+        @strongify(self);
+        self.lastReplyDic = inputData;
+        //这里发布后把该数据清空就行了
+    };
+    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
+        GGLog(@"取消回调:%@",cancelData);
+        @strongify(self);
+        self.lastReplyDic = cancelData;
+    };
+    [self.navigationController pushViewController:prVC animated:NO];
+}
+
+//设置分区1的分区头
+-(void)setSecion1
+{
+    if (!_section1View) {
+        _section1View = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 48)];
+        _section1View.backgroundColor = WhiteColor;
+        _allComment = [UILabel new];
+        _ascendingLabel = [UILabel new];
+        _descendingLabel = [UILabel new];
+        UILabel *sepLine = [UILabel new];
+        UIView *rightView = [UIView new];
+        
+        [_section1View sd_addSubviews:@[
+                                        _allComment,
+                                        rightView,
+                                        
+                                        ]];
+        _allComment.sd_layout
+        .centerYEqualToView(_section1View)
+        .leftSpaceToView(_section1View, 10)
+        .heightIs(18)
+        ;
+        [_allComment setSingleLineAutoResizeWithMaxWidth:200];
+        _allComment.font = PFFontR(14);
+        _allComment.text = @"全部评论（216）";
+        
+        rightView.sd_layout
+        .rightSpaceToView(_section1View, 10)
+        .centerYEqualToView(_section1View)
+        .heightIs(30)
+        ;
+        
+        [rightView sd_addSubviews:@[
+                                    _ascendingLabel,
+                                    sepLine,
+                                    _descendingLabel,
+                                    
+                                    ]];
+        
+        _ascendingLabel.sd_layout
+        .centerYEqualToView(rightView)
+        .leftSpaceToView(rightView, 0)
+        .widthIs(22)
+        .heightIs(18)
+        ;
+        _ascendingLabel.font = PFFontL(11);
+        _ascendingLabel.textColor = HexColor(#1282EE);
+        _ascendingLabel.text = @"正序";
+        _ascendingLabel.tag = 10086;
+        
+        sepLine.sd_layout
+        .centerYEqualToView(rightView)
+        .leftSpaceToView(_ascendingLabel, 0)
+        .widthIs(10)
+        .heightIs(18)
+        ;
+        sepLine.font = PFFontL(11);
+        sepLine.textColor = HexColor(#ABB2C3);
+        sepLine.text = @"/";
+        
+        _descendingLabel.sd_layout
+        .centerYEqualToView(rightView)
+        .leftSpaceToView(sepLine, 0)
+        .widthIs(22)
+        .heightIs(18)
+        ;
+        _descendingLabel.font = PFFontL(11);
+        _descendingLabel.textColor = HexColor(#ABB2C3);
+        _descendingLabel.text = @"倒序";
+        
+        [rightView setupAutoWidthWithRightView:_descendingLabel rightMargin:0];
+        
+        
+        @weakify(self);
+        [rightView whenTap:^{
+            @strongify(self);
+            [self sortAction];
+        }];
+    }
+}
+
+//排序显示方法
+-(void)sortAction
+{
+    if (self.ascendingLabel.tag == 10086) {
+        self.ascendingLabel.tag = 10010;
+        self.ascendingLabel.textColor = HexColor(#ABB2C3);
+        self.descendingLabel.textColor = HexColor(#1282EE);
+    }else{
+        self.ascendingLabel.tag = 10086;
+        self.ascendingLabel.textColor = HexColor(#1282EE);
+        self.descendingLabel.textColor = HexColor(#ABB2C3);
+    }
+}
+
+//点击评论弹框
+-(void)clickCommentPopAlert
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *reply = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *copy = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:reply];
+    [alertVC addAction:copy];
+    [alertVC addAction:cancel];
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
 //查看图片的方式
 -(void)showImageBrowser:(NSString *)imageUrl
 {
@@ -489,13 +668,16 @@ CGFloat static attentionBtnH = 26;
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
         return self.postModel.dataSource.count;
+    }
+    if (section == 2) {
+        return 2;
     }
     return 0;
 }
@@ -516,6 +698,16 @@ CGFloat static attentionBtnH = 26;
             cell2.model = model;
             cell = cell2;
         }
+    }else if (indexPath.section == 2){
+        if (indexPath.row == 0) {
+            ThePostCommentTableViewCell *cell20 = (ThePostCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentTableViewCellID];
+            cell20.model = @{};
+            cell = cell20;
+        }else{
+            ThePostCommentReplyTableViewCell *cell21 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
+            cell21.model = @{};
+            cell = cell21;
+        }
     }
     
     return cell;
@@ -530,6 +722,8 @@ CGFloat static attentionBtnH = 26;
 {
     if (section == 0) {
         return 110;
+    }else if (section == 1){
+        return 10;
     }
     return 0.01;
 }
@@ -609,6 +803,24 @@ CGFloat static attentionBtnH = 26;
     return footView;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 2) {
+        return 48;
+    }
+    return 0.01;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headView;
+    if (section == 2) {
+        [self setSecion1];
+        headView = self.section1View;
+    }
+    return headView;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -629,7 +841,10 @@ CGFloat static attentionBtnH = 26;
             //图片
             [self showImageBrowser:model.imageUrl];
         }
+    }else if (indexPath.section == 2) {
+        [self clickCommentPopAlert];
     }
 }
+
 
 @end

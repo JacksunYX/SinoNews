@@ -811,6 +811,9 @@
 		4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF1A7E6219C0BF30031B1A9 /* AVFoundation.framework */; };
 		4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */; };
 		4CF1A7EC219C1AE70031B1A9 /* UICopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */; };
+		4CF1A7EF219C267A0031B1A9 /* ThePostCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7EE219C267A0031B1A9 /* ThePostCommentTableViewCell.m */; };
+		4CF1A7F2219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7F1219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.m */; };
+		4CF1A7F5219C491C0031B1A9 /* SelectCommentPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7F4219C491B0031B1A9 /* SelectCommentPageView.m */; };
 		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
 		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
@@ -2243,6 +2246,12 @@
 		4CF1A7E8219C0D190031B1A9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		4CF1A7EA219C1AE70031B1A9 /* UICopyLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICopyLabel.h; sourceTree = "<group>"; };
 		4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UICopyLabel.m; sourceTree = "<group>"; };
+		4CF1A7ED219C267A0031B1A9 /* ThePostCommentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThePostCommentTableViewCell.h; sourceTree = "<group>"; };
+		4CF1A7EE219C267A0031B1A9 /* ThePostCommentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostCommentTableViewCell.m; sourceTree = "<group>"; };
+		4CF1A7F0219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThePostCommentReplyTableViewCell.h; sourceTree = "<group>"; };
+		4CF1A7F1219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThePostCommentReplyTableViewCell.m; sourceTree = "<group>"; };
+		4CF1A7F3219C491B0031B1A9 /* SelectCommentPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectCommentPageView.h; sourceTree = "<group>"; };
+		4CF1A7F4219C491B0031B1A9 /* SelectCommentPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectCommentPageView.m; sourceTree = "<group>"; };
 		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
 		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
 		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
@@ -3364,6 +3373,12 @@
 				4C8D5C42219AD3FD008C13A9 /* PreviewTextTableViewCell.m */,
 				4C8D5C44219AD40C008C13A9 /* PreviewImageTableViewCell.h */,
 				4C8D5C45219AD40C008C13A9 /* PreviewImageTableViewCell.m */,
+				4CF1A7ED219C267A0031B1A9 /* ThePostCommentTableViewCell.h */,
+				4CF1A7EE219C267A0031B1A9 /* ThePostCommentTableViewCell.m */,
+				4CF1A7F0219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.h */,
+				4CF1A7F1219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.m */,
+				4CF1A7F3219C491B0031B1A9 /* SelectCommentPageView.h */,
+				4CF1A7F4219C491B0031B1A9 /* SelectCommentPageView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5676,6 +5691,7 @@
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C992F86217717610092DDCF /* UIWebView+KWHideAccessoryView.m in Sources */,
 				4CD157C321991AED00178FBF /* SeniorPostingAddContentCell.m in Sources */,
+				4CF1A7EF219C267A0031B1A9 /* ThePostCommentTableViewCell.m in Sources */,
 				4C6E91A7213F5F07001535CA /* YYThreadSafeArray.m in Sources */,
 				4C6E9166213F5F07001535CA /* CALayer+YYWebImage.m in Sources */,
 				4C4EC3032112E3E800591F12 /* ZXYShineClickLayer.m in Sources */,
@@ -5691,6 +5707,7 @@
 				4C5494A220CE5ED800CB448E /* RecommendThirdCell.m in Sources */,
 				4C7234ED20FDEB1D00D5C5D4 /* AAOptions.m in Sources */,
 				4C6E916D213F5F07001535CA /* YYTextContainerView.m in Sources */,
+				4CF1A7F2219C269F0031B1A9 /* ThePostCommentReplyTableViewCell.m in Sources */,
 				4C992FEB217717680092DDCF /* HXDatePhotoViewFlowLayout.m in Sources */,
 				4CE336FC2182C66F0037F9D2 /* KCGradientLabel.m in Sources */,
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
@@ -5834,6 +5851,7 @@
 				4C6E915E213F5F07001535CA /* YYSpriteSheetImage.m in Sources */,
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
 				4C7B5DF921882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m in Sources */,
+				4CF1A7F5219C491C0031B1A9 /* SelectCommentPageView.m in Sources */,
 				4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4CAD57642194225000BD77E0 /* WTEmoticonInputView.m in Sources */,

@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SelectCommentPageView : UIView
 
+@property (nonatomic,copy) void(^clickBlock)(NSInteger selectIndex);
+
 /**
  弹出方法
 

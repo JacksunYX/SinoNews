@@ -21,6 +21,7 @@
 
 #import "LeftPopDirectoryViewController.h"  //侧边栏目录
 #import "ThePostDetailViewController.h"     //帖子详情
+#import "ThePostCommentPagesViewController.h"//评论分页
 
 //帖子详情页复用cell
 #import "PreviewTextTableViewCell.h"

@@ -40,6 +40,8 @@
 @property (nonatomic,strong) UIButton *directoryBtn;
 //评论分页按钮
 @property (nonatomic,strong) UIButton *commentPagingBtn;
+//评论分页选择页数
+@property (nonatomic,assign) NSInteger commentPageSelect;
 @property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
 @property (nonatomic,strong) UserModel *user;
@@ -481,7 +483,22 @@ CGFloat static attentionBtnH = 26;
 -(void)popCommentPagingAction
 {
     SelectCommentPageView *scPV = [SelectCommentPageView new];
-    [scPV showAllNum:10 defaultSelect:0];
+    [scPV showAllNum:10 defaultSelect:self.commentPageSelect];
+    @weakify(self);
+    scPV.clickBlock = ^(NSInteger selectIndex) {
+        @strongify(self);
+        self.commentPageSelect = selectIndex;
+        
+        [self pushToCommentPageWithIndex:selectIndex];
+    };
+}
+
+//跳转评论分页界面
+-(void)pushToCommentPageWithIndex:(NSInteger)index
+{
+    ThePostCommentPagesViewController *tpcpVC = [ThePostCommentPagesViewController new];
+    tpcpVC.selectIndex = index;
+    [self.navigationController pushViewController:tpcpVC animated:YES];
 }
 
 //更多

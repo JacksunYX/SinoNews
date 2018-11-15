@@ -37,21 +37,24 @@ static CGFloat anumationTime = 0.3;
 -(void)setUI
 {
     self.frame = CGRectMake(0, 0, ScreenW, ScreenH);
-    self.backgroundColor = RGBA(0, 0, 0, 0);
+    self.backgroundColor = kWhite(0.0);
     
-    UIWindow *keyWindow = [UIApplication sharedApplication].windows.lastObject;
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self];
-    //关闭
-    [self whenTap:^{
-        [UIView animateWithDuration:anumationTime animations:^{
-            self.alpha = 0;
-        } completion:^(BOOL finished) {
-            [self removeFromSuperview];
-        }];
-    }];
+    
+    UIView *topView = [UIView new];
+    topView.backgroundColor = kWhite(0.0);
+    [self addSubview:topView];
+    topView.sd_layout
+    .topEqualToView(self)
+    .bottomSpaceToView(self, 0)
+    .leftEqualToView(self)
+    .rightEqualToView(self)
+    ;
+    [topView updateLayout];
     
     UIView *mainView = [UIView new];
-    mainView.backgroundColor = WhiteColor;
+    mainView.backgroundColor = kWhite(0.0);
     [self addSubview:mainView];
     mainView.sd_layout
     .bottomSpaceToView(self, -200)
@@ -61,11 +64,19 @@ static CGFloat anumationTime = 0.3;
     ;
     [mainView updateLayout];
     
-    
+    @weakify(self);
+    [topView whenTap:^{
+        @strongify(self);
+        [UIView animateWithDuration:anumationTime animations:^{
+            self.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self removeFromSuperview];
+        }];
+    }];
     
     //出现动画
     [UIView animateWithDuration:anumationTime animations:^{
-        self.backgroundColor = RGBA(0, 0, 0, 0.82);
+        topView.backgroundColor = kWhite(0.82);
         mainView.sd_layout
         .bottomSpaceToView(self, 0)
         ;
@@ -89,13 +100,14 @@ static CGFloat anumationTime = 0.3;
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     NSInteger numPerRow = 6;
-    CGFloat itemW = (ScreenW - (numPerRow - 1)*10.0)/numPerRow;
+    CGFloat itemW = (ScreenW - (numPerRow+1)*10.0)/numPerRow;
     CGFloat itemH = itemW;
     layout.itemSize = CGSizeMake(itemW, itemH);
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-    self.collectionView.backgroundColor = RedColor;
+    self.collectionView.contentInset = UIEdgeInsetsMake(10, 8, 10, 8);
+    self.collectionView.backgroundColor = WhiteColor;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
@@ -127,18 +139,33 @@ static CGFloat anumationTime = 0.3;
     title.sd_layout
     .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
     ;
-    CGFloat itemW = (ScreenW - 5*10)/6;
+    NSInteger numPerRow = 6;
+    CGFloat itemW = (ScreenW - (numPerRow+1)*10.0)/numPerRow;
     title.sd_cornerRadius = @(itemW/2);
     title.text = [NSString stringWithFormat:@"%ld",indexPath.row+1];
-    title.backgroundColor = Arc4randomColor;
-    title.textColor = WhiteColor;
+    if (indexPath.row == _selectedIndex) {
+        title.backgroundColor = ThemeColor;
+        title.textColor = WhiteColor;
+    }else{
+        title.backgroundColor = WhiteColor;
+        title.textColor = BlackColor;
+    }
     
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GGLog(@"点击了:%ld",indexPath.row);
+    _selectedIndex = indexPath.row;
+    [collectionView reloadData];
+    if (self.clickBlock) {
+        self.clickBlock(indexPath.row);
+    }
+    [UIView animateWithDuration:anumationTime animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 @end

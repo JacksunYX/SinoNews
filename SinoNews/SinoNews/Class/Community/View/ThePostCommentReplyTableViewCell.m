@@ -14,6 +14,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
 {
     UIImageView *avatar;
     UILabel *nickName;
+    UILabel *Landlord;  //楼主标签
     UILabel *content;
     
     UILabel *fatherComment; //父级评论
@@ -55,6 +56,11 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     nickName.textColor = HexColor(#161A24);
     nickName.font = PFFontR(15);
     
+    Landlord = [UILabel new];
+    Landlord.textColor = HexColor(#1282EE);
+    Landlord.font = PFFontL(10);
+    Landlord.textAlignment = NSTextAlignmentCenter;
+    
     //父级评论
     UIView *fatherCommentBackView = [UIView new];
     fatherComment = [UILabel new];
@@ -78,6 +84,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     [fatherView sd_addSubviews:@[
                                  avatar,
                                  nickName,
+                                 Landlord,
                                  fatherCommentBackView,
                                  
                                  content,
@@ -103,6 +110,17 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     ;
     [nickName setSingleLineAutoResizeWithMaxWidth:200];
     nickName.text = @"春风十里";
+    
+    Landlord.sd_layout
+    .centerYEqualToView(nickName)
+    .leftSpaceToView(nickName, 8)
+    .widthIs(25)
+    .heightIs(15)
+    ;
+    Landlord.sd_cornerRadius = @2;
+    Landlord.layer.borderColor = HexColor(#1282EE).CGColor;
+    Landlord.layer.borderWidth = 1.0f;
+    Landlord.text = @"楼主";
     
     fatherCommentBackView.sd_layout
     .leftEqualToView(nickName)

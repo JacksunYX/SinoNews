@@ -709,7 +709,13 @@
     if (_selectedIndex == 1) {
         return self.commentsArr.count;
     }
-    return 3;
+    if (_selectedIndex == 2) {
+        return 3;
+    }
+    if (_selectedIndex == 3) {
+        return self.commentsArr.count;
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

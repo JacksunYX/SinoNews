@@ -87,14 +87,11 @@ static CGFloat anumationTime = 0.3;
     UILabel *fonts = [UILabel new];
     fonts.font = PFFontL(17);
     
+#ifdef OpenNightChange
     UIView *line = [UIView new];
     
     UILabel *nightMode = [UILabel new];
     nightMode.font = PFFontL(16);
-    
-    [leftA addTitleColorTheme];
-    [rightA addTitleColorTheme];
-    [fonts addTitleColorTheme];
     [nightMode addTitleColorTheme];
     if (UserGetBool(@"NightMode")) {
         line.backgroundColor = CutLineColorNight;
@@ -104,8 +101,14 @@ static CGFloat anumationTime = 0.3;
         fontSelect.scaleLineColor = CutLineColor;
     }
     
+#endif
+    
     LQXSwitch *switchBtn = [[LQXSwitch alloc] initWithFrame:CGRectMake(ScreenW - 59, 13, 49, 30) onColor:RGBA(18, 130, 238, 1) offColor:RGBA(204, 227, 249, 1) font:[UIFont systemFontOfSize:25] ballSize:14];
     [switchBtn setOn:UserGetBool(@"NightMode") animated:YES];
+    
+    [leftA addTitleColorTheme];
+    [rightA addTitleColorTheme];
+    [fonts addTitleColorTheme];
     
     [bottomView sd_addSubviews:@[
                                  finishBtn,
@@ -113,9 +116,11 @@ static CGFloat anumationTime = 0.3;
                                  leftA,
                                  rightA,
                                  fonts,
+#ifdef OpenNightChange
                                  line,
                                  nightMode,
                                  switchBtn,
+#endif
                                  ]];
     
     finishBtn.sd_layout
@@ -157,6 +162,7 @@ static CGFloat anumationTime = 0.3;
     [fonts setSingleLineAutoResizeWithMaxWidth:100];
     fonts.text = @"阅读字号";
     
+    #ifdef OpenNightChange
     line.sd_layout
     .leftSpaceToView(bottomView, 10)
     .rightSpaceToView(bottomView, 10)
@@ -178,6 +184,7 @@ static CGFloat anumationTime = 0.3;
     .widthIs(49)
     .heightIs(24)
     ;
+#endif
     
     [[finishBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         GGLog(@"完成");

@@ -358,6 +358,7 @@ static bool isCollect = NO;
         //
         //        }];
     }]];
+#ifdef OpenNightChange
     NSString *title = @"夜间模式";
     UIImage *nightModelImg = UIImageNamed(@"share_nightMode");
     if (UserGetBool(@"NightMode")) {
@@ -378,6 +379,7 @@ static bool isCollect = NO;
         //发送修改了夜间模式的通知
         [[NSNotificationCenter defaultCenter] postNotificationName:NightModeChanged object:nil];
     }]];
+#endif
     
     NSString *collectTitle = @"收藏";
     UIImage *collectImg = UIImageNamed(@"share_collect");

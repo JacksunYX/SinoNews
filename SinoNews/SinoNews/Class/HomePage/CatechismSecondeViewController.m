@@ -574,7 +574,15 @@ CGFloat static titleViewHeight = 150;
                 }
                     break;
                 case 1:
+                {
+#ifdef JoinThirdShare
                     [self.webView reload];
+#else
+                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                    pasteboard.string = AppendingString(DomainString, self.answerModel.contentUrl);
+                    LRToast(@"链接已复制");
+#endif
+                }
                     break;
                 case 2:
                 {

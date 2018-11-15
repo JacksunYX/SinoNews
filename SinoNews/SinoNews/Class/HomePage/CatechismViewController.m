@@ -747,9 +747,19 @@ CGFloat static titleViewHeight = 150;
                     [self.headerView configFontLevel:fontIndex];
                 }];
             }else if (row == 1) {
-//                [self newLoadWeb];
+#ifdef JoinThirdShare
+        //                [self newLoadWeb];
+#else
+               [self requestCollectNews];
+#endif
             }else if (row == 2) {
+#ifdef JoinThirdShare
                 [self requestCollectNews];
+#else
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = AppendingString(DomainString, self.newsModel.freeContentUrl);
+                LRToast(@"链接已复制");
+#endif
             }else if (row == 3){
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                 pasteboard.string = AppendingString(DomainString, self.newsModel.freeContentUrl);

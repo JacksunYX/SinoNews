@@ -807,11 +807,21 @@ CGFloat static attentionBtnH = 26;
             if (row == 0) {
                 [self fontsSelect];
             }else if (row == 1) {
+#ifdef OpenNightChange
                 if (self.isVote) {
                    [self newLoadWeb];
                 }
-            }else if (row == 2) {
+#else
                 [self requestCollectNews];
+#endif
+            }else if (row == 2) {
+#ifdef OpenNightChange
+                [self requestCollectNews];
+#else
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                pasteboard.string = AppendingString(DomainString, self.newsModel.freeContentUrl);
+                LRToast(@"链接已复制");
+#endif
             }else if (row == 3) {
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                 pasteboard.string = AppendingString(DomainString, self.newsModel.freeContentUrl);

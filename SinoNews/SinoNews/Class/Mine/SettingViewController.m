@@ -25,7 +25,9 @@
 {
     if (!_mainDatasource) {
         NSArray *title = @[
+#ifdef OpenNightChange
                            @"夜间模式",
+#endif
                            @"字体大小",
                            @"视频自动播放",
 //                           @"检查更新",
@@ -37,7 +39,9 @@
                            ];
         
         NSArray *rightTitle = @[
+#ifdef OpenNightChange
                                 @"",
+#endif
                                 @"",
                                 @"",
 //                                @"",
@@ -53,8 +57,8 @@
             NSMutableDictionary *dic = [NSMutableDictionary new];
             dic[@"title"] = title[i];
             dic[@"rightTitle"] = rightTitle[i];
-            
-            if (i < 4) {
+            //只留数组中最后3个在分区1
+            if (title.count- (i+1) >= 3) {
                 [section0 addObject:dic];
             }else{
                 [section1 addObject:dic];

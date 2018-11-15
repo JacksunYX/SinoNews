@@ -88,8 +88,10 @@ MJCodingImplementation
 +(BOOL)showAttention:(NSInteger)userId
 {
     UserModel *user = [self getLocalUserModel];
-    if (user.userId == userId) {
-        return NO;
+    if (user&&userId!=0) {
+        if (user.userId == userId) {
+            return NO;
+        }
     }
     return YES;
 }

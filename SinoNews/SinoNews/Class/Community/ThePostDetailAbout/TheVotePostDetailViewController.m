@@ -1,20 +1,19 @@
 //
-//  ThePostDetailViewController.m
+//  TheVotePostDetailViewController.m
 //  SinoNews
 //
-//  Created by Michael on 2018/11/14.
+//  Created by Michael on 2018/11/15.
 //  Copyright © 2018 Sino. All rights reserved.
 //
 
-#import "ThePostDetailViewController.h"
 
+#import "TheVotePostDetailViewController.h"
 
+#import "VoteDetailChooseTableViewCell.h"
 
-@interface ThePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface TheVotePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
-//帖子中包含的图片数组
-@property (nonatomic,strong) NSMutableArray *imagesArr;
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
@@ -32,26 +31,25 @@
 
 @property (nonatomic,strong) UIView *naviTitle;
 
-@property (nonatomic,strong) UIView *section2View;
+@property (nonatomic,strong) UIView *section1View;
 @property (nonatomic,strong) UILabel *allComment;
 @property (nonatomic,strong) UILabel *ascendingLabel;
 @property (nonatomic,strong) UILabel *descendingLabel;
-//目录按钮
-@property (nonatomic,strong) UIButton *directoryBtn;
+
 //评论分页按钮
 @property (nonatomic,strong) UIButton *commentPagingBtn;
 //评论分页选择页数
 @property (nonatomic,assign) NSInteger commentPageSelect;
-@property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
 @property (nonatomic,strong) UserModel *user;
 //保存评论时选取的图片等数据
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
+//多选时保存的已选项数组
+@property (nonatomic,strong) NSMutableArray *selectChooseArr;
 
 @end
 
-@implementation ThePostDetailViewController
-CGFloat static titleViewHeight = 50;
+@implementation TheVotePostDetailViewController
 CGFloat static bottomMargin = 15;
 CGFloat static attentionBtnW = 66;
 CGFloat static attentionBtnH = 26;
@@ -64,23 +62,6 @@ CGFloat static attentionBtnH = 26;
     return _user;
 }
 
--(NSMutableArray *)imagesArr
-{
-    if (!_imagesArr) {
-        _imagesArr = [NSMutableArray new];
-        for (int i = 0; i < _postModel.dataSource.count; i ++) {
-            SeniorPostingAddElementModel *model = _postModel.dataSource[i];
-            //只过滤图片
-            if (model.addtType == 2) {
-                [_imagesArr addObject:model.imageUrl];
-            }else{
-                continue;
-            }
-        }
-    }
-    return _imagesArr;
-}
-
 -(NSMutableArray *)commentsArr
 {
     if (!_commentsArr) {
@@ -89,16 +70,22 @@ CGFloat static attentionBtnH = 26;
     return _commentsArr;
 }
 
+-(NSMutableArray *)selectChooseArr
+{
+    if (!_selectChooseArr) {
+        _selectChooseArr = [NSMutableArray new];
+    }
+    return _selectChooseArr;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"帖子详情";
     
     [self setUI];
     
     [self setNaviTitle];
     [self setTitle];
     [self setBottomView];
-    [self reloadDataWithDataArrUpperCase];
 }
 
 - (void)setUI
@@ -109,7 +96,9 @@ CGFloat static attentionBtnH = 26;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.separatorColor = HexColor(#E3E3E3);
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     
     self.tableView.sd_layout
     .topEqualToView(self.view)
@@ -119,21 +108,9 @@ CGFloat static attentionBtnH = 26;
     ;
     [_tableView updateLayout];
     
-    [_tableView registerClass:[PreviewTextTableViewCell class] forCellReuseIdentifier:PreviewTextTableViewCellID];
-    [_tableView registerClass:[PreviewImageTableViewCell class] forCellReuseIdentifier:PreviewImageTableViewCellID];
+    [_tableView registerClass:[VoteDetailChooseTableViewCell class] forCellReuseIdentifier:VoteDetailChooseTableViewCellID];
     [_tableView registerClass:[ThePostCommentTableViewCell class] forCellReuseIdentifier:ThePostCommentTableViewCellID];
     [_tableView registerClass:[ThePostCommentReplyTableViewCell class] forCellReuseIdentifier:ThePostCommentReplyTableViewCellID];
-    
-    _directoryBtn = [UIButton new];
-    [self.view addSubview:_directoryBtn];
-    _directoryBtn.sd_layout
-    .leftSpaceToView(self.view, 0)
-    .widthIs(80)
-    .heightIs(60)
-    .bottomSpaceToView(self.view, 49 + BOTTOM_MARGIN + 20)
-    ;
-    [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
-    [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
     
     _commentPagingBtn = [UIButton new];
     [self.view addSubview:_commentPagingBtn];
@@ -438,69 +415,6 @@ CGFloat static attentionBtnH = 26;
     }
 }
 
-//检查是否需要显示目录按钮
--(void)reloadDataWithDataArrUpperCase
-{
-    int j = 1;//标记有几个小标题分区
-    if (self.postModel.dataSource.count>0) {
-        //遍历数据源
-        for (int i = 0; i < self.postModel.dataSource.count; i ++) {
-            SeniorPostingAddElementModel *model = self.postModel.dataSource[i];
-            if (model.addtType==0) {//说明是小标题
-                //标记是第几个小分区标题
-                model.sectionNum = j;
-                j ++;
-            }
-        }
-    }
-    
-    if (j == 1) {   //j没有变化，说明没有小标题了，隐藏目录按钮
-        _directoryBtn.hidden = YES;
-    }else{
-        _directoryBtn.hidden = NO;
-    }
-    [self.tableView reloadData];
-}
-
-//弹出目录侧边栏
--(void)popDirectoryAction
-{
-    self.menu = [LeftPopDirectoryViewController new];
-    self.menu.dataSource = self.postModel.dataSource;
-    self.menu.view.frame = CGRectMake(0, 0, 260, ScreenH);
-    [self.menu initSlideFoundationWithDirection:SlideDirectionFromLeft];
-    [self.menu show];
-    
-    @weakify(self);
-    self.menu.clickBlock = ^(NSInteger index) {
-        @strongify(self);
-        GGLog(@"滚动至下标为:%ld的cell",index);
-        [self.tableView scrollToRow:index inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    };
-}
-
-//弹出选择分页的视图
--(void)popCommentPagingAction
-{
-    SelectCommentPageView *scPV = [SelectCommentPageView new];
-    [scPV showAllNum:10 defaultSelect:self.commentPageSelect];
-    @weakify(self);
-    scPV.clickBlock = ^(NSInteger selectIndex) {
-        @strongify(self);
-        self.commentPageSelect = selectIndex;
-        
-        [self pushToCommentPageWithIndex:selectIndex];
-    };
-}
-
-//跳转评论分页界面
--(void)pushToCommentPageWithIndex:(NSInteger)index
-{
-    ThePostCommentPagesViewController *tpcpVC = [ThePostCommentPagesViewController new];
-    tpcpVC.selectIndex = index;
-    [self.navigationController pushViewController:tpcpVC animated:YES];
-}
-
 //更多
 -(void)moreSelect
 {
@@ -552,26 +466,48 @@ CGFloat static attentionBtnH = 26;
     [self.navigationController pushViewController:prVC animated:NO];
 }
 
-//设置分区2的分区头
--(void)setSecion2
+//弹出选择分页的视图
+-(void)popCommentPagingAction
 {
-    if (!_section2View) {
-        _section2View = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 48)];
-        _section2View.backgroundColor = WhiteColor;
+    SelectCommentPageView *scPV = [SelectCommentPageView new];
+    [scPV showAllNum:10 defaultSelect:self.commentPageSelect];
+    @weakify(self);
+    scPV.clickBlock = ^(NSInteger selectIndex) {
+        @strongify(self);
+        self.commentPageSelect = selectIndex;
+        
+        [self pushToCommentPageWithIndex:selectIndex];
+    };
+}
+
+//跳转评论分页界面
+-(void)pushToCommentPageWithIndex:(NSInteger)index
+{
+    ThePostCommentPagesViewController *tpcpVC = [ThePostCommentPagesViewController new];
+    tpcpVC.selectIndex = index;
+    [self.navigationController pushViewController:tpcpVC animated:YES];
+}
+
+//设置分区1的分区头
+-(void)setSecion1
+{
+    if (!_section1View) {
+        _section1View = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 48)];
+        _section1View.backgroundColor = WhiteColor;
         _allComment = [UILabel new];
         _ascendingLabel = [UILabel new];
         _descendingLabel = [UILabel new];
         UILabel *sepLine = [UILabel new];
         UIView *rightView = [UIView new];
         
-        [_section2View sd_addSubviews:@[
+        [_section1View sd_addSubviews:@[
                                         _allComment,
                                         rightView,
                                         
                                         ]];
         _allComment.sd_layout
-        .centerYEqualToView(_section2View)
-        .leftSpaceToView(_section2View, 10)
+        .centerYEqualToView(_section1View)
+        .leftSpaceToView(_section1View, 10)
         .heightIs(18)
         ;
         [_allComment setSingleLineAutoResizeWithMaxWidth:200];
@@ -579,8 +515,8 @@ CGFloat static attentionBtnH = 26;
         _allComment.text = @"全部评论（216）";
         
         rightView.sd_layout
-        .rightSpaceToView(_section2View, 10)
-        .centerYEqualToView(_section2View)
+        .rightSpaceToView(_section1View, 10)
+        .centerYEqualToView(_section1View)
         .heightIs(30)
         ;
         
@@ -667,21 +603,6 @@ CGFloat static attentionBtnH = 26;
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
-//查看图片的方式
--(void)showImageBrowser:(NSString *)imageUrl
-{
-    GGLog(@"点击的图片:%@",imageUrl);
-    //获取下标
-    int i = (int)[self.imagesArr indexOfObject:imageUrl];
-    //创建图片浏览器
-    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
-    browser.isFullWidthForLandScape = YES;
-    browser.isNeedLandscape = YES;
-    browser.currentImageIndex = i;
-    browser.imageArray = self.imagesArr;
-    [browser show];
-}
-
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -691,7 +612,7 @@ CGFloat static attentionBtnH = 26;
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return self.postModel.dataSource.count;
+        return self.postModel.voteSelects.count;
     }
     if (section == 2) {
         return 2;
@@ -703,18 +624,11 @@ CGFloat static attentionBtnH = 26;
 {
     UITableViewCell *cell;
     if (indexPath.section == 0) {
-        SeniorPostingAddElementModel *model = self.postModel.dataSource[indexPath.row];
-        //标题、文本
-        if(model.addtType == 0||model.addtType == 1)
-        {
-            PreviewTextTableViewCell *cell01 = (PreviewTextTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PreviewTextTableViewCellID];
-            cell01.model = model;
-            cell = cell01;
-        }else{  //图片、视频
-            PreviewImageTableViewCell *cell2 = (PreviewImageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PreviewImageTableViewCellID];
-            cell2.model = model;
-            cell = cell2;
-        }
+        VoteDetailChooseTableViewCell *cell0 = (VoteDetailChooseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:VoteDetailChooseTableViewCellID];
+        cell0.tag = indexPath.row;
+        VoteChooseInputModel *model = self.postModel.voteSelects[indexPath.row];
+        cell0.model = model;
+        cell = cell0;
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             ThePostCommentTableViewCell *cell20 = (ThePostCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentTableViewCellID];
@@ -738,9 +652,9 @@ CGFloat static attentionBtnH = 26;
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 110;
+        return 115;
     }else if (section == 1){
-        return 10;
+        return 0;
     }
     return 0.01;
 }
@@ -749,72 +663,21 @@ CGFloat static attentionBtnH = 26;
 {
     UIView *footView;
     if (section == 0) {
-        footView = [UIView new];
-        [footView addBakcgroundColorTheme];
-        UIButton *praiseBtn = [UIButton new];
-        [praiseBtn addButtonTextColorTheme];
-        UILabel *notice = [UILabel new];
-        notice.font = PFFontL(13);
-        [notice addContentColorTheme];
-        
-        [footView sd_addSubviews:@[
-                                   praiseBtn,
-                                   notice,
-                                   ]];
-        praiseBtn.sd_layout
-        .topSpaceToView(footView, 10)
-        .centerXEqualToView(footView)
-        .widthIs(60)
-        .heightEqualToWidth()
+        footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 115)];
+        footView.backgroundColor = WhiteColor;
+        UIButton *submitBtn = [UIButton new];
+        [footView addSubview:submitBtn];
+        submitBtn.sd_layout
+        .centerYEqualToView(footView)
+        .leftSpaceToView(footView, 10)
+        .rightSpaceToView(footView, 10)
+        .heightIs(46)
         ;
-        [praiseBtn setSd_cornerRadius:@30];
-        [praiseBtn setNormalTitle:[NSString stringWithFormat:@"%ld",self.postModel.praiseCount]];
-        praiseBtn.layer.borderWidth = 1;
-        [praiseBtn setBtnFont:PFFontL(12)];
-        [praiseBtn addButtonNormalImage:@"news_unPraise"];
-        [praiseBtn setSelectedImage:UIImageNamed(@"news_praised")];
-        [praiseBtn setNormalTitleColor:HexColor(#1A1A1A)];
-        [praiseBtn setSelectedTitleColor:HexColor(#1282EE)];
-        praiseBtn.imageEdgeInsets = UIEdgeInsetsMake(-15, 10, 0, 0);
-        praiseBtn.titleEdgeInsets = UIEdgeInsetsMake(30, -20, 0, 0);
-        praiseBtn.selected = self.postModel.hasPraised;
-        
-        if (self.postModel.hasPraised) {
-            praiseBtn.selected = YES;
-            praiseBtn.layer.borderColor = HexColor(#1282EE).CGColor;
-        }else{
-            praiseBtn.selected = NO;
-            praiseBtn.layer.borderColor = HexColor(#1A1A1A).CGColor;
-        }
-        @weakify(self);
-        [[praiseBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            @strongify(self);
-            if (self.praiseBtn.selected) {
-                LRToast(@"已经点过赞啦");
-            }else{
-                
-            }
-        }];
-        //边框色
-        if (self.postModel.hasPraised) {
-            self.praiseBtn.layer.borderColor = HexColor(#1282EE).CGColor;
-        }else{
-            self.praiseBtn.layer.borderColor = HexColor(#1A1A1A).CGColor;
-        }
-        if (self.user.userId == self.postModel.userId) {
-            praiseBtn.enabled = NO;
-        }else{
-            praiseBtn.enabled = YES;
-        }
-        
-        notice.sd_layout
-        .centerXEqualToView(footView)
-        .heightIs(14)
-        .bottomSpaceToView(footView, 10)
-        ;
-        [notice setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
-        notice.text = @"启世录好文章，需要你勤劳的小手指";
-        
+        submitBtn.sd_cornerRadius = @23;
+        submitBtn.backgroundColor = HexColor(#1282EE);
+        [submitBtn setNormalTitle:@"提交"];
+        [submitBtn setNormalTitleColor:WhiteColor];
+        [submitBtn setBtnFont:PFFontL(16)];
     }
     
     return footView;
@@ -832,8 +695,8 @@ CGFloat static attentionBtnH = 26;
 {
     UIView *headView;
     if (section == 2) {
-        [self setSecion2];
-        headView = self.section2View;
+        [self setSecion1];
+        headView = self.section1View;
     }
     return headView;
 }
@@ -841,27 +704,65 @@ CGFloat static attentionBtnH = 26;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        SeniorPostingAddElementModel *model = self.postModel.dataSource[indexPath.row];
-        if (model.addtType == 3) {
-            //使用AV播放视频(iOS9.0以后适用,支持画中画)
-            AVPlayerViewController *avVC = [[AVPlayerViewController alloc]init];
-            //本地地址
-            NSURL *url = [NSURL fileURLWithPath:model.videoUrl];
-            //网络地址
-//            url = UrlWithStr(model.videoUrl);
-            avVC.player = [[AVPlayer alloc]initWithURL:url];
-            [self presentViewController:avVC animated:YES completion:^{
-                //跳转后自动播放
-                [avVC.player play];
-            }];
-        }else if(model.addtType == 2){
-            //图片
-            [self showImageBrowser:model.imageUrl];
+        //没有投票才能响应点击事件
+        if (!self.postModel.haveVoted) {
+            
+            VoteChooseInputModel *model = self.postModel.voteSelects[indexPath.row];
+            
+            [self processTableViewWithSelectModel:model];
         }
     }else if (indexPath.section == 2) {
         [self clickCommentPopAlert];
     }
 }
 
+//单选和多选时的处理
+-(void)processTableViewWithSelectModel:(VoteChooseInputModel *)model
+{
+    //单选,选择不同项时做切换处理，同一选项点击2次时做反选处理
+    if (self.postModel.choosableNum<=1) {
+        //未选择任何选项时
+        if (self.selectChooseArr.count<=0) {
+            model.isSelected = YES;
+            [self.selectChooseArr addObject:model];
+        }else{  //已选1项，直接先移除
+            [self.selectChooseArr removeAllObjects];
+            if (model.isSelected) {
+                model.isSelected = NO;
+            }else{
+                //先要把之前选中的取消选中，再把当前这个选中
+                for (VoteChooseInputModel *model2 in self.postModel.voteSelects) {
+                    if (model2.isSelected) {
+                        model2.isSelected = NO;
+                        break;
+                    }else{
+                        continue;
+                    }
+                }
+                model.isSelected = YES;
+                [self.selectChooseArr addObject:model];
+            }
+        }
+        
+    }else{
+        //多选,只要未达到最大可选数，可一直累加，达到后只提示，同一选项点击2次时也做反选处理
+        if (model.isSelected) { //先判断是否是已选
+            model.isSelected = NO;
+            [self.selectChooseArr removeObject:model];
+        }else{
+            //如果不是已选,先判断是否小于最大可选数
+            if (self.selectChooseArr.count<self.postModel.choosableNum) {
+                model.isSelected = YES;
+                [self.selectChooseArr addObject:model];
+            }else{
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"已达到最大可选数了" message:[NSString stringWithFormat:@"该投票最多可选择%ld项",self.postModel.choosableNum] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
+                [alertVC addAction:confirm];
+                [self presentViewController:alertVC animated:YES completion:nil];
+            }
+        }
+    }
+    [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+}
 
 @end

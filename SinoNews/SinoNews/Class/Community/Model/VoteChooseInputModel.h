@@ -12,7 +12,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VoteChooseInputModel : NSObject
-@property (nonatomic,strong) NSString *content;
+@property (nonatomic,strong) NSString *content;//投票选项内容
+@property (nonatomic,assign) BOOL isSelected;  //是否已被选
+@property (nonatomic,assign) NSInteger havePolls;//占票数
+@property (nonatomic,assign) NSInteger totalPolls;//总票数
 
 @end
 

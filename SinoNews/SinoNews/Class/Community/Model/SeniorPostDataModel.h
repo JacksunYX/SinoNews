@@ -9,6 +9,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "VoteChooseInputModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SeniorPostDataModel : NSObject
@@ -30,6 +32,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isCollection;//是否收藏
 @property (nonatomic,assign) BOOL hasPraised;//是否点赞
 @property (nonatomic,assign) NSInteger praiseCount;//点赞数
+
+//投票帖子专用属性
+//是否是投票
+@property (nonatomic,assign) BOOL isVotePost;
+//是否已投票
+@property (nonatomic,assign) BOOL haveVoted;
+//投票后结果是否可见
+@property (nonatomic,assign) BOOL visibleAfterVote;
+//最大可选数
+@property (nonatomic,assign) NSInteger choosableNum;
+//投票有效期
+@property (nonatomic,assign) NSInteger validityDate;
+//投票选项数组
+@property (nonatomic,strong) NSMutableArray <VoteChooseInputModel *> *voteSelects;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

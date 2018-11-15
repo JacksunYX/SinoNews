@@ -150,7 +150,7 @@ static CGFloat anumationTime = 0.3;
         title.backgroundColor = WhiteColor;
         title.textColor = BlackColor;
     }
-    
+    cell.backgroundColor = WhiteColor;
     return cell;
 }
 

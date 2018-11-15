@@ -32,6 +32,8 @@
 
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *showKeyboard;
+//保存数据的模型
+@property (nonatomic,strong) SeniorPostDataModel *voteModel;
 @end
 
 //可添加投票选项的最小、最大数
@@ -82,7 +84,9 @@ static NSInteger limitMaxNum = 20;
         // 添加输入改变Block回调.
         @weakify(self);
         [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
-            // 文本改变后的相应操作.
+            @strongify(self);
+            // 文本改变后的相应操作
+            self.voteModel.postTitle = textView.formatText;
             
         }];
         // 添加到达最大限制Block回调.
@@ -104,6 +108,8 @@ static NSInteger limitMaxNum = 20;
         [_contentView addTextDidChangeHandler:^(FSTextView *textView) {
             @strongify(self);
             // 文本改变后的相应操作.
+            self.voteModel.postContent = textView.formatText;
+            /*
             NSString *string = textView.formatText;
             if (string.length>0) {
                 self.publishBtn.enabled = YES;
@@ -112,6 +118,7 @@ static NSInteger limitMaxNum = 20;
                 self.publishBtn.enabled = NO;
                 [self.publishBtn setNormalTitleColor:HexColor(#959595)];
             }
+             */
         }];
         _contentView.borderColor = HexColor(#E3E3E3);
         _contentView.borderWidth = 1;
@@ -162,6 +169,14 @@ static NSInteger limitMaxNum = 20;
     return _chooseArr;
 }
 
+-(SeniorPostDataModel *)voteModel
+{
+    if (!_voteModel) {
+        _voteModel = [SeniorPostDataModel new];
+    }
+    return _voteModel;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addNavigationView];
@@ -200,6 +215,7 @@ static NSInteger limitMaxNum = 20;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//发表
 -(void)publishAction:(UIButton *)sender
 {
     [self.view endEditing:YES];
@@ -221,8 +237,23 @@ static NSInteger limitMaxNum = 20;
             return;
         }
     }
-    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
-    [self.navigationController pushViewController:spcVC animated:YES];
+//    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
+//    [self.navigationController pushViewController:spcVC animated:YES];
+    for (VoteChooseInputModel *model in self.chooseArr) {
+        if (model.isSelected) {
+            model.isSelected = NO;
+        }else{
+            continue;
+        }
+    }
+    self.voteModel.voteSelects = self.chooseArr;
+    self.voteModel.choosableNum = [_asmuchSelect substringToIndex:1].integerValue;
+    self.voteModel.validityDate = [_validTime substringToIndex:1].integerValue;
+    self.voteModel.visibleAfterVote = _isVisible;
+    
+    TheVotePostDetailViewController *tvPDVC = [TheVotePostDetailViewController new];
+    tvPDVC.postModel = self.voteModel;
+    [self.navigationController pushViewController:tvPDVC animated:YES];
 }
 
 -(void)setUI
@@ -314,6 +345,7 @@ static NSInteger limitMaxNum = 20;
             cell1.switchBlock = ^(BOOL switchisOn) {
                 @strongify(self);
                 self.isVisible = switchisOn;
+                
                 GGLog(@"开关状态:%d",switchisOn);
             };
         }else{

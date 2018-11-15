@@ -575,7 +575,7 @@ CGFloat static titleViewHeight = 150;
                     break;
                 case 1:
                 {
-#ifdef JoinThirdShare
+#ifdef OpenNightChange
                     [self.webView reload];
 #else
                     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

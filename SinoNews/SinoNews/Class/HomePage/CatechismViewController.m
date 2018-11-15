@@ -747,13 +747,13 @@ CGFloat static titleViewHeight = 150;
                     [self.headerView configFontLevel:fontIndex];
                 }];
             }else if (row == 1) {
-#ifdef JoinThirdShare
+#ifdef OpenNightChange
         //                [self newLoadWeb];
 #else
                [self requestCollectNews];
 #endif
             }else if (row == 2) {
-#ifdef JoinThirdShare
+#ifdef OpenNightChange
                 [self requestCollectNews];
 #else
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

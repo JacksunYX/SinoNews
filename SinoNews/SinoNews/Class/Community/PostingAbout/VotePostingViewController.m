@@ -240,6 +240,7 @@ static NSInteger limitMaxNum = 20;
 //    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
 //    [self.navigationController pushViewController:spcVC animated:YES];
     for (VoteChooseInputModel *model in self.chooseArr) {
+        model.hiddenVoteResult = !self.isVisible;
         if (model.isSelected) {
             model.isSelected = NO;
         }else{

@@ -83,7 +83,7 @@ NSString * const VoteDetailChooseTableViewCellID = @"VoteDetailChooseTableViewCe
     [pollLabel setSingleLineAutoResizeWithMaxWidth:200];
     pollLabel.font = PFFontL(12);
     pollLabel.textColor = HexColor(#74777F);
-    pollLabel.text = @"7票（%15.2）";
+    
     
     pollDownView.sd_layout
     .topSpaceToView(pollLabel, 10)
@@ -111,7 +111,22 @@ NSString * const VoteDetailChooseTableViewCellID = @"VoteDetailChooseTableViewCe
 {
     _model = model;
     selectBtn.selected = model.isSelected;
-    content.text = [NSString stringWithFormat:@"     %ld.%@",self.tag+1,GetSaveString(model.content)];
+    
+    selectBtn.hidden = model.hiddenSelectIcon;
+    pollFrontView.hidden = model.hiddenVoteResult;
+    if (model.hiddenVoteResult) {
+        pollLabel.text = @"发布者未开放投票数据";
+    }else{
+        pollLabel.text = @"7票（%15.2）";
+    }
+    
+    NSString *contentString;
+    if (model.hiddenSelectIcon) {
+        contentString = @"";
+    }else{
+        contentString = @"     ";
+    }
+    content.text = [NSString stringWithFormat:@"%@%ld.%@",contentString,self.tag+1,GetSaveString(model.content)];
     
     CGFloat percent = 0.3;
     if (self.tag == 1) {

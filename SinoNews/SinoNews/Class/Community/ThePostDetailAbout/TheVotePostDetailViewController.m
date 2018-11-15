@@ -30,7 +30,11 @@
 @property (nonatomic,strong) ZXYShineButton *collectBtn;
 
 @property (nonatomic,strong) UIView *naviTitle;
-
+//分区0,投票信息相关
+@property (nonatomic,strong) UIView *voteDataView;
+//参与人数
+@property (nonatomic,strong) UILabel *participantNum;
+//分区1
 @property (nonatomic,strong) UIView *section1View;
 @property (nonatomic,strong) UILabel *allComment;
 @property (nonatomic,strong) UILabel *ascendingLabel;
@@ -488,6 +492,81 @@ CGFloat static attentionBtnH = 26;
     [self.navigationController pushViewController:tpcpVC animated:YES];
 }
 
+//投票信息视图
+-(void)setVoteDataView
+{
+    if (!_voteDataView) {
+        _voteDataView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 110)];
+        _voteDataView.backgroundColor = WhiteColor;
+        UIView *backView = [UIView new];
+        backView.backgroundColor = HexColor(#DEECFA);
+        [_voteDataView addSubview:backView];
+        backView.sd_layout
+        .topEqualToView(_voteDataView)
+        .bottomEqualToView(_voteDataView)
+        .leftSpaceToView(_voteDataView, 10)
+        .rightSpaceToView(_voteDataView, 10)
+        ;
+        
+        UIImageView *icon = [UIImageView new];
+        UILabel *noticeTop = [UILabel new];
+        _participantNum = [UILabel new];
+        UILabel *noticeBottom = [UILabel new];
+        
+        [backView sd_addSubviews:@[
+                                   icon,
+                                   noticeTop,
+                                   noticeBottom,
+                                   _participantNum,
+                                   
+                                   ]];
+        
+        icon.sd_layout
+        .leftSpaceToView(backView, 11)
+        .topSpaceToView(backView, 11)
+        .widthIs(24)
+        .heightIs(19)
+        ;
+        icon.image = UIImageNamed(@"voteDetail_icon");
+        icon.backgroundColor = Arc4randomColor;
+        
+        noticeTop.sd_layout
+        .centerYEqualToView(icon)
+        .leftSpaceToView(icon, 20)
+        .rightSpaceToView(backView, 20)
+        .heightIs(16)
+        ;
+        noticeTop.font = PFFontR(16);
+        noticeTop.textColor = HexColor(#161A24);
+        NSString *noticeTopString = @"单选投票";
+        if (self.postModel.choosableNum>1) {
+            noticeTopString = [NSString stringWithFormat:@"多选投票(最多可选%ld项)",self.postModel.choosableNum];
+        }
+        noticeTop.text = noticeTopString;
+        
+        noticeBottom.sd_layout
+        .rightSpaceToView(backView, 10)
+        .leftSpaceToView(backView, 10)
+        .bottomSpaceToView(backView, 13)
+        .heightIs(14)
+        ;
+        noticeBottom.font = PFFontL(13);
+        noticeBottom.textColor = HexColor(#889199);
+        noticeBottom.text = @"距离结束还有：6天23小时59分";
+        
+        _participantNum.sd_layout
+        .leftEqualToView(noticeBottom)
+        .rightEqualToView(noticeBottom)
+        .bottomSpaceToView(noticeBottom, 16)
+        .heightIs(16)
+        ;
+        _participantNum.font = PFFontL(15);
+        _participantNum.textColor = HexColor(#161A24);
+        
+    }
+    _participantNum.text = [NSString stringWithFormat:@"共有%ld人参与投票",self.postModel.voteNum];
+}
+
 //设置分区1的分区头
 -(void)setSecion1
 {
@@ -603,6 +682,25 @@ CGFloat static attentionBtnH = 26;
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
+//提交投票操作
+-(void)voteAction:(UIButton *)sender
+{
+    if (self.selectChooseArr.count>0) {
+        //发出投票请求
+        LRToast(@"投票成功");
+        [self.selectChooseArr removeAllObjects];
+        self.postModel.haveVoted = YES;
+        self.postModel.voteNum ++;
+        for (VoteChooseInputModel *model in self.postModel.voteSelects) {
+            model.isSelected = NO;
+            model.hiddenSelectIcon = YES;
+        }
+        [self.tableView reloadData];
+    }else{
+        LRToast(@"您还未选择投票选项哦");
+    }
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -654,7 +752,7 @@ CGFloat static attentionBtnH = 26;
     if (section == 0) {
         return 115;
     }else if (section == 1){
-        return 0;
+        return 0.01;
     }
     return 0.01;
 }
@@ -664,20 +762,35 @@ CGFloat static attentionBtnH = 26;
     UIView *footView;
     if (section == 0) {
         footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 115)];
+        
         footView.backgroundColor = WhiteColor;
-        UIButton *submitBtn = [UIButton new];
-        [footView addSubview:submitBtn];
-        submitBtn.sd_layout
-        .centerYEqualToView(footView)
-        .leftSpaceToView(footView, 10)
-        .rightSpaceToView(footView, 10)
-        .heightIs(46)
-        ;
-        submitBtn.sd_cornerRadius = @23;
-        submitBtn.backgroundColor = HexColor(#1282EE);
-        [submitBtn setNormalTitle:@"提交"];
-        [submitBtn setNormalTitleColor:WhiteColor];
-        [submitBtn setBtnFont:PFFontL(16)];
+        if (self.postModel.haveVoted) {
+            UILabel *noticeLabel = [UILabel new];
+            [footView addSubview:noticeLabel];
+            noticeLabel.sd_layout
+            .centerYEqualToView(footView)
+            .centerXEqualToView(footView)
+            .heightIs(18)
+            ;
+            noticeLabel.font = PFFontL(16);
+            [noticeLabel setSingleLineAutoResizeWithMaxWidth:200];
+            noticeLabel.text = @"投票完成，谢谢参与";
+        }else{
+            UIButton *submitBtn = [UIButton new];
+            [footView addSubview:submitBtn];
+            submitBtn.sd_layout
+            .centerYEqualToView(footView)
+            .leftSpaceToView(footView, 10)
+            .rightSpaceToView(footView, 10)
+            .heightIs(46)
+            ;
+            submitBtn.sd_cornerRadius = @23;
+            submitBtn.backgroundColor = HexColor(#1282EE);
+            [submitBtn setNormalTitle:@"提交"];
+            [submitBtn setNormalTitleColor:WhiteColor];
+            [submitBtn setBtnFont:PFFontL(16)];
+            [submitBtn addTarget:self action:@selector(voteAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
     
     return footView;
@@ -685,6 +798,9 @@ CGFloat static attentionBtnH = 26;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section == 0) {
+        return 110;
+    }else
     if (section == 2) {
         return 48;
     }
@@ -694,6 +810,10 @@ CGFloat static attentionBtnH = 26;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
+    if (section == 0) {
+        [self setVoteDataView];
+        headView = self.voteDataView;
+    }else
     if (section == 2) {
         [self setSecion1];
         headView = self.section1View;

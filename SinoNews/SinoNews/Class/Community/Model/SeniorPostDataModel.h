@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL haveVoted;
 //投票后结果是否可见
 @property (nonatomic,assign) BOOL visibleAfterVote;
+//投票人数
+@property (nonatomic,assign) NSInteger voteNum;
 //最大可选数
 @property (nonatomic,assign) NSInteger choosableNum;
 //投票有效期

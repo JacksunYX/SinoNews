@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isVotePost;
 //是否已投票
 @property (nonatomic,assign) BOOL haveVoted;
+//是否已截止
+@property (nonatomic,assign) BOOL isoVerdue;
 //投票后结果是否可见
 @property (nonatomic,assign) BOOL visibleAfterVote;
 //投票人数

@@ -32,6 +32,10 @@
 @property (nonatomic,strong) UIView *naviTitle;
 //分区0,投票信息相关
 @property (nonatomic,strong) UIView *voteDataView;
+//投票截止日期
+@property (nonatomic,strong) UILabel *asOftheDateLabel;
+//时间记录
+@property (strong, nonatomic) CountDown *countDown;
 //参与人数
 @property (nonatomic,strong) UILabel *participantNum;
 //分区1
@@ -90,6 +94,8 @@ CGFloat static attentionBtnH = 26;
     [self setNaviTitle];
     [self setTitle];
     [self setBottomView];
+    
+    [self setUpCutdown];
 }
 
 - (void)setUI
@@ -128,6 +134,54 @@ CGFloat static attentionBtnH = 26;
     _commentPagingBtn.sd_cornerRadius = @3;
     _commentPagingBtn.backgroundColor = HexColor(#45474A);
     [_commentPagingBtn addTarget:self action:@selector(popCommentPagingAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//设置倒计时
+-(void)setUpCutdown
+{
+    self.countDown = [[CountDown alloc] init];
+    @weakify(self);
+    ///每秒回调一次
+    [self.countDown countDownWithPER_SECBlock:^{
+        @strongify(self);
+        //获取时差
+        NSString *jetLag = [NSString getNowTimeWithString:@"2018-11-16 11:08:50"];
+        if (jetLag) {
+            //字符串分割
+            NSArray *arr = [jetLag componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"天时分秒"]];
+//            GGLog(@"%@", arr);
+            //拼接成需要的富文本字符串
+            UIColor *labelColor = HexColor(#161A24);
+            NSMutableAttributedString *attText1 = [NSString leadString:@"距离结束还有：" tailString:@"" font:PFFontR(13) color:labelColor lineBreak:NO];
+            NSMutableAttributedString *attText2 = [NSString leadString:@"" tailString:arr[0] font:PFFontR(13) color:labelColor lineBreak:NO];
+            NSMutableAttributedString *attText3 = [NSString leadString:@"天" tailString:arr[1] font:PFFontR(13) color:labelColor lineBreak:NO];
+            NSMutableAttributedString *attText4 = [NSString leadString:@"小时" tailString:arr[2] font:PFFontR(13) color:labelColor lineBreak:NO];
+            NSMutableAttributedString *attText5 = [NSString leadString:@"分" tailString:arr[3] font:PFFontR(13) color:labelColor lineBreak:NO];
+            NSMutableAttributedString *attText6 = [NSString leadString:@"秒" tailString:@"" font:PFFontR(13) color:labelColor lineBreak:NO];
+            [attText2 appendAttributedString:attText3];
+            [attText2 appendAttributedString:attText4];
+            [attText2 appendAttributedString:attText5];
+            [attText2 appendAttributedString:attText6];
+            [attText1 appendAttributedString:attText2];
+            self.asOftheDateLabel.attributedText = attText1;
+        }else{
+            self.asOftheDateLabel.text = @"投票已结束";
+            //别忘了清空这个数组，以免造成数据错乱
+            [self.selectChooseArr removeAllObjects];
+            //标记投票已过期
+            self.postModel.isoVerdue = YES;
+            for (VoteChooseInputModel *model in self.postModel.voteSelects) {
+                //不显示可选按钮图标
+                model.hiddenSelectIcon = YES;
+            }
+            //刷新分区0
+            NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:0];
+            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            //停止计时器
+            [self.countDown destoryTimer];
+        }
+        
+    }];
 }
 
 //设置导航栏标题
@@ -511,12 +565,13 @@ CGFloat static attentionBtnH = 26;
         UIImageView *icon = [UIImageView new];
         UILabel *noticeTop = [UILabel new];
         _participantNum = [UILabel new];
-        UILabel *noticeBottom = [UILabel new];
+        _asOftheDateLabel = [UILabel new];
+        _asOftheDateLabel.isAttributedContent = YES;
         
         [backView sd_addSubviews:@[
                                    icon,
                                    noticeTop,
-                                   noticeBottom,
+                                   _asOftheDateLabel,
                                    _participantNum,
                                    
                                    ]];
@@ -528,7 +583,6 @@ CGFloat static attentionBtnH = 26;
         .heightIs(19)
         ;
         icon.image = UIImageNamed(@"voteDetail_icon");
-        icon.backgroundColor = Arc4randomColor;
         
         noticeTop.sd_layout
         .centerYEqualToView(icon)
@@ -544,20 +598,19 @@ CGFloat static attentionBtnH = 26;
         }
         noticeTop.text = noticeTopString;
         
-        noticeBottom.sd_layout
+        _asOftheDateLabel.sd_layout
         .rightSpaceToView(backView, 10)
         .leftSpaceToView(backView, 10)
         .bottomSpaceToView(backView, 13)
         .heightIs(14)
         ;
-        noticeBottom.font = PFFontL(13);
-        noticeBottom.textColor = HexColor(#889199);
-        noticeBottom.text = @"距离结束还有：6天23小时59分";
+        _asOftheDateLabel.font = PFFontL(13);
+        _asOftheDateLabel.textColor = HexColor(#889199);
         
         _participantNum.sd_layout
-        .leftEqualToView(noticeBottom)
-        .rightEqualToView(noticeBottom)
-        .bottomSpaceToView(noticeBottom, 16)
+        .leftEqualToView(_asOftheDateLabel)
+        .rightEqualToView(_asOftheDateLabel)
+        .bottomSpaceToView(_asOftheDateLabel, 16)
         .heightIs(16)
         ;
         _participantNum.font = PFFontL(15);
@@ -764,7 +817,7 @@ CGFloat static attentionBtnH = 26;
         footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 115)];
         
         footView.backgroundColor = WhiteColor;
-        if (self.postModel.haveVoted) {
+        if (self.postModel.haveVoted||self.postModel.isoVerdue) {
             UILabel *noticeLabel = [UILabel new];
             [footView addSubview:noticeLabel];
             noticeLabel.sd_layout
@@ -775,6 +828,10 @@ CGFloat static attentionBtnH = 26;
             noticeLabel.font = PFFontL(16);
             [noticeLabel setSingleLineAutoResizeWithMaxWidth:200];
             noticeLabel.text = @"投票完成，谢谢参与";
+            if (self.postModel.isoVerdue) {
+                noticeLabel.font = PFFontM(18);
+                noticeLabel.text = @"投票已结束";
+            }
         }else{
             UIButton *submitBtn = [UIButton new];
             [footView addSubview:submitBtn];
@@ -825,7 +882,7 @@ CGFloat static attentionBtnH = 26;
 {
     if (indexPath.section == 0) {
         //没有投票才能响应点击事件
-        if (!self.postModel.haveVoted) {
+        if (!self.postModel.haveVoted&&!self.postModel.isoVerdue) {
             
             VoteChooseInputModel *model = self.postModel.voteSelects[indexPath.row];
             

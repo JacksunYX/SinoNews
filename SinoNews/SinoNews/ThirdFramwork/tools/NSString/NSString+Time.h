@@ -21,9 +21,14 @@
 //字符串转时间戳 如：2017-4-10 17:15:10
 +(NSString *)getTimeStrWithString:(NSString *)str;
 
+//获得某个时间段距当前时间的剩余时间
++(NSString *)getNowTimeWithString:(NSString *)aTimeString;
+
 +(NSString *)encryptPlainText:(NSString *)plainText;
 +(NSString *)decryptCipherText:(NSString *)cipherText;
 
 +(NSString *)encryptWithText:(NSString *)string;
 +(NSString *)decryptWithText:(NSString *)string;
+
+
 @end

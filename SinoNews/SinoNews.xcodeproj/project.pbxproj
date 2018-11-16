@@ -817,6 +817,7 @@
 		4CF1A7F8219D00AF0031B1A9 /* ThePostCommentPagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7F7219D00AF0031B1A9 /* ThePostCommentPagesViewController.m */; };
 		4CF1A7FB219D1D6C0031B1A9 /* TheVotePostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7FA219D1D6C0031B1A9 /* TheVotePostDetailViewController.m */; };
 		4CF1A7FE219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7FD219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m */; };
+		4CF1A8E6219E56ED0031B1A9 /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A8E5219E56EC0031B1A9 /* CountDown.m */; };
 		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
 		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
@@ -2261,6 +2262,8 @@
 		4CF1A7FA219D1D6C0031B1A9 /* TheVotePostDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TheVotePostDetailViewController.m; sourceTree = "<group>"; };
 		4CF1A7FC219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoteDetailChooseTableViewCell.h; sourceTree = "<group>"; };
 		4CF1A7FD219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoteDetailChooseTableViewCell.m; sourceTree = "<group>"; };
+		4CF1A8E4219E56EC0031B1A9 /* CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDown.h; sourceTree = "<group>"; };
+		4CF1A8E5219E56EC0031B1A9 /* CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDown.m; sourceTree = "<group>"; };
 		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
 		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
 		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
@@ -3008,6 +3011,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4CF1A8E3219E56EC0031B1A9 /* CountDown */,
 				4C8D5C28219AC26B008C13A9 /* WZLBadge */,
 				4CD157D32199566000178FBF /* ZYKeyBoardManager */,
 				4C40C74E21955F9F006408DE /* LZPickerView */,
@@ -4872,6 +4876,15 @@
 			path = ThePostDetailAbout;
 			sourceTree = "<group>";
 		};
+		4CF1A8E3219E56EC0031B1A9 /* CountDown */ = {
+			isa = PBXGroup;
+			children = (
+				4CF1A8E4219E56EC0031B1A9 /* CountDown.h */,
+				4CF1A8E5219E56EC0031B1A9 /* CountDown.m */,
+			);
+			path = CountDown;
+			sourceTree = "<group>";
+		};
 		4CF35CAA218BE3690064B1BA /* PostingAbout */ = {
 			isa = PBXGroup;
 			children = (
@@ -5506,6 +5519,7 @@
 				4C6E91C4213F65D7001535CA /* LEEAlert.m in Sources */,
 				4C6E91A1213F5F07001535CA /* YYTransaction.m in Sources */,
 				4C23B3C820F592AB00ACE380 /* LMFontSizePickerView.m in Sources */,
+				4CF1A8E6219E56ED0031B1A9 /* CountDown.m in Sources */,
 				4C23B3D820F5935800ACE380 /* LMPhotoCollectionCell.m in Sources */,
 				4C4C95B2218FF29200627B07 /* TZGifPhotoPreviewController.m in Sources */,
 				4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */,

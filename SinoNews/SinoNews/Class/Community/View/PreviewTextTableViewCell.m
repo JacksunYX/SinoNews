@@ -13,7 +13,7 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
 
 @interface PreviewTextTableViewCell ()
 {
-    UICopyLabel *textLabel;
+    YXLabel *textLabel;
 }
 @end
 
@@ -41,13 +41,16 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
 
 -(void)setUI
 {
-    textLabel = [UICopyLabel new];
+    
+    textLabel = [YXLabel new];
+    textLabel.numberOfLines = 0;
+    
     [self.contentView addSubview:textLabel];
     textLabel.sd_layout
     .leftSpaceToView(self.contentView, 10)
     .topSpaceToView(self.contentView, 10)
     .rightSpaceToView(self.contentView, 10)
-    .autoHeightRatio(0)
+    .heightIs(0)
     ;
     
     textLabel.textColor = BlackColor;
@@ -59,14 +62,22 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
 -(void)setModel:(SeniorPostingAddElementModel *)model
 {
     _model = model;
+    NSString *string;
     if (model.addtType == 0) {
         textLabel.font = PFFontR(20);
-        textLabel.text = [NSString stringWithFormat:@"%@、%@",[NSString getChineseWithNum:model.sectionNum],GetSaveString(model.title)];
+        string = [NSString stringWithFormat:@"%@、%@",[NSString getChineseWithNum:model.sectionNum],GetSaveString(model.title)];
     }else if (model.addtType == 1){
         textLabel.font = PFFontR(15);
-        textLabel.text = GetSaveString(model.content);
+        string = GetSaveString(model.content);
     }
+    textLabel.text = string;
+    CGFloat height = [textLabel getLabelWithLineSpace:3 width:ScreenW - 20];
+    
+    textLabel.sd_layout
+    .heightIs(height)
+    ;
     [textLabel updateLayout];
 }
+
 
 @end

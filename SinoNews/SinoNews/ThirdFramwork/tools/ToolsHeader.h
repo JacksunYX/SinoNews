@@ -44,5 +44,7 @@
 #import "UIImage+ImgSize.h"
 #import "UIViewController+SlideFromSide.h"//侧边栏
 #import "UICopyLabel.h" //可复制的label
+#import "YXTextView.h"
+#import "YXLabel.h"
 
 #endif /* ToolsHeader_h */

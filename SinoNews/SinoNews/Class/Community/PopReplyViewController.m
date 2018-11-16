@@ -14,7 +14,7 @@
 @property (nonatomic,strong) UIButton *cancelBtn;
 @property (nonatomic,strong) UIButton *sendBtn;
 //输入框
-@property (nonatomic,strong) YYTextView *textView;
+@property (nonatomic,strong) YXTextView *textView;
 //下方功能按钮
 @property (nonatomic,strong) UIButton *emojiKeyboard;
 @property (nonatomic,strong) UIButton *addImage;
@@ -88,7 +88,7 @@ static CGFloat animationTime = 0.25;
     [_bottomView cornerWithRadius:8 direction:CornerDirectionTypeTop];
     
     //添加输入框和其他控件
-    _textView = [YYTextView new];
+    _textView = [YXTextView new];
     _textView.font = PFFontL(16);
     _textView.delegate = self;
     _textView.placeholderText = @"写点什么吧(最少10个字符)";
@@ -96,20 +96,6 @@ static CGFloat animationTime = 0.25;
     if (UserGetBool(@"NightMode")) {
         _textView.textColor = HexColor(#cfd3d6);
     }
-    //设置本地表情识别
-    NSMutableDictionary *mapper = [NSMutableDictionary new];
-    for (int i = 0; i < [WTUtils getEmoticonData].allKeys.count; i ++) {
-        NSString *valueString = [NSString stringWithFormat:@"%.0f", ((CGFloat)i)];
-        YYImage *image = [YYImage imageNamed:[NSString stringWithFormat:@"smiley_%@", valueString]];
-        image.preloadAllAnimatedImageFrames = YES;
-        [mapper setObject:image
-                   forKey:[[WTUtils getEmoticonData] allKeysForObject:valueString][0]];
-    }
-    
-    YYTextSimpleEmoticonParser *parser = [YYTextSimpleEmoticonParser new];
-    parser.emoticonMapper = mapper;
-    
-    _textView.textParser = parser;
     
     _cancelBtn = [UIButton new];
     _sendBtn = [UIButton new];

@@ -14,7 +14,7 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 @interface PreviewImageTableViewCell ()
 {
     UIImageView *imageV;
-    UILabel *descripion;    //描述
+    YXLabel *descripion;    //描述
     UIButton *playBtn;
 }
 @end
@@ -44,7 +44,8 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 -(void)setUI
 {
     imageV = [UIImageView new];
-    descripion = [UILabel new];
+    descripion = [YXLabel new];
+    descripion.numberOfLines = 0;
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -62,7 +63,7 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
     .topSpaceToView(imageV, 5)
     .leftEqualToView(imageV)
     .rightEqualToView(imageV)
-    .autoHeightRatio(0)
+    .heightIs(1)
     ;
     descripion.font = PFFontL(14);
     descripion.textColor = HexColor(#B9C3C7);
@@ -102,6 +103,11 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
     ;
     
     descripion.text = des;
+    CGFloat height = [descripion getLabelWithLineSpace:3 width:ScreenW - 20];
+    descripion.sd_layout
+    .heightIs(height)
+    ;
+    [descripion updateLayout];
 }
 
 @end

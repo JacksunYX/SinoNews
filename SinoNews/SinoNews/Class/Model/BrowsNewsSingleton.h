@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) NSMutableArray *domainsArr;
 
+@property (nonatomic,strong) YYTextSimpleEmoticonParser *parser;
+
 //比对获取到的新闻模型中是否有已经阅读过的了
 -(NSMutableArray *)compareBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData;
 

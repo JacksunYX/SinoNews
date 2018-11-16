@@ -818,6 +818,8 @@
 		4CF1A7FB219D1D6C0031B1A9 /* TheVotePostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7FA219D1D6C0031B1A9 /* TheVotePostDetailViewController.m */; };
 		4CF1A7FE219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7FD219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m */; };
 		4CF1A8E6219E56ED0031B1A9 /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A8E5219E56EC0031B1A9 /* CountDown.m */; };
+		4CF1A8EA219EADB20031B1A9 /* YXTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A8E9219EADB20031B1A9 /* YXTextView.m */; };
+		4CF1A8ED219EAF890031B1A9 /* YXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A8EC219EAF890031B1A9 /* YXLabel.m */; };
 		4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */; };
 		4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CAF218BE48A0064B1BA /* SeniorPostingViewController.m */; };
 		4CF35CB3218BE49F0064B1BA /* VotePostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF35CB2218BE49F0064B1BA /* VotePostingViewController.m */; };
@@ -2264,6 +2266,10 @@
 		4CF1A7FD219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoteDetailChooseTableViewCell.m; sourceTree = "<group>"; };
 		4CF1A8E4219E56EC0031B1A9 /* CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDown.h; sourceTree = "<group>"; };
 		4CF1A8E5219E56EC0031B1A9 /* CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDown.m; sourceTree = "<group>"; };
+		4CF1A8E8219EADB20031B1A9 /* YXTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXTextView.h; sourceTree = "<group>"; };
+		4CF1A8E9219EADB20031B1A9 /* YXTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXTextView.m; sourceTree = "<group>"; };
+		4CF1A8EB219EAF890031B1A9 /* YXLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXLabel.h; sourceTree = "<group>"; };
+		4CF1A8EC219EAF890031B1A9 /* YXLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXLabel.m; sourceTree = "<group>"; };
 		4CF35CAB218BE4540064B1BA /* FastPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastPostingViewController.h; sourceTree = "<group>"; };
 		4CF35CAC218BE4540064B1BA /* FastPostingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastPostingViewController.m; sourceTree = "<group>"; };
 		4CF35CAE218BE48A0064B1BA /* SeniorPostingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeniorPostingViewController.h; sourceTree = "<group>"; };
@@ -2607,6 +2613,8 @@
 				4C3D111D20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m */,
 				4CF1A7EA219C1AE70031B1A9 /* UICopyLabel.h */,
 				4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */,
+				4CF1A8EB219EAF890031B1A9 /* YXLabel.h */,
+				4CF1A8EC219EAF890031B1A9 /* YXLabel.m */,
 			);
 			path = UILabel;
 			sourceTree = "<group>";
@@ -2942,6 +2950,7 @@
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
 				4C1DE9ED213D2E0600350313 /* Util.h */,
 				4C1DE9EE213D2E0600350313 /* Util.m */,
+				4CF1A8E7219EAD910031B1A9 /* YXTextView */,
 				4CDD0DCF2147A0F300036A0A /* UITabbar */,
 				4C510B5F211049AC00706185 /* NSDictionary */,
 				4CC2898D2105AF6D00BC4D92 /* UIDevice */,
@@ -4885,6 +4894,15 @@
 			path = CountDown;
 			sourceTree = "<group>";
 		};
+		4CF1A8E7219EAD910031B1A9 /* YXTextView */ = {
+			isa = PBXGroup;
+			children = (
+				4CF1A8E8219EADB20031B1A9 /* YXTextView.h */,
+				4CF1A8E9219EADB20031B1A9 /* YXTextView.m */,
+			);
+			path = YXTextView;
+			sourceTree = "<group>";
+		};
 		4CF35CAA218BE3690064B1BA /* PostingAbout */ = {
 			isa = PBXGroup;
 			children = (
@@ -5906,6 +5924,7 @@
 				4C4EC3042112E3E800591F12 /* ZXYShineParams.m in Sources */,
 				4C1F0ADE20EC9F8500C3A2E7 /* RecommendChannelModel.m in Sources */,
 				4C3F905520BD7082003EC4FC /* HomePageThirdKindCell.m in Sources */,
+				4CF1A8EA219EADB20031B1A9 /* YXTextView.m in Sources */,
 				4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */,
 				4C23B3D620F5935800ACE380 /* LMStyleFontStyleCell.m in Sources */,
 				4C6E91BF213F653A001535CA /* NewsDetailsModel.m in Sources */,
@@ -5926,6 +5945,7 @@
 				4C992FE1217717680092DDCF /* UIImageView+HXExtension.m in Sources */,
 				4C30D746219044AE008B8E45 /* RemindOthersToReadViewController.m in Sources */,
 				4CB68B6E2154E15700ACE1D6 /* CryptLib.m in Sources */,
+				4CF1A8ED219EAF890031B1A9 /* YXLabel.m in Sources */,
 				4CA141FD20F4528600536E77 /* PublishManagerViewController.m in Sources */,
 				4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */,
 				4C992FF4217717680092DDCF /* HXFullScreenCameraPlayView.m in Sources */,

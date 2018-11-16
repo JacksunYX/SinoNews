@@ -22,7 +22,7 @@
 @property (nonatomic,strong) UILabel *authorName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic,strong) UILabel *creatTime;
-@property (nonatomic,strong) UICopyLabel *contentLaebl;
+@property (nonatomic,strong) YXLabel *contentLaebl;
 @property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
 
@@ -216,9 +216,10 @@ CGFloat static attentionBtnH = 26;
         _creatTime.font = PFFontR(12);
         _creatTime.textColor = HexColor(#889199);
         
-        _contentLaebl = [UICopyLabel new];
+        _contentLaebl = [YXLabel new];
         _contentLaebl.font = PFFontL(15);
         _contentLaebl.textColor = HexColor(#1A1A1A);
+        _contentLaebl.numberOfLines = 0;
         
         _attentionBtn = [UIButton new];
         [_attentionBtn setBtnFont:PFFontR(14)];
@@ -300,9 +301,15 @@ CGFloat static attentionBtnH = 26;
         .topSpaceToView(_attentionBtn, 20)
         .leftEqualToView(_titleLabel)
         .rightEqualToView(_titleLabel)
-        .autoHeightRatio(0)
+        .heightIs(0)
         ;
+
         _contentLaebl.text = GetSaveString(self.postModel.postContent);
+        CGFloat h = [_contentLaebl getLabelWithLineSpace:3 width:ScreenW - 20];
+        _contentLaebl.sd_layout
+        .heightIs(h)
+        ;
+        [_contentLaebl updateLayout];
         
         [self.titleView setupAutoHeightWithBottomView:_contentLaebl bottomMargin:bottomMargin];
     }

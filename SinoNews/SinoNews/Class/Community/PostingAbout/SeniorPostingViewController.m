@@ -21,7 +21,7 @@
 #import "SeniorPostingAddImageCell.h"
 #import "SeniorPostingAddVideoCell.h"
 
-@interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,TZImagePickerControllerDelegate>
+@interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,EmotionKeyBoardDelegate,YYTextViewDelegate,TZImagePickerControllerDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray <SeniorPostingAddElementModel *>*dataSource;
@@ -29,13 +29,16 @@
 @property (nonatomic,strong) SeniorPostDataModel *postModel;
 
 @property (nonatomic,strong) UIView *headView;
-@property (nonatomic,strong) FSTextView *titleView;
-@property (nonatomic,strong) FSTextView *contentView;
+@property (nonatomic,strong) YXTextView *titleView;
+@property (nonatomic,strong) YXTextView *contentView;
 @property (nonatomic,strong) UIButton *publishBtn;
 //title、content输入输入时键盘的辅助视图
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *showKeyboard;
+@property (nonatomic,strong) UIButton *emojiKeyboard;
 @property (nonatomic,strong) UIButton *addPeopleBtn;  //@按钮
+//emoji键盘
+@property (nonatomic,strong) WTEmoticonInputView *emoticonInputView;
 
 //是否正在排序中
 @property (nonatomic,assign) BOOL isSorting;
@@ -71,21 +74,32 @@
     return _postModel;
 }
 
+-(WTEmoticonInputView *)emoticonInputView
+{
+    if (!_emoticonInputView) {
+        _emoticonInputView = [[WTEmoticonInputView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kKeyBoardH)];
+        _emoticonInputView.delegate = self;
+    }
+    return _emoticonInputView;
+}
+
 -(UIView *)headView
 {
     if (!_headView) {
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 240)];
         
-        _titleView = [FSTextView textView];
+        _titleView = [YXTextView new];
         _titleView.font = PFFontR(20);
         _titleView.textColor = BlackColor;
         _titleView.delegate = self;
+        _titleView.backgroundColor = WhiteColor;
         _titleView.inputAccessoryView = self.bottomView;
         
-        _contentView = [FSTextView textView];
+        _contentView = [YXTextView new];
         _contentView.font = PFFontL(15);
         _contentView.textColor = BlackColor;
         _contentView.delegate = self;
+        _contentView.backgroundColor = WhiteColor;
         _contentView.inputAccessoryView = self.bottomView;
         
         [_headView sd_addSubviews:@[
@@ -98,26 +112,9 @@
         .rightEqualToView(_headView)
         .heightIs(74)
         ;
-        _titleView.placeholder = @"起个引人关注的标题哦～";
-        _titleView.placeholderColor = HexColor(#BAC3C7);
+        _titleView.placeholderText = @"起个引人关注的标题哦～";
+        _titleView.placeholderTextColor = HexColor(#BAC3C7);
         _titleView.placeholderFont = PFFontR(20);
-        // 限制输入最大字符数.
-        _titleView.maxLength = 25;
-        // 添加输入改变Block回调.
-        @weakify(self);
-        [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
-            // 文本改变后的相应操作.
-            @strongify(self);
-            self.postModel.postTitle = textView.formatText;
-        }];
-        // 添加到达最大限制Block回调.
-        [_titleView addTextLengthDidMaxHandler:^(FSTextView *textView) {
-            // 达到最大限制数后的相应操作.
-            LRToast(@"帖子标题最多支持25个字符");
-            @strongify(self);
-            
-            [self.view endEditing:YES];
-        }];
         
         _contentView.sd_layout
         .topSpaceToView(_titleView, 0)
@@ -125,25 +122,12 @@
         .rightEqualToView(_headView)
         .bottomEqualToView(_headView)
         ;
-        _contentView.placeholder = @"分享观点，谈谈自己的看法，这就是一个任你发挥的平台...";
-        _contentView.placeholderColor = HexColor(#B9C3C7);
+        _contentView.placeholderText = @"分享观点，谈谈自己的看法，这就是一个任你发挥的平台...";
+        _contentView.placeholderTextColor = HexColor(#B9C3C7);
         _contentView.placeholderFont = PFFontL(15);
-        // 添加输入改变Block回调.
-        [_contentView addTextDidChangeHandler:^(FSTextView *textView) {
-            @strongify(self);
-            self.postModel.postContent = textView.formatText;
-            // 文本改变后的相应操作.
-//            NSString *string = textView.formatText;
-//            if (string.length>0) {
-//                self.publishBtn.enabled = YES;
-//                [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
-//            }else{
-//                self.publishBtn.enabled = NO;
-//                [self.publishBtn setNormalTitleColor:HexColor(#959595)];
-//            }
-        }];
-        _contentView.borderColor = HexColor(#E3E3E3);
-        _contentView.borderWidth = 1;
+
+        _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        _contentView.layer.borderWidth = 1;
     }
     return _headView;
 }
@@ -154,8 +138,23 @@
         _bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
         _bottomView.backgroundColor = WhiteColor;
         
+        _emojiKeyboard = [UIButton new];
         _showKeyboard = [UIButton new];
-        [_bottomView addSubview:_showKeyboard];
+        [_bottomView sd_addSubviews:@[
+                                      _emojiKeyboard,
+                                      _showKeyboard,
+                                      ]];
+        
+        _emojiKeyboard.sd_layout
+        .leftSpaceToView(_bottomView, 15)
+        .topSpaceToView(_bottomView, 14)
+        .widthIs(23)
+        .heightEqualToWidth()
+        ;
+        [_emojiKeyboard setNormalImage:UIImageNamed(@"emojiKeyBoard_icon")];
+        [_emojiKeyboard setSelectedImage:UIImageNamed(@"systemKeyboard_icon")];
+        [_emojiKeyboard addTarget:self action:@selector(changeKeyboardType) forControlEvents:UIControlEventTouchUpInside];
+        
         _showKeyboard.sd_layout
         .rightSpaceToView(_bottomView, 15)
         .centerYEqualToView(_bottomView)
@@ -254,9 +253,9 @@
             //如果只有子元素，可以直接预览
             if (self.dataSource.count>0) {
                 [self pushToPreviewVC];
-            }else if ([NSString isEmpty:_titleView.formatText]) {
+            }else if ([NSString isEmpty:self.postModel.postTitle]) {
                 LRToast(@"标题不能空缺哦");
-            }else if ([NSString isEmpty:_contentView.formatText]){
+            }else if ([NSString isEmpty:self.postModel.postContent]){
                 LRToast(@"内容不能空缺哦");
             }else{
                 [self pushToPreviewVC];
@@ -467,6 +466,26 @@
     [self.view endEditing:YES];
 }
 
+-(void)changeKeyboardType
+{
+    self.emojiKeyboard.selected = !self.emojiKeyboard.selected;
+
+    //是否为选中
+    self.emojiKeyboard.hidden = NO;
+    if (self.emojiKeyboard.selected) {
+        
+        self.contentView.inputView = self.emoticonInputView;
+        [self.contentView reloadInputViews];
+        [self.contentView becomeFirstResponder];
+        
+    }else{
+        
+        self.contentView.inputView = nil;
+        [self.contentView reloadInputViews];
+        [self.contentView becomeFirstResponder];
+    }
+}
+
 //功能按钮点击事件
 -(void)functionActions:(UIButton *)sender
 {
@@ -476,7 +495,7 @@
     switch (sender.tag) {
         case 0:
         {
-            GGLog(@"弹出emoji键盘");
+            [self.titleView becomeFirstResponder];
         }
             break;
         case 1:
@@ -748,13 +767,79 @@
     }
 }
 
-#pragma mark --- UITextViewDelegate ---
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+#pragma mark --- EmotionKeyBoardDelegate ---
+- (void)clickEmotionName:(NSString *)name
+{
+    NSString *emotionString = [[WTUtils getEmoticonData] allKeysForObject:name][0];
+    YXTextView *textView;
+    if (self.titleView.isFirstResponder) {
+        textView = self.titleView;
+    }else{
+        textView = self.contentView;
+    }
+    [textView replaceRange:textView.selectedTextRange withText:emotionString];
+}
+
+- (void)clickDelete
+{
+    YXTextView *textView;
+    if (self.titleView.isFirstResponder) {
+        textView = self.titleView;
+    }else{
+        textView = self.contentView;
+    }
+    [textView deleteBackward];
+}
+
+#pragma mark --- YYTextViewDelegate ---
+-(BOOL)textViewShouldBeginEditing:(YYTextView *)textView
+{
+    return YES;
+}
+
+-(BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
     //禁止标题输入换行
     if (textView == _titleView&&[text isEqualToString:@"\n"]) {
         return NO;
     }
     return YES;
+}
+
+-(void)textViewDidChange:(YYTextView *)textView
+{
+    NSString *string = [textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_titleView == textView) {
+        if (string.length>25) {
+            LRToast(@"标题长度不可超过25个字符哦");
+            string = [string substringToIndex:25];
+            textView.text = string;
+        }
+        self.postModel.postTitle = string;
+        
+    }else{
+        self.postModel.postContent = string;
+    }
+}
+
+-(void)textViewDidBeginEditing:(YYTextView *)textView
+{
+    GGLog(@"已经开始编辑");
+    if (textView == self.titleView) {
+        _emojiKeyboard.hidden = YES;
+    }else{
+        _emojiKeyboard.hidden = NO;
+    }
+    self.showKeyboard.selected = YES;
+}
+
+-(void)textViewDidEndEditing:(YYTextView *)textView
+{
+    GGLog(@"已经结束编辑");
+    self.showKeyboard.selected = NO;
+    self.emojiKeyboard.selected = NO;
+    _emojiKeyboard.hidden = NO;
+    textView.inputView = nil;
 }
 
 #pragma mark --- TZImagePickerControllerDelegate ---

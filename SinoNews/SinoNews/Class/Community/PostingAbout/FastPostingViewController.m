@@ -92,6 +92,11 @@
 
 -(void)publishAction:(UIButton *)sender
 {
+    [self.view endEditing:YES];
+    if ([NSString isEmpty:self.postModel.postContent]) {
+        LRToast(@"您还没有填写任何内容哦");
+        return;
+    }
     NSMutableArray *elementArr = [NSMutableArray new];
     //因为模型不同，需要转换一下
     if (self.addImageView.imagesArr) {
@@ -122,7 +127,7 @@
         }
     }
     self.postModel.dataSource = elementArr;
-    
+    GGLog(@"快速发帖内容展示：%@",self.postModel);
     SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
     [self.navigationController pushViewController:spcVC animated:YES];
 }
@@ -465,13 +470,13 @@
         
     }else{
         // 文本改变后的相应操作.
-        if (string.length>0) {
-            self.publishBtn.enabled = YES;
-            [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
-        }else{
-            self.publishBtn.enabled = NO;
-            [self.publishBtn setNormalTitleColor:HexColor(#959595)];
-        }
+//        if (string.length>0) {
+//            self.publishBtn.enabled = YES;
+//            [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
+//        }else{
+//            self.publishBtn.enabled = NO;
+//            [self.publishBtn setNormalTitleColor:HexColor(#959595)];
+//        }
         self.postModel.postContent = string;
     }
 }

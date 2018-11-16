@@ -66,7 +66,8 @@
     if (!_headView) {
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1)];
         UILabel *title = [UILabel new];
-        UILabel *content = [UILabel new];
+        YXLabel *content = [YXLabel new];
+        content.numberOfLines = 0;
         
         [_headView sd_addSubviews:@[
                                     title,
@@ -87,13 +88,19 @@
         .topSpaceToView(title, 10)
         .leftSpaceToView(_headView, 10)
         .rightSpaceToView(_headView, 10)
-        .autoHeightRatio(0)
+        .heightIs(0)
         ;
         content.font = PFFontR(15);
         content.text = GetSaveString(self.dataModel.postContent);
+        CGFloat h = [content getLabelWithLineSpace:3 width:ScreenW - 20];
+        content.sd_layout
+        .heightIs(h)
+        ;
         [content updateLayout];
         
         [_headView setupAutoHeightWithBottomView:content bottomMargin:10];
+        
+        
     }
     _tableView.tableHeaderView = self.headView;
 }

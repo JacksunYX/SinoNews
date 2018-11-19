@@ -88,4 +88,12 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     postNum.text = [NSString stringWithFormat:@"%u篇",arc4random()%500+10];
 }
 
+-(void)setModel:(MainSectionModel *)model
+{
+    _model = model;
+    [logo sd_setImageWithURL:UrlWithStr(GetSaveString(model.icon))];
+    communityName.text = GetSaveString(model.name);
+    postNum.text = [NSString stringWithFormat:@"%ld篇",model.postCount];
+}
+
 @end

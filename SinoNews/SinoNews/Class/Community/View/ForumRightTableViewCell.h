@@ -13,7 +13,7 @@ extern NSString * _Nullable const ForumRightTableViewCellID;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ForumRightTableViewCell : UITableViewCell
-
+@property (nonatomic,strong) MainSectionModel *model;
 -(void)setData:(NSDictionary *)model;
 
 @end

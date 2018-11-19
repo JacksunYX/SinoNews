@@ -417,6 +417,7 @@
 		4C73382F214605AA0001B33F /* GetImageSizeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73382E214605AA0001B33F /* GetImageSizeTool.m */; };
 		4C73383A21465B0B0001B33F /* YJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C73383721465B0B0001B33F /* YJProgressHUD.m */; };
 		4C73383B21465B0B0001B33F /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C73383821465B0B0001B33F /* images.bundle */; };
+		4C76548821A292270000355D /* MainSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C76548721A292270000355D /* MainSectionModel.m */; };
 		4C7A0987215B771400E0682A /* AppDelegate+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A0986215B771400E0682A /* AppDelegate+Push.m */; };
 		4C7B5DE52187E81D00B76E47 /* CommunitySearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DE42187E81D00B76E47 /* CommunitySearchVC.m */; };
 		4C7B5DE82187F8D400B76E47 /* ThePostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B5DE72187F8D400B76E47 /* ThePostListViewController.m */; };
@@ -1668,6 +1669,9 @@
 		4C73383721465B0B0001B33F /* YJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJProgressHUD.m; sourceTree = "<group>"; };
 		4C73383821465B0B0001B33F /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		4C73383921465B0B0001B33F /* YJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJProgressHUD.h; sourceTree = "<group>"; };
+		4C76548521A28AC70000355D /* CommunityNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunityNet.h; sourceTree = "<group>"; };
+		4C76548621A292270000355D /* MainSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSectionModel.h; sourceTree = "<group>"; };
+		4C76548721A292270000355D /* MainSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSectionModel.m; sourceTree = "<group>"; };
 		4C7A0985215B771300E0682A /* AppDelegate+Push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Push.h"; sourceTree = "<group>"; };
 		4C7A0986215B771400E0682A /* AppDelegate+Push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Push.m"; sourceTree = "<group>"; };
 		4C7B5DE32187E81D00B76E47 /* CommunitySearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunitySearchVC.h; sourceTree = "<group>"; };
@@ -2729,6 +2733,7 @@
 				4C3F8FE820BCE65A003EC4FC /* IntegralNet.h */,
 				4C3F8FE920BCE664003EC4FC /* MineNet.h */,
 				4C21ABEC20D3B95D00615F20 /* UserAboutNet.h */,
+				4C76548521A28AC70000355D /* CommunityNet.h */,
 				4C1F0AE220ECBAFF00C3A2E7 /* NotifyList.h */,
 			);
 			path = DefinedFile;
@@ -4782,6 +4787,8 @@
 		4CDC73F3219149530079EB3E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4C76548621A292270000355D /* MainSectionModel.h */,
+				4C76548721A292270000355D /* MainSectionModel.m */,
 				4CDC73EF219147B20079EB3E /* RemindPeople.h */,
 				4CDC73F0219147B20079EB3E /* RemindPeople.m */,
 				4C40C75421957182006408DE /* VoteChooseInputModel.h */,
@@ -5703,6 +5710,7 @@
 				4C8D5C3D219AC6EC008C13A9 /* PreviewViewController.m in Sources */,
 				4C7EF38021212A0B0002166A /* CYRLayoutManager.m in Sources */,
 				4C8735F620BE8CC800B6A8B5 /* XLChannelView.m in Sources */,
+				4C76548821A292270000355D /* MainSectionModel.m in Sources */,
 				4C992FDE217717680092DDCF /* HXDatePhotoPreviewBottomView.m in Sources */,
 				4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */,
 				4C6E9182213F5F07001535CA /* UIDevice+YYAdd.m in Sources */,

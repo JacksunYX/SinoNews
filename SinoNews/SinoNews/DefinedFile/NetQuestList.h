@@ -19,5 +19,6 @@
 #import "IntegralNet.h"
 #import "MineNet.h"
 #import "UserAboutNet.h"
+#import "CommunityNet.h"
 
 #endif /* NetQuestList_h */

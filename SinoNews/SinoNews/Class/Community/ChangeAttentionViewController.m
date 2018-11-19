@@ -188,9 +188,7 @@
         NSMutableDictionary *sectionDic = self.dataSource[indexPath.section];
         NSArray *dataArr = sectionDic[@"data"];
         if (dataArr.count>8) {
-            if (0 == [sectionDic[@"haveUnFold"] integerValue]) {
-                dic[@"unFold"] = @(NO);
-            }
+            dic[@"unFold"] = @([sectionDic[@"haveUnFold"] integerValue]);
         }
         
         [footerView setData:dic];

@@ -29,6 +29,7 @@
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
         //虚拟数据
+        /*
         NSMutableArray *arr1 = @[
                                  @"我的关注",
                                  @"酒店常驻",
@@ -75,6 +76,7 @@
         }
         
         [_dataSource addObject:arr2];
+        */
     }
     return _dataSource;
 }
@@ -115,9 +117,16 @@
     
     [self addNavigationView];
     
-    [self setUI];
-    
     [self setBottomView];
+    
+    [self requestListMainSection];
+    
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
+        @strongify(self);
+        ShowHudOnly;
+        [self requestListMainSection];
+    }];
 }
 
 //修改导航栏显示
@@ -242,11 +251,10 @@
 //设置关注更多视图
 -(void)setBottomView
 {
-    if (self.leftSelectedIndex == 0) {
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSMutableArray *arr3 = arr2[0];
+    if (self.leftSelectedIndex == 0&&self.dataSource.count>0) {
+        MainSectionModel *model = self.dataSource[0];
         CGFloat height = 40;
-        if (arr3.count<=0) {
+        if (model.subSections<=0) {
             height = 0;
             self.bottomView.hidden = YES;
         }else{
@@ -272,13 +280,11 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == _leftTable) {
-        NSMutableArray *arr1 = self.dataSource[0];
-        return arr1.count;
+        return self.dataSource.count;
     }
-    if (tableView == _rightTable) {
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSMutableArray *arr3 = arr2[self.leftSelectedIndex];
-        return arr3.count;
+    if (tableView == _rightTable&&self.dataSource.count>0) {
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        return model.subSections.count;
     }
     return 0;
 }
@@ -288,17 +294,15 @@
     UITableViewCell *cell;
     if (tableView == _leftTable) {
         ForumLeftTableViewCell *cell1 = (ForumLeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumLeftTableViewCellID];
-        NSMutableArray *arr1 = self.dataSource[0];
-        NSString *title = arr1[indexPath.row];
-        [cell1 setTitle:title];
+        MainSectionModel *model = self.dataSource[indexPath.row];
+        [cell1 setTitle:model.name];
         cell = cell1;
     }else if (tableView == _rightTable) {
         ForumRightTableViewCell *cell2 = (ForumRightTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumRightTableViewCellID];
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSMutableArray *arr3 = arr2[self.leftSelectedIndex];
-        NSDictionary *model = arr3[indexPath.row];
-        [cell2 setData:model];
-        
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        MainSectionModel *model2 = model.subSections[indexPath.row];
+
+        cell2.model = model2;
         cell = cell2;
     }
     
@@ -326,10 +330,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (tableView == _rightTable&&self.leftSelectedIndex == 0) {
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSMutableArray *arr3 = arr2[0];
-        if (arr3.count<=0) {
+    if (tableView == _rightTable&&self.leftSelectedIndex == 0&&self.dataSource.count>0) {
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        if (model.subSections.count<=0) {
             return 213;
         }
     }
@@ -339,7 +342,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *head;
-    if (tableView == _rightTable) {
+    if (tableView == _rightTable&&self.dataSource.count>0) {
         head = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 135)];
         UIImageView *ADImage = [UIImageView new];
         [head addSubview:ADImage];
@@ -362,10 +365,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
-    if (tableView == _rightTable&&self.leftSelectedIndex == 0){
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSMutableArray *arr3 = arr2[0];
-        if (arr3.count<=0) {
+    if (tableView == _rightTable&&self.leftSelectedIndex == 0&&self.dataSource.count>0){
+        MainSectionModel *model = self.dataSource[0];
+        if (model.subSections.count<=0) {
             footView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 213)];
             UIImageView *addImg = [UIImageView new];
             UILabel *noticeLabel = [UILabel new];
@@ -408,17 +410,61 @@
             return;
         }
         self.leftSelectedIndex = indexPath.row;
-        [_rightTable reloadData];
-        [self setBottomView];
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        if (model.subSections.count<=0&&self.leftSelectedIndex!=0) {
+            [self requestListSubSection:model];
+        }else{
+            [self.rightTable reloadData];
+            [self setBottomView];
+        }
     }else if (tableView == _rightTable) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSMutableArray *arr3 = arr2[self.leftSelectedIndex];
-        NSDictionary *model = arr3[indexPath.row];
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        MainSectionModel *model2 = model.subSections[indexPath.row];
+        
         ForumDetailViewController *fdVC = [ForumDetailViewController new];
-        fdVC.navigationItem.title = GetSaveString(model[@"communityName"]);
+        fdVC.navigationItem.title = GetSaveString(model2.name);
         [self.navigationController pushViewController:fdVC animated:YES];
     }
+}
+
+#pragma mark --请求
+//请求主版块数据
+-(void)requestListMainSection
+{
+    [self.view ly_startLoading];
+    [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+        NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (listArr.count > 0) {
+            MainSectionModel *model = [MainSectionModel new];
+            model.name = @"我的关注";
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObject:model];
+            [self.dataSource addObjectsFromArray:listArr];
+            [self setUI];
+        }
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+    }];
+}
+
+//请求子版块数据
+-(void)requestListSubSection:(MainSectionModel *)model
+{
+    [HttpRequest getWithURLString:ListSubSection parameters:@{@"sectionId":@(model.sectionId)} success:^(id responseObject) {
+        NSArray *subListArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        model.subSections = subListArr.mutableCopy;
+        
+        [self.rightTable reloadData];
+        [self setBottomView];
+    } failure:^(NSError *error) {
+        [self.rightTable reloadData];
+        [self setBottomView];
+    }];
 }
 
 @end

@@ -15,6 +15,8 @@
 #import "RemindPeople.h"
 //帖子模型
 #import "SeniorPostDataModel.h"
+//主/子版块模型
+#import "MainSectionModel.h"
 
 //帖子回复弹窗控制器
 #import "PopReplyViewController.h"

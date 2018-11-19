@@ -105,6 +105,7 @@ CGFloat static attentionBtnH = 26;
     [self.view addSubview:_tableView];
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    _tableView.estimatedRowHeight = 0;
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.separatorColor = HexColor(#E3E3E3);
@@ -145,7 +146,7 @@ CGFloat static attentionBtnH = 26;
     [self.countDown countDownWithPER_SECBlock:^{
         @strongify(self);
         //获取时差
-        NSString *jetLag = [NSString getNowTimeWithString:@"2018-11-16 11:08:50"];
+        NSString *jetLag = [NSString getNowTimeWithString:@"2018-11-20 11:08:50"];
         if (jetLag) {
             //字符串分割
             NSArray *arr = [jetLag componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"天时分秒"]];
@@ -848,11 +849,17 @@ CGFloat static attentionBtnH = 26;
             .heightIs(46)
             ;
             submitBtn.sd_cornerRadius = @23;
-            submitBtn.backgroundColor = HexColor(#1282EE);
+//            submitBtn.backgroundColor = HexColor(#1282EE);
             [submitBtn setNormalTitle:@"提交"];
             [submitBtn setNormalTitleColor:WhiteColor];
             [submitBtn setBtnFont:PFFontL(16)];
             [submitBtn addTarget:self action:@selector(voteAction:) forControlEvents:UIControlEventTouchUpInside];
+            submitBtn.enabled = self.selectChooseArr.count?YES:NO;
+            if (self.selectChooseArr.count) {
+                submitBtn.backgroundColor = HexColor(#1282EE);
+            }else{
+                submitBtn.backgroundColor = HexColor(#cccccc);
+            }
         }
     }
     

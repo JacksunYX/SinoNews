@@ -55,6 +55,7 @@
     YYTextSimpleEmoticonParser *parser = [YYTextSimpleEmoticonParser new];
     parser.emoticonMapper = mapper;
     self.parser = parser;
+    GGLog(@"本地表情加载完毕");
 }
 
 //保存domainsArr到本地

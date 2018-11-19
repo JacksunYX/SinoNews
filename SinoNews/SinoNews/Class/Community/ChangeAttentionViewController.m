@@ -14,6 +14,10 @@
 @interface ChangeAttentionViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (strong , nonatomic)UICollectionView *collectionView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+//保存选中版块的数组
+@property (nonatomic,strong) NSMutableArray *selectSection;
+@property (nonatomic,strong) NSArray *localSections;
+
 @end
 
 @implementation ChangeAttentionViewController
@@ -69,6 +73,14 @@
          */
     }
     return _dataSource;
+}
+
+-(NSMutableArray *)selectSection
+{
+    if (!_selectSection) {
+        _selectSection = [NSMutableArray new];
+    }
+    return _selectSection;
 }
 
 - (UICollectionView *)collectionView
@@ -136,10 +148,43 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+//比对本地保存的关注版块与服务器返回的
+-(void)compareLocalSectionsWithServer
+{
+    _localSections = [MainSectionModel getLocalAttentionSections];
+    if (!kArrayIsEmpty(_localSections)) {
+        //数组不为空时比对
+        for (int i = 0; i < self.dataSource.count; i ++) {
+            MainSectionModel *model1 = self.dataSource[i];
+            for (int j = 0; j < model1.subSections.count; j ++) {
+                MainSectionModel *model2 = model1.subSections[j];
+                //在本地数组中找出相同id和名称的
+                for (MainSectionModel *model3 in _localSections) {
+                    if ([model3.name isEqualToString:model2.name]) {
+                        model2.isAttentioned = YES;
+                        [self.selectSection addObject:model2];
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
 //完成选择
 -(void)finishSelect
 {
-    LRToast(@"完成选择");
+    //先清除
+    [MainSectionModel removeAllSections];
+    //再添加
+    if (self.selectSection.count>0) {
+        [MainSectionModel addMutilNews:self.selectSection];
+    }
+    
+    if (self.changeFinishBlock) {
+        self.changeFinishBlock(self.selectSection);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma makr --- UICollectionViewDataSource
@@ -192,7 +237,9 @@
         }
         
         [footerView setData:dic];
+        @weakify(self);
         footerView.checkMoreBlock = ^{
+            @strongify(self);
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
             model.haveUnFold = YES;
             [self.collectionView reloadSections:set];
@@ -231,6 +278,17 @@
     MainSectionModel *model2 = model.subSections[indexPath.row];
     
     model2.isAttentioned = !model2.isAttentioned;
+    if (model2.isAttentioned) {
+        [self.selectSection addObject:model2];
+    }else{
+        for (MainSectionModel *model3 in self.selectSection) {
+            if ([model3.name isEqualToString:model2.name]) {
+                //移除
+                [self.selectSection removeObject:model3];
+                break;
+            }
+        }
+    }
     [collectionView reloadItemsAtIndexPaths:@[indexPath]];
     
 }
@@ -245,6 +303,7 @@
         if (listArr.count > 0) {
             [self.dataSource removeAllObjects];
             [self.dataSource addObjectsFromArray:listArr];
+            [self compareLocalSectionsWithServer];
             [self setUI];
         }
         

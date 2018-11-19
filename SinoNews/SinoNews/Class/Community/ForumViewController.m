@@ -21,6 +21,7 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger leftSelectedIndex;
+@property (nonatomic,strong) UIButton *addImg;
 @end
 
 @implementation ForumViewController
@@ -226,8 +227,7 @@
     @weakify(self);
     [self.bottomView whenTap:^{
         @strongify(self);
-        ChangeAttentionViewController *vc = [ChangeAttentionViewController new];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self addSection];
     }];
     
     _rightTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -245,7 +245,7 @@
     ;
     [_rightTable updateLayout];
     [_rightTable registerClass:[ForumRightTableViewCell class] forCellReuseIdentifier:ForumRightTableViewCellID];
-    
+    [self setBottomView];
 }
 
 //设置关注更多视图
@@ -269,6 +269,22 @@
         .heightIs(0)
         ;
     }
+}
+
+//跳转修改关注版块界面
+-(void)addSection
+{
+    ChangeAttentionViewController *caVC = [ChangeAttentionViewController new];
+    @weakify(self);
+    caVC.changeFinishBlock = ^(NSArray *selectArr){
+        @strongify(self);
+        MainSectionModel *model = self.dataSource[0];
+        model.subSections = [MainSectionModel getLocalAttentionSections];
+        [self.leftTable reloadData];
+        [self.rightTable reloadData];
+        [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    };
+    [self.navigationController pushViewController:caVC animated:YES];
 }
 
 #pragma mark --- UITableViewDataSource
@@ -369,30 +385,25 @@
         MainSectionModel *model = self.dataSource[0];
         if (model.subSections.count<=0) {
             footView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 213)];
-            UIImageView *addImg = [UIImageView new];
+            _addImg = [UIButton new];
             UILabel *noticeLabel = [UILabel new];
             noticeLabel.font = PFFontL(14);
             noticeLabel.textColor = HexColor(#A8A8A8);
             [footView sd_addSubviews:@[
-                                       addImg,
+                                       _addImg,
                                        noticeLabel,
                                        ]];
-            addImg.sd_layout
+            _addImg.sd_layout
             .topSpaceToView(footView, 74)
             .centerXEqualToView(footView)
             .widthIs(81)
             .heightEqualToWidth()
             ;
-            addImg.image = UIImageNamed(@"section_add");
-            @weakify(self);
-            [addImg whenTap:^{
-                @strongify(self);
-                ChangeAttentionViewController *vc = [ChangeAttentionViewController new];
-                [self.navigationController pushViewController:vc animated:YES];
-            }];
+            [_addImg setNormalImage:UIImageNamed(@"section_add")];
+            [_addImg addTarget:self action:@selector(addSection) forControlEvents:UIControlEventTouchUpInside];
             
             noticeLabel.sd_layout
-            .topSpaceToView(addImg, 34)
+            .topSpaceToView(_addImg, 34)
             .centerXEqualToView(footView)
             .heightIs(16)
             ;
@@ -440,10 +451,12 @@
         if (listArr.count > 0) {
             MainSectionModel *model = [MainSectionModel new];
             model.name = @"我的关注";
+            model.subSections = [MainSectionModel getLocalAttentionSections];
             [self.dataSource removeAllObjects];
             [self.dataSource addObject:model];
             [self.dataSource addObjectsFromArray:listArr];
             [self setUI];
+            
         }
         
     } failure:^(NSError *error) {

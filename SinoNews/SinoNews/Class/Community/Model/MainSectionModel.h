@@ -20,6 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isAttentioned;//是否关注
 @property (nonatomic,assign) BOOL haveUnFold;   //是否展开
 
+//获取本地关注版块列表
++(NSMutableArray *)getLocalAttentionSections;
+//新增一个本地关注版块
++(void)addANew:(MainSectionModel *)section;
+//新增多个本地关注版块
++(void)addMutilNews:(NSArray <MainSectionModel*>*)sections;
+//清除所有本地关注版块
++(void)removeAllSections;
+
 @end
 
 NS_ASSUME_NONNULL_END

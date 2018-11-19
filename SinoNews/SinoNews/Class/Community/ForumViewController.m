@@ -14,7 +14,7 @@
 #import "ForumLeftTableViewCell.h"
 #import "ForumRightTableViewCell.h"
 
-@interface ForumViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ForumViewController ()<UITableViewDelegate,UITableViewDataSource,PYSearchViewControllerDelegate>
 
 @property (nonatomic,strong) BaseTableView *leftTable;
 @property (nonatomic,strong) BaseTableView *rightTable;
@@ -22,6 +22,8 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger leftSelectedIndex;
 @property (nonatomic,strong) UIButton *addImg;
+
+
 @end
 
 @implementation ForumViewController
@@ -158,9 +160,12 @@
 -(void)searchAction
 {
     PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[@"12312",@"adasldjl",@"sld;."] searchBarPlaceholder:@"启世录快速通道" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        searchViewController.searchResultShowMode = PYSearchResultShowModeEmbed;
-        searchViewController.searchResultController = [CommunitySearchVC new];
+        CommunitySearchVC *csVC = [CommunitySearchVC new];
+        csVC.keyword = searchText;
+        searchViewController.searchResultController = csVC;
     }];
+    sVC.delegate = self;
+    sVC.searchResultShowMode = PYSearchResultShowModeEmbed;
     sVC.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
     sVC.hotSearchStyle = PYHotSearchStyleRankTag;
     sVC.searchHistoryTitle = @"历史搜索";
@@ -199,6 +204,8 @@
     
     // 3. present the searchViewController
     RTRootNavigationController *nav = [[RTRootNavigationController alloc] initWithRootViewController:sVC];
+    //不加不这句话，搜索关键字的table上面会空出一大块
+    sVC.navigationController.navigationBar.translucent = NO;
     [self presentViewController:nav animated:NO completion:nil];
 }
 
@@ -285,6 +292,14 @@
         [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     };
     [self.navigationController pushViewController:caVC animated:YES];
+}
+
+#pragma mark -- PYSearchViewControllerDelegate
+-(void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)searchBar searchText:(NSString *)searchText
+{
+    if (![NSString isEmpty:[searchText removeSpace]]) {
+        [self requestPost_autoComplete:searchText vc:searchViewController];
+    }
 }
 
 #pragma mark --- UITableViewDataSource
@@ -479,5 +494,22 @@
         [self setBottomView];
     }];
 }
+
+//搜索关键字补全
+-(void)requestPost_autoComplete:(NSString *)keyword vc:(PYSearchViewController *)searchVC
+{
+    [HttpRequest getWithURLString:Post_autoComplete parameters:@{@"keyword":keyword} success:^(id responseObject) {
+        searchVC.searchSuggestions = @[
+                                       @"测试1",
+                                       @"测试2",
+                                       @"测试3",
+                                       @"测试4",
+                                       @"测试5",
+                                       ];
+    } failure:nil];
+    
+}
+
+
 
 @end

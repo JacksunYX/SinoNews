@@ -15,6 +15,7 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
+@property (nonatomic,assign) NSInteger page;
 @end
 
 @implementation ThePostListViewController
@@ -29,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
+    [self requestReason:self.keyword];
     [self setUI];
 }
 
@@ -56,6 +58,15 @@
     ;
     [_tableView updateLayout];
     [_tableView registerClass:[ThePostListTableViewCell class] forCellReuseIdentifier:ThePostListTableViewCellID];
+    
+    @weakify(self);
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.dataSource.count>0) {
+            self.page ++;
+        }
+        [self requestReason:self.keyword];
+    }];
 }
 
 //设置下拉菜单
@@ -162,5 +173,18 @@
     return 0.01;
 }
 
+#pragma mark --- 请求
+//搜索结果
+-(void)requestReason:(NSString *)keyword
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"keyword"] = GetSaveString(keyword);
+    parameters[@"page"] = @(self.page);
+    [HttpRequest getWithURLString:Post_autoComplete parameters:@{@"keyword":keyword} success:^(id responseObject) {
+        [self.tableView.mj_footer endRefreshing];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
 
 @end

@@ -16,6 +16,7 @@
 #define ListSubSection @"/api/forum/section/listSubSection"
 //所有版块查询(get)
 #define ListAllSections @"/api/forum/section/listAllSections"
-
+//搜索关键字补全(get)
+#define Post_autoComplete  @"/api/post/autoComplete"
 
 #endif /* CommunityNet_h */

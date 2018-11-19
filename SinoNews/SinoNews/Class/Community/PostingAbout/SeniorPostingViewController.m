@@ -808,17 +808,14 @@
 
 -(void)textViewDidChange:(YYTextView *)textView
 {
-    NSString *string = [textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (_titleView == textView) {
-        if (string.length>25) {
+    if (textView == _titleView) {
+        if (textView.text.length>25) {
             LRToast(@"标题长度不可超过25个字符哦");
-            string = [string substringToIndex:25];
-            textView.text = string;
+            textView.text = [textView.text substringToIndex:25];
         }
-        self.postModel.postTitle = string;
-        
-    }else{
-        self.postModel.postContent = string;
+        self.postModel.postTitle = [textView.text removeSpace];
+    }else if (textView == _contentView){
+        self.postModel.postContent = [textView.text removeSpace];
     }
 }
 

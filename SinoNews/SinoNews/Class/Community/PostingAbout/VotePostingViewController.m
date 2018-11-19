@@ -14,7 +14,7 @@
 
 #import "VoteChooseInputModel.h"
 
-@interface VotePostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface VotePostingViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,EmotionKeyBoardDelegate,YYTextViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -26,12 +26,15 @@
 @property (nonatomic,assign) BOOL isVisible;    //是否可见
 
 @property (nonatomic,strong) UIView *headView;
-@property (nonatomic,strong) FSTextView *titleView;
-@property (nonatomic,strong) FSTextView *contentView;
+@property (nonatomic,strong) YYTextView *titleView;
+@property (nonatomic,strong) YXTextView *contentView;
 @property (nonatomic,strong) UIButton *footView;
 
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *showKeyboard;
+@property (nonatomic,strong) UIButton *emojiKeyboard;
+//emoji键盘
+@property (nonatomic,strong) WTEmoticonInputView *emoticonInputView;
 //保存数据的模型
 @property (nonatomic,strong) SeniorPostDataModel *voteModel;
 @end
@@ -53,13 +56,15 @@ static NSInteger limitMaxNum = 20;
     if (!_headView) {
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 183)];
         
-        _titleView = [FSTextView textView];
+        _titleView = [YYTextView new];
+        _titleView.backgroundColor = WhiteColor;
         _titleView.font = PFFontR(20);
         _titleView.textColor = BlackColor;
         _titleView.delegate = self;
         _titleView.inputAccessoryView = self.bottomView;
         
-        _contentView = [FSTextView textView];
+        _contentView = [YXTextView new];
+        _contentView.backgroundColor = WhiteColor;
         _contentView.font = PFFontL(15);
         _contentView.textColor = BlackColor;
         _contentView.delegate = self;
@@ -76,24 +81,9 @@ static NSInteger limitMaxNum = 20;
         .heightIs(69)
         ;
         
-        _titleView.placeholder = @"起个引人关注的标题哦～";
-        _titleView.placeholderColor = HexColor(#BAC3C7);
+        _titleView.placeholderText = @"起个引人关注的标题哦～";
+        _titleView.placeholderTextColor = HexColor(#BAC3C7);
         _titleView.placeholderFont = PFFontR(20);
-        // 限制输入最大字符数.
-        _titleView.maxLength = 25;
-        // 添加输入改变Block回调.
-        @weakify(self);
-        [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
-            @strongify(self);
-            // 文本改变后的相应操作
-            self.voteModel.postTitle = textView.formatText;
-            
-        }];
-        // 添加到达最大限制Block回调.
-        [_titleView addTextLengthDidMaxHandler:^(FSTextView *textView) {
-            // 达到最大限制数后的相应操作.
-            LRToast(@"帖子标题最多支持25个字符");
-        }];
         
         _contentView.sd_layout
         .topSpaceToView(_titleView, 0)
@@ -101,27 +91,12 @@ static NSInteger limitMaxNum = 20;
         .rightEqualToView(_headView)
         .bottomEqualToView(_headView)
         ;
-        _contentView.placeholder = @"填写投票描述，详细的描述会让更多的启世录用户参与投票哦～";
-        _contentView.placeholderColor = HexColor(#B9C3C7);
+        _contentView.placeholderText = @"填写投票描述，详细的描述会让更多的启世录用户参与投票哦～";
+        _contentView.placeholderTextColor = HexColor(#B9C3C7);
         _contentView.placeholderFont = PFFontL(15);
-        // 添加输入改变Block回调.
-        [_contentView addTextDidChangeHandler:^(FSTextView *textView) {
-            @strongify(self);
-            // 文本改变后的相应操作.
-            self.voteModel.postContent = textView.formatText;
-            /*
-            NSString *string = textView.formatText;
-            if (string.length>0) {
-                self.publishBtn.enabled = YES;
-                [self.publishBtn setNormalTitleColor:HexColor(#1282EE)];
-            }else{
-                self.publishBtn.enabled = NO;
-                [self.publishBtn setNormalTitleColor:HexColor(#959595)];
-            }
-             */
-        }];
-        _contentView.borderColor = HexColor(#E3E3E3);
-        _contentView.borderWidth = 1;
+        
+        _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
+        _contentView.layer.borderWidth = 1;
     }
     return _headView;
 }
@@ -132,8 +107,23 @@ static NSInteger limitMaxNum = 20;
         _bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 50)];
         _bottomView.backgroundColor = WhiteColor;
         
+        _emojiKeyboard = [UIButton new];
         _showKeyboard = [UIButton new];
-        [_bottomView addSubview:_showKeyboard];
+        [_bottomView sd_addSubviews:@[
+                                      _emojiKeyboard,
+                                      _showKeyboard,
+                                      ]];
+        
+        _emojiKeyboard.sd_layout
+        .leftSpaceToView(_bottomView, 15)
+        .topSpaceToView(_bottomView, 14)
+        .widthIs(23)
+        .heightEqualToWidth()
+        ;
+        [_emojiKeyboard setNormalImage:UIImageNamed(@"emojiKeyBoard_icon")];
+        [_emojiKeyboard setSelectedImage:UIImageNamed(@"systemKeyboard_icon")];
+        [_emojiKeyboard addTarget:self action:@selector(changeKeyboardType) forControlEvents:UIControlEventTouchUpInside];
+        
         _showKeyboard.sd_layout
         .rightSpaceToView(_bottomView, 15)
         .centerYEqualToView(_bottomView)
@@ -145,6 +135,15 @@ static NSInteger limitMaxNum = 20;
         
     }
     return _bottomView;
+}
+
+-(WTEmoticonInputView *)emoticonInputView
+{
+    if (!_emoticonInputView) {
+        _emoticonInputView = [[WTEmoticonInputView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kKeyBoardH)];
+        _emoticonInputView.delegate = self;
+    }
+    return _emoticonInputView;
 }
 
 -(NSMutableArray *)dataSource
@@ -219,10 +218,10 @@ static NSInteger limitMaxNum = 20;
 -(void)publishAction:(UIButton *)sender
 {
     [self.view endEditing:YES];
-    if ([NSString isEmpty:self.titleView.formatText]) {
+    if ([NSString isEmpty:self.voteModel.postTitle]) {
         LRToast(@"标题不能为空哦");
         return;
-    }else if ([NSString isEmpty:self.contentView.formatText]) {
+    }else if ([NSString isEmpty:self.voteModel.postContent]) {
         LRToast(@"投票描述不能为空哦");
         return;
     }
@@ -280,13 +279,104 @@ static NSInteger limitMaxNum = 20;
     [_tableView registerClass:[VotePostingTableViewCell2 class] forCellReuseIdentifier:VotePostingTableViewCell2ID];
 }
 
-#pragma mark --- UITextViewDelegate ---
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//弹框提示
+-(void)popNotice:(BOOL)max
+{
+    NSString *noticeString = [NSString stringWithFormat:@"投票项不能少于%ld个",limitMinNum];
+    if (max) {
+        noticeString = [NSString stringWithFormat:@"投票项不能超过%ld个",limitMaxNum];
+    }
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:noticeString message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    [alertVC addAction:confirm];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+//添加投票选项
+-(void)addChooseAction:(UIButton *)sender
+{
+    //添加的选项不能超过最大限制
+    if (self.chooseArr.count>=limitMaxNum) {
+        [self popNotice:YES];
+    }else{
+        VoteChooseInputModel *chooseModel = [VoteChooseInputModel new];
+        chooseModel.content = @"";
+        [self.chooseArr addObject:chooseModel];
+        [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+//隐藏键盘
+-(void)showOrHideKeyboard:(UIButton *)sender
+{
+    [self.view endEditing:YES];
+}
+
+//切换键盘
+-(void)changeKeyboardType
+{
+    _emojiKeyboard.selected = !_emojiKeyboard.selected;
+    if (_emojiKeyboard.selected) {
+        self.contentView.inputView = self.emoticonInputView;
+    }else{
+        self.contentView.inputView = nil;
+    }
+    [self.contentView reloadInputViews];
+}
+
+#pragma mark --- EmotionKeyBoardDelegate ---
+- (void)clickEmotionName:(NSString *)name
+{
+    NSString *emotionString = [[WTUtils getEmoticonData] allKeysForObject:name][0];
+    YXTextView *textView = self.contentView;
+    
+    [textView replaceRange:textView.selectedTextRange withText:emotionString];
+}
+
+- (void)clickDelete
+{
+    YXTextView *textView = self.contentView;
+    [textView deleteBackward];
+}
+
+#pragma mark --- YYTextViewDelegate ---
+-(BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
     //禁止标题输入换行
     if (textView == _titleView&&[text isEqualToString:@"\n"]) {
         return NO;
     }
     return YES;
+}
+
+-(void)textViewDidChange:(YYTextView *)textView
+{
+    if (textView == _titleView) {
+        if (textView.text.length>25) {
+            LRToast(@"标题长度不可超过25个字符哦");
+            textView.text = [textView.text substringToIndex:25];
+        }
+        self.voteModel.postTitle = [textView.text removeSpace];
+    }else if (textView == _contentView){
+        self.voteModel.postContent = [textView.text removeSpace];
+    }
+}
+
+-(void)textViewDidBeginEditing:(YYTextView *)textView
+{
+    GGLog(@"已经开始编辑");
+    if (textView != _contentView) {
+        _emojiKeyboard.hidden = YES;
+    }else{
+        _emojiKeyboard.hidden = NO;
+    }
+}
+
+-(void)textViewDidEndEditing:(YYTextView *)textView
+{
+    GGLog(@"已经结束编辑");
+    self.emojiKeyboard.selected = NO;
+    textView.inputView = nil;
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -335,6 +425,12 @@ static NSInteger limitMaxNum = 20;
         };
         cell0.inputBlock = ^(NSString * _Nonnull inputString) {
             chooseModel.content = inputString;
+        };
+        cell0.beginInputBlock = ^(UIView * _Nonnull inputView) {
+            @strongify(self);
+            if (inputView != self.contentView) {
+                self.emojiKeyboard.hidden = YES;
+            }
         };
         cell0.inputAccessoryView = self.bottomView;
         cell = cell0;
@@ -479,37 +575,6 @@ static NSInteger limitMaxNum = 20;
     
 }
 
-//弹框提示
--(void)popNotice:(BOOL)max
-{
-    NSString *noticeString = [NSString stringWithFormat:@"投票项不能少于%ld个",limitMinNum];
-    if (max) {
-        noticeString = [NSString stringWithFormat:@"投票项不能超过%ld个",limitMaxNum];
-    }
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:noticeString message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-    [alertVC addAction:confirm];
-    [self presentViewController:alertVC animated:YES completion:nil];
-}
 
-//添加投票选项
--(void)addChooseAction:(UIButton *)sender
-{
-    //添加的选项不能超过最大限制
-    if (self.chooseArr.count>=limitMaxNum) {
-        [self popNotice:YES];
-    }else{
-        VoteChooseInputModel *chooseModel = [VoteChooseInputModel new];
-        chooseModel.content = @"";
-        [self.chooseArr addObject:chooseModel];
-        [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
-    }
-}
-
-//隐藏键盘
--(void)showOrHideKeyboard:(UIButton *)sender
-{
-    [self.view endEditing:YES];
-}
 
 @end

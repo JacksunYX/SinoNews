@@ -17,6 +17,8 @@ extern NSString * const VotePostingTableViewCellID;
 @property (nonatomic,copy) void(^deleteBlock)(void);
 //输入回调
 @property (nonatomic,copy) void(^inputBlock)(NSString *inputString);
+//开始编辑回调
+@property (nonatomic,copy) void(^beginInputBlock)(UIView *inputView);
 @property (nonatomic,strong) UIView *inputAccessoryView;
 -(void)setSortNum:(NSInteger)num;
 -(void)setContent:(NSString *)contentString;

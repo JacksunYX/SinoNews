@@ -101,6 +101,13 @@ NSString * const VotePostingTableViewCellID = @"VotePostingTableViewCellID";
         }
     };
     
+    content.textFieldDidBeginEditingBlock = ^(UITextField *textField) {
+        @strongify(self);
+        if (self.beginInputBlock) {
+            self.beginInputBlock(textField);
+        }
+    };
+    
     [self setupAutoHeightWithBottomView:content bottomMargin:18];
     
 }

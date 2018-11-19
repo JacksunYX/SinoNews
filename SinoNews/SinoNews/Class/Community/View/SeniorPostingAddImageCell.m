@@ -13,7 +13,7 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
 {
     UIImageView *selectImage;
     UIButton *uploadStatus;
-    UILabel *imageDescript;
+    YXLabel *imageDescript;
     //排序视图
     UIView *sortBackView;
     UIImageView *goUpTouch;
@@ -49,7 +49,9 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
 {
     selectImage = [UIImageView new];
     uploadStatus = [UIButton new];
-    imageDescript = [UILabel new];
+    imageDescript = [YXLabel new];
+    imageDescript.textVerticalAlignment = YYTextVerticalAlignmentTop;
+    imageDescript.numberOfLines = 0;
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -68,9 +70,9 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     .topEqualToView(selectImage)
     .leftSpaceToView(selectImage, 10)
     .rightSpaceToView(fatherView, 10)
-    .autoHeightRatio(0)
+    .bottomEqualToView(selectImage)
     ;
-    [imageDescript setMaxNumberOfLinesToShow:5];
+    
     imageDescript.textColor = HexColor(#161A24);
     imageDescript.font = PFFontR(15);
     imageDescript.userInteractionEnabled = NO;

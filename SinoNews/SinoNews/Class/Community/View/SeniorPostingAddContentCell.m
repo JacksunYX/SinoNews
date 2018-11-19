@@ -11,7 +11,7 @@
 NSString * const SeniorPostingAddContentCellID = @"SeniorPostingAddContentCellID";
 @interface SeniorPostingAddContentCell ()
 {
-    FSTextView *content;
+    YXLabel *content;
     //排序视图
     UIView *sortBackView;
     UIImageView *goUpTouch;
@@ -45,7 +45,10 @@ NSString * const SeniorPostingAddContentCellID = @"SeniorPostingAddContentCellID
 
 -(void)setUI
 {
-    content = [FSTextView textView];
+    content = [YXLabel new];
+    content.textVerticalAlignment = YYTextVerticalAlignmentTop;
+    content.numberOfLines = 0;
+    
     [self.contentView addSubview:content];
     content.sd_layout
     .topSpaceToView(self.contentView, 0)

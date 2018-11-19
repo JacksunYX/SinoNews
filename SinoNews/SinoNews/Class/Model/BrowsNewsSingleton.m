@@ -30,23 +30,31 @@
     }
     if (!self.parser) {
         GGLog(@"每次重启都会进入表情获取方法");
-        //设置本地表情识别
-        NSMutableDictionary *mapper = [NSMutableDictionary new];
-        for (int i = 0; i < [WTUtils getEmoticonData].allKeys.count; i ++) {
-            NSString *valueString = [NSString stringWithFormat:@"%.0f", ((CGFloat)i)];
-            YYImage *image = [YYImage imageNamed:[NSString stringWithFormat:@"smiley_%@", valueString]];
-            image.preloadAllAnimatedImageFrames = YES;
-            [mapper setObject:image
-                       forKey:[[WTUtils getEmoticonData] allKeysForObject:valueString][0]];
-        }
-        
-        YYTextSimpleEmoticonParser *parser = [YYTextSimpleEmoticonParser new];
-        parser.emoticonMapper = mapper;
-        self.parser = parser;
+        GCDAsynGlobal(^{
+            [self processLocationEmoji];
+        });
     }
     
     GGLog(@"idsArr:%ld",self.idsArr.count);
     return self;
+}
+
+//处理本地表情包
+-(void)processLocationEmoji
+{
+    //设置本地表情识别
+    NSMutableDictionary *mapper = [NSMutableDictionary new];
+    for (int i = 0; i < [WTUtils getEmoticonData].allKeys.count; i ++) {
+        NSString *valueString = [NSString stringWithFormat:@"%.0f", ((CGFloat)i)];
+        YYImage *image = [YYImage imageNamed:[NSString stringWithFormat:@"smiley_%@", valueString]];
+        image.preloadAllAnimatedImageFrames = YES;
+        [mapper setObject:image
+                   forKey:[[WTUtils getEmoticonData] allKeysForObject:valueString][0]];
+    }
+    
+    YYTextSimpleEmoticonParser *parser = [YYTextSimpleEmoticonParser new];
+    parser.emoticonMapper = mapper;
+    self.parser = parser;
 }
 
 //保存domainsArr到本地

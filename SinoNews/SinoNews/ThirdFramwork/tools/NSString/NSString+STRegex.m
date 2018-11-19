@@ -486,4 +486,10 @@
     }
 }
 
+//去除首尾空格
+-(NSString *)removeSpace
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 @end

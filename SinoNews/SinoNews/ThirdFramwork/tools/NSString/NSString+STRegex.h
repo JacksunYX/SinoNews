@@ -87,4 +87,7 @@
  */
 +(NSString *)getChineseWithNum:(NSInteger)arabicNum;
 
+//去除首尾空格
+-(NSString *)removeSpace;
+
 @end

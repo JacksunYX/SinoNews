@@ -14,7 +14,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
 {
     UIImageView *selectVideo;
     UIButton *uploadStatus;
-    UILabel *videoDescript;
+    YXLabel *videoDescript;
     //排序视图
     UIView *sortBackView;
     UIImageView *goUpTouch;
@@ -51,7 +51,9 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     selectVideo = [UIImageView new];
     UIImageView *videoIcon = [UIImageView new];
     uploadStatus = [UIButton new];
-    videoDescript = [UILabel new];
+    videoDescript = [YXLabel new];
+    videoDescript.textVerticalAlignment = YYTextVerticalAlignmentTop;
+    videoDescript.numberOfLines = 0;
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
@@ -70,11 +72,10 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     .topEqualToView(selectVideo)
     .leftSpaceToView(selectVideo, 10)
     .rightSpaceToView(fatherView, 10)
-    .autoHeightRatio(0)
+    .bottomEqualToView(selectVideo)
     ;
     videoDescript.textColor = HexColor(#161A24);
     videoDescript.font = PFFontR(15);
-    [videoDescript setMaxNumberOfLinesToShow:5];
     videoDescript.userInteractionEnabled = NO;
     
     [selectVideo addSubview:videoIcon];

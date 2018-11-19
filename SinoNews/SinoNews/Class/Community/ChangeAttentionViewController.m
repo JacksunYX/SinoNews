@@ -21,50 +21,52 @@
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
-        NSArray *sectionTitle = @[
-                                  @"酒店常客",
-                                  @"航空常客",
-                                  @"信用卡",
-                                  @"飞客生活",
-                                  @"网站服务",
-                                  ];
-        NSArray *logo = @[
-                          @"share_qq",
-                          @"share_qqZone",
-                          @"share_sina",
-                          @"share_wechat",
-                          @"share_wechatFriend",
-                          ];
-        NSArray *name = @[
-                          @"飞行Report",
-                          @"东方航空",
-                          @"中国国航",
-                          @"南方航空",
-                          @"海南航空",
-                          @"吉祥航空",
-                          @"亚洲万里通",
-                          @"星空联盟",
-                          @"寰宇一家",
-                          ];
-        
-        for (int i = 0; i < arc4random()%4+1; i ++) {
-            NSMutableDictionary *sectionDic = [NSMutableDictionary new];
-            sectionDic[@"sectionName"] = sectionTitle[arc4random()%sectionTitle.count];
-            sectionDic[@"sectionNum"] = @(arc4random()/30+5);
-            sectionDic[@"haveUnFold"] = @(0);
-            
-            NSMutableArray *dataArr = [NSMutableArray new];
-            sectionDic[@"data"] = dataArr;
-            for (int j = 0; j < arc4random()%10+8; j++) {
-                NSMutableDictionary *model = [NSMutableDictionary new];
-                model[@"name"] = name[arc4random()%name.count];
-                model[@"logo"] = logo[arc4random()%logo.count];
-                model[@"attention"] = @(arc4random()%2);
-                [dataArr addObject:model];
-            }
-            
-            [_dataSource addObject:sectionDic];
-        }
+        /*
+         NSArray *sectionTitle = @[
+         @"酒店常客",
+         @"航空常客",
+         @"信用卡",
+         @"飞客生活",
+         @"网站服务",
+         ];
+         NSArray *logo = @[
+         @"share_qq",
+         @"share_qqZone",
+         @"share_sina",
+         @"share_wechat",
+         @"share_wechatFriend",
+         ];
+         NSArray *name = @[
+         @"飞行Report",
+         @"东方航空",
+         @"中国国航",
+         @"南方航空",
+         @"海南航空",
+         @"吉祥航空",
+         @"亚洲万里通",
+         @"星空联盟",
+         @"寰宇一家",
+         ];
+         
+         for (int i = 0; i < arc4random()%4+1; i ++) {
+         NSMutableDictionary *sectionDic = [NSMutableDictionary new];
+         sectionDic[@"sectionName"] = sectionTitle[arc4random()%sectionTitle.count];
+         sectionDic[@"sectionNum"] = @(arc4random()/30+5);
+         sectionDic[@"haveUnFold"] = @(0);
+         
+         NSMutableArray *dataArr = [NSMutableArray new];
+         sectionDic[@"data"] = dataArr;
+         for (int j = 0; j < arc4random()%10+8; j++) {
+         NSMutableDictionary *model = [NSMutableDictionary new];
+         model[@"name"] = name[arc4random()%name.count];
+         model[@"logo"] = logo[arc4random()%logo.count];
+         model[@"attention"] = @(arc4random()%2);
+         [dataArr addObject:model];
+         }
+         
+         [_dataSource addObject:sectionDic];
+         }
+         */
     }
     return _dataSource;
 }
@@ -104,7 +106,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"全部版块";
     [self addNavigationView];
-    [self setUI];
+    
+    [self requestListAllSection];
 }
 
 //修改导航栏显示
@@ -117,7 +120,7 @@
     self.navigationController.navigationBar.barTintColor = HexColor(#1282EE);
     //设置导航栏按钮的字体颜色
     self.navigationController.navigationBar.tintColor = HexColor(#FFFFFF);
-
+    
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(finishSelect) title:@"完成" font:PFFontR(14) titleColor:HexColor(#FFFFFF) highlightedColor:HexColor(#FFFFFF) titleEdgeInsets:UIEdgeInsetsZero];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:UIImageNamed(@"section_close") style:UIBarButtonItemStylePlain target:self action:@selector(back)];
@@ -147,23 +150,22 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSMutableDictionary *sectionDic = self.dataSource[section];
-    NSArray *dataArr = sectionDic[@"data"];
-    if (dataArr.count>8) {
-        if (0 == [sectionDic[@"haveUnFold"] integerValue]) {
+    MainSectionModel *model = self.dataSource[section];
+    
+    if (model.subSections.count>8) {
+        if (model.haveUnFold == NO) {
             return 8;
         }
     }
-    return dataArr.count;
+    return model.subSections.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ChangeAttentionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ChangeAttentionCellID forIndexPath:indexPath];
-    NSDictionary *sectionDic = self.dataSource[indexPath.section];
-    NSArray *dataArr = sectionDic[@"data"];
-    NSDictionary *model = dataArr[indexPath.row];
-    [cell setData:model];
+    MainSectionModel *model = self.dataSource[indexPath.section];
+    MainSectionModel *model2 = model.subSections[indexPath.row];
+    cell.model = model2;
     return cell;
 }
 
@@ -171,12 +173,12 @@
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView *reusableview = nil;
-    NSDictionary *sectionDic = self.dataSource[indexPath.section];
+    MainSectionModel *model = self.dataSource[indexPath.section];
     if (kind == UICollectionElementKindSectionHeader){
         ChangeAttentionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ChangeAttentionReusableViewID forIndexPath:indexPath];
         NSDictionary *data = @{
-                               @"name"  :sectionDic[@"sectionName"],
-                               @"num"   :@([sectionDic[@"sectionNum"] integerValue]),
+                               @"name":model.name,
+                           @"num":@(model.subSections.count),
                                };
         [headerView setData:data];
         reusableview = headerView;
@@ -185,16 +187,14 @@
         
         NSMutableDictionary *dic = [NSMutableDictionary new];
         
-        NSMutableDictionary *sectionDic = self.dataSource[indexPath.section];
-        NSArray *dataArr = sectionDic[@"data"];
-        if (dataArr.count>8) {
-            dic[@"unFold"] = @([sectionDic[@"haveUnFold"] integerValue]);
+        if (model.subSections.count>8) {
+            dic[@"unFold"] = @(model.haveUnFold);
         }
         
         [footerView setData:dic];
         footerView.checkMoreBlock = ^{
             NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
-            sectionDic[@"haveUnFold"] = @(YES);
+            model.haveUnFold = YES;
             [self.collectionView reloadSections:set];
         };
         footerView.backgroundColor = BACKGROUND_COLOR;
@@ -213,10 +213,10 @@
 //尾高度
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    NSMutableDictionary *sectionDic = self.dataSource[section];
-    NSArray *dataArr = sectionDic[@"data"];
-    if (dataArr.count>8) {
-        if (0 == [sectionDic[@"haveUnFold"] integerValue]) {
+    MainSectionModel *model = self.dataSource[section];
+    
+    if (model.subSections.count>8) {
+        if (model.haveUnFold == NO) {
             return CGSizeMake(ScreenW, 44);
         }
     }
@@ -227,12 +227,29 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GGLog(@"点击了%ld区第%ld个item",indexPath.section,indexPath.row);
-    NSDictionary *sectionDic = self.dataSource[indexPath.section];
-    NSArray *dataArr = sectionDic[@"data"];
-    NSMutableDictionary *model = dataArr[indexPath.row];
-    model[@"attention"] = @(![model[@"attention"] intValue]);
+    MainSectionModel *model = self.dataSource[indexPath.section];
+    MainSectionModel *model2 = model.subSections[indexPath.row];
+    
+    model2.isAttentioned = !model2.isAttentioned;
     [collectionView reloadItemsAtIndexPaths:@[indexPath]];
     
 }
+
+#pragma mark --请求
+//请求全部版块数据
+-(void)requestListAllSection
+{
+    [HttpRequest getWithURLString:ListAllSections parameters:nil success:^(id responseObject) {
+        
+        NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (listArr.count > 0) {
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObjectsFromArray:listArr];
+            [self setUI];
+        }
+        
+    } failure:nil];
+}
+
 
 @end

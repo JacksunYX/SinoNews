@@ -10,4 +10,11 @@
 
 @implementation MainSectionModel
 
++(NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"subSections" : [MainSectionModel class],
+             };
+}
+
 @end

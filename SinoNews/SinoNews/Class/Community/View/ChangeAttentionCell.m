@@ -92,6 +92,18 @@ NSString *const ChangeAttentionCellID = @"ChangeAttentionCellID";
     }
 }
 
+-(void)setModel:(MainSectionModel *)model
+{
+    _model = model;
+    [logo sd_setImageWithURL:UrlWithStr(GetSaveString(model.icon))];
+    name.text = GetSaveString(model.name);
+    if (model.isAttentioned) {
+        selectedImage.hidden = NO;
+    }else{
+        selectedImage.hidden = YES;
+    }
+}
+
 
 
 

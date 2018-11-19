@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChangeAttentionCell : UICollectionViewCell
 
+@property (nonatomic,strong) MainSectionModel *model;
 -(void)setData:(NSDictionary *)model;
 
 @end

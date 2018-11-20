@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)addANew:(MainSectionModel *)section;
 //新增多个本地关注版块
 +(void)addMutilNews:(NSArray <MainSectionModel*>*)sections;
+//移除某个版块
++(void)remove:(MainSectionModel *)section;
 //清除所有本地关注版块
 +(void)removeAllSections;
 

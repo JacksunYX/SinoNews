@@ -175,8 +175,8 @@
 -(void)finishSelect
 {
     //先清除
-    [MainSectionModel removeAllSections];
-    //再添加
+//    [MainSectionModel removeAllSections];
+    //再添加(这里相当于直接覆盖了，所以不需要清除)
     if (self.selectSection.count>0) {
         [MainSectionModel addMutilNews:self.selectSection];
     }

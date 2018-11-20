@@ -39,6 +39,10 @@
 //新的推送信息来了(用于消息界面更新小红点)
 #define NewMessagePush          @"NewMessagePush"
 
-
+//本地保存的关注版块数组变化时(0->非零，非零->0)的通知
+//0->非零
+#define SectionsIncreaseNotify @"SectionsIncreaseNotify"
+//非零->0
+#define SectionsReduceNotify @"SectionsReduceNotify"
 
 #endif /* NotifyList_h */

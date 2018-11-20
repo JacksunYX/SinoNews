@@ -20,6 +20,7 @@
 @property (nonatomic,strong) UIView *footView;
 @property (nonatomic,strong) MLMSegmentHead *segHead;
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
+@property (nonatomic,assign) NSInteger sortOrder;
 @end
 
 @implementation ForumDetailViewController
@@ -197,13 +198,14 @@
 //排序点击
 -(void)sortClick:(UIButton *)sender
 {
-
     UIAlertController *popVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *sortByReplyTime = [UIAlertAction actionWithTitle:@"按回复时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         sender.selected = NO;
+        self.sortOrder = 0;
     }];
     UIAlertAction *sortByPostTime = [UIAlertAction actionWithTitle:@"按发帖时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         sender.selected = YES;
+        self.sortOrder = 1;
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [popVC addAction:sortByReplyTime];
@@ -317,6 +319,20 @@
 -(void)requestListTopPostForSection
 {
     [HttpRequest getWithURLString:ListTopPostForSection parameters:@{@"sectionId":@(_sectionId)} success:^(id responseObject) {
+        
+    } failure:nil];
+}
+
+//版块帖子列表(0刷新，1加载)
+-(void)requestListPostForSection:(NSInteger)refreshType
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"sectionId"] = @(_sectionId);
+    parameters[@"sortOrder"] = @(0);
+    parameters[@"loadType"] = @(refreshType);
+    parameters[@"loadTime"] = @(1);
+    
+    [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
         
     } failure:nil];
 }

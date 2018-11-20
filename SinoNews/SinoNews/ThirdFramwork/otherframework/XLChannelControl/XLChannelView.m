@@ -145,20 +145,20 @@ static CGFloat CellMarginY = 20.0f;
 //获取被拖动IndexPath的方法
 -(NSIndexPath*)getDragingIndexPathWithPoint:(CGPoint)point{
     NSIndexPath* dragIndexPath = nil;
-    //最后剩一个怎不可以排序
+    //最后剩一个不可以排序
     if ([_collectionView numberOfItemsInSection:0] == 1) {return dragIndexPath;}
     for (NSIndexPath *indexPath in _collectionView.indexPathsForVisibleItems) {
         //下半部分不需要排序
         if (indexPath.section > 0) {continue;}
         //在上半部分中找出相对应的Item
         if (CGRectContainsPoint([_collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
-            if (indexPath.row != 0) {
-                dragIndexPath = indexPath;
-            }
-//            XLChannelModel *model = _inUseTitles[indexPath.row];
-//            if (model.status != 2) {
+//            if (indexPath.row != 0) {
 //                dragIndexPath = indexPath;
 //            }
+            XLChannelModel *model = _inUseTitles[indexPath.row];
+            if (model.status != 2) {
+                dragIndexPath = indexPath;
+            }
             break;
         }
     }
@@ -175,7 +175,11 @@ static CGFloat CellMarginY = 20.0f;
         if (indexPath.section > 0) {continue;}
         //在第一组中找出将被替换位置的Item
         if (CGRectContainsPoint([_collectionView cellForItemAtIndexPath:indexPath].frame, point)) {
-            if (indexPath.row != 0) {
+//            if (indexPath.row != 0) {
+//                targetIndexPath = indexPath;
+//            }
+            XLChannelModel *model = _inUseTitles[indexPath.row];
+            if (model.status != 2) {
                 targetIndexPath = indexPath;
             }
         }

@@ -76,7 +76,7 @@
     
     if (self.type == 2) {
         //发送搜索请求
-        
+        [self requestWithKeyword];
         return;
     }
     @weakify(self);
@@ -266,6 +266,15 @@
     } RefreshAction:nil];
 }
 
-
+//查询作者列表
+-(void)requestWithKeyword
+{
+    [HttpRequest postWithURLString:ListUserForSearch parameters:@{@"keyword":GetSaveString(self.keyword)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        self.dataSource = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self.tableView endAllRefresh];
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:nil];
+    
+}
 
 @end

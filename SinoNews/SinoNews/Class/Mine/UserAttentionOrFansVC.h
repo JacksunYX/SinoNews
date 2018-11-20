@@ -15,4 +15,6 @@
 //0关注、1粉丝、2搜索作者
 @property (nonatomic,assign) NSInteger type;
 
+@property (nonatomic,strong) NSString *keyword;
+
 @end

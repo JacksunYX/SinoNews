@@ -351,9 +351,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView == _rightTable) {
-        if (arc4random()%2) {
-            return 135;
-        }
+//        if (arc4random()%2) {
+//            return 135;
+//        }
         return 0.01;
     }
     return 0.01;
@@ -374,7 +374,7 @@
 {
     UIView *head;
     if (tableView == _rightTable&&self.dataSource.count>0) {
-        head = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 135)];
+        head = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 0)];
         UIImageView *ADImage = [UIImageView new];
         [head addSubview:ADImage];
         ADImage.sd_layout
@@ -450,6 +450,7 @@
         
         ForumDetailViewController *fdVC = [ForumDetailViewController new];
         fdVC.navigationItem.title = GetSaveString(model2.name);
+        fdVC.sectionId = model2.sectionId;
         [self.navigationController pushViewController:fdVC animated:YES];
     }
 }
@@ -499,13 +500,7 @@
 -(void)requestPost_autoComplete:(NSString *)keyword vc:(PYSearchViewController *)searchVC
 {
     [HttpRequest getWithURLString:Post_autoComplete parameters:@{@"keyword":keyword} success:^(id responseObject) {
-        searchVC.searchSuggestions = @[
-                                       @"测试1",
-                                       @"测试2",
-                                       @"测试3",
-                                       @"测试4",
-                                       @"测试5",
-                                       ];
+        searchVC.searchSuggestions = responseObject[@"data"];
     } failure:nil];
     
 }

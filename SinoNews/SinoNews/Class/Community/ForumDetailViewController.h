@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ForumDetailViewController : BaseViewController
-
+@property (nonatomic,assign) NSInteger sectionId;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -10,12 +10,18 @@
 
 #import "ThePostListTableViewCell.h"
 
+#import "PostListSearchModel.h"
+
 @interface ThePostListViewController ()<UITableViewDelegate,UITableViewDataSource,TFDropDownMenuViewDelegate>
 @property (nonatomic,strong) TFDropDownMenuView *menu;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+//相关版块数组
+@property (nonatomic,strong) NSArray *sectionsArr;
 
-@property (nonatomic,assign) NSInteger page;
+@property (nonatomic,assign) NSInteger page;//当前页码
+@property (nonatomic,assign) NSInteger sortOrder;//排序方式
+@property (nonatomic,assign) NSInteger sectionId;//所选版块
 @end
 
 @implementation ThePostListViewController
@@ -30,8 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
-    [self requestReason:self.keyword];
-    [self setUI];
+    [self requestListBySectionForSearch];
 }
 
 -(void)setUI
@@ -58,32 +63,25 @@
     ;
     [_tableView updateLayout];
     [_tableView registerClass:[ThePostListTableViewCell class] forCellReuseIdentifier:ThePostListTableViewCellID];
-    
+    self.page = 1;
     @weakify(self);
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
-        if (self.dataSource.count>0) {
-            self.page ++;
-        }
-        [self requestReason:self.keyword];
+        [self requestListPostForSearch];
     }];
+    [self requestListPostForSearch];
 }
 
 //设置下拉菜单
 -(void)setUpMenu
 {
-    NSMutableArray *array1 = @[
-                               @"所有版块",
-                               @"招商银行",
-                               @"民生银行",
-                               @"国内信用卡",
-                               @"工商银行",
-                               @"工浦发银行",
-                               @"机场贵宾服务",
-                               @"万豪礼赏",
-                               @"二手市集",
-                               @"spg俱乐部",
-                               ].mutableCopy;
+    NSMutableArray *array1 = [NSMutableArray new];
+    NSMutableArray *detail1 = [NSMutableArray new];
+    for (int i = 0; i < self.sectionsArr.count; i ++) {
+        SearchSectionsModel *sectionModel = self.sectionsArr[i];
+        [array1 addObject:sectionModel.sectionName];
+        [detail1 addObject:@(sectionModel.count)];
+    }
     NSMutableArray *array2 = @[
                                @"最新发帖",
                                @"回帖最多",
@@ -104,18 +102,6 @@
     self.menu.cellTitleFontSize = 15;
     [self.view addSubview:self.menu];
     //副标题
-    NSMutableArray *detail1 = @[
-                                @"12",
-                                @"15",
-                                @"33",
-                                @"12",
-                                @"55",
-                                @"34",
-                                @"18",
-                                @"62",
-                                @"33",
-                                @"99",
-                                ].mutableCopy;
     NSMutableArray *detail2 = @[].mutableCopy;
     self.menu.firstRightArray = @[detail1, detail2].mutableCopy;
     self.menu.menuStyleArray = @[
@@ -136,24 +122,31 @@
 }
 //点击了第几行cell
 - (void)menuView:(TFDropDownMenuView *)menu selectIndex:(TFIndexPatch *)index {
-    GGLog(@"index: %ld", (long)index.section);
+    GGLog(@"点击了第%ld个的第%ld个cell",index.column,index.section);
+    if (index.column==0) {
+        SearchSectionsModel *searchModel = self.sectionsArr[index.section];
+        self.sectionId = searchModel.sectionId;
+    }else{
+        //记得重置页数
+        self.page = 1;
+        [self.dataSource removeAllObjects];
+        [self.tableView reloadData];
+        self.sortOrder = index.section;
+    }
+    [self requestListPostForSearch];
 }
 
 #pragma mark --- UITableViewDataSource ---
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ThePostListTableViewCell *cell = (ThePostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostListTableViewCellID];
-    [cell setData:@{}];
+    SeniorPostDataModel *model = self.dataSource[indexPath.row];
+    cell.model = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -174,17 +167,44 @@
 }
 
 #pragma mark --- 请求
-//搜索结果
--(void)requestReason:(NSString *)keyword
+//关键字搜索版块帖子数量(版块名 ，数量)
+-(void)requestListBySectionForSearch
+{
+    [HttpRequest getWithURLString:ListBySectionForSearch parameters:@{@"keyword":GetSaveString(_keyword)} success:^(id responseObject) {
+        GGLog(@"版块及相关帖子数量请求完毕");
+        self.sectionsArr = [SearchSectionsModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [self setUpMenu];
+        [self setUI];
+    } failure:nil];
+}
+
+//搜索帖子列表(版块id、排序方式)
+-(void)requestListPostForSearch
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"keyword"] = GetSaveString(keyword);
-    parameters[@"page"] = @(self.page);
-    [HttpRequest getWithURLString:Post_autoComplete parameters:@{@"keyword":keyword} success:^(id responseObject) {
-        [self.tableView.mj_footer endRefreshing];
+    parameters[@"page"] = @(_page);
+    if (_sectionId!=0) {
+        parameters[@"sectionId"] = @(_sectionId);
+    }
+    parameters[@"sortOrder"] = @(_sortOrder);
+    parameters[@"keyword"] = GetSaveString(_keyword);
+    
+    [HttpRequest getWithURLString:ListPostForSearch parameters:parameters success:^(id responseObject) {
+        
+        NSArray *data = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (data.count>0) {
+            self.page ++;
+            [self.dataSource addObjectsFromArray:data];
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         [self.tableView.mj_footer endRefreshing];
     }];
 }
+
+
 
 @end

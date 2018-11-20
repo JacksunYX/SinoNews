@@ -12,6 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReadPostChildViewController : BaseViewController
+//默认不是用户关注版块的帖子
+@property (nonatomic,assign) BOOL isAttentionPost;
 
 @end
 

@@ -18,4 +18,11 @@
     return self;
 }
 
++(NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{
+             @"author" : @"username",
+             };
+}
+
 @end

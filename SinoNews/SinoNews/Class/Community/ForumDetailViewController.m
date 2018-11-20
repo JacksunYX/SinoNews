@@ -67,6 +67,8 @@
     [self addNavigationView];
     
     [self setUI];
+    
+    [self requestListTopPostForSection];
 }
 
 //修改导航栏显示
@@ -307,6 +309,16 @@
 -(void)didSelectedIndex:(NSInteger)index
 {
     GGLog(@"下标:%ld",index);
+}
+
+
+#pragma mark --- 请求
+//获取版块公告
+-(void)requestListTopPostForSection
+{
+    [HttpRequest getWithURLString:ListTopPostForSection parameters:@{@"sectionId":@(_sectionId)} success:^(id responseObject) {
+        
+    } failure:nil];
 }
 
 @end

@@ -18,5 +18,15 @@
 #define ListAllSections @"/api/forum/section/listAllSections"
 //搜索关键字补全(get)
 #define Post_autoComplete  @"/api/post/autoComplete"
+//关键字搜索版块及帖子数量(get)
+#define ListBySectionForSearch @"/api/post/listBySectionForSearch"
+//根据关键字、版块、排序搜索帖子列表(get)
+#define ListPostForSearch @"/api/post/listPostForSearch"
+
+
+//版块公告和置顶(get)
+#define ListTopPostForSection @"/api/post/listTopPostForSection"
+//用户关注版块的帖子列表(get)
+#define ListUserAttenPost @"/api/post/listUserAttenPost"
 
 #endif /* CommunityNet_h */

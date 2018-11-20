@@ -51,6 +51,15 @@ NS_ASSUME_NONNULL_BEGIN
 //投票选项数组
 @property (nonatomic,strong) NSMutableArray <VoteChooseInputModel *> *voteSelects;
 
+//新增接口对接属性
+@property (nonatomic,assign) NSInteger commentCount;
+@property (nonatomic,strong) NSString *createStamp;
+@property (nonatomic,strong) NSMutableArray *images;
+@property (nonatomic,assign) NSInteger postId;
+@property (nonatomic,assign) NSInteger postType;
+@property (nonatomic,assign) NSInteger sectionId;
+@property (nonatomic,strong) NSString *tags;
+@property (nonatomic,assign) NSInteger viewCount;
 
 @end
 

@@ -625,6 +625,7 @@
 		4C99300D217717710092DDCF /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C993006217717710092DDCF /* jquery.js */; };
 		4C99300E217717710092DDCF /* richText_editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 4C993007217717710092DDCF /* richText_editor.html */; };
 		4C993011217717F30092DDCF /* WGRichTextEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C993010217717F30092DDCF /* WGRichTextEditorVC.m */; };
+		4C99494121A3A0F2007EAD19 /* PostListSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C99494021A3A0F2007EAD19 /* PostListSearchModel.m */; };
 		4C9D7ABB211BCE3C00EDCDBC /* NewSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */; };
 		4C9D7ABD211BD7BC00EDCDBC /* tabbarClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D7ABC211BD7BC00EDCDBC /* tabbarClick.mp3 */; };
 		4CA141EC20F43DEE00536E77 /* RequestGather.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA141EB20F43DEE00536E77 /* RequestGather.m */; };
@@ -1998,6 +1999,8 @@
 		4C993007217717710092DDCF /* richText_editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = richText_editor.html; sourceTree = "<group>"; };
 		4C99300F217717F30092DDCF /* WGRichTextEditorVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WGRichTextEditorVC.h; sourceTree = "<group>"; };
 		4C993010217717F30092DDCF /* WGRichTextEditorVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WGRichTextEditorVC.m; sourceTree = "<group>"; };
+		4C99493F21A3A0F2007EAD19 /* PostListSearchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostListSearchModel.h; sourceTree = "<group>"; };
+		4C99494021A3A0F2007EAD19 /* PostListSearchModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostListSearchModel.m; sourceTree = "<group>"; };
 		4C9D7AB9211BCE3C00EDCDBC /* NewSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSettingViewController.h; sourceTree = "<group>"; };
 		4C9D7ABA211BCE3C00EDCDBC /* NewSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSettingViewController.m; sourceTree = "<group>"; };
 		4C9D7ABC211BD7BC00EDCDBC /* tabbarClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tabbarClick.mp3; sourceTree = "<group>"; };
@@ -4797,6 +4800,8 @@
 				4CD157CB21991CB700178FBF /* SeniorPostingAddElementModel.m */,
 				4C8D5C3E219AC986008C13A9 /* SeniorPostDataModel.h */,
 				4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */,
+				4C99493F21A3A0F2007EAD19 /* PostListSearchModel.h */,
+				4C99494021A3A0F2007EAD19 /* PostListSearchModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5974,6 +5979,7 @@
 				4C6E918F213F5F07001535CA /* NSBundle+YYAdd.m in Sources */,
 				4C44E3882122BE8D00C5D10A /* NewPublishModel.m in Sources */,
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
+				4C99494121A3A0F2007EAD19 /* PostListSearchModel.m in Sources */,
 				4C992FE6217717680092DDCF /* HXCustomButton.m in Sources */,
 				4C7234DE20FDEB1D00D5C5D4 /* AAPlotLinesElement.m in Sources */,
 				4C9D7ABB211BCE3C00EDCDBC /* NewSettingViewController.m in Sources */,

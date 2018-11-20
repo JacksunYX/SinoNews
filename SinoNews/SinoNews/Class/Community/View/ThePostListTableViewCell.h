@@ -14,6 +14,7 @@ extern NSString * _Nullable const ThePostListTableViewCellID;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ThePostListTableViewCell : UITableViewCell
+@property (nonatomic,strong) SeniorPostDataModel *model;
 -(void)setData:(NSDictionary *)model;
 @end
 

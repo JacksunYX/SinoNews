@@ -78,7 +78,8 @@
     tplVC.keyword = self.keyword;
 //    TheAuthorListViewController *talVC = [TheAuthorListViewController new];
     UserAttentionOrFansVC *uaofVC = [UserAttentionOrFansVC new];
-    uaofVC.type = 1;
+    uaofVC.keyword = self.keyword;
+    uaofVC.type = 2;
     uaofVC.userId = [UserModel getLocalUserModel].userId;
     [_vcArr addObject:tplVC];
     [_vcArr addObject:uaofVC];
@@ -95,5 +96,7 @@
         [tplVC hiddenMenu];
     }
 }
+
+
 
 @end

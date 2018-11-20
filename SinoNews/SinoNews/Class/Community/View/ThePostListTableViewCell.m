@@ -74,7 +74,7 @@ NSString * _Nullable const ThePostListTableViewCellID = @"ThePostListTableViewCe
     
     bottomLabel.sd_layout
     .leftEqualToView(title)
-    .rightEqualToView(title)
+    .rightSpaceToView(fatherView, 50)
     .topSpaceToView(title, 15)
     .heightIs(14)
     ;
@@ -94,6 +94,28 @@ NSString * _Nullable const ThePostListTableViewCellID = @"ThePostListTableViewCe
     title.text = @"你们summer rate的snp都到了么";
     bottomLabel.text = @"IHG优悦会  09-12";
     readNum.text = @"4评论";
+}
+
+-(void)setModel:(SeniorPostDataModel *)model
+{
+    _model = model;
+    NSString *titletext = GetSaveString(model.postTitle);
+    //判断是否包含标签文字
+    if ([titletext containsString:@"<font"]) {
+        //记录一下最开始的字体
+        UIFont *font = title.font;
+        //解析
+        title.attributedText = [NSString analysisHtmlString:titletext];
+        //⚠️字体需要在这里重新设置才行，不然会变小
+        title.font = font;
+        
+    }else{
+        title.text = titletext;
+    }
+    [title updateLayout];
+    
+    bottomLabel.text = [NSString stringWithFormat:@"%@  %@",GetSaveString(model.author),GetSaveString(model.createTime)];
+    readNum.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
 }
 
 @end

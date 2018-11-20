@@ -53,13 +53,28 @@
     //监听本地关注版块变化
     //0->非零
     [kNotificationCenter addObserverForName:SectionsIncreaseNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-        
+        [self resetSectionSeg:YES];
     }];
     ////非零->0
     [kNotificationCenter addObserverForName:SectionsReduceNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-        
+        [self resetSectionSeg:NO];
     }];
     
+}
+
+//根据全局保存的本地关注数组长度来重新设置segment界面显示
+-(void)resetSectionSeg:(BOOL)increase
+{
+    if (increase) {
+        SearchSectionsModel *sectionModel = [SearchSectionsModel new];
+        sectionModel.sectionName = @"关注";
+        [self.sectionsList addObject:sectionModel];
+        [self.titlesList insertObject:@"关注" atIndex:0];
+    }else{
+        [self.sectionsList removeObjectAtIndex:0];
+        [self.titlesList removeObjectAtIndex:0];
+    }
+    [self reloadChildVCWithTitles:self.titlesList];
 }
 
 //修改导航栏显示

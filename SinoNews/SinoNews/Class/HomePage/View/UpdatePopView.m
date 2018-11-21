@@ -41,17 +41,51 @@ static int tag = 15532;
     UIImageView *centerView = [UIImageView new];
     centerView.alpha = 0;
     centerView.userInteractionEnabled = YES;
-
-    [backView addSubview:centerView];
+    centerView.backgroundColor = WhiteColor;
+    
+    UIImageView *topImg = [UIImageView new];
+    
+    UIButton *cancelBtn = [UIButton new];
+    //    [cancelBtn setNormalTitleColor:HexColor(#727A81)];
+    //    [cancelBtn setBtnFont:PFFontL(17)];
+    
+    [backView sd_addSubviews:@[
+                               centerView,
+                               topImg,
+                               cancelBtn,
+                               ]];
     
     centerView.sd_layout
     .centerXEqualToView(backView)
     .centerYEqualToView(backView)
-    .widthIs(292)
-    .heightIs(342)
+    .widthIs(300)
+    .heightIs(320)
     ;
+    centerView.sd_cornerRadius = @7;
     [centerView updateLayout];
-    centerView.image = UIImageNamed(@"update_popBackView");
+    
+    topImg.sd_layout
+    .bottomSpaceToView(centerView, -50)
+    .centerXEqualToView(centerView)
+    .widthIs(128)
+    .heightIs(95)
+    ;
+    topImg.image = UIImageNamed(@"updateNew_logo");
+    
+    cancelBtn.sd_layout
+    //    .leftEqualToView(centerView)
+    //    .bottomEqualToView(centerView)
+    //    .widthRatioToView(centerView, 0.5)
+    //    .heightIs(50)
+    .bottomSpaceToView(centerView, 11)
+    .rightEqualToView(centerView)
+    .widthIs(24)
+    .heightEqualToWidth()
+    ;
+    //    [cancelBtn setNormalTitle:@"以后再说"];
+    [cancelBtn setNormalImage:UIImageNamed(@"updateNew_close")];
+    
+//    centerView.image = UIImageNamed(@"update_popBackView");
     
     //出现动画
     [UIView animateWithDuration:anumationTime animations:^{
@@ -60,17 +94,17 @@ static int tag = 15532;
     }];
     
     UILabel *title = [UILabel new];
-    title.font = PFFontR(22);
-    title.textColor = HexColor(#3C3C3C);
+    title.font = PFFontR(18);
+    title.textColor = HexColor(#161A24);
     title.isAttributedContent = YES;
     
-    UIButton *cancelBtn = [UIButton new];
-    [cancelBtn setNormalTitleColor:HexColor(#727A81)];
-    [cancelBtn setBtnFont:PFFontL(17)];
+    UILabel *subTitle = [UILabel new];
+    subTitle.font = PFFontL(13);
+    subTitle.textColor = HexColor(#508EE0);
     
     UIButton *updateBtn = [UIButton new];
     [updateBtn setNormalTitleColor:HexColor(#FFFFFF)];
-    [updateBtn setBtnFont:PFFontL(17)];
+    [updateBtn setBtnFont:PFFontL(16)];
     [updateBtn setBackgroundColor:HexColor(#1786F2)];
     
     UITextView *descript = [UITextView new];
@@ -79,30 +113,51 @@ static int tag = 15532;
     
     [centerView sd_addSubviews:@[
                                  title,
-                                 cancelBtn,
+                                 subTitle,
                                  updateBtn,
                                  descript,
                                  ]];
+    
     title.sd_layout
-    .topSpaceToView(centerView, 134)
+//    .topSpaceToView(centerView, 134)
+    .topSpaceToView(centerView, 60)
     .centerXEqualToView(centerView)
-    .heightIs(22)
+    .heightIs(20)
     ;
-    [title setSingleLineAutoResizeWithMaxWidth:272];
+    [title setSingleLineAutoResizeWithMaxWidth:250];
+    title.text = [NSString stringWithFormat:@"V%@新版升级",data[@"versionName"]];
+    
+    subTitle.sd_layout
+    .centerXEqualToView(centerView)
+    .topSpaceToView(title, 16)
+    .heightIs(14)
+    ;
+    [subTitle setSingleLineAutoResizeWithMaxWidth:250];
+    subTitle.text = @"99%的启世录已更新，就等您哟";
+    
+    /*
     NSString *str1 = @"发现新版本 ";
     NSMutableAttributedString *titleAtt = [NSString leadString:str1 tailString:[NSString stringWithFormat:@"V%@",data[@"versionName"]] font:PFFontR(13) color:HexColor(#889199) lineBreak:NO];
 
     title.attributedText = titleAtt;
+     */
     
-    cancelBtn.sd_layout
-    .leftEqualToView(centerView)
-    .bottomEqualToView(centerView)
-    .widthRatioToView(centerView, 0.5)
-    .heightIs(50)
+    updateBtn.sd_layout
+    .centerXEqualToView(centerView)
+    .bottomSpaceToView(centerView, 20)
+    .widthIs(200)
+    .heightIs(44)
     ;
-    [cancelBtn setNormalTitle:@"以后再说"];
+    [updateBtn updateLayout];
+    updateBtn.sd_cornerRadius = @22;
     
     NSInteger type = [data[@"type"] integerValue];
+    if (type) {
+        cancelBtn.hidden = YES;
+    }else{
+        cancelBtn.hidden = NO;
+    }
+    /*
     if (type == 1) {
         updateBtn.sd_layout
         .rightEqualToView(centerView)
@@ -122,18 +177,19 @@ static int tag = 15532;
         [updateBtn updateLayout];
         [updateBtn cornerWithRadius:9 direction:CornerDirectionTypeRight];
     }
-    [updateBtn setNormalTitle:@"立即升级"];
+     */
+    [updateBtn setNormalTitle:@"立即更新"];
     
     descript.sd_layout
-    .topSpaceToView(title, 10)
+    .topSpaceToView(subTitle, 10)
     .leftSpaceToView(centerView, 15)
-    .rightSpaceToView(centerView, 0)
-    .bottomSpaceToView(centerView, 50)
+    .rightSpaceToView(centerView, 15)
+    .bottomSpaceToView(updateBtn, 10)
     ;
     descript.attributedText = [NSString analysisHtmlString:data[@"description"]];
     //属性设置必须放在后面，不然无效
-    descript.font = PFFontL(13);
-    descript.textColor = HexColor(#7B838A);
+    descript.font = PFFontL(15);
+    descript.textColor = HexColor(#161A24);
     
     //点击移除手势
     @weakify(backView)

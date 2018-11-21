@@ -153,6 +153,13 @@ static NSString *KCCADisplayLinkBlockKey = @"KCCADisplayLinkBlockKey";
     self.label.font = font;
 }
 
+-(void)setTextColor:(UIColor *)textColor
+{
+    _textColor = textColor;
+    
+    self.label.textColor = textColor;
+}
+
 - (void)setTextAlignment:(NSTextAlignment)textAlignment
 {
     _textAlignment = textAlignment;

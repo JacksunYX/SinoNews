@@ -46,5 +46,6 @@
 #import "UICopyLabel.h" //可复制的label
 #import "YXTextView.h"
 #import "YXLabel.h"
+#import "UIView+AddGradientRamp.h"
 
 #endif /* ToolsHeader_h */

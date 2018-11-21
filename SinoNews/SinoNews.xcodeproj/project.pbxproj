@@ -249,6 +249,7 @@
 		4C646C6B20F343E30053067A /* OfficialNotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C646C6A20F343E30053067A /* OfficialNotifyViewController.m */; };
 		4C646C6E20F346630053067A /* OfficialNotifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C646C6D20F346630053067A /* OfficialNotifyCell.m */; };
 		4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */; };
+		4C6667DB21A4EB2100D63AF1 /* UIView+AddGradientRamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6667DA21A4EB2100D63AF1 /* UIView+AddGradientRamp.m */; };
 		4C681E342133AF98003E6746 /* tabbarClick2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C681E332133AF98003E6746 /* tabbarClick2.mp3 */; };
 		4C681E362133DF68003E6746 /* testJS.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C681E352133DF68003E6746 /* testJS.js */; };
 		4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4820EB04A700BA0534 /* SignInPopView.m */; };
@@ -1348,6 +1349,8 @@
 		4C646C6D20F346630053067A /* OfficialNotifyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfficialNotifyCell.m; sourceTree = "<group>"; };
 		4C646C6F20F34E0E0053067A /* OfficialNotifyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfficialNotifyModel.h; sourceTree = "<group>"; };
 		4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfficialNotifyModel.m; sourceTree = "<group>"; };
+		4C6667D921A4EB2100D63AF1 /* UIView+AddGradientRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AddGradientRamp.h"; sourceTree = "<group>"; };
+		4C6667DA21A4EB2100D63AF1 /* UIView+AddGradientRamp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddGradientRamp.m"; sourceTree = "<group>"; };
 		4C681E332133AF98003E6746 /* tabbarClick2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tabbarClick2.mp3; sourceTree = "<group>"; };
 		4C681E352133DF68003E6746 /* testJS.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = testJS.js; sourceTree = "<group>"; };
 		4C6B4E4720EB04A700BA0534 /* SignInPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInPopView.h; sourceTree = "<group>"; };
@@ -3210,6 +3213,8 @@
 				4C51FFD420D2758A0018387B /* UIView+GFBorder.m */,
 				4C51FFD620D2758A0018387B /* UIView+GFCorner.h */,
 				4C51FFD720D2758A0018387B /* UIView+GFCorner.m */,
+				4C6667D921A4EB2100D63AF1 /* UIView+AddGradientRamp.h */,
+				4C6667DA21A4EB2100D63AF1 /* UIView+AddGradientRamp.m */,
 				4C72346120FC6E8900D5C5D4 /* MyEmptyView.h */,
 				4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */,
 			);
@@ -5619,6 +5624,7 @@
 				4CE121CF20C00A6400A44782 /* RankListViewController.m in Sources */,
 				4CF811D9219AB6A00001DE52 /* DirectoryTableViewCell.m in Sources */,
 				4C4E49622111B43D0078864D /* ExchangePopView.m in Sources */,
+				4C6667DB21A4EB2100D63AF1 /* UIView+AddGradientRamp.m in Sources */,
 				4CAD57662194225000BD77E0 /* WTConst.m in Sources */,
 				4C7234D820FDEB1D00D5C5D4 /* AALine.m in Sources */,
 				4C6E9158213F5F07001535CA /* YYDiskCache.m in Sources */,

@@ -20,6 +20,8 @@ typedef NS_ENUM(NSInteger, KCGradientLabelGradientDirection) {
 
 @property(nonatomic,strong) UIFont *font;
 
+@property(nonatomic,strong) UIColor *textColor;
+
 @property(nonatomic) NSTextAlignment textAlignment;
 
 @property(nonatomic) NSInteger numberOfLines;

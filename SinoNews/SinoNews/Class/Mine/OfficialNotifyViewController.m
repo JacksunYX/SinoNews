@@ -87,11 +87,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
-}
-
 //添加tableview
 -(void)addTableView
 {
@@ -273,7 +268,10 @@
         [self.tableView reloadData];
         
         if (loadType||self.dataSource.count == data.count) {
-            [self scrollTableToFoot:YES];
+//            [self scrollTableToFoot:YES];
+            GCDAfterTime(0.5, ^{
+               [self.tableView scrollToBottom];
+            });
         }
         
     } failure:^(NSError *error) {

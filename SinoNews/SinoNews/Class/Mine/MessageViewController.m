@@ -12,9 +12,11 @@
 #import "MessageNotifyViewController.h"
 #import "NewNotifyViewController.h"
 #import "OfficialNotifyViewController.h"
+#import "NewMessageViewController.h"
 
 @interface MessageViewController ()
-
+@property (nonatomic, strong) MLMSegmentHead *segHead;
+@property (nonatomic, strong) MLMSegmentScroll *segScroll;
 @property (nonatomic,strong) NSMutableArray *tipsArr;
 
 @end
@@ -24,8 +26,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"消息";
-    [self showTopLine];
-    [self addTopViews];
+//    [self showTopLine];
+//    [self addTopViews];
+    [self reloadChildVCWithTitles:@[@"消息",@"站内信"]];
+}
+
+//设置下方分页联动
+-(void)reloadChildVCWithTitles:(NSArray *)titles
+{
+    
+    if (_segHead) {
+        [_segHead removeFromSuperview];
+    }
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 150, 44) titles:titles headStyle:1 layoutStyle:0];
+    //    _segHead.fontScale = .85;
+    _segHead.lineScale = 0.3;
+    _segHead.fontSize = 16;
+    _segHead.lineHeight = 1;
+    _segHead.lineColor = HexColor(#1282EE);
+    _segHead.selectColor = HexColor(#1282EE);
+    //    _segHead.deSelectColor = HexColor(#7B7B7B);
+    
+    _segHead.maxTitles = 2;
+    
+    _segHead.bottomLineHeight = 0;
+    
+    if (_segScroll) {
+        [_segScroll removeFromSuperview];
+    }
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getVCArr]];
+    _segScroll.addTiming = SegmentAddScale;
+    _segScroll.addScale = 0.3;
+    
+    WEAK(weakself, self);
+    [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
+        weakself.navigationItem.titleView = weakself.segHead;
+        [weakself.view addSubview:weakself.segScroll];
+    }];
+}
+
+- (NSArray *)getVCArr{
+    NSMutableArray *arr = [NSMutableArray array];
+    NewMessageViewController *nmVC = [NewMessageViewController new];
+    nmVC.tipsModel = self.tipsModel;
+    NewNotifyViewController *nnVC = [NewNotifyViewController new];
+    [arr addObjectsFromArray:@[
+                               nmVC,
+                               nnVC,
+                               ]];
+    return arr;
 }
 
 - (void)didReceiveMemoryWarning {

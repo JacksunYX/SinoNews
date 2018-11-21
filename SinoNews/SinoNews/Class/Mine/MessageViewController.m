@@ -54,14 +54,15 @@
     if (_segScroll) {
         [_segScroll removeFromSuperview];
     }
-    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getVCArr]];
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - BOTTOM_MARGIN) vcOrViews:[self getVCArr]];
     _segScroll.addTiming = SegmentAddScale;
     _segScroll.addScale = 0.3;
     
-    WEAK(weakself, self);
+    @weakify(self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
-        weakself.navigationItem.titleView = weakself.segHead;
-        [weakself.view addSubview:weakself.segScroll];
+        @strongify(self);
+        self.navigationItem.titleView = self.segHead;
+        [self.view addSubview:self.segScroll];
     }];
 }
 

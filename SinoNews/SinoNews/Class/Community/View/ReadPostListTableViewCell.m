@@ -129,7 +129,6 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightIs(16)
     ;
     [nickName setSingleLineAutoResizeWithMaxWidth:200];
-    nickName.text = @"春风十里";
     
     title.sd_layout
     .leftEqualToView(nickName)
@@ -137,7 +136,6 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .rightSpaceToView(fatherView, 10)
     .autoHeightRatio(0)
     ;
-    title.text = @"国家统计局公布的数据显示，初步核算，前三季 度国内生产总值650899亿元，按可比价格计算， 同比增长6.7%。";
     
     channel.sd_layout
     .centerYEqualToView(avatar)
@@ -172,16 +170,14 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .leftEqualToView(nickName)
     .heightIs(12)
     ;
-    [publishTime setSingleLineAutoResizeWithMaxWidth:50];
-    publishTime.text = @"1小时前";
+    [publishTime setSingleLineAutoResizeWithMaxWidth:150];
     
     comments.sd_layout
     .rightSpaceToView(fatherView, 10)
     .centerYEqualToView(publishTime)
     .heightIs(12)
     ;
-    [comments setSingleLineAutoResizeWithMaxWidth:50];
-    comments.text = @"30评论";
+    [comments setSingleLineAutoResizeWithMaxWidth:150];
 }
 
 //设置下半部分视图
@@ -261,6 +257,56 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
         childComment.text = @"";
         childCommentUser.text = @"";
     }
+}
+
+-(void)setModel:(SeniorPostDataModel *)model
+{
+    _model = model;
+    NSInteger type = 0;
+    if (model.images.count>0) {
+        if (model.images.count<=3){
+            type = model.images.count;
+        }
+    }
+    CGFloat imgW = (ScreenW - 30 - 44)/3;
+    CGFloat imgH = imgW*60/100;
+    CGFloat h = 0;
+    CGFloat h2 = 0;
+    
+    //一张图片
+    if (type==1) {
+        imgW = 234;
+        h = 97;
+    }else if (type==2||type==3) {
+        h = imgH;
+        h2 = imgH;
+    }
+    
+    leftImg.sd_layout
+    .widthIs(imgW)
+    .heightIs(h)
+    ;
+    centerImg.sd_layout
+    .heightIs(h2)
+    ;
+    rightImg.sd_layout
+    .heightIs(h2)
+    ;
+    if (type >= 1) {
+        [leftImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[0]))];
+    }
+    if (type >= 2){
+        [centerImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[1]))];
+    }
+    if (type >= 3){
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[2]))];
+    }
+    
+    title.text = GetSaveString(model.postTitle);
+    nickName.text = GetSaveString(model.author);
+    publishTime.text = GetSaveString(model.createTime);
+    comments.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
+    
 }
 
 @end

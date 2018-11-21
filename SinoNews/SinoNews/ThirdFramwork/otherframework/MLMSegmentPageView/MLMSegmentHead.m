@@ -344,6 +344,9 @@ static CGFloat animation_time = .3;
     [self createBtn:titlesArray addScroll:scroll startX:start_x start_index:0];
     
     if (titles && _headStyle != SegmentHeadStyleSlide) {
+        if (buttonArray.count<=0) {
+            return;
+        }
         UIButton *curBtn = buttonArray[_showIndex];
         if (_fontScale != 1) {
             curBtn.titleLabel.font = [UIFont systemFontOfSize:_fontSize*_fontScale];
@@ -400,7 +403,9 @@ static CGFloat animation_time = .3;
 #pragma mark - create Line
 - (UIView *)lineView {
     _lineScale = fabs(_lineScale)>1?1:fabs(_lineScale);
-    
+    if (titleWidthArray.count<=0) {
+        return nil;
+    }
     CGFloat line_w = CURRENT_WIDTH(currentIndex);
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, SCROLL_HEIGHT-_lineHeight, line_w*_lineScale, _lineHeight)];

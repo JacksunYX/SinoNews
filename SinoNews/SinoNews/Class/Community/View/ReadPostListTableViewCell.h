@@ -14,6 +14,7 @@ extern NSString * _Nullable const ReadPostListTableViewCellID;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReadPostListTableViewCell : UITableViewCell
+@property (nonatomic,strong) SeniorPostDataModel *model;
 -(void)setData:(NSDictionary *)model;
 @end
 

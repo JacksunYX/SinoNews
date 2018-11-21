@@ -268,9 +268,8 @@
         [self.tableView reloadData];
         
         if (loadType||self.dataSource.count == data.count) {
-//            [self scrollTableToFoot:YES];
             GCDAfterTime(0.5, ^{
-               [self.tableView scrollToBottom];
+               [self scrollTableToFoot:YES];
             });
         }
         

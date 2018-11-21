@@ -251,6 +251,7 @@
 		4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C646C7020F34E0E0053067A /* OfficialNotifyModel.m */; };
 		4C6667DB21A4EB2100D63AF1 /* UIView+AddGradientRamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6667DA21A4EB2100D63AF1 /* UIView+AddGradientRamp.m */; };
 		4C6667DE21A500B500D63AF1 /* NewMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6667DD21A500B500D63AF1 /* NewMessageViewController.m */; };
+		4C6667E121A53A8000D63AF1 /* SectionNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6667E021A53A8000D63AF1 /* SectionNoticeModel.m */; };
 		4C681E342133AF98003E6746 /* tabbarClick2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4C681E332133AF98003E6746 /* tabbarClick2.mp3 */; };
 		4C681E362133DF68003E6746 /* testJS.js in Resources */ = {isa = PBXBuildFile; fileRef = 4C681E352133DF68003E6746 /* testJS.js */; };
 		4C6B4E4920EB04A700BA0534 /* SignInPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B4E4820EB04A700BA0534 /* SignInPopView.m */; };
@@ -1354,6 +1355,8 @@
 		4C6667DA21A4EB2100D63AF1 /* UIView+AddGradientRamp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AddGradientRamp.m"; sourceTree = "<group>"; };
 		4C6667DC21A500B500D63AF1 /* NewMessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewMessageViewController.h; sourceTree = "<group>"; };
 		4C6667DD21A500B500D63AF1 /* NewMessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewMessageViewController.m; sourceTree = "<group>"; };
+		4C6667DF21A53A8000D63AF1 /* SectionNoticeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionNoticeModel.h; sourceTree = "<group>"; };
+		4C6667E021A53A8000D63AF1 /* SectionNoticeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionNoticeModel.m; sourceTree = "<group>"; };
 		4C681E332133AF98003E6746 /* tabbarClick2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tabbarClick2.mp3; sourceTree = "<group>"; };
 		4C681E352133DF68003E6746 /* testJS.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = testJS.js; sourceTree = "<group>"; };
 		4C6B4E4720EB04A700BA0534 /* SignInPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignInPopView.h; sourceTree = "<group>"; };
@@ -4812,6 +4815,8 @@
 				4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */,
 				4C99493F21A3A0F2007EAD19 /* PostListSearchModel.h */,
 				4C99494021A3A0F2007EAD19 /* PostListSearchModel.m */,
+				4C6667DF21A53A8000D63AF1 /* SectionNoticeModel.h */,
+				4C6667E021A53A8000D63AF1 /* SectionNoticeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5722,6 +5727,7 @@
 				4C3F902F20BD1CD6003EC4FC /* MLMSegmentScroll.m in Sources */,
 				4C6E9194213F5F07001535CA /* NSTimer+YYAdd.m in Sources */,
 				4C72348020FD8C6D00D5C5D4 /* UIView+PYSearchExtension.m in Sources */,
+				4C6667E121A53A8000D63AF1 /* SectionNoticeModel.m in Sources */,
 				4C23B3C620F592AB00ACE380 /* LMSegmentedControl.m in Sources */,
 				4C95FFE320DE20BC0040E348 /* PersonalDataViewController.m in Sources */,
 				4C8D5C3D219AC6EC008C13A9 /* PreviewViewController.m in Sources */,

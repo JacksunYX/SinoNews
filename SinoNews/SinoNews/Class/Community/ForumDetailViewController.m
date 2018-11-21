@@ -11,16 +11,23 @@
 #import "ForumDetailTableViewCell.h"
 #import "ReadPostListTableViewCell.h"
 
+#import "SectionNoticeModel.h"
+
 @interface ForumDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MLMSegmentHeadDelegate>
 @property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) BaseTableView *tableView;
+@property (nonatomic,strong) NSMutableArray *noticesArr;
+@property (nonatomic,strong) NSMutableArray *topsArr;
+@property (nonatomic,strong) NSMutableArray *sectionsArr;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+
 @property (nonatomic,assign) BOOL haveUnFold;   //是否已展开
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) UIView *footView;
 @property (nonatomic,strong) MLMSegmentHead *segHead;
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
 @property (nonatomic,assign) NSInteger sortOrder;
+@property (nonatomic,assign) NSInteger currentSectionId;
 @end
 
 @implementation ForumDetailViewController
@@ -89,7 +96,7 @@
 
 -(void)setUI
 {
-    _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.backgroundColor = WhiteColor;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -100,14 +107,27 @@
     self.tableView.sd_layout
     .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
     ;
-//    [self.tableView activateConstraints:^{
-//        self.tableView.top_attr = self.view.top_attr_safe;
-//        self.tableView.left_attr = self.view.left_attr_safe;
-//        self.tableView.right_attr = self.view.right_attr_safe;
-//        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-//    }];
+    [self.tableView updateLayout];
+
     [_tableView registerClass:[ForumDetailTableViewCell class] forCellReuseIdentifier:ForumDetailTableViewCellID];
     [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
+    @weakify(self);
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        [self requestListPostForSection:0];
+    }];
+    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        [self requestListPostForSection:1];
+    }];
 }
 
 -(void)addSegment
@@ -115,7 +135,12 @@
     if (_segHead) {
         return;
     }
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW - 80, 44) titles:@[@"全部",@"热门",@"好文",@"南方航空",@"求助问答",@"心得攻略",@"活动优惠",] headStyle:1 layoutStyle:2];
+    NSMutableArray *segTitles = [NSMutableArray new];
+    for (int i = 0; i<self.sectionsArr.count; i ++) {
+        MainSectionModel *sectionModel = self.sectionsArr[i];
+        [segTitles addObject:sectionModel.name];
+    }
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW - 80, 44) titles:segTitles headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.2;
     _segHead.fontSize = 16;
@@ -137,6 +162,7 @@
         [self.headView addSubview:self.segHead];
     }];
     
+    
     UIView *sepLine = [UIView new];
     //    sepLine.backgroundColor = kWhite(0.1);
     [self.headView addSubview:sepLine];
@@ -146,6 +172,7 @@
     .widthIs(1)
     .heightIs(20)
     ;
+    sepLine.hidden = YES;
     //添加阴影
     
     sepLine.layer.shadowColor = GrayColor.CGColor;
@@ -162,8 +189,8 @@
     .heightIs(20)
     .centerYEqualToView(self.headView)
     ;
-    [sortBtn setNormalTitle:@"按回复"];
-    [sortBtn setSelectedTitle:@"按发帖"];
+    [sortBtn setNormalTitle:@"按发帖"];
+    [sortBtn setSelectedTitle:@"按评论"];
     [sortBtn setNormalTitleColor:HexColor(#626262)];
     [sortBtn setSelectedTitleColor:HexColor(#626262)];
     [sortBtn setBtnFont:PFFontL(14)];
@@ -199,13 +226,17 @@
 -(void)sortClick:(UIButton *)sender
 {
     UIAlertController *popVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *sortByReplyTime = [UIAlertAction actionWithTitle:@"按回复时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sortByReplyTime = [UIAlertAction actionWithTitle:@"按发帖时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         sender.selected = NO;
         self.sortOrder = 0;
+        [self clearAndReloadTableView];
+        [self requestListPostForSection:0];
     }];
-    UIAlertAction *sortByPostTime = [UIAlertAction actionWithTitle:@"按发帖时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sortByPostTime = [UIAlertAction actionWithTitle:@"按评论最多" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         sender.selected = YES;
         self.sortOrder = 1;
+        [self clearAndReloadTableView];
+        [self requestListPostForSection:0];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [popVC addAction:sortByReplyTime];
@@ -214,21 +245,31 @@
     [self presentViewController:popVC animated:YES completion:nil];
 }
 
+//清除数据，刷新界面
+-(void)clearAndReloadTableView
+{
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0) {
+        return self.noticesArr.count;
+    }
     if (section == 1) {
-        return 10;
+        return self.topsArr.count;
     }
-    if (_haveUnFold) {
-        return 10;
+    if (section == 2) {
+        return self.dataSource.count;
     }
-    return 4;
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -238,28 +279,21 @@
         ForumDetailTableViewCell *cell0 = (ForumDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumDetailTableViewCellID];
         NSMutableDictionary *dic = [NSMutableDictionary new];
         dic[@"type"] = @(indexPath.row);
-        dic[@"label"] = @"置顶";
-        if (indexPath.row == 0) {
-            dic[@"label"] = @"公告";
-        }
+        dic[@"label"] = @"公告";
         [cell0 setData:dic];
         cell = cell0;
     }else if (indexPath.section == 1) {
-        ReadPostListTableViewCell *cell1 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+        ForumDetailTableViewCell *cell1 = (ForumDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumDetailTableViewCellID];
         NSMutableDictionary *dic = [NSMutableDictionary new];
-        dic[@"imgs"] = @"0";
-        if (indexPath.row == 0) {
-            dic[@"ShowChildComment"] = @(1);
-        }else if (indexPath.row == 1) {
-            dic[@"imgs"] = @"1";
-            dic[@"ShowChildComment"] = @(1);
-        }else if(indexPath.row == 2){
-            dic[@"imgs"] = @"3";
-            dic[@"ShowChildComment"] = @(1);
-        }
-        
+        dic[@"type"] = @(indexPath.row);
+        dic[@"label"] = @"置顶";
         [cell1 setData:dic];
         cell = cell1;
+    }else if (indexPath.section == 2) {
+        ReadPostListTableViewCell *cell2 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+        SeniorPostDataModel *model = self.dataSource[indexPath.row];
+        cell2.model = model;
+        cell = cell2;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -273,7 +307,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section==0) {
+    if (section==1&&self.topsArr.count>3) {
         return 40;
     }
     return 0.01;
@@ -281,7 +315,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
+    if (section == 2) {
         return 50;
     }
     return 0.01;
@@ -289,7 +323,7 @@
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 1&&self.topsArr.count>3) {
         UIView *view = self.footView;
         
         return view;
@@ -299,7 +333,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
+    if (section == 2&&self.sectionsArr.count>0) {
         UIView *view = self.headView;
         [self addSegment];
         return view;
@@ -310,7 +344,10 @@
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
-    GGLog(@"下标:%ld",index);
+    [self clearAndReloadTableView];
+    MainSectionModel *model = self.sectionsArr[index];
+    _currentSectionId = model.sectionId;
+    [self requestListPostForSection:0];
 }
 
 
@@ -319,7 +356,17 @@
 -(void)requestListTopPostForSection
 {
     [HttpRequest getWithURLString:ListTopPostForSection parameters:@{@"sectionId":@(_sectionId)} success:^(id responseObject) {
-        
+        NSDictionary *dic = responseObject[@"data"];
+        self.noticesArr = [SectionNoticeModel mj_objectArrayWithKeyValuesArray:dic[@"notices"]];
+        self.topsArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:dic[@"tops"]];
+        self.sectionsArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:dic[@"sections"]];
+        MainSectionModel *sectionModel = [MainSectionModel new];
+        sectionModel.name = @"全部";
+        sectionModel.sectionId = self.sectionId;
+        [self.sectionsArr insertObject:sectionModel atIndex:0];
+//        [self.tableView reloadData];
+        self.currentSectionId = self.sectionId;
+        [self requestListPostForSection:0];
     } failure:nil];
 }
 
@@ -327,14 +374,54 @@
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"sectionId"] = @(_sectionId);
-    parameters[@"sortOrder"] = @(0);
+    parameters[@"sectionId"] = @(_currentSectionId);
+    parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
-    parameters[@"loadTime"] = @(1);
+    parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
     
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
+        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (dataArr.count>0) {
+            if (refreshType) {
+                [self.dataSource addObjectsFromArray:dataArr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+                [self.tableView.mj_header endRefreshing];
+            }
+        }else{
+            if (refreshType) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }else{
+                [self.tableView.mj_header endRefreshing];
+            }
+        }
         
-    } failure:nil];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        if (refreshType) {
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_header endRefreshing];
+        }
+    }];
 }
+
+//获取loadtime
+-(NSString *)getLoadTime:(NSInteger)refreshType
+{
+    NSString *loadTime = @"";
+    if (self.dataSource.count>0) {
+        if (refreshType) {
+            SeniorPostDataModel *model = [self.dataSource lastObject];
+            loadTime = model.createStamp;
+        }else{
+            SeniorPostDataModel *model = [self.dataSource firstObject];
+            loadTime = model.createStamp;
+        }
+    }
+    return loadTime;
+}
+
 
 @end

@@ -436,6 +436,8 @@
             return;
         }
         self.leftSelectedIndex = indexPath.row;
+        [self.rightTable reloadData];
+        [self setBottomView];
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
         if (model.subSections.count<=0&&self.leftSelectedIndex!=0) {
             [self requestListSubSection:model];

@@ -586,9 +586,14 @@
         // 一级列表
         NSString *title = [self titleForColumn:_currentSelectColumn section:indexPath.row];
         NSString *detail = [self detailTextForColumn:_currentSelectColumn section:indexPath.row];
-        detail = AppendingString(@"（", detail);
-        detail = AppendingString(detail,@"）");
-        cell.titleLabel.text = AppendingString(title, detail);
+        if ([detail integerValue]>0) {
+            detail = AppendingString(@"（", detail);
+            detail = AppendingString(detail,@"）");
+            cell.titleLabel.text = AppendingString(title, detail);
+        }else{
+            cell.titleLabel.text = title;
+        }
+        
         // 选中上次选择的行
         NSInteger select = [NSString stringWithFormat:@"%@", _currentSelectSections[_currentSelectColumn]].integerValue;
         if (select == indexPath.row) {
@@ -851,7 +856,7 @@
     }
     NSInteger numberOfSection = [self numberOfSectionsInColumn:_currentSelectColumn];
     CGFloat tempHeight = numberOfSection * _cellHeight;
-    CGFloat heightForTableView = (tempHeight > _tableViewHeight) ? _tableViewHeight : tempHeight;
+    CGFloat heightForTableView = (_tableViewHeight > tempHeight) ? _tableViewHeight : tempHeight;
     if (haveItems) {
         switch (style) {
             case TFDropDownMenuStyleTableView: {
@@ -870,7 +875,7 @@
             }
             case TFDropDownMenuStyleCollectionView: {
                 tempHeight = ((numberOfSection+1)/2) * _cellHeight;
-                heightForTableView = (tempHeight > _tableViewHeight) ? _tableViewHeight : tempHeight;
+                heightForTableView = (_tableViewHeight > tempHeight) ? _tableViewHeight : tempHeight;
                 [self.rightCollectionView removeFromSuperview];
                 [self.leftTableView removeFromSuperview];
                 [self.rightTableView removeFromSuperview];
@@ -944,7 +949,7 @@
             }
             case TFDropDownMenuStyleCollectionView: {
                 tempHeight = ((numberOfSection+1)/2) * _cellHeight;
-                heightForTableView = (tempHeight > _tableViewHeight) ? _tableViewHeight : tempHeight;
+                heightForTableView = (_tableViewHeight > tempHeight) ? _tableViewHeight : tempHeight;
                 [self.rightCollectionView removeFromSuperview];
                 [self.leftTableView removeFromSuperview];
                 [self.rightTableView removeFromSuperview];

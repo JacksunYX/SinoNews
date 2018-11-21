@@ -21,7 +21,7 @@
 
 @property (nonatomic,assign) NSInteger page;//当前页码
 @property (nonatomic,assign) NSInteger sortOrder;//排序方式
-@property (nonatomic,assign) NSInteger sectionId;//所选版块
+//@property (nonatomic,assign) NSInteger sectionId;//所选版块
 @end
 
 @implementation ThePostListViewController
@@ -36,6 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
+    if (self.sectionId) {
+        SearchSectionsModel *sectionModel = [SearchSectionsModel new];
+        sectionModel.sectionId = self.sectionId;
+        sectionModel.sectionName = @"当前版块";
+        self.sectionsArr = @[sectionModel];
+        [self setUpMenu];
+        [self setUI];
+        return;
+    }
     [self requestListBySectionForSearch];
 }
 
@@ -96,8 +105,8 @@
     self.menu.separatorColor = WhiteColor;
     self.menu.itemTextSelectColor = HexColor(#1282ee);
     self.menu.cellTextSelectColor = HexColor(#1282ee);
-    self.menu.tableViewHeight = 170;
-    self.menu.cellHeight = 50;
+    self.menu.tableViewHeight = 150;
+    self.menu.cellHeight = 40;
     self.menu.itemFontSize = 15;
     self.menu.cellTitleFontSize = 15;
     [self.view addSubview:self.menu];
@@ -123,14 +132,14 @@
 //点击了第几行cell
 - (void)menuView:(TFDropDownMenuView *)menu selectIndex:(TFIndexPatch *)index {
     GGLog(@"点击了第%ld个的第%ld个cell",index.column,index.section);
+    //记得重置页数
+    self.page = 1;
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
     if (index.column==0) {
         SearchSectionsModel *searchModel = self.sectionsArr[index.section];
         self.sectionId = searchModel.sectionId;
     }else{
-        //记得重置页数
-        self.page = 1;
-        [self.dataSource removeAllObjects];
-        [self.tableView reloadData];
         self.sortOrder = index.section;
     }
     [self requestListPostForSearch];
@@ -188,9 +197,12 @@
     }
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"keyword"] = GetSaveString(_keyword);
+    if (_page==1) {
+        ShowHudOnly;
+    }
     
     [HttpRequest getWithURLString:ListPostForSearch parameters:parameters success:^(id responseObject) {
-        
+        HiddenHudOnly;
         NSArray *data = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (data.count>0) {
             self.page ++;
@@ -201,6 +213,7 @@
         }
         [self.tableView reloadData];
     } failure:^(NSError *error) {
+        HiddenHudOnly;
         [self.tableView.mj_footer endRefreshing];
     }];
 }

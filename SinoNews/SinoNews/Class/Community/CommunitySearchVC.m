@@ -76,6 +76,7 @@
     _vcArr = [NSMutableArray array];
     ThePostListViewController *tplVC = [ThePostListViewController new];
     tplVC.keyword = self.keyword;
+    tplVC.sectionId = self.sectionId;
 //    TheAuthorListViewController *talVC = [TheAuthorListViewController new];
     UserAttentionOrFansVC *uaofVC = [UserAttentionOrFansVC new];
     uaofVC.keyword = self.keyword;

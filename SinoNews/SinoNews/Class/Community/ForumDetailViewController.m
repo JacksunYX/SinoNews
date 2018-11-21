@@ -7,13 +7,14 @@
 //
 
 #import "ForumDetailViewController.h"
+#import "CommunitySearchVC.h"
 
 #import "ForumDetailTableViewCell.h"
 #import "ReadPostListTableViewCell.h"
 
 #import "SectionNoticeModel.h"
 
-@interface ForumDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MLMSegmentHeadDelegate>
+@interface ForumDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MLMSegmentHeadDelegate,PYSearchViewControllerDelegate>
 @property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *noticesArr;
@@ -74,8 +75,6 @@
     
     [self addNavigationView];
     
-    [self setUI];
-    
     [self requestListTopPostForSection];
 }
 
@@ -128,6 +127,7 @@
         }
         [self requestListPostForSection:1];
     }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)addSegment
@@ -200,7 +200,46 @@
 //搜索点击
 -(void)searchAction
 {
+    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"启世录快速通道" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        CommunitySearchVC *csVC = [CommunitySearchVC new];
+        csVC.keyword = searchText;
+        csVC.sectionId = self.sectionId;
+        searchViewController.searchResultController = csVC;
+    }];
+    sVC.delegate = self;
+    sVC.searchResultShowMode = PYSearchResultShowModeEmbed;
+    sVC.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
+    sVC.hotSearchStyle = PYHotSearchStyleRankTag;
+    sVC.searchHistoryTitle = @"历史搜索";
+    sVC.searchBarBackgroundColor = HexColor(#F3F5F4);
+    sVC.searchBarCornerRadius = 4;
+    [sVC.cancelButton setBtnFont:PFFontL(14)];
+    [sVC.cancelButton setNormalTitleColor:HexColor(#161A24)];
     
+    //修改搜索框
+    //取出输入框
+    UIView *searchTextField = nil;
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0) {
+        searchTextField = [sVC.searchBar valueForKey:@"_searchField"];
+    }else{
+        for (UIView *subView in sVC.searchBar.subviews) {
+            if ([subView isKindOfClass:NSClassFromString(@"UISearchBarTextField")]) {
+                searchTextField = subView;
+                break;
+            }
+        }
+    }
+    if (searchTextField) {
+        //备注文字颜色
+        [((UITextField *)searchTextField) setValue:HexColor(#939393) forKeyPath:@"_placeholderLabel.textColor"];
+    }
+    //修改输入框左边的搜索图标
+    [sVC.searchBar setImage:UIImageNamed(@"attention_search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
+    RTRootNavigationController *nav = [[RTRootNavigationController alloc] initWithRootViewController:sVC];
+    //不加不这句话，搜索关键字的table上面会空出一大块
+    sVC.navigationController.navigationBar.translucent = NO;
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 //关注点击
@@ -250,6 +289,14 @@
 {
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
+}
+
+#pragma mark -- PYSearchViewControllerDelegate
+-(void)searchViewController:(PYSearchViewController *)searchViewController searchTextDidChange:(UISearchBar *)searchBar searchText:(NSString *)searchText
+{
+    if (![NSString isEmpty:[searchText removeSpace]]) {
+        [self requestPost_autoComplete:searchText vc:searchViewController];
+    }
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -355,7 +402,9 @@
 //获取版块公告
 -(void)requestListTopPostForSection
 {
+    ShowHudOnly;
     [HttpRequest getWithURLString:ListTopPostForSection parameters:@{@"sectionId":@(_sectionId)} success:^(id responseObject) {
+        HiddenHudOnly;
         NSDictionary *dic = responseObject[@"data"];
         self.noticesArr = [SectionNoticeModel mj_objectArrayWithKeyValuesArray:dic[@"notices"]];
         self.topsArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:dic[@"tops"]];
@@ -364,10 +413,11 @@
         sectionModel.name = @"全部";
         sectionModel.sectionId = self.sectionId;
         [self.sectionsArr insertObject:sectionModel atIndex:0];
-//        [self.tableView reloadData];
+        [self setUI];
         self.currentSectionId = self.sectionId;
-        [self requestListPostForSection:0];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+    }];
 }
 
 //版块帖子列表(0刷新，1加载)
@@ -405,6 +455,15 @@
             [self.tableView.mj_header endRefreshing];
         }
     }];
+}
+
+//搜索关键字补全
+-(void)requestPost_autoComplete:(NSString *)keyword vc:(PYSearchViewController *)searchVC
+{
+    [HttpRequest getWithURLString:Post_autoComplete parameters:@{@"keyword":keyword} success:^(id responseObject) {
+        searchVC.searchSuggestions = responseObject[@"data"];
+    } failure:nil];
+    
 }
 
 //获取loadtime

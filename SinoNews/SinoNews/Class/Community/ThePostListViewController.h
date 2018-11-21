@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThePostListViewController : BaseViewController
 @property (nonatomic,strong) NSString *keyword;
+@property (nonatomic,assign) NSInteger sectionId;
 -(void)hiddenMenu;
 
 @end

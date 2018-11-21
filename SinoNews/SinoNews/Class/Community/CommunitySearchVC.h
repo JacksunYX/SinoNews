@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSString *keyword;
 
+@property (nonatomic,assign) NSInteger sectionId;
 @end
 
 NS_ASSUME_NONNULL_END

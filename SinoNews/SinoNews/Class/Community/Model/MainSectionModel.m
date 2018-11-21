@@ -73,10 +73,13 @@
 //清除所有本地关注版块
 +(void)removeAllSections
 {
-    [self bg_clear:nil];
-    GGLog(@"关注版块对象已全部清除");
-    GGLog(@"本地已无关注版块");
-    [kNotificationCenter postNotificationName:SectionsReduceNotify object:nil];
+    //如果有数据再去清除
+    if ([self getLocalAttentionSections]) {
+        [self bg_clear:nil];
+        GGLog(@"关注版块对象已全部清除");
+        GGLog(@"本地已无关注版块");
+        [kNotificationCenter postNotificationName:SectionsReduceNotify object:nil];
+    }
 }
 
 

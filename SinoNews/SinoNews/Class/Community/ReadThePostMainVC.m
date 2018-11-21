@@ -68,7 +68,7 @@
     if (increase) {
         SearchSectionsModel *sectionModel = [SearchSectionsModel new];
         sectionModel.sectionName = @"关注";
-        [self.sectionsList addObject:sectionModel];
+        [self.sectionsList insertObject:sectionModel atIndex:0];
         [self.titlesList insertObject:@"关注" atIndex:0];
     }else{
         [self.sectionsList removeObjectAtIndex:0];

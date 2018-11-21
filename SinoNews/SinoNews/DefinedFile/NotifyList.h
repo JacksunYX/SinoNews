@@ -44,5 +44,7 @@
 #define SectionsIncreaseNotify @"SectionsIncreaseNotify"
 //非零->0
 #define SectionsReduceNotify @"SectionsReduceNotify"
+//变化
+#define SectionsChangeNotify @"SectionsChangeNotify"
 
 #endif /* NotifyList_h */

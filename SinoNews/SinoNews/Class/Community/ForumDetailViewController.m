@@ -90,6 +90,19 @@
     [_attentionBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightBtn2 = [[UIBarButtonItem alloc]initWithCustomView:_attentionBtn];
     
+    //查询本地
+    NSArray *localSections = [MainSectionModel getLocalAttentionSections];
+    if (localSections.count>0) {
+        for (int i =0; i < localSections.count; i ++) {
+            MainSectionModel *model = localSections[i];
+            if (model.sectionId == self.sectionId) {
+                GGLog(@"此版块已关注了");
+                _attentionBtn.selected = YES;
+                break;
+            }
+        }
+    }
+    
     self.navigationItem.rightBarButtonItems = @[searchBtn,rightBtn2];
 }
 
@@ -245,7 +258,19 @@
 //关注点击
 -(void)attentionAction:(UIButton *)sender
 {
-    sender.selected = !sender.selected;
+    MainSectionModel *model = [MainSectionModel new];
+    model.name = self.navigationItem.title;
+    model.sectionId = self.sectionId;
+    if (sender.selected==NO) {
+        [MainSectionModel addANew:model];
+        sender.selected = YES;
+    }else{
+        [MainSectionModel remove:model];
+        
+        sender.selected = NO;
+    }
+    //实时更新外部“我的关注列表”
+    [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
 }
 
 //查看更多、收起点击事件

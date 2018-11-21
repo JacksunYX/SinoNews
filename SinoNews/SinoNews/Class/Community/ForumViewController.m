@@ -130,6 +130,14 @@
         ShowHudOnly;
         [self requestListMainSection];
     }];
+    
+    //监听关注版块数量变化回调
+    [kNotificationCenter addObserverForName:SectionsChangeNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
+        MainSectionModel *model = self.dataSource[0];
+        model.subSections = [MainSectionModel getLocalAttentionSections];
+        [self.rightTable reloadData];
+    }];
 }
 
 //修改导航栏显示

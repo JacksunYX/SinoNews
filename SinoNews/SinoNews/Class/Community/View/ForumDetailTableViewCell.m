@@ -76,11 +76,7 @@ NSString * _Nullable const ForumDetailTableViewCellID = @"ForumDetailTableViewCe
 
 -(void)setData:(NSDictionary *)model
 {
-    if ([model[@"type"] integerValue]%2==1) {
-        content.text = @"        让优质服务、美酒佳肴和机舱娱乐带你感受精彩新西兰！ 搭乘星盟纽航，享受奥克兰/基督城/惠灵顿三城……";
-    }else{
-        content.text = @"        测试单行文本测试单行文本";
-    }
+    content.text = [NSString stringWithFormat:@"        %@",GetSaveString(model[@"content"])];
     leftLabel.text = GetSaveString(model[@"label"]);
     if ([leftLabel.text isEqualToString:@"公告"]) {
         leftLabel.backgroundColor = HexColor(#FE0000);
@@ -90,5 +86,6 @@ NSString * _Nullable const ForumDetailTableViewCellID = @"ForumDetailTableViewCe
         content.textColor = HexColor(#161A24);
     }
 }
+
 
 @end

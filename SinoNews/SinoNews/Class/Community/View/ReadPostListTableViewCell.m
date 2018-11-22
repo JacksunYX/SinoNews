@@ -131,7 +131,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     [nickName setSingleLineAutoResizeWithMaxWidth:200];
     
     title.sd_layout
-    .leftEqualToView(nickName)
+    .leftSpaceToView(avatar, 6)
     .topSpaceToView(nickName, 12)
     .rightSpaceToView(fatherView, 10)
     .autoHeightRatio(0)
@@ -303,7 +303,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     }
     
     title.text = GetSaveString(model.postTitle);
-    nickName.text = GetSaveString(model.author);
+    nickName.text = GetSaveString(model.username);
     publishTime.text = GetSaveString(model.createTime);
     comments.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
     

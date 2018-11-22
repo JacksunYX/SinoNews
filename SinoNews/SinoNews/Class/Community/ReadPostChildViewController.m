@@ -133,6 +133,10 @@
 -(void)btnClick:(UIButton *)sender
 {
     NSInteger index = sender.tag - 100;
+    _sortOrder = index;
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+    [self.tableView.mj_header beginRefreshing];
     [self selectIndex:index];
 }
 

@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 //发布者相关
 @property (nonatomic,strong) NSString *avatar;//头像
 @property (nonatomic,strong) NSString *author;//发布者
+@property (nonatomic,strong) NSString *username;//发布者
 @property (nonatomic,assign) NSInteger userId;//id
 @property (nonatomic,strong) NSString *createTime;//发布时间
 @property (nonatomic,assign) BOOL isAttention;//是否关注

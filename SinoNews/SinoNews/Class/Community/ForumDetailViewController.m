@@ -347,15 +347,17 @@
     UITableViewCell *cell;
     if (indexPath.section == 0) {
         ForumDetailTableViewCell *cell0 = (ForumDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumDetailTableViewCellID];
+        SectionNoticeModel *noticeModel = self.noticesArr[indexPath.row];
         NSMutableDictionary *dic = [NSMutableDictionary new];
-        dic[@"type"] = @(indexPath.row);
+        dic[@"content"] = noticeModel.content;
         dic[@"label"] = @"公告";
         [cell0 setData:dic];
         cell = cell0;
     }else if (indexPath.section == 1) {
         ForumDetailTableViewCell *cell1 = (ForumDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumDetailTableViewCellID];
+        SeniorPostDataModel *topModel = self.topsArr[indexPath.row];
         NSMutableDictionary *dic = [NSMutableDictionary new];
-        dic[@"type"] = @(indexPath.row);
+        dic[@"content"] = topModel.postTitle;
         dic[@"label"] = @"置顶";
         [cell1 setData:dic];
         cell = cell1;

@@ -36,4 +36,12 @@
 //用户关注版块的帖子列表(get)
 #define ListUserAttenPost @"/api/post/listUserAttenPost"
 
+#pragma mark --用户
+//用户帖子列表(get)
+#define ListPostForUser @"/api/post/listPostForUser"
+//收藏的帖子列表(get)
+#define Post_myFavor @"/api/forum/post/myFavor"
+//批量取消收藏帖子(post)
+#define Post_batchCancelFavor @"/api/forum/post/batchCancelFavor"
+
 #endif /* CommunityNet_h */

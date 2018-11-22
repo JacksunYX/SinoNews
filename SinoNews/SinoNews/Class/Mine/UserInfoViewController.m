@@ -20,6 +20,7 @@
 #import "UserInfoModel.h"
 
 #import "PostDraftTableViewCell.h"
+#import "ReadPostListTableViewCell.h"
 
 
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
@@ -182,7 +183,7 @@
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     //新增
-    [_tableView registerClass:[PostDraftTableViewCell class] forCellReuseIdentifier:PostDraftTableViewCellID];
+    [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
     //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 40, 0, 10);
     
@@ -201,7 +202,7 @@
             [self requestUserComments];
         }else if (self.selectedIndex ==2){
             self.currPage2 = 1;
-            
+            [self requestListPostForUser];
         }else if (self.selectedIndex ==3){
             self.currPage3 = 1;
             
@@ -236,7 +237,7 @@
             }else{
                 self.currPage2 ++;
             }
-            
+            [self requestListPostForUser];
         }else if (self.selectedIndex ==3){
             if (!self.replysArr.count) {
                 self.currPage3 = 1;
@@ -710,7 +711,7 @@
         return self.commentsArr.count;
     }
     if (_selectedIndex == 2) {
-        return 3;
+        return self.postsArr.count;
     }
     if (_selectedIndex == 3) {
         return self.commentsArr.count;
@@ -791,16 +792,10 @@
             cell = (UITableViewCell *)cell3;
         }
     }else if (_selectedIndex == 2){
-        PostDraftTableViewCell *cell1 = (PostDraftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PostDraftTableViewCellID];
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        dic[@"imgs"] = @"0";
-        if (indexPath.row == 1) {
-            dic[@"imgs"] = @"1";
-        }else if(indexPath.row == 2){
-            dic[@"imgs"] = @"3";
-        }
-        [cell1 setData:dic];
-        cell = cell1;
+        ReadPostListTableViewCell *cell2 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+        SeniorPostDataModel *model = self.postsArr[indexPath.row];
+        cell2.model = model;
+        cell = cell2;
     }else if (_selectedIndex == 3){
         UserInfoCommentCell *cell0 = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
@@ -864,6 +859,10 @@
     if (index == 0&&!self.articlesArr.count) {
         [self.tableView.mj_header beginRefreshing];
     }else if (index == 1&&!self.commentsArr.count){
+        [self.tableView.mj_header beginRefreshing];
+    }else if (index == 2&&!self.postsArr.count){
+        [self.tableView.mj_header beginRefreshing];
+    }else if (index == 3&&!self.replysArr.count){
         [self.tableView.mj_header beginRefreshing];
     }
 }
@@ -959,8 +958,7 @@
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        [self.tableView endAllRefresh];
     }];
 }
 
@@ -994,12 +992,26 @@
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        [self.tableView endAllRefresh];
     }];
 }
 
-
+//获取用户帖子列表
+-(void)requestListPostForUser
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"page"] = @(self.currPage2);
+    parameters[@"userId"] = @(self.userId);
+    parameters[@"status"] = @(1);
+    [HttpRequest getWithURLString:ListPostForUser parameters:parameters success:^(id responseObject) {
+        NSMutableArray *arr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        self.postsArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.articlesArr];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
+    }];
+}
 
 
 

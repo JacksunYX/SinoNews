@@ -7,12 +7,14 @@
 //
 
 #import "MyCollectViewController.h"
-#import "MyCollectArticleCell.h"
+
 #import "RankDetailViewController.h"
-#import "HomePageFirstKindCell.h"
 #import "NewsDetailViewController.h"
 #import "CatechismViewController.h"
 
+#import "MyCollectArticleCell.h"
+#import "HomePageFirstKindCell.h"
+#import "ReadPostListTableViewCell.h"
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 {
@@ -49,10 +51,6 @@
 {
     if (!_articleArray) {
         _articleArray = [NSMutableArray array];
-        //        for (int i = 0; i< 4; i++) {
-        //            NSString *string = [NSString stringWithFormat:@"stringstringstringstringstringstringstring%d",arc4random()%100];
-        //            [_articleArray addObject:string];
-        //        }
     }
     return _articleArray;
 }
@@ -149,7 +147,7 @@
     //注册
     [self.tableView registerClass:[MyCollectArticleCell class] forCellReuseIdentifier:MyCollectArticleCellID];
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
-    
+    [self.tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
     
     @weakify(self);
     _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
@@ -400,7 +398,7 @@
         cell0.model = self.articleArray[indexPath.row];
         cell = cell0;
     }else if (selectedIndex == 1) {
-        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+        ReadPostListTableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         
         cell1.model = self.postArray[indexPath.row];
         cell = cell1;
@@ -441,22 +439,23 @@
             self.selectAllBtn.selected = YES;
         }
     }else{
-        HomePageModel *model;
         if (selectedIndex == 0) {
-            model = self.articleArray[indexPath.row];
-        }else if (selectedIndex == 1) {
-            model = self.postArray[indexPath.row];
+            HomePageModel *model = self.articleArray[indexPath.row];
+            NSInteger type = [model.newsType intValue];
+            if (type==0||type==1) { //新闻,收费文章后台居然给的1
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = [(HomePageModel *)model itemId];
+                [self.navigationController pushViewController:ndVC animated:YES];
+            }else if (type==2){    //问答
+                CatechismViewController *cVC = [CatechismViewController new];
+                cVC.news_id = model.itemId;
+                [self.navigationController pushViewController:cVC animated:YES];
+            }
+        }else if (selectedIndex == 1){
+            SeniorPostDataModel *model = self.postArray[indexPath.row];
+            GGLog(@"帖子id:%@",model.postId);
         }
-        NSInteger type = [model.newsType intValue];
-        if (type==0||type==1) { //新闻,收费文章后台居然给的1
-            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = [(HomePageModel *)model itemId];
-            [self.navigationController pushViewController:ndVC animated:YES];
-        }else if (type==2){    //问答
-            CatechismViewController *cVC = [CatechismViewController new];
-            cVC.news_id = model.itemId;
-            [self.navigationController pushViewController:cVC animated:YES];
-        }
+        
     }
     [self.deleteBtn setTitle:[NSString stringWithFormat:@"删除(%ld)",self.deleteArray.count] forState:UIControlStateNormal];
     
@@ -578,15 +577,14 @@
 -(void)requestPostList
 {
     [self.tableView ly_startLoading];
-    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage1)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
+    [HttpRequest postWithURLString:Post_myFavor parameters:@{@"currPage":@(self.currPage1)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         
         self.postArray = [self.tableView pullWithPage:self.currPage1 data:dataArr dataSource:self.postArray];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
+        [self.tableView endAllRefresh];
         [self.tableView ly_endLoading];
     } RefreshAction:^{
         [self.navigationController popViewControllerAnimated:YES];
@@ -615,12 +613,12 @@
 -(void)requestCancelPostCollects
 {
     NSMutableString *str = [@"" mutableCopy];
-    for (HomePageModel *model in self.deleteArray) {
-        [str appendString:[NSString stringWithFormat:@"%ld,",model.itemId]];
+    for (SeniorPostDataModel *model in self.deleteArray) {
+        [str appendString:[NSString stringWithFormat:@"%ld,",model.postId]];
     }
     [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
     @weakify(self)
-    [HttpRequest postWithURLString:Unfavors parameters:@{@"newsIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:Post_batchCancelFavor parameters:@{@"postIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         @strongify(self)
         [self resetStatus];
     } failure:nil RefreshAction:^{

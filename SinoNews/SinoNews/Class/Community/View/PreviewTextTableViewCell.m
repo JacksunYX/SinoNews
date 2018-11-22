@@ -63,10 +63,10 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
 {
     _model = model;
     NSString *string;
-    if (model.addtType == 0) {
+    if (model.addType == 0) {
         textLabel.font = PFFontR(20);
         string = [NSString stringWithFormat:@"%@、%@",[NSString getChineseWithNum:model.sectionNum],GetSaveString(model.title)];
-    }else if (model.addtType == 1){
+    }else if (model.addType == 1){
         textLabel.font = PFFontR(15);
         string = GetSaveString(model.content);
     }

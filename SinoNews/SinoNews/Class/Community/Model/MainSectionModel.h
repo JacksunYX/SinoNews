@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,assign) NSInteger postCount;//发帖数
 @property (nonatomic,assign) NSInteger sectionId;//id
+@property (nonatomic,strong) NSString *sectionIds;//id
 @property (nonatomic,strong) NSMutableArray <MainSectionModel *>*subSections;//包含的子版块数组
 @property (nonatomic,assign) BOOL isAttentioned;//是否关注
 @property (nonatomic,assign) BOOL haveUnFold;   //是否展开

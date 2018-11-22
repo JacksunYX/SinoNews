@@ -37,6 +37,7 @@
     NSInteger count = [self getLocalAttentionSections].count;
     
     [section bg_save];
+    [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
     GGLog(@"版块已存储至本地");
     if (count==0) {
         //从0到1
@@ -50,6 +51,7 @@
 {
     NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"name"),bg_sqlValue(section.name)];
     [self bg_delete:nil where:where];
+    [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
     GGLog(@"版块已从本地移除");
     if ([self getLocalAttentionSections].count<=0) {
         GGLog(@"本地已无关注版块");
@@ -62,10 +64,11 @@
 {
     NSInteger count = [self getLocalAttentionSections].count;
     [self bg_saveOrUpdateArray:sections];
+    [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
     GGLog(@"同时存储多个关注版块完成");
     if (count==0) {
         //从0到1
-        GGLog(@"本地关注版块数量已增至1");
+        GGLog(@"本地关注版块数量已大于0");
         [kNotificationCenter postNotificationName:SectionsIncreaseNotify object:nil];
     }
 }
@@ -76,6 +79,7 @@
     //如果有数据再去清除
     if ([self getLocalAttentionSections]) {
         [self bg_clear:nil];
+        [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
         GGLog(@"关注版块对象已全部清除");
         GGLog(@"本地已无关注版块");
         [kNotificationCenter postNotificationName:SectionsReduceNotify object:nil];

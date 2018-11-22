@@ -94,7 +94,7 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
     CGFloat playW = 0;
     
     NSString *des = GetSaveString(model.imageDes);
-    if (model.addtType == 3) {
+    if (model.addType == 3) {
         playW = 42;
         des = GetSaveString(model.videoDes);
     }

@@ -113,7 +113,7 @@
         //遍历数据源
         for (int i = 0; i < self.dataModel.dataSource.count; i ++) {
             SeniorPostingAddElementModel *model = self.dataModel.dataSource[i];
-            if (model.addtType==0) {//说明是小标题
+            if (model.addType==0) {//说明是小标题
                 //标记是第几个小分区标题
                 model.sectionNum = j;
                 j ++;
@@ -156,11 +156,11 @@
 {
     UITableViewCell *cell;
     SeniorPostingAddElementModel *model = self.dataModel.dataSource[indexPath.row];
-    if (model.addtType == 3) {
+    if (model.addType == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     }else{
         //文本
-        if(model.addtType == 0||model.addtType == 1)
+        if(model.addType == 0||model.addType == 1)
         {
             PreviewTextTableViewCell *cell01 = (PreviewTextTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PreviewTextTableViewCellID];
             cell01.model = model;
@@ -177,10 +177,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SeniorPostingAddElementModel *model = self.dataModel.dataSource[indexPath.row];
-    if (model.addtType == 3) {
+    if (model.addType == 3) {
         return 0;
     }
-//    else if (model.addtType == 2){
+//    else if (model.addType == 2){
 //        //根据不同屏幕宽度等比例比例计算图片高度高度
 //        CGFloat h = (ScreenW * model.imageH)/model.imageW;
 //        return h;

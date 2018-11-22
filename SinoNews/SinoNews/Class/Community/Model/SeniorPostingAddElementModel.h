@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 
 @interface SeniorPostingAddElementModel : NSObject
 //默认0小标题，1文本，2图片，3视频
-@property (nonatomic,assign) NSInteger addtType;
+@property (nonatomic,assign) NSInteger addType;
 //标记第几个分区小标题
 @property (nonatomic,assign) NSInteger sectionNum;
 //小标题

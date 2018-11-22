@@ -71,7 +71,7 @@ CGFloat static attentionBtnH = 26;
         for (int i = 0; i < _postModel.dataSource.count; i ++) {
             SeniorPostingAddElementModel *model = _postModel.dataSource[i];
             //只过滤图片
-            if (model.addtType == 2) {
+            if (model.addType == 2) {
                 [_imagesArr addObject:model.imageUrl];
             }else{
                 continue;
@@ -453,7 +453,7 @@ CGFloat static attentionBtnH = 26;
         //遍历数据源
         for (int i = 0; i < self.postModel.dataSource.count; i ++) {
             SeniorPostingAddElementModel *model = self.postModel.dataSource[i];
-            if (model.addtType==0) {//说明是小标题
+            if (model.addType==0) {//说明是小标题
                 //标记是第几个小分区标题
                 model.sectionNum = j;
                 j ++;
@@ -712,7 +712,7 @@ CGFloat static attentionBtnH = 26;
     if (indexPath.section == 0) {
         SeniorPostingAddElementModel *model = self.postModel.dataSource[indexPath.row];
         //标题、文本
-        if(model.addtType == 0||model.addtType == 1)
+        if(model.addType == 0||model.addType == 1)
         {
             PreviewTextTableViewCell *cell01 = (PreviewTextTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PreviewTextTableViewCellID];
             cell01.model = model;
@@ -849,7 +849,7 @@ CGFloat static attentionBtnH = 26;
 {
     if (indexPath.section == 0) {
         SeniorPostingAddElementModel *model = self.postModel.dataSource[indexPath.row];
-        if (model.addtType == 3) {
+        if (model.addType == 3) {
             //使用AV播放视频(iOS9.0以后适用,支持画中画)
             AVPlayerViewController *avVC = [[AVPlayerViewController alloc]init];
             //本地地址
@@ -861,7 +861,7 @@ CGFloat static attentionBtnH = 26;
                 //跳转后自动播放
                 [avVC.player play];
             }];
-        }else if(model.addtType == 2){
+        }else if(model.addType == 2){
             //图片
             [self showImageBrowser:model.imageUrl];
         }

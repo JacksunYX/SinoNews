@@ -15,6 +15,7 @@
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) NSInteger sortOrder;
 @end
 
 @implementation ReadPostChildViewController
@@ -100,6 +101,32 @@
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
     [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
+    
+    @weakify(self);
+    _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
+        if ([self.model.name isEqualToString:@"关注"]) {
+            [self requestListUserAttenPost:0];
+        }else{
+            [self requestListPostForSection:0];
+        }
+    }];
+    
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+        }
+        if ([self.model.name isEqualToString:@"关注"]) {
+            [self requestListUserAttenPost:1];
+        }else{
+            [self requestListPostForSection:1];
+        }
+    }];
+    [_tableView.mj_header beginRefreshing];
 }
 
 //按钮点击事件
@@ -136,25 +163,14 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
-    NSMutableDictionary *dic = [NSMutableDictionary new];
-    dic[@"imgs"] = @"0";
-    if (indexPath.row == 0) {
-        dic[@"ShowChildComment"] = @(1);
-    }else if (indexPath.row == 1) {
-        dic[@"imgs"] = @"1";
-        dic[@"ShowChildComment"] = @(1);
-    }else if(indexPath.row == 2){
-        dic[@"imgs"] = @"3";
-        dic[@"ShowChildComment"] = @(1);
-    }
-    
-    [cell setData:dic];
+    SeniorPostDataModel *model = self.dataSource[indexPath.row];
+    cell.model = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -172,6 +188,98 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+#pragma mark --请求
+//获取用户关注版块的帖子列表(0刷新1加载)
+-(void)requestListUserAttenPost:(NSInteger)refreshType
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"sectionIds"] = self.model.sectionIds;
+    parameters[@"sortOrder"] = @(_sortOrder);
+    parameters[@"loadType"] = @(refreshType);
+    parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
+    [HttpRequest getWithURLString:ListUserAttenPost parameters:parameters success:^(id responseObject) {
+        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (dataArr.count>0) {
+            if (refreshType) {
+                [self.dataSource addObjectsFromArray:dataArr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+                [self.tableView.mj_header endRefreshing];
+            }
+        }else{
+            if (refreshType) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }else{
+                [self.tableView.mj_header endRefreshing];
+            }
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        if (refreshType) {
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_header endRefreshing];
+        }
+    }];
+}
+
+//请求版块帖子列表(0刷新1加载)
+-(void)requestListPostForSection:(NSInteger)refreshType
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"sectionId"] = @(self.model.sectionId);
+    parameters[@"sortOrder"] = @(_sortOrder);
+    parameters[@"loadType"] = @(refreshType);
+    parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
+    [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
+        
+        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        if (dataArr.count>0) {
+            if (refreshType) {
+                [self.dataSource addObjectsFromArray:dataArr];
+                [self.tableView.mj_footer endRefreshing];
+            }else{
+                self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+                [self.tableView.mj_header endRefreshing];
+            }
+        }else{
+            if (refreshType) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }else{
+                [self.tableView.mj_header endRefreshing];
+            }
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        if (refreshType) {
+            [self.tableView.mj_footer endRefreshing];
+        }else{
+            [self.tableView.mj_header endRefreshing];
+        }
+    }];
+}
+
+//获取loadtime
+-(NSString *)getLoadTime:(NSInteger)refreshType
+{
+    NSString *loadTime = @"";
+    if (self.dataSource.count>0) {
+        if (refreshType) {
+            SeniorPostDataModel *model = [self.dataSource lastObject];
+            loadTime = model.createStamp;
+        }else{
+            SeniorPostDataModel *model = [self.dataSource firstObject];
+            loadTime = model.createStamp;
+        }
+    }
+    return loadTime;
 }
 
 @end

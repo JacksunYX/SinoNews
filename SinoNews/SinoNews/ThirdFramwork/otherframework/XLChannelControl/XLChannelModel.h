@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong) NSString *channelId;
 
+@property (nonatomic,strong) NSString *channelIds;
+
 @property (nonatomic,assign) NSInteger status;   //1.可以修改，2.系统自带，不可修改
 
 @property (nonatomic,assign) BOOL isNew;

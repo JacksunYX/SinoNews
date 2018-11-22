@@ -46,28 +46,41 @@
     
     [self addNavigationView];
     
-    [self getVirtualSectionArr];
+    [self requestListMainSection];
     
-    [self reloadChildVCWithTitles:self.titlesList];
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
+        @strongify(self);
+        ShowHudOnly;
+        [self requestListMainSection];
+    }];
     
     //监听本地关注版块变化
     //0->非零
+    /*
     [kNotificationCenter addObserverForName:SectionsIncreaseNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
         [self resetSectionSeg:YES];
     }];
     ////非零->0
     [kNotificationCenter addObserverForName:SectionsReduceNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
         [self resetSectionSeg:NO];
     }];
-    
+    */
+    //数量变化
+    [kNotificationCenter addObserverForName:SectionsChangeNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
+        [self resetWithLocalAttentionSectionChange];
+    }];
 }
 
 //根据全局保存的本地关注数组长度来重新设置segment界面显示
 -(void)resetSectionSeg:(BOOL)increase
 {
     if (increase) {
-        SearchSectionsModel *sectionModel = [SearchSectionsModel new];
-        sectionModel.sectionName = @"关注";
+        MainSectionModel *sectionModel = [MainSectionModel new];
+        sectionModel.name = @"关注";
         [self.sectionsList insertObject:sectionModel atIndex:0];
         [self.titlesList insertObject:@"关注" atIndex:0];
     }else{
@@ -75,6 +88,70 @@
         [self.titlesList removeObjectAtIndex:0];
     }
     [self reloadChildVCWithTitles:self.titlesList];
+}
+
+//根据本地关注版块数量变化重置segment显示
+-(void)resetWithLocalAttentionSectionChange
+{
+    NSMutableArray *localSections = [MainSectionModel getLocalAttentionSections];
+    //如果本地关注已无数据
+    if (localSections.count<=0) {
+        if (self.sectionsList.count>0) {
+            //之前的数组还有“关注”这一项，直接移除重置
+            for (MainSectionModel *model in self.sectionsList) {
+                if ([model.name isEqualToString:@"关注"]) {
+                    //移除第一个，因为关注必定是第一个
+                    [self.sectionsList removeObjectAtIndex:0];
+                    [self.titlesList removeObjectAtIndex:0];
+                    break;
+                }
+            }
+        }
+    }else{  //如果本地关注有数据
+        if (self.sectionsList.count>0) {
+            //之前的数组还有“关注”这一项，重置
+            int i = 0;
+            for (MainSectionModel *model in self.sectionsList) {
+                //替换sectionIds
+                if ([model.name isEqualToString:@"关注"]) {
+                    NSMutableString *sectionIds = @"".mutableCopy;
+                    for (MainSectionModel *model2 in localSections) {
+                        [sectionIds appendFormat:@"%ld,",model2.sectionId];
+                    }
+                    //移除最后的‘，’
+                    [sectionIds deleteCharactersInRange:NSMakeRange(sectionIds.length-1, 1)];
+                    model.sectionIds = sectionIds;
+                    break;
+                }
+                i ++;
+            }
+            //说明之前数组并没有‘关注’
+            if (i == self.sectionsList.count) {
+                [self addLocalAttentionSection:localSections];
+            }
+        }else{  //之前的数组没有“关注”这一项，添加
+            [self addLocalAttentionSection:localSections];
+        }
+        
+    }
+    
+    [self reloadChildVCWithTitles:self.titlesList];
+}
+
+//将关注版块数据添加进当前seg数组
+-(void)addLocalAttentionSection:(NSMutableArray *)localSections
+{
+    MainSectionModel *model = [MainSectionModel new];
+    model.name = @"关注";
+    NSMutableString *sectionIds = @"".mutableCopy;
+    for (MainSectionModel *model2 in localSections) {
+        [sectionIds appendFormat:@"%ld,",model2.sectionId];
+    }
+    //移除最后的‘，’
+    [sectionIds deleteCharactersInRange:NSMakeRange(sectionIds.length-1, 1)];
+    model.sectionIds = sectionIds;
+    [self.sectionsList insertObject:model atIndex:0];
+    [self.titlesList insertObject:@"关注" atIndex:0];
 }
 
 //修改导航栏显示
@@ -180,37 +257,32 @@
     [self presentViewController:nav animated:NO completion:nil];
 }
 
-//模拟虚拟版块数据
--(void)getVirtualSectionArr
+//处理版块数据
+-(void)processSectionArr:(NSArray *)sectionArr
 {
-    NSMutableArray *titles = @[
-                               @"全部",
-                               @"直播",
-                               @"航空",
-                               @"酒店",
-                               @"信用卡",
-                               ].mutableCopy;
+    for (int i = 0; i < sectionArr.count; i ++) {
+        MainSectionModel *sectionModel = sectionArr[i];
+        [self.titlesList addObject:sectionModel.name];
+    }
     NSMutableArray *attentionArr = [MainSectionModel getLocalAttentionSections];
     if (attentionArr.count>0) {
-        [titles insertObject:@"关注" atIndex:0];
+        [self addLocalAttentionSection:attentionArr];
     }
-    for (int i = 0; i < titles.count; i ++) {
-        SearchSectionsModel *sectionModel = [SearchSectionsModel new];
-        sectionModel.sectionName = titles[i];
-        [self.sectionsList addObject:sectionModel];
-        [self.titlesList addObject:titles[i]];
-    }
+    [self.sectionsList addObjectsFromArray:sectionArr];
+
+    [self reloadChildVCWithTitles:self.titlesList];
 }
 
-//将版块模型转换成频道模型传递
+//将版块模型转换成频道模型
 -(NSMutableArray *)processToXLChannelModel
 {
     NSMutableArray *titles = [NSMutableArray new];
     for (int i = 0; i < self.sectionsList.count; i ++) {
         XLChannelModel *model = [XLChannelModel new];
-        SearchSectionsModel *sectionModel = self.sectionsList[i];
+        MainSectionModel *sectionModel = self.sectionsList[i];
         model.channelId = [NSString stringWithFormat:@"%ld",sectionModel.sectionId];
-        model.channelName = sectionModel.sectionName;
+        model.channelIds = sectionModel.sectionIds;
+        model.channelName = sectionModel.name;
         if (CompareString(model.channelName, @"关注")) {
             model.status = 2;
         }
@@ -226,9 +298,10 @@
     [self.sectionsList removeAllObjects];
     for (int i = 0; i<channelModels.count;i ++) {
         XLChannelModel *model1 = channelModels[i];
-        SearchSectionsModel *model2 = [SearchSectionsModel new];
+        MainSectionModel *model2 = [MainSectionModel new];
         model2.sectionId = [model1.channelId integerValue];
-        model2.sectionName = model1.channelName;
+        model2.sectionIds = model1.channelIds;
+        model2.name = model1.channelName;
         [self.titlesList addObject:model1.channelName];
         [self.sectionsList addObject:model2];
     }
@@ -295,6 +368,8 @@
     }
     _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getvcArrWith:titles]];
     _segScroll.countLimit = 0;
+    _segScroll.addTiming = SegmentAddScale;
+    _segScroll.addScale = 0.2;
     
     @weakify(self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
@@ -312,7 +387,7 @@
     for (NSInteger i = 0; i < titles.count; i ++) {
         
         ReadPostChildViewController *vc = [ReadPostChildViewController new];
-        
+        vc.model = self.sectionsList[i];
         [arr addObject:vc];
         
     }
@@ -351,5 +426,22 @@
     
 }
 
+#pragma mark --请求
+//请求主版块数据
+-(void)requestListMainSection
+{
+    [self.view ly_startLoading];
+    [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+        NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
+        [self processSectionArr:listArr];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+    }];
+}
 
 @end

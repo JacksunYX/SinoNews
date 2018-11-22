@@ -600,12 +600,12 @@
         @strongify(self);
         
         if (data) {
-            data.addtType = 0;
+            data.addType = 0;
             data.title = inputTitle;
             [self.tableView reloadData];
         }else{
             SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
-            model.addtType = 0;
+            model.addType = 0;
             model.title = inputTitle;
             [self.dataSource addObject:model];
             [self reloadDataWithDataArrUpperCase];
@@ -628,12 +628,12 @@
         GGLog(@"回调文本：%@",inputContent);
         @strongify(self);
         if (data) {
-            data.addtType = 1;
+            data.addType = 1;
             data.content = inputContent;
             [self.tableView reloadData];
         }else{
             SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
-            model.addtType = 1;
+            model.addType = 1;
             model.content = inputContent;
             [self.dataSource addObject:model];
             [self.tableView reloadData];
@@ -678,7 +678,7 @@
         //遍历数据源
         for (int i = 0; i < self.dataSource.count; i ++) {
             SeniorPostingAddElementModel *model = self.dataSource[i];
-            if (model.addtType==0) {//说明是小标题
+            if (model.addType==0) {//说明是小标题
                 //标记是第几个小分区标题
                 model.sectionNum = j;
                 j ++;
@@ -758,7 +758,7 @@
     for (int i = 0; i < self.dataSource.count; i ++) {
         SeniorPostingAddElementModel *model2 = self.dataSource[i];
         //找到类型一致，图片也相同的元素
-        if (model2.addtType == model.addtType&&model2.image == model.image) {
+        if (model2.addType == model.addType&&model2.image == model.image) {
             //刷新该cell即可
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
@@ -844,7 +844,7 @@
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
     for (UIImage *image in photos) {
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
-        model.addtType = 2;
+        model.addType = 2;
         model.image = image;
         model.imageStatus = ImageUploading;
         [RequestGather uploadSingleImage:image Success:^(id response) {
@@ -875,7 +875,7 @@
         NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
         
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
-        model.addtType = 3;
+        model.addType = 3;
         model.videoData = videoData;
         model.image = coverImage;
         model.imageW = coverImage.size.width;
@@ -908,7 +908,7 @@
     UITableViewCell *cell;
     cell.tag = indexPath.row;
     SeniorPostingAddElementModel *model = self.dataSource[indexPath.row];
-    switch (model.addtType) {
+    switch (model.addType) {
         case 0://标题
         {
             SeniorPostingAddTitleCell *cell0 = [tableView dequeueReusableCellWithIdentifier:SeniorPostingAddTitleCellID];
@@ -991,7 +991,7 @@
     [self.view endEditing:YES];
     
     SeniorPostingAddElementModel *model = self.dataSource[indexPath.row];
-    switch (model.addtType) {
+    switch (model.addType) {
         case 0://标题
         {
             [self setChildTitleWithModel:model];

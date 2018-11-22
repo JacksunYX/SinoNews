@@ -76,7 +76,7 @@
     
     for (int i = 0; i < dataSource.count; i ++) {
         SeniorPostingAddElementModel *model = dataSource[i];
-        if (model.addtType == 0) {//标题
+        if (model.addType == 0) {//标题
             [_directoryArr addObject:model];
         }else{
             continue;
@@ -109,7 +109,7 @@
     SeniorPostingAddElementModel *model = self.directoryArr[indexPath.row];
     for (int i = 0; i < self.dataSource.count; i ++) {
         SeniorPostingAddElementModel *model1 = self.dataSource[i];
-        if (model1.addtType==0) {
+        if (model1.addType==0) {
             if (model.sectionNum == model1.sectionNum) {
                 if (self.clickBlock) {
                     self.clickBlock(i);

@@ -269,8 +269,6 @@
         
         sender.selected = NO;
     }
-    //实时更新外部“我的关注列表”
-    [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
 }
 
 //查看更多、收起点击事件
@@ -434,6 +432,7 @@
         self.noticesArr = [SectionNoticeModel mj_objectArrayWithKeyValuesArray:dic[@"notices"]];
         self.topsArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:dic[@"tops"]];
         self.sectionsArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:dic[@"sections"]];
+        //自己拼接一个全部
         MainSectionModel *sectionModel = [MainSectionModel new];
         sectionModel.name = @"全部";
         sectionModel.sectionId = self.sectionId;
@@ -445,7 +444,7 @@
     }];
 }
 
-//版块帖子列表(0刷新，1加载)
+//获取版块帖子列表(0刷新，1加载)
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];

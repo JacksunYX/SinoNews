@@ -20,8 +20,9 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger leftSelectedIndex;
 @property (nonatomic,assign) NSInteger centerSelectedIndex;
-
+@property (nonatomic,assign) NSInteger sectionId;
 @property (nonatomic,strong) UIButton *publishBtn;
+
 @end
 
 @implementation SelectPublishChannelViewController
@@ -87,6 +88,9 @@
 -(void)publishAction:(UIButton *)sender
 {
     LRToast(@"发表中...");
+    if (_sectionId) {
+        [self requestPublishPost];
+    }
 }
 
 -(void)setUI
@@ -224,6 +228,17 @@
         [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
+}
+
+#pragma mark --请求
+//发表帖子
+-(void)requestPublishPost
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    
+    [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+    } failure:nil RefreshAction:nil];
 }
 
 @end

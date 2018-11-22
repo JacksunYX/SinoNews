@@ -44,4 +44,7 @@
 //批量取消收藏帖子(post)
 #define Post_batchCancelFavor @"/api/forum/post/batchCancelFavor"
 
+//发帖(post)
+#define PublishPost  @"/api/post/publishPost"
+
 #endif /* CommunityNet_h */

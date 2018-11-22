@@ -258,7 +258,7 @@
 }
 
 //处理版块数据
--(void)processSectionArr:(NSArray *)sectionArr
+-(void)processSectionArr:(NSMutableArray *)sectionArr
 {
     for (int i = 0; i < sectionArr.count; i ++) {
         MainSectionModel *sectionModel = sectionArr[i];
@@ -434,8 +434,11 @@
     [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
         HiddenHudOnly;
         [self.view ly_endLoading];
-        NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        
+        NSMutableArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        //拼接一个全部
+        MainSectionModel *all = [MainSectionModel new];
+        all.name = @"全部";
+        [listArr insertObject:all atIndex:0];
         [self processSectionArr:listArr];
         
     } failure:^(NSError *error) {

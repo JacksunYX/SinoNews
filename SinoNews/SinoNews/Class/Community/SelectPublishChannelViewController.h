@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SelectPublishChannelViewController : BaseViewController
-
+@property(nonatomic,strong) SeniorPostDataModel *postModel;
 @end
 
 NS_ASSUME_NONNULL_END

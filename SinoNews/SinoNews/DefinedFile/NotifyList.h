@@ -47,4 +47,7 @@
 //变化
 #define SectionsChangeNotify @"SectionsChangeNotify"
 
+//刷新读帖界面
+#define RefreshReadPost @"RefreshReadPost"
+
 #endif /* NotifyList_h */

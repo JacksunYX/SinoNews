@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *createStamp;
 @property (nonatomic,strong) NSMutableArray *images;
 @property (nonatomic,assign) NSInteger postId;
+//帖子类型
 @property (nonatomic,assign) NSInteger postType;
 @property (nonatomic,assign) NSInteger sectionId;
 @property (nonatomic,strong) NSString *tags;

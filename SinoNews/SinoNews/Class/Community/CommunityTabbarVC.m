@@ -13,7 +13,9 @@
 #import "ReadThePostMainVC.h"
 
 @interface CommunityTabbarVC ()<UITabBarControllerDelegate>
-
+{
+    NSInteger lastSelectIndex;
+}
 @end
 
 @implementation CommunityTabbarVC
@@ -83,14 +85,19 @@
 //    });
     self.viewControllers = vcsArr;
     self.selectedIndex = 0;
+    lastSelectIndex = 0;
 }
 
 //拦截点击事件
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    
+    lastSelectIndex = self.selectedIndex;
+    NSInteger currentIndex = [self.viewControllers indexOfObject:viewController];
+//    GGLog(@"当前点击的下标:%ld",currentIndex);
     if (viewController == self.viewControllers[1]) {
         [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:[EditSelectViewController new]] animated:YES completion:nil];
         return NO;
+    }else if (lastSelectIndex == 2&&currentIndex==2){
+        [kNotificationCenter postNotificationName:RefreshReadPost object:nil];
     }
     return  YES;
 }

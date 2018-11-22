@@ -100,7 +100,7 @@ const NSString * DomainString = nil;
     GGLog(@"设备型号:%@",[DeviceTool sharedInstance].deviceModel);
     [manager.requestSerializer setValue:[DeviceTool sharedInstance].deviceModel forHTTPHeaderField:@"Device-Brand"];
     [manager.requestSerializer setValue:@"QSL" forHTTPHeaderField:@"User-Agent"];
-    
+//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     return manager;
 }
 

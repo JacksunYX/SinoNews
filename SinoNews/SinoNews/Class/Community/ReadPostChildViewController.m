@@ -40,6 +40,13 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addTopView];
     [self setUpTableView];
+    //监听刷新
+    @weakify(self);
+    [kNotificationCenter addObserverForName:RefreshReadPost object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
+        [self.tableView.mj_header beginRefreshing];
+    }];
+    
 }
 
 -(void)addTopView
@@ -57,9 +64,9 @@
     
     NSArray *titleArr = @[
                           @"发帖时间",
-                          @"回复时间",
-                          @"最新热门",
-                          @"最新好文",
+                          @"评论最多",
+                          @"阅读最多",
+                          @"点赞最多",
                           ];
     CGFloat wid = ScreenW/4;
     CGFloat hei = _topView.height;
@@ -236,7 +243,9 @@
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"sectionId"] = @(self.model.sectionId);
+    if (self.model.sectionId) {
+        parameters[@"sectionId"] = @(self.model.sectionId);
+    }
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);

@@ -9,6 +9,7 @@
 #import "FastPostingViewController.h"
 #import "RemindOthersToReadViewController.h"
 #import "SelectPublishChannelViewController.h"
+#import "ForumViewController.h"
 
 #import "SelectImagesView.h"
 #import "RemindOthersToReadView.h"
@@ -127,15 +128,13 @@
         }
     }
     self.postModel.dataSource = elementArr;
-    self.postModel.sectionId = 4;
+//    self.postModel.sectionId = 4;
     self.postModel.postType = 0;
-    [self requestPublishPost];
-    /*
-    GGLog(@"快速发帖内容展示：%@",self.postModel);
-    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
-    spcVC.postModel = self.postModel;
-    [self.navigationController pushViewController:spcVC animated:YES];
-     */
+    
+//    GGLog(@"快速发帖内容展示：%@",self.postModel);
+    ForumViewController *fvVC = [ForumViewController new];
+    fvVC.postModel = self.postModel;
+    [self.navigationController pushViewController:fvVC animated:YES];
 }
 
 -(void)back
@@ -498,16 +497,7 @@
 }
 
 
-//发表帖子
--(void)requestPublishPost
-{
-    NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"postModel"] = [self.postModel mj_JSONString];
-    
-    [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        
-    } failure:nil RefreshAction:nil];
-}
+
 
 
 @end

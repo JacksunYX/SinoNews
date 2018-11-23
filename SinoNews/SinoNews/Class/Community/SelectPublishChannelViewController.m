@@ -235,9 +235,13 @@
 -(void)requestPublishPost
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"postModel"] = [self.postModel mj_JSONString];
     
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        
+        LRToast(@"发帖成功");
+        GCDAfterTime(1, ^{
+            
+        });
     } failure:nil RefreshAction:nil];
 }
 

@@ -35,6 +35,9 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
 {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setUI];
+        UIView *selectBackView = [UIView new];
+        selectBackView.backgroundColor = WhiteColor;
+        self.selectedBackgroundView = selectBackView;
     }
     return self;
 }
@@ -94,6 +97,15 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     [logo sd_setImageWithURL:UrlWithStr(GetSaveString(model.icon))];
     communityName.text = GetSaveString(model.name);
     postNum.text = [NSString stringWithFormat:@"%ld篇",model.postCount];
+}
+
+-(void)setIsPost:(BOOL)isPost
+{
+    _isPost = isPost;
+    postNum.hidden = isPost;
+    if (isPost) {
+        communityName.highlightedTextColor = HexColor(#1282ee);
+    }
 }
 
 @end

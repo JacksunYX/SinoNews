@@ -117,6 +117,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"版块";
+    if (self.postModel) {
+        self.navigationItem.title = @"选择发表到的版块";
+    }
     
     [self addNavigationView];
     
@@ -137,32 +140,39 @@
         MainSectionModel *model = self.dataSource[0];
         model.subSections = [MainSectionModel getLocalAttentionSections];
         [self.rightTable reloadData];
+        [self setBottomView];
     }];
 }
 
 //修改导航栏显示
 -(void)addNavigationView
 {
-    @weakify(self)
-    self.view.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        @strongify(self)
-        NSString *leftImg = @"return_left";
-        NSString *rightImg = @"attention_search";
-        if (UserGetBool(@"NightMode")) {
-            leftImg = [leftImg stringByAppendingString:@"_night"];
-            rightImg = [rightImg stringByAppendingString:@"_night"];
-        }
-        
-        self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:leftImg]];
-        
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(rightImg)];
-    });
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
+    
+    if (self.postModel) {
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(publishAction) title:@"发表" font:PFFontL(15) titleColor:BlackColor highlightedColor:BlackColor titleEdgeInsets:UIEdgeInsetsZero];
+    }else{
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(@"attention_search")];
+    }
     
 }
 
 -(void)back
 {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    if (self.postModel) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+}
+
+-(void)publishAction
+{
+    if (self.postModel.sectionId == 0) {
+        LRToast(@"没有选择版块哟");
+        return;
+    }
+    [self requestPublishPost];
 }
 
 -(void)searchAction
@@ -235,8 +245,7 @@
     ;
     [_leftTable updateLayout];
     [_leftTable registerClass:[ForumLeftTableViewCell class] forCellReuseIdentifier:ForumLeftTableViewCellID];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [self selectTable:_leftTable atIndex:0];
     
     self.bottomView.backgroundColor = WhiteColor;
     @weakify(self);
@@ -263,13 +272,26 @@
     [self setBottomView];
 }
 
+//主动选择tableView的某一row
+-(void)selectTable:(UITableView *)tableview atIndex:(NSInteger)index
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [tableview selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    if (tableview == _leftTable&&self.postModel) {
+        MainSectionModel *model = self.dataSource[index];
+        if (model.subSections.count<=0) {
+            [self requestListSubSection:model];
+        }
+    }
+}
+
 //设置关注更多视图
 -(void)setBottomView
 {
-    if (self.leftSelectedIndex == 0&&self.dataSource.count>0) {
+    if (self.leftSelectedIndex == 0&&self.dataSource.count>0&&!self.postModel) {
         MainSectionModel *model = self.dataSource[0];
         CGFloat height = 40;
-        if (model.subSections<=0) {
+        if (model.subSections.count<=0) {
             height = 0;
             self.bottomView.hidden = YES;
         }else{
@@ -340,8 +362,11 @@
         ForumRightTableViewCell *cell2 = (ForumRightTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumRightTableViewCellID];
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
         MainSectionModel *model2 = model.subSections[indexPath.row];
-
+        if (self.postModel) {
+            cell2.isPost = YES;
+        }
         cell2.model = model2;
+        
         cell = cell2;
     }
     
@@ -371,7 +396,7 @@
 {
     if (tableView == _rightTable&&self.leftSelectedIndex == 0&&self.dataSource.count>0) {
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
-        if (model.subSections.count<=0) {
+        if (model.subSections.count<=0&&!self.postModel) {
             return 213;
         }
     }
@@ -405,8 +430,8 @@
 {
     UIView *footView;
     if (tableView == _rightTable&&self.leftSelectedIndex == 0&&self.dataSource.count>0){
-        MainSectionModel *model = self.dataSource[0];
-        if (model.subSections.count<=0) {
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        if (model.subSections.count<=0&&!self.postModel) {
             footView = [[UIView alloc]initWithFrame: CGRectMake(0, 0, _rightTable.frame.size.width, 213)];
             _addImg = [UIButton new];
             UILabel *noticeLabel = [UILabel new];
@@ -440,28 +465,35 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == _leftTable) {
-        if (self.leftSelectedIndex == indexPath.row) {
+        if (self.leftSelectedIndex == indexPath.row&&!self.postModel) {
             return;
         }
         self.leftSelectedIndex = indexPath.row;
         [self.rightTable reloadData];
         [self setBottomView];
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
-        if (model.subSections.count<=0&&self.leftSelectedIndex!=0) {
+        if (self.postModel&&model.subSections.count<=0) {
             [self requestListSubSection:model];
         }else{
-            [self.rightTable reloadData];
-            [self setBottomView];
+            if (model.subSections.count<=0&&self.leftSelectedIndex!=0) {
+                [self requestListSubSection:model];
+            }else{
+                [self.rightTable reloadData];
+                [self setBottomView];
+            }
         }
+        self.postModel.sectionId = 0;
     }else if (tableView == _rightTable) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
         MainSectionModel *model2 = model.subSections[indexPath.row];
-        
-        ForumDetailViewController *fdVC = [ForumDetailViewController new];
-        fdVC.navigationItem.title = GetSaveString(model2.name);
-        fdVC.sectionId = model2.sectionId;
-        [self.navigationController pushViewController:fdVC animated:YES];
+        self.postModel.sectionId = model2.sectionId;
+        if (!self.postModel) {
+            ForumDetailViewController *fdVC = [ForumDetailViewController new];
+            fdVC.navigationItem.title = GetSaveString(model2.name);
+            fdVC.sectionId = model2.sectionId;
+            [self.navigationController pushViewController:fdVC animated:YES];
+        }
     }
 }
 
@@ -474,15 +506,18 @@
         HiddenHudOnly;
         [self.view ly_endLoading];
         NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *myAttentionArr = [MainSectionModel getLocalAttentionSections];
         if (listArr.count > 0) {
             MainSectionModel *model = [MainSectionModel new];
             model.name = @"我的关注";
-            model.subSections = [MainSectionModel getLocalAttentionSections];
+            model.subSections = myAttentionArr;
             [self.dataSource removeAllObjects];
             [self.dataSource addObject:model];
+            if (myAttentionArr.count<=0&&self.postModel) {
+                [self.dataSource removeAllObjects];
+            }
             [self.dataSource addObjectsFromArray:listArr];
             [self setUI];
-            
         }
         
     } failure:^(NSError *error) {
@@ -515,6 +550,18 @@
     
 }
 
-
+//发表帖子
+-(void)requestPublishPost
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"postModel"] = [self.postModel mj_JSONString];
+    
+    [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"发帖成功");
+        GCDAfterTime(1, ^{
+            [self dismissViewControllerAnimated:NO completion:nil];
+        });
+    } failure:nil RefreshAction:nil];
+}
 
 @end

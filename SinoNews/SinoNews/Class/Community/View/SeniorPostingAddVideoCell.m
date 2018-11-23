@@ -188,7 +188,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
         goDownTouch.gestureRecognizers = nil;
     }
     
-    selectVideo.image = model.image;
+    selectVideo.image = model.imageData.toImage;
     
     NSString *text = GetSaveString(model.videoDes);
     if ([NSString isEmpty:text]) {

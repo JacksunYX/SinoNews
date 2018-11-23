@@ -121,7 +121,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightEqualToWidth()
     ;
     avatar.sd_cornerRadius = @14;
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     
     nickName.sd_layout
     .centerYEqualToView(avatar)
@@ -164,6 +164,10 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .widthIs(imgW)
     .heightIs(0)
     ;
+    
+    leftImg.sd_cornerRadius = @3;
+    centerImg.sd_cornerRadius = @3;
+    rightImg.sd_cornerRadius = @3;
     
     publishTime.sd_layout
     .topSpaceToView(leftImg, 15)
@@ -301,7 +305,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     if (type >= 3){
         [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[2]))];
     }
-    
+    [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
     title.text = GetSaveString(model.postTitle);
     nickName.text = GetSaveString(model.username);
     publishTime.text = GetSaveString(model.createTime);

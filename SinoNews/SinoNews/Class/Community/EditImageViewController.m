@@ -126,7 +126,7 @@
     .rightEqualToView(self.view)
     .bottomSpaceToView(_descrip, 0)
     ;
-    imageView.image = self.model.image;
+    imageView.image = self.model.imageData.toImage;
     imageView.contentMode = 1;
     
     GCDAfterTime(0.8, ^{

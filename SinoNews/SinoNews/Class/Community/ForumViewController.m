@@ -125,8 +125,6 @@
     
     [self setBottomView];
     
-    [self requestListMainSection];
-    
     @weakify(self);
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
         @strongify(self);
@@ -142,6 +140,8 @@
         [self.rightTable reloadData];
         [self setBottomView];
     }];
+    
+    [self requestListMainSection];
 }
 
 //修改导航栏显示
@@ -554,7 +554,19 @@
 -(void)requestPublishPost
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"postModel"] = [self.postModel mj_JSONString];
+    
+    NSMutableDictionary *dic = [self.postModel mj_JSONObject];
+    NSMutableArray *dataSource = dic[@"dataSource"];
+    for (int i = 0; i < dataSource.count; i ++) {
+        NSMutableDictionary *item = dataSource[i];
+        if (item[@"imageData"]) {
+            [item removeObjectForKey:@"imageData"];
+        }
+        if (item[@"videoData"]){
+            [item removeObjectForKey:@"videoData"];
+        }
+    }
+    parameters[@"postModel"] = [dic mj_JSONString];
     
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"发帖成功");

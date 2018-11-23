@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) NSString *content;
 //图片相关
 @property (nonatomic,assign) ImageUploadStatus imageStatus;
-@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong) NSString *imageData;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,strong) NSString *imageDes;
 @property (nonatomic,assign) CGFloat imageW;

@@ -8,6 +8,7 @@
 
 #import "VotePostingViewController.h"
 #import "SelectPublishChannelViewController.h"
+#import "ForumViewController.h"
 
 #import "VotePostingTableViewCell.h"
 #import "VotePostingTableViewCell2.h"

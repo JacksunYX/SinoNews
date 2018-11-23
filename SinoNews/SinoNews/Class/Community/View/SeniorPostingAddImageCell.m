@@ -175,7 +175,7 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
         goDownTouch.gestureRecognizers = nil;
     }
     
-    selectImage.image = model.image;
+    selectImage.image = model.imageData.toImage;
     
     uploadStatus.backgroundColor = kWhite(0.36);
     uploadStatus.selected = NO;

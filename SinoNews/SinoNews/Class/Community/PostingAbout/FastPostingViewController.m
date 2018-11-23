@@ -107,10 +107,10 @@
             if (model.videoData||model.videoUrl) {
                 newModel.videoData = model.videoData;
                 newModel.videoUrl = model.videoUrl;
-                
+                newModel.addType = 3;
             }else{//图片
                 newModel.imageUrl = model.imageUrl;
-                
+                newModel.addType = 2;
                 if (model.status==Uploading) {
                     newModel.imageStatus = ImageUploading;
                 }else if (model.status==UploadSuccess){
@@ -121,15 +121,14 @@
                     newModel.imageStatus = ImageUploadNone;
                 }
             }
-            newModel.image = model.image;
+            newModel.imageData = model.imageData;
             newModel.imageW = model.imageW;
             newModel.imageH = model.imageH;
             [elementArr addObject:newModel];
         }
     }
     self.postModel.dataSource = elementArr;
-//    self.postModel.sectionId = 4;
-    self.postModel.postType = 0;
+    self.postModel.postType = 1;
     
 //    GGLog(@"快速发帖内容展示：%@",self.postModel);
     ForumViewController *fvVC = [ForumViewController new];

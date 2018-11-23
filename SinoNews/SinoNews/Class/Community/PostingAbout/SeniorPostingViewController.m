@@ -15,6 +15,7 @@
 #import "EditVideoViewController.h"
 #import "RemindOthersToReadViewController.h"
 #import "PreviewViewController.h"
+#import "ForumViewController.h"
 
 #import "SeniorPostingAddTitleCell.h"
 #import "SeniorPostingAddContentCell.h"
@@ -277,10 +278,18 @@
 //                NSDictionary *dic = [model mj_keyValues];
 //                GGLog(@"添加的内容:%lf\n%lf",model.imageW,model.imageH);
 //            }
-            //跳转到详情页测试
-            ThePostDetailViewController *pVC = [ThePostDetailViewController new];
-            pVC.postModel = self.postModel;
-            [self.navigationController pushViewController:pVC animated:YES];
+            if ([NSString isEmpty:self.postModel.postTitle]) {
+                LRToast(@"标题不能空缺哦");
+            }else if ([NSString isEmpty:self.postModel.postContent]){
+                LRToast(@"内容不能空缺哦");
+            }else{
+                //跳转到详情页测试
+                self.postModel.postType = 3;
+                ForumViewController *pVC = [ForumViewController new];
+                pVC.postModel = self.postModel;
+                [self.navigationController pushViewController:pVC animated:YES];
+            }
+            
         }
             break;
             
@@ -758,7 +767,7 @@
     for (int i = 0; i < self.dataSource.count; i ++) {
         SeniorPostingAddElementModel *model2 = self.dataSource[i];
         //找到类型一致，图片也相同的元素
-        if (model2.addType == model.addType&&model2.image == model.image) {
+        if (model2.addType == model.addType&&model2.imageData == model.imageData) {
             //刷新该cell即可
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
@@ -845,7 +854,7 @@
     for (UIImage *image in photos) {
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
         model.addType = 2;
-        model.image = image;
+        model.imageData = image.base64String;
         model.imageStatus = ImageUploading;
         [RequestGather uploadSingleImage:image Success:^(id response) {
             model.imageUrl = response[@"data"];
@@ -877,7 +886,7 @@
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
         model.addType = 3;
         model.videoData = videoData;
-        model.image = coverImage;
+        model.imageData = coverImage.base64String;
         model.imageW = coverImage.size.width;
         model.imageH = coverImage.size.height;
         model.videoUrl = outputPath;

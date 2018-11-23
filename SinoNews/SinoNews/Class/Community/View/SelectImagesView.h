@@ -25,7 +25,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) NSData *videoData;    //视频资源
 @property (nonatomic,strong) NSString *videoUrl;
 
-@property (nonatomic,strong) UIImage *image;
+@property (nonatomic,strong) NSString *imageData;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,assign) CGFloat imageW;
 @property (nonatomic,assign) CGFloat imageH;

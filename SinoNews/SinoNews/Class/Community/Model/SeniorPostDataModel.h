@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isCollection;//是否收藏
 @property (nonatomic,assign) BOOL hasPraised;//是否点赞
 @property (nonatomic,assign) NSInteger praiseCount;//点赞数
+//评价:(0无，1好文，2好文+精)
+@property (nonatomic,assign) NSInteger rate;
 
 //投票帖子专用属性
 //是否是投票
@@ -57,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *createStamp;
 @property (nonatomic,strong) NSMutableArray *images;
 @property (nonatomic,assign) NSInteger postId;
-//帖子类型
+//帖子类型(1普通帖子、2投票帖子、3高级帖子)
 @property (nonatomic,assign) NSInteger postType;
 @property (nonatomic,assign) NSInteger sectionId;
 @property (nonatomic,strong) NSString *tags;

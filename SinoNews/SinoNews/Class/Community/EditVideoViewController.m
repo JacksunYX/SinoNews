@@ -135,7 +135,7 @@
     .bottomSpaceToView(_descrip, 0)
     ;
     [_videoView updateLayout];
-    _videoView.image = self.model.image;
+    _videoView.image = self.model.imageData.toImage;
     _videoView.contentMode = 1;
     
     _playBtn = [UIButton new];
@@ -164,7 +164,10 @@
 //播放视频
 -(void)playAction
 {
-    
+    if (self.player.status == AVPlayerStatusReadyToPlay) {
+        GGLog(@"正在播放");
+        return;
+    }
     //本地视频
     NSURL *localVideoUrl = [NSURL fileURLWithPath:self.model.videoUrl];
     //创建播放器
@@ -188,6 +191,7 @@
         if (currentTime/totalTime>=1) {
             GGLog(@"播放完成");
             [self.avLayer removeFromSuperlayer];
+            self.player = nil;
         }
     }];
     

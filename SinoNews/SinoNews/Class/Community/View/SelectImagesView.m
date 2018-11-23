@@ -143,7 +143,7 @@
             [imageView addSubview:delete];
             
             SelectImageModel *photoModel = copyArr[i];
-            imageView.image = photoModel.image;
+            imageView.image = photoModel.imageData.toImage;
             //已经有上传操作了
             if (photoModel.status != UploadingNone) {
                 imageView.status = photoModel.status;
@@ -169,7 +169,7 @@
                 }else{
                     GGLog(@"上传图片");
                     //上传过程
-                    [RequestGather uploadSingleImage:photoModel.image Success:^(id response) {
+                    [RequestGather uploadSingleImage:photoModel.imageData.toImage Success:^(id response) {
                         //上传成功
                         SelectedImage *imageV = (SelectedImage *)self.imageViewsArr[i];
                         imageV.status = UploadSuccess;
@@ -274,7 +274,8 @@
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
     for (UIImage *image in photos) {
         SelectImageModel *photoModel = [SelectImageModel new];
-        photoModel.image = image;
+        
+        photoModel.imageData = image.base64String;
         photoModel.imageW = image.size.width;
         photoModel.imageH = image.size.height;
         photoModel.status = UploadingNone;
@@ -293,7 +294,7 @@
         NSData *videoData = [NSData dataWithContentsOfURL:videoURL];
         
         SelectImageModel *photoModel = [SelectImageModel new];
-        photoModel.image = coverImage;
+        photoModel.imageData = coverImage.base64String;
         photoModel.imageW = coverImage.size.width;
         photoModel.imageH = coverImage.size.height;
         photoModel.videoData = videoData;

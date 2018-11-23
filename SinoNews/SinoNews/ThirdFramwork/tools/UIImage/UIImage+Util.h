@@ -30,4 +30,9 @@
  */
 -(UIImage *)cutToSize:(CGSize)size;
 
+//转换为base64格式的字符串
+-(NSString *)base64String;
+
+
+
 @end

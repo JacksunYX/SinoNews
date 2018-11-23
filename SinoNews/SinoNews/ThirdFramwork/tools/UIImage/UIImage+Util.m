@@ -78,4 +78,13 @@
     return resultImage;
 }
 
+//转换为base64格式的字符串
+-(NSString *)base64String
+{
+    //最好压缩一下
+    NSData *imgData = [self compressWithMaxLength:100 * 1024];
+    NSString *imageBase64 = [imgData base64EncodedString];
+    return imageBase64;
+}
+
 @end

@@ -492,4 +492,11 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+//base64格式转image
+-(UIImage *)toImage
+{
+    NSData *imageData = [NSData dataWithBase64EncodedString:self];
+    return [UIImage imageWithData:imageData];
+}
+
 @end

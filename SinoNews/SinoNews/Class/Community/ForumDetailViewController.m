@@ -413,6 +413,26 @@
     return nil;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2) {
+        SeniorPostDataModel *model = self.dataSource[indexPath.row];
+        
+        UIViewController *vc;
+        if (model.postType == 2) { //投票
+            TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+            tvpdVC.postModel.postId = model.postId;
+            vc = tvpdVC;
+        }else{
+            ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+            tpdVC.postModel.postId = model.postId;
+            vc = tpdVC;
+        }
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {

@@ -64,6 +64,14 @@ CGFloat static attentionBtnH = 26;
     return _user;
 }
 
+-(SeniorPostDataModel *)postModel
+{
+    if (!_postModel) {
+        _postModel = [SeniorPostDataModel new];
+    }
+    return _postModel;
+}
+
 -(NSMutableArray *)imagesArr
 {
     if (!_imagesArr) {
@@ -99,6 +107,8 @@ CGFloat static attentionBtnH = 26;
     [self setTitle];
     [self setBottomView];
     [self reloadDataWithDataArrUpperCase];
+    
+    [self requestPost_browsePost];
 }
 
 - (void)setUI
@@ -870,5 +880,12 @@ CGFloat static attentionBtnH = 26;
     }
 }
 
+#pragma mark --请求
+-(void)requestPost_browsePost
+{
+    [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
+        
+    } failure:nil];
+}
 
 @end

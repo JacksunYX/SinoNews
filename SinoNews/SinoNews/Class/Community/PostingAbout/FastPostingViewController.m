@@ -46,6 +46,7 @@
 {
     if (!_postModel) {
         _postModel = [SeniorPostDataModel new];
+        _postModel.postType = 1;
     }
     return _postModel;
 }
@@ -128,7 +129,7 @@
         }
     }
     self.postModel.dataSource = elementArr;
-    self.postModel.postType = 1;
+    
     
 //    GGLog(@"快速发帖内容展示：%@",self.postModel);
     ForumViewController *fvVC = [ForumViewController new];

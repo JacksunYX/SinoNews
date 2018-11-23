@@ -18,11 +18,68 @@
     return self;
 }
 
-+(NSDictionary *)mj_replacedKeyFromPropertyName
++(NSDictionary *)mj_objectClassInArray
 {
     return @{
-//             @"author" : @"username",
+             @"dataSource":[SeniorPostingAddElementModel class],
+             @"voteSelects":[VoteChooseInputModel class],
              };
 }
+
+//设置唯一约束(修改的时间)
++(NSArray *)bg_uniqueKeys{
+    return @[@"saveTime"];
+}
+
++(NSDictionary *)bg_objectClassInArray
+{
+    return @{
+             @"dataSource":[SeniorPostingAddElementModel class],
+             @"voteSelects":[VoteChooseInputModel class],
+             };
+}
+
+//获取本地草稿列表
++(NSMutableArray *)getLocalDrafts
+{
+    NSArray* finfAlls = [self bg_findAll:nil];
+    GGLog(@"本地草稿查询完毕");
+    return finfAlls.mutableCopy;
+}
+
+//新增一个草稿
++(void)addANewDraft:(SeniorPostDataModel *)postModel
+{
+    //先删除
+    [self remove:postModel];
+    postModel.saveTime = [NSString currentTimeStr];
+    //再添加
+    [postModel bg_save];
+    
+    GGLog(@"草稿保存完毕");
+}
+
+//移除某个草稿
++(void)remove:(SeniorPostDataModel *)postModel
+{
+    NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"saveTime"),bg_sqlValue(postModel.saveTime)];
+    //删除
+    [self bg_delete:nil where:where];
+    GGLog(@"草稿已删除");
+}
+
+//清除所有草稿
++(void)removeAllDrafts
+{
+    NSInteger count = [self bg_count:nil where:nil];
+    //如果有数据再去清除
+    if (count>0) {
+        [self bg_clear:nil];
+        GGLog(@"草稿箱清空完毕");
+    }else{
+        GGLog(@"已无草稿可清理");
+    }
+}
+
 
 @end

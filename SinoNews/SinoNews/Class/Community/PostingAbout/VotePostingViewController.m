@@ -173,6 +173,7 @@ static NSInteger limitMaxNum = 20;
 {
     if (!_voteModel) {
         _voteModel = [SeniorPostDataModel new];
+        _voteModel.postType = 2;
     }
     return _voteModel;
 }
@@ -252,9 +253,9 @@ static NSInteger limitMaxNum = 20;
     self.voteModel.validityDate = [_validTime substringToIndex:1].integerValue;
     self.voteModel.visibleAfterVote = _isVisible;
     
-    TheVotePostDetailViewController *tvPDVC = [TheVotePostDetailViewController new];
-    tvPDVC.postModel = self.voteModel;
-    [self.navigationController pushViewController:tvPDVC animated:YES];
+    ForumViewController *fVC = [ForumViewController new];
+    fVC.postModel = self.voteModel;
+    [self.navigationController pushViewController:fVC animated:YES];
 }
 
 -(void)setUI
@@ -519,8 +520,6 @@ static NSInteger limitMaxNum = 20;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self.view endEditing:YES];
-    
     @weakify(self);
     if (indexPath.section == 1) {
         LZPickerView *pickerView = [LZPickerView new];
@@ -576,6 +575,9 @@ static NSInteger limitMaxNum = 20;
     
 }
 
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
 
 @end

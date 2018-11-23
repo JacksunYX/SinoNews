@@ -71,6 +71,7 @@
 {
     if (!_postModel) {
         _postModel = [SeniorPostDataModel new];
+        _postModel.postType = 3;
     }
     return _postModel;
 }
@@ -245,7 +246,7 @@
     switch (sender.tag) {
         case 0:
         {
-            
+            [SeniorPostDataModel addANewDraft:self.postModel];
         }
             break;
         case 1:
@@ -274,17 +275,12 @@
             break;
         case 3:
         {
-//            for (SeniorPostingAddElementModel *model in self.dataSource) {
-//                NSDictionary *dic = [model mj_keyValues];
-//                GGLog(@"添加的内容:%lf\n%lf",model.imageW,model.imageH);
-//            }
             if ([NSString isEmpty:self.postModel.postTitle]) {
                 LRToast(@"标题不能空缺哦");
             }else if ([NSString isEmpty:self.postModel.postContent]){
                 LRToast(@"内容不能空缺哦");
             }else{
                 //跳转到详情页测试
-                self.postModel.postType = 3;
                 ForumViewController *pVC = [ForumViewController new];
                 pVC.postModel = self.postModel;
                 [self.navigationController pushViewController:pVC animated:YES];

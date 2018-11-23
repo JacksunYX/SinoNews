@@ -31,6 +31,8 @@
 #define ListTopPostForSection @"/api/post/listTopPostForSection"
 //版块帖子列表(get)
 #define ListPostForSection @"/api/post/listPostForSection"
+//浏览一篇帖子(get)
+#define Post_browsePost @"/api/post/browsePost"
 
 #pragma mark --读帖
 //用户关注版块的帖子列表(get)

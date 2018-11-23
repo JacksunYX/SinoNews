@@ -17,10 +17,7 @@
              };
 }
 
-//设置唯一约束
-//+(NSArray *)bg_uniqueKeys{
-//    return @[@"name"];
-//}
+
 
 
 //获取本地关注版块列表
@@ -34,7 +31,8 @@
 //新增一个本地关注版块
 +(void)addANew:(MainSectionModel *)section
 {
-    NSInteger count = [self getLocalAttentionSections].count;
+    //快速查询条数
+    NSInteger count = [self bg_count:nil where:nil];
     
     [section bg_save];
     [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
@@ -49,20 +47,27 @@
 //移除某个版块
 +(void)remove:(MainSectionModel *)section
 {
-    NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"name"),bg_sqlValue(section.name)];
-    [self bg_delete:nil where:where];
-    [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
-    GGLog(@"版块已从本地移除");
-    if ([self getLocalAttentionSections].count<=0) {
-        GGLog(@"本地已无关注版块");
-        [kNotificationCenter postNotificationName:SectionsReduceNotify object:nil];
+    NSInteger count = [self bg_count:nil where:nil];
+    //如果有数据再去清除
+    if (count>0) {
+        NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"name"),bg_sqlValue(section.name)];
+        [self bg_delete:nil where:where];
+        [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
+        GGLog(@"版块已从本地移除");
+        if ([self getLocalAttentionSections].count<=0) {
+            GGLog(@"本地已无关注版块");
+            [kNotificationCenter postNotificationName:SectionsReduceNotify object:nil];
+        }
+    }else{
+        GGLog(@"数据库已无该类的对象，无法进行删除操作");
     }
+    
 }
 
 //新增多个本地关注版块
 +(void)addMutilNews:(NSArray <MainSectionModel*>*)sections
 {
-    NSInteger count = [self getLocalAttentionSections].count;
+    NSInteger count = [self bg_count:nil where:nil];
     [self bg_saveOrUpdateArray:sections];
     [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
     GGLog(@"同时存储多个关注版块完成");
@@ -76,8 +81,9 @@
 //清除所有本地关注版块
 +(void)removeAllSections
 {
+    NSInteger count = [self bg_count:nil where:nil];
     //如果有数据再去清除
-    if ([self getLocalAttentionSections]) {
+    if (count>0) {
         [self bg_clear:nil];
         [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
         GGLog(@"关注版块对象已全部清除");

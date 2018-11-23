@@ -18,6 +18,15 @@
 
 @implementation PostingListViewController
 
+-(NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [SeniorPostDataModel getLocalDrafts];
+        GGLog(@"本地草稿:%@",_dataSource);
+    }
+    return _dataSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *title = @"";
@@ -69,7 +78,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

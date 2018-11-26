@@ -85,7 +85,12 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 -(void)setModel:(SeniorPostingAddElementModel *)model
 {
     _model = model;
-    imageV.image = model.imageData.toImage;
+    if (model.imageData) {
+        imageV.image = model.imageData.toImage;
+    }else{
+        [imageV sd_setImageWithURL:UrlWithStr(model.imageUrl)];
+    }
+    
     CGFloat imageW = (ScreenW - 20);
     imageV.sd_layout
     .heightIs(imageW * model.imageH/model.imageW)

@@ -570,6 +570,11 @@
     
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"发帖成功");
+        //记得要从本地草稿箱移除
+        [SeniorPostDataModel remove:self.postModel];
+        if (self.refreshCallBack) {
+            self.refreshCallBack();
+        }
         GCDAfterTime(1, ^{
             [self dismissViewControllerAnimated:NO completion:nil];
         });

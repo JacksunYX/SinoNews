@@ -24,6 +24,9 @@
 //获得某个时间段距当前时间的剩余时间
 +(NSString *)getNowTimeWithString:(NSString *)aTimeString;
 
+//获取过去某个时间与现在时间的时差
++(NSString *)getTimeDifferenceWith:(NSString *)Timestamp;
+
 +(NSString *)encryptPlainText:(NSString *)plainText;
 +(NSString *)decryptCipherText:(NSString *)cipherText;
 

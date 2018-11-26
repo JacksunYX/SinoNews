@@ -27,7 +27,7 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray <SeniorPostingAddElementModel *>*dataSource;
 @property (nonatomic,strong) NSMutableArray <RemindPeople *>*remindArr;
-@property (nonatomic,strong) SeniorPostDataModel *postModel;
+
 
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) YXTextView *titleView;
@@ -175,6 +175,14 @@
     [self setUpNavigationView:NO];
     [self setUI];
     
+    if (self.postModel.postTitle) {
+        _titleView.text = self.postModel.postTitle;
+    }
+    if (self.postModel.postContent) {
+        _contentView.text = self.postModel.postContent;
+    }
+    self.dataSource = self.postModel.dataSource.mutableCopy;
+    
     [self reloadDataWithDataArrUpperCase];
     
     //键盘监听
@@ -247,6 +255,9 @@
         case 0:
         {
             [SeniorPostDataModel addANewDraft:self.postModel];
+            if (self.refreshCallBack) {
+                self.refreshCallBack();
+            }
         }
             break;
         case 1:
@@ -283,6 +294,13 @@
                 //跳转到详情页测试
                 ForumViewController *pVC = [ForumViewController new];
                 pVC.postModel = self.postModel;
+                @weakify(self);
+                pVC.refreshCallBack = ^{
+                    @strongify(self);
+                    if (self.refreshCallBack) {
+                        self.refreshCallBack();
+                    }
+                };
                 [self.navigationController pushViewController:pVC animated:YES];
             }
             

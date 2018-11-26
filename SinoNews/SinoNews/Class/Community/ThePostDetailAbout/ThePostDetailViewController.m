@@ -260,7 +260,6 @@ CGFloat static attentionBtnH = 26;
         .rightSpaceToView(self.titleView, 10)
         .autoHeightRatio(0)
         ;
-        _titleLabel.text = GetSaveString(self.postModel.postTitle);
         
         CGFloat wid = 24;
         if (kStringIsEmpty(self.postModel.avatar)) {
@@ -273,7 +272,7 @@ CGFloat static attentionBtnH = 26;
         .heightIs(24)
         ;
         [_avatar setSd_cornerRadius:@12];
-        [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
+        
         
         _authorName.sd_layout
         .leftSpaceToView(_avatar, 5)
@@ -281,7 +280,7 @@ CGFloat static attentionBtnH = 26;
         .heightIs(12)
         ;
         [_authorName setSingleLineAutoResizeWithMaxWidth:150];
-        _authorName.text = GetSaveString(self.postModel.author);
+        
         
         _idView.sd_layout
         .heightIs(20)
@@ -289,14 +288,6 @@ CGFloat static attentionBtnH = 26;
         .leftSpaceToView(_authorName, 10)
         .widthIs(0)
         ;
-        
-        _creatTime.sd_layout
-        .centerYEqualToView(_authorName)
-        .leftSpaceToView(_idView, 5)
-        .heightIs(12)
-        ;
-        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
-        _creatTime.text = GetSaveString(self.postModel.createTime);
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
@@ -307,22 +298,34 @@ CGFloat static attentionBtnH = 26;
         
         [_attentionBtn setSd_cornerRadius:@(attentionBtnH/2)];
         
+        _creatTime.sd_layout
+        .centerYEqualToView(_authorName)
+//        .leftSpaceToView(_idView, 5)
+        .rightSpaceToView(_attentionBtn, 10)
+        .heightIs(12)
+        ;
+        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
+        
         _contentLaebl.sd_layout
         .topSpaceToView(_attentionBtn, 20)
         .leftEqualToView(_titleLabel)
         .rightEqualToView(_titleLabel)
         .heightIs(0)
         ;
-
-        _contentLaebl.text = GetSaveString(self.postModel.postContent);
-        CGFloat h = [_contentLaebl getLabelWithLineSpace:3 width:ScreenW - 20];
-        _contentLaebl.sd_layout
-        .heightIs(h)
-        ;
-        [_contentLaebl updateLayout];
         
         [self.titleView setupAutoHeightWithBottomView:_contentLaebl bottomMargin:bottomMargin];
     }
+    
+    _titleLabel.text = GetSaveString(self.postModel.postTitle);
+    [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
+    _authorName.text = GetSaveString(self.postModel.author);
+    _creatTime.text = GetSaveString(self.postModel.createTime);
+    _contentLaebl.text = GetSaveString(self.postModel.postContent);
+    CGFloat h = [_contentLaebl getLabelWithLineSpace:3 width:ScreenW - 20];
+    _contentLaebl.sd_layout
+    .heightIs(h)
+    ;
+    [_contentLaebl updateLayout];
     
     _attentionBtn.selected = self.postModel.isAttention;
     if (_attentionBtn.selected) {
@@ -884,7 +887,9 @@ CGFloat static attentionBtnH = 26;
 -(void)requestPost_browsePost
 {
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
-        
+        self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
+        [self setTitle];
+        [self.tableView reloadData];
     } failure:nil];
 }
 

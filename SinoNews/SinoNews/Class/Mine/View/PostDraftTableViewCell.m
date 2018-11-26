@@ -71,7 +71,7 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
     .rightSpaceToView(fatherView, 15)
     .autoHeightRatio(0)
     ;
-    title.text = @"如视频所说，一直挑剔，剩下的就是自己，所以要脚 踏实地的努力……";
+    
     CGFloat imgW = (ScreenW - 40)/3;
 //    CGFloat imgH = imgW*67/112;
     leftImg.sd_layout
@@ -98,8 +98,8 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
     .topSpaceToView(leftImg, 5)
     .heightIs(12)
     ;
-    [saveTime setSingleLineAutoResizeWithMaxWidth:50];
-    saveTime.text = @"10分钟前";
+    [saveTime setSingleLineAutoResizeWithMaxWidth:150];
+    
     
     leftImg.sd_cornerRadius = @3;
     centerImg.sd_cornerRadius = @3;
@@ -133,6 +133,63 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
     leftImg.image = UIImageNamed(@"gameAd_0");
     centerImg.image = UIImageNamed(@"gameAd_1");
     rightImg.image = UIImageNamed(@"gameAd_2");
+}
+
+-(void)setDraftModel:(SeniorPostDataModel *)draftModel
+{
+    _draftModel = draftModel;
+    
+    NSInteger type = 0;
+    if (draftModel.images.count>0) {
+        if (draftModel.images.count<=3){
+            type = draftModel.images.count;
+        }
+    }
+    CGFloat imgW = (ScreenW - 30 - 44)/3;
+    CGFloat imgH = imgW*60/100;
+    CGFloat h = 0;
+    CGFloat h2 = 0;
+    
+    //一张图片
+    if (type==1) {
+        imgW = 234;
+        h = 97;
+    }else if (type==2||type==3) {
+        h = imgH;
+        h2 = imgH;
+    }
+    
+    leftImg.sd_layout
+    .widthIs(imgW)
+    .heightIs(h)
+    ;
+    centerImg.sd_layout
+    .heightIs(h2)
+    ;
+    rightImg.sd_layout
+    .heightIs(h2)
+    ;
+    if (type >= 1) {
+        [leftImg sd_setImageWithURL:UrlWithStr(GetSaveString(draftModel.images[0]))];
+    }
+    if (type >= 2){
+        [centerImg sd_setImageWithURL:UrlWithStr(GetSaveString(draftModel.images[1]))];
+    }
+    if (type >= 3){
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(draftModel.images[2]))];
+    }
+    
+    if ([NSString isEmpty:draftModel.postTitle]) {
+        if (draftModel.postContent.length>10) {
+            title.text = [NSString stringWithFormat:@"%@...",[draftModel.postContent substringToIndex:9]];
+        }else{
+            title.text = GetSaveString(draftModel.postContent);
+        }
+    }else{
+        title.text = GetSaveString(draftModel.postTitle);
+    }
+    
+    saveTime.text = [NSString getTimeDifferenceWith:draftModel.saveTime];
 }
 
 @end

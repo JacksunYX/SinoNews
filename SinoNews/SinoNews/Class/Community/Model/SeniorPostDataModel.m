@@ -56,16 +56,23 @@
     //再添加
     [postModel bg_save];
     
-    GGLog(@"草稿保存完毕");
+    LRToast(@"草稿保存完毕");
+//    GGLog(@"草稿保存完毕");
 }
 
 //移除某个草稿
 +(void)remove:(SeniorPostDataModel *)postModel
 {
-    NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"saveTime"),bg_sqlValue(postModel.saveTime)];
-    //删除
-    [self bg_delete:nil where:where];
-    GGLog(@"草稿已删除");
+    NSInteger count = [self bg_count:nil where:nil];
+    if (count>0) {
+        NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"saveTime"),bg_sqlValue(postModel.saveTime)];
+        //删除
+        [self bg_delete:nil where:where];
+        GGLog(@"草稿已删除");
+    }else{
+        GGLog(@"已无草稿可删除");
+    }
+    
 }
 
 //清除所有草稿

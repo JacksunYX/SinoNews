@@ -7,6 +7,7 @@
 //
 
 #import "PostingListViewController.h"
+#import "SeniorPostingViewController.h" //高级发帖
 
 #import "ThePostListTableViewCell.h"
 #import "PostDraftTableViewCell.h"
@@ -21,8 +22,7 @@
 -(NSMutableArray *)dataSource
 {
     if (!_dataSource) {
-        _dataSource = [SeniorPostDataModel getLocalDrafts];
-        GGLog(@"本地草稿:%@",_dataSource);
+        _dataSource = [NSMutableArray new];
     }
     return _dataSource;
 }
@@ -41,23 +41,36 @@
         }
     self.navigationItem.title = title;
     
-    [self setUI];
+    [self setUpTableView];
+    [self setDraftData];
 }
 
--(void)setUI
+//读取本地草稿数据,设置界面
+-(void)setDraftData
 {
-    [self setUpTableView];
+    if (_type == 1) {
+        self.dataSource = [SeniorPostDataModel getLocalDrafts];
+        GGLog(@"本地草稿:%@",_dataSource);
+        if (self.dataSource.count) {
+            //倒序,让新添加或者修改的显示在最上面
+            self.dataSource = (NSMutableArray *)[[self.dataSource reverseObjectEnumerator] allObjects];
+        }
+        [self.tableView reloadData];
+    }
 }
 
 -(void)setUpTableView
 {
+    if (_tableView) {
+        return;
+    }
     _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.backgroundColor = WhiteColor;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _tableView.separatorColor = CutLineColorNight;
+    _tableView.separatorColor = CutLineColor;
     [_tableView addBakcgroundColorTheme];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
@@ -90,14 +103,8 @@
         cell = cell0;
     }else if (self.type == 1){
         PostDraftTableViewCell *cell1 = (PostDraftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PostDraftTableViewCellID];
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        dic[@"imgs"] = @"0";
-        if (indexPath.row == 1) {
-            dic[@"imgs"] = @"1";
-        }else if(indexPath.row == 2){
-            dic[@"imgs"] = @"3";
-        }
-        [cell1 setData:dic];
+        SeniorPostDataModel *draftModel = self.dataSource[indexPath.row];
+        cell1.draftModel = draftModel;
         cell = cell1;
     }
     [cell addBakcgroundColorTheme];
@@ -118,6 +125,24 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    @weakify(self);
+    if (self.type==1) {
+        SeniorPostDataModel *draftModel = self.dataSource[indexPath.row];
+        if (draftModel.postType == 3) {
+            SeniorPostingViewController *spVC = [SeniorPostingViewController new];
+            
+            spVC.refreshCallBack = ^{
+                @strongify(self);
+                [self setDraftData];
+            };
+            spVC.postModel = draftModel;
+            [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:spVC] animated:YES completion:nil];
+        }
+    }
 }
 
 @end

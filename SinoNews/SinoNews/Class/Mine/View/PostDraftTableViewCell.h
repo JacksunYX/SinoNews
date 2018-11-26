@@ -14,7 +14,9 @@ extern NSString *const PostDraftTableViewCellID;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PostDraftTableViewCell : UITableViewCell
+@property (nonatomic,strong) SeniorPostDataModel *draftModel;
 -(void)setData:(NSDictionary *)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

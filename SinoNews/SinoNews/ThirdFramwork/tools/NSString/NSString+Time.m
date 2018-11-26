@@ -35,8 +35,8 @@
     NSDate *detailDate = [NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init]; //实例化一个NSDateFormatter对象
     //设定时间格式,这里可以设置成自己需要的格式
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss SS"];
-    [dateFormatter setDateFormat:@"yyyy 年 MM 月 dd 日"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    [dateFormatter setDateFormat:@"yyyy 年 MM 月 dd 日"];
     
     NSString *currentDateStr = [dateFormatter stringFromDate: detailDate];
     return currentDateStr;
@@ -138,6 +138,42 @@
         return [NSString stringWithFormat:@"%@天%@时%@分%@秒", dayStr,hoursStr, minutesStr,secondsStr];
 //    }
 //    return [NSString stringWithFormat:@"%@时%@分%@秒",hoursStr , minutesStr,secondsStr];
+}
+
+//获取过去某个时间与现在时间的时差
++(NSString *)getTimeDifferenceWith:(NSString *)Timestamp
+{
+    NSString *oldTimeStr = [self getDateStringWithTimeStr:Timestamp];
+    NSString *currentTimeStr = [NSString getDateStringWithTimeStr:[self currentTimeStr]];
+    
+    // 1.将时间转换为date
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSDate *date1 = [formatter dateFromString:oldTimeStr];
+    NSDate *date2 = [formatter dateFromString:currentTimeStr];
+    
+    // 2.创建日历
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendarUnit type = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    // 3.利用日历对象比较两个时间的差值
+    NSDateComponents *cmps = [calendar components:type fromDate:date1 toDate:date2 options:0];
+    // 4.输出结果
+    NSString *TimeDifference = [NSString stringWithFormat:@"两个时间相差%ld年%ld月%ld日%ld小时%ld分钟%ld秒", cmps.year, cmps.month, cmps.day, cmps.hour, cmps.minute, cmps.second];
+//    NSLog(@"%@",TimeDifference);
+    if (cmps.year) {
+        TimeDifference = [NSString stringWithFormat:@"%ld年前",cmps.year];
+    }else if (cmps.month) {
+        TimeDifference = [NSString stringWithFormat:@"%ld月前",cmps.month];
+    }else if (cmps.day) {
+        TimeDifference = [NSString stringWithFormat:@"%ld天前",cmps.day];
+    }else if (cmps.hour) {
+        TimeDifference = [NSString stringWithFormat:@"%ld小时前",cmps.hour];
+    }else if (cmps.minute) {
+        TimeDifference = [NSString stringWithFormat:@"%ld分钟前",cmps.minute];
+    }else if (cmps.second) {
+        TimeDifference = [NSString stringWithFormat:@"%ld秒钟前",cmps.second];
+    }
+    return TimeDifference;
 }
 
 @end

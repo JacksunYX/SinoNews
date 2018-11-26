@@ -13,6 +13,7 @@
 @interface ThePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
+@property (nonatomic,assign) NSInteger currPage;//评论页码
 //帖子中包含的图片数组
 @property (nonatomic,strong) NSMutableArray *imagesArr;
 
@@ -99,20 +100,18 @@ CGFloat static attentionBtnH = 26;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"帖子详情";
+    self.navigationItem.title = @"帖子加载中...";
     
-    [self setUI];
     
-    [self setNaviTitle];
-    [self setTitle];
-    [self setBottomView];
-    [self reloadDataWithDataArrUpperCase];
     
     [self requestPost_browsePost];
 }
 
 - (void)setUI
 {
+    if (_tableView) {
+        return;
+    }
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.backgroundColor = HexColor(#F3F5F4);
     [self.view addSubview:_tableView];
@@ -133,6 +132,31 @@ CGFloat static attentionBtnH = 26;
     [_tableView registerClass:[PreviewImageTableViewCell class] forCellReuseIdentifier:PreviewImageTableViewCellID];
     [_tableView registerClass:[ThePostCommentTableViewCell class] forCellReuseIdentifier:ThePostCommentTableViewCellID];
     [_tableView registerClass:[ThePostCommentReplyTableViewCell class] forCellReuseIdentifier:ThePostCommentReplyTableViewCellID];
+    
+    @weakify(self);
+    _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+            return ;
+        }
+        self.currPage = 1;
+        [self requestListPostComments];
+    }];
+    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+            return ;
+        }
+        if (self.commentsArr.count<=0) {
+            self.currPage = 1;
+        }else{
+            self.currPage ++;
+        }
+        [self requestListPostComments];
+    }];
+    [_tableView.mj_header beginRefreshing];
     
     _directoryBtn = [UIButton new];
     [self.view addSubview:_directoryBtn];
@@ -176,10 +200,10 @@ CGFloat static attentionBtnH = 26;
         [_naviTitle addSubview:avatar];
         
         [avatar cornerWithRadius:wid/2];
-        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
         
         UILabel *username = [UILabel new];
         [username addTitleColorTheme];
+        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
         username.text = GetSaveString(self.postModel.author);
         [username sizeToFit];
         CGFloat labelW = CGRectGetWidth(username.frame);
@@ -242,7 +266,7 @@ CGFloat static attentionBtnH = 26;
         
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            
+            [self requestIsAttention];
         }];
         
         [self.titleView sd_addSubviews:@[
@@ -261,14 +285,10 @@ CGFloat static attentionBtnH = 26;
         .autoHeightRatio(0)
         ;
         
-        CGFloat wid = 24;
-        if (kStringIsEmpty(self.postModel.avatar)) {
-            wid = 0;
-        }
         _avatar.sd_layout
         .topSpaceToView(_titleLabel, 7)
         .leftEqualToView(_titleLabel)
-        .widthIs(wid)
+        .widthIs(0)
         .heightIs(24)
         ;
         [_avatar setSd_cornerRadius:@12];
@@ -317,6 +337,14 @@ CGFloat static attentionBtnH = 26;
     }
     
     _titleLabel.text = GetSaveString(self.postModel.postTitle);
+    CGFloat wid = 24;
+    if (kStringIsEmpty(self.postModel.avatar)) {
+        wid = 0;
+    }
+    _avatar.sd_layout
+    .widthIs(wid)
+    ;
+    [_avatar updateLayout];
     [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
     _authorName.text = GetSaveString(self.postModel.author);
     _creatTime.text = GetSaveString(self.postModel.createTime);
@@ -336,8 +364,8 @@ CGFloat static attentionBtnH = 26;
     }
     //如果是用户本人发布的文章，就不显示关注的按钮
     if (![UserModel showAttention:self.postModel.userId]) {
-        [_attentionBtn removeFromSuperview];
-        [self.topAttBtn removeFromSuperview];
+        [_attentionBtn setHidden:YES];
+        [self.topAttBtn setHidden:YES];
     }
     
     _tableView.tableHeaderView = self.titleView;
@@ -375,13 +403,13 @@ CGFloat static attentionBtnH = 26;
             if (self.praiseBtn.selected) {
                 LRToast(@"已经点过赞啦");
             }else{
-                
+                [self requestPraiseWithPraiseType:9 praiseId:self.postModel.postId commentNum:0];
             }
         }];
         
         [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            
+            [self requestCollectNews];
         }];
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -528,28 +556,19 @@ CGFloat static attentionBtnH = 26;
         return;
     }
     @weakify(self)
-    [ShareAndFunctionView showWithCollect:self.postModel.isCollection returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
-        @strongify(self)
-        if (section == 0) {
-#ifdef JoinThirdShare
-            [self shareToPlatform:sharePlateform];
-#endif
-        }else if (section==1) {
-            if (row == 0) {
-                
-            }else if (row == 1) {
-                
-            }else if (row == 2) {
-                
-            }else if (row == 3) {
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = @"";
-                LRToast(@"链接已复制");
-            }
-            
-        }
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"复制链接" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self);
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = AppendingString(DomainString, self.postModel.postTitle);
+        LRToast(@"链接已复制");
     }];
     
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertVC addAction:confirm];
+    [alertVC addAction:cancel];
+    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 //评论弹框
@@ -757,7 +776,7 @@ CGFloat static attentionBtnH = 26;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 0&&self.postModel.createTime) {
         return 110;
     }else if (section == 1){
         return 10;
@@ -768,7 +787,7 @@ CGFloat static attentionBtnH = 26;
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
-    if (section == 0) {
+    if (section == 0&&self.postModel.createTime) {
         footView = [UIView new];
         [footView addBakcgroundColorTheme];
         UIButton *praiseBtn = [UIButton new];
@@ -812,7 +831,7 @@ CGFloat static attentionBtnH = 26;
             if (self.praiseBtn.selected) {
                 LRToast(@"已经点过赞啦");
             }else{
-                
+                [self requestPraiseWithPraiseType:9 praiseId:self.postModel.postId commentNum:0];
             }
         }];
         //边框色
@@ -833,7 +852,7 @@ CGFloat static attentionBtnH = 26;
         .bottomSpaceToView(footView, 10)
         ;
         [notice setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
-        notice.text = @"启世录好文章，需要你勤劳的小手指";
+        notice.text = @"启世录好帖子，需要你勤劳的小手指";
         
     }
     
@@ -884,12 +903,110 @@ CGFloat static attentionBtnH = 26;
 }
 
 #pragma mark --请求
+//获取帖子详情
 -(void)requestPost_browsePost
 {
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
+        for (int i = 0; i < self.postModel.dataSource.count; i ++) {
+            SeniorPostingAddElementModel *element = self.postModel.dataSource[i];
+            if (element.addType == 3) {
+                //获取视频第一帧保存进模型
+                UIImage *cover = [UIImage firstFrameWithVideoURL:UrlWithStr(element.videoUrl) size:CGSizeMake(element.imageW, element.imageH)];
+                element.imageData = cover.base64String;
+            }
+        }
+        [self setUI];
+        [self setNaviTitle];
         [self setTitle];
+        [self setBottomView];
+        [self reloadDataWithDataArrUpperCase];
         [self.tableView reloadData];
+    } failure:nil];
+}
+
+//关注/取消关注
+-(void)requestIsAttention
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(self.postModel.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        //        UserModel *user = [UserModel getLocalUserModel];
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
+            //            user.followCount ++;
+            LRToast(@"关注成功");
+        }else{
+            //            user.followCount --;
+            LRToast(@"已取消关注");
+        }
+        self.postModel.isAttention = status;
+        //覆盖之前保存的信息
+        //        [UserModel coverUserData:user];
+        [self setTitle];
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
+}
+
+//点赞帖子/评论
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
+{
+    //做个判断，如果是作者本人，则无法点赞
+    if (self.user.userId == self.postModel.userId) {
+        LRToast(@"不可以点赞自己哟");
+        return;
+    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(praiseType);
+    parameters[@"id"] = @(ID);
+    [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        if (praiseType == 9) {  //新闻
+            LRToast(@"点赞成功");
+            self.postModel.hasPraised = !self.postModel.hasPraised;
+            self.postModel.praiseCount ++;
+            [self setBottomView];
+        }else if (praiseType == 2) {
+            
+        }
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
+}
+
+//收藏/取消收藏帖子
+-(void)requestCollectNews
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"postId"] = @(self.postModel.postId);
+    [HttpRequest postWithTokenURLString:Post_favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        //        if (status == 1) {
+        //            LRToast(@"收藏成功");
+        //        }else{
+        //            LRToast(@"已取消收藏");
+        //        }
+        self.postModel.isCollection = status;
+        [self setBottomView];
+        
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
+}
+
+//帖子评论列表
+-(void)requestListPostComments
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"postId"] = @(self.postModel.postId);
+    parameters[@"currPage"] = @(self.postModel.postId);
+    
+    [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
+        
+        
+        
     } failure:nil];
 }
 

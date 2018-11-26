@@ -33,6 +33,7 @@
 //转换为base64格式的字符串
 -(NSString *)base64String;
 
-
+//截取视频的第一帧返回
++(UIImage *)firstFrameWithVideoURL:(NSURL *)url size:(CGSize)size;
 
 @end

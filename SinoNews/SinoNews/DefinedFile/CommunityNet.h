@@ -33,6 +33,11 @@
 #define ListPostForSection @"/api/post/listPostForSection"
 //浏览一篇帖子(get)
 #define Post_browsePost @"/api/post/browsePost"
+//帖子评论列表(get)
+#define ListPostComments @"/api/forum/post/listPostComments"
+//评论帖子/回复评论(post)
+#define PostComment @"/api/forum/post/comment"
+
 
 #pragma mark --读帖
 //用户关注版块的帖子列表(get)
@@ -45,8 +50,12 @@
 #define Post_myFavor @"/api/forum/post/myFavor"
 //批量取消收藏帖子(post)
 #define Post_batchCancelFavor @"/api/forum/post/batchCancelFavor"
+//收藏\取消收藏帖子(post)
+#define Post_favor @"/api/forum/post/favor"
 
 //发帖(post)
-#define PublishPost  @"/api/post/publishPost"
+#define PublishPost @"/api/post/publishPost"
+//投票(get)
+#define Post_doVote @"/api/post/doVote"
 
 #endif /* CommunityNet_h */

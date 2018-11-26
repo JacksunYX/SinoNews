@@ -117,7 +117,17 @@ NSString * const VoteDetailChooseTableViewCellID = @"VoteDetailChooseTableViewCe
     if (model.hiddenVoteResult) {
         pollLabel.text = @"发布者未开放投票数据";
     }else{
-        pollLabel.text = @"7票（%15.2）";
+        CGFloat percentage = 0.0;
+        if (model.totalPolls) {
+            percentage = (float)model.havePolls/model.totalPolls;
+            pollLabel.text = [NSString stringWithFormat:@"%ld票(%.2lf%%)",model.havePolls,percentage*100];
+        }else{
+           pollLabel.text = [NSString stringWithFormat:@"%ld票",model.havePolls];
+        }
+        pollFrontView.sd_layout
+        .widthRatioToView(pollDownView, percentage);
+        ;
+        [pollFrontView updateLayout];
     }
     
     NSString *contentString;
@@ -128,14 +138,6 @@ NSString * const VoteDetailChooseTableViewCellID = @"VoteDetailChooseTableViewCe
     }
     content.text = [NSString stringWithFormat:@"%@%ld.%@",contentString,self.tag+1,GetSaveString(model.content)];
     
-    CGFloat percent = 0.3;
-    if (self.tag == 1) {
-        percent = 0.64;
-    }
-    pollFrontView.sd_layout
-    .widthRatioToView(pollDownView, percent);
-    ;
-    [pollFrontView updateLayout];
 }
 
 @end

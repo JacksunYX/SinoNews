@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL haveVoted;
 //是否已截止
 @property (nonatomic,assign) BOOL isoVerdue;
+//是否是作者本人发表的投票(本人不能参与投票)
+@property (nonatomic,assign) BOOL postAuthor;
 //投票后结果是否可见
 @property (nonatomic,assign) NSInteger visibleAfterVote;
 //投票人数
@@ -51,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger choosableNum;
 //投票有效期
 @property (nonatomic,assign) NSInteger validityDate;
+//过期时间
+@property (nonatomic,strong) NSString *expiredTime;
 //投票选项数组
 @property (nonatomic,strong) NSMutableArray <VoteChooseInputModel *> *voteSelects;
 

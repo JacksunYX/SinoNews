@@ -201,6 +201,26 @@
     return 0.01;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    SeniorPostDataModel *model = self.dataSource[indexPath.row];
+    
+    UIViewController *vc;
+    if (model.postType == 2) { //投票
+        TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+        tvpdVC.postModel.postId = model.postId;
+        vc = tvpdVC;
+    }else{
+        ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+        tpdVC.postModel.postId = model.postId;
+        vc = tpdVC;
+    }
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
 #pragma mark --请求
 //获取用户关注版块的帖子列表(0刷新1加载)
 -(void)requestListUserAttenPost:(NSInteger)refreshType

@@ -397,6 +397,9 @@
 //全部频道
 -(void)more:(UIButton *)btn
 {
+    if (self.sectionsList.count<=0) {
+        return;
+    }
     @weakify(self)
     XLChannelControl *xccc = [XLChannelControl shareControl];
     xccc.naviTitle = @"全部版块";

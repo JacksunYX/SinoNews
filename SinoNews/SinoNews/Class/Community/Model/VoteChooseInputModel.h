@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VoteChooseInputModel : NSObject
 @property (nonatomic,strong) NSString *content;//投票选项内容
+@property (nonatomic,assign) NSInteger chooseId;//选项id
 @property (nonatomic,assign) BOOL isSelected;  //是否已被选
 //隐藏选择图标
 @property (nonatomic,assign) BOOL hiddenSelectIcon;

@@ -70,6 +70,14 @@ CGFloat static attentionBtnH = 26;
     return _user;
 }
 
+-(SeniorPostDataModel *)postModel
+{
+    if (!_postModel) {
+        _postModel = [SeniorPostDataModel new];
+    }
+    return _postModel;
+}
+
 -(NSMutableArray *)commentsArr
 {
     if (!_commentsArr) {
@@ -88,14 +96,10 @@ CGFloat static attentionBtnH = 26;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"帖子加载中...";
     
-    [self setUI];
+    [self requestPost_browsePost];
     
-    [self setNaviTitle];
-    [self setTitle];
-    [self setBottomView];
-    
-    [self setUpCutdown];
 }
 
 - (void)setUI
@@ -140,13 +144,19 @@ CGFloat static attentionBtnH = 26;
 //设置倒计时
 -(void)setUpCutdown
 {
+    //判断是否显示结束
+    if (self.postModel.isoVerdue) {
+        [self setUpExpired];
+        return;
+    }
+    
     self.countDown = [[CountDown alloc] init];
     @weakify(self);
     ///每秒回调一次
     [self.countDown countDownWithPER_SECBlock:^{
         @strongify(self);
         //获取时差
-        NSString *jetLag = [NSString getNowTimeWithString:@"2018-11-20 11:08:50"];
+        NSString *jetLag = [NSString getNowTimeWithString:self.postModel.expiredTime];
         if (jetLag) {
             //字符串分割
             NSArray *arr = [jetLag componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"天时分秒"]];
@@ -166,23 +176,29 @@ CGFloat static attentionBtnH = 26;
             [attText1 appendAttributedString:attText2];
             self.asOftheDateLabel.attributedText = attText1;
         }else{
-            self.asOftheDateLabel.text = @"投票已结束";
-            //别忘了清空这个数组，以免造成数据错乱
-            [self.selectChooseArr removeAllObjects];
-            //标记投票已过期
-            self.postModel.isoVerdue = YES;
-            for (VoteChooseInputModel *model in self.postModel.voteSelects) {
-                //不显示可选按钮图标
-                model.hiddenSelectIcon = YES;
-            }
-            //刷新分区0
-            NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:0];
-            [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self setUpExpired];
             //停止计时器
             [self.countDown destoryTimer];
         }
         
     }];
+}
+
+//设置投票已结束
+-(void)setUpExpired
+{
+    self.asOftheDateLabel.text = @"投票已结束";
+    //别忘了清空这个数组，以免造成数据错乱
+    [self.selectChooseArr removeAllObjects];
+    //标记投票已过期
+    self.postModel.isoVerdue = YES;
+    for (VoteChooseInputModel *model in self.postModel.voteSelects) {
+        //不显示可选按钮图标
+        model.hiddenSelectIcon = YES;
+    }
+    //刷新分区0
+    NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:0];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 //设置导航栏标题
@@ -268,7 +284,7 @@ CGFloat static attentionBtnH = 26;
         
         [[_attentionBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            
+            [self requestIsAttention];
         }];
         
         [self.titleView sd_addSubviews:@[
@@ -288,18 +304,13 @@ CGFloat static attentionBtnH = 26;
         ;
         _titleLabel.text = GetSaveString(self.postModel.postTitle);
         
-        CGFloat wid = 24;
-        if (kStringIsEmpty(self.postModel.avatar)) {
-            wid = 0;
-        }
         _avatar.sd_layout
         .topSpaceToView(_titleLabel, 7)
         .leftEqualToView(_titleLabel)
-        .widthIs(wid)
+        .widthIs(0)
         .heightIs(24)
         ;
         [_avatar setSd_cornerRadius:@12];
-        [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
         
         _authorName.sd_layout
         .leftSpaceToView(_avatar, 5)
@@ -307,7 +318,6 @@ CGFloat static attentionBtnH = 26;
         .heightIs(12)
         ;
         [_authorName setSingleLineAutoResizeWithMaxWidth:150];
-        _authorName.text = GetSaveString(self.postModel.author);
         
         _idView.sd_layout
         .heightIs(20)
@@ -315,14 +325,6 @@ CGFloat static attentionBtnH = 26;
         .leftSpaceToView(_authorName, 10)
         .widthIs(0)
         ;
-        
-        _creatTime.sd_layout
-        .centerYEqualToView(_authorName)
-        .leftSpaceToView(_idView, 5)
-        .heightIs(12)
-        ;
-        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
-        _creatTime.text = GetSaveString(self.postModel.createTime);
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
@@ -333,21 +335,42 @@ CGFloat static attentionBtnH = 26;
         
         [_attentionBtn setSd_cornerRadius:@(attentionBtnH/2)];
         
+        _creatTime.sd_layout
+        .centerYEqualToView(_authorName)
+        //        .leftSpaceToView(_idView, 5)
+        .rightSpaceToView(_attentionBtn, 10)
+        .heightIs(12)
+        ;
+        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
+        
         _contentLaebl.sd_layout
         .topSpaceToView(_attentionBtn, 20)
         .leftEqualToView(_titleLabel)
         .rightEqualToView(_titleLabel)
         .heightIs(0)
         ;
-        _contentLaebl.text = GetSaveString(self.postModel.postContent);
-        CGFloat h = [_contentLaebl getLabelWithLineSpace:3 width:ScreenW - 20];
-        _contentLaebl.sd_layout
-        .heightIs(h)
-        ;
-        [_contentLaebl updateLayout];
         
         [self.titleView setupAutoHeightWithBottomView:_contentLaebl bottomMargin:bottomMargin];
     }
+    
+    _titleLabel.text = GetSaveString(self.postModel.postTitle);
+    CGFloat wid = 24;
+    if (kStringIsEmpty(self.postModel.avatar)) {
+        wid = 0;
+    }
+    _avatar.sd_layout
+    .widthIs(wid)
+    ;
+    [_avatar updateLayout];
+    [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
+    _authorName.text = GetSaveString(self.postModel.author);
+    _creatTime.text = GetSaveString(self.postModel.createTime);
+    _contentLaebl.text = GetSaveString(self.postModel.postContent);
+    CGFloat h = [_contentLaebl getLabelWithLineSpace:3 width:ScreenW - 20];
+    _contentLaebl.sd_layout
+    .heightIs(h)
+    ;
+    [_contentLaebl updateLayout];
     
     _attentionBtn.selected = self.postModel.isAttention;
     if (_attentionBtn.selected) {
@@ -358,8 +381,8 @@ CGFloat static attentionBtnH = 26;
     }
     //如果是用户本人发布的文章，就不显示关注的按钮
     if (![UserModel showAttention:self.postModel.userId]) {
-        [_attentionBtn removeFromSuperview];
-        [self.topAttBtn removeFromSuperview];
+        [_attentionBtn setHidden:YES];
+        [self.topAttBtn setHidden:YES];
     }
     
     _tableView.tableHeaderView = self.titleView;
@@ -397,13 +420,13 @@ CGFloat static attentionBtnH = 26;
             if (self.praiseBtn.selected) {
                 LRToast(@"已经点过赞啦");
             }else{
-                
+                [self requestPraiseWithPraiseType:9 praiseId:self.postModel.postId commentNum:0];
             }
         }];
         
         [[_collectBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            
+            [self requestCollectNews];
         }];
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -487,27 +510,19 @@ CGFloat static attentionBtnH = 26;
         return;
     }
     @weakify(self)
-    [ShareAndFunctionView showWithCollect:self.postModel.isCollection returnBlock:^(NSInteger section, NSInteger row, MGShareToPlateform sharePlateform) {
-        @strongify(self)
-        if (section == 0) {
-#ifdef JoinThirdShare
-            [self shareToPlatform:sharePlateform];
-#endif
-        }else if (section==1) {
-            if (row == 0) {
-                
-            }else if (row == 1) {
-                
-            }else if (row == 2) {
-                
-            }else if (row == 3) {
-                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                pasteboard.string = @"";
-                LRToast(@"链接已复制");
-            }
-            
-        }
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"复制链接" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self);
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = AppendingString(DomainString, self.postModel.postTitle);
+        LRToast(@"链接已复制");
     }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertVC addAction:confirm];
+    [alertVC addAction:cancel];
+    [self presentViewController:alertVC animated:YES completion:nil];
     
 }
 
@@ -747,15 +762,7 @@ CGFloat static attentionBtnH = 26;
 {
     if (self.selectChooseArr.count>0) {
         //发出投票请求
-        LRToast(@"投票成功");
-        [self.selectChooseArr removeAllObjects];
-        self.postModel.haveVoted = YES;
-        self.postModel.voteNum ++;
-        for (VoteChooseInputModel *model in self.postModel.voteSelects) {
-            model.isSelected = NO;
-            model.hiddenSelectIcon = YES;
-        }
-        [self.tableView reloadData];
+        [self requestPost_doVote];
     }else{
         LRToast(@"您还未选择投票选项哦");
     }
@@ -824,7 +831,7 @@ CGFloat static attentionBtnH = 26;
         footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 115)];
         
         footView.backgroundColor = WhiteColor;
-        if (self.postModel.haveVoted||self.postModel.isoVerdue) {
+        if (self.postModel.haveVoted||self.postModel.isoVerdue||self.postModel.postAuthor) {
             UILabel *noticeLabel = [UILabel new];
             [footView addSubview:noticeLabel];
             noticeLabel.sd_layout
@@ -838,6 +845,10 @@ CGFloat static attentionBtnH = 26;
             if (self.postModel.isoVerdue) {
                 noticeLabel.font = PFFontM(18);
                 noticeLabel.text = @"投票已结束";
+            }
+            if (self.postModel.postAuthor){
+                noticeLabel.font = PFFontM(18);
+                noticeLabel.text = @"作者不能参与投票哟";
             }
         }else{
             UIButton *submitBtn = [UIButton new];
@@ -953,6 +964,128 @@ CGFloat static attentionBtnH = 26;
         }
     }
     [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
+}
+
+#pragma mark --请求
+//获取帖子详情
+-(void)requestPost_browsePost
+{
+    [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
+        self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
+        for (VoteChooseInputModel *model in self.postModel.voteSelects) {
+            model.totalPolls = self.postModel.voteNum;
+            if (self.postModel.postAuthor) {
+                model.isSelected = NO;
+                model.hiddenSelectIcon = YES;
+            }
+        }
+        [self setUI];
+        [self setNaviTitle];
+        [self setTitle];
+        [self setBottomView];
+        [self setUpCutdown];
+        [self.tableView reloadData];
+    } failure:nil];
+}
+
+//关注/取消关注
+-(void)requestIsAttention
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"userId"] = @(self.postModel.userId);
+    [HttpRequest postWithTokenURLString:AttentionUser parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        if (status == 1) {
+            //            user.followCount ++;
+            LRToast(@"关注成功");
+        }else{
+            //            user.followCount --;
+            LRToast(@"已取消关注");
+        }
+        self.postModel.isAttention = status;
+        
+        [self setTitle];
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
+}
+
+//点赞帖子/评论
+-(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
+{
+    //做个判断，如果是作者本人，则无法点赞
+    if (self.user.userId == self.postModel.userId) {
+        LRToast(@"不可以点赞自己哟");
+        return;
+    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"praiseType"] = @(praiseType);
+    parameters[@"id"] = @(ID);
+    [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        
+        if (praiseType == 9) {  //新闻
+            LRToast(@"点赞成功");
+            self.postModel.hasPraised = !self.postModel.hasPraised;
+            self.postModel.praiseCount ++;
+            [self setBottomView];
+        }else if (praiseType == 2) {
+            
+        }
+        [self.tableView reloadData];
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
+}
+
+//收藏/取消收藏帖子
+-(void)requestCollectNews
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"postId"] = @(self.postModel.postId);
+    [HttpRequest postWithTokenURLString:Post_favor parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
+        NSInteger status = [res[@"data"][@"status"] integerValue];
+        self.postModel.isCollection = status;
+        [self setBottomView];
+        
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
+}
+
+//投票
+-(void)requestPost_doVote
+{
+    NSMutableString *optionId = @"".mutableCopy;
+    for (int i = 0; i < self.selectChooseArr.count; i ++) {
+        VoteChooseInputModel *model = self.selectChooseArr[i];
+        [optionId appendString:[NSString stringWithFormat:@"%ld,",model.chooseId]];
+        if (i == self.selectChooseArr.count-1) {
+            //移除尾部逗号
+            [optionId replaceCharactersInRange:NSMakeRange(optionId.length - 1, 1) withString:@""];
+        }
+    }
+    
+    [HttpRequest getWithURLString:Post_doVote parameters:@{@"optionId":optionId} success:^(id responseObject) {
+        for (VoteChooseInputModel *chooseModel in self.selectChooseArr) {
+            //总票数自增，单项票数自增
+            chooseModel.havePolls ++;
+            self.postModel.voteNum ++;
+        }
+        [self.selectChooseArr removeAllObjects];
+        //标记为已投票
+        self.postModel.haveVoted = YES;
+        //标记选项不可交互
+        for (VoteChooseInputModel *model in self.postModel.voteSelects) {
+            model.totalPolls = self.postModel.voteNum;
+            model.isSelected = NO;
+            model.hiddenSelectIcon = YES;
+        }
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        [self requestPost_browsePost];
+    }];
 }
 
 @end

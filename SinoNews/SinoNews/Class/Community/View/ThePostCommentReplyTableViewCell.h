@@ -8,12 +8,13 @@
 //帖子评论的回复
 
 #import <UIKit/UIKit.h>
+#import "PostReplyModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const ThePostCommentReplyTableViewCellID;
 @interface ThePostCommentReplyTableViewCell : UITableViewCell
-@property (nonatomic,strong) NSDictionary *model;
+@property (nonatomic,strong) PostReplyModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

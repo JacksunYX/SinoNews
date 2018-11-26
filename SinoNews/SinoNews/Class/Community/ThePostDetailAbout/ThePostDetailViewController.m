@@ -615,7 +615,6 @@ CGFloat static attentionBtnH = 26;
         ;
         [_allComment setSingleLineAutoResizeWithMaxWidth:200];
         _allComment.font = PFFontR(14);
-        _allComment.text = @"全部评论（216）";
         
         rightView.sd_layout
         .rightSpaceToView(_section2View, 10)
@@ -670,6 +669,8 @@ CGFloat static attentionBtnH = 26;
             [self sortAction];
         }];
     }
+    
+    _allComment.text = [NSString stringWithFormat:@"全部评论（%ld）",self.postModel.commentCount];
 }
 
 //排序显示方法
@@ -755,15 +756,9 @@ CGFloat static attentionBtnH = 26;
             cell = cell2;
         }
     }else if (indexPath.section == 2){
-        if (indexPath.row == 0) {
-            ThePostCommentTableViewCell *cell20 = (ThePostCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentTableViewCellID];
-            cell20.model = @{};
-            cell = cell20;
-        }else{
-            ThePostCommentReplyTableViewCell *cell21 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
-            cell21.model = @{};
-            cell = cell21;
-        }
+        ThePostCommentReplyTableViewCell *cell2 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
+        
+        cell = cell2;
     }
     
     return cell;
@@ -1001,12 +996,12 @@ CGFloat static attentionBtnH = 26;
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"postId"] = @(self.postModel.postId);
-    parameters[@"currPage"] = @(self.postModel.postId);
+    parameters[@"currPage"] = @(self.currPage);
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
-        
-        
-        
+        NSArray *commentArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        [self.tableView pullWithPage:self.currPage data:commentArr dataSource:self.commentsArr];
+        [self.tableView reloadData];
     } failure:nil];
 }
 

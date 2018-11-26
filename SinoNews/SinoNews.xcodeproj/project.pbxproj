@@ -641,6 +641,7 @@
 		4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA1420220F48A6900536E77 /* PublishArticleViewController.m */; };
 		4CA23270212E99A8006709E6 /* VersionCheckHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2326F212E99A8006709E6 /* VersionCheckHelper.m */; };
 		4CA23273212E9F6C006709E6 /* UpdatePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA23272212E9F6C006709E6 /* UpdatePopView.m */; };
+		4CA7324121ABFB8A0011C808 /* PostReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7324021ABFB8A0011C808 /* PostReplyModel.m */; };
 		4CAD56F02194224F00BD77E0 /* compose_keyboardbutton_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD56712194224F00BD77E0 /* compose_keyboardbutton_background@2x.png */; };
 		4CAD56F12194224F00BD77E0 /* compose_keyboardbutton_background_highlighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD56722194224F00BD77E0 /* compose_keyboardbutton_background_highlighted@3x.png */; };
 		4CAD56F22194224F00BD77E0 /* expression_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD56732194224F00BD77E0 /* expression_delete@2x.png */; };
@@ -2034,6 +2035,8 @@
 		4CA2326F212E99A8006709E6 /* VersionCheckHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VersionCheckHelper.m; sourceTree = "<group>"; };
 		4CA23271212E9F6C006709E6 /* UpdatePopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdatePopView.h; sourceTree = "<group>"; };
 		4CA23272212E9F6C006709E6 /* UpdatePopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePopView.m; sourceTree = "<group>"; };
+		4CA7323F21ABFB8A0011C808 /* PostReplyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostReplyModel.h; sourceTree = "<group>"; };
+		4CA7324021ABFB8A0011C808 /* PostReplyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostReplyModel.m; sourceTree = "<group>"; };
 		4CAD566C2194224F00BD77E0 /* WTEEmotIconHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTEEmotIconHead.h; sourceTree = "<group>"; };
 		4CAD566D2194224F00BD77E0 /* WTConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTConst.h; sourceTree = "<group>"; };
 		4CAD566E2194224F00BD77E0 /* WTEmoticonPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTEmoticonPageView.h; sourceTree = "<group>"; };
@@ -4817,6 +4820,8 @@
 				4C99494021A3A0F2007EAD19 /* PostListSearchModel.m */,
 				4C6667DF21A53A8000D63AF1 /* SectionNoticeModel.h */,
 				4C6667E021A53A8000D63AF1 /* SectionNoticeModel.m */,
+				4CA7323F21ABFB8A0011C808 /* PostReplyModel.h */,
+				4CA7324021ABFB8A0011C808 /* PostReplyModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5739,6 +5744,7 @@
 				4C6E9182213F5F07001535CA /* UIDevice+YYAdd.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
 				4C23B47720F5ED2700ACE380 /* Test.swift in Sources */,
+				4CA7324121ABFB8A0011C808 /* PostReplyModel.m in Sources */,
 				4C95FFDA20DDEEC80040E348 /* LQXSwitch.m in Sources */,
 				4C6E917B213F5F07001535CA /* UIPasteboard+YYText.m in Sources */,
 				4C6E9189213F5F07001535CA /* UIGestureRecognizer+YYAdd.m in Sources */,

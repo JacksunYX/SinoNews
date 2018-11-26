@@ -17,6 +17,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     UILabel *Landlord;  //楼主标签
     UILabel *content;
     
+    UIView *fatherCommentBackView;
     UILabel *fatherComment; //父级评论
     
     UIImageView *leftImg;
@@ -62,7 +63,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     Landlord.textAlignment = NSTextAlignmentCenter;
     
     //父级评论
-    UIView *fatherCommentBackView = [UIView new];
+    fatherCommentBackView = [UIView new];
     fatherComment = [UILabel new];
     fatherComment.textColor = HexColor(#ABB2C3);
     fatherComment.font = PFFontR(15);
@@ -109,7 +110,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .heightIs(16)
     ;
     [nickName setSingleLineAutoResizeWithMaxWidth:200];
-    nickName.text = @"春风十里";
+    
     
     Landlord.sd_layout
     .centerYEqualToView(nickName)
@@ -131,17 +132,14 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     
     [fatherCommentBackView addSubview:fatherComment];
     fatherComment.sd_layout
-    .topSpaceToView(fatherCommentBackView, 7)
+    .topSpaceToView(fatherCommentBackView, 0)
     .leftSpaceToView(fatherCommentBackView, 10)
     .rightSpaceToView(fatherCommentBackView, 13)
     .autoHeightRatio(0)
     ;
     [fatherComment setMaxNumberOfLinesToShow:2];
-    NSString *fatherUser = @"写梦一场";
-    NSString *fatherString = @"：尤为值得关注的是，高新技术投资是亮点。京东 金融副总裁、首席经济学家沈建光指出，专用设 备制造业、电气机械和器材制造业、计算机";
-    NSMutableAttributedString *appendStr = [NSString leadString:fatherUser tailString:fatherString font:PFFontL(15) color:HexColor(#161A24) lineBreak:NO];
-    fatherComment.attributedText = appendStr;
-    [fatherCommentBackView setupAutoHeightWithBottomView:fatherComment bottomMargin:7];
+    
+    [fatherCommentBackView setupAutoHeightWithBottomView:fatherComment bottomMargin:0];
     
     content.sd_layout
     .leftEqualToView(nickName)
@@ -149,7 +147,6 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .rightSpaceToView(fatherView, 16)
     .autoHeightRatio(0)
     ;
-    content.text = @"国家统计局公布的数据显示，初步核算，前三季 度国内生产总值650899亿元，按可比价格计算， 同比增长6.7%。";
     
     CGFloat imgW = (ScreenW - 30 - 45)/3;
     //    CGFloat imgH = imgW*67/112;
@@ -178,14 +175,36 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .heightIs(12)
     ;
     [publishTime setSingleLineAutoResizeWithMaxWidth:100];
-    publishTime.text = @"1小时前";
     
     [self setupAutoHeightWithBottomView:publishTime bottomMargin:15];
 }
 
--(void)setModel:(NSDictionary *)model
+-(void)setModel:(PostReplyModel *)model
 {
     _model = model;
+    
+    CGFloat haveFatherComment = 0;
+    if (model.replyList.count) {
+        
+        NSString *fatherUser = @"写梦一场";
+        NSString *fatherString = @"：尤为值得关注的是，高新技术投资是亮点。京东 金融副总裁、首席经济学家沈建光指出，专用设 备制造业、电气机械和器材制造业、计算机";
+        NSMutableAttributedString *appendStr = [NSString leadString:fatherUser tailString:fatherString font:PFFontL(15) color:HexColor(#161A24) lineBreak:NO];
+        fatherComment.attributedText = appendStr;
+        
+        haveFatherComment = 7;
+    }else{
+        fatherComment.attributedText = nil;
+    }
+    
+    fatherComment.sd_layout
+    .topSpaceToView(fatherCommentBackView, haveFatherComment)
+    ;
+    [fatherCommentBackView setupAutoHeightWithBottomView:fatherComment bottomMargin:haveFatherComment];
+    
+    nickName.text = @"春风十里";
+    content.text = @"国家统计局公布的数据显示，初步核算，前三季 度国内生产总值650899亿元，按可比价格计算， 同比增长6.7%。";
+    publishTime.text = @"1小时前";
+     
     CGFloat imgW = (ScreenW - 30 - 45)/3;
     CGFloat imgH = imgW*60/100;
     CGFloat h = 0;

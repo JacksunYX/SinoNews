@@ -280,12 +280,11 @@
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"postId"] = @(self.postModel.postId);
-    parameters[@"currPage"] = @(self.currPage);
+    parameters[@"currPage"] = @(page);
     parameters[@"sort"] = @(self.sort);
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
-        NSArray *commentArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        self.commentsArr = [self.tableView pullWithPage:self.currPage data:commentArr dataSource:self.commentsArr];
+        self.commentsArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         for (int i = 0; i < self.commentsArr.count; i ++) {
             PostReplyModel *model = self.commentsArr[i];
             if (model.userId == self.user.userId) {

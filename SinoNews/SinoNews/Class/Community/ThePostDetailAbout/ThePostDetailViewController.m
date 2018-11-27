@@ -43,8 +43,7 @@
 @property (nonatomic,strong) UIButton *directoryBtn;
 //评论分页按钮
 @property (nonatomic,strong) UIButton *commentPagingBtn;
-//评论分页选择页数
-@property (nonatomic,assign) NSInteger commentPageSelect;
+
 @property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
 @property (nonatomic,strong) UserModel *user;
@@ -193,12 +192,40 @@ CGFloat static attentionBtnH = 26;
     }
     if (totalPage) {
         _commentPagingBtn.hidden = NO;
+        [_commentPagingBtn setNormalTitle:[NSString stringWithFormat:@"%ld/%ld",self.currPage,totalPage]];
     }else{
         _commentPagingBtn.hidden = YES;
     }
-    self.commentPageSelect = self.currPage;
-    [_commentPagingBtn setNormalTitle:[NSString stringWithFormat:@"%ld/%ld",self.commentPageSelect,totalPage]];
-    
+}
+
+//弹出选择分页的视图
+-(void)popCommentPagingAction
+{
+    SelectCommentPageView *scPV = [SelectCommentPageView new];
+    NSInteger totalPage = self.postModel.commentCount/10;
+    if (self.postModel.commentCount%10>0) {
+        //说明有余数
+        totalPage ++;
+    }
+    //第二个参数给totalPagew是为了不让它显示选中
+    [scPV showAllNum:totalPage defaultSelect:totalPage];
+    @weakify(self);
+    scPV.clickBlock = ^(NSInteger selectIndex) {
+        @strongify(self);
+        [self pushToCommentPageWithIndex:selectIndex+1];
+    };
+}
+
+//跳转评论分页界面
+-(void)pushToCommentPageWithIndex:(NSInteger)index
+{
+    ThePostCommentPagesViewController *tpcpVC = [ThePostCommentPagesViewController new];
+    tpcpVC.currPage = index;
+    tpcpVC.postModel = self.postModel;
+    tpcpVC.refreshBlock = ^{
+        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:tpcpVC animated:YES];
 }
 
 //设置导航栏标题
@@ -545,37 +572,6 @@ CGFloat static attentionBtnH = 26;
     };
 }
 
-//弹出选择分页的视图
--(void)popCommentPagingAction
-{
-    SelectCommentPageView *scPV = [SelectCommentPageView new];
-    NSInteger totalPage = self.postModel.commentCount/10;
-    if (self.postModel.commentCount%10>0) {
-        //说明有余数
-        totalPage ++;
-    }
-    [scPV showAllNum:totalPage defaultSelect:self.commentPageSelect];
-    @weakify(self);
-    scPV.clickBlock = ^(NSInteger selectIndex) {
-        @strongify(self);
-        self.commentPageSelect = selectIndex;
-        
-        [self pushToCommentPageWithIndex:selectIndex+1];
-    };
-}
-
-//跳转评论分页界面
--(void)pushToCommentPageWithIndex:(NSInteger)index
-{
-    ThePostCommentPagesViewController *tpcpVC = [ThePostCommentPagesViewController new];
-    tpcpVC.currPage = index;
-    tpcpVC.postModel = self.postModel;
-    tpcpVC.refreshBlock = ^{
-        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
-    };
-    [self.navigationController pushViewController:tpcpVC animated:YES];
-}
-
 //更多
 -(void)moreSelect
 {
@@ -616,7 +612,10 @@ CGFloat static attentionBtnH = 26;
         @strongify(self);
         self.lastReplyDic = cancelData;
     };
-    [self.navigationController pushViewController:prVC animated:NO];
+    
+    //这种弹出方式可以造成视觉差
+    prVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:prVC animated:YES completion:nil];
 }
 
 //设置分区2的分区头
@@ -715,6 +714,7 @@ CGFloat static attentionBtnH = 26;
         self.ascendingLabel.textColor = HexColor(#1282EE);
         self.descendingLabel.textColor = HexColor(#ABB2C3);
     }
+    ShowHudOnly;
     [self requestListPostComments:1];
 }
 
@@ -1032,21 +1032,24 @@ CGFloat static attentionBtnH = 26;
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"postId"] = @(self.postModel.postId);
-    parameters[@"currPage"] = @(self.currPage);
+    parameters[@"currPage"] = @(page);
     parameters[@"sort"] = @(self.sort);
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
+        HiddenHudOnly;
         NSArray *commentArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        self.commentsArr = [self.tableView pullWithPage:self.currPage data:commentArr dataSource:self.commentsArr];
+        self.commentsArr = [self.tableView pullWithPage:page data:commentArr dataSource:self.commentsArr];
         for (int i = 0; i < self.commentsArr.count; i ++) {
             PostReplyModel *model = self.commentsArr[i];
             if (model.userId == self.user.userId) {
                 model.isAuthor = YES;
             }
         }
+        self.currPage = page;
         [self setUpPageBtn];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
+        HiddenHudOnly;
         [self.tableView endAllRefresh];
     }];
 }

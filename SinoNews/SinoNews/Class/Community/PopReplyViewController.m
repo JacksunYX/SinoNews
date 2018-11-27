@@ -66,7 +66,8 @@ static CGFloat animationTime = 0.25;
 
 -(void)setUI
 {
-    self.view.backgroundColor = ClearColor;
+//    self.view.backgroundColor = ClearColor;
+    self.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.0];
     
     //下方视图
     CGFloat bottomViewHeight = (225 + BOTTOM_MARGIN);
@@ -231,7 +232,7 @@ static CGFloat animationTime = 0.25;
     }];
     
     [UIView animateWithDuration:animationTime animations:^{
-        self.view.backgroundColor = BlackColor;
+//        self.view.backgroundColor = BlackColor;
         self.bottomView.sd_layout
         .bottomEqualToView(self.view)
         ;
@@ -420,7 +421,8 @@ static CGFloat animationTime = 0.25;
         ;
         [self.bottomView updateLayout];
     } completion:^(BOOL finished) {
-        [self.navigationController popViewControllerAnimated:NO];
+//        [self.navigationController popViewControllerAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 

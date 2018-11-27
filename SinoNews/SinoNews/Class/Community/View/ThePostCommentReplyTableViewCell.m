@@ -36,7 +36,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -184,16 +184,15 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     _model = model;
     
     CGFloat haveFatherComment = 0;
-    if (model.replyList.count) {
-        
-        NSString *fatherUser = @"写梦一场";
-        NSString *fatherString = @"：尤为值得关注的是，高新技术投资是亮点。京东 金融副总裁、首席经济学家沈建光指出，专用设 备制造业、电气机械和器材制造业、计算机";
+    if (model.postComment) {//评论
+        fatherComment.attributedText = nil;
+    }else{//回复
+        NSString *fatherUser = GetSaveString(model.parentCommentAuthor);
+        NSString *fatherString = [NSString stringWithFormat:@"：%@",GetSaveString(model.parentComment)];
         NSMutableAttributedString *appendStr = [NSString leadString:fatherUser tailString:fatherString font:PFFontL(15) color:HexColor(#161A24) lineBreak:NO];
         fatherComment.attributedText = appendStr;
         
         haveFatherComment = 7;
-    }else{
-        fatherComment.attributedText = nil;
     }
     
     fatherComment.sd_layout
@@ -201,24 +200,31 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     ;
     [fatherCommentBackView setupAutoHeightWithBottomView:fatherComment bottomMargin:haveFatherComment];
     
-    nickName.text = @"春风十里";
-    content.text = @"国家统计局公布的数据显示，初步核算，前三季 度国内生产总值650899亿元，按可比价格计算， 同比增长6.7%。";
-    publishTime.text = @"1小时前";
-     
+    [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
+    nickName.text = GetSaveString(model.username);
+    content.text = GetSaveString(model.comment);
+    publishTime.text = GetSaveString(model.createTime);
+    Landlord.hidden = !model.isAuthor;
+    
+    NSInteger type = 0;
+    if (model.postImages.count>0) {
+        type = 3;
+        if (model.postImages.count<=3){
+            type = model.postImages.count;
+        }
+    }
     CGFloat imgW = (ScreenW - 30 - 45)/3;
-    CGFloat imgH = imgW*60/100;
+    CGFloat imgH = imgW*67/112;
     CGFloat h = 0;
     CGFloat h2 = 0;
-    NSInteger type = 3;
-    if (type!=0) {
-        //说明只有一张图片
-        if (type==1) {
-            imgW = 234;
-            h = 97;
-        }else if (type==3) {
-            h = imgH;
-            h2 = imgH;
-        }
+    
+    //一张图片
+    if (type==1) {
+        imgW = 234;
+        h = 97;
+    }else if (type==2||type==3) {
+        h = imgH;
+        h2 = imgH;
     }
     
     leftImg.sd_layout
@@ -231,10 +237,16 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     rightImg.sd_layout
     .heightIs(h2)
     ;
+    if (type >= 1) {
+        [leftImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.postImages[0]))];
+    }
+    if (type >= 2){
+        [centerImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.postImages[1]))];
+    }
+    if (type >= 3){
+        [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.postImages[2]))];
+    }
     
-    leftImg.image = UIImageNamed(@"gameAd_0");
-    centerImg.image = UIImageNamed(@"gameAd_1");
-    rightImg.image = UIImageNamed(@"gameAd_2");
 }
 
 

@@ -14,26 +14,24 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PostReplyModel : NSObject
 @property (nonatomic,strong) NSString *avatar;
 @property (nonatomic,strong) NSString *username;
+@property (nonatomic,strong) NSString *parentComment;
+@property (nonatomic,strong) NSString *parentCommentAuthor;
 @property (nonatomic,strong) NSString *comment;
-@property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *createTime;
-@property (nonatomic,strong) NSString *ip;
 @property (nonatomic,strong) NSMutableArray <NSString *>*postImages;
-@property (nonatomic,strong) NSMutableArray <PostReplyModel *>*replyList;
 
 @property (nonatomic,assign) NSInteger userId;
 @property (nonatomic,assign) NSInteger commentId;
 @property (nonatomic,assign) NSInteger parentId;
 @property (nonatomic,assign) NSInteger postId;
 
-@property (nonatomic,assign) NSInteger postType;
-@property (nonatomic,assign) NSInteger commentTotal;
 @property (nonatomic,assign) NSInteger level;
-@property (nonatomic,assign) NSInteger likeNum;
+//评论还是回复，默认no回复，yes评论
+@property (nonatomic,assign) BOOL postComment;
+@property (nonatomic,assign) BOOL praise;
 
-@property (nonatomic,assign) NSInteger isPraise;
-@property (nonatomic,assign) NSInteger replyNum;
-
+//本地判断适用(如果是作者本人发的评论或回复，需要显示为楼主)
+@property (nonatomic,assign) BOOL isAuthor;
 
 
 @end

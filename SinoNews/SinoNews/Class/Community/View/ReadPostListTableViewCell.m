@@ -268,6 +268,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     _model = model;
     NSInteger type = 0;
     if (model.images.count>0) {
+        type = 3;
         if (model.images.count<=3){
             type = model.images.count;
         }

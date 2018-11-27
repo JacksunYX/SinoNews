@@ -245,7 +245,8 @@ static CGFloat animationTime = 0.25;
     [kNotificationCenter addObserver:self selector:@selector(keyboardWillShowChangeFrameNotification:) name:UIKeyboardWillShowNotification object:nil];
     [kNotificationCenter addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
     
-    
+    //暂时隐藏添加图片功能
+    _addImage.hidden = YES;
 }
 
 //设置选择的图片视图

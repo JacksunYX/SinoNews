@@ -564,7 +564,7 @@ CGFloat static attentionBtnH = 26;
 -(void)pushToCommentPageWithIndex:(NSInteger)index
 {
     ThePostCommentPagesViewController *tpcpVC = [ThePostCommentPagesViewController new];
-    tpcpVC.selectIndex = index;
+    tpcpVC.currPage = index;
     [self.navigationController pushViewController:tpcpVC animated:YES];
 }
 
@@ -780,7 +780,7 @@ CGFloat static attentionBtnH = 26;
         return self.postModel.voteSelects.count;
     }
     if (section == 2) {
-        return 2;
+        return self.commentsArr.count;
     }
     return 0;
 }
@@ -795,15 +795,9 @@ CGFloat static attentionBtnH = 26;
         cell0.model = model;
         cell = cell0;
     }else if (indexPath.section == 2){
-        if (indexPath.row == 0) {
-            ThePostCommentTableViewCell *cell20 = (ThePostCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentTableViewCellID];
-            cell20.model = @{};
-            cell = cell20;
-        }else{
-            ThePostCommentReplyTableViewCell *cell21 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
-            cell21.model = @{};
-            cell = cell21;
-        }
+        ThePostCommentReplyTableViewCell *cell2 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
+        
+        cell = cell2;
     }
     
     return cell;

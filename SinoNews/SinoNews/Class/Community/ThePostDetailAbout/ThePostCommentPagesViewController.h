@@ -13,8 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThePostCommentPagesViewController : BaseViewController
 //选定分页位置
-@property (nonatomic,assign) NSInteger selectIndex;
-
+@property (nonatomic,assign) NSInteger currPage;//评论页码
+@property (nonatomic,strong) SeniorPostDataModel *postModel;
+//刷新回调
+@property (nonatomic,strong) void(^refreshBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

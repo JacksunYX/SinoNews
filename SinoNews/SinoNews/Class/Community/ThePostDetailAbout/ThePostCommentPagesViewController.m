@@ -12,6 +12,8 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 //评论数组
 @property (nonatomic,strong) NSMutableArray *commentsArr;
+
+@property (nonatomic,assign) NSInteger sort;
 //评论分页按钮
 @property (nonatomic,strong) UIButton *commentPagingBtn;
 //保存评论时选取的图片等数据
@@ -20,9 +22,19 @@
 @property (nonatomic,strong) UIButton *commentSortBtn;
 //下方回复视图
 @property (nonatomic,strong) UIView *bottomView;
+
+@property (nonatomic,strong) UserModel *user;
 @end
 
 @implementation ThePostCommentPagesViewController
+-(UserModel *)user
+{
+    if (!_user) {
+        _user = [UserModel getLocalUserModel];
+    }
+    return _user;
+}
+
 -(NSMutableArray *)commentsArr
 {
     if (!_commentsArr) {
@@ -33,10 +45,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = AppendingString(@"评论", @"(22)");
+    self.navigationItem.title = [NSString stringWithFormat:@"评论（%ld）",self.postModel.commentCount];
+    self.navigationItem.title = @"评论";
     [self setNavigationView];
     [self setUI];
     [self setBottomView];
+    [self requestListPostComments:self.currPage];
 }
 
 -(void)setNavigationView
@@ -70,6 +84,7 @@
     
     [_tableView registerClass:[ThePostCommentTableViewCell class] forCellReuseIdentifier:ThePostCommentTableViewCellID];
     [_tableView registerClass:[ThePostCommentReplyTableViewCell class] forCellReuseIdentifier:ThePostCommentReplyTableViewCellID];
+    
     //评论分页按钮
     _commentPagingBtn = [UIButton new];
     [self.view addSubview:_commentPagingBtn];
@@ -79,10 +94,23 @@
     .heightIs(28)
     .bottomSpaceToView(self.view, 49 + BOTTOM_MARGIN + 20)
     ;
-    [_commentPagingBtn setNormalTitle:@"2/3"];
+    _commentPagingBtn.hidden = YES;
     _commentPagingBtn.sd_cornerRadius = @3;
     _commentPagingBtn.backgroundColor = HexColor(#45474A);
     [_commentPagingBtn addTarget:self action:@selector(popCommentPagingAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//设置分页按钮
+-(void)setUpPageBtn
+{
+    _commentPagingBtn.hidden = NO;
+    NSInteger totalPage = self.postModel.commentCount/10;
+    if (self.postModel.commentCount%10>0) {
+        //说明有余数
+        totalPage ++;
+    }
+    [_commentPagingBtn setNormalTitle:[NSString stringWithFormat:@"%ld/%ld",self.currPage,totalPage]];
+    
 }
 
 -(void)setBottomView
@@ -119,22 +147,23 @@
         @weakify(self);
         [commentInput whenTap:^{
             @strongify(self);
-            [self popCommentVC];
+            [self popCommentVCWithParentId:0];
         }];
     }
 }
 
 //评论弹框
--(void)popCommentVC
+-(void)popCommentVCWithParentId:(NSInteger)parentId
 {
     PopReplyViewController *prVC = [PopReplyViewController new];
-    prVC.inputData = self.lastReplyDic.mutableCopy;
+//    prVC.inputData = self.lastReplyDic.mutableCopy;
     @weakify(self);
     prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
         GGLog(@"发布回调:%@",inputData);
         @strongify(self);
         self.lastReplyDic = inputData;
         //这里发布后把该数据清空就行了
+        [self requestPostCommentWithParentId:parentId comment:inputData[@"text"]];
     };
     prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
         GGLog(@"取消回调:%@",cancelData);
@@ -147,28 +176,36 @@
 //弹出选择分页的视图
 -(void)popCommentPagingAction
 {
+    NSInteger totalPage = self.postModel.commentCount/10;
+    if (self.postModel.commentCount%10>0) {
+        //说明有余数
+        totalPage ++;
+    }
     SelectCommentPageView *scPV = [SelectCommentPageView new];
-    [scPV showAllNum:10 defaultSelect:self.selectIndex];
+    [scPV showAllNum:totalPage defaultSelect:self.currPage-1];
     @weakify(self);
     scPV.clickBlock = ^(NSInteger selectIndex) {
         @strongify(self);
-        self.selectIndex = selectIndex;
+        self.currPage = selectIndex+1;
         //重新请求评论分页做数据处理
-        
+        [self requestListPostComments:self.currPage];
     };
 }
 
 //点击评论弹框
--(void)clickCommentPopAlert
+-(void)clickCommentPopAlertWith:(PostReplyModel *)replyModel
 {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
+    @weakify(self);
     UIAlertAction *reply = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+        @strongify(self);
+        [self popCommentVCWithParentId:replyModel.commentId];
     }];
     
     UIAlertAction *copy = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = replyModel.comment;
+        LRToast(@"内容已复制");
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertVC addAction:reply];
@@ -182,6 +219,18 @@
 -(void)changeCommentSort
 {
     _commentSortBtn.selected = !_commentSortBtn.selected;
+    if (_commentSortBtn.selected) {
+        _sort = 1;
+    }else{
+        _sort = 0;
+    }
+    //如果有数据，直接本地排序，无数据再请求后台
+    if (self.commentsArr>0) {
+        self.commentsArr = (NSMutableArray *)[[self.commentsArr reverseObjectEnumerator] allObjects];
+        [self.tableView reloadData];
+    }else{
+       [self requestListPostComments:self.currPage];
+    }
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -192,21 +241,14 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.commentsArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    if (indexPath.row == 0) {
-        ThePostCommentTableViewCell *cell20 = (ThePostCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentTableViewCellID];
-        cell20.model = @{};
-        cell = cell20;
-    }else{
-        ThePostCommentReplyTableViewCell *cell21 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
-        cell21.model = @{};
-        cell = cell21;
-    }
+    ThePostCommentReplyTableViewCell *cell = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
+    PostReplyModel *replyModel = self.commentsArr[indexPath.row];
+    cell.model = replyModel;
     
     return cell;
 }
@@ -228,7 +270,56 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self clickCommentPopAlert];
+    PostReplyModel *replyModel = self.commentsArr[indexPath.row];
+    [self clickCommentPopAlertWith:replyModel];
+}
+
+#pragma mark --请求
+//帖子评论列表
+-(void)requestListPostComments:(NSInteger)page
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"postId"] = @(self.postModel.postId);
+    parameters[@"currPage"] = @(self.currPage);
+    parameters[@"sort"] = @(self.sort);
+    
+    [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
+        NSArray *commentArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        self.commentsArr = [self.tableView pullWithPage:self.currPage data:commentArr dataSource:self.commentsArr];
+        for (int i = 0; i < self.commentsArr.count; i ++) {
+            PostReplyModel *model = self.commentsArr[i];
+            if (model.userId == self.user.userId) {
+                model.isAuthor = YES;
+            }
+        }
+        [self setUpPageBtn];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
+    }];
+}
+
+//发送评论、回复
+-(void)requestPostCommentWithParentId:(NSInteger)parentId comment:(NSString *)comment
+{
+    NSMutableDictionary *parameters = @{}.mutableCopy;
+    parameters[@"postId"] = @(self.postModel.postId);
+    parameters[@"comment"] = comment;
+    if (parentId!=0) {
+        parameters[@"parentId"] = @(parentId);
+    }
+    
+    [HttpRequest postWithURLString:PostComment parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"已发送");
+        self.lastReplyDic = nil;
+        self.postModel.commentCount ++;
+        if (self.refreshBlock) {
+            self.refreshBlock();
+        }
+        [self requestListPostComments:self.currPage];
+    } failure:^(NSError *error) {
+        
+    } RefreshAction:nil];
 }
 
 @end

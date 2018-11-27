@@ -99,14 +99,16 @@ CGFloat static attentionBtnH = 26;
     return _commentsArr;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     self.navigationItem.title = @"帖子加载中...";
     
     [self requestPost_browsePost];
 }
 
-- (void)setUI
+//设置基本视图
+- (void)setBaseUI
 {
     if (_tableView) {
         return;
@@ -216,6 +218,30 @@ CGFloat static attentionBtnH = 26;
     };
 }
 
+//评论弹框
+-(void)popCommentVCWithParentId:(NSInteger)parentId
+{
+    PopReplyViewController *prVC = [PopReplyViewController new];
+    //    prVC.inputData = self.lastReplyDic.mutableCopy;
+    @weakify(self);
+    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
+        GGLog(@"发布回调:%@",inputData);
+        @strongify(self);
+        self.lastReplyDic = inputData;
+        //这里发布后把该数据清空就行了
+        [self requestPostCommentWithParentId:parentId comment:inputData[@"text"]];
+    };
+    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
+        GGLog(@"取消回调:%@",cancelData);
+        @strongify(self);
+        self.lastReplyDic = cancelData;
+    };
+    
+    //这种弹出方式可以造成视觉差
+    prVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:prVC animated:YES completion:nil];
+}
+
 //跳转评论分页界面
 -(void)pushToCommentPageWithIndex:(NSInteger)index
 {
@@ -223,7 +249,9 @@ CGFloat static attentionBtnH = 26;
     tpcpVC.currPage = index;
     tpcpVC.postModel = self.postModel;
     tpcpVC.refreshBlock = ^{
-        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+        //刷新评论
+        [self requestListPostComments:1];
+//        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
     };
     [self.navigationController pushViewController:tpcpVC animated:YES];
 }
@@ -594,30 +622,6 @@ CGFloat static attentionBtnH = 26;
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
-//评论弹框
--(void)popCommentVCWithParentId:(NSInteger)parentId
-{
-    PopReplyViewController *prVC = [PopReplyViewController new];
-//    prVC.inputData = self.lastReplyDic.mutableCopy;
-    @weakify(self);
-    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
-        GGLog(@"发布回调:%@",inputData);
-        @strongify(self);
-        self.lastReplyDic = inputData;
-        //这里发布后把该数据清空就行了
-        [self requestPostCommentWithParentId:parentId comment:inputData[@"text"]];
-    };
-    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
-        GGLog(@"取消回调:%@",cancelData);
-        @strongify(self);
-        self.lastReplyDic = cancelData;
-    };
-    
-    //这种弹出方式可以造成视觉差
-    prVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:prVC animated:YES completion:nil];
-}
-
 //设置分区2的分区头
 -(void)setSecion2
 {
@@ -718,7 +722,7 @@ CGFloat static attentionBtnH = 26;
     [self requestListPostComments:1];
 }
 
-//点击评论弹框
+//点击评论回复弹框
 -(void)clickCommentPopAlertWith:(PostReplyModel *)replyModel
 {
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -947,7 +951,7 @@ CGFloat static attentionBtnH = 26;
                 element.imageData = cover.base64String;
             }
         }
-        [self setUI];
+        [self setBaseUI];
         [self setNaviTitle];
         [self setTitle];
         [self setBottomView];

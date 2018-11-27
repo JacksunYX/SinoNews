@@ -401,7 +401,8 @@ static CGFloat animationTime = 0.25;
         ;
         [self.bottomView updateLayout];
     } completion:^(BOOL finished) {
-        [self.navigationController popViewControllerAnimated:NO];
+//        [self.navigationController popViewControllerAnimated:NO];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 

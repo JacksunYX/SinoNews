@@ -15,6 +15,7 @@
 @interface PostingListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,assign) NSInteger currPage;
 @end
 
 @implementation PostingListViewController
@@ -42,21 +43,53 @@
     self.navigationItem.title = title;
     
     [self setUpTableView];
-    [self setDraftData];
+    
+    [self processViewData];
+}
+
+//设置数据获取方案
+-(void)processViewData
+{
+    if (_type == 0) {
+        @weakify(self);
+        _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+            @strongify(self);
+            if (self.tableView.mj_footer.isRefreshing) {
+                [self.tableView.mj_header endRefreshing];
+                return ;
+            }
+            self.currPage = 1;
+            [self requestListPostForUser];
+        }];
+        _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+            @strongify(self);
+            if (self.tableView.mj_header.isRefreshing) {
+                [self.tableView.mj_footer endRefreshing];
+                return ;
+            }
+            if (self.dataSource.count<=0) {
+                self.currPage = 1;
+            }else{
+                self.currPage ++;
+            }
+            [self requestListPostForUser];
+        }];
+        [_tableView.mj_header beginRefreshing];
+    }else if (_type == 1) {
+        [self setDraftData];
+    }
 }
 
 //读取本地草稿数据,设置界面
 -(void)setDraftData
 {
-    if (_type == 1) {
-        self.dataSource = [SeniorPostDataModel getLocalDrafts];
-        GGLog(@"本地草稿:%@",_dataSource);
-        if (self.dataSource.count) {
-            //倒序,让新添加或者修改的显示在最上面
-            self.dataSource = (NSMutableArray *)[[self.dataSource reverseObjectEnumerator] allObjects];
-        }
-        [self.tableView reloadData];
+    self.dataSource = [SeniorPostDataModel getLocalDrafts];
+    GGLog(@"本地草稿:%@",_dataSource);
+    if (self.dataSource.count) {
+        //倒序,让新添加或者修改的显示在最上面
+        self.dataSource = (NSMutableArray *)[[self.dataSource reverseObjectEnumerator] allObjects];
     }
+    [self.tableView reloadData];
 }
 
 -(void)setUpTableView
@@ -143,6 +176,16 @@
             [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:spVC] animated:YES completion:nil];
         }
     }
+}
+
+#pragma mark --请求
+-(void)requestListPostForUser
+{
+    [HttpRequest postWithURLString:ListPostForUser parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        
+    } failure:^(NSError *error) {
+        
+    } RefreshAction:nil];
 }
 
 @end

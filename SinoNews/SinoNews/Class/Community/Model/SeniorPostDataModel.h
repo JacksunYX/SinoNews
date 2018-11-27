@@ -47,10 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL postAuthor;
 //投票后结果是否可见
 @property (nonatomic,assign) NSInteger visibleAfterVote;
-//投票人数
-@property (nonatomic,assign) NSInteger voteNum;
+//投票总数
+@property (nonatomic,assign) NSInteger totalPolls;
 //最大可选数
 @property (nonatomic,assign) NSInteger choosableNum;
+//投票参与人数
+@property (nonatomic,assign) NSInteger votePeople;
 //投票有效期
 @property (nonatomic,assign) NSInteger validityDate;
 //过期时间
@@ -68,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger sectionId;
 @property (nonatomic,strong) NSString *tags;
 @property (nonatomic,assign) NSInteger viewCount;
+//只用于收藏
+@property (nonatomic,assign) NSInteger favorId;
 
 //只用于保存为本地草稿时的时间戳
 @property (nonatomic,strong) NSString *saveTime;
@@ -80,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)remove:(SeniorPostDataModel *)postModel;
 //清除所有草稿
 +(void)removeAllDrafts;
+
+
 
 @end
 

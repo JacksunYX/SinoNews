@@ -49,7 +49,7 @@
 +(void)saveWithNewsModel:(NormalNewsModel *)model;
 
 
-//获取本书存储数据
+//获取本地存储数据
 +(NSArray *)getCurrentHistory;
 //直接获取到已经排好序并分完组的数据
 +(NSArray *)getSortedHistory;

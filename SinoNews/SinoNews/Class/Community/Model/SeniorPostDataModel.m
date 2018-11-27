@@ -52,12 +52,12 @@
 {
     //先删除
     [self remove:postModel];
+    //获取当前时间戳字符串作为存储时的标记
     postModel.saveTime = [NSString currentTimeStr];
     //再添加
     [postModel bg_save];
     
     LRToast(@"草稿保存完毕");
-//    GGLog(@"草稿保存完毕");
 }
 
 //移除某个草稿

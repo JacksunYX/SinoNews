@@ -578,7 +578,7 @@
 {
     [self.tableView ly_startLoading];
     [HttpRequest postWithURLString:Post_myFavor parameters:@{@"currPage":@(self.currPage1)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
         self.postArray = [self.tableView pullWithPage:self.currPage1 data:dataArr dataSource:self.postArray];
         [self.tableView reloadData];

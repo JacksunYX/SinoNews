@@ -11,6 +11,7 @@
 #import "HomePageFirstKindCell.h"
 #import "HomePageFourthCell.h"
 #import "NewsDetailViewController.h"
+#import "ReadPostListTableViewCell.h"
 
 @interface BrowsingHistoryVC ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 {
@@ -78,7 +79,7 @@
                 [models addObject:model];
             }
             sectionDic[@"models"] = models;
-//            [_newsArr addObject:sectionDic];
+            //            [_newsArr addObject:sectionDic];
         }
         
     }
@@ -111,7 +112,7 @@
     [super viewWillAppear:animated];
     [self.tableView ly_startLoading];
     self.newsArr = [[HomePageModel getSortedHistory] mutableCopy];
-    self.postsArr = [[HomePageModel getSortedHistory] mutableCopy];
+    self.postsArr = [[PostHistoryModel getSortedHistory] mutableCopy];
     [self.tableView reloadData];
     [self.tableView ly_endLoading];
 }
@@ -125,7 +126,7 @@
 -(void)addNavigationView
 {
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self Action:@selector(clearAction) image:nil hightimage:nil andTitle:@"清空"];
-//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(clearAction) title:@"清空"];
+    //    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(clearAction) title:@"清空"];
 }
 
 -(void)setTitleView
@@ -170,12 +171,13 @@
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    //    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     //注册
     [self.tableView registerClass:[BrowsingHistoryCell class] forCellReuseIdentifier:BrowsingHistoryCellID];
     [self.tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+    [self.tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
 }
 
 //清空浏览历史
@@ -190,11 +192,15 @@
     }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"清空浏览历史？" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"清空" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [HomePageModel clearLocaHistory];
+        if (self->selectedIndex==0) {
+            [HomePageModel clearLocaHistory];
+            [self.newsArr removeAllObjects];
+        }else{
+            [PostHistoryModel clearLocalHistory];
+            [self.postsArr removeAllObjects];
+        }
         LRToast(@"已清空浏览历史");
-        GCDAfterTime(1, ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+        [self.tableView reloadData];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alertVC addAction:confirm];
@@ -224,24 +230,27 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    id model;
+    
     if (selectedIndex == 0) {
-        model = self.newsArr[indexPath.section][indexPath.row];
-    }else{
-        model = self.postsArr[indexPath.section][indexPath.row];
-    }
-    if ([model isKindOfClass:[HomePageModel class]]) {
-        HomePageModel *model1 = (HomePageModel *)model;
-        //暂时只分2种
-        if (model1.itemType == 100) {//无图
-            HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
-            cell1.model = model1;
-            cell = (UITableViewCell *)cell1;
-        }else{//1图
-            HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-            cell1.model = model1;
-            cell = (UITableViewCell *)cell1;
+        HomePageModel *model = self.newsArr[indexPath.section][indexPath.row];
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            HomePageModel *model1 = (HomePageModel *)model;
+            //暂时只分2种
+            if (model1.itemType == 100) {//无图
+                HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }else{//1图
+                HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell1.model = model1;
+                cell = (UITableViewCell *)cell1;
+            }
         }
+    }else{
+        SeniorPostDataModel *model = self.postsArr[indexPath.section][indexPath.row];
+        ReadPostListTableViewCell *cell2 = [tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+        cell2.model = model;
+        cell = cell2;
     }
     
     [cell addBakcgroundColorTheme];
@@ -260,10 +269,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if ([self.newsArr[section] count]&&selectedIndex==0) {
-        return 40;
-    }else if ([self.postsArr[section] count]&&selectedIndex==1) {
-        return 40;
+    if (selectedIndex==0) {
+        if ([self.newsArr[section] count]) {
+            return 40;
+        }
+    }else if (selectedIndex==1) {
+        if ([self.postsArr[section] count]) {
+            return 40;
+        }
     }
     return 0.01;
 }
@@ -271,37 +284,47 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (([self.newsArr[section] count]&&selectedIndex==0)||([self.postsArr[section] count]&&selectedIndex==1)) {
-        headView = [UIView new];
-        
-        headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-            if (UserGetBool(@"NightMode")) {
-                [(UIView *)item setBackgroundColor:HexColor(#292D30)];
-            }else{
-                [(UIView *)item setBackgroundColor:HexColor(#f6f6f6)];
-            }
-        });
-        UILabel *title = [UILabel new];
-        title.font = PFFontL(14);
-        [title addTitleColorTheme];
-        
-        [headView addSubview:title];
-        title.sd_layout
-        .leftSpaceToView(headView, 10)
-        .centerYEqualToView(headView)
-        .rightSpaceToView(headView, 10)
-        .autoHeightRatio(0)
-        ;
-        [title setMaxNumberOfLinesToShow:1];
-        HomePageModel *model;
-        if (selectedIndex==0) {
-            model = [self.newsArr[section] firstObject];
-        }else if (selectedIndex==1) {
-            model = [self.postsArr[section] firstObject];
+    if (selectedIndex==0) {
+        if ([self.newsArr[section] count]<=0) {
+            return headView;
         }
+    }else if (selectedIndex==1){
+        if ([self.postsArr[section] count]<=0) {
+            return headView;
+        }
+    }
+    
+    headView = [UIView new];
+    
+    headView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(UIView *)item setBackgroundColor:HexColor(#292D30)];
+        }else{
+            [(UIView *)item setBackgroundColor:HexColor(#f6f6f6)];
+        }
+    });
+    UILabel *title = [UILabel new];
+    title.font = PFFontL(14);
+    [title addTitleColorTheme];
+    
+    [headView addSubview:title];
+    title.sd_layout
+    .leftSpaceToView(headView, 10)
+    .centerYEqualToView(headView)
+    .rightSpaceToView(headView, 10)
+    .autoHeightRatio(0)
+    ;
+    [title setMaxNumberOfLinesToShow:1];
+    
+    if (selectedIndex==0) {
+        
+        HomePageModel *model = [self.newsArr[section] firstObject];
         NSString *sectionTitle = [NSString getDateStringWithTimeStr:model.saveTimeStr];
         title.text = GetSaveString(sectionTitle);
-        
+    }else if (selectedIndex==1) {
+        SeniorPostDataModel *model = [self.postsArr[section] firstObject];
+        NSString *sectionTitle = [NSString getDateStringWithTimeStr:model.saveTime];
+        title.text = GetSaveString(sectionTitle);
     }
     
     return headView;
@@ -309,20 +332,29 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id model;
     if (selectedIndex == 0) {
-        model = self.newsArr[indexPath.section][indexPath.row];
-    }else if (selectedIndex==1) {
-        model = self.postsArr[indexPath.section][indexPath.row];
-    }
-    
-    if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model = self.newsArr[indexPath.section][indexPath.row];
         HomePageModel *model1 = (HomePageModel *)model;
         //获取当前时间戳字符串作为存储时的标记
         model1.saveTimeStr = [NSString currentTimeStr];
         NewsDetailViewController *ndVC = [NewsDetailViewController new];
         ndVC.newsId = model1.itemId;
         [self.navigationController pushViewController:ndVC animated:YES];
+    }else if (selectedIndex==1) {
+        SeniorPostDataModel *model = self.postsArr[indexPath.section][indexPath.row];
+        
+        UIViewController *vc;
+        if (model.postType == 2) { //投票
+            TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+            tvpdVC.postModel.postId = model.postId;
+            vc = tvpdVC;
+        }else{
+            ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+            tpdVC.postModel.postId = model.postId;
+            vc = tpdVC;
+        }
+        
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

@@ -8,19 +8,6 @@
 
 #import "HomePageModel.h"
 
-//排序函数
-NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
-    if ([obj1.saveTimeStr integerValue] > [obj2.saveTimeStr integerValue]) {
-        return (NSComparisonResult)NSOrderedDescending;
-    }
-    
-    if ([obj1.saveTimeStr integerValue] < [obj2.saveTimeStr integerValue]) {
-        return (NSComparisonResult)NSOrderedAscending;
-    }
-    return (NSComparisonResult)NSOrderedSame;
-};
-
-
 @implementation HomePageModel
 +(NSDictionary *)mj_replacedKeyFromPropertyName
 {
@@ -62,7 +49,7 @@ NSComparator cmptr = ^(HomePageModel *obj1, HomePageModel *obj2){
     }
     //再添加
     [model bg_saveAsync:^(BOOL isSuccess) {
-        GGLog(@"浏览历史插入了新的数据");
+        GGLog(@"新闻浏览历史插入了新的数据");
     }];
 }
 

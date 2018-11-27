@@ -943,6 +943,8 @@ CGFloat static attentionBtnH = 26;
 {
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
+        //保存浏览历史
+        [PostHistoryModel saveHistory:self.postModel];
         for (int i = 0; i < self.postModel.dataSource.count; i ++) {
             SeniorPostingAddElementModel *element = self.postModel.dataSource[i];
             if (element.addType == 3) {

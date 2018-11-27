@@ -642,6 +642,7 @@
 		4CA23270212E99A8006709E6 /* VersionCheckHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2326F212E99A8006709E6 /* VersionCheckHelper.m */; };
 		4CA23273212E9F6C006709E6 /* UpdatePopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA23272212E9F6C006709E6 /* UpdatePopView.m */; };
 		4CA7324121ABFB8A0011C808 /* PostReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7324021ABFB8A0011C808 /* PostReplyModel.m */; };
+		4CA7324721AD49660011C808 /* PostHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7324621AD49660011C808 /* PostHistoryModel.m */; };
 		4CAD56F02194224F00BD77E0 /* compose_keyboardbutton_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD56712194224F00BD77E0 /* compose_keyboardbutton_background@2x.png */; };
 		4CAD56F12194224F00BD77E0 /* compose_keyboardbutton_background_highlighted@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD56722194224F00BD77E0 /* compose_keyboardbutton_background_highlighted@3x.png */; };
 		4CAD56F22194224F00BD77E0 /* expression_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD56732194224F00BD77E0 /* expression_delete@2x.png */; };
@@ -2037,6 +2038,8 @@
 		4CA23272212E9F6C006709E6 /* UpdatePopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdatePopView.m; sourceTree = "<group>"; };
 		4CA7323F21ABFB8A0011C808 /* PostReplyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostReplyModel.h; sourceTree = "<group>"; };
 		4CA7324021ABFB8A0011C808 /* PostReplyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostReplyModel.m; sourceTree = "<group>"; };
+		4CA7324521AD49660011C808 /* PostHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostHistoryModel.h; sourceTree = "<group>"; };
+		4CA7324621AD49660011C808 /* PostHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostHistoryModel.m; sourceTree = "<group>"; };
 		4CAD566C2194224F00BD77E0 /* WTEEmotIconHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTEEmotIconHead.h; sourceTree = "<group>"; };
 		4CAD566D2194224F00BD77E0 /* WTConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTConst.h; sourceTree = "<group>"; };
 		4CAD566E2194224F00BD77E0 /* WTEmoticonPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTEmoticonPageView.h; sourceTree = "<group>"; };
@@ -4816,6 +4819,8 @@
 				4CD157CB21991CB700178FBF /* SeniorPostingAddElementModel.m */,
 				4C8D5C3E219AC986008C13A9 /* SeniorPostDataModel.h */,
 				4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */,
+				4CA7324521AD49660011C808 /* PostHistoryModel.h */,
+				4CA7324621AD49660011C808 /* PostHistoryModel.m */,
 				4C99493F21A3A0F2007EAD19 /* PostListSearchModel.h */,
 				4C99494021A3A0F2007EAD19 /* PostListSearchModel.m */,
 				4C6667DF21A53A8000D63AF1 /* SectionNoticeModel.h */,
@@ -5873,6 +5878,7 @@
 				4C6E9191213F5F07001535CA /* NSData+YYAdd.m in Sources */,
 				4C7234E320FDEB1D00D5C5D4 /* AAArea.m in Sources */,
 				4C7234DA20FDEB1D00D5C5D4 /* AASubtitle.m in Sources */,
+				4CA7324721AD49660011C808 /* PostHistoryModel.m in Sources */,
 				4C992FF9217717680092DDCF /* HXAlbumModel.m in Sources */,
 				4C6E9176213F5F07001535CA /* YYTextRunDelegate.m in Sources */,
 				4C5B5B0B21804DC000B52329 /* ForumRightTableViewCell.m in Sources */,

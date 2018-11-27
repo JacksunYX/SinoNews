@@ -695,7 +695,7 @@ CGFloat static attentionBtnH = 26;
         _participantNum.textColor = HexColor(#161A24);
         
     }
-    _participantNum.text = [NSString stringWithFormat:@"共有%ld人参与投票",self.postModel.voteNum];
+    _participantNum.text = [NSString stringWithFormat:@"共有%ld人参与投票",self.postModel.totalPolls];
 }
 
 //设置分区1的分区头
@@ -1031,8 +1031,10 @@ CGFloat static attentionBtnH = 26;
 {
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
+        //保存浏览历史
+        [PostHistoryModel saveHistory:self.postModel];
         for (VoteChooseInputModel *model in self.postModel.voteSelects) {
-            model.totalPolls = self.postModel.voteNum;
+            model.totalPolls = self.postModel.totalPolls;
             if (self.postModel.postAuthor) {
                 model.isSelected = NO;
                 model.hiddenSelectIcon = YES;
@@ -1129,14 +1131,14 @@ CGFloat static attentionBtnH = 26;
         for (VoteChooseInputModel *chooseModel in self.selectChooseArr) {
             //总票数自增，单项票数自增
             chooseModel.havePolls ++;
-            self.postModel.voteNum ++;
+            self.postModel.totalPolls ++;
         }
         [self.selectChooseArr removeAllObjects];
         //标记为已投票
         self.postModel.haveVoted = YES;
         //标记选项不可交互
         for (VoteChooseInputModel *model in self.postModel.voteSelects) {
-            model.totalPolls = self.postModel.voteNum;
+            model.totalPolls = self.postModel.totalPolls;
             model.isSelected = NO;
             model.hiddenSelectIcon = YES;
         }

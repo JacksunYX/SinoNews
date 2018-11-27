@@ -15,6 +15,8 @@
 #import "RemindPeople.h"
 //帖子模型
 #import "SeniorPostDataModel.h"
+//帖子浏览历史模型
+#import "PostHistoryModel.h"
 //主/子版块模型
 #import "MainSectionModel.h"
 

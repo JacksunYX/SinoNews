@@ -796,7 +796,20 @@ CGFloat static attentionBtnH = 26;
     }else if (indexPath.section == 2){
         ThePostCommentReplyTableViewCell *cell2 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
         PostReplyModel *replyModel = self.commentsArr[indexPath.row];
+        cell2.tag = indexPath.row;
         cell2.model = replyModel;
+        cell2.avatarBlock = ^(NSInteger row) {
+            GGLog(@"查看用户");
+        };
+        cell2.praiseBlock = ^(NSInteger row) {
+            GGLog(@"点赞");
+            if (replyModel.praise) {
+                LRToast(@"已经点过赞啦");
+            }else{
+                [self requestPraiseWithPraiseType:10 praiseId:replyModel.commentId commentNum:indexPath.row];
+            }
+        };
+        
         cell = cell2;
     }
     
@@ -990,7 +1003,7 @@ CGFloat static attentionBtnH = 26;
 -(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
 {
     //做个判断，如果是作者本人，则无法点赞
-    if (self.user.userId == self.postModel.userId) {
+    if (self.user.userId == self.postModel.userId&&praiseType == 9) {
         LRToast(@"不可以点赞自己哟");
         return;
     }
@@ -999,13 +1012,21 @@ CGFloat static attentionBtnH = 26;
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         
-        if (praiseType == 9) {  //新闻
+        if (praiseType == 9) {  //帖子
             LRToast(@"点赞成功");
             self.postModel.hasPraised = !self.postModel.hasPraised;
             self.postModel.praiseCount ++;
             [self setBottomView];
-        }else if (praiseType == 2) {
-            
+        }else if (praiseType == 10) {   //帖子评论
+            PostReplyModel *replyModel = self.commentsArr[row];
+            replyModel.praise = !replyModel.praise;
+            if (replyModel.praise) {
+                LRToast(@"点赞成功");
+                replyModel.likeNum ++;
+            }else{
+                LRToast(@"点赞已取消");
+                replyModel.likeNum --;
+            }
         }
         [self.tableView reloadData];
     } failure:nil RefreshAction:^{

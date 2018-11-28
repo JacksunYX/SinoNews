@@ -492,6 +492,7 @@
             ForumDetailViewController *fdVC = [ForumDetailViewController new];
             fdVC.navigationItem.title = GetSaveString(model2.name);
             fdVC.sectionId = model2.sectionId;
+            fdVC.icon = model2.icon;
             [self.navigationController pushViewController:fdVC animated:YES];
         }
     }

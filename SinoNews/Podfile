@@ -42,10 +42,11 @@ pod 'JPush', '~> 3.0.5'
 pod 'STCObfuscator'
 pod 'Masonry'
 
-
+#百度移动统计无埋点
+pod 'BaiduMobStatCodeless'
 #pod 'KafkaRefresh'
 #pod 'MLeaksFinder'
-pod 'BaiduMobStat'
+#pod 'BaiduMobStat'
 #pod 'IQKeyboardManager'
 #pod 'JHChainableAnimations', '~> 3.0.1'
 

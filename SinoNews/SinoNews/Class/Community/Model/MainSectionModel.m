@@ -68,6 +68,11 @@
 +(void)addMutilNews:(NSArray <MainSectionModel*>*)sections
 {
     NSInteger count = [self bg_count:nil where:nil];
+    if (count > 0) {
+        //清除所有
+        [self bg_clear:nil];
+    }
+    //添加多个
     [self bg_saveOrUpdateArray:sections];
     [kNotificationCenter postNotificationName:SectionsChangeNotify object:nil];
     GGLog(@"同时存储多个关注版块完成");

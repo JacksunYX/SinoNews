@@ -17,6 +17,8 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     UILabel *Landlord;  //楼主标签
     UILabel *content;
     
+    UIButton *praise;   //点赞
+    
     UIView *fatherCommentBackView;
     UILabel *fatherComment; //父级评论
     
@@ -57,6 +59,10 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     nickName.textColor = HexColor(#161A24);
     nickName.font = PFFontR(15);
     
+    praise = [UIButton new];
+    [praise setNormalTitleColor:HexColor(#1282EE)];
+    praise.titleLabel.font = PFFontR(14);
+    
     Landlord = [UILabel new];
     Landlord.textColor = HexColor(#1282EE);
     Landlord.font = PFFontL(10);
@@ -85,6 +91,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     [fatherView sd_addSubviews:@[
                                  avatar,
                                  nickName,
+                                 praise,
                                  Landlord,
                                  fatherCommentBackView,
                                  
@@ -111,6 +118,16 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     ;
     [nickName setSingleLineAutoResizeWithMaxWidth:200];
     
+    praise.sd_layout
+    .rightSpaceToView(fatherView, 10)
+    .centerYEqualToView(avatar)
+    .widthIs(60)
+    .heightIs(20)
+    ;
+    praise.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -35);
+    praise.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+    [praise setNormalImage:UIImageNamed(@"company_unPraise")];
+    [praise setSelectedImage:UIImageNamed(@"company_praised")];
     
     Landlord.sd_layout
     .centerYEqualToView(nickName)
@@ -182,6 +199,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
 -(void)setModel:(PostReplyModel *)model
 {
     _model = model;
+    @weakify(self);
     
     CGFloat haveFatherComment = 0;
     if (model.postComment) {//回复
@@ -202,7 +220,34 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     [fatherCommentBackView setupAutoHeightWithBottomView:fatherComment bottomMargin:haveFatherComment];
     
     [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
+    [avatar whenTap:^{
+        @strongify(self);
+        if (self.avatarBlock) {
+            self.avatarBlock(self.tag);
+        }
+    }];
+    
     nickName.text = GetSaveString(model.username);
+    
+    praise.selected = model.praise;
+    NSString *count = @"";
+    if (model.likeNum) {
+        count = [NSString stringWithFormat:@"%ld",model.likeNum];
+    }
+    if (praise.selected) {
+        [praise setSelectedTitle:count];
+    }else{
+        [praise setNormalTitle:count];
+    }
+    
+    [praise whenTap:^{
+        @strongify(self);
+        
+        if (self.praiseBlock) {
+            self.praiseBlock(self.tag);
+        }
+    }];
+    
     content.text = GetSaveString(model.comment);
     publishTime.text = GetSaveString(model.createTime);
     Landlord.hidden = !model.isAuthor;

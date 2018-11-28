@@ -261,6 +261,7 @@
     MainSectionModel *model = [MainSectionModel new];
     model.name = self.navigationItem.title;
     model.sectionId = self.sectionId;
+    model.icon = self.icon;
     if (sender.selected==NO) {
         [MainSectionModel addANew:model];
         sender.selected = YES;

@@ -113,12 +113,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 //百度移动统计
 -(void)addBaiduMobStat
 {
-    BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
-    statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    statTracker.enableDebugOn = YES;
-    statTracker.enableExceptionLog = YES;
-    // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
-    [statTracker startWithAppId:@"565a224155"];
+//    BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
+//    statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//    statTracker.enableDebugOn = YES;
+//    statTracker.enableExceptionLog = YES;
+//    // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
+//    [statTracker startWithAppId:@"c710e337f5"];
 }
 
 //集成友盟分享

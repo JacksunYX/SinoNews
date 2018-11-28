@@ -15,6 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const ThePostCommentReplyTableViewCellID;
 @interface ThePostCommentReplyTableViewCell : UITableViewCell
 @property (nonatomic,strong) PostReplyModel *model;
+
+//点击头像
+@property (nonatomic,copy) void(^avatarBlock)(NSInteger row);
+//点赞
+@property (nonatomic,copy) void(^praiseBlock)(NSInteger row);
+
 @end
 
 NS_ASSUME_NONNULL_END

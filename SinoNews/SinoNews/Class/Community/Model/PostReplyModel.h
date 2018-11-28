@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 //评论还是回复，默认no评论，yes回复
 @property (nonatomic,assign) BOOL postComment;
 @property (nonatomic,assign) BOOL praise;
+@property (nonatomic,assign) NSInteger likeNum;
 
 //本地判断适用(如果是作者本人发的评论或回复，需要显示为楼主)
 @property (nonatomic,assign) BOOL isAuthor;

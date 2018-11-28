@@ -37,6 +37,8 @@
 #define ListPostComments @"/api/forum/post/listPostComments"
 //评论帖子/回复评论(post)
 #define PostComment @"/api/forum/post/comment"
+//查看用户评论列表(get)
+#define ListPostCommentsForUser @"/api/forum/post/listPostCommentsForUser"
 
 
 #pragma mark --读帖

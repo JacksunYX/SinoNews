@@ -308,7 +308,12 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     }
     [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
     title.text = GetSaveString(model.postTitle);
-    nickName.text = GetSaveString(model.username);
+    if (model.username) {
+        nickName.text = GetSaveString(model.username);
+    }else{
+        nickName.text = GetSaveString(model.author);
+    }
+    
     publishTime.text = GetSaveString(model.createTime);
     comments.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
     

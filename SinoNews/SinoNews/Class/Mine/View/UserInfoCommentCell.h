@@ -16,6 +16,8 @@
 
 @property (nonatomic,strong) CompanyCommentModel *model;
 
+@property (nonatomic,strong) PostReplyModel *postReplyModel;
+
 @property (nonatomic,copy) void(^clickNewBlock)(void);
 
 @end

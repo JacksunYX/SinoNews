@@ -320,10 +320,16 @@
         
         HomePageModel *model = [self.newsArr[section] firstObject];
         NSString *sectionTitle = [NSString getDateStringWithTimeStr:model.saveTimeStr];
+        if (sectionTitle.length>10) {
+            sectionTitle = [sectionTitle substringToIndex:10];
+        }
         title.text = GetSaveString(sectionTitle);
     }else if (selectedIndex==1) {
         SeniorPostDataModel *model = [self.postsArr[section] firstObject];
         NSString *sectionTitle = [NSString getDateStringWithTimeStr:model.saveTime];
+        if (sectionTitle.length>10) {
+            sectionTitle = [sectionTitle substringToIndex:10];
+        }
         title.text = GetSaveString(sectionTitle);
     }
     

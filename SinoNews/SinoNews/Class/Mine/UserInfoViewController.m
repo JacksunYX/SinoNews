@@ -205,7 +205,7 @@
             [self requestListPostForUser];
         }else if (self.selectedIndex ==3){
             self.currPage3 = 1;
-            
+            [self requestListPostCommentsForUser];
         }
         
     }];
@@ -244,7 +244,7 @@
             }else{
                 self.currPage3 ++;
             }
-            
+            [self requestListPostCommentsForUser];
         }
         
     }];
@@ -714,7 +714,7 @@
         return self.postsArr.count;
     }
     if (_selectedIndex == 3) {
-        return self.commentsArr.count;
+        return self.replysArr.count;
     }
     return 0;
 }
@@ -798,18 +798,23 @@
         cell = cell2;
     }else if (_selectedIndex == 3){
         UserInfoCommentCell *cell0 = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
-        CompanyCommentModel *model = self.commentsArr[indexPath.row];
-        cell0.model = model;
-        
-        @weakify(self)
+        PostReplyModel *model = self.replysArr[indexPath.row];
+        cell0.postReplyModel = model;
+        @weakify(self);
         cell0.clickNewBlock = ^{
-            @strongify(self)
-            if (model.newsType == 0) {
-                NewsDetailViewController *ndVC = [NewsDetailViewController new];
-                ndVC.newsId = [model.newsId integerValue];
-                [self.navigationController pushViewController:ndVC animated:YES];
+            @strongify(self);
+            UIViewController *vc;
+            if (model.postType == 2) { //投票
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = model.postId;
+                vc = tvpdVC;
+            }else{
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = model.postId;
+                vc = tpdVC;
             }
             
+            [self.navigationController pushViewController:vc animated:YES];
         };
         cell = (UITableViewCell *)cell0;
     }
@@ -1022,7 +1027,6 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"page"] = @(self.currPage2);
     parameters[@"userId"] = @(self.userId);
-    parameters[@"status"] = @(1);
     [HttpRequest getWithURLString:ListPostForUser parameters:parameters success:^(id responseObject) {
         NSMutableArray *arr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
@@ -1033,7 +1037,20 @@
     }];
 }
 
-
+//获取用户帖子相关评论
+-(void)requestListPostCommentsForUser
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"page"] = @(self.currPage3);
+    parameters[@"userId"] = @(self.userId);
+    [HttpRequest getWithURLString:ListPostCommentsForUser parameters:parameters success:^(id responseObject) {
+        NSArray *dataArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        self.replysArr = [self.tableView pullWithPage:self.currPage3 data:dataArr dataSource:self.replysArr];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
+    }];
+}
 
 
 

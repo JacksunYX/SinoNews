@@ -103,7 +103,13 @@
             SeniorPostDataModel *model = newArr[j];
             //如果2个时间戳转化成的时间字符串相同，说明是同一天的
             NSString *time1 = [NSString getDateStringWithTimeStr:model.saveTime];
+            if (time1.length>10) {
+                time1 = [time1 substringToIndex:10];
+            }
             NSString *time2 = [NSString getDateStringWithTimeStr:sortModel.saveTime];
+            if (time2.length>10) {
+                time2 = [time2 substringToIndex:10];
+            }
             if (CompareString(time1, time2)) {
                 [sectionArr addObject:model];
             }else{  //反之，则是其他时间的

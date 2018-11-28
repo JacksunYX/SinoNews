@@ -221,4 +221,30 @@
     articleTitle.text = GetSaveString(model.title);
 }
 
+-(void)setPostReplyModel:(PostReplyModel *)postReplyModel
+{
+    _postReplyModel = postReplyModel;
+    [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(postReplyModel.avatar)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    username.text = GetSaveString(postReplyModel.username);
+    
+    UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
+    @weakify(self)
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        @strongify(self)
+        if (self.clickNewBlock) {
+            self.clickNewBlock();
+        }
+    }];
+    [bottomBackView addGestureRecognizer:tap];
+    
+    comment.text = GetSaveString(postReplyModel.comment);
+    
+    createTime.text = GetSaveString(postReplyModel.createTime);
+    
+    if (postReplyModel.image) {
+        [articleImg sd_setImageWithURL:UrlWithStr(GetSaveString(postReplyModel.image)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    }
+    articleTitle.text = GetSaveString(postReplyModel.postTitle);
+}
+
 @end

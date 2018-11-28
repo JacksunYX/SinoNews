@@ -33,10 +33,10 @@
         title = @"我的评论";
         notice = @"暂无评论";
     }else
-    if (self.type == 1) {
-        title = @"我的回复";
-        notice = @"暂无回复";
-    }
+        if (self.type == 1) {
+            title = @"我的回复";
+            notice = @"暂无回复";
+        }
     self.navigationItem.title = title;
     [self addTableView];
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noComment" title:notice];
@@ -72,7 +72,11 @@
         }
         [self.tableView ly_startLoading];
         self.currPage = 1;
-        [self requestUserComments];
+        if (self.type==1) {
+            [self requestListPostCommentsForUser];
+        }else{
+            [self requestUserComments];
+        }
         
     }];
     
@@ -88,7 +92,11 @@
         }else{
             self.currPage ++;
         }
-        [self requestUserComments];
+        if (self.type==1) {
+            [self requestListPostCommentsForUser];
+        }else{
+            [self requestUserComments];
+        }
         
     }];
     
@@ -110,19 +118,40 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserInfoCommentCell *cell = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
-    CompanyCommentModel *model = self.commentsArr[indexPath.row];
-    cell.model = model;
     
-    @weakify(self)
-    cell.clickNewBlock = ^{
-        @strongify(self)
-        if (model.newsType == 0) {
-            NewsDetailViewController *ndVC = [NewsDetailViewController new];
-            ndVC.newsId = [model.newsId integerValue];
-            [self.navigationController pushViewController:ndVC animated:YES];
-        }
-        
-    };
+    @weakify(self);
+    if (self.type == 1) {
+        PostReplyModel *model = self.commentsArr[indexPath.row];
+        cell.postReplyModel = model;
+        cell.clickNewBlock = ^{
+            @strongify(self);
+            UIViewController *vc;
+            if (model.postType == 2) { //投票
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = model.postId;
+                vc = tvpdVC;
+            }else{
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = model.postId;
+                vc = tpdVC;
+            }
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        };
+    }else{
+        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        cell.model = model;
+        cell.clickNewBlock = ^{
+            @strongify(self);
+            if (model.newsType == 0) {
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = [model.newsId integerValue];
+                [self.navigationController pushViewController:ndVC animated:YES];
+            }
+            
+        };
+    }
+    
     [cell addBakcgroundColorTheme];
     return cell;
 }
@@ -148,7 +177,7 @@
 }
 
 #pragma mark ---- 请求发送
-//获取用户评论
+//获取用户新闻相关评论
 -(void)requestUserComments
 {
     [HttpRequest getWithURLString:GetCurrentUserComments parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
@@ -156,17 +185,17 @@
         
         self.commentsArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.commentsArr];
         
-//        if (self.currPage == 1) {
-//            self.commentsArr = [data mutableCopy];
-//            [self.tableView.mj_header endRefreshing];
-//        }else{
-//            [self.commentsArr addObjectsFromArray:data];
-//            if (data.count) {
-//                [self.tableView.mj_footer endRefreshing];
-//            }else{
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//        }
+        //        if (self.currPage == 1) {
+        //            self.commentsArr = [data mutableCopy];
+        //            [self.tableView.mj_header endRefreshing];
+        //        }else{
+        //            [self.commentsArr addObjectsFromArray:data];
+        //            if (data.count) {
+        //                [self.tableView.mj_footer endRefreshing];
+        //            }else{
+        //                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        //            }
+        //        }
         
         [self.tableView reloadData];
         
@@ -178,7 +207,16 @@
     }];
 }
 
-
-
+//获取用户帖子相关评论
+-(void)requestListPostCommentsForUser
+{
+    [HttpRequest getWithURLString:ListPostCommentsForUser parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
+        NSArray *dataArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
+        self.commentsArr = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.commentsArr];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
+    }];
+}
 
 @end

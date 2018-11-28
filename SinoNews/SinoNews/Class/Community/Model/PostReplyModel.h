@@ -18,13 +18,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *parentCommentAuthor;
 @property (nonatomic,strong) NSString *comment;
 @property (nonatomic,strong) NSString *createTime;
+@property (nonatomic,strong) NSString *postTitle;
+//帖子图片
+@property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSMutableArray <NSString *>*postImages;
 
 @property (nonatomic,assign) NSInteger userId;
 @property (nonatomic,assign) NSInteger commentId;
 @property (nonatomic,assign) NSInteger parentId;
 @property (nonatomic,assign) NSInteger postId;
-
+@property (nonatomic,assign) NSInteger postType;
 @property (nonatomic,assign) NSInteger level;
 //评论还是回复，默认no评论，yes回复
 @property (nonatomic,assign) BOOL postComment;

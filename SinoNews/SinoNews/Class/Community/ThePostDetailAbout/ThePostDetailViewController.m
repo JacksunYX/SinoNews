@@ -803,7 +803,9 @@ CGFloat static attentionBtnH = 26;
         };
         cell2.praiseBlock = ^(NSInteger row) {
             GGLog(@"点赞");
-            if (replyModel.praise) {
+            if(self.user.userId == replyModel.userId){
+                LRToast(@"不可以点赞自己哟");
+            }else if (replyModel.praise) {
                 LRToast(@"已经点过赞啦");
             }else{
                 [self requestPraiseWithPraiseType:10 praiseId:replyModel.commentId commentNum:indexPath.row];
@@ -1007,6 +1009,7 @@ CGFloat static attentionBtnH = 26;
         LRToast(@"不可以点赞自己哟");
         return;
     }
+    
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"praiseType"] = @(praiseType);
     parameters[@"id"] = @(ID);

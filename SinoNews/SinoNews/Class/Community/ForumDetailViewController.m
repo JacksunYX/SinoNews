@@ -471,11 +471,7 @@
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    //如果是全部则不传
-    if (self.sectionId != _currentSectionId) {
-        parameters[@"sectionId"] = @(_currentSectionId);
-    }
-    
+    parameters[@"sectionId"] = @(_currentSectionId);
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);

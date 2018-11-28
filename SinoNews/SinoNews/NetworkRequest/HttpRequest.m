@@ -133,12 +133,10 @@ const NSString * DomainString = nil;
                 if ([resultdic[@"statusCode"] integerValue] == 110001) {
                     //清空登录状态
                     [UserModel clearLocalData];
-                }else{
-                    LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
                 }
-                if (failure) {
-                    failure(nil);
-                }
+                
+                LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
+                
             }
             
         }else{

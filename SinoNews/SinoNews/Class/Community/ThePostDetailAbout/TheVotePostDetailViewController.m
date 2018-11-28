@@ -860,7 +860,20 @@ CGFloat static attentionBtnH = 26;
     }else if (indexPath.section == 2){
         ThePostCommentReplyTableViewCell *cell2 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
         PostReplyModel *replyModel = self.commentsArr[indexPath.row];
+        cell2.tag = indexPath.row;
         cell2.model = replyModel;
+        cell2.avatarBlock = ^(NSInteger row) {
+            GGLog(@"查看用户");
+        };
+        cell2.praiseBlock = ^(NSInteger row) {
+            if(self.user.userId == replyModel.userId){
+                LRToast(@"不可以点赞自己哟");
+            }else if (replyModel.praise) {
+                LRToast(@"已经点过赞啦");
+            }else{
+                [self requestPraiseWithPraiseType:10 praiseId:replyModel.commentId commentNum:indexPath.row];
+            }
+        };
         cell = cell2;
     }
     
@@ -1076,7 +1089,7 @@ CGFloat static attentionBtnH = 26;
 -(void)requestPraiseWithPraiseType:(NSInteger)praiseType praiseId:(NSInteger)ID commentNum:(NSInteger)row
 {
     //做个判断，如果是作者本人，则无法点赞
-    if (self.user.userId == self.postModel.userId) {
+    if (self.user.userId == self.postModel.userId&&praiseType == 9) {
         LRToast(@"不可以点赞自己哟");
         return;
     }
@@ -1085,13 +1098,21 @@ CGFloat static attentionBtnH = 26;
     parameters[@"id"] = @(ID);
     [HttpRequest postWithTokenURLString:Praise parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         
-        if (praiseType == 9) {  //新闻
+        if (praiseType == 9) {  //帖子
             LRToast(@"点赞成功");
             self.postModel.hasPraised = !self.postModel.hasPraised;
             self.postModel.praiseCount ++;
             [self setBottomView];
-        }else if (praiseType == 2) {
-            
+        }else if (praiseType == 10) {   //帖子评论
+            PostReplyModel *replyModel = self.commentsArr[row];
+            replyModel.praise = !replyModel.praise;
+            if (replyModel.praise) {
+                LRToast(@"点赞成功");
+                replyModel.likeNum ++;
+            }else{
+                LRToast(@"点赞已取消");
+                replyModel.likeNum --;
+            }
         }
         [self.tableView reloadData];
     } failure:nil RefreshAction:^{
@@ -1117,17 +1138,17 @@ CGFloat static attentionBtnH = 26;
 //投票
 -(void)requestPost_doVote
 {
-    NSMutableString *optionId = @"".mutableCopy;
+    NSMutableString *chooseId = @"".mutableCopy;
     for (int i = 0; i < self.selectChooseArr.count; i ++) {
         VoteChooseInputModel *model = self.selectChooseArr[i];
-        [optionId appendString:[NSString stringWithFormat:@"%ld,",model.chooseId]];
+        [chooseId appendString:[NSString stringWithFormat:@"%ld,",model.chooseId]];
         if (i == self.selectChooseArr.count-1) {
             //移除尾部逗号
-            [optionId replaceCharactersInRange:NSMakeRange(optionId.length - 1, 1) withString:@""];
+            [chooseId replaceCharactersInRange:NSMakeRange(chooseId.length - 1, 1) withString:@""];
         }
     }
     
-    [HttpRequest getWithURLString:Post_doVote parameters:@{@"optionId":optionId} success:^(id responseObject) {
+    [HttpRequest getWithURLString:Post_doVote parameters:@{@"chooseId":chooseId} success:^(id responseObject) {
         for (VoteChooseInputModel *chooseModel in self.selectChooseArr) {
             //总票数自增，单项票数自增
             chooseModel.havePolls ++;
@@ -1145,7 +1166,7 @@ CGFloat static attentionBtnH = 26;
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
-        [self requestPost_browsePost];
+        
     }];
 }
 

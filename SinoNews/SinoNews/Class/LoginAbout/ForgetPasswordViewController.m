@@ -141,7 +141,7 @@
     .heightIs(56)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入手机号";
+    username.placeholder = @"请输入手机号或邮箱";
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     password.sd_layout

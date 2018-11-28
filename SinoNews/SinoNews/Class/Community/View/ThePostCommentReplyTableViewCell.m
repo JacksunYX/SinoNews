@@ -184,15 +184,16 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     _model = model;
     
     CGFloat haveFatherComment = 0;
-    if (model.postComment) {//评论
-        fatherComment.attributedText = nil;
-    }else{//回复
+    if (model.postComment) {//回复
+        
         NSString *fatherUser = GetSaveString(model.parentCommentAuthor);
         NSString *fatherString = [NSString stringWithFormat:@"：%@",GetSaveString(model.parentComment)];
         NSMutableAttributedString *appendStr = [NSString leadString:fatherUser tailString:fatherString font:PFFontL(15) color:HexColor(#161A24) lineBreak:NO];
         fatherComment.attributedText = appendStr;
         
         haveFatherComment = 7;
+    }else{//评论
+        fatherComment.attributedText = nil;
     }
     
     fatherComment.sd_layout

@@ -11,6 +11,7 @@
 
 #import "ThePostListTableViewCell.h"
 #import "PostDraftTableViewCell.h"
+#import "ReadPostListTableViewCell.h"
 
 @interface PostingListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -114,6 +115,7 @@
     }];
     [_tableView registerClass:[ThePostListTableViewCell class] forCellReuseIdentifier:ThePostListTableViewCellID];
     [_tableView registerClass:[PostDraftTableViewCell class] forCellReuseIdentifier:PostDraftTableViewCellID];
+    [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
 }
 
 #pragma mark --- UITableViewDataSource ---
@@ -131,7 +133,7 @@
 {
     UITableViewCell *cell;
     if (self.type == 0) {
-        ThePostListTableViewCell *cell0 = (ThePostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostListTableViewCellID];
+        ReadPostListTableViewCell *cell0 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         SeniorPostDataModel *model = self.dataSource[indexPath.row];
         cell0.model = model;
         cell = cell0;

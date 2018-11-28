@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - BaiduMobStat (4.9.1)
   - BGFMDB (2.0.12):
     - BGFMDB/BG (= 2.0.12)
     - BGFMDB/FMDB (= 2.0.12)
@@ -56,6 +57,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - BaiduMobStat
   - BGFMDB
   - FCUUID
   - FLAnimatedImage
@@ -81,6 +83,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - BaiduMobStat
     - BGFMDB
     - FCUUID
     - FLAnimatedImage
@@ -115,6 +118,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  BaiduMobStat: e2dbfd44f1535adf3c0001cbd3212eb61c4fe639
   BGFMDB: cd5e468218d4c7345862d814d313c0888db3a66a
   FCUUID: bb054fc90cd7cd99320f9f6ff8e130fe607fba05
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
@@ -139,6 +143,6 @@ SPEC CHECKSUMS:
   XXDeviceTool: 7c8d0d190682351c3cb9e10c269897b05a052fcb
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 839515d43f4627c1a69d290aff66abdbfb565504
+PODFILE CHECKSUM: ba1d109c39283ba04df476c166a083eb8647632d
 
 COCOAPODS: 1.5.3

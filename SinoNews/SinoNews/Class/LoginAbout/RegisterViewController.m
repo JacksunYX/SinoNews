@@ -104,9 +104,9 @@
     username = [TXLimitedTextField new];
     username.clearButtonMode = UITextFieldViewModeWhileEditing;
     username.delegate = self;
-    username.limitedType = TXLimitedTextFieldTypeCustom;
-    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
-    username.limitedNumber = 11;
+//    username.limitedType = TXLimitedTextFieldTypeCustom;
+//    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+//    username.limitedNumber = 11;
     
     nickname = [TXLimitedTextField new];
     nickname.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -154,7 +154,7 @@
     .heightIs(56)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入手机号";
+    username.placeholder = @"请输入手机号或邮箱";
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     nickname.sd_layout

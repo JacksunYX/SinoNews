@@ -845,7 +845,7 @@
     if (self.selectedIndex == 0) {
         id model = self.articlesArr[indexPath.row];
         [UniversalMethod pushToAssignVCWithNewmodel:model];
-    }else if (self.selectedIndex == 0) {
+    }else if (self.selectedIndex == 2) {
         SeniorPostDataModel *model = self.postsArr[indexPath.row];
         if (model.status == 0) {
             LRToast(@"正在审核中...");

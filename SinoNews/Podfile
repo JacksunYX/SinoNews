@@ -45,7 +45,7 @@ pod 'Masonry'
 
 #pod 'KafkaRefresh'
 #pod 'MLeaksFinder'
-#pod 'BaiduMobStat'
+pod 'BaiduMobStat'
 #pod 'IQKeyboardManager'
 #pod 'JHChainableAnimations', '~> 3.0.1'
 

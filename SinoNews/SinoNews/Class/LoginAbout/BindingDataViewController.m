@@ -218,7 +218,12 @@
 -(void)confirmAction
 {
     if (kStringIsEmpty(username.text)) {
-        LRToast(@"请输入账号");
+        if (_bindingType==1) {
+            LRToast(@"请输入手机号");
+        }else{
+            LRToast(@"请输入邮箱");
+        }
+        
     }else if (kStringIsEmpty(seccode.text)){
         LRToast(@"请输入验证码");
     }else if (kStringIsEmpty(password.text)&&self.isUpdate){

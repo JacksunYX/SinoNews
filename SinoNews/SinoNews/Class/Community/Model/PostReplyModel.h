@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger postId;
 
 @property (nonatomic,assign) NSInteger level;
-//评论还是回复，默认no回复，yes评论
+//评论还是回复，默认no评论，yes回复
 @property (nonatomic,assign) BOOL postComment;
 @property (nonatomic,assign) BOOL praise;
 

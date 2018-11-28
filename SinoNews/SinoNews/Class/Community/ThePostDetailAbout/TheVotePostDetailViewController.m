@@ -695,7 +695,7 @@ CGFloat static attentionBtnH = 26;
         _participantNum.textColor = HexColor(#161A24);
         
     }
-    _participantNum.text = [NSString stringWithFormat:@"共有%ld人参与投票",self.postModel.totalPolls];
+    _participantNum.text = [NSString stringWithFormat:@"共有%ld人参与投票",self.postModel.votePeople];
 }
 
 //设置分区1的分区头
@@ -1154,6 +1154,8 @@ CGFloat static attentionBtnH = 26;
             chooseModel.havePolls ++;
             self.postModel.totalPolls ++;
         }
+        //参与投票的人数加1
+        self.postModel.votePeople ++;
         [self.selectChooseArr removeAllObjects];
         //标记为已投票
         self.postModel.haveVoted = YES;

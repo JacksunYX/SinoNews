@@ -105,6 +105,11 @@
 //#define OpenNightChange
 #endif
 
+//是否开启注册极验验证
+#ifndef OpenRegistGeeVerify
+#define OpenRegistGeeVerify
+#endif
+
 #import "RTRootNavigationController.h"
 //主题修改
 #import <LEETheme.h>

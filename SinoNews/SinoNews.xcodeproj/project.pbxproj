@@ -812,6 +812,8 @@
 		4CE9C91F20C8E1A2004550B9 /* NSObject+save.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C91E20C8E1A2004550B9 /* NSObject+save.m */; };
 		4CE9C92320C90B9B004550B9 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE9C92220C90B9B004550B9 /* UserModel.m */; };
 		4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */; };
+		4CEEDAF821AE97DC0098702F /* GT3Captcha.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4CEEDAF621AE97DB0098702F /* GT3Captcha.bundle */; };
+		4CEEDAF921AE97DC0098702F /* GT3Captcha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CEEDAF721AE97DB0098702F /* GT3Captcha.framework */; };
 		4CEEE5552199966100DFEC0A /* EditImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEE5542199966100DFEC0A /* EditImageViewController.m */; };
 		4CEEE55821999F0D00DFEC0A /* EditVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEE55721999F0D00DFEC0A /* EditVideoViewController.m */; };
 		4CF1A7E1219BB92F0031B1A9 /* ThePostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1A7E0219BB92F0031B1A9 /* ThePostDetailViewController.m */; };
@@ -2264,6 +2266,8 @@
 		4CE9C92220C90B9B004550B9 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		4CEA61732117FB3800AAB8B0 /* PubLishChannelSelectVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubLishChannelSelectVC.h; sourceTree = "<group>"; };
 		4CEA61742117FB3800AAB8B0 /* PubLishChannelSelectVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PubLishChannelSelectVC.m; sourceTree = "<group>"; };
+		4CEEDAF621AE97DB0098702F /* GT3Captcha.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GT3Captcha.bundle; sourceTree = "<group>"; };
+		4CEEDAF721AE97DB0098702F /* GT3Captcha.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GT3Captcha.framework; sourceTree = "<group>"; };
 		4CEEE5532199966100DFEC0A /* EditImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditImageViewController.h; sourceTree = "<group>"; };
 		4CEEE5542199966100DFEC0A /* EditImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditImageViewController.m; sourceTree = "<group>"; };
 		4CEEE55621999F0D00DFEC0A /* EditVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditVideoViewController.h; sourceTree = "<group>"; };
@@ -2335,6 +2339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CEEDAF921AE97DC0098702F /* GT3Captcha.framework in Frameworks */,
 				4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */,
 				4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */,
 				4C1B149D2152583B004ADD9E /* libz.tbd in Frameworks */,
@@ -3045,6 +3050,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4CEEDAF521AE97C20098702F /* GeeTest */,
 				4CF1A8E3219E56EC0031B1A9 /* CountDown */,
 				4C8D5C28219AC26B008C13A9 /* WZLBadge */,
 				4CD157D32199566000178FBF /* ZYKeyBoardManager */,
@@ -4909,6 +4915,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4CEEDAF521AE97C20098702F /* GeeTest */ = {
+			isa = PBXGroup;
+			children = (
+				4CEEDAF621AE97DB0098702F /* GT3Captcha.bundle */,
+				4CEEDAF721AE97DB0098702F /* GT3Captcha.framework */,
+			);
+			path = GeeTest;
+			sourceTree = "<group>";
+		};
 		4CF1A7E2219BB9380031B1A9 /* ThePostDetailAbout */ = {
 			isa = PBXGroup;
 			children = (
@@ -5299,6 +5314,7 @@
 				4C7234CD20FDEB1D00D5C5D4 /* AAHighchartsLib.js in Resources */,
 				4CAD574D2194225000BD77E0 /* smiley_75.png in Resources */,
 				4C99300B217717710092DDCF /* style.css in Resources */,
+				4CEEDAF821AE97DC0098702F /* GT3Captcha.bundle in Resources */,
 				4CAD57422194225000BD77E0 /* smiley_38.png in Resources */,
 				4CAD57542194225000BD77E0 /* smiley_89.png in Resources */,
 				4CAD57082194224F00BD77E0 /* smiley_80.png in Resources */,
@@ -6222,6 +6238,10 @@
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DEVELOPMENT_TEAM = N2Q42K578K;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/GeeTest",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -6267,6 +6287,10 @@
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = N2Q42K578K;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/GeeTest",
+				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SinoNews/DefinedFile/BaseConfiguration.pch";

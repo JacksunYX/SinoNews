@@ -8,7 +8,15 @@
 
 #import "RegisterViewController.h"
 
-@interface RegisterViewController ()<UITextFieldDelegate>
+#import <GT3Captcha/GT3Captcha.h>
+#import <WebKit/WebKit.h>
+
+//网站主部署的用于验证注册的接口 (api_1)
+#define api_1 @"http://www.geetest.com/demo/gt/register-test"
+//网站主部署的二次验证的接口 (api_2)
+#define api_2 @"http://www.geetest.com/demo/gt/validate-test"
+
+@interface RegisterViewController ()<UITextFieldDelegate,GT3CaptchaManagerDelegate>
 {
     TXLimitedTextField *username;   //账号
     TXLimitedTextField *nickname;   //昵称
@@ -19,6 +27,7 @@
     UIButton *registerBtn;
 }
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
+@property (nonatomic, strong) GT3CaptchaManager *captchaManager;
 @end
 
 @implementation RegisterViewController
@@ -28,6 +37,20 @@
         _keyboardUtil = [[ZYKeyboardUtil alloc]init];
     }
     return _keyboardUtil;
+}
+
+- (GT3CaptchaManager *)captchaManager {
+    if (!_captchaManager) {
+        //创建验证管理器实例
+        _captchaManager = [[GT3CaptchaManager alloc] initWithAPI1:api_1 API2:api_2 timeout:5.0];
+        _captchaManager.delegate = self;
+        _captchaManager.maskColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
+        [_captchaManager registerCaptcha:nil];
+        //debug mode
+        [_captchaManager enableDebugMode:YES];
+        
+    }
+    return _captchaManager;
 }
 
 -(void)dealloc
@@ -104,9 +127,9 @@
     username = [TXLimitedTextField new];
     username.clearButtonMode = UITextFieldViewModeWhileEditing;
     username.delegate = self;
-//    username.limitedType = TXLimitedTextFieldTypeCustom;
-//    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
-//    username.limitedNumber = 11;
+    //    username.limitedType = TXLimitedTextFieldTypeCustom;
+    //    username.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+    //    username.limitedNumber = 11;
     
     nickname = [TXLimitedTextField new];
     nickname.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -317,30 +340,42 @@
         }
         //再检测密码
         if ([password.text checkPassWord]) {
-            NSMutableDictionary *parameters = [NSMutableDictionary new];
-            parameters[@"account"] = username.text;
-            parameters[@"nickname"] = nickname.text;
-            parameters[@"password"] = password.text;
-            parameters[@"valid"] = seccode.text;
-            parameters[@"source"] = @"2";
-            parameters[@"promoCode"] = promoteCode.text;
+
+#ifdef OpenRegistGeeVerify
+            [self.captchaManager startGTCaptchaWithAnimated:YES];
+#else
+            [self registRequest];
+#endif
             
-            [HttpRequest postWithURLString:DoRegister parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-                LRToast(@"注册成功");
-                GCDAfterTime(1, ^{
-                    [self.navigationController popViewControllerAnimated:YES];
-                    if (self.registerSuccess) {
-                        self.registerSuccess(self->username.text, self->password.text);
-                    }
-                });
-            } failure:^(NSError *error) {
-                LRToast(@"注册失败");
-            }  RefreshAction:nil];
         }else{
             LRToast(@"密码为6-16位数字、字母和下划线组成");
         }
         
     }
+}
+
+//注册请求
+-(void)registRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"account"] = username.text;
+    parameters[@"nickname"] = nickname.text;
+    parameters[@"password"] = password.text;
+    parameters[@"valid"] = seccode.text;
+    parameters[@"source"] = @"2";
+    parameters[@"promoCode"] = promoteCode.text;
+    
+    [HttpRequest postWithURLString:DoRegister parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"注册成功");
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+            if (self.registerSuccess) {
+                self.registerSuccess(self->username.text, self->password.text);
+            }
+        });
+    } failure:^(NSError *error) {
+        LRToast(@"注册失败");
+    }  RefreshAction:nil];
 }
 
 #pragma mark ----- UITextFieldDelegate
@@ -383,5 +418,50 @@
         return NO;
     return [super canPerformAction:action withSender:sender];
 }
+
+#pragma mark - GT3CaptchaManagerDelegate
+
+- (void)gtCaptcha:(GT3CaptchaManager *)manager errorHandler:(GT3Error *)error {
+    //处理验证中返回的错误
+    if (error.code == -999) {
+        // 请求被意外中断, 一般由用户进行取消操作导致, 可忽略错误
+    }
+    else if (error.code == -10) {
+        // 预判断时被封禁, 不会再进行图形验证
+    }
+    else if (error.code == -20) {
+        // 尝试过多
+    }
+    else {
+        // 网络问题或解析失败, 更多错误码参考开发文档
+    }
+    NSString *errotString = AppendingString(@"验证错误：", error.error_code);
+    LRToast(errotString);
+}
+
+- (void)gtCaptchaUserDidCloseGTView:(GT3CaptchaManager *)manager {
+    NSLog(@"User Did Close GTView.");
+}
+
+- (void)gtCaptcha:(GT3CaptchaManager *)manager didReceiveSecondaryCaptchaData:(NSData *)data response:(NSURLResponse *)response error:(GT3Error *)error decisionHandler:(void (^)(GT3SecondaryCaptchaPolicy))decisionHandler {
+    if (!error) {
+        //处理你的验证结果
+        NSLog(@"\ndata: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        //成功请调用decisionHandler(GT3SecondaryCaptchaPolicyAllow)
+        decisionHandler(GT3SecondaryCaptchaPolicyAllow);
+        //失败请调用decisionHandler(GT3SecondaryCaptchaPolicyForbidden)
+        //decisionHandler(GT3SecondaryCaptchaPolicyForbidden);
+        
+        //验证成功,发送注册请求
+        [self registRequest];
+    }
+    else {
+        //二次验证发生错误
+        decisionHandler(GT3SecondaryCaptchaPolicyForbidden);
+        NSString *errotString = AppendingString(@"验证错误：", error.error_code);
+        LRToast(errotString);
+    }
+}
+
 
 @end

@@ -107,8 +107,14 @@
 
 //是否开启注册极验验证
 #ifndef OpenRegistGeeVerify
-#define OpenRegistGeeVerify
+//#define OpenRegistGeeVerify
 #endif
+
+//是否开启发帖中@人功能
+#ifndef OpenRemindPeople
+//#define OpenRemindPeople
+#endif
+
 
 #import "RTRootNavigationController.h"
 //主题修改

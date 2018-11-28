@@ -481,6 +481,10 @@
     [addVideoBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [_addPeopleBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [showKeyboardBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+    
+#ifndef OpenRemindPeople
+    _addPeopleBtn.hidden = YES;
+#endif
 }
 
 //隐藏键盘

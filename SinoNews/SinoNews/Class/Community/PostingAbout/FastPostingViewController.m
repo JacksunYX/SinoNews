@@ -219,7 +219,11 @@
     .topSpaceToView(_addImageView, 0)
     .leftEqualToView(_mainScrollView)
     .rightEqualToView(_mainScrollView)
+#ifdef OpenRemindPeople
     .heightIs(74)
+#else
+    .heightIs(0)
+#endif
     ;
     _remindView.remindArr = [NSMutableArray new];
     
@@ -228,6 +232,10 @@
         @strongify(self);
         [self setRemindPeoples];
     }];
+    
+#ifndef OpenRemindPeople
+    _remindView.hidden = YES;
+#endif
     
     [_mainScrollView setupAutoContentSizeWithBottomView:_remindView bottomMargin:10];
     

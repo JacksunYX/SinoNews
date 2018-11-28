@@ -132,7 +132,8 @@
     UITableViewCell *cell;
     if (self.type == 0) {
         ThePostListTableViewCell *cell0 = (ThePostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostListTableViewCellID];
-        [cell0 setData:@{}];
+        SeniorPostDataModel *model = self.dataSource[indexPath.row];
+        cell0.model = model;
         cell = cell0;
     }else if (self.type == 1){
         PostDraftTableViewCell *cell1 = (PostDraftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:PostDraftTableViewCellID];
@@ -163,7 +164,28 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     @weakify(self);
-    if (self.type==1) {
+    if (self.type==0) {
+        SeniorPostDataModel *model = self.dataSource[indexPath.row];
+        //先检查是否通过审核了
+        if (model.status == 0) {
+            LRToast(@"正在审核中...");
+        }else if (model.status == 2) {
+            LRToast(@"帖子未通过审核");
+        }else{
+            UIViewController *vc;
+            if (model.postType == 2) { //投票
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = model.postId;
+                vc = tvpdVC;
+            }else{
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = model.postId;
+                vc = tpdVC;
+            }
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else if (self.type==1) {
         SeniorPostDataModel *draftModel = self.dataSource[indexPath.row];
         if (draftModel.postType == 3) {
             SeniorPostingViewController *spVC = [SeniorPostingViewController new];
@@ -181,11 +203,14 @@
 #pragma mark --请求
 -(void)requestListPostForUser
 {
-    [HttpRequest postWithURLString:ListPostForUser parameters:@{@"currPage":@(self.currPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        
+    [HttpRequest getWithURLString:ListPostForUser parameters:@{@"currPage":@(self.currPage)} success:^(id responseObject) {
+        NSArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        self.dataSource = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.dataSource];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
-        
-    } RefreshAction:nil];
+        [self.tableView endAllRefresh];
+    }];
+    
 }
 
 @end

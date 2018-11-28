@@ -11,7 +11,7 @@
 @interface RankListTableViewCell2 ()
 {
     //左
-    UIImageView *userIcon;
+    FLAnimatedImageView *userIcon;
     //中
     UILabel *num;   //排名
     UILabel *title; //标题
@@ -47,7 +47,7 @@
 
 -(void)setupUI
 {
-    userIcon = [UIImageView new];
+    userIcon = [FLAnimatedImageView new];
 //    userIcon.backgroundColor = Arc4randomColor;
     
     num = [UILabel new];

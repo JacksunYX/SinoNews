@@ -533,7 +533,7 @@
 {
     UIView *fatherView = cell.contentView;
     UIImageView *star = [UIImageView new];
-    UIImageView *icon = [UIImageView new];
+    FLAnimatedImageView *icon = [FLAnimatedImageView new];
     
     UIView *sepLine = [UIView new];
     [sepLine addCutLineColor];

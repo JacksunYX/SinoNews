@@ -115,7 +115,12 @@ NSString * _Nullable const ThePostListTableViewCellID = @"ThePostListTableViewCe
     [title updateLayout];
     
     bottomLabel.text = [NSString stringWithFormat:@"%@  %@",GetSaveString(model.author),GetSaveString(model.createTime)];
-    readNum.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
+    if (model.commentCount) {
+        readNum.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
+    }else{
+        readNum.text = @"";
+    }
+    
 }
 
 @end

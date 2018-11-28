@@ -70,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger sectionId;
 @property (nonatomic,strong) NSString *tags;
 @property (nonatomic,assign) NSInteger viewCount;
+//标记帖子发布状态(0审核中、1已审核、2审核未通过)
+@property (nonatomic,assign) NSInteger status;
 //只用于收藏
 @property (nonatomic,assign) NSInteger favorId;
 

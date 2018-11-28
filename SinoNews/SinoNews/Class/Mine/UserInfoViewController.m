@@ -845,6 +845,26 @@
     if (self.selectedIndex == 0) {
         id model = self.articlesArr[indexPath.row];
         [UniversalMethod pushToAssignVCWithNewmodel:model];
+    }else if (self.selectedIndex == 0) {
+        SeniorPostDataModel *model = self.postsArr[indexPath.row];
+        if (model.status == 0) {
+            LRToast(@"正在审核中...");
+        }else if (model.status == 2) {
+            LRToast(@"帖子未通过审核");
+        }else{
+            UIViewController *vc;
+            if (model.postType == 2) { //投票
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = model.postId;
+                vc = tvpdVC;
+            }else{
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = model.postId;
+                vc = tpdVC;
+            }
+            
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     
 }

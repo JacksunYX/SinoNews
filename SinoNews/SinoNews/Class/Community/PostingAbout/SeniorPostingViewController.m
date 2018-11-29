@@ -254,9 +254,13 @@
     switch (sender.tag) {
         case 0:
         {
-            [SeniorPostDataModel addANewDraft:self.postModel];
-            if (self.refreshCallBack) {
-                self.refreshCallBack();
+            if ([self isContentNeutrality]) {
+                [SeniorPostDataModel addANewDraft:self.postModel];
+                if (self.refreshCallBack) {
+                    self.refreshCallBack();
+                }
+            }else{
+                LRToast(@"总要输入点东西吧");
             }
         }
             break;
@@ -320,7 +324,32 @@
 
 -(void)back
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([self isContentNeutrality]) {
+        @weakify(self);
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"是否保存草稿" message:@"草稿可以在'我的帖子'中查看" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *delete = [UIAlertAction actionWithTitle:@"删除草稿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            @strongify(self);
+            [SeniorPostDataModel remove:self.postModel];
+            if (self.refreshCallBack) {
+                self.refreshCallBack();
+            }
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *save = [UIAlertAction actionWithTitle:@"保存草稿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            @strongify(self);
+            [SeniorPostDataModel addANewDraft:self.postModel];
+            if (self.refreshCallBack) {
+                self.refreshCallBack();
+            }
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertVC addAction:delete];
+        [alertVC addAction:save];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
 -(void)setUI
@@ -362,6 +391,23 @@
     ;
     [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
     [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//检查当前模型是否有需要保存的数据
+-(BOOL)isContentNeutrality
+{
+    BOOL have = NO;
+    if (![NSString isEmpty:self.postModel.postTitle]) {
+        have = YES;
+    }else if (![NSString isEmpty:self.postModel.postContent]){
+        have = YES;
+    }else{
+        //最后判断子内容是否有空的
+        if (self.postModel.dataSource.count>0) {
+            have = YES;
+        }
+    }
+    return have;
 }
 
 //下方的功能按钮视图

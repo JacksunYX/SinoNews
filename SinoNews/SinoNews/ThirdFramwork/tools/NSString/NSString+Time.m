@@ -159,6 +159,7 @@
     NSDateComponents *cmps = [calendar components:type fromDate:date1 toDate:date2 options:0];
     // 4.输出结果
     NSString *TimeDifference = [NSString stringWithFormat:@"两个时间相差%ld年%ld月%ld日%ld小时%ld分钟%ld秒", cmps.year, cmps.month, cmps.day, cmps.hour, cmps.minute, cmps.second];
+    TimeDifference = @"1秒前";
 //    NSLog(@"%@",TimeDifference);
     if (cmps.year) {
         TimeDifference = [NSString stringWithFormat:@"%ld年前",cmps.year];

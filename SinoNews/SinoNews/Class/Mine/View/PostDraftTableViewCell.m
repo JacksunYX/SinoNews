@@ -180,10 +180,14 @@ NSString *const PostDraftTableViewCellID = @"PostDraftTableViewCellID";
     }
     
     if ([NSString isEmpty:draftModel.postTitle]) {
-        if (draftModel.postContent.length>10) {
-            title.text = [NSString stringWithFormat:@"%@...",[draftModel.postContent substringToIndex:9]];
+        if ([NSString isEmpty:draftModel.postContent]) {
+            title.text = @"草稿";
         }else{
-            title.text = GetSaveString(draftModel.postContent);
+            if (draftModel.postContent.length>10) {
+                title.text = [NSString stringWithFormat:@"%@...",[draftModel.postContent substringToIndex:9]];
+            }else{
+                title.text = GetSaveString(draftModel.postContent);
+            }
         }
     }else{
         title.text = GetSaveString(draftModel.postTitle);

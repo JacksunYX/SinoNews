@@ -72,7 +72,7 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     .centerYEqualToView(logo)
     .heightIs(16)
     ;
-    [communityName setSingleLineAutoResizeWithMaxWidth:100];
+    [communityName setSingleLineAutoResizeWithMaxWidth:150];
     
     postNum.sd_layout
     .rightSpaceToView(fatherView, 15)

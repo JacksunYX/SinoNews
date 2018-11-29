@@ -416,11 +416,13 @@
         .rightSpaceToView(head, 10)
         .bottomSpaceToView(head, 10)
         ;
+        /*
         NSString *imageStr = [NSString stringWithFormat:@"gameAd_%d",arc4random()%3];
         ADImage.image = UIImageNamed(imageStr);
         [ADImage whenTap:^{
             GGLog(@"点击了%ld区的广告",(long)self.leftSelectedIndex);
         }];
+         */
     }
     
     return head;

@@ -67,7 +67,7 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
         textLabel.font = PFFontR(20);
         string = [NSString stringWithFormat:@"%@、%@",[NSString getChineseWithNum:model.sectionNum],GetSaveString(model.title)];
     }else if (model.addType == 1){
-        textLabel.font = PFFontR(15);
+        textLabel.font = PFFontR(16);
         string = GetSaveString(model.content);
     }
     textLabel.text = string;

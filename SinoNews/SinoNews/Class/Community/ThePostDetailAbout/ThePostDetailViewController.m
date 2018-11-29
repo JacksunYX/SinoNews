@@ -237,9 +237,7 @@ CGFloat static attentionBtnH = 26;
         self.lastReplyDic = cancelData;
     };
     
-    //这种弹出方式可以造成视觉差
-    prVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:prVC animated:YES completion:nil];
+    [prVC showFromVC2:self];
 }
 
 //跳转评论分页界面
@@ -307,7 +305,7 @@ CGFloat static attentionBtnH = 26;
         self.titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1)];
         self.titleView.backgroundColor = WhiteColor;
         _titleLabel = [UILabel new];
-        _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:ScaleWidth(20)];
+        _titleLabel.font = PFFontM(20);
         _titleLabel.numberOfLines = 0;
         
         _avatar = [UIImageView new];
@@ -324,7 +322,7 @@ CGFloat static attentionBtnH = 26;
         _creatTime.textColor = HexColor(#889199);
         
         _contentLaebl = [YXLabel new];
-        _contentLaebl.font = PFFontL(15);
+        _contentLaebl.font = PFFontL(16);
         _contentLaebl.textColor = HexColor(#1A1A1A);
         _contentLaebl.numberOfLines = 0;
         

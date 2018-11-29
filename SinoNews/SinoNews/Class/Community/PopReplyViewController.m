@@ -231,13 +231,15 @@ static CGFloat animationTime = 0.25;
         [self showOrHideKeyboard];
     }];
     
-    [UIView animateWithDuration:animationTime animations:^{
-//        self.view.backgroundColor = BlackColor;
-        self.bottomView.sd_layout
-        .bottomEqualToView(self.view)
-        ;
-        [self.bottomView updateLayout];
-    }];
+    GCDAfterTime(0.1, ^{
+        [UIView animateWithDuration:animationTime animations:^{
+            self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+            self.bottomView.sd_layout
+            .bottomEqualToView(self.view)
+            ;
+            [self.bottomView updateLayout];
+        }];
+    });
     
     //添加图片视图
     [self setShowSelectImagesView];
@@ -248,6 +250,26 @@ static CGFloat animationTime = 0.25;
     
     //暂时隐藏添加图片功能
     _addImage.hidden = YES;
+}
+
+//显示方法
+-(void)showFromVC:(UIViewController *)vc
+{
+    //这种弹出方式可以造成视觉差
+    self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    //加上这句话会让上个界面的导航栏不被遮住
+//    vc.definesPresentationContext = YES;
+    [vc presentViewController:self animated:NO completion:nil];
+}
+
+//显示方法2
+-(void)showFromVC2:(UIViewController *)vc
+{
+    RTRootNavigationController *rnVC = [[RTRootNavigationController alloc]initWithRootViewController:self];
+    rnVC.view.backgroundColor = ClearColor;
+    rnVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    
+    [vc presentViewController:rnVC animated:NO completion:nil];
 }
 
 //设置选择的图片视图

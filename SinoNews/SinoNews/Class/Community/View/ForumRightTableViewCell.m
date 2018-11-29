@@ -47,7 +47,7 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     logo = [UIImageView new];
     
     communityName = [UILabel new];
-    communityName.font = PFFontL(15);
+    communityName.font = PFFontR(15);
     communityName.textColor = HexColor(#161A24);
     
     postNum = [UILabel new];

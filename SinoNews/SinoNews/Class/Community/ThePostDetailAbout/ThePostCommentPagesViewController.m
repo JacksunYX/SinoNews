@@ -170,7 +170,7 @@
         @strongify(self);
         self.lastReplyDic = cancelData;
     };
-    [self.navigationController pushViewController:prVC animated:NO];
+    [prVC showFromVC2:self];
 }
 
 //弹出选择分页的视图

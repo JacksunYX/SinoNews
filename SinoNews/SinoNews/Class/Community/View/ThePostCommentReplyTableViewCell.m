@@ -15,7 +15,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     UIImageView *avatar;
     UILabel *nickName;
     UILabel *Landlord;  //楼主标签
-    UILabel *content;
+    YXLabel *content;
     
     UIButton *praise;   //点赞
     
@@ -75,9 +75,10 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     fatherComment.font = PFFontR(15);
     fatherComment.isAttributedContent = YES;
     
-    content = [UILabel new];
+    content = [YXLabel new];
     content.textColor = HexColor(#161A24);
     content.font = PFFontL(15);
+    content.numberOfLines = 0;
     
     leftImg = [UIImageView new];
     centerImg = [UIImageView new];
@@ -162,7 +163,8 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .leftEqualToView(nickName)
     .topSpaceToView(fatherCommentBackView, 10)
     .rightSpaceToView(fatherView, 16)
-    .autoHeightRatio(0)
+//    .autoHeightRatio(0)
+    .heightIs(0)
     ;
     
     CGFloat imgW = (ScreenW - 30 - 45)/3;
@@ -249,6 +251,13 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     }];
     
     content.text = GetSaveString(model.comment);
+    CGFloat height = [content getLabelWithLineSpace:3 width:ScreenW - 44 - 16];
+    
+    content.sd_layout
+    .heightIs(height)
+    ;
+    [content updateLayout];
+    
     publishTime.text = GetSaveString(model.createTime);
     Landlord.hidden = !model.isAuthor;
     

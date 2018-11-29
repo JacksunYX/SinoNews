@@ -40,6 +40,11 @@
                           NSKernAttributeName:@1.0f,
                           };
     
+    //创建富文本并将上面的段落样式加入
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.text];
+    [attrString addAttributes:dic range:NSMakeRange(0, attrString.length)];
+    self.attributedText = attrString;
+    
     CGSize size = [self.text boundingRectWithSize:CGSizeMake(width,MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
     return size.height;
     

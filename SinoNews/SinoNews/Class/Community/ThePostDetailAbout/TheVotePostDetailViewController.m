@@ -220,9 +220,7 @@ CGFloat static attentionBtnH = 26;
         @strongify(self);
         self.lastReplyDic = cancelData;
     };
-    //这种弹出方式可以造成视觉差
-    prVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:prVC animated:YES completion:nil];
+    [prVC showFromVC2:self];
 }
 
 //跳转评论分页界面

@@ -16,6 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) void(^cancelBlock)(NSDictionary *cancelData);
 
 @property (nonatomic,strong) NSMutableDictionary *inputData;
+
+//显示方法
+-(void)showFromVC:(UIViewController *)vc;
+
+//显示方法2
+-(void)showFromVC2:(UIViewController *)vc;
+
 @end
 
 NS_ASSUME_NONNULL_END

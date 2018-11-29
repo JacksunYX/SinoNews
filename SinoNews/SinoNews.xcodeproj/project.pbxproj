@@ -12,6 +12,8 @@
 		4C02F906218AE4A800CB0169 /* ForumDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F905218AE4A800CB0169 /* ForumDetailTableViewCell.m */; };
 		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
+		4C1227D221AFDC0A00E19AD4 /* CharacterLocationSeeker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */; };
+		4C1227D321AFDC0A00E19AD4 /* CharacterLocationSeeker_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */; };
 		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
 		4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */; };
 		4C138EBA21815F4F00FA2667 /* ChangeAttentionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */; };
@@ -878,6 +880,10 @@
 		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		4C03F5342101DE5900574136 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
 		4C03F5352101DE5900574136 /* ArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
+		4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterLocationSeeker.m; sourceTree = "<group>"; };
+		4C1227CF21AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker_TextView.h; sourceTree = "<group>"; };
+		4C1227D021AFDC0900E19AD4 /* CharacterLocationSeeker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker.h; sourceTree = "<group>"; };
+		4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterLocationSeeker_TextView.m; sourceTree = "<group>"; };
 		4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionViewController.h; sourceTree = "<group>"; };
 		4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionViewController.m; sourceTree = "<group>"; };
 		4C138EB5218155EE00FA2667 /* ChangeAttentionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionCell.h; sourceTree = "<group>"; };
@@ -2380,6 +2386,17 @@
 			path = FDFullscreenPopGesture;
 			sourceTree = "<group>";
 		};
+		4C1227CD21AFDC0900E19AD4 /* CharacterLocationSeeker */ = {
+			isa = PBXGroup;
+			children = (
+				4C1227D021AFDC0900E19AD4 /* CharacterLocationSeeker.h */,
+				4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */,
+				4C1227CF21AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.h */,
+				4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */,
+			);
+			path = CharacterLocationSeeker;
+			sourceTree = "<group>";
+		};
 		4C13E96320C67263009115C1 /* AddressPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2980,6 +2997,7 @@
 				4C23B5C920F6E30C00ACE380 /* GetCurrentFont.m */,
 				4C1DE9ED213D2E0600350313 /* Util.h */,
 				4C1DE9EE213D2E0600350313 /* Util.m */,
+				4C1227CD21AFDC0900E19AD4 /* CharacterLocationSeeker */,
 				4CF1A8E7219EAD910031B1A9 /* YXTextView */,
 				4CDD0DCF2147A0F300036A0A /* UITabbar */,
 				4C510B5F211049AC00706185 /* NSDictionary */,
@@ -5890,6 +5908,7 @@
 				4C8D5C38219AC26C008C13A9 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				4C6E916E213F5F07001535CA /* YYTextEffectWindow.m in Sources */,
 				4C6E9173213F5F07001535CA /* YYTextKeyboardManager.m in Sources */,
+				4C1227D221AFDC0A00E19AD4 /* CharacterLocationSeeker.m in Sources */,
 				4C6E91A6213F5F07001535CA /* YYTimer.m in Sources */,
 				4C6E9191213F5F07001535CA /* NSData+YYAdd.m in Sources */,
 				4C7234E320FDEB1D00D5C5D4 /* AAArea.m in Sources */,
@@ -5909,6 +5928,7 @@
 				4C7B5DFD2188580B00B76E47 /* ThePostListTableViewCell.m in Sources */,
 				4C54948C20CE20F600CB448E /* AttentionCollectionView.m in Sources */,
 				4C3F8FF320BCEF27003EC4FC /* RankViewController.m in Sources */,
+				4C1227D321AFDC0A00E19AD4 /* CharacterLocationSeeker_TextView.m in Sources */,
 				4C72D57820D10AE100088149 /* MyCollectCasinoCell.m in Sources */,
 				4C6E9172213F5F07001535CA /* YYTextSelectionView.m in Sources */,
 				4C7234D320FDEB1D00D5C5D4 /* AALabels.m in Sources */,

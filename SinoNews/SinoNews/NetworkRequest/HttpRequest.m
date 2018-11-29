@@ -136,7 +136,7 @@ const NSString * DomainString = nil;
                 }
                 
                 LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
-                
+                failure(nil);
             }
             
         }else{

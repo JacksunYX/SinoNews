@@ -48,4 +48,8 @@
 #import "YXLabel.h"
 #import "UIView+AddGradientRamp.h"
 
+//计算文本某个字符的frame
+#import "CharacterLocationSeeker.h"
+#import "CharacterLocationSeeker_TextView.h"
+
 #endif /* ToolsHeader_h */

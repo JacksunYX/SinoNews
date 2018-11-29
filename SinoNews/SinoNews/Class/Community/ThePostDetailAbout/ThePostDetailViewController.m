@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *oliver;        //好文
+@property (nonatomic,strong) UILabel *highQuality;   //精品
 @property (nonatomic,strong) UIImageView *avatar;
 @property (nonatomic,strong) UILabel *authorName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
@@ -49,6 +51,8 @@
 @property (nonatomic,strong) UserModel *user;
 //保存评论时选取的图片等数据
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
+
+@property (nonatomic,strong) CharacterLocationSeeker *locationSeeker;
 
 @end
 
@@ -99,12 +103,115 @@ CGFloat static attentionBtnH = 26;
     return _commentsArr;
 }
 
+-(CharacterLocationSeeker *)locationSeeker
+{
+    if (!_locationSeeker) {
+        _locationSeeker = [CharacterLocationSeeker new];
+    }
+    return _locationSeeker;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.title = @"帖子加载中...";
     
     [self requestPost_browsePost];
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+//    GGLog(@"加载完毕...");
+    if (self.titleLabel.text.length>0) {
+        [self.locationSeeker configWithLabel:self.titleLabel];
+        CGRect charRect = [self.locationSeeker characterRectAtIndex:self.titleLabel.text.length-1];
+        GGLog(@"标题最后一个字符的rect：%@",NSStringFromCGRect(charRect));
+        CGFloat x = charRect.origin.x;
+        CGFloat w = charRect.size.width;
+        
+        CGFloat totalW = 0;
+        
+        if (self.postModel.rate == 1) {
+            //好文
+            totalW = 45;
+            _oliver.hidden = NO;
+            _highQuality.hidden = YES;
+            //如果不越行，直接拼接在后面
+            if (ScreenW - x - w - 20 - 20 > totalW) {
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView,10 + x + w + 25)
+                .topSpaceToView(_titleLabel, -23)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }else{
+                //换行
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView, 10)
+                .topSpaceToView(_titleLabel, 5)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }
+            _oliver.text = @"好文";
+            
+        }else if (self.postModel.rate == 2) {
+            //好文+精
+            _oliver.hidden = NO;
+            _highQuality.hidden = NO;
+            totalW = 75;
+            if (ScreenW - x - w - 20 - 20 > totalW) {
+                //直接拼在后面
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView,10 + x + w + 25)
+                .topSpaceToView(_titleLabel, -23)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }else{
+                //换行拼接
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView, 10)
+                .topSpaceToView(_titleLabel, 5)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }
+            
+            _highQuality.sd_resetLayout
+            .leftSpaceToView(_oliver, 5)
+            .topEqualToView(_oliver)
+            .widthIs(25)
+            .heightIs(18)
+            ;
+            
+            _oliver.text = @"好文";
+            _highQuality.text = @"精";
+        }else{
+            _oliver.sd_resetLayout
+            .leftEqualToView(_titleLabel)
+            .topSpaceToView(_titleLabel, 0)
+            .widthIs(40)
+            .heightIs(0)
+            ;
+            _oliver.text = @"";
+            
+            _highQuality.sd_resetLayout
+            .leftSpaceToView(_oliver, 5)
+            .topSpaceToView(_titleLabel, 0)
+            .widthIs(25)
+            .heightIs(0)
+            ;
+            _highQuality.text = @"";
+            
+            _oliver.hidden = YES;
+            _highQuality.hidden = YES;
+        }
+        
+        
+    }
+    
 }
 
 //设置基本视图
@@ -259,7 +366,7 @@ CGFloat static attentionBtnH = 26;
 {
     if (!_naviTitle) {
         _naviTitle = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-        _naviTitle.alpha = 0;
+//        _naviTitle.alpha = 0;
         
         [_naviTitle addBakcgroundColorTheme];
         
@@ -274,8 +381,8 @@ CGFloat static attentionBtnH = 26;
         
         UILabel *username = [UILabel new];
         [username addTitleColorTheme];
-        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
-        username.text = GetSaveString(self.postModel.author);
+        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.sectionIcon))];
+        username.text = GetSaveString(self.postModel.sectionName);
         [username sizeToFit];
         CGFloat labelW = CGRectGetWidth(username.frame);
         if (labelW>150*ScaleW) {
@@ -286,11 +393,11 @@ CGFloat static attentionBtnH = 26;
         
         _naviTitle.frame = CGRectMake(0, 0, 5 * 2 + wid + username.width, 30);
         
-        @weakify(self);
-        [self.naviTitle whenTap:^{
-            @strongify(self);
-            [UserModel toUserInforVcOrMine:self.postModel.userId];
-        }];
+//        @weakify(self);
+//        [self.naviTitle whenTap:^{
+//            @strongify(self);
+//            [UserModel toUserInforVcOrMine:self.postModel.userId];
+//        }];
         
         self.navigationItem.titleView = _naviTitle;
         
@@ -307,6 +414,18 @@ CGFloat static attentionBtnH = 26;
         _titleLabel = [UILabel new];
         _titleLabel.font = PFFontM(20);
         _titleLabel.numberOfLines = 0;
+        
+        _oliver = [UILabel new];
+        _oliver.textColor = WhiteColor;
+        _oliver.font = PFFontL(16);
+        _oliver.backgroundColor = OrangeColor;
+        _oliver.textAlignment = NSTextAlignmentCenter;
+        
+        _highQuality = [UILabel new];
+        _highQuality.textColor = WhiteColor;
+        _highQuality.font = PFFontL(16);
+        _highQuality.backgroundColor = RedColor;
+        _highQuality.textAlignment = NSTextAlignmentCenter;
         
         _avatar = [UIImageView new];
         
@@ -342,6 +461,8 @@ CGFloat static attentionBtnH = 26;
         
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,
+                                         _oliver,
+                                         _highQuality,
                                          _avatar,
                                          _authorName,
                                          _idView,
@@ -356,8 +477,26 @@ CGFloat static attentionBtnH = 26;
         .autoHeightRatio(0)
         ;
         
+        _oliver.sd_layout
+        .leftEqualToView(_titleLabel)
+        .topSpaceToView(_titleLabel, 0)
+        .widthIs(40)
+        .heightIs(0)
+        ;
+        _oliver.text = @"";
+        _oliver.sd_cornerRadius = @3;
+        
+        _highQuality.sd_layout
+        .leftSpaceToView(_oliver, 5)
+        .topSpaceToView(_titleLabel, 0)
+        .widthIs(25)
+        .heightIs(0)
+        ;
+        _highQuality.text = @"";
+        _highQuality.sd_cornerRadius = @3;
+        
         _avatar.sd_layout
-        .topSpaceToView(_titleLabel, 7)
+        .topSpaceToView(_oliver, 7)
         .leftEqualToView(_titleLabel)
         .widthIs(0)
         .heightIs(24)
@@ -405,9 +544,13 @@ CGFloat static attentionBtnH = 26;
         ;
         
         [self.titleView setupAutoHeightWithBottomView:_contentLaebl bottomMargin:bottomMargin];
+        
+        _oliver.hidden = YES;
+        _highQuality.hidden = YES;
     }
     
     _titleLabel.text = GetSaveString(self.postModel.postTitle);
+    [_titleLabel updateLayout];
     CGFloat wid = 24;
     if (kStringIsEmpty(self.postModel.avatar)) {
         wid = 0;
@@ -956,6 +1099,7 @@ CGFloat static attentionBtnH = 26;
 {
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
+//        self.postModel.postTitle = @"测试换行标签测试换行标签测试换行标签测试换行标签";
         //保存浏览历史
         [PostHistoryModel saveHistory:self.postModel];
         for (int i = 0; i < self.postModel.dataSource.count; i ++) {

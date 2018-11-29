@@ -257,7 +257,7 @@ static CGFloat animationTime = 0.25;
 {
     //这种弹出方式可以造成视觉差
     self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    //加上这句话会让上个界面的导航栏不被遮住
+    //当弹出类型为UIModalPresentationOverCurrentContext时，加上下面这句会让上个界面的导航栏不被遮住
 //    vc.definesPresentationContext = YES;
     [vc presentViewController:self animated:NO completion:nil];
 }

@@ -15,6 +15,8 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     UIImageView *avatar;
     UILabel *nickName;
     UILabel *title;
+    UILabel *oliver;        //好文
+    UILabel *highQuality;   //精品
     UILabel *channel;       //所属频道
     
     UIImageView *leftImg;
@@ -62,6 +64,19 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     title = [UILabel new];
     title.textColor = HexColor(#1A1A1A);
     title.font = PFFontL(15);
+    
+    oliver = [UILabel new];
+    oliver.textColor = WhiteColor;
+    oliver.font = PFFontL(12);
+    oliver.backgroundColor = OrangeColor;
+    oliver.textAlignment = NSTextAlignmentCenter;
+    
+    highQuality = [UILabel new];
+    highQuality.textColor = WhiteColor;
+    highQuality.font = PFFontL(12);
+    highQuality.backgroundColor = RedColor;
+    highQuality.textAlignment = NSTextAlignmentCenter;
+    
     channel = [UILabel new];
     channel.textColor = HexColor(#ABB2C3);
     channel.font = PFFontL(11);
@@ -90,6 +105,8 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
                                        avatar,
                                        nickName,
                                        title,
+                                       oliver,
+                                       highQuality,
                                        channel,
                                        leftImg,
                                        centerImg,
@@ -136,6 +153,24 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .rightSpaceToView(fatherView, 10)
     .autoHeightRatio(0)
     ;
+    
+    oliver.sd_layout
+    .leftSpaceToView(avatar, 6)
+    .topSpaceToView(nickName, 15)
+    .widthIs(30)
+    .heightIs(15)
+    ;
+    oliver.text = @"好文";
+    oliver.sd_cornerRadius = @2;
+    
+    highQuality.sd_layout
+    .leftSpaceToView(oliver, 3)
+    .topSpaceToView(nickName, 15)
+    .widthIs(18)
+    .heightIs(15)
+    ;
+    highQuality.text = @"精";
+    highQuality.sd_cornerRadius = @2;
     
     channel.sd_layout
     .centerYEqualToView(avatar)
@@ -307,7 +342,22 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
         [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[2]))];
     }
     [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
-    title.text = GetSaveString(model.postTitle);
+    
+    NSString *titleStr = GetSaveString(model.postTitle);
+    if (model.rate == 1) {  //好文
+        titleStr = AppendingString(@"       ", titleStr);
+        oliver.hidden = NO;
+        highQuality.hidden = YES;
+    }else if (model.rate == 2){ //好文加精
+        titleStr = AppendingString(@"           ", titleStr);
+        oliver.hidden = NO;
+        highQuality.hidden = NO;
+    }else{
+        oliver.hidden = YES;
+        highQuality.hidden = YES;
+    }
+    title.text = titleStr;
+    
     if (model.username) {
         nickName.text = GetSaveString(model.username);
     }else{

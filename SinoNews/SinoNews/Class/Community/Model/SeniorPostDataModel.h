@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 //帖子类型(1普通帖子、2投票帖子、3高级帖子)
 @property (nonatomic,assign) NSInteger postType;
 @property (nonatomic,assign) NSInteger sectionId;
+@property (nonatomic,strong) NSString *sectionIcon;
+@property (nonatomic,strong) NSString *sectionName;
 @property (nonatomic,strong) NSString *tags;
 @property (nonatomic,assign) NSInteger viewCount;
 //标记帖子发布状态(0审核中、1已审核、2审核未通过)

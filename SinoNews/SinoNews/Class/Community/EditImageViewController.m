@@ -68,7 +68,9 @@
         ;
         [_showKeyboard setNormalImage:UIImageNamed(@"hiddenKeyboard_icon")];
         [_showKeyboard addTarget:self action:@selector(showOrHideKeyboard:) forControlEvents:UIControlEventTouchUpInside];
-        
+#ifndef OpenAddLocalEmoji
+        [_emojiKeyboard removeFromSuperview];
+#endif
     }
     return _bottomView;
 }
@@ -97,7 +99,7 @@
 
 -(void)setUI
 {
-    UIImageView *imageView = [UIImageView new];
+    FLAnimatedImageView *imageView = [FLAnimatedImageView new];
     imageView.backgroundColor = BlackColor;
     _descrip = [YXTextView new];
     [self.view sd_addSubviews:@[

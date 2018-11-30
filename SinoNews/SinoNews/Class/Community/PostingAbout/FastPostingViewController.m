@@ -373,6 +373,10 @@
     [_showKeyboard setNormalImage:UIImageNamed(@"showKeyboard_icon")];
     [_showKeyboard setSelectedImage:UIImageNamed(@"hiddenKeyboard_icon")];
     [_showKeyboard addTarget:self action:@selector(showOrHideKeyboard:) forControlEvents:UIControlEventTouchUpInside];
+    
+#ifndef OpenAddLocalEmoji
+    [_emojiKeyboard removeFromSuperview];
+#endif
 }
 
 //切换emoji键盘或系统键盘

@@ -513,6 +513,14 @@
 #ifndef OpenRemindPeople
     _addPeopleBtn.hidden = YES;
 #endif
+    
+#ifndef OpenAddLocalEmoji
+    emojiBtn.sd_layout
+    .widthIs(0)
+    ;
+    [emojiBtn setHidden:YES];
+    [_emojiKeyboard removeFromSuperview];
+#endif
 }
 
 //隐藏键盘

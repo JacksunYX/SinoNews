@@ -115,6 +115,10 @@
 //#define OpenRemindPeople
 #endif
 
+//是否开启添加本地表情
+#ifndef OpenAddLocalEmoji
+//#define OpenAddLocalEmoji
+#endif
 
 #import "RTRootNavigationController.h"
 //主题修改

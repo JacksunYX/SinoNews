@@ -133,7 +133,9 @@ static NSInteger limitMaxNum = 20;
         ;
         [_showKeyboard setNormalImage:UIImageNamed(@"hiddenKeyboard_icon")];
         [_showKeyboard addTarget:self action:@selector(showOrHideKeyboard:) forControlEvents:UIControlEventTouchUpInside];
-        
+#ifndef OpenAddLocalEmoji
+        [_emojiKeyboard removeFromSuperview];
+#endif
     }
     return _bottomView;
 }

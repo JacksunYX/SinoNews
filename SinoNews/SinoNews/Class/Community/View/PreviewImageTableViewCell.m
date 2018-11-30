@@ -13,7 +13,7 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 
 @interface PreviewImageTableViewCell ()
 {
-    UIImageView *imageV;
+    FLAnimatedImageView *imageV;
     YXLabel *descripion;    //描述
     UIButton *playBtn;
 }
@@ -43,7 +43,7 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 
 -(void)setUI
 {
-    imageV = [UIImageView new];
+    imageV = [FLAnimatedImageView new];
     descripion = [YXLabel new];
     descripion.numberOfLines = 0;
     

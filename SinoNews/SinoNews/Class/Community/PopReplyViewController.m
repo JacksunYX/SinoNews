@@ -250,6 +250,10 @@ static CGFloat animationTime = 0.25;
     
     //暂时隐藏添加图片功能
     _addImage.hidden = YES;
+    
+#ifndef OpenAddLocalEmoji
+    [_emojiKeyboard removeFromSuperview];
+#endif
 }
 
 //显示方法

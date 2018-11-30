@@ -2,14 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>mtj_appkey</key>
-	<string>c710e337f5</string>
-	<key>mtj_debuglog</key>
-	<string>0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>启世录</string>
+	<string>名利场</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -276,5 +272,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>mtj_appkey</key>
+	<string>c710e337f5</string>
+	<key>mtj_debuglog</key>
+	<string>0</string>
 </dict>
 </plist>

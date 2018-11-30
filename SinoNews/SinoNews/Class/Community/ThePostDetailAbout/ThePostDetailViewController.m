@@ -1110,7 +1110,9 @@ CGFloat static attentionBtnH = 26;
         [self setBottomView];
         [self reloadDataWithDataArrUpperCase];
         [self.tableView reloadData];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 //关注/取消关注

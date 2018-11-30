@@ -68,13 +68,13 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     oliver = [UILabel new];
     oliver.textColor = WhiteColor;
     oliver.font = PFFontL(12);
-    oliver.backgroundColor = OrangeColor;
+    oliver.backgroundColor = HexColor(ffb900);
     oliver.textAlignment = NSTextAlignmentCenter;
     
     highQuality = [UILabel new];
     highQuality.textColor = WhiteColor;
     highQuality.font = PFFontL(12);
-    highQuality.backgroundColor = RedColor;
+    highQuality.backgroundColor = HexColor(ff7d05);
     highQuality.textAlignment = NSTextAlignmentCenter;
     
     channel = [UILabel new];
@@ -82,8 +82,16 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     channel.font = PFFontL(11);
     
     leftImg = [UIImageView new];
+    leftImg.contentMode = UIViewContentModeScaleAspectFill;
+    leftImg.clipsToBounds = YES;
+    
     centerImg = [UIImageView new];
+    centerImg.contentMode = UIViewContentModeScaleAspectFill;
+    centerImg.clipsToBounds = YES;
+    
     rightImg = [UIImageView new];
+    rightImg.contentMode = UIViewContentModeScaleAspectFill;
+    rightImg.clipsToBounds = YES;
     
     publishTime = [UILabel new];
     publishTime.textColor = HexColor(#898989);
@@ -183,7 +191,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     //    CGFloat imgH = imgW*67/112;
     leftImg.sd_layout
     .leftEqualToView(nickName)
-    .topSpaceToView(title, 0)
+    .topSpaceToView(title, 10)
     .widthIs(imgW)
     .heightIs(0)
     ;

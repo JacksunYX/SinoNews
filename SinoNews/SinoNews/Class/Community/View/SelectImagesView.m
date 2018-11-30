@@ -27,6 +27,8 @@
     if (self == [super initWithFrame:frame]) {
         imageV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height)];
         imageV.userInteractionEnabled = YES;
+        imageV.contentMode = UIViewContentModeScaleAspectFill;
+        imageV.clipsToBounds = YES;
         
         statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.height - 20, self.width, 20)];
         statusLabel.backgroundColor = HexColorAlpha(#000000, 0.36);

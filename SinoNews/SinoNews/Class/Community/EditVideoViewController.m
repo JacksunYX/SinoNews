@@ -169,7 +169,7 @@
         return;
     }
     //本地视频
-    NSURL *localVideoUrl = [NSURL fileURLWithPath:self.model.videoUrl];
+    NSURL *localVideoUrl = [NSURL fileURLWithPath:self.model.videoLocalUrl];
     //创建播放器
     AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:localVideoUrl];
     self.currentPlayerItem = playerItem;

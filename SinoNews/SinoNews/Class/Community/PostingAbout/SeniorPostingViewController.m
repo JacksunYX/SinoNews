@@ -254,7 +254,7 @@
     switch (sender.tag) {
         case 0:
         {
-            if ([self isContentNeutrality]) {
+            if ([self.postModel isContentNeutrality]) {
                 [SeniorPostDataModel addANewDraft:self.postModel];
                 if (self.refreshCallBack) {
                     self.refreshCallBack();
@@ -324,7 +324,7 @@
 
 -(void)back
 {
-    if ([self isContentNeutrality]) {
+    if ([self.postModel isContentNeutrality]) {
         @weakify(self);
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"是否保存草稿" message:@"草稿可以在'我的帖子'中查看" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *delete = [UIAlertAction actionWithTitle:@"删除草稿" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -349,7 +349,6 @@
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
 }
 
 -(void)setUI
@@ -391,23 +390,6 @@
     ;
     [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
     [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
-}
-
-//检查当前模型是否有需要保存的数据
--(BOOL)isContentNeutrality
-{
-    BOOL have = NO;
-    if (![NSString isEmpty:self.postModel.postTitle]) {
-        have = YES;
-    }else if (![NSString isEmpty:self.postModel.postContent]){
-        have = YES;
-    }else{
-        //最后判断子内容是否有空的
-        if (self.postModel.dataSource.count>0) {
-            have = YES;
-        }
-    }
-    return have;
 }
 
 //下方的功能按钮视图
@@ -950,10 +932,23 @@
         SeniorPostingAddElementModel *model = [SeniorPostingAddElementModel new];
         model.addType = 3;
         model.videoData = videoData;
+        GGLog(@"上传视频");
+        model.videoStatus = VideoUploading;
+        [RequestGather uploadVideo:videoData Success:^(id response) {
+            //上传成功(这里取数组中保存的视图，是为了防止某些资源(比如视频)正在上传时，用户又添加了另外一个资源，此时如果不这么获取，原来的视图已经被移除，无法再修改其状态了)
+            model.videoUrl = response[@"data"];
+            model.videoStatus = VideoUploadSuccess;
+            [self refreshRowWithModel:model];
+        } failure:^(NSError *error) {
+            //上传失败
+            model.videoStatus = VideoUploadFailure;
+            [self refreshRowWithModel:model];
+        }];
         model.imageData = coverImage.base64String;
+        
         model.imageW = coverImage.size.width;
         model.imageH = coverImage.size.height;
-        model.videoUrl = outputPath;
+        model.videoLocalUrl = outputPath;
         [self.dataSource addObject:model];
         
         [self.tableView reloadData];

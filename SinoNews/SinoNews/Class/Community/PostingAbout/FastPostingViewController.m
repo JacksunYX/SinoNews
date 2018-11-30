@@ -105,23 +105,35 @@
         for (SelectImageModel *model in self.addImageView.imagesArr) {
             SeniorPostingAddElementModel *newModel = [SeniorPostingAddElementModel new];
             //视频
-            if (model.videoData||model.videoUrl) {
-                newModel.videoData = model.videoData;
+            if (model.videoData) {
+                
+                if (model.status != UploadSuccess) {
+                    if (model.status == Uploading) {
+                        LRToast(@"请等待视频上传完成哦");
+                        return;
+                    }else{  //上传失败或其他原因，直接跳过
+                        continue;
+                    }
+                }
+                
                 newModel.videoUrl = model.videoUrl;
                 newModel.addType = 3;
+                newModel.videoData = model.videoData;
+                
             }else{//图片
-                newModel.imageUrl = model.imageUrl;
-                newModel.addType = 2;
-                if (model.status==Uploading) {
-                    newModel.imageStatus = ImageUploading;
-                }else if (model.status==UploadSuccess){
-                    newModel.imageStatus = ImageUploadSuccess;
-                }else if (model.status==UploadFailure){
-                    newModel.imageStatus = ImageUploadFailure;
-                }else{
-                    newModel.imageStatus = ImageUploadNone;
+                
+                if (model.status != UploadSuccess) {
+                    if (model.status == Uploading) {
+                        LRToast(@"请等待图片上传完成哦");
+                        return;
+                    }else{  //上传失败或其他原因，直接跳过
+                        continue;
+                    }
                 }
+                newModel.imageStatus = ImageUploadSuccess;
+                newModel.addType = 2;
             }
+            
             newModel.imageData = model.imageData;
             newModel.imageW = model.imageW;
             newModel.imageH = model.imageH;
@@ -139,7 +151,50 @@
 
 -(void)back
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    NSMutableArray *elementArr = [NSMutableArray new];
+    //因为模型不同，需要转换一下
+    if (self.addImageView.imagesArr) {
+        for (SelectImageModel *model in self.addImageView.imagesArr) {
+            SeniorPostingAddElementModel *newModel = [SeniorPostingAddElementModel new];
+            //视频
+            if (model.videoData) {
+                
+                if (model.status != UploadSuccess) {
+                    continue;
+                }
+                
+                newModel.videoUrl = model.videoUrl;
+                newModel.addType = 3;
+                newModel.videoData = model.videoData;
+            }else{//图片
+                if (model.status != UploadSuccess) {
+                    continue;
+                }
+                newModel.imageStatus = ImageUploadSuccess;
+                newModel.addType = 2;
+            }
+            
+            newModel.imageData = model.imageData;
+            newModel.imageW = model.imageW;
+            newModel.imageH = model.imageH;
+            [elementArr addObject:newModel];
+        }
+    }
+    self.postModel.dataSource = elementArr;
+    if ([self.postModel isContentNeutrality]) {
+        @weakify(self);
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"不发表将不会保存您当前输入的内容哦" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"不发了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            @strongify(self);
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再想想" style:UIAlertActionStyleCancel handler:nil];
+        [alertVC addAction:confirm];
+        [alertVC addAction:cancel];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void)setUI

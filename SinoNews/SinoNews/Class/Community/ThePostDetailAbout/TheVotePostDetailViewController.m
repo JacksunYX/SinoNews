@@ -446,13 +446,13 @@ CGFloat static attentionBtnH = 26;
         _oliver = [UILabel new];
         _oliver.textColor = WhiteColor;
         _oliver.font = PFFontL(16);
-        _oliver.backgroundColor = OrangeColor;
+        _oliver.backgroundColor = HexColor(ffb900);
         _oliver.textAlignment = NSTextAlignmentCenter;
         
         _highQuality = [UILabel new];
         _highQuality.textColor = WhiteColor;
         _highQuality.font = PFFontL(16);
-        _highQuality.backgroundColor = RedColor;
+        _highQuality.backgroundColor = HexColor(ff7d05);
         _highQuality.textAlignment = NSTextAlignmentCenter;
         
         _avatar = [UIImageView new];
@@ -525,7 +525,7 @@ CGFloat static attentionBtnH = 26;
         _highQuality.sd_cornerRadius = @3;
         
         _avatar.sd_layout
-        .topSpaceToView(_titleLabel, 7)
+        .topSpaceToView(_titleLabel, 20)
         .leftEqualToView(_titleLabel)
         .widthIs(0)
         .heightIs(24)

@@ -66,6 +66,8 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     .widthIs(105)
     .heightEqualToWidth()
     ;
+    selectVideo.contentMode = UIViewContentModeScaleAspectFill;
+    selectVideo.clipsToBounds = YES;
 //    selectVideo.backgroundColor = Arc4randomColor;
     
     videoDescript.sd_layout
@@ -89,7 +91,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
 //    videoIcon.sd_cornerRadius = @21;
     videoIcon.image = UIImageNamed(@"videoCover_icon");
     
-    /*
+    
     [selectVideo addSubview:uploadStatus];
     uploadStatus.sd_layout
     .bottomEqualToView(selectVideo)
@@ -106,7 +108,7 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     [uploadStatus setSelectedImage:UIImageNamed(@"uploadSuccess_icon")];
     [uploadStatus setBackgroundImage:[UIImage imageWithColor:HexColorAlpha(#000000, 0.36)] forState:UIControlStateNormal];
     [uploadStatus setBackgroundImage:[UIImage imageWithColor:HexColor(#1282EE)] forState:UIControlStateSelected];
-    */
+    
     [self setupAutoHeightWithBottomView:selectVideo bottomMargin:15];
 }
 
@@ -189,6 +191,29 @@ NSString * const SeniorPostingAddVideoCellID = @"SeniorPostingAddVideoCellID";
     }
     
     selectVideo.image = model.imageData.toImage;
+    
+    uploadStatus.backgroundColor = kWhite(0.36);
+    uploadStatus.selected = NO;
+    switch (model.videoStatus) {
+        case VideoUploadSuccess:
+        {
+            uploadStatus.selected = YES;
+            uploadStatus.backgroundColor = HexColor(#1282EE);
+        }
+            break;
+        case VideoUploadFailure:
+        {
+            [uploadStatus setNormalTitle:@"上传失败"];
+        }
+            break;
+            
+        default:
+        {
+            //默认正在上传
+            [uploadStatus setNormalTitle:@"正在上传"];
+        }
+            break;
+    }
     
     NSString *text = GetSaveString(model.videoDes);
     if ([NSString isEmpty:text]) {

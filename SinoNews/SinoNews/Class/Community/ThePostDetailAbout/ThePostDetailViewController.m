@@ -413,13 +413,13 @@ CGFloat static attentionBtnH = 26;
         _oliver = [UILabel new];
         _oliver.textColor = WhiteColor;
         _oliver.font = PFFontL(16);
-        _oliver.backgroundColor = OrangeColor;
+        _oliver.backgroundColor = HexColor(ffb900);
         _oliver.textAlignment = NSTextAlignmentCenter;
         
         _highQuality = [UILabel new];
         _highQuality.textColor = WhiteColor;
         _highQuality.font = PFFontL(16);
-        _highQuality.backgroundColor = RedColor;
+        _highQuality.backgroundColor = HexColor(ff7d05);
         _highQuality.textAlignment = NSTextAlignmentCenter;
         
         _avatar = [UIImageView new];
@@ -491,7 +491,7 @@ CGFloat static attentionBtnH = 26;
         _highQuality.sd_cornerRadius = @3;
         
         _avatar.sd_layout
-        .topSpaceToView(_oliver, 7)
+        .topSpaceToView(_oliver, 20)
         .leftEqualToView(_titleLabel)
         .widthIs(0)
         .heightIs(24)
@@ -1072,7 +1072,7 @@ CGFloat static attentionBtnH = 26;
             //本地地址
             NSURL *url = [NSURL fileURLWithPath:model.videoUrl];
             //网络地址
-//            url = UrlWithStr(model.videoUrl);
+            url = UrlWithStr(model.videoUrl);
             avVC.player = [[AVPlayer alloc]initWithURL:url];
             [self presentViewController:avVC animated:YES completion:^{
                 //跳转后自动播放

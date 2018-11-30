@@ -89,4 +89,23 @@
 }
 
 
+//检查当前模型是否有需要保存的数据
+-(BOOL)isContentNeutrality
+{
+    BOOL have = NO;
+    if (![NSString isEmpty:self.postTitle]) {
+        have = YES;
+    }else if (![NSString isEmpty:self.postContent]){
+        have = YES;
+    }else{
+        //最后判断子内容是否有空的
+        if (self.dataSource.count>0) {
+            have = YES;
+        }else if (self.voteSelects.count>0){
+            have = YES;
+        }
+    }
+    return have;
+}
+
 @end

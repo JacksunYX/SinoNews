@@ -18,6 +18,13 @@ typedef enum : NSUInteger {
     ImageUploadFailure,
 } ImageUploadStatus;
 
+typedef enum : NSUInteger {
+    VideoUploadNone = 0,
+    VideoUploading,
+    VideoUploadSuccess,
+    VideoUploadFailure,
+} VideoUploadStatus;
+
 @interface SeniorPostingAddElementModel : NSObject
 //默认0小标题，1文本，2图片，3视频
 @property (nonatomic,assign) NSInteger addType;
@@ -29,6 +36,8 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) NSString *content;
 //图片相关
 @property (nonatomic,assign) ImageUploadStatus imageStatus;
+//视频相关
+@property (nonatomic,assign) VideoUploadStatus videoStatus;
 @property (nonatomic,strong) NSString *imageData;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,strong) NSString *imageDes;
@@ -36,6 +45,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,assign) CGFloat imageH;
 //视频相关
 @property (nonatomic,strong) NSData *videoData;    //视频资源
+@property (nonatomic,strong) NSString *videoLocalUrl;
 @property (nonatomic,strong) NSString *videoUrl;
 @property (nonatomic,strong) NSString *videoDes;
 //是否显示排序视图

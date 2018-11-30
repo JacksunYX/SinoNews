@@ -64,7 +64,9 @@ NSString * const SeniorPostingAddImageCellID = @"SeniorPostingAddImageCellID";
     .widthIs(105)
     .heightEqualToWidth()
     ;
-    selectImage.backgroundColor = Arc4randomColor;
+//    selectImage.backgroundColor = Arc4randomColor;
+    selectImage.contentMode = UIViewContentModeScaleAspectFill;
+    selectImage.clipsToBounds = YES;
     
     imageDescript.sd_layout
     .topEqualToView(selectImage)

@@ -89,7 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
 //清除所有草稿
 +(void)removeAllDrafts;
 
-
+//检查当前模型是否有需要保存的数据
+-(BOOL)isContentNeutrality;
 
 @end
 

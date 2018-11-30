@@ -40,6 +40,7 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addTopView];
     [self setUpTableView];
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
     //监听刷新
     @weakify(self);
     [kNotificationCenter addObserverForName:RefreshReadPost object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -225,6 +226,7 @@
 //获取用户关注版块的帖子列表(0刷新1加载)
 -(void)requestListUserAttenPost:(NSInteger)refreshType
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"sectionIds"] = self.model.sectionIds;
     parameters[@"sortOrder"] = @(_sortOrder);
@@ -249,19 +251,21 @@
         }
         
         [self.tableView reloadData];
-        
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         if (refreshType) {
             [self.tableView.mj_footer endRefreshing];
         }else{
             [self.tableView.mj_header endRefreshing];
         }
+        [self.tableView ly_endLoading];
     }];
 }
 
 //请求版块帖子列表(0刷新1加载)
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     if (self.model.sectionId) {
         parameters[@"sectionId"] = @(self.model.sectionId);
@@ -289,13 +293,14 @@
         }
         
         [self.tableView reloadData];
-        
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         if (refreshType) {
             [self.tableView.mj_footer endRefreshing];
         }else{
             [self.tableView.mj_header endRefreshing];
         }
+        [self.tableView ly_endLoading];
     }];
 }
 

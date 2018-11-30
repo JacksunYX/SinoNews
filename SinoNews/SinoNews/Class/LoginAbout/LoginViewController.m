@@ -146,6 +146,7 @@
         rVC.registerSuccess = ^(NSString *userName, NSString *password) {
             self.username.text = userName;
             self.password.text = password;
+            self.confirmBtn.enabled = YES;
             [self confirmAction];
         };
         [self.navigationController pushViewController:rVC animated:YES];

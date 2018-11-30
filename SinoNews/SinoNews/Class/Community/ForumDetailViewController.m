@@ -141,6 +141,8 @@
         [self requestListPostForSection:1];
     }];
     [self.tableView.mj_header beginRefreshing];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
 }
 
 -(void)addSegment
@@ -470,6 +472,7 @@
 //获取版块帖子列表(0刷新，1加载)
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"sectionId"] = @(_currentSectionId);
     parameters[@"sortOrder"] = @(_sortOrder);
@@ -495,12 +498,14 @@
         }
         
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         if (refreshType) {
             [self.tableView.mj_footer endRefreshing];
         }else{
             [self.tableView.mj_header endRefreshing];
         }
+        [self.tableView ly_endLoading];
     }];
 }
 

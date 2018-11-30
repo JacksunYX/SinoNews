@@ -26,7 +26,7 @@
 {
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
-    paraStyle.alignment = NSTextAlignmentLeft;
+    paraStyle.alignment = self.textAlignment;
 //    paraStyle.lineSpacing = lineSpace;
 //    paraStyle.hyphenationFactor = 1.0;
     //首行缩进

@@ -44,6 +44,7 @@ NSString * const PreviewTextTableViewCellID = @"PreviewTextTableViewCellID";
     
     textLabel = [YXLabel new];
     textLabel.numberOfLines = 0;
+    textLabel.textAlignment = NSTextAlignmentJustified;
     
     [self.contentView addSubview:textLabel];
     textLabel.sd_layout

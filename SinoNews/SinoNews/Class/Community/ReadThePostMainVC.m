@@ -188,7 +188,7 @@
     ;
     [addChannel setNormalImage:UIImageNamed(@"bankCard_addIcon")];
     [addChannel addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
-    
+    /*
     UIView *sepLine = [UIView new];
     //    sepLine.backgroundColor = kWhite(0.1);
     [_customTitleView addSubview:sepLine];
@@ -204,6 +204,7 @@
     sepLine.layer.shadowOpacity = 1;
     sepLine.layer.shouldRasterize = NO;
     sepLine.layer.shadowPath = [UIBezierPath bezierPathWithRect:sepLine.bounds].CGPath;
+     */
 }
 
 -(void)back

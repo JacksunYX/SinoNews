@@ -438,6 +438,7 @@ CGFloat static attentionBtnH = 26;
         _contentLabel = [YXLabel new];
         _contentLabel.font = PFFontL(16);
         _contentLabel.textColor = HexColor(#1A1A1A);
+        _contentLabel.textAlignment = NSTextAlignmentJustified;
         
         _attentionBtn = [UIButton new];
         [_attentionBtn setBtnFont:PFFontR(14)];

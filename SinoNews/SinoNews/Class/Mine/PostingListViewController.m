@@ -205,7 +205,7 @@
 #pragma mark --请求
 -(void)requestListPostForUser
 {
-    [HttpRequest getWithURLString:ListPostForUser parameters:@{@"currPage":@(self.currPage)} success:^(id responseObject) {
+    [HttpRequest getWithURLString:ListPostForUser parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
         NSArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         self.dataSource = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.dataSource];
         [self.tableView reloadData];

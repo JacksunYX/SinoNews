@@ -25,7 +25,7 @@
 @property (nonatomic,strong) UILabel *authorName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic,strong) UILabel *creatTime;
-@property (nonatomic,strong) YXLabel *contentLaebl;
+@property (nonatomic,strong) YXLabel *contentLabel;
 @property (nonatomic,strong) UIButton *attentionBtn;
 @property (nonatomic,strong) UIButton *topAttBtn; //导航栏上的关注按钮
 
@@ -469,9 +469,9 @@ CGFloat static attentionBtnH = 26;
         _creatTime.textColor = HexColor(#889199);
         _creatTime.numberOfLines = 0;
         
-        _contentLaebl = [YXLabel new];
-        _contentLaebl.font = PFFontL(15);
-        _contentLaebl.textColor = HexColor(#1A1A1A);
+        _contentLabel = [YXLabel new];
+        _contentLabel.font = PFFontL(15);
+        _contentLabel.textColor = HexColor(#1A1A1A);
         
         _attentionBtn = [UIButton new];
         [_attentionBtn setBtnFont:PFFontR(14)];
@@ -496,7 +496,7 @@ CGFloat static attentionBtnH = 26;
                                          _idView,
                                          _creatTime,
                                          _attentionBtn,
-                                         _contentLaebl,
+                                         _contentLabel,
                                          ]];
         _titleLabel.sd_layout
         .topSpaceToView(self.titleView, 10)
@@ -563,14 +563,14 @@ CGFloat static attentionBtnH = 26;
         ;
         [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
         
-        _contentLaebl.sd_layout
+        _contentLabel.sd_layout
         .topSpaceToView(_attentionBtn, 20)
         .leftEqualToView(_titleLabel)
         .rightEqualToView(_titleLabel)
         .heightIs(0)
         ;
         
-        [self.titleView setupAutoHeightWithBottomView:_contentLaebl bottomMargin:bottomMargin];
+        [self.titleView setupAutoHeightWithBottomView:_contentLabel bottomMargin:bottomMargin];
     }
     
     _titleLabel.text = GetSaveString(self.postModel.postTitle);
@@ -585,12 +585,12 @@ CGFloat static attentionBtnH = 26;
     [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
     _authorName.text = GetSaveString(self.postModel.author);
     _creatTime.text = GetSaveString(self.postModel.createTime);
-    _contentLaebl.text = GetSaveString(self.postModel.postContent);
-    CGFloat h = [_contentLaebl getLabelWithLineSpace:3 width:ScreenW - 20];
-    _contentLaebl.sd_layout
+    _contentLabel.text = GetSaveString(self.postModel.postContent);
+    CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
+    _contentLabel.sd_layout
     .heightIs(h)
     ;
-    [_contentLaebl updateLayout];
+    [_contentLabel updateLayout];
     
     _attentionBtn.selected = self.postModel.isAttention;
     if (_attentionBtn.selected) {

@@ -270,8 +270,8 @@ static NSInteger limitMaxNum = 20;
         }
     }
     self.voteModel.voteSelects = self.chooseArr;
-    self.voteModel.choosableNum = [_asmuchSelect substringToIndex:1].integerValue;
-    self.voteModel.validityDate = [_validTime substringToIndex:1].integerValue;
+    self.voteModel.choosableNum = [_asmuchSelect substringToIndex:_asmuchSelect.length-1].integerValue;
+    self.voteModel.validityDate = [_validTime substringToIndex:_validTime.length - 1].integerValue;
     self.voteModel.visibleAfterVote = _isVisible;
     
     ForumViewController *fVC = [ForumViewController new];

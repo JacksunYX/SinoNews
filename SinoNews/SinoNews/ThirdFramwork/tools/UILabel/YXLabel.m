@@ -14,6 +14,7 @@
 {
     if (self == [super init]) {
         self.displaysAsynchronously = YES;
+        self.numberOfLines = 0;
         //设置本地表情识别
         self.textParser = BrowsNewsSingleton.singleton.parser;
     }
@@ -26,18 +27,18 @@
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     paraStyle.lineBreakMode = NSLineBreakByCharWrapping;
     paraStyle.alignment = NSTextAlignmentLeft;
-    paraStyle.lineSpacing = lineSpace;
-    paraStyle.hyphenationFactor = 1.0;
+//    paraStyle.lineSpacing = lineSpace;
+//    paraStyle.hyphenationFactor = 1.0;
     //首行缩进
-    paraStyle.firstLineHeadIndent = 0.0;
-    paraStyle.paragraphSpacingBefore = 0.0;
+//    paraStyle.firstLineHeadIndent = 0.0;
+//    paraStyle.paragraphSpacingBefore = 0.0;
     //头尾缩进
-    paraStyle.headIndent = 0;
-    paraStyle.tailIndent = 0;
+//    paraStyle.headIndent = 0;
+//    paraStyle.tailIndent = 0;
     NSDictionary *dic = @{
                           NSFontAttributeName:self.font,
                 NSParagraphStyleAttributeName:paraStyle,
-                          NSKernAttributeName:@1.0f,
+//                          NSKernAttributeName:@1.0f,
                           };
     
     //创建富文本并将上面的段落样式加入
@@ -46,7 +47,8 @@
     self.attributedText = attrString;
     
     CGSize size = [self.text boundingRectWithSize:CGSizeMake(width,MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
-    return size.height;
+    //计算的大小可能刚刚够排版的高度，最好取整后加1，宁愿大一点点，不能小了导致无法显示完全
+    return ceil(size.height) + 1;
     
 }
 

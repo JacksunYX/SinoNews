@@ -130,6 +130,7 @@
                         continue;
                     }
                 }
+                newModel.imageUrl = model.imageUrl;
                 newModel.imageStatus = ImageUploadSuccess;
                 newModel.addType = 2;
             }

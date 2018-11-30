@@ -46,6 +46,8 @@
 #import "UICopyLabel.h" //可复制的label
 #import "YXTextView.h"
 #import "YXLabel.h"
+#import "UILabel+GetLastCharacterFrame.h"
+
 #import "UIView+AddGradientRamp.h"
 
 //计算文本某个字符的frame

@@ -19,6 +19,8 @@
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *oliver;        //好文
+@property (nonatomic,strong) UILabel *highQuality;   //精品
 @property (nonatomic,strong) UIImageView *avatar;
 @property (nonatomic,strong) UILabel *authorName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
@@ -100,6 +102,96 @@ CGFloat static attentionBtnH = 26;
     self.navigationItem.title = @"帖子加载中...";
     
     [self requestPost_browsePost];
+    
+}
+
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    //必须在加载完毕时再计算
+    if (self.titleLabel.text.length>0) {
+        CGPoint lastPoint = [self.titleLabel getLastCharacterFrame];
+        
+        CGFloat totalW = 0;
+        
+        if (self.postModel.rate == 1) {
+            //好文
+            totalW = 45;
+            _oliver.hidden = NO;
+            _highQuality.hidden = YES;
+            //如果不越行，直接拼接在后面
+            if (ScreenW - lastPoint.x - 5 - 20 > totalW) {
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView,lastPoint.x + 5)
+                .topSpaceToView(_titleLabel, -23)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }else{
+                //换行
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView, 10)
+                .topSpaceToView(_titleLabel, 5)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }
+            _oliver.text = @"好文";
+            
+        }else if (self.postModel.rate == 2) {
+            //好文+精
+            _oliver.hidden = NO;
+            _highQuality.hidden = NO;
+            totalW = 75;
+            if (ScreenW - lastPoint.x - 10 - 20 > totalW) {
+                //直接拼在后面
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView,lastPoint.x + 5)
+                .topSpaceToView(_titleLabel, -23)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }else{
+                //换行拼接
+                _oliver.sd_resetLayout
+                .leftSpaceToView(_titleView, 10)
+                .topSpaceToView(_titleLabel, 5)
+                .widthIs(40)
+                .heightIs(18)
+                ;
+            }
+            
+            _highQuality.sd_resetLayout
+            .leftSpaceToView(_oliver, 5)
+            .topEqualToView(_oliver)
+            .widthIs(25)
+            .heightIs(18)
+            ;
+            
+            _oliver.text = @"好文";
+            _highQuality.text = @"精";
+        }else{
+            _oliver.sd_resetLayout
+            .leftEqualToView(_titleLabel)
+            .topSpaceToView(_titleLabel, 0)
+            .widthIs(40)
+            .heightIs(0)
+            ;
+            _oliver.text = @"";
+            
+            _highQuality.sd_resetLayout
+            .leftSpaceToView(_oliver, 5)
+            .topSpaceToView(_titleLabel, 0)
+            .widthIs(25)
+            .heightIs(0)
+            ;
+            _highQuality.text = @"";
+            
+            _oliver.hidden = YES;
+            _highQuality.hidden = YES;
+        }
+        
+    }
     
 }
 
@@ -348,8 +440,20 @@ CGFloat static attentionBtnH = 26;
         self.titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1)];
         self.titleView.backgroundColor = WhiteColor;
         _titleLabel = [UILabel new];
-        _titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:ScaleWidth(20)];
+        _titleLabel.font = PFFontM(20);
         _titleLabel.numberOfLines = 0;
+        
+        _oliver = [UILabel new];
+        _oliver.textColor = WhiteColor;
+        _oliver.font = PFFontL(16);
+        _oliver.backgroundColor = OrangeColor;
+        _oliver.textAlignment = NSTextAlignmentCenter;
+        
+        _highQuality = [UILabel new];
+        _highQuality.textColor = WhiteColor;
+        _highQuality.font = PFFontL(16);
+        _highQuality.backgroundColor = RedColor;
+        _highQuality.textAlignment = NSTextAlignmentCenter;
         
         _avatar = [UIImageView new];
         
@@ -385,6 +489,8 @@ CGFloat static attentionBtnH = 26;
         
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,
+                                         _oliver,
+                                         _highQuality,
                                          _avatar,
                                          _authorName,
                                          _idView,
@@ -399,6 +505,24 @@ CGFloat static attentionBtnH = 26;
         .autoHeightRatio(0)
         ;
         _titleLabel.text = GetSaveString(self.postModel.postTitle);
+        
+        _oliver.sd_layout
+        .leftEqualToView(_titleLabel)
+        .topSpaceToView(_titleLabel, 0)
+        .widthIs(40)
+        .heightIs(0)
+        ;
+        _oliver.text = @"";
+        _oliver.sd_cornerRadius = @3;
+        
+        _highQuality.sd_layout
+        .leftSpaceToView(_oliver, 5)
+        .topSpaceToView(_titleLabel, 0)
+        .widthIs(25)
+        .heightIs(0)
+        ;
+        _highQuality.text = @"";
+        _highQuality.sd_cornerRadius = @3;
         
         _avatar.sd_layout
         .topSpaceToView(_titleLabel, 7)
@@ -1046,7 +1170,8 @@ CGFloat static attentionBtnH = 26;
         [PostHistoryModel saveHistory:self.postModel];
         for (VoteChooseInputModel *model in self.postModel.voteSelects) {
             model.totalPolls = self.postModel.totalPolls;
-            if (self.postModel.postAuthor) {
+            //如果是作者本人或者已经投过票的状态，需要标记选项不能交互
+            if (self.postModel.postAuthor||self.postModel.haveVoted) {
                 model.isSelected = NO;
                 model.hiddenSelectIcon = YES;
             }

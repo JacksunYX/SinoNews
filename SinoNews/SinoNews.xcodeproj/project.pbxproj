@@ -14,6 +14,7 @@
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
 		4C1227D221AFDC0A00E19AD4 /* CharacterLocationSeeker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */; };
 		4C1227D321AFDC0A00E19AD4 /* CharacterLocationSeeker_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */; };
+		4C1227DC21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */; };
 		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
 		4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */; };
 		4C138EBA21815F4F00FA2667 /* ChangeAttentionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */; };
@@ -884,6 +885,8 @@
 		4C1227CF21AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker_TextView.h; sourceTree = "<group>"; };
 		4C1227D021AFDC0900E19AD4 /* CharacterLocationSeeker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker.h; sourceTree = "<group>"; };
 		4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterLocationSeeker_TextView.m; sourceTree = "<group>"; };
+		4C1227DA21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+GetLastCharacterFrame.h"; sourceTree = "<group>"; };
+		4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GetLastCharacterFrame.m"; sourceTree = "<group>"; };
 		4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionViewController.h; sourceTree = "<group>"; };
 		4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionViewController.m; sourceTree = "<group>"; };
 		4C138EB5218155EE00FA2667 /* ChangeAttentionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionCell.h; sourceTree = "<group>"; };
@@ -2659,6 +2662,8 @@
 				4CF1A7EB219C1AE70031B1A9 /* UICopyLabel.m */,
 				4CF1A8EB219EAF890031B1A9 /* YXLabel.h */,
 				4CF1A8EC219EAF890031B1A9 /* YXLabel.m */,
+				4C1227DA21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.h */,
+				4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */,
 			);
 			path = UILabel;
 			sourceTree = "<group>";
@@ -5980,6 +5985,7 @@
 				4C6E915E213F5F07001535CA /* YYSpriteSheetImage.m in Sources */,
 				4C21ABD720D34DED00615F20 /* ForgetPasswordViewController.m in Sources */,
 				4C7B5DF921882D8300B76E47 /* TFDropDownMenuCollectionViewCell.m in Sources */,
+				4C1227DC21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m in Sources */,
 				4CF1A7F5219C491C0031B1A9 /* SelectCommentPageView.m in Sources */,
 				4CE336EC2182AB710037F9D2 /* Mine2ViewController.m in Sources */,
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,

@@ -122,13 +122,9 @@ CGFloat static attentionBtnH = 26;
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-//    GGLog(@"加载完毕...");
+    //必须在加载完毕时再计算
     if (self.titleLabel.text.length>0) {
-        [self.locationSeeker configWithLabel:self.titleLabel];
-        CGRect charRect = [self.locationSeeker characterRectAtIndex:self.titleLabel.text.length-1];
-        GGLog(@"标题最后一个字符的rect：%@",NSStringFromCGRect(charRect));
-        CGFloat x = charRect.origin.x;
-        CGFloat w = charRect.size.width;
+        CGPoint lastPoint = [self.titleLabel getLastCharacterFrame];
         
         CGFloat totalW = 0;
         
@@ -138,9 +134,9 @@ CGFloat static attentionBtnH = 26;
             _oliver.hidden = NO;
             _highQuality.hidden = YES;
             //如果不越行，直接拼接在后面
-            if (ScreenW - x - w - 20 - 20 > totalW) {
+            if (ScreenW - lastPoint.x - 5 - 20 > totalW) {
                 _oliver.sd_resetLayout
-                .leftSpaceToView(_titleView,10 + x + w + 25)
+                .leftSpaceToView(_titleView,lastPoint.x + 5)
                 .topSpaceToView(_titleLabel, -23)
                 .widthIs(40)
                 .heightIs(18)
@@ -161,10 +157,10 @@ CGFloat static attentionBtnH = 26;
             _oliver.hidden = NO;
             _highQuality.hidden = NO;
             totalW = 75;
-            if (ScreenW - x - w - 20 - 20 > totalW) {
+            if (ScreenW - lastPoint.x - 10 - 20 > totalW) {
                 //直接拼在后面
                 _oliver.sd_resetLayout
-                .leftSpaceToView(_titleView,10 + x + w + 25)
+                .leftSpaceToView(_titleView,lastPoint.x + 5)
                 .topSpaceToView(_titleLabel, -23)
                 .widthIs(40)
                 .heightIs(18)
@@ -208,7 +204,6 @@ CGFloat static attentionBtnH = 26;
             _oliver.hidden = YES;
             _highQuality.hidden = YES;
         }
-        
         
     }
     
@@ -1099,7 +1094,7 @@ CGFloat static attentionBtnH = 26;
 {
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
-//        self.postModel.postTitle = @"测试换行标签测试换行标签测试换行标签测试换行标签";
+//        self.postModel.postTitle = @"测试换行标签测试换行标签测试换行标签测试换行标签测试换行标签测试换行标";
         //保存浏览历史
         [PostHistoryModel saveHistory:self.postModel];
         for (int i = 0; i < self.postModel.dataSource.count; i ++) {

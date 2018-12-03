@@ -116,15 +116,19 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
+        self.tipsModel.hasMessageTip = NO;
         ReplyListViewController *rlVC = [ReplyListViewController new];
         [self.navigationController pushViewController:rlVC animated:YES];
     }else if (indexPath.row == 1) {
+        self.tipsModel.hasFans = NO;
         MessageFansViewController *fvc = [MessageFansViewController new];
         [self.navigationController pushViewController:fvc animated:YES];
     }else if (indexPath.row == 2){
+        self.tipsModel.hasNotice = NO;
         MessagePraiseViewController *pvc = [MessagePraiseViewController new];
         [self.navigationController pushViewController:pvc animated:YES];
     }
+    [self.tableView reloadData];
 }
 
 

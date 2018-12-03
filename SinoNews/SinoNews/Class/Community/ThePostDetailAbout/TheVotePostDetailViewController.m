@@ -195,6 +195,11 @@ CGFloat static attentionBtnH = 26;
     
 }
 
+-(void)setNavigationBtns
+{
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(showToReportView) image:UIImageNamed(@"news_more")];
+}
+
 //设置基本视图
 - (void)setBaseUI
 {
@@ -394,7 +399,7 @@ CGFloat static attentionBtnH = 26;
 {
     if (!_naviTitle) {
         _naviTitle = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-        _naviTitle.alpha = 0;
+//        _naviTitle.alpha = 0;
         
         [_naviTitle addBakcgroundColorTheme];
         
@@ -406,11 +411,13 @@ CGFloat static attentionBtnH = 26;
         [_naviTitle addSubview:avatar];
         
         [avatar cornerWithRadius:wid/2];
-        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
         
         UILabel *username = [UILabel new];
         [username addTitleColorTheme];
-        username.text = GetSaveString(self.postModel.author);
+        
+        [avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.sectionIcon))];
+        username.text = GetSaveString(self.postModel.sectionName);
+        
         [username sizeToFit];
         CGFloat labelW = CGRectGetWidth(username.frame);
         if (labelW>150*ScaleW) {
@@ -531,6 +538,10 @@ CGFloat static attentionBtnH = 26;
         .heightIs(24)
         ;
         [_avatar setSd_cornerRadius:@12];
+        [_avatar whenTap:^{
+            @strongify(self);
+            [UserModel toUserInforVcOrMine:self.postModel.userId];
+        }];
         
         _authorName.sd_layout
         .leftSpaceToView(_avatar, 5)
@@ -538,6 +549,10 @@ CGFloat static attentionBtnH = 26;
         .heightIs(12)
         ;
         [_authorName setSingleLineAutoResizeWithMaxWidth:150];
+        [_authorName whenTap:^{
+            @strongify(self);
+            [UserModel toUserInforVcOrMine:self.postModel.userId];
+        }];
         
         _idView.sd_layout
         .heightIs(20)
@@ -545,6 +560,7 @@ CGFloat static attentionBtnH = 26;
         .leftSpaceToView(_authorName, 10)
         .widthIs(0)
         ;
+        [self setIdViewWithIDs];
         
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
@@ -557,11 +573,10 @@ CGFloat static attentionBtnH = 26;
         
         _creatTime.sd_layout
         .centerYEqualToView(_authorName)
-        //        .leftSpaceToView(_idView, 5)
+        .leftSpaceToView(_idView, 5)
         .rightSpaceToView(_attentionBtn, 10)
         .heightIs(12)
         ;
-        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
         
         _contentLabel.sd_layout
         .topSpaceToView(_attentionBtn, 20)
@@ -607,6 +622,47 @@ CGFloat static attentionBtnH = 26;
     
     _tableView.tableHeaderView = self.titleView;
     
+}
+
+//设置标签视图
+-(void)setIdViewWithIDs
+{
+    //先清除
+    for (UIView *subview in _idView.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (self.postModel.identifications.count>0) {
+        CGFloat wid = 30;
+        CGFloat hei = 30;
+        CGFloat spaceX = 0;
+        
+        UIView *lastView = _idView;
+        for (int i = 0; i < self.postModel.identifications.count; i ++) {
+            NSDictionary *model = self.postModel.identifications[i];
+            UIImageView *approveView = [UIImageView new];
+            [_idView addSubview:approveView];
+            
+            if (i != 0) {
+                spaceX = 10;
+            }
+            approveView.contentMode = 1;
+            approveView.sd_layout
+            .centerYEqualToView(_idView)
+            .leftSpaceToView(lastView, spaceX)
+            .widthIs(wid)
+            .heightIs(hei)
+            ;
+            //            [approveView setSd_cornerRadius:@(wid/2)];
+            [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            
+            lastView = approveView;
+            if (i == self.postModel.identifications.count - 1) {
+                [_idView setupAutoWidthWithRightView:lastView rightMargin:0];
+            }
+        }
+    }else{
+        
+    }
 }
 
 -(void)setBottomView
@@ -953,6 +1009,21 @@ CGFloat static attentionBtnH = 26;
     }
 }
 
+//举报弹框
+-(void)showToReportView
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    @weakify(self);
+    UIAlertAction *report = [UIAlertAction actionWithTitle:@"举报" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self);
+        [self requestReportThePost];
+    }];
+    [alertVC addAction:cancel];
+    [alertVC addAction:report];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -984,10 +1055,12 @@ CGFloat static attentionBtnH = 26;
         PostReplyModel *replyModel = self.commentsArr[indexPath.row];
         cell2.tag = indexPath.row;
         cell2.model = replyModel;
+        @weakify(self);
         cell2.avatarBlock = ^(NSInteger row) {
-            GGLog(@"查看用户");
+            [UserModel toUserInforVcOrMine:replyModel.userId];
         };
         cell2.praiseBlock = ^(NSInteger row) {
+            @strongify(self);
             if(self.user.userId == replyModel.userId){
                 LRToast(@"不可以点赞自己哟");
             }else if (replyModel.praise) {
@@ -1176,6 +1249,7 @@ CGFloat static attentionBtnH = 26;
                 model.hiddenSelectIcon = YES;
             }
         }
+        [self setNavigationBtns];
         [self setBaseUI];
         [self setNaviTitle];
         [self setTitle];
@@ -1339,6 +1413,12 @@ CGFloat static attentionBtnH = 26;
     } failure:^(NSError *error) {
         
     } RefreshAction:nil];
+}
+
+//举报帖子
+-(void)requestReportThePost
+{
+    
 }
 
 @end

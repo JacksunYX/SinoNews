@@ -7,6 +7,8 @@
 //
 
 #import "NewMessageViewController.h"
+
+#import "ReplyListViewController.h"
 #import "MessageFansViewController.h"
 #import "MessagePraiseViewController.h"
 
@@ -86,16 +88,12 @@
     cell.imageView.image = UIImageNamed(dic[@"leftIcon"]);
     cell.textLabel.text = GetSaveString(dic[@"leftTitle"]);
 
-    if (self.tipsModel.hasFans&&indexPath.row == 1) {
-        [cell.imageView showNumberBadgeWithValue:0];
-        cell.imageView.badgeFrame = CGRectMake(23, -5, 15, 15);
-        cell.imageView.badgeBgColor = HexColor(#FF3823);
-    }else if (self.tipsModel.hasPraise&&indexPath.row == 2) {
-        [cell.imageView showNumberBadgeWithValue:0];
-        cell.imageView.badgeFrame = CGRectMake(23, -5, 15, 15);
+    if ((self.tipsModel.hasMessageTip&&indexPath.row == 0)||(self.tipsModel.hasFans&&indexPath.row == 1)||(self.tipsModel.hasPraise&&indexPath.row == 2)) {
+        [cell.imageView showBadgeWithStyle:WBadgeStyleRedDot value:0 animationType:WBadgeAnimTypeNone];
+        cell.imageView.badgeFrame = CGRectMake(26, -2, 7, 7);
         cell.imageView.badgeBgColor = HexColor(#FF3823);
     }
-    
+
     return cell;
 }
 
@@ -118,7 +116,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        
+        ReplyListViewController *rlVC = [ReplyListViewController new];
+        [self.navigationController pushViewController:rlVC animated:YES];
     }else if (indexPath.row == 1) {
         MessageFansViewController *fvc = [MessageFansViewController new];
         [self.navigationController pushViewController:fvc animated:YES];

@@ -74,9 +74,9 @@ MJCodingImplementation
     UIViewController *currentVC = [HttpRequest currentViewController];
     if (user.userId == userId) {
         //如果是用户本人发的文章，直接跳到我的界面
-        [currentVC.navigationController popViewControllerAnimated:NO];
-        UITabBarController *tabbarVC = (UITabBarController *)[HttpRequest getCurrentVC];
-        [tabbarVC setSelectedIndex:4];
+//        [currentVC.navigationController popViewControllerAnimated:NO];
+//        UITabBarController *tabbarVC = (UITabBarController *)[HttpRequest getCurrentVC];
+//        [tabbarVC setSelectedIndex:4];
     }else{
         UserInfoViewController *uiVC = [UserInfoViewController new];
         uiVC.userId = userId;

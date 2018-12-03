@@ -317,11 +317,12 @@
                                
                                _userImg,
                                
+                               _attentionBtn,
                                backView,
                                _isApproved,
 //                               _userName,
 //                               _integral,
-                               _attentionBtn,
+                               
                                
                                _publish,
                                _attention,
@@ -380,55 +381,6 @@
     ;
     //    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
     
-    backView.sd_layout
-    .leftSpaceToView(_userImg, 15)
-    .centerYEqualToView(_userImg)
-    .heightIs(40)
-    ;
-    [backView sd_addSubviews:@[
-                               _userName,
-                               _idView,
-                               _integral,
-                               _level,
-                               ]];
-    
-    _userName.sd_layout
-    //    .bottomSpaceToView(_userImg, -27)
-//    .centerYEqualToView(self.userImg)
-//    .leftSpaceToView(_userImg, 18 * ScaleW)
-//    .heightIs(20)
-    .topEqualToView(backView)
-    .leftEqualToView(backView)
-    .heightIs(20)
-    ;
-    [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    
-    _idView.sd_layout
-    .heightIs(20)
-    .centerYEqualToView(_userName)
-    .leftSpaceToView(_userName, 10)
-    ;
-    
-    _integral.sd_layout
-//    .topSpaceToView(_userName, 10)
-//    .leftEqualToView(_userName)
-    .leftEqualToView(backView)
-    .bottomEqualToView(backView)
-    .heightIs(14)
-    ;
-    [_integral setSingleLineAutoResizeWithMaxWidth:100];
-    
-    _level.sd_layout
-    .leftSpaceToView(_integral, 10)
-    .centerYEqualToView(_integral)
-    .widthIs(40)
-    .heightIs(18)
-    ;
-    [_level setSd_cornerRadius:@9];
-//    _level.text = @"Lv.15";
-    
-    [backView setupAutoWidthWithRightView:_userName rightMargin:10];
-    
     _attentionBtn.sd_layout
     .rightSpaceToView(headView, 11)
     .centerYEqualToView(_userImg)
@@ -457,6 +409,59 @@
     
     [_attentionBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     _attentionBtn.hidden = YES;
+    
+    backView.sd_layout
+    .leftSpaceToView(_userImg, 15)
+    .rightSpaceToView(_attentionBtn, 10)
+    .centerYEqualToView(_userImg)
+    .heightIs(40)
+    ;
+    [backView sd_addSubviews:@[
+                               _userName,
+                               
+                               _integral,
+                               _level,
+                               _idView,
+                               ]];
+    
+    _userName.sd_layout
+    //    .bottomSpaceToView(_userImg, -27)
+//    .centerYEqualToView(self.userImg)
+//    .leftSpaceToView(_userImg, 18 * ScaleW)
+//    .heightIs(20)
+    .topEqualToView(backView)
+    .leftEqualToView(backView)
+    .heightIs(20)
+    ;
+    [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
+    
+    
+    
+    _integral.sd_layout
+//    .topSpaceToView(_userName, 10)
+//    .leftEqualToView(_userName)
+    .leftEqualToView(backView)
+    .bottomEqualToView(backView)
+    .heightIs(14)
+    ;
+    [_integral setSingleLineAutoResizeWithMaxWidth:100];
+    
+    _level.sd_layout
+    .leftSpaceToView(_integral, 10)
+    .centerYEqualToView(_integral)
+    .widthIs(40)
+    .heightIs(18)
+    ;
+    [_level setSd_cornerRadius:@9];
+//    _level.text = @"Lv.15";
+    
+    _idView.sd_layout
+    .heightIs(20)
+    .centerYEqualToView(_integral)
+    .leftSpaceToView(_level, 10)
+    ;
+    
+//    [backView setupAutoWidthWithRightView:_userName rightMargin:10];
     
     _publish.sd_layout
     .topSpaceToView(_userImg, 40)

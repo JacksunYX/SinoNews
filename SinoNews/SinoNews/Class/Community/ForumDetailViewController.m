@@ -108,13 +108,14 @@
 
 -(void)setUI
 {
-    _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.backgroundColor = WhiteColor;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _tableView.separatorColor = CutLineColor;
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _tableView.separatorColor = HexColor(#E3E3E3);
     [self.view addSubview:_tableView];
     self.tableView.sd_layout
     .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
@@ -418,9 +419,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 2) {
-        SeniorPostDataModel *model = self.dataSource[indexPath.row];
-        
+    if (indexPath.section == 0) {
+        SectionNoticeModel *noticeModel = self.noticesArr[indexPath.row];
+        [[UIApplication sharedApplication] openURL:UrlWithStr(noticeModel.url)];
+    }else if (indexPath.section == 1||indexPath.section == 2) {
+        SeniorPostDataModel *model;
+        if (indexPath.section == 1) {
+            model = self.topsArr[indexPath.row];
+        }else if (indexPath.section == 2){
+            model = self.dataSource[indexPath.row];
+        }
         UIViewController *vc;
         if (model.postType == 2) { //投票
             TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];

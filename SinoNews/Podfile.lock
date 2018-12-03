@@ -49,8 +49,6 @@ PODS:
   - Toast (4.0.0)
   - UICKeyChainStore (2.1.2)
   - UINavigation-SXFixSpace (1.0.7)
-  - XHLaunchAd (3.9.7):
-    - FLAnimatedImage (~> 1.0.12)
   - XXDeviceTool (0.1.2):
     - SSKeychain
   - ZYKeyboardUtil (1.0.7)
@@ -76,7 +74,6 @@ DEPENDENCIES:
   - STCObfuscator
   - Toast
   - UINavigation-SXFixSpace
-  - XHLaunchAd
   - XXDeviceTool (from `https://github.com/XXCommonTools/XXDeviceTool.git`)
   - ZYKeyboardUtil
 
@@ -104,7 +101,6 @@ SPEC REPOS:
     - Toast
     - UICKeyChainStore
     - UINavigation-SXFixSpace
-    - XHLaunchAd
     - ZYKeyboardUtil
 
 EXTERNAL SOURCES:
@@ -139,10 +135,9 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
   UINavigation-SXFixSpace: 02323ab6d50f3719bf0829afa22995acb9b2486b
-  XHLaunchAd: 0dc50c5af00ee5d9e734b9dce6eece7acaa71122
   XXDeviceTool: 7c8d0d190682351c3cb9e10c269897b05a052fcb
   ZYKeyboardUtil: c4b920eed9af063c46af2e9ea62e851d9331fbd9
 
-PODFILE CHECKSUM: 0166e925cf87ebc0407a6fd8c8329c2b738ab3ad
+PODFILE CHECKSUM: 02032ee8c6e4c431383aa6a35b66a246d7c99e18
 
 COCOAPODS: 1.5.3

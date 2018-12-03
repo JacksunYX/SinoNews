@@ -241,9 +241,8 @@
     
     createTime.text = GetSaveString(postReplyModel.createTime);
     
-    if (postReplyModel.image) {
-        [articleImg sd_setImageWithURL:UrlWithStr(GetSaveString(postReplyModel.image)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
-    }
+    [articleImg sd_setImageWithURL:UrlWithStr(GetSaveString(postReplyModel.image)) placeholderImage:UIImageNamed(@"loading_placeholder_w")];
+    
     articleTitle.text = GetSaveString(postReplyModel.postTitle);
 }
 

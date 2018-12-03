@@ -96,7 +96,7 @@
 
 -(void)setTitleView
 {
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"文章",@"帖子"] headStyle:0 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"新闻",@"帖子"] headStyle:0 layoutStyle:0];
     //    _segHead.fontScale = .85;
     //    _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;
@@ -453,9 +453,20 @@
             }
         }else if (selectedIndex == 1){
             SeniorPostDataModel *model = self.postArray[indexPath.row];
-            GGLog(@"帖子id:%@",model.postId);
+            UIViewController *vc;
+            if (model.postType == 2) { //投票
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = model.postId;
+                vc = tvpdVC;
+            }else{
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = model.postId;
+                vc = tpdVC;
+            }
+            
+            [self.navigationController pushViewController:vc animated:YES];
         }
-        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     [self.deleteBtn setTitle:[NSString stringWithFormat:@"删除(%ld)",self.deleteArray.count] forState:UIControlStateNormal];
     

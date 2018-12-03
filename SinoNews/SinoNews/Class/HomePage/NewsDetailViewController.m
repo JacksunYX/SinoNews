@@ -282,14 +282,6 @@ CGFloat static attentionBtnH = 26;
         
         [self setIdViewWithIDs];
         
-        _creatTime.sd_layout
-        .centerYEqualToView(_authorName)
-        .leftSpaceToView(_idView, 5)
-        .heightIs(12)
-        ;
-        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
-        _creatTime.text = GetSaveString(self.newsModel.createTime);
-        
         _attentionBtn.sd_layout
         .rightSpaceToView(_titleView, 10)
         .centerYEqualToView(_avatar)
@@ -298,6 +290,14 @@ CGFloat static attentionBtnH = 26;
         ;
         
         [_attentionBtn setSd_cornerRadius:@(attentionBtnH/2)];
+        
+        _creatTime.sd_layout
+        .centerYEqualToView(_authorName)
+        .leftSpaceToView(_idView, 5)
+        .rightSpaceToView(_attentionBtn, 10)
+        .heightIs(12)
+        ;
+        _creatTime.text = GetSaveString(self.newsModel.createTime);
         
         [self.titleView setupAutoHeightWithBottomViewsArray:@[_avatar,_attentionBtn] bottomMargin:bottomMargin];
     }

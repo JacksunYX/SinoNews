@@ -77,4 +77,6 @@
 
 #import "CountDown.h"//倒计时
 
+#import "XHLaunchAd.h"
+
 #endif /* OtherFrameworksHead_h */

@@ -67,7 +67,7 @@
 {
     NSInteger count = [self bg_count:nil where:nil];
     if (count>0) {
-        NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"saveTime"),bg_sqlValue(postModel.saveTime)];
+        NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"postId"),bg_sqlValue(@(postModel.postId))];
         //删除
         [self bg_delete:nil where:where];
         GGLog(@"帖子历史已删除");

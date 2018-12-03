@@ -242,9 +242,10 @@ CGFloat static titleViewHeight = 150;
         _creatTime.sd_layout
         .centerYEqualToView(_authorName)
         .leftSpaceToView(_idView, 5)
+        .rightSpaceToView(_attentionBtn, 10)
         .heightIs(12)
         ;
-        [_creatTime setSingleLineAutoResizeWithMaxWidth:150];
+        _creatTime.text = GetSaveString(self.answerModel.createTime);
         _creatTime.text = GetSaveString(self.answerModel.createTime);
         
         _attentionBtn.sd_layout

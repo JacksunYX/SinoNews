@@ -22,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray <SeniorPostingAddElementModel *>*dataSource;
 //@的用户数组
 @property (nonatomic,strong) NSMutableArray *people;
-
+//认证数组
+@property (nonatomic,strong) NSMutableArray *identifications;
 //发布者相关
 @property (nonatomic,strong) NSString *avatar;//头像
 @property (nonatomic,strong) NSString *author;//发布者

@@ -77,10 +77,10 @@ NSString * const VoteDetailChooseTableViewCellID = @"VoteDetailChooseTableViewCe
     
     pollLabel.sd_layout
     .leftEqualToView(content)
+    .rightSpaceToView(fatherView, 10)
     .topSpaceToView(content, 10)
     .heightIs(16)
     ;
-    [pollLabel setSingleLineAutoResizeWithMaxWidth:200];
     pollLabel.font = PFFontL(12);
     pollLabel.textColor = HexColor(#74777F);
     

@@ -340,6 +340,10 @@
         }
         //再检测密码
         if ([password.text checkPassWord]) {
+            if ([username.text containsString:@"@"]&&promoteCode.text.length>0) {
+                LRToast(@"手机号注册才能使用注册码");
+                return;
+            }
 
 #ifdef OpenRegistGeeVerify
             [self.captchaManager startGTCaptchaWithAnimated:YES];

@@ -15,6 +15,18 @@
 		4C1227D221AFDC0A00E19AD4 /* CharacterLocationSeeker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */; };
 		4C1227D321AFDC0A00E19AD4 /* CharacterLocationSeeker_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */; };
 		4C1227DC21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */; };
+		4C1227DF21B4DE9200E19AD4 /* ReplyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227DE21B4DE9200E19AD4 /* ReplyListViewController.m */; };
+		4C1227F721B5261700E19AD4 /* XHLaunchAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227E421B5261700E19AD4 /* XHLaunchAdView.m */; };
+		4C1227F821B5261700E19AD4 /* XHLaunchAdButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227E721B5261700E19AD4 /* XHLaunchAdButton.m */; };
+		4C1227F921B5261700E19AD4 /* XHLaunchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227E921B5261700E19AD4 /* XHLaunchImageView.m */; };
+		4C1227FA21B5261700E19AD4 /* XHLaunchAdConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227EA21B5261700E19AD4 /* XHLaunchAdConst.m */; };
+		4C1227FB21B5261700E19AD4 /* XHLaunchAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227EC21B5261700E19AD4 /* XHLaunchAd.m */; };
+		4C1227FC21B5261700E19AD4 /* XHLaunchAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227ED21B5261700E19AD4 /* XHLaunchAdController.m */; };
+		4C1227FD21B5261700E19AD4 /* XHLaunchAdDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227EE21B5261700E19AD4 /* XHLaunchAdDownloader.m */; };
+		4C1227FE21B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227F021B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.m */; };
+		4C1227FF21B5261700E19AD4 /* XHLaunchAdConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227F121B5261700E19AD4 /* XHLaunchAdConfiguration.m */; };
+		4C12280021B5261700E19AD4 /* XHLaunchAdCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227F321B5261700E19AD4 /* XHLaunchAdCache.m */; };
+		4C12280121B5261700E19AD4 /* XHLaunchAdImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227F521B5261700E19AD4 /* XHLaunchAdImageManager.m */; };
 		4C138EB42181522700FA2667 /* ChangeAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */; };
 		4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB6218155EE00FA2667 /* ChangeAttentionCell.m */; };
 		4C138EBA21815F4F00FA2667 /* ChangeAttentionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C138EB921815F4F00FA2667 /* ChangeAttentionReusableView.m */; };
@@ -887,6 +899,30 @@
 		4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterLocationSeeker_TextView.m; sourceTree = "<group>"; };
 		4C1227DA21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+GetLastCharacterFrame.h"; sourceTree = "<group>"; };
 		4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+GetLastCharacterFrame.m"; sourceTree = "<group>"; };
+		4C1227DD21B4DE9200E19AD4 /* ReplyListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplyListViewController.h; sourceTree = "<group>"; };
+		4C1227DE21B4DE9200E19AD4 /* ReplyListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplyListViewController.m; sourceTree = "<group>"; };
+		4C1227E121B5261700E19AD4 /* XHLaunchAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdController.h; sourceTree = "<group>"; };
+		4C1227E221B5261700E19AD4 /* XHLaunchAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAd.h; sourceTree = "<group>"; };
+		4C1227E321B5261700E19AD4 /* XHLaunchAdDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdDownloader.h; sourceTree = "<group>"; };
+		4C1227E421B5261700E19AD4 /* XHLaunchAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdView.m; sourceTree = "<group>"; };
+		4C1227E521B5261700E19AD4 /* XHLaunchAdCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdCache.h; sourceTree = "<group>"; };
+		4C1227E621B5261700E19AD4 /* XHLaunchAdConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdConfiguration.h; sourceTree = "<group>"; };
+		4C1227E721B5261700E19AD4 /* XHLaunchAdButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdButton.m; sourceTree = "<group>"; };
+		4C1227E821B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XHLaunchAdImageView+XHLaunchAdCache.h"; sourceTree = "<group>"; };
+		4C1227E921B5261700E19AD4 /* XHLaunchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchImageView.m; sourceTree = "<group>"; };
+		4C1227EA21B5261700E19AD4 /* XHLaunchAdConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdConst.m; sourceTree = "<group>"; };
+		4C1227EB21B5261700E19AD4 /* XHLaunchAdImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdImageManager.h; sourceTree = "<group>"; };
+		4C1227EC21B5261700E19AD4 /* XHLaunchAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAd.m; sourceTree = "<group>"; };
+		4C1227ED21B5261700E19AD4 /* XHLaunchAdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdController.m; sourceTree = "<group>"; };
+		4C1227EE21B5261700E19AD4 /* XHLaunchAdDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdDownloader.m; sourceTree = "<group>"; };
+		4C1227EF21B5261700E19AD4 /* XHLaunchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchImageView.h; sourceTree = "<group>"; };
+		4C1227F021B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XHLaunchAdImageView+XHLaunchAdCache.m"; sourceTree = "<group>"; };
+		4C1227F121B5261700E19AD4 /* XHLaunchAdConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdConfiguration.m; sourceTree = "<group>"; };
+		4C1227F221B5261700E19AD4 /* XHLaunchAdButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdButton.h; sourceTree = "<group>"; };
+		4C1227F321B5261700E19AD4 /* XHLaunchAdCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdCache.m; sourceTree = "<group>"; };
+		4C1227F421B5261700E19AD4 /* XHLaunchAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdView.h; sourceTree = "<group>"; };
+		4C1227F521B5261700E19AD4 /* XHLaunchAdImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdImageManager.m; sourceTree = "<group>"; };
+		4C1227F621B5261700E19AD4 /* XHLaunchAdConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdConst.h; sourceTree = "<group>"; };
 		4C138EB22181522700FA2667 /* ChangeAttentionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionViewController.h; sourceTree = "<group>"; };
 		4C138EB32181522700FA2667 /* ChangeAttentionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeAttentionViewController.m; sourceTree = "<group>"; };
 		4C138EB5218155EE00FA2667 /* ChangeAttentionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeAttentionCell.h; sourceTree = "<group>"; };
@@ -2400,6 +2436,35 @@
 			path = CharacterLocationSeeker;
 			sourceTree = "<group>";
 		};
+		4C1227E021B5261700E19AD4 /* XHLaunchAd */ = {
+			isa = PBXGroup;
+			children = (
+				4C1227F621B5261700E19AD4 /* XHLaunchAdConst.h */,
+				4C1227EA21B5261700E19AD4 /* XHLaunchAdConst.m */,
+				4C1227E221B5261700E19AD4 /* XHLaunchAd.h */,
+				4C1227EC21B5261700E19AD4 /* XHLaunchAd.m */,
+				4C1227F421B5261700E19AD4 /* XHLaunchAdView.h */,
+				4C1227E421B5261700E19AD4 /* XHLaunchAdView.m */,
+				4C1227F221B5261700E19AD4 /* XHLaunchAdButton.h */,
+				4C1227E721B5261700E19AD4 /* XHLaunchAdButton.m */,
+				4C1227EF21B5261700E19AD4 /* XHLaunchImageView.h */,
+				4C1227E921B5261700E19AD4 /* XHLaunchImageView.m */,
+				4C1227E121B5261700E19AD4 /* XHLaunchAdController.h */,
+				4C1227ED21B5261700E19AD4 /* XHLaunchAdController.m */,
+				4C1227E521B5261700E19AD4 /* XHLaunchAdCache.h */,
+				4C1227F321B5261700E19AD4 /* XHLaunchAdCache.m */,
+				4C1227E321B5261700E19AD4 /* XHLaunchAdDownloader.h */,
+				4C1227EE21B5261700E19AD4 /* XHLaunchAdDownloader.m */,
+				4C1227E621B5261700E19AD4 /* XHLaunchAdConfiguration.h */,
+				4C1227F121B5261700E19AD4 /* XHLaunchAdConfiguration.m */,
+				4C1227EB21B5261700E19AD4 /* XHLaunchAdImageManager.h */,
+				4C1227F521B5261700E19AD4 /* XHLaunchAdImageManager.m */,
+				4C1227E821B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.h */,
+				4C1227F021B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.m */,
+			);
+			path = XHLaunchAd;
+			sourceTree = "<group>";
+		};
 		4C13E96320C67263009115C1 /* AddressPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2896,6 +2961,8 @@
 				4C646C6720F33E700053067A /* NewNotifyViewController.m */,
 				4C646C6920F343E30053067A /* OfficialNotifyViewController.h */,
 				4C646C6A20F343E30053067A /* OfficialNotifyViewController.m */,
+				4C1227DD21B4DE9200E19AD4 /* ReplyListViewController.h */,
+				4C1227DE21B4DE9200E19AD4 /* ReplyListViewController.m */,
 				4C93497420CF77A300BD8F07 /* FeedbackViewController.h */,
 				4C93497520CF77A300BD8F07 /* FeedbackViewController.m */,
 				4CA141F220F4517300536E77 /* PublishPageViewController.h */,
@@ -3073,6 +3140,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C1227E021B5261700E19AD4 /* XHLaunchAd */,
 				4CEEDAF521AE97C20098702F /* GeeTest */,
 				4CF1A8E3219E56EC0031B1A9 /* CountDown */,
 				4C8D5C28219AC26B008C13A9 /* WZLBadge */,
@@ -5521,6 +5589,7 @@
 				4CE121D820C0D16000A44782 /* GroupShadowTableView.m in Sources */,
 				4C17414720C5168600AA6D57 /* TXLimitedTextField.m in Sources */,
 				4C4C95A5218FF29200627B07 /* TZAssetCell.m in Sources */,
+				4C1227FC21B5261700E19AD4 /* XHLaunchAdController.m in Sources */,
 				4CF1A7FB219D1D6C0031B1A9 /* TheVotePostDetailViewController.m in Sources */,
 				4C890731211D34FF00F86220 /* STSegmentView.m in Sources */,
 				4C7EF37C21212A0B0002166A /* HRCgUtil.m in Sources */,
@@ -5543,6 +5612,7 @@
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C6E9167213F5F07001535CA /* YYAnimatedImageView.m in Sources */,
 				4C40C75621957182006408DE /* VoteChooseInputModel.m in Sources */,
+				4C1227FE21B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.m in Sources */,
 				4C7234E720FDEB1D00D5C5D4 /* AASpline.m in Sources */,
 				4C6E9198213F5F07001535CA /* NSNotificationCenter+YYAdd.m in Sources */,
 				4C6332C920E08E6500D80056 /* AddressViewController.m in Sources */,
@@ -5562,6 +5632,7 @@
 				4C7234EB20FDEB1D00D5C5D4 /* AAChartView.m in Sources */,
 				4C6E919A213F5F07001535CA /* NSObject+YYAddForKVO.m in Sources */,
 				4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */,
+				4C1227FA21B5261700E19AD4 /* XHLaunchAdConst.m in Sources */,
 				4C6332C620E07CBA00D80056 /* ChangePasswordViewController.m in Sources */,
 				4C7EF38A21212A570002166A /* ZSSCustomButtonsViewController.m in Sources */,
 				4C8735FD20BE92BD00B6A8B5 /* NSArray+compare.m in Sources */,
@@ -5617,6 +5688,7 @@
 				4C23B3D820F5935800ACE380 /* LMPhotoCollectionCell.m in Sources */,
 				4C4C95B2218FF29200627B07 /* TZGifPhotoPreviewController.m in Sources */,
 				4C7234D620FDEB1D00D5C5D4 /* AAPlotOptions.m in Sources */,
+				4C1227FF21B5261700E19AD4 /* XHLaunchAdConfiguration.m in Sources */,
 				4C72347A20FD8C6D00D5C5D4 /* UIColor+PYSearchExtension.m in Sources */,
 				4C53D1BB215C796D00AFC352 /* BandingVerifierViewController.m in Sources */,
 				4C6E9169213F5F07001535CA /* NSObject+YYModel.m in Sources */,
@@ -5670,6 +5742,7 @@
 				4C53D1C1215CC78200AFC352 /* BankCardTableViewCell.m in Sources */,
 				4C7234F520FEEB8800D5C5D4 /* CatechismSecondeViewController.m in Sources */,
 				4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */,
+				4C1227FD21B5261700E19AD4 /* XHLaunchAdDownloader.m in Sources */,
 				4C72D57520D10AAB00088149 /* MyCollectArticleCell.m in Sources */,
 				4CAD57692194225000BD77E0 /* UIView+WTExtension.m in Sources */,
 				4C6E9188213F5F07001535CA /* UIBarButtonItem+YYAdd.m in Sources */,
@@ -5759,6 +5832,7 @@
 				4C646C7120F34E0E0053067A /* OfficialNotifyModel.m in Sources */,
 				4C992FDC217717680092DDCF /* HXDownloadProgressView.m in Sources */,
 				4C7EF38521212A0B0002166A /* HRColorCursor.m in Sources */,
+				4C1227F821B5261700E19AD4 /* XHLaunchAdButton.m in Sources */,
 				4C13E96E20C67263009115C1 /* UIView+CZHExtension.m in Sources */,
 				4C23B3DB20F5935800ACE380 /* LMStyleFontSizeCell.m in Sources */,
 				4C7234D920FDEB1D00D5C5D4 /* AATooltip.m in Sources */,
@@ -5817,11 +5891,13 @@
 				4C44AB6A20C93DAF000E2C42 /* XLChannelModel.m in Sources */,
 				4C3CB3CA213D0E8700E48A97 /* HZPhotoBrowserView.m in Sources */,
 				4C4ED9E720E3319B00347974 /* ShareAndFunctionView.m in Sources */,
+				4C12280121B5261700E19AD4 /* XHLaunchAdImageManager.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4CD157C621991AFB00178FBF /* SeniorPostingAddImageCell.m in Sources */,
 				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C992F86217717610092DDCF /* UIWebView+KWHideAccessoryView.m in Sources */,
 				4CD157C321991AED00178FBF /* SeniorPostingAddContentCell.m in Sources */,
+				4C1227F921B5261700E19AD4 /* XHLaunchImageView.m in Sources */,
 				4CF1A7EF219C267A0031B1A9 /* ThePostCommentTableViewCell.m in Sources */,
 				4C6E91A7213F5F07001535CA /* YYThreadSafeArray.m in Sources */,
 				4C6E9166213F5F07001535CA /* CALayer+YYWebImage.m in Sources */,
@@ -6016,6 +6092,7 @@
 				4C992FE8217717680092DDCF /* HXPhotoCustomNavigationBar.m in Sources */,
 				4C4E4959211159600078864D /* HomeSearchTView.m in Sources */,
 				4C6E9174213F5F07001535CA /* YYTextDebugOption.m in Sources */,
+				4C1227FB21B5261700E19AD4 /* XHLaunchAd.m in Sources */,
 				4C6E917F213F5F07001535CA /* UITextField+YYAdd.m in Sources */,
 				4CBEF668217DEED000C6F8DA /* PaidEditViewController.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,
@@ -6050,6 +6127,7 @@
 				4C93498220CF9B7F00BD8F07 /* PraiseTableViewCell.m in Sources */,
 				4C6E918F213F5F07001535CA /* NSBundle+YYAdd.m in Sources */,
 				4C44E3882122BE8D00C5D10A /* NewPublishModel.m in Sources */,
+				4C1227DF21B4DE9200E19AD4 /* ReplyListViewController.m in Sources */,
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C99494121A3A0F2007EAD19 /* PostListSearchModel.m in Sources */,
 				4C992FE6217717680092DDCF /* HXCustomButton.m in Sources */,
@@ -6061,6 +6139,7 @@
 				4C3F903420BD1EB7003EC4FC /* HomePageChildVCViewController.m in Sources */,
 				4C72346A20FD740A00D5C5D4 /* Base2ViewController.m in Sources */,
 				4C6E91A4213F5F07001535CA /* YYGestureRecognizer.m in Sources */,
+				4C1227F721B5261700E19AD4 /* XHLaunchAdView.m in Sources */,
 				4C7A0987215B771400E0682A /* AppDelegate+Push.m in Sources */,
 				4C6E91A5213F5F07001535CA /* YYFileHash.m in Sources */,
 				4CD157D221992A9600178FBF /* AddNewContentViewController.m in Sources */,
@@ -6080,6 +6159,7 @@
 				4C23B3E020F5938000ACE380 /* LMParagraphConfig.m in Sources */,
 				4CF1A7EC219C1AE70031B1A9 /* UICopyLabel.m in Sources */,
 				4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */,
+				4C12280021B5261700E19AD4 /* XHLaunchAdCache.m in Sources */,
 				4C83E64B20BFFA6C00C99AAB /* YXNormalHeader.m in Sources */,
 				4C17413720C4D94700AA6D57 /* StoreChildCell.m in Sources */,
 				4C7EF37B21212A0B0002166A /* ZSSFontsViewController.m in Sources */,

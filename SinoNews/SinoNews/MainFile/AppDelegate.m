@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <XHLaunchAd.h>
+
 #import <STCObfuscator.h>
 #import "AppDelegate+Push.h"
 

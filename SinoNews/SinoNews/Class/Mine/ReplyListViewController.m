@@ -11,7 +11,7 @@
 @interface ReplyListViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
-
+@property (nonatomic,assign) NSInteger page;
 @end
 
 @implementation ReplyListViewController
@@ -39,13 +39,34 @@
     self.tableView.separatorColor = HexColor(#E3E3E3);
     //注册
 //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    @weakify(self);
+    self.tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_footer.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
+        self.page = 1;
+        [self requestUserListReply];
+    }];
+    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_footer endRefreshing];
+        }
+        if (self.dataSource.count>0) {
+            self.page ++;
+        }else{
+            self.page = 1;
+        }
+        [self requestUserListReply];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.dataSource.count;
-    return 3;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,8 +82,16 @@
         cell.detailTextLabel.font = PFFontL(12);
         cell.detailTextLabel.textColor = HexColor(#9A9A9A);
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld号楼的人回复了你",indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld分钟前",indexPath.row];
+    NSDictionary *model = self.dataSource[indexPath.row];
+    NSString *title = [NSString stringWithFormat:@"%@回复了你的",model[@"username"]];
+    NSInteger type = [model[@"replyType"] integerValue];
+    if (type==1) {
+        title = [title stringByAppendingString:@"帖子"];
+    }else if (type==2){
+        title = [title stringByAppendingString:@"评论"];
+    }
+    cell.textLabel.text = title;
+    cell.detailTextLabel.text = GetSaveString(model[@"createTime"]);
     
     return cell;
 }
@@ -85,7 +114,31 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *model = self.dataSource[indexPath.row];
+    NSInteger postType = [model[@"postType"] integerValue];
+    UIViewController *vc;
+    if (postType == 2) { //投票
+        TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+        tvpdVC.postModel.postId = [model[@"targetId"] integerValue];
+        vc = tvpdVC;
+    }else{
+        ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+        tpdVC.postModel.postId = [model[@"targetId"] integerValue];
+        vc = tpdVC;
+    }
     
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark --请求
+-(void)requestUserListReply
+{
+    [HttpRequest getWithURLString:UserListReply parameters:@{@"page":@(self.page)} success:^(id responseObject) {
+        self.dataSource = [self.tableView pullWithPage:self.page data:responseObject[@"data"][@"data"] dataSource:self.dataSource];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
+    }];
 }
 
 @end

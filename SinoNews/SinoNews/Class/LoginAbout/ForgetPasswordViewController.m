@@ -108,6 +108,7 @@
     
     password = [TXLimitedTextField new];
     password.clearButtonMode = UITextFieldViewModeWhileEditing;
+    password.secureTextEntry = YES;
     password.delegate = self;
     
     UIView *seccodeBackView = [UIView new];

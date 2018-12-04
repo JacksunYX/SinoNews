@@ -87,6 +87,7 @@
 		4C21ABEB20D36DA900615F20 /* NSString+STRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21ABEA20D36DA900615F20 /* NSString+STRegex.m */; };
 		4C21C17320EDBAFA0054F7AE /* UserAttentionOrFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */; };
 		4C21C17720EE2AEC0054F7AE /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C21C17620EE2AEC0054F7AE /* Area.plist */; };
+		4C21CEF421B6B38400566259 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C21CEF221B6B38300566259 /* BaseViewController.m */; };
 		4C23B3AA20F591E400ACE380 /* UIFont+LMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3A620F591E300ACE380 /* UIFont+LMText.m */; };
 		4C23B3AB20F591E400ACE380 /* NSTextAttachment+LMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3A920F591E400ACE380 /* NSTextAttachment+LMText.m */; };
 		4C23B3B720F5924800ACE380 /* LMImageSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3AC20F5924600ACE380 /* LMImageSettingsController.m */; };
@@ -140,7 +141,6 @@
 		4C3F8FF620BCEF3C003EC4FC /* IntegralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FF520BCEF3C003EC4FC /* IntegralViewController.m */; };
 		4C3F8FF920BCEF45003EC4FC /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FF820BCEF45003EC4FC /* MineViewController.m */; };
 		4C3F8FFE20BCF7D8003EC4FC /* BaseNavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */; };
-		4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900020BCF7EB003EC4FC /* BaseViewController.m */; };
 		4C3F900420BCF802003EC4FC /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900320BCF802003EC4FC /* BaseTableView.m */; };
 		4C3F900920BCFA84003EC4FC /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900820BCFA84003EC4FC /* UIColor+Hex.m */; };
 		4C3F900D20BCFC3F003EC4FC /* UIBarButtonItem+integration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C3F900C20BCFC3F003EC4FC /* UIBarButtonItem+integration.m */; };
@@ -1042,6 +1042,8 @@
 		4C21C17120EDBAFA0054F7AE /* UserAttentionOrFansVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAttentionOrFansVC.h; sourceTree = "<group>"; };
 		4C21C17220EDBAFA0054F7AE /* UserAttentionOrFansVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserAttentionOrFansVC.m; sourceTree = "<group>"; };
 		4C21C17620EE2AEC0054F7AE /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
+		4C21CEF221B6B38300566259 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		4C21CEF321B6B38300566259 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		4C23B3A620F591E300ACE380 /* UIFont+LMText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+LMText.m"; sourceTree = "<group>"; };
 		4C23B3A720F591E400ACE380 /* UIFont+LMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+LMText.h"; sourceTree = "<group>"; };
 		4C23B3A820F591E400ACE380 /* NSTextAttachment+LMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextAttachment+LMText.h"; sourceTree = "<group>"; };
@@ -1152,8 +1154,6 @@
 		4C3F8FF820BCEF45003EC4FC /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		4C3F8FFC20BCF7D8003EC4FC /* BaseNavigationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationVC.h; sourceTree = "<group>"; };
 		4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationVC.m; sourceTree = "<group>"; };
-		4C3F8FFF20BCF7EB003EC4FC /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		4C3F900020BCF7EB003EC4FC /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		4C3F900220BCF802003EC4FC /* BaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
 		4C3F900320BCF802003EC4FC /* BaseTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableView.m; sourceTree = "<group>"; };
 		4C3F900720BCFA84003EC4FC /* UIColor+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
@@ -3036,8 +3036,8 @@
 			children = (
 				4C3F8FFC20BCF7D8003EC4FC /* BaseNavigationVC.h */,
 				4C3F8FFD20BCF7D8003EC4FC /* BaseNavigationVC.m */,
-				4C3F8FFF20BCF7EB003EC4FC /* BaseViewController.h */,
-				4C3F900020BCF7EB003EC4FC /* BaseViewController.m */,
+				4C21CEF321B6B38300566259 /* BaseViewController.h */,
+				4C21CEF221B6B38300566259 /* BaseViewController.m */,
 				4C72346820FD740A00D5C5D4 /* Base2ViewController.h */,
 				4C72346920FD740A00D5C5D4 /* Base2ViewController.m */,
 				4C4DF4DF20F87CCB005E6197 /* TopBaseViewController.h */,
@@ -5894,7 +5894,6 @@
 				4C12280121B5261700E19AD4 /* XHLaunchAdImageManager.m in Sources */,
 				4CE9C91820C7C380004550B9 /* ZZYPhotoHelper.m in Sources */,
 				4CD157C621991AFB00178FBF /* SeniorPostingAddImageCell.m in Sources */,
-				4C3F900120BCF7EB003EC4FC /* BaseViewController.m in Sources */,
 				4C992F86217717610092DDCF /* UIWebView+KWHideAccessoryView.m in Sources */,
 				4CD157C321991AED00178FBF /* SeniorPostingAddContentCell.m in Sources */,
 				4C1227F921B5261700E19AD4 /* XHLaunchImageView.m in Sources */,
@@ -5920,6 +5919,7 @@
 				4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */,
 				4C6E917A213F5F07001535CA /* NSAttributedString+YYText.m in Sources */,
 				4CEEE55821999F0D00DFEC0A /* EditVideoViewController.m in Sources */,
+				4C21CEF421B6B38400566259 /* BaseViewController.m in Sources */,
 				4C6E9197213F5F07001535CA /* NSString+YYAdd.m in Sources */,
 				4C6E90A6213F5EA7001535CA /* HUD.m in Sources */,
 				4C6E917D213F5F07001535CA /* YYTextArchiver.m in Sources */,

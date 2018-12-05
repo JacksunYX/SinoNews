@@ -96,7 +96,7 @@
 
 -(void)setTitleView
 {
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"新闻",@"帖子"] headStyle:0 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"帖子",@"新闻"] headStyle:0 layoutStyle:0];
     //    _segHead.fontScale = .85;
     //    _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;
@@ -157,7 +157,7 @@
             return ;
         }
         
-        if (self->selectedIndex==0) {
+        if (self->selectedIndex==1) {
             self.currPage0 = 1;
             [self requestNewsList];
         }else{
@@ -173,7 +173,7 @@
             return ;
         }
         
-        if (self->selectedIndex==0) {
+        if (self->selectedIndex==1) {
             if (!self.articleArray.count) {
                 self.currPage0 = 1;
             }else{
@@ -292,9 +292,9 @@
 - (void)selectedAction:(UIButton *)btn
 {
     NSMutableArray *arr;
-    if (selectedIndex == 0) {
+    if (selectedIndex == 1) {
         arr = self.articleArray;
-    }else if (selectedIndex == 1){
+    }else{
         arr = self.postArray;
     }
     if (arr.count) {
@@ -315,9 +315,9 @@
     }
     
     //批量删除
-    if (selectedIndex == 0) {
+    if (selectedIndex == 1) {
         [self requestCancelNewsCollects];
-    }else if (selectedIndex == 1) {
+    }else {
         [self requestCancelPostCollects];
     }
     
@@ -333,14 +333,14 @@
     }
     //先判断是全选还是反选
     if (btn.selected) { //全选
-        //文章
-        if (selectedIndex == 0) {
+        //新闻
+        if (selectedIndex == 1) {
             [self.deleteArray addObjectsFromArray:self.articleArray];
             for (int i = 0; i< self.articleArray.count; i++) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
                 [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
             }
-        }else if (selectedIndex == 1) {
+        }else {
             //帖子
             [self.deleteArray addObjectsFromArray:self.postArray];
             for (int i = 0; i< self.postArray.count; i++) {
@@ -360,9 +360,9 @@
 -(void)resetStatus
 {
     NSMutableArray *arr;
-    if (self->selectedIndex == 0) {
+    if (selectedIndex == 1) {
         arr = self.articleArray;
-    }else if (self->selectedIndex == 1){
+    }else {
         arr = self.postArray;
     }
     //将数据源数组中包含有删除数组中的数据删除掉
@@ -381,9 +381,9 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (selectedIndex == 0){
+    if (selectedIndex == 1){
         return self.articleArray.count;
-    }else if (selectedIndex == 1) {
+    }else if (selectedIndex == 0) {
         return self.postArray.count;
     }
     return 0;
@@ -392,12 +392,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (selectedIndex == 0){
+    if (selectedIndex == 1){
         HomePageFirstKindCell *cell0 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
         
         cell0.model = self.articleArray[indexPath.row];
         cell = cell0;
-    }else if (selectedIndex == 1) {
+    }else if (selectedIndex == 0) {
         ReadPostListTableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         
         cell1.model = self.postArray[indexPath.row];
@@ -427,9 +427,9 @@
 {
     if (self.tableView.editing) {
         NSArray *arr;
-        if (selectedIndex == 0) {
+        if (selectedIndex == 1) {
             arr = self.articleArray;
-        }else if (selectedIndex == 1){
+        }else {
             arr = self.postArray;
         }
         [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
@@ -439,7 +439,7 @@
             self.selectAllBtn.selected = YES;
         }
     }else{
-        if (selectedIndex == 0) {
+        if (selectedIndex == 1) {
             HomePageModel *model = self.articleArray[indexPath.row];
             NSInteger type = [model.newsType intValue];
             if (type==0||type==1) { //新闻,收费文章后台居然给的1
@@ -451,7 +451,7 @@
                 cVC.news_id = model.itemId;
                 [self.navigationController pushViewController:cVC animated:YES];
             }
-        }else if (selectedIndex == 1){
+        }else {
             SeniorPostDataModel *model = self.postArray[indexPath.row];
             UIViewController *vc;
             if (model.postType == 2) { //投票
@@ -478,9 +478,9 @@
     if (self.tableView.editing) {
         
         NSArray *arr;
-        if (selectedIndex == 0) {
+        if (selectedIndex == 1) {
             arr = self.articleArray;
-        }else if (selectedIndex == 1){
+        }else {
             arr = self.postArray;
         }
         [self.deleteArray removeObject:[arr objectAtIndex:indexPath.row]];

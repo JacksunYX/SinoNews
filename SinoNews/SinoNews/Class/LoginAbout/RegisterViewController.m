@@ -12,9 +12,9 @@
 #import <WebKit/WebKit.h>
 
 //网站主部署的用于验证注册的接口 (api_1)
-#define api_1 @"http://www.geetest.com/demo/gt/register-test"
+#define api_1 @"/api/startCaptcha"
 //网站主部署的二次验证的接口 (api_2)
-#define api_2 @"http://www.geetest.com/demo/gt/validate-test"
+#define api_2 @"/api/verifyCaptcha"
 
 @interface RegisterViewController ()<UITextFieldDelegate,GT3CaptchaManagerDelegate>
 {
@@ -42,7 +42,9 @@
 - (GT3CaptchaManager *)captchaManager {
     if (!_captchaManager) {
         //创建验证管理器实例
-        _captchaManager = [[GT3CaptchaManager alloc] initWithAPI1:api_1 API2:api_2 timeout:5.0];
+        NSString *api1 = [NSString stringWithFormat:@"%@%@%@",DomainString,VersionNum,api_1];
+        NSString *api2 = [NSString stringWithFormat:@"%@%@%@",DomainString,VersionNum,api_2];
+        _captchaManager = [[GT3CaptchaManager alloc] initWithAPI1:api1 API2:api2 timeout:5.0];
         _captchaManager.delegate = self;
         _captchaManager.maskColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
         [_captchaManager registerCaptcha:nil];
@@ -377,9 +379,7 @@
                 self.registerSuccess(self->username.text, self->password.text);
             }
         });
-    } failure:^(NSError *error) {
-        LRToast(@"注册失败");
-    }  RefreshAction:nil];
+    } failure:nil  RefreshAction:nil];
 }
 
 #pragma mark ----- UITextFieldDelegate
@@ -466,6 +466,18 @@
         LRToast(errotString);
     }
 }
+
+
+//修改api1请求
+- (void)gtCaptcha:(GT3CaptchaManager *)manager willSendRequestAPI1:(NSURLRequest *)originalRequest withReplacedHandler:(void (^)(NSURLRequest *))replacedHandler {
+    //进行自定义
+    NSMutableURLRequest *mRequest = [originalRequest mutableCopy];
+    NSString *newURL = [NSString stringWithFormat:@"%@?account=%@", originalRequest.URL.absoluteString, username.text];
+    mRequest.URL = [NSURL URLWithString:newURL];
+    
+    replacedHandler(mRequest);
+}
+
 
 
 @end

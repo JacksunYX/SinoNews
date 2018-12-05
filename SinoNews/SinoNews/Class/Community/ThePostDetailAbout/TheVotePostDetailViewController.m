@@ -108,6 +108,11 @@ CGFloat static attentionBtnH = 26;
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
+}
+
+//添加好文标签
+-(void)addGoodPostLabel
+{
     //必须在加载完毕时再计算
     if (self.titleLabel.text.length>0) {
         CGPoint lastPoint = [self.titleLabel getLastCharacterFrame];
@@ -190,9 +195,8 @@ CGFloat static attentionBtnH = 26;
             _oliver.hidden = YES;
             _highQuality.hidden = YES;
         }
-        
+        [self showOrHideLoadView:NO page:0];
     }
-    
 }
 
 -(void)setNavigationBtns
@@ -249,7 +253,7 @@ CGFloat static attentionBtnH = 26;
         }
         [self requestListPostComments:self.currPage];
     }];
-//    [_tableView.mj_header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
     
     _commentPagingBtn = [UIButton new];
     [self.view addSubview:_commentPagingBtn];
@@ -589,6 +593,9 @@ CGFloat static attentionBtnH = 26;
     }
     
     _titleLabel.text = GetSaveString(self.postModel.postTitle);
+    [_titleLabel updateLayout];
+    [self addGoodPostLabel];
+    
     CGFloat wid = 24;
     if (kStringIsEmpty(self.postModel.avatar)) {
         wid = 0;
@@ -600,12 +607,14 @@ CGFloat static attentionBtnH = 26;
     [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
     _authorName.text = GetSaveString(self.postModel.author);
     _creatTime.text = GetSaveString(self.postModel.createTime);
-    _contentLabel.text = GetSaveString(self.postModel.postContent);
-    CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
-    _contentLabel.sd_layout
-    .heightIs(h)
-    ;
-    [_contentLabel updateLayout];
+    if (![_contentLabel.text isEqualToString:GetSaveString(self.postModel.postContent)]) {
+        _contentLabel.text = GetSaveString(self.postModel.postContent);
+        CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
+        _contentLabel.sd_layout
+        .heightIs(h)
+        ;
+        [_contentLabel updateLayout];
+    }
     
     _attentionBtn.selected = self.postModel.isAttention;
     if (_attentionBtn.selected) {
@@ -1237,6 +1246,7 @@ CGFloat static attentionBtnH = 26;
 //获取帖子详情
 -(void)requestPost_browsePost
 {
+    [self showOrHideLoadView:YES page:0];
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
         //保存浏览历史

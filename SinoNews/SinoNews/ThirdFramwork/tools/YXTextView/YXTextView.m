@@ -15,6 +15,7 @@
     if (self == [super init]) {
         //设置本地表情识别
         self.textParser = BrowsNewsSingleton.singleton.parser;
+        self.textContainerInset = UIEdgeInsetsMake(5, 10, 5, 10);
     }
     return self;
 }

@@ -122,6 +122,11 @@ CGFloat static attentionBtnH = 26;
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
+}
+
+//添加好文标签
+-(void)addGoodPostLabel
+{
     //必须在加载完毕时再计算
     if (self.titleLabel.text.length>0) {
         CGPoint lastPoint = [self.titleLabel getLastCharacterFrame];
@@ -204,9 +209,8 @@ CGFloat static attentionBtnH = 26;
             _oliver.hidden = YES;
             _highQuality.hidden = YES;
         }
-        
+        [self showOrHideLoadView:NO page:0];
     }
-    
 }
 
 -(void)setNavigationBtns
@@ -264,7 +268,7 @@ CGFloat static attentionBtnH = 26;
         }
         [self requestListPostComments:self.currPage];
     }];
-//    [_tableView.mj_header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
     
     _directoryBtn = [UIButton new];
     [self.view addSubview:_directoryBtn];
@@ -276,6 +280,7 @@ CGFloat static attentionBtnH = 26;
     ;
     [_directoryBtn setNormalImage:UIImageNamed(@"directory_icon")];
     [_directoryBtn addTarget:self action:@selector(popDirectoryAction) forControlEvents:UIControlEventTouchUpInside];
+    _directoryBtn.hidden = YES;
     
     _commentPagingBtn = [UIButton new];
     [self.view addSubview:_commentPagingBtn];
@@ -444,6 +449,7 @@ CGFloat static attentionBtnH = 26;
         _contentLabel.font = PFFontL(16);
         _contentLabel.textColor = HexColor(#1A1A1A);
         _contentLabel.textAlignment = NSTextAlignmentJustified;
+        _contentLabel.backgroundColor = RedColor;
         
         _attentionBtn = [UIButton new];
         [_attentionBtn setBtnFont:PFFontR(14)];
@@ -559,6 +565,8 @@ CGFloat static attentionBtnH = 26;
     
     _titleLabel.text = GetSaveString(self.postModel.postTitle);
     [_titleLabel updateLayout];
+    [self addGoodPostLabel];
+
     CGFloat wid = 24;
     if (kStringIsEmpty(self.postModel.avatar)) {
         wid = 0;
@@ -570,12 +578,14 @@ CGFloat static attentionBtnH = 26;
     [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
     _authorName.text = GetSaveString(self.postModel.author);
     _creatTime.text = GetSaveString(self.postModel.createTime);
-    _contentLabel.text = GetSaveString(self.postModel.postContent);
-    CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
-    _contentLabel.sd_layout
-    .heightIs(h)
-    ;
-    [_contentLabel updateLayout];
+    if (![_contentLabel.text isEqualToString:GetSaveString(self.postModel.postContent)]) {
+        _contentLabel.text = GetSaveString(self.postModel.postContent);
+        CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
+        _contentLabel.sd_layout
+        .heightIs(h)
+        ;
+        [_contentLabel updateLayout];
+    }
     
     _attentionBtn.selected = self.postModel.isAttention;
     if (_attentionBtn.selected) {
@@ -1164,6 +1174,7 @@ CGFloat static attentionBtnH = 26;
 //获取帖子详情
 -(void)requestPost_browsePost
 {
+    [self showOrHideLoadView:YES page:0];
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
 //        self.postModel.postTitle = @"测试换行标签测试换行标签测试换行标签测试换行标签测试换行标签测试换行标";
@@ -1180,10 +1191,9 @@ CGFloat static attentionBtnH = 26;
         [self setNavigationBtns];
         [self setBaseUI];
         [self setNaviTitle];
-        [self setTitle];
         [self setBottomView];
         [self reloadDataWithDataArrUpperCase];
-        [self.tableView reloadData];
+        [self setTitle];
     } failure:^(NSError *error) {
         
     }];

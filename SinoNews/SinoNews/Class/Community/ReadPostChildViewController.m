@@ -148,7 +148,7 @@
     [self selectIndex:index];
 }
 
-//选择制定下标的按钮选中，其他按钮不选中
+//选择指定下标的按钮选中，其他按钮不选中
 -(void)selectIndex:(NSInteger)selected
 {
     UIButton *selectedBtn = self.topBtnArr[selected];

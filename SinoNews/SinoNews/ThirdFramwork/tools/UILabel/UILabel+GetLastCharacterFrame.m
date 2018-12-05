@@ -14,10 +14,11 @@
 {
     //最后一个点
     CGPoint lastPoint = CGPointMake(0, 0);
+    NSLog(@"text:%@",self.text);
     //
     CGSize sz = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
     
-    CGSize linesSz = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(self.frame.size.width, MAXFLOAT) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize linesSz = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(self.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
     
     
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, sz.width, sz.height);

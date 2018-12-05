@@ -114,13 +114,12 @@
     //创建富文本并将上面的段落样式加入
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:processText];
     [attrString addAttributes:dic range:NSMakeRange(0, attrString.length)];
-    
     //将处理过h5标签的富文本赋值给当前label
     self.attributedText = [self p_htmlChangeString:GetSaveString(self.text)];
     self.font = lastFont;//不加这句字体会还原
     
     //计算出大小
-    CGSize size = [processText boundingRectWithSize:CGSizeMake(width,MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+    CGSize size = [processText boundingRectWithSize:CGSizeMake(width,MAXFLOAT) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
     //计算的大小可能刚刚够排版的高度，最好取整后加1，宁愿大一点点，不能小了导致无法显示完全
     return ceil(size.height) + 1;
     
@@ -147,7 +146,8 @@
 //解析获取h5内容
 -(NSMutableAttributedString *)p_htmlChangeString:(NSString *)aString
 {
-    NSMutableAttributedString *oneString = [[NSMutableAttributedString alloc]initWithData:[aString dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    NSMutableAttributedString *oneString = [[NSMutableAttributedString alloc]initWithString:aString attributes:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType}];
+    
     [oneString enumerateAttributesInRange:oneString.rangeOfAll options:0 usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
         NSURL *link = [attrs objectForKey:NSLinkAttributeName];
         if (link){
@@ -158,6 +158,7 @@
         }
         
     }];
+    
     return oneString;
 }
 

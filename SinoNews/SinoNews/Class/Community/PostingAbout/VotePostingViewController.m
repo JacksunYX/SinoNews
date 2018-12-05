@@ -27,7 +27,7 @@
 @property (nonatomic,assign) BOOL isVisible;    //是否可见
 
 @property (nonatomic,strong) UIView *headView;
-@property (nonatomic,strong) YYTextView *titleView;
+@property (nonatomic,strong) YXTextView *titleView;
 @property (nonatomic,strong) YXTextView *contentView;
 @property (nonatomic,strong) UIButton *footView;
 
@@ -57,7 +57,7 @@ static NSInteger limitMaxNum = 20;
     if (!_headView) {
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 183)];
         
-        _titleView = [YYTextView new];
+        _titleView = [YXTextView new];
         _titleView.backgroundColor = WhiteColor;
         _titleView.font = PFFontR(20);
         _titleView.textColor = BlackColor;

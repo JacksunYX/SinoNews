@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGFloat)getLabelWithLineSpace:(CGFloat)lineSpace width:(CGFloat)width;
 
+//解析获取h5内容
+-(NSMutableAttributedString *)p_htmlChangeString:(NSString *)aString;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1283,9 +1283,7 @@ CGFloat static attentionBtnH = 26;
         self.commentsArr = [self.tableView pullWithPage:page data:commentArr dataSource:self.commentsArr];
         for (int i = 0; i < self.commentsArr.count; i ++) {
             PostReplyModel *model = self.commentsArr[i];
-            if (model.userId == self.user.userId) {
-                model.isAuthor = YES;
-            }
+            
         }
         self.currPage = page;
         [self setUpPageBtn];

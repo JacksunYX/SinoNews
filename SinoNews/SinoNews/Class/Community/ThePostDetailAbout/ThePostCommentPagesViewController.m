@@ -302,9 +302,7 @@
         self.commentsArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         for (int i = 0; i < self.commentsArr.count; i ++) {
             PostReplyModel *model = self.commentsArr[i];
-            if (model.userId == self.user.userId) {
-                model.isAuthor = YES;
-            }
+            
         }
         [self setUpPageBtn];
         [self.tableView reloadData];

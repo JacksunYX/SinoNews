@@ -88,6 +88,9 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     publishTime.textColor = HexColor(#898989);
     publishTime.font = PFFontL(11);
     
+    UIView *sepLine = [UIView new];
+    sepLine.backgroundColor = HexColor(#E3E3E3);
+    
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
                                  avatar,
@@ -101,7 +104,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
                                  centerImg,
                                  rightImg,
                                  publishTime,
-                                 
+                                 sepLine,
                                  ]];
     avatar.sd_layout
     .topSpaceToView(fatherView, 15)
@@ -194,6 +197,13 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .heightIs(12)
     ;
     [publishTime setSingleLineAutoResizeWithMaxWidth:100];
+    
+    sepLine.sd_layout
+    .bottomEqualToView(fatherView)
+    .leftSpaceToView(fatherView, 10)
+    .rightSpaceToView(fatherView, 10)
+    .heightIs(0.5)
+    ;
     
     [self setupAutoHeightWithBottomView:publishTime bottomMargin:15];
 }

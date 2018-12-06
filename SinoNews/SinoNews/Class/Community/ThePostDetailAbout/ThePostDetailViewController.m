@@ -207,7 +207,7 @@ CGFloat static attentionBtnH = 26;
         }
         [self requestListPostComments:self.currPage];
     }];
-//    [_tableView.mj_header beginRefreshing];
+    [_tableView.mj_header beginRefreshing];
     
     _directoryBtn = [UIButton new];
     [self.view addSubview:_directoryBtn];
@@ -467,6 +467,14 @@ CGFloat static attentionBtnH = 26;
         
         [self.titleView setupAutoHeightWithBottomView:_contentLabel bottomMargin:bottomMargin];
         
+        if (![_contentLabel.text isEqualToString:GetSaveString(self.postModel.postContent)]) {
+            _contentLabel.text = GetSaveString(self.postModel.postContent);
+            CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
+            _contentLabel.sd_layout
+            .heightIs(h)
+            ;
+            [_contentLabel updateLayout];
+        }
     }
     
     //设置标题标签
@@ -483,14 +491,6 @@ CGFloat static attentionBtnH = 26;
     [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
     _authorName.text = GetSaveString(self.postModel.author);
     _creatTime.text = GetSaveString(self.postModel.createTime);
-    if (![_contentLabel.text isEqualToString:GetSaveString(self.postModel.postContent)]) {
-        _contentLabel.text = GetSaveString(self.postModel.postContent);
-        CGFloat h = [_contentLabel getLabelWithLineSpace:3 width:ScreenW - 20];
-        _contentLabel.sd_layout
-        .heightIs(h)
-        ;
-        [_contentLabel updateLayout];
-    }
     
     _attentionBtn.selected = self.postModel.isAttention;
     if (_attentionBtn.selected) {

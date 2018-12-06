@@ -144,10 +144,15 @@
         [commentInput updateLayout];
         [commentInput setSd_cornerRadius:@17];
         commentInput.text = @"有何高见，展开讲讲";
+        if (self.postModel.hasExpired) {
+            commentInput.text = @"帖子失效，不可评论";
+        }
         @weakify(self);
         [commentInput whenTap:^{
             @strongify(self);
-            [self popCommentVCWithParentId:0];
+            if (!self.postModel.hasExpired) {
+                [self popCommentVCWithParentId:0];
+            }
         }];
     }
 }
@@ -195,6 +200,9 @@
 //点击评论弹框
 -(void)clickCommentPopAlertWith:(PostReplyModel *)replyModel
 {
+    if (self.postModel.hasExpired) {
+        return;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     @weakify(self);
     UIAlertAction *reply = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -300,10 +308,6 @@
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
         self.commentsArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        for (int i = 0; i < self.commentsArr.count; i ++) {
-            PostReplyModel *model = self.commentsArr[i];
-            
-        }
         [self setUpPageBtn];
         [self.tableView reloadData];
     } failure:^(NSError *error) {

@@ -36,4 +36,7 @@
 //截取视频的第一帧返回
 +(UIImage *)firstFrameWithVideoURL:(NSURL *)url size:(CGSize)size;
 
+//view转成image
++ (UIImage*) imageWithUIView:(UIView*) view;
+
 @end

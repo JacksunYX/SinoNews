@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL praise;
 @property (nonatomic,assign) NSInteger likeNum;
 
-//本地判断适用(如果是作者本人发的评论或回复，需要显示为楼主)
+//用于判断是否是楼主
 @property (nonatomic,assign) BOOL isAuthor;
 
 

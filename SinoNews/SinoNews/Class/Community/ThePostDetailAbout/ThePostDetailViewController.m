@@ -21,8 +21,6 @@
 
 @property (nonatomic,strong) UIView *titleView;
 @property (nonatomic,strong) UILabel *titleLabel;
-@property (nonatomic,strong) UILabel *oliver;        //好文
-@property (nonatomic,strong) UILabel *highQuality;   //精品
 @property (nonatomic,strong) UIImageView *avatar;
 @property (nonatomic,strong) UILabel *authorName;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
@@ -127,90 +125,31 @@ CGFloat static attentionBtnH = 26;
 //添加好文标签
 -(void)addGoodPostLabel
 {
-    //必须在加载完毕时再计算
-    if (self.titleLabel.text.length>0) {
-        CGPoint lastPoint = [self.titleLabel getLastCharacterFrame];
-        
-        CGFloat totalW = 0;
-        
-        if (self.postModel.rate == 1) {
-            //好文
-            totalW = 45;
-            _oliver.hidden = NO;
-            _highQuality.hidden = YES;
-            //如果不越行，直接拼接在后面
-            if (ScreenW - lastPoint.x - 5 - 20 > totalW) {
-                _oliver.sd_resetLayout
-                .leftSpaceToView(_titleView,lastPoint.x + 5)
-                .topSpaceToView(_titleLabel, -23)
-                .widthIs(40)
-                .heightIs(18)
-                ;
-            }else{
-                //换行
-                _oliver.sd_resetLayout
-                .leftSpaceToView(_titleView, 10)
-                .topSpaceToView(_titleLabel, 5)
-                .widthIs(40)
-                .heightIs(18)
-                ;
-            }
-            _oliver.text = @"好文";
-            
-        }else if (self.postModel.rate == 2) {
-            //好文+精
-            _oliver.hidden = NO;
-            _highQuality.hidden = NO;
-            totalW = 75;
-            if (ScreenW - lastPoint.x - 10 - 20 > totalW) {
-                //直接拼在后面
-                _oliver.sd_resetLayout
-                .leftSpaceToView(_titleView,lastPoint.x + 5)
-                .topSpaceToView(_titleLabel, -23)
-                .widthIs(40)
-                .heightIs(18)
-                ;
-            }else{
-                //换行拼接
-                _oliver.sd_resetLayout
-                .leftSpaceToView(_titleView, 10)
-                .topSpaceToView(_titleLabel, 5)
-                .widthIs(40)
-                .heightIs(18)
-                ;
-            }
-            
-            _highQuality.sd_resetLayout
-            .leftSpaceToView(_oliver, 5)
-            .topEqualToView(_oliver)
-            .widthIs(25)
-            .heightIs(18)
-            ;
-            
-            _oliver.text = @"好文";
-            _highQuality.text = @"精";
-        }else{
-            _oliver.sd_resetLayout
-            .leftEqualToView(_titleLabel)
-            .topSpaceToView(_titleLabel, 0)
-            .widthIs(40)
-            .heightIs(0)
-            ;
-            _oliver.text = @"";
-            
-            _highQuality.sd_resetLayout
-            .leftSpaceToView(_oliver, 5)
-            .topSpaceToView(_titleLabel, 0)
-            .widthIs(25)
-            .heightIs(0)
-            ;
-            _highQuality.text = @"";
-            
-            _oliver.hidden = YES;
-            _highQuality.hidden = YES;
-        }
-        [self showOrHideLoadView:NO page:0];
+    NSString *titleString = self.postModel.postTitle;
+    //创建  NSMutableAttributedString 富文本对象
+    NSMutableAttributedString *maTitleString = [[NSMutableAttributedString alloc] initWithString:titleString];
+    
+    if (self.postModel.rate>=1) {
+        //创建个空白的标签
+        NSMutableAttributedString *space = [NSString getLabelWithString:@"" font:5 textColor:WhiteColor backColor:WhiteColor corner:0];
+        [maTitleString appendAttributedString:space];
+        //创建标签Label
+        NSMutableAttributedString *imageStr = [NSString getLabelWithString:@"好文" font:12 textColor:WhiteColor backColor:HexColor(ffb900) corner:3];
+        //加入文字后面
+        [maTitleString appendAttributedString:imageStr];
     }
+    if (self.postModel.rate>=2) {
+        //创建个空白的标签
+        NSMutableAttributedString *space = [NSString getLabelWithString:@"" font:5 textColor:WhiteColor backColor:WhiteColor corner:0];
+        [maTitleString appendAttributedString:space];
+        //创建标签Label
+        NSMutableAttributedString *imageStr = [NSString getLabelWithString:@"精" font:12 textColor:WhiteColor backColor:HexColor(ff7d05) corner:3];
+        //加入文字后面
+        [maTitleString appendAttributedString:imageStr];
+    }
+    
+    _titleLabel.attributedText = maTitleString;
+    [self showOrHideLoadView:NO page:0];
 }
 
 -(void)setNavigationBtns
@@ -229,7 +168,7 @@ CGFloat static attentionBtnH = 26;
     [self.view addSubview:_tableView];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.estimatedRowHeight = 0;
+//    _tableView.estimatedRowHeight = 0;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView.sd_layout
@@ -268,7 +207,7 @@ CGFloat static attentionBtnH = 26;
         }
         [self requestListPostComments:self.currPage];
     }];
-    [_tableView.mj_header beginRefreshing];
+//    [_tableView.mj_header beginRefreshing];
     
     _directoryBtn = [UIButton new];
     [self.view addSubview:_directoryBtn];
@@ -419,18 +358,8 @@ CGFloat static attentionBtnH = 26;
         _titleLabel = [UILabel new];
         _titleLabel.font = PFFontM(20);
         _titleLabel.numberOfLines = 0;
-        
-        _oliver = [UILabel new];
-        _oliver.textColor = WhiteColor;
-        _oliver.font = PFFontL(16);
-        _oliver.backgroundColor = HexColor(ffb900);
-        _oliver.textAlignment = NSTextAlignmentCenter;
-        
-        _highQuality = [UILabel new];
-        _highQuality.textColor = WhiteColor;
-        _highQuality.font = PFFontL(16);
-        _highQuality.backgroundColor = HexColor(ff7d05);
-        _highQuality.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.isAttributedContent = YES;
+        _titleLabel.textAlignment = NSTextAlignmentJustified;
         
         _avatar = [UIImageView new];
         
@@ -449,7 +378,6 @@ CGFloat static attentionBtnH = 26;
         _contentLabel.font = PFFontL(16);
         _contentLabel.textColor = HexColor(#1A1A1A);
         _contentLabel.textAlignment = NSTextAlignmentJustified;
-        _contentLabel.backgroundColor = RedColor;
         
         _attentionBtn = [UIButton new];
         [_attentionBtn setBtnFont:PFFontR(14)];
@@ -467,8 +395,6 @@ CGFloat static attentionBtnH = 26;
         
         [self.titleView sd_addSubviews:@[
                                          _titleLabel,
-                                         _oliver,
-                                         _highQuality,
                                          _avatar,
                                          _authorName,
                                          _idView,
@@ -483,26 +409,8 @@ CGFloat static attentionBtnH = 26;
         .autoHeightRatio(0)
         ;
         
-        _oliver.sd_layout
-        .leftEqualToView(_titleLabel)
-        .topSpaceToView(_titleLabel, 0)
-        .widthIs(40)
-        .heightIs(0)
-        ;
-        _oliver.text = @"";
-        _oliver.sd_cornerRadius = @3;
-        
-        _highQuality.sd_layout
-        .leftSpaceToView(_oliver, 5)
-        .topSpaceToView(_titleLabel, 0)
-        .widthIs(25)
-        .heightIs(0)
-        ;
-        _highQuality.text = @"";
-        _highQuality.sd_cornerRadius = @3;
-        
         _avatar.sd_layout
-        .topSpaceToView(_oliver, 20)
+        .topSpaceToView(_titleLabel, 20)
         .leftEqualToView(_titleLabel)
         .widthIs(0)
         .heightIs(24)
@@ -552,19 +460,16 @@ CGFloat static attentionBtnH = 26;
         
         _contentLabel.sd_layout
         .topSpaceToView(_attentionBtn, 20)
-        .leftEqualToView(_titleLabel)
-        .rightEqualToView(_titleLabel)
+        .leftSpaceToView(self.titleView, 10)
+        .rightSpaceToView(self.titleView, 10)
         .heightIs(0)
         ;
         
         [self.titleView setupAutoHeightWithBottomView:_contentLabel bottomMargin:bottomMargin];
         
-        _oliver.hidden = YES;
-        _highQuality.hidden = YES;
     }
     
-    _titleLabel.text = GetSaveString(self.postModel.postTitle);
-    [_titleLabel updateLayout];
+    //设置标题标签
     [self addGoodPostLabel];
 
     CGFloat wid = 24;
@@ -692,7 +597,9 @@ CGFloat static attentionBtnH = 26;
         
         [commentInput whenTap:^{
             @strongify(self);
-            [self popCommentVCWithParentId:0];
+            if (!self.postModel.hasExpired) {
+                [self popCommentVCWithParentId:0];
+            }
         }];
         
         [self.bottomView sd_addSubviews:@[
@@ -747,7 +654,9 @@ CGFloat static attentionBtnH = 26;
         [commentInput updateLayout];
         [commentInput setSd_cornerRadius:@17];
         commentInput.text = @"有何高见，展开讲讲";
-        
+        if (self.postModel.hasExpired) {
+            commentInput.text = @"帖子失效,不可评论";
+        }
     }
     self.collectBtn.selected = self.postModel.isCollection;
     self.praiseBtn.selected = self.postModel.hasPraised;
@@ -925,6 +834,9 @@ CGFloat static attentionBtnH = 26;
 //点击评论回复弹框
 -(void)clickCommentPopAlertWith:(PostReplyModel *)replyModel
 {
+    if (self.postModel.hasExpired) {
+        return;
+    }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     @weakify(self);
     UIAlertAction *reply = [UIAlertAction actionWithTitle:@"回复" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1190,10 +1102,11 @@ CGFloat static attentionBtnH = 26;
         }
         [self setNavigationBtns];
         [self setBaseUI];
+        [self setTitle];
         [self setNaviTitle];
         [self setBottomView];
         [self reloadDataWithDataArrUpperCase];
-        [self setTitle];
+        
     } failure:^(NSError *error) {
         
     }];
@@ -1291,10 +1204,6 @@ CGFloat static attentionBtnH = 26;
         HiddenHudOnly;
         NSArray *commentArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         self.commentsArr = [self.tableView pullWithPage:page data:commentArr dataSource:self.commentsArr];
-        for (int i = 0; i < self.commentsArr.count; i ++) {
-            PostReplyModel *model = self.commentsArr[i];
-            
-        }
         self.currPage = page;
         [self setUpPageBtn];
         [self.tableView reloadData];

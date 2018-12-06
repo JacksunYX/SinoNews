@@ -32,7 +32,17 @@
  */
 +(NSMutableAttributedString *)analysisHtmlString:(NSString *)string;
 
+/**
+ 根据文本生成自定义的富文本图片标签
 
+ @param string 标签文字
+ @param fontSize 文字大小
+ @param textcolor 文字颜色
+ @param backcolor 背景色
+ @param cornerSize 圆角大小
+ @return 生成的图片富文本标签
+ */
++(NSMutableAttributedString *)getLabelWithString:(NSString *)string font:(CGFloat)fontSize textColor:(UIColor *)textcolor backColor:(UIColor *)backcolor corner:(CGFloat)cornerSize;
 
 
 

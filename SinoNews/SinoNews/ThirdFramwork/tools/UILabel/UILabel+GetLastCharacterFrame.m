@@ -16,7 +16,7 @@
     CGPoint lastPoint = CGPointMake(0, 0);
     NSLog(@"text:%@",self.text);
     //
-    CGSize sz = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
+    CGSize sz = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(MAXFLOAT, 40)];
     
     CGSize linesSz = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(self.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
     

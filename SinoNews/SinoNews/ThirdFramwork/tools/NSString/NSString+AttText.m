@@ -43,7 +43,28 @@
     return attrStr;
 }
 
-
-
+//根据文本生成自定义的富文本图片标签
++(NSMutableAttributedString *)getLabelWithString:(NSString *)string font:(CGFloat)fontSize textColor:(UIColor *)textcolor backColor:(UIColor *)backcolor corner:(CGFloat)cornerSize
+{
+    CGFloat aaW = 12*string.length + 5;
+    //创建标签Label
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, aaW*3, 16*3)];
+    label.text = string;
+    label.textColor = textcolor;
+    label.backgroundColor = backcolor;
+    label.font = [UIFont boldSystemFontOfSize:fontSize*3];;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.clipsToBounds = YES;
+    label.layer.cornerRadius = 3*3;
+    //调用方法，转化成Image
+    UIImage *image = [UIImage imageWithUIView:label];
+    //创建Image的富文本格式
+    NSTextAttachment *attach = [[NSTextAttachment alloc] init];
+    attach.bounds = CGRectMake(0, -2, aaW, 18); //这个-2是为了调整下标签跟文字的位置
+    attach.image = image;
+    //添加到富文本对象里
+    NSAttributedString * imageStr = [NSAttributedString attributedStringWithAttachment:attach];
+    return imageStr.mutableCopy;
+}
 
 @end

@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger praiseCount;//点赞数
 //评价:(0无，1好文，2好文+精)
 @property (nonatomic,assign) NSInteger rate;
+//是否已无效
+@property (nonatomic,assign) BOOL hasExpired;
 
 //投票帖子专用属性
 //是否是投票

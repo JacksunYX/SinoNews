@@ -16,6 +16,8 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger sortOrder;
+
+@property (nonatomic,assign) NSInteger page;
 @end
 
 @implementation ReadPostChildViewController
@@ -94,6 +96,7 @@
 
 -(void)setUpTableView
 {
+    self.page = 1;
     _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.backgroundColor = WhiteColor;
     _tableView.delegate = self;
@@ -142,6 +145,7 @@
 {
     NSInteger index = sender.tag - 100;
     _sortOrder = index;
+    _page = 1;
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     [self.tableView.mj_header beginRefreshing];
@@ -232,6 +236,7 @@
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
+    parameters[@"page"] = @(_page);
     [HttpRequest getWithURLString:ListUserAttenPost parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (dataArr.count>0) {
@@ -242,6 +247,7 @@
                 self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
                 [self.tableView.mj_header endRefreshing];
             }
+            self. page++;
         }else{
             if (refreshType) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -273,6 +279,7 @@
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
+    parameters[@"page"] = @(_page);
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
         
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
@@ -284,6 +291,7 @@
                 self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
                 [self.tableView.mj_header endRefreshing];
             }
+            self. page++;
         }else{
             if (refreshType) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];

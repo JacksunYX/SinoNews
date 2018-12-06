@@ -579,6 +579,16 @@
         taskIcon.image = UIImageNamed(@"signIn_game");
     }else if ([taskModel.taskIcon containsString:@"recharge"]){
         taskIcon.image = UIImageNamed(@"signIn_recharge");
+    }else if ([taskModel.taskIcon containsString:@"publish-post"]){
+        taskIcon.image = UIImageNamed(@"signIn_postDaily");
+    }else if ([taskModel.taskIcon containsString:@"post-commented"]){
+        taskIcon.image = UIImageNamed(@"signIn_postReply");
+    }else if ([taskModel.taskIcon containsString:@"post-praised"]){
+        taskIcon.image = UIImageNamed(@"signIn_praisePostOrComment");
+    }else if ([taskModel.taskIcon containsString:@"comment-post"]){
+        taskIcon.image = UIImageNamed(@"signIn_replyPost");
+    }else if ([taskModel.taskIcon containsString:@"praise-post-comment"]){
+        taskIcon.image = UIImageNamed(@"signIn_praisePostOrComment");
     }
     
     taskTitle.sd_layout

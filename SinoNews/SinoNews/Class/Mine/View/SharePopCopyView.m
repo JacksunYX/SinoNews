@@ -25,6 +25,7 @@ static CGFloat anumationTime = 0.3;
     centerView.userInteractionEnabled = YES;
     
     UIButton *copyBtn = [UIButton new];
+    UIButton *copyBtn2 = [UIButton new];
     
     UILabel *shareLaebl = [UILabel new];
     shareLaebl.font = PFFontR(12);
@@ -38,27 +39,40 @@ static CGFloat anumationTime = 0.3;
     [backView addSubview:centerView];
     centerView.sd_layout
     .widthIs(352)
-    .heightIs(302)
+    .heightIs(342)
     .centerYEqualToView(backView)
     .centerXEqualToView(backView)
     ;
     centerView.image = UIImageNamed(@"share_popToCopyBackImg");
     
     [centerView sd_addSubviews:@[
+                                 copyBtn2,
                                  copyBtn,
                                  shareLaebl,
                                  noticeView,
                                  ]];
     
-    copyBtn.sd_layout
+    copyBtn2.sd_layout
     .bottomSpaceToView(centerView, 10)
+    .centerXEqualToView(centerView)
+    .widthIs(156)
+    .heightIs(36)
+    ;
+    [copyBtn2 setSd_cornerRadius:@18];
+    copyBtn2.backgroundColor = HexColor(#2790F6);
+    [copyBtn2 setNormalTitle:@"复制链接"];
+    [copyBtn2 setNormalTitleColor:WhiteColor];
+    [copyBtn2 setBtnFont:PFFontR(15)];
+    
+    copyBtn.sd_layout
+    .bottomSpaceToView(copyBtn2, 4)
     .centerXEqualToView(centerView)
     .widthIs(156)
     .heightIs(36)
     ;
     [copyBtn setSd_cornerRadius:@18];
     copyBtn.backgroundColor = HexColor(#2790F6);
-    [copyBtn setNormalTitle:@"复制链接"];
+    [copyBtn setNormalTitle:@"复制文字+链接"];
     [copyBtn setNormalTitleColor:WhiteColor];
     [copyBtn setBtnFont:PFFontR(15)];
     
@@ -105,6 +119,21 @@ static CGFloat anumationTime = 0.3;
         
         pasteboard.string = AppendingString(noticeView.text,shareLaebl.text);
         GGLog(@"加密链接：%@",shareUrl);
+        LRToast(@"已复制");
+        
+        [UIView animateWithDuration:anumationTime animations:^{
+            backView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [backView removeFromSuperview];
+        }];
+    }];
+    
+    [[copyBtn2 rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(backView);
+        
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        
+        pasteboard.string = shareLaebl.text;
         LRToast(@"链接已复制");
         
         [UIView animateWithDuration:anumationTime animations:^{

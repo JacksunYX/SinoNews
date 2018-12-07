@@ -1100,7 +1100,7 @@ CGFloat static attentionBtnH = 26;
 {
     if (indexPath.section == 0) {
         //没有投票才能响应点击事件
-        if (!self.postModel.haveVoted&&!self.postModel.isoVerdue) {
+        if (!self.postModel.postAuthor&&!self.postModel.haveVoted&&!self.postModel.isoVerdue&&!self.postModel.hasExpired) {
             
             VoteChooseInputModel *model = self.postModel.voteSelects[indexPath.row];
             

@@ -2468,15 +2468,15 @@
 		4C13E96320C67263009115C1 /* AddressPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				4C13E96420C67263009115C1 /* CZHAddressPickerView.m */,
 				4C13E96520C67263009115C1 /* AddressPickerHeader.h */,
 				4C13E96620C67263009115C1 /* UIView+CZHExtension.h */,
+				4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */,
 				4C13E96720C67263009115C1 /* UIButton+CZHExtension.h */,
+				4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */,
 				4C13E96820C67263009115C1 /* CZHAddressPickerView.h */,
+				4C13E96420C67263009115C1 /* CZHAddressPickerView.m */,
 				4C21C17620EE2AEC0054F7AE /* Area.plist */,
 				4C13E96920C67263009115C1 /* city.plist */,
-				4C13E96A20C67263009115C1 /* UIView+CZHExtension.m */,
-				4C13E96B20C67263009115C1 /* UIButton+CZHExtension.m */,
 			);
 			path = AddressPickerView;
 			sourceTree = "<group>";
@@ -3709,8 +3709,8 @@
 			isa = PBXGroup;
 			children = (
 				4C6E90CE213F5F06001535CA /* YYClassInfo.h */,
-				4C6E90CF213F5F06001535CA /* NSObject+YYModel.m */,
 				4C6E90D0213F5F06001535CA /* YYClassInfo.m */,
+				4C6E90CF213F5F06001535CA /* NSObject+YYModel.m */,
 				4C6E90D1213F5F06001535CA /* NSObject+YYModel.h */,
 			);
 			path = Model;

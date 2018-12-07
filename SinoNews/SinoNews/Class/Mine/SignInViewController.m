@@ -197,7 +197,7 @@
         UIImageView *userIcon = [UIImageView new];
         
         UILabel *integral = [UILabel new];
-        integral.font = PFFontL(13);
+        integral.font = PFFontM(13);
 //        integral.textColor = RGBA(50, 50, 50, 1);
 //        [integral addTitleColorTheme];
         integral.textColor = HexColor(#323232);

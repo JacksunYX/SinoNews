@@ -351,9 +351,9 @@
     UITableViewCell *cell;
     if (indexPath.section == 0) {
         ForumDetailTableViewCell *cell0 = (ForumDetailTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumDetailTableViewCellID];
-        SectionNoticeModel *noticeModel = self.noticesArr[indexPath.row];
+        NSDictionary *noticeModel = self.noticesArr[indexPath.row];
         NSMutableDictionary *dic = [NSMutableDictionary new];
-        dic[@"content"] = noticeModel.content;
+        dic[@"content"] = noticeModel[@"content"];
         dic[@"label"] = @"公告";
         [cell0 setData:dic];
         cell = cell0;
@@ -420,8 +420,58 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        SectionNoticeModel *noticeModel = self.noticesArr[indexPath.row];
-        [[UIApplication sharedApplication] openURL:UrlWithStr(noticeModel.url)];
+        NSDictionary *noticeModel = self.noticesArr[indexPath.row];
+        NSString *param = noticeModel[@"param"];
+        NSInteger type = [noticeModel[@"type"] integerValue];
+        UIViewController *pushVC;
+        switch (type) {
+            case 101:   //普通新闻
+            {
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = param.integerValue;
+                pushVC = ndVC;
+            }
+                break;
+            case 102:   //问答
+            {
+                CatechismViewController *cVC = [CatechismViewController new];
+                cVC.news_id = param.integerValue;
+                pushVC = cVC;
+            }
+                break;
+            case 103:   //投票
+            {
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = param.integerValue;
+                ndVC.isVote = YES;
+                pushVC = ndVC;
+            }
+                break;
+            case 201:   //普通帖子
+            {
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = param.integerValue;
+                pushVC = tpdVC;
+            }
+                break;
+            case 202:   //投票帖子
+            {
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = param.integerValue;
+                pushVC = tvpdVC;
+            }
+                break;
+            case 301:   //外链
+            {
+                [[UIApplication sharedApplication] openURL:UrlWithStr(param)];
+                return;
+            }
+                
+            default:
+                break;
+        }
+        [self.navigationController pushViewController:pushVC animated:YES];
+        
     }else if (indexPath.section == 1||indexPath.section == 2) {
         SeniorPostDataModel *model;
         if (indexPath.section == 1) {
@@ -462,7 +512,7 @@
     [HttpRequest getWithURLString:ListTopPostForSection parameters:@{@"sectionId":@(_sectionId)} success:^(id responseObject) {
         HiddenHudOnly;
         NSDictionary *dic = responseObject[@"data"];
-        self.noticesArr = [SectionNoticeModel mj_objectArrayWithKeyValuesArray:dic[@"notices"]];
+        self.noticesArr = dic[@"notices"];
         self.topsArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:dic[@"tops"]];
         self.sectionsArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:dic[@"sections"]];
         //自己拼接一个全部

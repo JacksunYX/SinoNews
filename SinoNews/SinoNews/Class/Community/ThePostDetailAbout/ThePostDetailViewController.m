@@ -113,7 +113,7 @@ CGFloat static attentionBtnH = 26;
 {
     [super viewDidLoad];
     self.navigationItem.title = @"帖子加载中...";
-    
+    [self setBaseUI];
     [self requestPost_browsePost];
 }
 
@@ -168,7 +168,7 @@ CGFloat static attentionBtnH = 26;
     [self.view addSubview:_tableView];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-//    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedRowHeight = 0;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView.sd_layout
@@ -300,7 +300,6 @@ CGFloat static attentionBtnH = 26;
     tpcpVC.refreshBlock = ^{
         //刷新评论
         [self requestListPostComments:1];
-//        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
     };
     [self.navigationController pushViewController:tpcpVC animated:YES];
 }
@@ -1101,7 +1100,6 @@ CGFloat static attentionBtnH = 26;
             }
         }
         [self setNavigationBtns];
-        [self setBaseUI];
         [self setTitle];
         [self setNaviTitle];
         [self setBottomView];
@@ -1154,6 +1152,7 @@ CGFloat static attentionBtnH = 26;
             LRToast(@"点赞成功");
             self.postModel.hasPraised = !self.postModel.hasPraised;
             self.postModel.praiseCount ++;
+            [self.tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationFade];
             [self setBottomView];
         }else if (praiseType == 10) {   //帖子评论
             PostReplyModel *replyModel = self.commentsArr[row];
@@ -1165,8 +1164,9 @@ CGFloat static attentionBtnH = 26;
                 LRToast(@"点赞已取消");
                 replyModel.likeNum --;
             }
+            [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationFade];
         }
-        [self.tableView reloadData];
+        
     } failure:nil RefreshAction:^{
         [self requestPost_browsePost];
     }];
@@ -1206,7 +1206,7 @@ CGFloat static attentionBtnH = 26;
         self.commentsArr = [self.tableView pullWithPage:page data:commentArr dataSource:self.commentsArr];
         self.currPage = page;
         [self setUpPageBtn];
-        [self.tableView reloadData];
+        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationFade];
     } failure:^(NSError *error) {
         HiddenHudOnly;
         [self.tableView endAllRefresh];

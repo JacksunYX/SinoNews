@@ -55,7 +55,7 @@
     label.font = [UIFont boldSystemFontOfSize:fontSize*3];;
     label.textAlignment = NSTextAlignmentCenter;
     label.clipsToBounds = YES;
-    label.layer.cornerRadius = 3*3;
+    label.layer.cornerRadius = 3*cornerSize;
     //调用方法，转化成Image
     UIImage *image = [UIImage imageWithUIView:label];
     //创建Image的富文本格式

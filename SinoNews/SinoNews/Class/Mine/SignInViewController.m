@@ -240,7 +240,7 @@
         [integral setSingleLineAutoResizeWithMaxWidth:150];
         NSString *integralStr1 = @"";
         NSString *integralStr2 = [NSString stringWithFormat:@"%ld",[self.data[@"totalPoints"] integerValue]];
-        NSMutableAttributedString *integralAtt1 = [NSString leadString:integralStr1 tailString:integralStr2 font:PFFontR(24) color:HexColor(#F25747) lineBreak:NO];
+        NSMutableAttributedString *integralAtt1 = [NSString leadString:integralStr1 tailString:integralStr2 font:PFFontR(24) color:HexColor(#ff3722) lineBreak:NO];
         NSString *integralStr3 = @" 积分";
         NSMutableAttributedString *integralAtt2 = [[NSMutableAttributedString alloc]initWithString:integralStr3];
         [integralAtt1 appendAttributedString:integralAtt2];
@@ -481,11 +481,11 @@
         
         NSString *str1 = @"今日已领";
         NSString *str2 = [NSString stringWithFormat:@" %ld ",self.taskModel.receivedPoints];
-        NSMutableAttributedString *att1 = [NSString leadString:str1 tailString:str2 font:PFFontL(14) color:RGBA(242, 87, 71, 1) lineBreak:NO];
+        NSMutableAttributedString *att1 = [NSString leadString:str1 tailString:str2 font:PFFontL(14) color:HexColor(#ff3722) lineBreak:NO];
         
         NSString *str3 = @"积分，还有";
         NSString *str4 = [NSString stringWithFormat:@" %ld ",self.taskModel.remainingPoints];;
-        NSMutableAttributedString *att2 = [NSString leadString:str3 tailString:str4 font:PFFontL(14) color:RGBA(242, 87, 71, 1) lineBreak:NO];
+        NSMutableAttributedString *att2 = [NSString leadString:str3 tailString:str4 font:PFFontL(14) color:HexColor(#ff3722) lineBreak:NO];
         
         NSString *str5 = @"积分可领";
         NSMutableAttributedString *att3 = [[NSMutableAttributedString alloc]initWithString:str5];
@@ -600,7 +600,7 @@
     [taskTitle setSingleLineAutoResizeWithMaxWidth:ScreenW - 140];
     NSString *str1 = GetSaveString(taskModel.taskName);
     NSString *str2 = [NSString stringWithFormat:@"  +%ld积分 ",taskModel.taskPoints];
-    NSMutableAttributedString *att = [NSString leadString:str1 tailString:str2 font:PFFontR(15) color:HexColor(#F25747) lineBreak:NO];
+    NSMutableAttributedString *att = [NSString leadString:str1 tailString:str2 font:PFFontM(15) color:HexColor(#ff3722) lineBreak:NO];
     taskTitle.attributedText = att;
     
     taskDone.sd_layout
@@ -628,8 +628,8 @@
         taskAward.layer.borderColor = HexColor(#989898).CGColor;
     }else{
         taskAward.text = @"去完成";
-        taskAward.textColor = HexColor(#F25747);
-        taskAward.layer.borderColor = HexColor(#F25747).CGColor;
+        taskAward.textColor = HexColor(#ff3722);
+        taskAward.layer.borderColor = HexColor(#ff3722).CGColor;
         @weakify(self);
         [taskAward whenTap:^{
             @strongify(self);
@@ -644,6 +644,8 @@
                 return ;
                 [keyVC setSelectedIndex:3];
                 [ivC setSelectIndex:2];
+            }else if ([taskModel.taskIcon containsString:@"post"]){
+                [keyVC setSelectedIndex:0];
             }else{
                 [keyVC setSelectedIndex:0];
             }

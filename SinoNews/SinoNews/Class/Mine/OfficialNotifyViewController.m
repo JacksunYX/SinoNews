@@ -43,7 +43,7 @@
                             @"user_icon",
                             ];
         NSArray *content = @[
-                             @"你好，欢迎来到启世录，我 是启世录小助手！在使用启世录的过程中有任何问题，都可以在这里进行咨询，我会第一时间帮助您解决，祝您在启世录玩的开心愉快！",
+                             @"你好，欢迎来到名利场，我 是名利场小助手！在使用名利场的过程中有任何问题，都可以在这里进行咨询，我会第一时间帮助您解决，祝您在名利场玩的开心愉快！",
                              @"你好",
                              @"测试一下没有时间",
                              @"测试一下没有时间",
@@ -77,7 +77,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"启世录官方";
+    self.navigationItem.title = @"名利场官方";
     self.view.backgroundColor = WhiteColor;
     [self addTableView];
 }

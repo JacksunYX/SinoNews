@@ -133,7 +133,7 @@ static int tag = 15532;
     .heightIs(14)
     ;
     [subTitle setSingleLineAutoResizeWithMaxWidth:250];
-    subTitle.text = @"99%的启世录已更新，就等您哟";
+    subTitle.text = @"99%的名利场已更新，就等您哟";
     
     /*
     NSString *str1 = @"发现新版本 ";

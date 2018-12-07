@@ -165,7 +165,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"启世录";
+    self.navigationItem.title = @"名利场";
     
     [self setNaviTitle];
     [self showTopLine];
@@ -269,7 +269,7 @@
         .heightIs(30)
         ;
         [username setSingleLineAutoResizeWithMaxWidth:120];
-        username.text = @"启世录TOPS";
+        username.text = @"名利场TOPS";
         
 //        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
         

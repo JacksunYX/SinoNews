@@ -1028,7 +1028,7 @@ CGFloat static attentionBtnH = 26;
         .bottomSpaceToView(footView, 10)
         ;
         [notice setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
-        notice.text = @"启世录好帖子，需要你勤劳的小手指";
+        notice.text = @"名利场好帖子，需要你勤劳的小手指";
         
     }
     

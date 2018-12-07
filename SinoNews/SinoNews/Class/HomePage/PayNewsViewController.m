@@ -296,7 +296,7 @@ static CGFloat topHeight = 235;
         .autoHeightRatio(0)
         ;
         [noticeLabel setMaxNumberOfLinesToShow:4];
-        noticeLabel.text = @"本文来自启世录资讯付费文章，覆盖投资精英必读核心资讯，请付费阅读。欢迎关注环球国际时报，实时了解最新资讯。";
+        noticeLabel.text = @"本文来自名利场资讯付费文章，覆盖投资精英必读核心资讯，请付费阅读。欢迎关注环球国际时报，实时了解最新资讯。";
         
         moreNotice.sd_layout
         .bottomSpaceToView(headView, 50)

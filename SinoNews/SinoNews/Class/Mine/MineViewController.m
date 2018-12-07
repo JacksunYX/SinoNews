@@ -1091,13 +1091,13 @@ void shakerAnimation (UIView *view ,NSTimeInterval duration,float height){
     if (type == MGShareToSina) {
         //如果分享类型是图文，就一定要给图片或者图片链接，无效或为空都是无法分享的
         shareModel.contentType = MGShareContentTypeText;
-        shareModel.content = AppendingString(@"启世录", shareUrl);
+        shareModel.content = AppendingString(@"名利场", shareUrl);
         
 //        shareModel.thumbImage = [UIImage imageNamed:@""];
 //        shareModel.image = @"xxx";
     }else{
         shareModel.contentType = MGShareContentTypeWebPage;
-        shareModel.title = @"启世录";
+        shareModel.title = @"名利场";
         shareModel.url = shareUrl;
         shareModel.content = @"";
         shareModel.thumbImage = UIImageNamed(@"AppIcon");

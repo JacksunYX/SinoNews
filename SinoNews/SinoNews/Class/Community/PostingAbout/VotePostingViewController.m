@@ -92,7 +92,7 @@ static NSInteger limitMaxNum = 20;
         .rightEqualToView(_headView)
         .bottomEqualToView(_headView)
         ;
-        _contentView.placeholderText = @"填写投票描述，详细的描述会让更多的启世录用户参与投票哦～";
+        _contentView.placeholderText = @"填写投票描述，详细的描述会让更多的名利场用户参与投票哦～";
         _contentView.placeholderTextColor = HexColor(#B9C3C7);
         _contentView.placeholderFont = PFFontL(15);
         

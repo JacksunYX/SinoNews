@@ -1494,7 +1494,7 @@ CGFloat static attentionBtnH = 26;
         .bottomSpaceToView(headView, 10)
         ;
         [notice setSingleLineAutoResizeWithMaxWidth:ScreenW - 20];
-        notice.text = @"启世录好文章，需要你勤劳的小手指";
+        notice.text = @"名利场好文章，需要你勤劳的小手指";
         
     }else if (section == 1&&self.newsModel.relatedNews.count&&!NoPayedNews) {
         headView = [UIView new];

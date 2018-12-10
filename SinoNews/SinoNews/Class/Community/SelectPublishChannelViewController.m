@@ -62,12 +62,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addNavigationView];
-    [self setUI];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
+        @strongify(self);
+        ShowHudOnly;
+        [self requestListMainSection];
+    }];
+    [self requestListMainSection];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//    [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 //修改导航栏显示
@@ -96,6 +102,9 @@
 
 -(void)setUI
 {
+    if (_leftTable) {
+        return;
+    }
     CGFloat avgW = ScreenW *(1.0/3);
     _leftTable = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _leftTable.backgroundColor = HexColor(#EEEEEE);
@@ -149,24 +158,17 @@
 }
 
 #pragma mark --- UITableViewDataSource
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == _leftTable) {
-        NSMutableArray *arr1 = self.dataSource[0];
-        return arr1.count;
+        return self.dataSource.count;
     }
-    if (tableView == _centerTable) {
-        NSMutableArray *arr2 = self.dataSource[1];
-        return arr2.count;
+    if (tableView == _centerTable&&self.dataSource.count>0) {
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        return model.subSections.count;
     }
     if (tableView == _rightTable) {
-        NSMutableArray *arr3 = self.dataSource[2];
-        return arr3.count;
+        return 0;
     }
     return 0;
 }
@@ -176,22 +178,22 @@
     UITableViewCell *cell;
     if (tableView == _leftTable) {
         ForumLeftTableViewCell *cell0 = (ForumLeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ForumLeftTableViewCellID];
-        NSMutableArray *arr1 = self.dataSource[0];
-        NSString *title = arr1[indexPath.row];
-        [cell0 setTitle:title];
+        MainSectionModel *model = self.dataSource[indexPath.row];
+        [cell0 setTitle:model.name];
         cell = cell0;
     }else if (tableView == _centerTable) {
         SelectPublishChannelCell *cell1 = (SelectPublishChannelCell *)[tableView dequeueReusableCellWithIdentifier:SelectPublishChannelCellID];
         cell1.type = 1;
-        NSMutableArray *arr2 = self.dataSource[1];
-        NSString *title = arr2[indexPath.row];
-        [cell1 setTitle:title];
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        MainSectionModel *model2 = model.subSections[indexPath.row];
+        [cell1 setTitle:model2.name];
         cell = cell1;
     }else if (tableView == _rightTable) {
         SelectPublishChannelCell *cell2 = (SelectPublishChannelCell *)[tableView dequeueReusableCellWithIdentifier:SelectPublishChannelCellID];
-        NSMutableArray *arr3 = self.dataSource[2];
-        NSString *title = arr3[indexPath.row];
-        [cell2 setTitle:title];
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        MainSectionModel *model2 = model.subSections[indexPath.row];
+        MainSectionModel *model3 = model2.subSections[indexPath.row];
+        [cell2 setTitle:model3.name];
         cell = cell2;
     }
     
@@ -217,21 +219,74 @@
 {
     
     if (tableView == _leftTable) {
-        if (self.leftSelectedIndex == indexPath.row) {
-            return;
-        }
+
         self.leftSelectedIndex = indexPath.row;
         
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }else if (tableView == _centerTable){NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [self selectSecondView:0];
+        
+    }else if (tableView == _centerTable){
+
+        self.centerSelectedIndex = indexPath.row;
+        [self selectThirdView:0];
+    }else if (tableView == _rightTable){
+        [self selectThirdView:indexPath.row];
     }
-    
 }
 
+//选中二级的某个cell
+-(void)selectSecondView:(NSInteger)index
+{
+    MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+    if (model.subSections.count<=0) {
+        [self requestListSubSection:model];
+    }else{
+        [_centerTable reloadData];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        
+        [self selectThirdView:0];
+    }
+}
+
+//选中三级的某个cell
+-(void)selectThirdView:(NSInteger)index
+{
+    [_rightTable reloadData];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+}
+
+
 #pragma mark --请求
+//请求主版块数据
+-(void)requestListMainSection
+{
+    [self.view ly_startLoading];
+    [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+        self.dataSource = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [self setUI];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+    }];
+}
+
+//请求二级版块数据
+-(void)requestListSubSection:(MainSectionModel *)model
+{
+    [HttpRequest getWithURLString:ListSubSection parameters:@{@"sectionId":@(model.sectionId)} success:^(id responseObject) {
+        NSArray *subListArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        model.subSections = subListArr.mutableCopy;
+        
+        [self selectSecondView:0];
+    } failure:^(NSError *error) {
+        [self.centerTable reloadData];
+    }];
+}
+
 //发表帖子
 -(void)requestPublishPost
 {

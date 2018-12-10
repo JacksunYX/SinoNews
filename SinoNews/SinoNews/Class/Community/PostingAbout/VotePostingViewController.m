@@ -276,9 +276,14 @@ static NSInteger limitMaxNum = 20;
     self.voteModel.validityDate = [_validTime substringToIndex:_validTime.length - 1].integerValue;
     self.voteModel.visibleAfterVote = _isVisible;
     
-    ForumViewController *fVC = [ForumViewController new];
-    fVC.postModel = self.voteModel;
-    [self.navigationController pushViewController:fVC animated:YES];
+//    ForumViewController *fVC = [ForumViewController new];
+//    fVC.postModel = self.voteModel;
+//    [self.navigationController pushViewController:fVC animated:YES];
+    
+    //跳转到单独的三级版块选择界面
+    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
+    spcVC.postModel = self.voteModel;
+    [self.navigationController pushViewController:spcVC animated:YES];
 }
 
 -(void)setUI

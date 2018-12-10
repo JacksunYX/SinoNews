@@ -20,7 +20,7 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger leftSelectedIndex;
 @property (nonatomic,assign) NSInteger centerSelectedIndex;
-@property (nonatomic,assign) NSInteger sectionId;
+
 @property (nonatomic,strong) UIButton *publishBtn;
 
 @end
@@ -87,10 +87,11 @@
 
 -(void)publishAction:(UIButton *)sender
 {
-    LRToast(@"发表中...");
-    if (_sectionId) {
-        [self requestPublishPost];
+    if (self.postModel.sectionId == 0) {
+        LRToast(@"没有选择版块哟");
+        return;
     }
+    [self requestPublishPost];
 }
 
 -(void)setUI
@@ -235,12 +236,29 @@
 -(void)requestPublishPost
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"postModel"] = [self.postModel mj_JSONString];
+    
+    NSMutableDictionary *dic = [self.postModel mj_JSONObject];
+    NSMutableArray *dataSource = dic[@"dataSource"];
+    for (int i = 0; i < dataSource.count; i ++) {
+        NSMutableDictionary *item = dataSource[i];
+        if (item[@"imageData"]) {
+            [item removeObjectForKey:@"imageData"];
+        }
+        if (item[@"videoData"]){
+            [item removeObjectForKey:@"videoData"];
+        }
+    }
+    parameters[@"postModel"] = [dic mj_JSONString];
     
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"发帖成功");
+        //记得要从本地草稿箱移除
+        [SeniorPostDataModel remove:self.postModel];
+        if (self.refreshCallBack) {
+            self.refreshCallBack();
+        }
         GCDAfterTime(1, ^{
-            
+            [self dismissViewControllerAnimated:NO completion:nil];
         });
     } failure:nil RefreshAction:nil];
 }

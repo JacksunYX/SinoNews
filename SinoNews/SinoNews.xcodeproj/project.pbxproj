@@ -12,6 +12,8 @@
 		4C02F906218AE4A800CB0169 /* ForumDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F905218AE4A800CB0169 /* ForumDetailTableViewCell.m */; };
 		4C03F5302101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
+		4C09D9C721BDF7FA00E6CBE5 /* ToReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09D9C621BDF7FA00E6CBE5 /* ToReportViewController.m */; };
+		4C09D9CA21BDFB8300E6CBE5 /* ToReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09D9C921BDFB8300E6CBE5 /* ToReportTableViewCell.m */; };
 		4C1227D221AFDC0A00E19AD4 /* CharacterLocationSeeker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */; };
 		4C1227D321AFDC0A00E19AD4 /* CharacterLocationSeeker_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */; };
 		4C1227DC21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */; };
@@ -893,6 +895,10 @@
 		4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		4C03F5342101DE5900574136 /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
 		4C03F5352101DE5900574136 /* ArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
+		4C09D9C521BDF7FA00E6CBE5 /* ToReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToReportViewController.h; sourceTree = "<group>"; };
+		4C09D9C621BDF7FA00E6CBE5 /* ToReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToReportViewController.m; sourceTree = "<group>"; };
+		4C09D9C821BDFB8300E6CBE5 /* ToReportTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToReportTableViewCell.h; sourceTree = "<group>"; };
+		4C09D9C921BDFB8300E6CBE5 /* ToReportTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToReportTableViewCell.m; sourceTree = "<group>"; };
 		4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterLocationSeeker.m; sourceTree = "<group>"; };
 		4C1227CF21AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker_TextView.h; sourceTree = "<group>"; };
 		4C1227D021AFDC0900E19AD4 /* CharacterLocationSeeker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker.h; sourceTree = "<group>"; };
@@ -3527,6 +3533,8 @@
 				4CF1A7F4219C491B0031B1A9 /* SelectCommentPageView.m */,
 				4CF1A7FC219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.h */,
 				4CF1A7FD219D5C6C0031B1A9 /* VoteDetailChooseTableViewCell.m */,
+				4C09D9C821BDFB8300E6CBE5 /* ToReportTableViewCell.h */,
+				4C09D9C921BDFB8300E6CBE5 /* ToReportTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4895,6 +4903,8 @@
 				4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */,
 				4C8D5C3B219AC6EC008C13A9 /* PreviewViewController.h */,
 				4C8D5C3C219AC6EC008C13A9 /* PreviewViewController.m */,
+				4C09D9C521BDF7FA00E6CBE5 /* ToReportViewController.h */,
+				4C09D9C621BDF7FA00E6CBE5 /* ToReportViewController.m */,
 				4CF1A7E2219BB9380031B1A9 /* ThePostDetailAbout */,
 				4CF35CAA218BE3690064B1BA /* PostingAbout */,
 				4CDC73F3219149530079EB3E /* Model */,
@@ -5777,6 +5787,7 @@
 				4C6B4E4C20EB11A400BA0534 /* PraisePopView.m in Sources */,
 				4C8D5C40219AC986008C13A9 /* SeniorPostDataModel.m in Sources */,
 				4C1C2E0220DBD64C00F0ABED /* HomePageFourthCell.m in Sources */,
+				4C09D9C721BDF7FA00E6CBE5 /* ToReportViewController.m in Sources */,
 				4C6E9187213F5F07001535CA /* UIView+YYAdd.m in Sources */,
 				4C6E9171213F5F07001535CA /* YYTextLine.m in Sources */,
 				4C4C95A4218FF29200627B07 /* TZImageCropManager.m in Sources */,
@@ -6067,6 +6078,7 @@
 				4CE121D420C0148700A44782 /* NSObject+DLClass.m in Sources */,
 				4CAD57642194225000BD77E0 /* WTEmoticonInputView.m in Sources */,
 				4C93497620CF77A300BD8F07 /* FeedbackViewController.m in Sources */,
+				4C09D9CA21BDFB8300E6CBE5 /* ToReportTableViewCell.m in Sources */,
 				4CB46B9621894BEE00EF6A79 /* PostDraftTableViewCell.m in Sources */,
 				4C6E916C213F5F07001535CA /* YYTextMagnifier.m in Sources */,
 				4C7234D720FDEB1D00D5C5D4 /* AADataLabels.m in Sources */,

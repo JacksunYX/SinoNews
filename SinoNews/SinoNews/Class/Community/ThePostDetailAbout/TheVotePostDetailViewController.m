@@ -9,6 +9,8 @@
 
 #import "TheVotePostDetailViewController.h"
 
+#import "ToReportViewController.h"
+
 #import "VoteDetailChooseTableViewCell.h"
 
 @interface TheVotePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>

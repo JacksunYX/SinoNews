@@ -145,9 +145,14 @@
     
     
 //    GGLog(@"快速发帖内容展示：%@",self.postModel);
-    ForumViewController *fvVC = [ForumViewController new];
-    fvVC.postModel = self.postModel;
-    [self.navigationController pushViewController:fvVC animated:YES];
+//    ForumViewController *fvVC = [ForumViewController new];
+//    fvVC.postModel = self.postModel;
+//    [self.navigationController pushViewController:fvVC animated:YES];
+    
+    //跳转到单独的三级版块选择界面
+    SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
+    spcVC.postModel = self.postModel;
+    [self.navigationController pushViewController:spcVC animated:YES];
 }
 
 -(void)back

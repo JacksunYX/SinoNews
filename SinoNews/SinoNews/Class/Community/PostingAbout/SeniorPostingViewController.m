@@ -296,16 +296,28 @@
                 LRToast(@"内容不能空缺哦");
             }else{
                 //跳转到详情页测试
-                ForumViewController *pVC = [ForumViewController new];
-                pVC.postModel = self.postModel;
+//                ForumViewController *pVC = [ForumViewController new];
+//                pVC.postModel = self.postModel;
+//                @weakify(self);
+//                pVC.refreshCallBack = ^{
+//                    @strongify(self);
+//                    if (self.refreshCallBack) {
+//                        self.refreshCallBack();
+//                    }
+//                };
+//                [self.navigationController pushViewController:pVC animated:YES];
+                
+                //跳转到单独的三级版块选择界面
+                SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
+                spcVC.postModel = self.postModel;
                 @weakify(self);
-                pVC.refreshCallBack = ^{
+                spcVC.refreshCallBack = ^{
                     @strongify(self);
                     if (self.refreshCallBack) {
                         self.refreshCallBack();
                     }
                 };
-                [self.navigationController pushViewController:pVC animated:YES];
+                [self.navigationController pushViewController:spcVC animated:YES];
             }
             
         }

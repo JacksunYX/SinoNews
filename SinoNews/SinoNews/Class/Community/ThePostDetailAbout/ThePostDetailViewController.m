@@ -8,7 +8,7 @@
 
 #import "ThePostDetailViewController.h"
 
-
+#import "ToReportViewController.h"
 
 @interface ThePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -879,7 +879,9 @@ CGFloat static attentionBtnH = 26;
     @weakify(self);
     UIAlertAction *report = [UIAlertAction actionWithTitle:@"举报" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         @strongify(self);
-        [self requestReportThePost];
+        ToReportViewController *tpVC = [ToReportViewController new];
+        tpVC.postModel = self.postModel;
+        [self.navigationController pushViewController:tpVC animated:YES];
     }];
     [alertVC addAction:cancel];
     [alertVC addAction:report];
@@ -1232,10 +1234,6 @@ CGFloat static attentionBtnH = 26;
     } RefreshAction:nil];
 }
 
-//举报帖子
--(void)requestReportThePost
-{
-    
-}
+
 
 @end

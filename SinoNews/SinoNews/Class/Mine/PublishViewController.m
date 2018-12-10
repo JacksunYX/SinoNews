@@ -95,14 +95,14 @@
 
 -(void)selectArticleType
 {
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"是否要发布付费文章?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"选择发布新闻类型" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"普通新闻" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         PublishArticleViewController *paVC = [PublishArticleViewController new];
         [self.navigationController pushViewController:paVC animated:YES];
     }];
     
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"付费新闻" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         PublishArticleViewController *paVC = [PublishArticleViewController new];
         paVC.isPayArticle = YES;
         [self.navigationController pushViewController:paVC animated:YES];

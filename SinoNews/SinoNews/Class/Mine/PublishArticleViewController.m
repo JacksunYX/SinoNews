@@ -394,7 +394,7 @@
             wgrteFirstVC.hiddenTitle = YES;
         }
         wgrteFirstVC.disableEdit = YES;
-        wgrteFirstVC.content = @"免费部分";
+        wgrteFirstVC.content = @"免费内容部分";
     }
     
     [self addChildViewController:wgrteFirstVC];
@@ -441,7 +441,7 @@
     wgrteSecondVC.hiddenTitle = YES;
     
     wgrteSecondVC.disableEdit = YES;
-    wgrteSecondVC.content = @"付费部分";
+    wgrteSecondVC.content = @"付费内容部分";
     [self addChildViewController:wgrteSecondVC];
     
     [self.view addSubview:wgrteSecondVC.view];

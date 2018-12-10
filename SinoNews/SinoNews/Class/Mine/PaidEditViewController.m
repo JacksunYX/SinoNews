@@ -48,14 +48,17 @@
     @weakify(self);
     [rightBtn whenTap:^{
         @strongify(self);
-        if ([NSString isEmpty:[self->wgrteVC contentH5]]) {
-            LRToast(@"必须要有文字内容哦");
-            return ;
-        }else{
+        NSString *contentH5 = [self->wgrteVC contentH5];
+        NSString *content = [self->wgrteVC contentNoH5];
+        //纯文本不为空或者h5内容包含图片的标签,才说明有输入内容
+        if (![NSString isEmpty:content]||[contentH5 containsString:@"<img"]) {
             if (self.editBlock) {
                 self.editBlock([self->wgrteVC contentH5]);
             }
             [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            LRToast(@"必须要有文字内容哦");
+            return ;
         }
     }];
     [rightBtn addSubview:editBtn];

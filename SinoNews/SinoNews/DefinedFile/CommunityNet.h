@@ -60,4 +60,10 @@
 //投票(get)
 #define Post_doVote @"/api/post/doVote"
 
+//举报帖子关键字列表(get)
+#define ReportListKeyword @"/api/post/listKeyword"
+//举报帖子(post)
+#define ReportAlarmPost @"/api/post/alarmPost"
+
+
 #endif /* CommunityNet_h */

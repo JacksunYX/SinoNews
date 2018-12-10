@@ -22,7 +22,6 @@
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
-        
     }
     return _dataSource;
 }
@@ -31,6 +30,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"举报原因";
     [self addNavigationView];
+    [self requestReportListKeyword];
     [self setUI];
 }
 
@@ -56,7 +56,7 @@
     _tableView.delegate = self;
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _tableView.separatorColor = CutLineColorNight;
+    _tableView.separatorColor = CutLineColor;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:_tableView];
     _tableView.sd_layout
@@ -66,12 +66,7 @@
     [_tableView registerClass:[ToReportTableViewCell class] forCellReuseIdentifier:ToReportTableViewCellID];
     //设置可选
     _tableView.allowsMultipleSelectionDuringEditing = YES;
-    
-    GCDAfterTime(1, ^{
-        self.tableView.editing = YES;
-        //这里设置编辑状态后，必须要刷新，不然自定义的选择图标不会马上显示出来
-        [self.tableView reloadData];
-    });
+    self.tableView.hidden = YES;
 }
 
 //提交操作
@@ -80,23 +75,25 @@
     if (!_lastIndex) {
         LRToast(@"请选择举报原因");
     }else{
-        [self requestReportThePost];
+        NSDictionary *model = self.dataSource[_lastIndex.row];
+        NSInteger indexId = [model[@"keywordId"] integerValue];
+        [self requestReportAlarmPostWithindexId:indexId];
     }
 }
 
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
-//    return self.dataSource.count;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ToReportTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ToReportTableViewCellID];
+    NSDictionary *model = self.dataSource[indexPath.row];
     cell.textLabel.font = PFFontL(15);
     cell.textLabel.textColor = HexColor(#161A24);
-    cell.textLabel.text = [NSString stringWithFormat:@"这是第%ld条举报原因",indexPath.row];
+    cell.textLabel.text = GetSaveString(model[@"keyword"]);
     [cell addBakcgroundColorTheme];
     return cell;
 }
@@ -123,10 +120,37 @@
     }
 }
 
-//举报帖子
--(void)requestReportThePost
+#pragma mark--请求
+-(void)requestReportListKeyword
 {
+    [HttpRequest getWithURLString:ReportListKeyword parameters:nil success:^(id responseObject) {
+        self.dataSource = responseObject[@"data"];
+        
+        if (self.dataSource.count>0) {
+            [self.tableView reloadData];
+            GCDAfterTime(1, ^{
+                self.tableView.editing = YES;
+                [self.tableView reloadData];
+                self.tableView.hidden = NO;
+            });
+        }
+        
+    } failure:nil];
+}
+
+//举报帖子
+-(void)requestReportAlarmPostWithindexId:(NSInteger)keyId
+{
+    NSMutableDictionary *parameters = @{}.mutableCopy;
+    parameters[@"postId"] = @(self.postModel.postId);
+    parameters[@"keywordId"] = @(keyId);
     
+    [HttpRequest postWithURLString:ReportAlarmPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"举报成功");
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    } failure:nil RefreshAction:nil];
 }
 
 @end

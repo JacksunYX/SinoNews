@@ -213,10 +213,11 @@ NSString *const Mine2FirstTableViewCellID = @"Mine2FirstTableViewCellID";
     icon.image = UIImageNamed(@"little_ arrow");
 }
 
--(void)setData:(NSDictionary *)data
+-(void)setModel:(DailyTaskModel *)model
 {
-    leftInteger.text = data[@"haveGet"];
-    centerInteger.text = data[@"canGet"];
+    _model = model;
+    leftInteger.text = [NSString stringWithFormat:@"%ld",model.receivedPoints];
+    centerInteger.text = [NSString stringWithFormat:@"%ld",model.remainingPoints];
 }
 
 @end

@@ -25,6 +25,8 @@
 #define Mall_exchangeRecord @"/api/mall/exchangeRecord"
 //积分充值(post)
 #define Mall_recharge   @"/api/mall/recharge"
+//积分兑现(post)
+#define ApplyWithdraw   @"/api/user/applyWithdraw"
 
 
 #endif /* IntegralNet_h */

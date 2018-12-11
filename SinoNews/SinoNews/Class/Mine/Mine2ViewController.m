@@ -18,9 +18,11 @@
 #import "MyCollectViewController.h"
 #import "MyPostViewController.h"
 
+
 #import "StoreViewController.h"
 #import "GameViewController.h"
 #import "RechargeViewController.h"
+#import "PointsViewController.h"
 #import "ManagerViewController.h"
 
 #import "Mine2FirstTableViewCell.h"
@@ -48,7 +50,7 @@
 @property (nonatomic ,strong) UIButton *attention;   //关注
 @property (nonatomic ,strong) UIButton *praise;      //获赞
 @property (nonatomic ,strong) UIButton *fans;        //粉丝
-
+@property (nonatomic,strong) DailyTaskModel *taskModel;     //任务模型
 @property (nonatomic ,strong) UserModel *user;
 @property (nonatomic ,strong) MineTipsModel *tipsmodel;    //保存提示信息
 @property (nonatomic ,strong) UIView *redNotice;
@@ -179,6 +181,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [self requestToGetUserInfo];
     
     [self requestUser_tips];
+    
+    [self requestUser_getDailyTask];
     
     if (self.user.hasSignIn){
         [shakeImg.layer removeAllAnimations];
@@ -709,8 +713,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     switch (index) {
         case 0:
         {
-            RechargeViewController *rvc = [RechargeViewController new];
-            [self.navigationController pushViewController:rvc animated:YES];
+            PointsViewController *pvc = [PointsViewController new];
+            [self.navigationController pushViewController:pvc animated:YES];
         }
             break;
         case 1:
@@ -738,7 +742,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
 }
 
-
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -760,10 +763,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     @weakify(self);
     if (indexPath.section == 0) {
         Mine2FirstTableViewCell *cell0 = (Mine2FirstTableViewCell *)[tableView dequeueReusableCellWithIdentifier:Mine2FirstTableViewCellID];
-        [cell0 setData:@{
-                         @"canGet"  : @"60",
-                         @"haveGet" : @"33",
-                         }];
+        cell0.model = self.taskModel;
         cell0.clickBlock = ^(NSInteger index) {
             GGLog(@"点击了index:%ld",index);
             @strongify(self);
@@ -938,6 +938,14 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }];
 }
 
-
+//获取每日任务
+-(void)requestUser_getDailyTask
+{
+    [HttpRequest getWithURLString:User_getDailyTask parameters:nil success:^(id responseObject) {
+        self.taskModel = [DailyTaskModel mj_objectWithKeyValues:responseObject[@"data"]];
+        
+        [self.tableView reloadData];
+    } failure:nil];
+}
 
 @end

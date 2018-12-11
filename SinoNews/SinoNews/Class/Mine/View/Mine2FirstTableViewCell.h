@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DailyTaskModel.h"
 
 extern NSString *const Mine2FirstTableViewCellID;
 
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 //点击回调
 @property (nonatomic,copy) void(^clickBlock)(NSInteger index);
 
--(void)setData:(NSDictionary *)data;
+@property (nonatomic,strong) DailyTaskModel *model;
 
 @end
 

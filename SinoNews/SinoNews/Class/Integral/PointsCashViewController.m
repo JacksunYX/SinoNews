@@ -1,15 +1,14 @@
 //
-//  RechargeViewController.m
+//  PointsCashViewController.m
 //  SinoNews
 //
-//  Created by Michael on 2018/6/4.
-//  Copyright © 2018年 Sino. All rights reserved.
+//  Created by Michael on 2018/12/11.
+//  Copyright © 2018 Sino. All rights reserved.
 //
 
-#import "RechargeViewController.h"
+#import "PointsCashViewController.h"
 
-
-@interface RechargeViewController ()<UITextFieldDelegate>
+@interface PointsCashViewController ()<UITextFieldDelegate>
 {
     UIImageView *userIcon;  //头像
     UILabel     *userName;  //昵称
@@ -27,8 +26,7 @@
 
 @end
 
-@implementation RechargeViewController
-
+@implementation PointsCashViewController
 -(NSMutableArray *)rechargeType
 {
     if (!_rechargeType) {
@@ -87,11 +85,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"充值";
-
-    
-    
-//    [self updatePayBtnStatus:0 endEdite:YES];
+    self.navigationItem.title = @"兑现";
     
     //监听登录
     @weakify(self)
@@ -111,11 +105,7 @@
         [self updateDataSource];
     }];
     
-//    if (self.user) {
-//        [self setTopViews];
-//    }else{
-        [self requestToGetUserInfo];
-//    }
+    [self requestToGetUserInfo];
     
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
         @strongify(self);
@@ -166,7 +156,7 @@
     [self.scrollView addGestureRecognizer:tap];
     
     [self setupTopViews];
-//    [self setupCenterViews];
+    //    [self setupCenterViews];
     [self setupBottomViews];
 }
 
@@ -185,7 +175,7 @@
     
     integer = [UILabel new];
     integer.font = FontScale(15);
-//    [integer addContentColorTheme];
+    //    [integer addContentColorTheme];
     integer.textColor = HexColor(#1282EE);
     
     UIView *line = [UIView new];
@@ -209,7 +199,7 @@
     .heightEqualToWidth()
     ;
     [userIcon setSd_cornerRadius:@22];
-//    userIcon.image = UIImageNamed(@"userIcon");
+    //    userIcon.image = UIImageNamed(@"userIcon");
     
     userName.sd_layout
     .leftSpaceToView(userIcon, 7)
@@ -217,7 +207,7 @@
     .heightIs(kScaelW(15))
     ;
     [userName setSingleLineAutoResizeWithMaxWidth:150];
-//    userName.text = @"春风十里不如你";
+    //    userName.text = @"春风十里不如你";
     
     integer.sd_layout
     .rightSpaceToView(_scrollView, 10)
@@ -225,7 +215,7 @@
     .heightIs(kScaelW(14))
     ;
     [integer setSingleLineAutoResizeWithMaxWidth:150];
-//    integer.text = @"1000000积分";
+    //    integer.text = @"1000000积分";
     
     line.sd_layout
     .topSpaceToView(userIcon, 10)
@@ -286,7 +276,7 @@
         [title setImage:UIImageNamed(GetSaveString(dic[@"payImg"])) forState:UIControlStateNormal];
         title.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
         title.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-
+        
         title.frame = CGRectMake(x, y, (ScreenW - 4 * lrMargin)/3, 35);
         [self.scrollView addSubview:title];
         title.layer.cornerRadius = 4;
@@ -324,7 +314,7 @@
 //下部分
 -(void)setupBottomViews
 {
-//    UIButton *lastBtn = (UIButton *)[self.payBtnArr lastObject];
+    //    UIButton *lastBtn = (UIButton *)[self.payBtnArr lastObject];
     UIView *lastBtn = (UIView *)[self.payBtnArr lastObject];
     UILabel *notice = [UILabel new];
     notice.font = FontScale(15);
@@ -338,10 +328,10 @@
     .rightSpaceToView(_scrollView, 10)
     .autoHeightRatio(0)
     ;
-
-    NSString *str1 = @"充值比例： 1元 = ";
-    NSString *integer = @"100";
-    NSString *str2 = @" 积分";
+    
+    NSString *str1 = @"兑换比例： 120积分 = ";
+    NSString *integer = @"1";
+    NSString *str2 = @" 元";
     NSString *totalStr = [[str1 stringByAppendingString:integer] stringByAppendingString:str2];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:totalStr];
     NSDictionary *dic = @{
@@ -384,12 +374,12 @@
     ;
     
     [moneyInput setSd_cornerRadius:@16];
-    NSString *placeholder = @"请输入充值金额";
+    NSString *placeholder = @"请输入需要兑换的金额";
     NSMutableAttributedString *placeholderAtt = [[NSMutableAttributedString alloc]initWithString:placeholder];
     NSDictionary *attDic = @{
-                          NSFontAttributeName : FontScale(15),
-                          NSForegroundColorAttributeName : HexColor(#d1d1d1),
-                          };
+                             NSFontAttributeName : FontScale(15),
+                             NSForegroundColorAttributeName : HexColor(#d1d1d1),
+                             };
     [placeholderAtt addAttributes:attDic range:NSMakeRange(0, placeholder.length)];
     moneyInput.attributedPlaceholder = placeholderAtt;
     
@@ -407,7 +397,7 @@
     
     moneyInput.leftViewMode = UITextFieldViewModeAlways;
     moneyInput.leftView = leftView;
-
+    
     //金额直选
     NSArray *moneyArr = @[
                           @"100",
@@ -422,7 +412,7 @@
     CGFloat btnWid = (ScreenW - 2 * lrMargin - xMargin * (moneyArr.count - 1))/moneyArr.count;
     CGFloat btnHei = 30;
     CGFloat x = lrMargin;
-
+    
     for (int i = 0; i < moneyArr.count; i ++) {
         UIButton *btn = [UIButton new];
         [btn setTitle:moneyArr[i] forState:UIControlStateNormal];
@@ -477,7 +467,7 @@
     
     payBtn.titleLabel.font = Font(16);
     [payBtn setSd_cornerRadius:@20];
-    [payBtn setTitle:@"立即充值" forState:UIControlStateNormal];
+    [payBtn setTitle:@"立即兑换" forState:UIControlStateNormal];
     [self setpayBtnTitleWithString:@""];
     [payBtn addTarget:self action:@selector(goToPay:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -528,7 +518,7 @@
                 moneyBtn.layer.borderColor = HexColor(#cfd3d6).CGColor;
             }else{
                 moneyBtn.layer.borderColor = RGBA(227, 227, 227, 1).CGColor;
-            }   
+            }
         }
     }];
 }
@@ -538,12 +528,12 @@
 {
     NSInteger money = [moneyInput.text integerValue];
     if (!kStringIsEmpty(moneyInput.text)&&money>0) {
-//        NSDictionary *dic = self.rechargeType[payType];
-//        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
-//        LRToast(str);
-        [self requestMall_rechargeWithAmount:[moneyInput.text doubleValue]];
+        //        NSDictionary *dic = self.rechargeType[payType];
+        //        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
+        //        LRToast(str);
+        [self requestexPointExchargeMoney:[moneyInput.text doubleValue]];
     }else{
-        LRToast(@"请填入需要的金额再进行充值");
+        LRToast(@"请输入需要兑换的积分");
     }
     
 }
@@ -566,9 +556,9 @@
     NSInteger money = [GetSaveString(text) integerValue];
     NSString *payStr;
     if (money) {
-        payStr = [NSString stringWithFormat:@"立即充值 %ld 元（%ld 积分）",money,money*100];
+        payStr = [NSString stringWithFormat:@"立即兑换%ld 元（%ld 积分）",money,money*120];
     }else{
-        payStr = @"立即充值";
+        payStr = @"立即兑换";
     }
     [payBtn setTitle:payStr forState:UIControlStateNormal];
 }
@@ -587,41 +577,31 @@
             //覆盖之前保存的信息
             [UserModel coverUserData:model];
             self.user = model;
-//            [self->userIcon sd_setImageWithURL:UrlWithStr(model.avatar)];
-//            self->userName.text = GetSaveString(model.username);
-//            [self->userName updateLayout];
-//            self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
-//            [self->integer updateLayout];
+            //            [self->userIcon sd_setImageWithURL:UrlWithStr(model.avatar)];
+            //            self->userName.text = GetSaveString(model.username);
+            //            [self->userName updateLayout];
+            //            self->integer.text = [NSString stringWithFormat:@"%ld积分",model.integral];
+            //            [self->integer updateLayout];
         }else{
             [UserModel clearLocalData];
-//            [self->userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
-//            self->userName.text = @"";
-//            self->integer.text = @"";
+            //            [self->userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
+            //            self->userName.text = @"";
+            //            self->integer.text = @"";
         }
         [self addViews];
         [self setTopViews];
     } failure:nil];
 }
 
-//积分充值
--(void)requestMall_rechargeWithAmount:(double)amount
+//积分兑换
+-(void)requestexPointExchargeMoney:(double)amount
 {
-    [HttpRequest postWithURLString:Mall_recharge parameters:@{@"amount":@(amount)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        NSString *rechargeUrl = response[@"data"][@"rechargeUrl"];
-        GGLog(@"充值地址：%@",rechargeUrl);
-        NSString *result = [rechargeUrl getUTF8String];
-        NSURL *url = UrlWithStr(result);
-        [[UIApplication sharedApplication] openURL:url];
-        /*
-        WebViewController *wVC = [WebViewController new];
-        wVC.baseUrl = rechargeUrl;
-        [self.navigationController pushViewController:wVC animated:YES];
-        */
-    } failure:^(NSError *error) {
+    [HttpRequest postWithURLString:ApplyWithdraw parameters:@{@"point":@(amount*120)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         
-    } RefreshAction:^{
-        
-    }];
+    } failure:nil RefreshAction:nil];
 }
+
+
+
 
 @end

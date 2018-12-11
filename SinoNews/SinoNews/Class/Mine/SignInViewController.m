@@ -684,7 +684,7 @@
     } failure:nil RefreshAction:nil];
 }
 
-//获取任务列表
+//获取每日任务
 -(void)requestUser_getDailyTask
 {
     [HttpRequest getWithURLString:User_getDailyTask parameters:nil success:^(id responseObject) {

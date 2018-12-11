@@ -227,9 +227,19 @@
     }else if (tableView == _centerTable){
 
         self.centerSelectedIndex = indexPath.row;
-        [self selectThirdView:0];
+        //先判断是否有三级数组
+        MainSectionModel *model = self.dataSource[_leftSelectedIndex];
+        MainSectionModel *model2 = model.subSections[indexPath.row];
+        if (model2.subSections.count>0) {
+            [self selectThirdView:0];
+        }else{
+            self.postModel.sectionId = model2.sectionId;
+        }
     }else if (tableView == _rightTable){
-        [self selectThirdView:indexPath.row];
+        MainSectionModel *model = self.dataSource[_leftSelectedIndex];
+        MainSectionModel *model2 = model.subSections[_centerSelectedIndex];
+        MainSectionModel *model3 = model2.subSections[indexPath.row];
+        self.postModel.sectionId = model3.sectionId;
     }
 }
 
@@ -243,8 +253,12 @@
         [_centerTable reloadData];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        
-        [self selectThirdView:0];
+        MainSectionModel *model2 = model.subSections[index];
+        if (model2.subSections.count>0) {
+            [self selectThirdView:0];
+        }else{
+            self.postModel.sectionId = model2.sectionId;
+        }
     }
 }
 
@@ -254,8 +268,11 @@
     [_rightTable reloadData];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    MainSectionModel *model = self.dataSource[_leftSelectedIndex];
+    MainSectionModel *model2 = model.subSections[_centerSelectedIndex];
+    MainSectionModel *model3 = model2.subSections[index];
+    self.postModel.sectionId = model3.sectionId;
 }
-
 
 #pragma mark --请求
 //请求主版块数据

@@ -854,6 +854,8 @@
 		4CF811D3219AA7920001DE52 /* UIViewController+SlideFromSide.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF811D1219AA7920001DE52 /* UIViewController+SlideFromSide.m */; };
 		4CF811D6219AA8F20001DE52 /* LeftPopDirectoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */; };
 		4CF811D9219AB6A00001DE52 /* DirectoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF811D8219AB6A00001DE52 /* DirectoryTableViewCell.m */; };
+		4CFAB90F21BFBAAD0098CF1A /* PointsCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAB90E21BFBAAD0098CF1A /* PointsCashViewController.m */; };
+		4CFAB91221BFBAD10098CF1A /* PointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAB91121BFBAD10098CF1A /* PointsViewController.m */; };
 		4CFB967C219292F00016924A /* SelectPublishChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */; };
 		4CFB967F2192B97B0016924A /* SelectPublishChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB967E2192B97B0016924A /* SelectPublishChannelCell.m */; };
 		4CFB96822192C7DC0016924A /* ReplyThePostPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB96812192C7DC0016924A /* ReplyThePostPopView.m */; };
@@ -2363,6 +2365,10 @@
 		4CF811D5219AA8F20001DE52 /* LeftPopDirectoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftPopDirectoryViewController.m; sourceTree = "<group>"; };
 		4CF811D7219AB6A00001DE52 /* DirectoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectoryTableViewCell.h; sourceTree = "<group>"; };
 		4CF811D8219AB6A00001DE52 /* DirectoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectoryTableViewCell.m; sourceTree = "<group>"; };
+		4CFAB90D21BFBAAD0098CF1A /* PointsCashViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointsCashViewController.h; sourceTree = "<group>"; };
+		4CFAB90E21BFBAAD0098CF1A /* PointsCashViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointsCashViewController.m; sourceTree = "<group>"; };
+		4CFAB91021BFBAD10098CF1A /* PointsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointsViewController.h; sourceTree = "<group>"; };
+		4CFAB91121BFBAD10098CF1A /* PointsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointsViewController.m; sourceTree = "<group>"; };
 		4CFB967A219292F00016924A /* SelectPublishChannelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPublishChannelViewController.h; sourceTree = "<group>"; };
 		4CFB967B219292F00016924A /* SelectPublishChannelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPublishChannelViewController.m; sourceTree = "<group>"; };
 		4CFB967D2192B97B0016924A /* SelectPublishChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPublishChannelCell.h; sourceTree = "<group>"; };
@@ -2926,8 +2932,12 @@
 				4C17413220C4D1C600AA6D57 /* StoreChildViewController.m */,
 				4C17412820C4C7E300AA6D57 /* GameViewController.h */,
 				4C17412920C4C7E300AA6D57 /* GameViewController.m */,
+				4CFAB91021BFBAD10098CF1A /* PointsViewController.h */,
+				4CFAB91121BFBAD10098CF1A /* PointsViewController.m */,
 				4C17412B20C4C80400AA6D57 /* RechargeViewController.h */,
 				4C17412C20C4C80400AA6D57 /* RechargeViewController.m */,
+				4CFAB90D21BFBAAD0098CF1A /* PointsCashViewController.h */,
+				4CFAB90E21BFBAAD0098CF1A /* PointsCashViewController.m */,
 				4C17412E20C4C83200AA6D57 /* ManagerViewController.h */,
 				4C17412F20C4C83200AA6D57 /* ManagerViewController.m */,
 				4C149CB920E4FCC500D57D12 /* ExchangeProductViewController.h */,
@@ -5629,6 +5639,7 @@
 				4C72345D20FC6E4200D5C5D4 /* LYEmptyBaseView.m in Sources */,
 				4C40C75321955FB2006408DE /* LZPickerView.m in Sources */,
 				4C56137920CA342B00C7FA5A /* ADModel.m in Sources */,
+				4CFAB90F21BFBAAD0098CF1A /* PointsCashViewController.m in Sources */,
 				4C51FFD320D1FFAE0018387B /* NewsDetailViewController.m in Sources */,
 				4C24DCD320DD071D003DC53A /* NSString+FileSize.m in Sources */,
 				4C54948F20CE228900CB448E /* AttentionRecommendFirstCell.m in Sources */,
@@ -6046,6 +6057,7 @@
 				4CF35CBA218C474B0064B1BA /* SelectImagesView.m in Sources */,
 				4C3D111F20D8F02500480E03 /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				4C17B4A420E250C900470AEB /* IFMShareView.m in Sources */,
+				4CFAB91221BFBAD10098CF1A /* PointsViewController.m in Sources */,
 				4C8D5C43219AD3FD008C13A9 /* PreviewTextTableViewCell.m in Sources */,
 				4C6E9183213F5F07001535CA /* UIApplication+YYAdd.m in Sources */,
 				4C7234DC20FDEB1D00D5C5D4 /* AACrosshair.m in Sources */,

@@ -67,9 +67,9 @@
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
         @strongify(self);
         ShowHudOnly;
-        [self requestListMainSection];
+        [self requestSectionTree];
     }];
-    [self requestListMainSection];
+    [self requestSectionTree];
 //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 //    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 //    [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -155,6 +155,7 @@
     [_rightTable updateLayout];
     [_rightTable registerClass:[SelectPublishChannelCell class] forCellReuseIdentifier:SelectPublishChannelCellID];
     
+    [self selectFirstView:0];
 }
 
 #pragma mark --- UITableViewDataSource
@@ -163,12 +164,22 @@
     if (tableView == _leftTable) {
         return self.dataSource.count;
     }
-    if (tableView == _centerTable&&self.dataSource.count>0) {
+    if (tableView == _centerTable) {
+        if (self.dataSource.count>0) {
+            MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+            return model.subSections.count;
+        }
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
         return model.subSections.count;
     }
     if (tableView == _rightTable) {
-        return 0;
+        if (self.dataSource.count>0) {
+            MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+            if (model.subSections.count>0) {
+                MainSectionModel *model2 = model.subSections[self.centerSelectedIndex];
+                return model2.subSections.count;
+            }
+        }
     }
     return 0;
 }
@@ -220,9 +231,7 @@
     
     if (tableView == _leftTable) {
 
-        self.leftSelectedIndex = indexPath.row;
-        
-        [self selectSecondView:0];
+        [self selectFirstView:indexPath.row];
         
     }else if (tableView == _centerTable){
 
@@ -233,6 +242,7 @@
         if (model2.subSections.count>0) {
             [self selectThirdView:0];
         }else{
+            [self.rightTable reloadData];
             self.postModel.sectionId = model2.sectionId;
         }
     }else if (tableView == _rightTable){
@@ -241,6 +251,17 @@
         MainSectionModel *model3 = model2.subSections[indexPath.row];
         self.postModel.sectionId = model3.sectionId;
     }
+}
+
+//选中一级的某个cell
+-(void)selectFirstView:(NSInteger)index
+{
+    [_leftTable reloadData];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    self.leftSelectedIndex = indexPath.row;
+    
+    [self selectSecondView:0];
 }
 
 //选中二级的某个cell
@@ -253,10 +274,12 @@
         [_centerTable reloadData];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        self.centerSelectedIndex = indexPath.row;
         MainSectionModel *model2 = model.subSections[index];
         if (model2.subSections.count>0) {
             [self selectThirdView:0];
         }else{
+            [self.rightTable reloadData];
             self.postModel.sectionId = model2.sectionId;
         }
     }
@@ -301,6 +324,22 @@
         [self selectSecondView:0];
     } failure:^(NSError *error) {
         [self.centerTable reloadData];
+    }];
+}
+
+//请求版块树
+-(void)requestSectionTree
+{
+    [self.view ly_startLoading];
+    [HttpRequest getWithURLString:SectionTree parameters:nil success:^(id responseObject) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+        self.dataSource = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [self setUI];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
     }];
 }
 

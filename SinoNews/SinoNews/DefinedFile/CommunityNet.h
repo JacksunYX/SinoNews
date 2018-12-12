@@ -17,6 +17,8 @@
 #define ListSubSection @"/api/forum/section/listSubSection"
 //所有版块查询(get)
 #define ListAllSections @"/api/forum/section/listAllSections"
+//版块树查询(get)
+#define SectionTree @"/api/forum/section/sectionTree"
 
 #pragma mark --版块-搜索
 //搜索关键字补全(get)

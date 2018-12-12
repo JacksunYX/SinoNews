@@ -329,7 +329,7 @@
     .autoHeightRatio(0)
     ;
     
-    NSString *str1 = @"兑换比例： 120积分 = ";
+    NSString *str1 = @"提现比例： 120积分 = ";
     NSString *integer = @"1";
     NSString *str2 = @" 元";
     NSString *totalStr = [[str1 stringByAppendingString:integer] stringByAppendingString:str2];
@@ -374,7 +374,7 @@
     ;
     
     [moneyInput setSd_cornerRadius:@16];
-    NSString *placeholder = @"请输入需要兑换的金额";
+    NSString *placeholder = @"请输入需要体现的金额";
     NSMutableAttributedString *placeholderAtt = [[NSMutableAttributedString alloc]initWithString:placeholder];
     NSDictionary *attDic = @{
                              NSFontAttributeName : FontScale(15),
@@ -467,7 +467,7 @@
     
     payBtn.titleLabel.font = Font(16);
     [payBtn setSd_cornerRadius:@20];
-    [payBtn setTitle:@"立即兑换" forState:UIControlStateNormal];
+    [payBtn setTitle:@"立即提现" forState:UIControlStateNormal];
     [self setpayBtnTitleWithString:@""];
     [payBtn addTarget:self action:@selector(goToPay:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -533,7 +533,7 @@
         //        LRToast(str);
         [self requestexPointExchargeMoney:[moneyInput.text doubleValue]];
     }else{
-        LRToast(@"请输入需要兑换的积分");
+        LRToast(@"请输入需要提现的金额");
     }
     
 }
@@ -556,9 +556,9 @@
     NSInteger money = [GetSaveString(text) integerValue];
     NSString *payStr;
     if (money) {
-        payStr = [NSString stringWithFormat:@"立即兑换%ld 元（%ld 积分）",money,money*120];
+        payStr = [NSString stringWithFormat:@"立即提现%ld 元（%ld 积分）",money,money*120];
     }else{
-        payStr = @"立即兑换";
+        payStr = @"立即提现";
     }
     [payBtn setTitle:payStr forState:UIControlStateNormal];
 }
@@ -598,6 +598,12 @@
 {
     [HttpRequest postWithURLString:ApplyWithdraw parameters:@{@"point":@(amount*120)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提现成功" message:@"提现将在最多7个工作日内处理完成（周六日不计算在内）" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertVC addAction:cancel];
+        [self presentViewController:alertVC animated:YES completion:nil];
     } failure:nil RefreshAction:nil];
 }
 

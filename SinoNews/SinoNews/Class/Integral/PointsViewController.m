@@ -21,7 +21,7 @@
     [super viewDidLoad];
     [self reloadChildVCWithTitles:@[
                                     @"充值积分",
-                                    @"积分兑现",
+                                    @"积分提现",
                                     ]];
 }
 

@@ -182,8 +182,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
     [self requestUser_tips];
     
-    [self requestUser_getDailyTask];
-    
     if (self.user.hasSignIn){
         [shakeImg.layer removeAllAnimations];
     }else{
@@ -868,6 +866,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
             [UserModel coverUserData:model];
             self.user = model;
             [self setHeadViewData:YES];
+            //登录过才请求每日任务
+            [self requestUser_getDailyTask];
         }else{
             if (self.user) {
                 [UserModel clearLocalData];

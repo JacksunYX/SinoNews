@@ -228,60 +228,51 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (tableView == _leftTable) {
-
         [self selectFirstView:indexPath.row];
-        
     }else if (tableView == _centerTable){
-
-        self.centerSelectedIndex = indexPath.row;
-        //先判断是否有三级数组
-        MainSectionModel *model = self.dataSource[_leftSelectedIndex];
-        MainSectionModel *model2 = model.subSections[indexPath.row];
-        if (model2.subSections.count>0) {
-            [self selectThirdView:0];
-        }else{
-            [self.rightTable reloadData];
-            self.postModel.sectionId = model2.sectionId;
-        }
+        [self selectSecondView:indexPath.row];
     }else if (tableView == _rightTable){
-        MainSectionModel *model = self.dataSource[_leftSelectedIndex];
-        MainSectionModel *model2 = model.subSections[_centerSelectedIndex];
-        MainSectionModel *model3 = model2.subSections[indexPath.row];
-        self.postModel.sectionId = model3.sectionId;
+        [self selectThirdView:indexPath.row];
     }
 }
 
 //选中一级的某个cell
 -(void)selectFirstView:(NSInteger)index
 {
-    [_leftTable reloadData];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    self.leftSelectedIndex = indexPath.row;
-    
-    [self selectSecondView:0];
+    if (self.dataSource.count>0) {
+        [_leftTable reloadData];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        self.leftSelectedIndex = indexPath.row;
+        MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
+        if (model.subSections.count<=0) {
+            //没有二级版块
+            [self.centerTable reloadData];
+            self.postModel.sectionId = model.sectionId;
+        }else{
+            [self selectSecondView:0];
+        }
+    }else{
+        NSLog(@"一级版块数据为空");
+    }
 }
 
 //选中二级的某个cell
 -(void)selectSecondView:(NSInteger)index
 {
+    [_centerTable reloadData];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    self.centerSelectedIndex = indexPath.row;
     MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
-    if (model.subSections.count<=0) {
-        [self requestListSubSection:model];
+    MainSectionModel *model2 = model.subSections[index];
+    if (model2.subSections.count<=0) {
+        //没有三级版块
+        [self.rightTable reloadData];
+        self.postModel.sectionId = model2.sectionId;
     }else{
-        [_centerTable reloadData];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        self.centerSelectedIndex = indexPath.row;
-        MainSectionModel *model2 = model.subSections[index];
-        if (model2.subSections.count>0) {
-            [self selectThirdView:0];
-        }else{
-            [self.rightTable reloadData];
-            self.postModel.sectionId = model2.sectionId;
-        }
+        [self selectThirdView:0];
     }
 }
 

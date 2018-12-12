@@ -23,7 +23,7 @@
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
         NSArray *leftTitle = @[
-                               @"回复和@我的",
+                               @"回复我的",
                                @"关注我的",
                                @"给我点赞",
                                ];
@@ -88,7 +88,7 @@
     cell.imageView.image = UIImageNamed(dic[@"leftIcon"]);
     cell.textLabel.text = GetSaveString(dic[@"leftTitle"]);
 
-    if ((self.tipsModel.hasMessageTip&&indexPath.row == 0)||(self.tipsModel.hasFans&&indexPath.row == 1)||(self.tipsModel.hasPraise&&indexPath.row == 2)) {
+    if ((self.tipsModel.hasReply&&indexPath.row == 0)||(self.tipsModel.hasFans&&indexPath.row == 1)||(self.tipsModel.hasPraise&&indexPath.row == 2)) {
         [cell.imageView showBadgeWithStyle:WBadgeStyleRedDot value:0 animationType:WBadgeAnimTypeNone];
         cell.imageView.badgeFrame = CGRectMake(26, -2, 7, 7);
         cell.imageView.badgeBgColor = HexColor(#FF3823);
@@ -116,7 +116,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        self.tipsModel.hasMessageTip = NO;
+        self.tipsModel.hasReply = NO;
         ReplyListViewController *rlVC = [ReplyListViewController new];
         [self.navigationController pushViewController:rlVC animated:YES];
     }else if (indexPath.row == 1) {

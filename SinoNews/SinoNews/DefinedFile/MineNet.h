@@ -99,7 +99,7 @@
 //查看未读私信数量(get)
 #define GetCountOfUnreadMessage @"/api/message/getCountOfUnreadMessage"
 //查看我的回复(get)
-#define UserListReply @"/api/user/listReply"
+#define UserListReply       @"/api/user/listReply"
 
 //错误上报(post)
 #define ErrorResponse       @"/api/errorResponse"

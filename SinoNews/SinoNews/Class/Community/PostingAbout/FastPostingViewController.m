@@ -208,6 +208,8 @@
     self.view.backgroundColor = HexColor(#F3F5F4);
     
     _mainScrollView = [UIScrollView new];
+    _mainScrollView.showsVerticalScrollIndicator = NO;
+    _mainScrollView.alwaysBounceVertical = YES;
 //    _mainScrollView.backgroundColor = RedColor;
     
     _titleView = [YXTextView new];
@@ -221,6 +223,9 @@
     _contentView.textColor = BlackColor;
     _contentView.delegate = self;
     _contentView.backgroundColor = WhiteColor;
+    
+    UIView *backView = [UIView new];
+    backView.backgroundColor = WhiteColor;
     
     _addImageView = [SelectImagesView new];
 //    _addImageView.backgroundColor = GreenColor;
@@ -239,7 +244,8 @@
     [_mainScrollView sd_addSubviews:@[
                                       _titleView,
                                       _contentView,
-                                      _addImageView,
+                                      backView,
+                                      
                                       _remindView,
                                       ]];
     _titleView.sd_layout
@@ -252,6 +258,8 @@
     _titleView.placeholderText = @"快来起个厉害的标题吧！";
     _titleView.placeholderTextColor = HexColor(#BAC3C7);
     _titleView.placeholderFont = PFFontR(20);
+    _titleView.layer.borderColor = HexColor(#E3E3E3).CGColor;
+    _titleView.layer.borderWidth = 1;
     
     _contentView.sd_layout
     .topSpaceToView(_titleView, 1)
@@ -263,21 +271,32 @@
     _contentView.placeholderText = @"分享观点，谈谈自己的看法，这就是一个任你发挥的平台...";
     _contentView.placeholderTextColor = HexColor(#B9C3C7);
     _contentView.placeholderFont = PFFontL(15);
-    _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
-    _contentView.layer.borderWidth = 1;
+//    _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
+//    _contentView.layer.borderWidth = 1;
     
+    
+    backView.sd_layout
+    .topSpaceToView(_contentView, 0)
+    .leftSpaceToView(_mainScrollView, 0)
+    .rightSpaceToView(_mainScrollView, 0)
+    .heightIs(0)
+    ;
+    [backView updateLayout];
+    
+    [backView addSubview:_addImageView];
     _addImageView.sd_layout
-    .topSpaceToView(_contentView, 10)
-    .leftSpaceToView(_mainScrollView, 10)
-    .rightSpaceToView(_mainScrollView, 10)
+    .topSpaceToView(backView, 10)
+    .leftSpaceToView(backView, 10)
+    .rightSpaceToView(backView, 10)
     .heightIs(0)
     ;
     [_addImageView updateLayout];
     _addImageView.numPerRow = 4;
     _addImageView.imagesArr = [NSMutableArray new];
+    [backView setupAutoHeightWithBottomView:_addImageView bottomMargin:20];
     
     _remindView.sd_layout
-    .topSpaceToView(_addImageView, 0)
+    .topSpaceToView(backView, 0)
     .leftEqualToView(_mainScrollView)
     .rightEqualToView(_mainScrollView)
 #ifdef OpenRemindPeople

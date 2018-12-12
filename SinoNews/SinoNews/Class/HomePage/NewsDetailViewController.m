@@ -1084,7 +1084,14 @@ CGFloat static attentionBtnH = 26;
 
 //让输入框无法进入编辑
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
+    BOOL isLogin = [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+        if (login) {
+            [self requestNewData];
+        }
+    }];
+    if (!isLogin) {
+        return NO;
+    }
     [QACommentInputView showAndSendHandle:^(NSString *inputText) {
         if (![NSString isEmpty:inputText]) {
             [self requestCommentWithComment:inputText];

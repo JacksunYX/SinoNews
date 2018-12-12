@@ -655,6 +655,14 @@ CGFloat static titleViewHeight = 150;
         
         [answerInput whenTap:^{
             @strongify(self)
+            BOOL isLogin = [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                if (login) {
+                    [self requestNewData];
+                }
+            }];
+            if (!isLogin) {
+                return ;
+            }
             Q_APublishViewController *qapVc = [Q_APublishViewController new];
             qapVc.submitBlock = ^{
                 self.currPage = 1;

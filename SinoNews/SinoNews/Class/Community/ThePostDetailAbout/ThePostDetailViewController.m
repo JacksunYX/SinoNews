@@ -596,9 +596,19 @@ CGFloat static attentionBtnH = 26;
         
         [commentInput whenTap:^{
             @strongify(self);
-            if (!self.postModel.hasExpired) {
-                [self popCommentVCWithParentId:0];
+            BOOL isLogin = [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                if (login) {
+                    [self requestPost_browsePost];
+                }
+            }];
+            if (isLogin) {
+                if (!self.postModel.hasExpired) {
+                    [self popCommentVCWithParentId:0];
+                }else{
+                    LRToast(@"帖子失效，无法评论");
+                }
             }
+            
         }];
         
         [self.bottomView sd_addSubviews:@[
@@ -653,9 +663,9 @@ CGFloat static attentionBtnH = 26;
         [commentInput updateLayout];
         [commentInput setSd_cornerRadius:@17];
         commentInput.text = @"有何高见，展开讲讲";
-        if (self.postModel.hasExpired) {
-            commentInput.text = @"帖子失效,不可评论";
-        }
+//        if (self.postModel.hasExpired) {
+//            commentInput.text = @"帖子失效,不可评论";
+//        }
     }
     self.collectBtn.selected = self.postModel.isCollection;
     self.praiseBtn.selected = self.postModel.hasPraised;
@@ -834,6 +844,7 @@ CGFloat static attentionBtnH = 26;
 -(void)clickCommentPopAlertWith:(PostReplyModel *)replyModel
 {
     if (self.postModel.hasExpired) {
+        LRToast(@"已经失效，无法评论");
         return;
     }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

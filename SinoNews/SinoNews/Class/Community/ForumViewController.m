@@ -216,7 +216,7 @@
         [((UITextField *)searchTextField) setValue:HexColor(#939393) forKeyPath:@"_placeholderLabel.textColor"];
     }
     //修改输入框左边的搜索图标
-    [sVC.searchBar setImage:UIImageNamed(@"attention_search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    [sVC.searchBar setImage:UIImageNamed(@"searchBar_icon") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     //修改输入框右边的清除图标
 //    [sVC.searchBar setImage:UIImageNamed(@"") forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     

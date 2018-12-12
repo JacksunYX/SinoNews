@@ -174,19 +174,19 @@
     search.sd_layout
     .rightEqualToView(_customTitleView)
     .centerYEqualToView(_customTitleView)
-    .widthIs(40)
+    .widthIs(30)
     .heightEqualToWidth()
     ;
-    [search setNormalImage:UIImageNamed(@"attention_search")];
+    [search setNormalImage:UIImageNamed(@"forum_search")];
     [search addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
     
     addChannel.sd_layout
     .centerYEqualToView(_customTitleView)
     .rightSpaceToView(search, 0)
-    .widthIs(40)
+    .widthIs(30)
     .heightEqualToWidth()
     ;
-    [addChannel setNormalImage:UIImageNamed(@"bankCard_addIcon")];
+    [addChannel setNormalImage:UIImageNamed(@"section_channels")];
     [addChannel addTarget:self action:@selector(more:) forControlEvents:UIControlEventTouchUpInside];
     /*
     UIView *sepLine = [UIView new];
@@ -247,7 +247,7 @@
         [((UITextField *)searchTextField) setValue:HexColor(#939393) forKeyPath:@"_placeholderLabel.textColor"];
     }
     //修改输入框左边的搜索图标
-    [sVC.searchBar setImage:UIImageNamed(@"attention_search") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    [sVC.searchBar setImage:UIImageNamed(@"searchBar_icon") forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     //修改输入框右边的清除图标
     //    [sVC.searchBar setImage:UIImageNamed(@"") forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     
@@ -349,7 +349,7 @@
         [_segHead removeFromSuperview];
     }
     
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW - 90, 44) titles:titles headStyle:1 layoutStyle:2];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW - 60, 44) titles:titles headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.2;
     _segHead.fontSize = 16;

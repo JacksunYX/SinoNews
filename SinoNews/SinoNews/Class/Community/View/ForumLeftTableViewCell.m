@@ -75,7 +75,7 @@ NSString *const ForumLeftTableViewCellID = @"ForumLeftTableViewCell";
     .topSpaceToView(self.contentView, 15)
     .heightIs(20)
     ;
-    [title setSingleLineAutoResizeWithMaxWidth:ScreenH * 0.3 - 20];
+    [title setSingleLineAutoResizeWithMaxWidth:ScreenW * 0.3 - 20];
     
     [self setupAutoHeightWithBottomView:title bottomMargin:15];
 }

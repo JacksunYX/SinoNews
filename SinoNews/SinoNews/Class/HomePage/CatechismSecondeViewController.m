@@ -525,6 +525,14 @@ CGFloat static titleViewHeight = 150;
         
         [answerInput whenTap:^{
             @strongify(self)
+            BOOL isLogin = [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                if (login) {
+                    [self requestNews_browseAnswer];
+                }
+            }];
+            if (!isLogin) {
+                return ;
+            }
             [QACommentInputView showAndSendHandle:^(NSString *inputText) {
                 if (![NSString isEmpty:inputText]) {
                     [self requestAnswerCommentWithComment:inputText];

@@ -66,7 +66,8 @@
         navi.tabBarItem.image = [UIImageNamed(tabImgUnselect[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         navi.tabBarItem.selectedImage = [UIImageNamed(tabImgSelected[i]) imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         if (i==1) {
-            navi.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, -10, 0);
+            //特别要注意的是:top和bottom要设置成相反数，不然image的大小会一直改变
+            navi.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
         }else{
             navi.tabBarItem.title = tabTitles[i];
         }
@@ -94,7 +95,9 @@
     NSInteger currentIndex = [self.viewControllers indexOfObject:viewController];
 //    GGLog(@"当前点击的下标:%ld",currentIndex);
     if (viewController == self.viewControllers[1]) {
-        [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:[EditSelectViewController new]] animated:YES completion:nil];
+        if ([YXHeader checkLogin]) {
+            [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:[EditSelectViewController new]] animated:YES completion:nil];
+        }
         return NO;
     }else if (lastSelectIndex == 2&&currentIndex==2){
         [kNotificationCenter postNotificationName:RefreshReadPost object:nil];

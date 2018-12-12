@@ -14,7 +14,7 @@
     if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
         return YES;
     } else {
-        [[HttpRequest getCurrentVC] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
+        [[HttpRequest currentViewController] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:[LoginViewController new]] animated:YES completion:nil];
         return NO;
     }
     return YES;
@@ -28,7 +28,7 @@
     } else {
         LoginViewController *loginVC = [LoginViewController new];
         loginVC.normalBack = YES;
-        [[HttpRequest getCurrentVC] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
+        [[HttpRequest currentViewController] presentViewController:[[RTRootNavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:nil];
         return NO;
     }
 }

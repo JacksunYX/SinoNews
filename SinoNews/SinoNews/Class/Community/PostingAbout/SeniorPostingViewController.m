@@ -366,7 +366,7 @@
 -(void)setUI
 {
     _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.backgroundColor = HexColor(#EEEEEE);
+    _tableView.backgroundColor = WhiteColor;
     _tableView.dataSource = self;
     _tableView.delegate = self;
     

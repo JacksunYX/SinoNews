@@ -560,7 +560,7 @@ static NSInteger limitMaxNum = 20;
                         [arr addObject:option];
                     }
                     pickerView.dataSource = arr;
-                    pickerView.titleText = @"投票最多可选数";
+//                    pickerView.titleText = @"投票最多可选数";
                     pickerView.selectDefault = self.asmuchSelect;
                     
                     pickerView.selectValue  = ^(NSString *value){
@@ -584,7 +584,7 @@ static NSInteger limitMaxNum = 20;
                                               @"360天",
                                               
                                               ];
-                    pickerView.titleText = @"投票有效期";
+//                    pickerView.titleText = @"投票有效期";
                     pickerView.selectDefault = self.validTime;
                     
                     pickerView.selectValue  = ^(NSString *value){

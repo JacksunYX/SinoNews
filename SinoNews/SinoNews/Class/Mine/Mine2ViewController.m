@@ -441,9 +441,18 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
         _messageBtn.hidden = NO;
         
-        [_attention setNormalTitle:[NSString stringWithFormat:@"关注  %lu",(unsigned long)self.user.followCount]];
-        [_praise setNormalTitle:[NSString stringWithFormat:@"获赞  %lu",(unsigned long)self.user.praisedCount]];
-        [_fans setNormalTitle:[NSString stringWithFormat:@"粉丝  %lu",(unsigned long)self.user.fansCount]];
+        NSAttributedString *attentionString = [NSString leadString:@"关注 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.praisedCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
+        [_attention setNormalAttributedTitle:attentionString];
+        
+        NSAttributedString *praiseString = [NSString leadString:@"获赞 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.followCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
+        [_praise setNormalAttributedTitle:praiseString];
+        
+        NSAttributedString *fansString = [NSString leadString:@"粉丝 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.fansCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
+        [_fans setNormalAttributedTitle:fansString];
+        
+//        [_attention setNormalTitle:[NSString stringWithFormat:@"关注  %lu",(unsigned long)self.user.followCount]];
+//        [_praise setNormalTitle:[NSString stringWithFormat:@"获赞  %lu",(unsigned long)self.user.praisedCount]];
+//        [_fans setNormalTitle:[NSString stringWithFormat:@"粉丝  %lu",(unsigned long)self.user.fansCount]];
         
     }
     
@@ -533,6 +542,9 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [_attention setBtnFont:PFFontL(13)];
     [_praise setBtnFont:PFFontL(13)];
     [_fans setBtnFont:PFFontL(13)];
+    _attention.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    _praise.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    _fans.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
     _attention.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     _praise.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     _fans.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);

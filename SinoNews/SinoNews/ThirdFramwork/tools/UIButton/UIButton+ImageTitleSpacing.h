@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, MKButtonEdgeInsetsStyle) {
 //高亮状态下的文字
 -(void)setHighLightTitleColor:(UIColor *)color;
 
+
 #pragma mark ---- 修改图片
 //普通状态下的图片
 -(void)setNormalImage:(UIImage *)image;

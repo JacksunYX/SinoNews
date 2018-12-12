@@ -37,6 +37,10 @@
     }
     
     [self addTableview];
+    
+    if (self.type == 2) {
+        self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"" title:@"没有搜索到相关结果"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -269,11 +273,15 @@
 //查询作者列表
 -(void)requestWithKeyword
 {
+    [self.tableView ly_startLoading];
     [HttpRequest postWithURLString:ListUserForSearch parameters:@{@"keyword":GetSaveString(self.keyword)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
         self.dataSource = [MyFansModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         [self.tableView endAllRefresh];
         [self.tableView reloadData];
-    } failure:nil RefreshAction:nil];
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView ly_endLoading];
+    } RefreshAction:nil];
     
 }
 

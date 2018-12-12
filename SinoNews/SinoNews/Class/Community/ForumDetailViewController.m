@@ -305,6 +305,7 @@
         [self requestListPostForSection:0];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [cancel setValue:HexColor(#8C8C8C) forKey:@"titleTextColor"];
     [popVC addAction:sortByReplyTime];
     [popVC addAction:sortByPostTime];
     [popVC addAction:cancel];

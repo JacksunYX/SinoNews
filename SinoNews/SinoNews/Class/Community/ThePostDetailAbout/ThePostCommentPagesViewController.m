@@ -56,8 +56,8 @@
 -(void)setNavigationView
 {
     _commentSortBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 36, 30)];
-    [_commentSortBtn setNormalImage:UIImageNamed(@"commentSort_down")];
-    [_commentSortBtn setSelectedImage:UIImageNamed(@"commentSort_up")];
+    [_commentSortBtn setNormalImage:UIImageNamed(@"commentSort_up")];
+    [_commentSortBtn setSelectedImage:UIImageNamed(@"commentSort_down")];
     [_commentSortBtn addTarget:self action:@selector(changeCommentSort) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_commentSortBtn];
 }

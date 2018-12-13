@@ -128,8 +128,7 @@
     @weakify(self);
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
         @strongify(self);
-        ShowHudOnly;
-        [self requestListMainSection];
+        [self requestSectionTree];
     }];
     
     //监听关注版块数量变化回调
@@ -141,7 +140,7 @@
         [self setBottomView];
     }];
     
-    [self requestListMainSection];
+    [self requestSectionTree];
 }
 
 //修改导航栏显示
@@ -280,7 +279,7 @@
     if (tableview == _leftTable&&self.postModel) {
         MainSectionModel *model = self.dataSource[index];
         if (model.subSections.count<=0) {
-            [self requestListSubSection:model];
+//            [self requestListSubSection:model];
         }
     }
 }
@@ -475,10 +474,10 @@
         [self setBottomView];
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
         if (self.postModel&&model.subSections.count<=0) {
-            [self requestListSubSection:model];
+//            [self requestListSubSection:model];
         }else{
             if (model.subSections.count<=0&&self.leftSelectedIndex!=0) {
-                [self requestListSubSection:model];
+//                [self requestListSubSection:model];
             }else{
                 [self.rightTable reloadData];
                 [self setBottomView];
@@ -541,6 +540,35 @@
     } failure:^(NSError *error) {
         [self.rightTable reloadData];
         [self setBottomView];
+    }];
+}
+
+//请求版块树(直接一次性请求所有版块数据)
+-(void)requestSectionTree
+{
+    ShowHudOnly;
+    [self.view ly_startLoading];
+    [HttpRequest getWithURLString:SectionTree parameters:nil success:^(id responseObject) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
+        NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSMutableArray *myAttentionArr = [MainSectionModel getLocalAttentionSections];
+        if (listArr.count > 0) {
+            MainSectionModel *model = [MainSectionModel new];
+            model.name = @"我的关注";
+            model.subSections = myAttentionArr;
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObject:model];
+            if (myAttentionArr.count<=0&&self.postModel) {
+                [self.dataSource removeAllObjects];
+            }
+            [self.dataSource addObjectsFromArray:listArr];
+            [self setUI];
+        }
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        [self.view ly_endLoading];
     }];
 }
 

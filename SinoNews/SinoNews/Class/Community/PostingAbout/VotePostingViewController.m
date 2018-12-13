@@ -280,6 +280,9 @@ static NSInteger limitMaxNum = 20;
 //    fVC.postModel = self.voteModel;
 //    [self.navigationController pushViewController:fVC animated:YES];
     
+    if (self.sectionId) {
+        self.voteModel.sectionId = self.sectionId;
+    }
     //跳转到单独的三级版块选择界面
     SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
     spcVC.postModel = self.voteModel;

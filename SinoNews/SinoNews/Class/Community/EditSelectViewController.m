@@ -124,22 +124,26 @@
     NSInteger index = sender.tag - 10058;
     GGLog(@"下标：%ld",index);
     UIViewController *presentVC;
+    
     switch (index) {
         case 0:
         {
             FastPostingViewController *fpVC = [FastPostingViewController new];
+            fpVC.sectionId = self.sectionId;
             presentVC = fpVC;
         }
             break;
         case 1:
         {
             SeniorPostingViewController *spVC = [SeniorPostingViewController new];
+            spVC.sectionId = self.sectionId;
             presentVC = spVC;
         }
             break;
         case 2:
         {
             VotePostingViewController *vpVC = [VotePostingViewController new];
+            vpVC.sectionId = self.sectionId;
             presentVC = vpVC;
         }
             break;

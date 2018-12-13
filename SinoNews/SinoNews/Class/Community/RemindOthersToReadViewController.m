@@ -111,7 +111,7 @@
     if (self.type==1) {
         [self requestWithKeyword];
     }else{
-        [self requestAttentionList];
+        [self requestListMyFocus];
     }
 }
 
@@ -245,7 +245,6 @@
                 //别忘了，此时的self.selectedArr并不是完整的，copyArr才是最开始传递过来的
                 self.selectedArr = [copyArr mutableCopy];
                 [self setConfirmBtnShowStatus];
-                [self.tableView reloadData];
             }
             
         }
@@ -490,7 +489,7 @@
 
 #pragma mark --请求
 //我的关注列表(不分页)
--(void)requestAttentionList
+-(void)requestListMyFocus
 {
     [HttpRequest postWithURLString:ListMyFocus parameters:@{} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         self.dataSource = [RemindPeople mj_objectArrayWithKeyValuesArray:response[@"data"]];

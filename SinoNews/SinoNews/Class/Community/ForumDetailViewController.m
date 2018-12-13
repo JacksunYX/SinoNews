@@ -8,6 +8,7 @@
 
 #import "ForumDetailViewController.h"
 #import "CommunitySearchVC.h"
+#import "EditSelectViewController.h"
 
 #import "ForumDetailTableViewCell.h"
 #import "ReadPostListTableViewCell.h"
@@ -22,6 +23,8 @@
 @property (nonatomic,strong) NSMutableArray *sectionsArr;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
+@property (nonatomic,strong) UIButton *addPostBtn;
+
 @property (nonatomic,assign) BOOL haveUnFold;   //是否已展开
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) UIView *footView;
@@ -29,6 +32,9 @@
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
 @property (nonatomic,assign) NSInteger sortOrder;
 @property (nonatomic,assign) NSInteger currentSectionId;
+
+//三级版块下标
+@property (nonatomic,assign) NSInteger thirdIndex;
 @end
 
 @implementation ForumDetailViewController
@@ -142,6 +148,25 @@
         [self requestListPostForSection:1];
     }];
     [self.tableView.mj_header beginRefreshing];
+    
+    _addPostBtn = [UIButton new];
+    [self.view addSubview:_addPostBtn];
+    _addPostBtn.sd_layout
+    .rightSpaceToView(self.view, 30)
+    .bottomSpaceToView(self.view, BOTTOM_MARGIN + 30)
+    .widthIs(42)
+    .heightEqualToWidth()
+    ;
+    [_addPostBtn setNormalImage:UIImageNamed(@"tabbar_forumPost")];
+    [_addPostBtn whenTap:^{
+        @strongify(self);
+        if ([YXHeader checkLogin]) {
+            EditSelectViewController *esVC = [EditSelectViewController new];
+            esVC.sectionId = self.currentSectionId;
+            
+            [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:esVC] animated:YES completion:nil];
+        }
+    }];
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
 }
@@ -498,6 +523,10 @@
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
+    if (index>0) {
+        //此时还未加好文、热文的分类，所以-1就行了
+        self.thirdIndex = index - 1;
+    }
     [self clearAndReloadTableView];
     MainSectionModel *model = self.sectionsArr[index];
     _currentSectionId = model.sectionId;
@@ -521,8 +550,9 @@
         sectionModel.name = @"全部";
         sectionModel.sectionId = self.sectionId;
         [self.sectionsArr insertObject:sectionModel atIndex:0];
-        [self setUI];
         self.currentSectionId = self.sectionId;
+        [self setUI];
+        
     } failure:^(NSError *error) {
         HiddenHudOnly;
     }];

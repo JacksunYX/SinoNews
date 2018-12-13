@@ -185,7 +185,7 @@
     
     [self reloadDataWithDataArrUpperCase];
     
-    //检测@数组并刷新底部显示 
+    //检测@数组并刷新底部显示
     if (self.postModel.remindPeople.count>0) {
         self.remindArr = self.postModel.remindPeople;
         [self changeRemindBtnStatus];
@@ -241,14 +241,13 @@
 //统一创建导航栏按钮
 -(UIButton *)geyBtnWithIcon:(NSString *)icon title:(NSString *)bntTitle
 {
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 26, 40)];
-    //    btn.backgroundColor = Arc4randomColor;
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    
     [btn setBtnFont:PFFontL(13)];
     [btn setNormalTitleColor:HexColor(#161A24)];
     [btn setNormalTitle:bntTitle];
     [btn setNormalImage:UIImageNamed(icon)];
-    btn.imageEdgeInsets = UIEdgeInsetsMake( -20, 15, 0, 0);
-    btn.titleEdgeInsets = UIEdgeInsetsMake( 20, -15, 0, 0);
+    [btn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleTop imageTitleSpace:5];
     return btn;
 }
 
@@ -313,9 +312,13 @@
 //                };
 //                [self.navigationController pushViewController:pVC animated:YES];
                 
+                if (self.sectionId) {
+                    self.postModel.sectionId = self.sectionId;
+                }
                 //跳转到单独的三级版块选择界面
                 SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];
                 spcVC.postModel = self.postModel;
+                
                 @weakify(self);
                 spcVC.refreshCallBack = ^{
                     @strongify(self);

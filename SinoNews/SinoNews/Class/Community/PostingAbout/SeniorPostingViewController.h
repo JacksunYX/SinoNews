@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) SeniorPostDataModel *postModel;
 //刷新回调
 @property (nonatomic,copy) void(^refreshCallBack)(void);
+
+@property (nonatomic,assign) NSInteger sectionId;
+
 @end
 
 NS_ASSUME_NONNULL_END

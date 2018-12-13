@@ -70,10 +70,6 @@
         [self requestSectionTree];
     }];
     [self requestSectionTree];
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    [_centerTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 //修改导航栏显示
@@ -146,7 +142,19 @@
     [_rightTable updateLayout];
     [_rightTable registerClass:[SelectPublishChannelCell class] forCellReuseIdentifier:SelectPublishChannelCellID];
     
-    [self selectFirstView:0];
+    //如果是firstIndex=-1，说明是从我的关注列表里进入的版块
+    if (self.postModel.sectionId) {
+        NSArray *indexs = [self getSectionIndexsWithId:self.postModel.sectionId];
+        NSInteger firstIndex = [indexs[0] integerValue];
+        NSInteger secondIndex = [indexs[1] integerValue];
+        NSInteger thirdIndex = [indexs[2] integerValue];
+        
+        [self selectFirstView:firstIndex];
+        [self selectSecondView:secondIndex];
+        [self selectThirdView:thirdIndex];
+    }else{
+        [self selectFirstView:0];
+    }
 }
 
 //发表
@@ -157,6 +165,71 @@
         return;
     }
     [self requestPublishPost];
+}
+
+//查找对应版块id所在的分级
+-(NSArray *)getSectionIndexsWithId:(NSInteger)sectionId
+{
+    NSMutableArray *indexs = @[].mutableCopy;
+    NSInteger firstIndex = 0;
+    NSInteger secondIndex = 0;
+    NSInteger thirdIndex = 0;
+    
+    //是否有1级
+    if (self.dataSource.count>0) {
+        for (int i = 0; i < self.dataSource.count; i ++) {
+            MainSectionModel *model1 = self.dataSource[i];
+            //是否就在1级版块
+            if (model1.sectionId == sectionId) {
+                firstIndex = i;
+                [indexs addObject:@(firstIndex)];
+                [indexs addObject:@(secondIndex)];
+                [indexs addObject:@(thirdIndex)];
+                return indexs;
+            }
+            //是否有2级
+            if (model1.subSections.count > 0) {
+                for (int j = 0; j < model1.subSections.count; j ++) {
+                    MainSectionModel *model2 = model1.subSections[j];
+                    //是否就在2级版块
+                    if (model2.sectionId == sectionId) {
+                        firstIndex = i;
+                        secondIndex = j;
+                        [indexs addObject:@(firstIndex)];
+                        [indexs addObject:@(secondIndex)];
+                        [indexs addObject:@(thirdIndex)];
+                        return indexs;
+                    }
+                    //是否有3级
+                    if (model2.subSections.count>0) {
+                        for (int k = 0; k < model2.subSections.count; k ++) {
+                            MainSectionModel *model3 = model2.subSections[k];
+                            if (model3.sectionId == sectionId) {
+                                firstIndex = i;
+                                secondIndex = j;
+                                thirdIndex = k;
+                                [indexs addObject:@(firstIndex)];
+                                [indexs addObject:@(secondIndex)];
+                                [indexs addObject:@(thirdIndex)];
+                                return indexs;
+                            }
+                        }
+                    }else{
+                        continue;
+                    }
+                }
+            }else{
+                continue;
+            }
+        }
+    }else{
+        NSLog(@"没有版块数据");
+        [indexs addObject:@(firstIndex)];
+        [indexs addObject:@(secondIndex)];
+        [indexs addObject:@(thirdIndex)];
+    }
+    
+    return indexs;
 }
 
 #pragma mark --- UITableViewDataSource
@@ -245,7 +318,7 @@
         [_leftTable reloadData];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [_leftTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        self.leftSelectedIndex = indexPath.row;
+        self.leftSelectedIndex = index;
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
         if (model.subSections.count<=0) {
             //没有二级版块
@@ -285,8 +358,10 @@
     [_rightTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     MainSectionModel *model = self.dataSource[_leftSelectedIndex];
     MainSectionModel *model2 = model.subSections[_centerSelectedIndex];
-    MainSectionModel *model3 = model2.subSections[index];
-    self.postModel.sectionId = model3.sectionId;
+    if (model2.subSections.count>0) {
+        MainSectionModel *model3 = model2.subSections[index];
+        self.postModel.sectionId = model3.sectionId;
+    }
 }
 
 #pragma mark --请求

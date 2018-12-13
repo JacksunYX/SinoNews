@@ -142,7 +142,9 @@
         }
     }
     self.postModel.dataSource = elementArr;
-    
+    if (self.sectionId) {
+        self.postModel.sectionId = self.sectionId;
+    }
     
 //    GGLog(@"快速发帖内容展示：%@",self.postModel);
 //    ForumViewController *fvVC = [ForumViewController new];

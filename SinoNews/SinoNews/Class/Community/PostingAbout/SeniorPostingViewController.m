@@ -28,6 +28,8 @@
 @property (nonatomic,strong) NSMutableArray <SeniorPostingAddElementModel *>*dataSource;
 @property (nonatomic,strong) NSMutableArray <RemindPeople *>*remindArr;
 
+//排版按钮
+@property (nonatomic,strong) UIButton *composeBtn;
 
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) YXTextView *titleView;
@@ -183,6 +185,8 @@
     }
     self.dataSource = self.postModel.dataSource.mutableCopy;
     
+    _composeBtn.enabled = self.dataSource.count;
+    
     [self reloadDataWithDataArrUpperCase];
     
     //检测@数组并刷新底部显示
@@ -212,19 +216,19 @@
     }else{
         UIButton *saveBtn = [self geyBtnWithIcon:@"saveThePostDraft" title:@"保存"];
         UIButton *previewBtn = [self geyBtnWithIcon:@"previewThePost" title:@"预览"];
-        UIButton *composeBtn = [self geyBtnWithIcon:@"composeThePost" title:@"排版"];
+        _composeBtn = [self geyBtnWithIcon:@"composeThePost" title:@"排版"];
         _publishBtn = [self geyBtnWithIcon:@"publishThePost" title:@"发表"];
         saveBtn.tag = 0;
         previewBtn.tag = 1;
-        composeBtn.tag = 2;
+        _composeBtn.tag = 2;
         _publishBtn.tag = 3;
         [saveBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
         [previewBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
-        [composeBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_composeBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
         [_publishBtn addTarget:self action:@selector(navigationAction:) forControlEvents:UIControlEventTouchUpInside];
         
         UIBarButtonItem *barbutton1 = [[UIBarButtonItem alloc]initWithCustomView:_publishBtn];
-        UIBarButtonItem *barbutton2 = [[UIBarButtonItem alloc]initWithCustomView:composeBtn];
+        UIBarButtonItem *barbutton2 = [[UIBarButtonItem alloc]initWithCustomView:_composeBtn];
         UIBarButtonItem *barbutton3 = [[UIBarButtonItem alloc]initWithCustomView:previewBtn];
         UIBarButtonItem *barbutton4 = [[UIBarButtonItem alloc]initWithCustomView:saveBtn];
         
@@ -265,7 +269,7 @@
                     self.refreshCallBack();
                 }
             }else{
-                LRToast(@"总要输入点东西吧");
+                LRToast(@"您的帖子还没有内容哦");
             }
         }
             break;
@@ -276,9 +280,9 @@
             if (self.dataSource.count>0) {
                 [self pushToPreviewVC];
             }else if ([NSString isEmpty:self.postModel.postTitle]) {
-                LRToast(@"标题不能空缺哦");
+                LRToast(@"您的帖子还没有标题哦");
             }else if ([NSString isEmpty:self.postModel.postContent]){
-                LRToast(@"内容不能空缺哦");
+                LRToast(@"您的帖子还没有内容哦");
             }else{
                 [self pushToPreviewVC];
             }
@@ -702,6 +706,7 @@
             [self reloadDataWithDataArrUpperCase];
             [self scrollToBottom];
         }
+        self.composeBtn.enabled = self.dataSource.count;
     };
     [self presentViewController:navi animated:YES completion:nil];
 }
@@ -730,6 +735,7 @@
             [self.tableView reloadData];
             [self scrollToBottom];
         }
+        self.composeBtn.enabled = self.dataSource.count;
     };
     [self presentViewController:navi animated:YES completion:nil];
 }
@@ -841,6 +847,7 @@
     if (self.dataSource.count<=0) {
         [self finishAction];
     }
+    self.composeBtn.enabled = self.dataSource.count;
 }
 
 //刷新指定位置的图片状态
@@ -950,6 +957,7 @@
         model.imageH = image.size.height;
         [self.dataSource addObject:model];
     }
+    self.composeBtn.enabled = self.dataSource.count;
     [self.tableView reloadData];
     [self scrollToBottom];
 }
@@ -986,7 +994,7 @@
         model.imageH = coverImage.size.height;
         model.videoLocalUrl = outputPath;
         [self.dataSource addObject:model];
-        
+        self.composeBtn.enabled = self.dataSource.count;
         [self.tableView reloadData];
         [self scrollToBottom];
     } failure:^(NSString *errorMessage, NSError *error) {

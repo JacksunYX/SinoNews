@@ -96,7 +96,7 @@
 {
     [self.view endEditing:YES];
     if ([NSString isEmpty:self.postModel.postContent]) {
-        LRToast(@"您还没有填写任何内容哦");
+        LRToast(@"您的帖子还没有内容哦");
         return;
     }
     NSMutableArray *elementArr = [NSMutableArray new];

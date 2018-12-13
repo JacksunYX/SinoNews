@@ -11,6 +11,8 @@
 
 #import "ToReportViewController.h"
 
+#import "SharePopCopyView.h"
+
 #import "VoteDetailChooseTableViewCell.h"
 
 @interface TheVotePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -625,7 +627,7 @@ CGFloat static attentionBtnH = 26;
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            [self moreSelect];
+            [self getShareData];
         }];
         
         [commentInput whenTap:^{
@@ -709,29 +711,6 @@ CGFloat static attentionBtnH = 26;
     }else{
         self.praiseBtn.enabled = YES;
     }
-}
-
-//更多
--(void)moreSelect
-{
-    if (!self.postModel) {
-        return;
-    }
-    @weakify(self)
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"复制链接" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = AppendingString(DomainString, self.postModel.postTitle);
-        LRToast(@"链接已复制");
-    }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertVC addAction:confirm];
-    [alertVC addAction:cancel];
-    [self presentViewController:alertVC animated:YES completion:nil];
-    
 }
 
 //投票信息视图
@@ -1353,6 +1332,22 @@ CGFloat static attentionBtnH = 26;
 //举报帖子
 -(void)requestReportThePost
 {
+    
+}
+
+//获取分享链接
+-(void)getShareData
+{
+    ShowHudOnly;
+    [HttpRequest getWithURLString:GetShareText parameters:nil success:^(id responseObject) {
+        
+        HiddenHudOnly;
+        
+        [SharePopCopyView showWithData:responseObject[@"data"]];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+    }];
     
 }
 

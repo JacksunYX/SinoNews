@@ -10,6 +10,8 @@
 
 #import "ToReportViewController.h"
 
+#import "SharePopCopyView.h"
+
 @interface ThePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
@@ -591,7 +593,7 @@ CGFloat static attentionBtnH = 26;
         
         [[shareBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             @strongify(self);
-            [self moreSelect];
+            [self getShareData];
         }];
         
         [commentInput whenTap:^{
@@ -716,28 +718,6 @@ CGFloat static attentionBtnH = 26;
         GGLog(@"滚动至下标为:%ld的cell",index);
         [self.tableView scrollToRow:index inSection:0 atScrollPosition:UITableViewScrollPositionTop animated:YES];
     };
-}
-
-//更多
--(void)moreSelect
-{
-    if (!self.postModel) {
-        return;
-    }
-    @weakify(self)
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"复制链接" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = AppendingString(DomainString, self.postModel.postTitle);
-        LRToast(@"链接已复制");
-    }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertVC addAction:confirm];
-    [alertVC addAction:cancel];
-    [self presentViewController:alertVC animated:YES completion:nil];
 }
 
 //设置分区2的分区头
@@ -1245,6 +1225,20 @@ CGFloat static attentionBtnH = 26;
     } RefreshAction:nil];
 }
 
-
+//获取分享链接
+-(void)getShareData
+{
+    ShowHudOnly;
+    [HttpRequest getWithURLString:GetShareText parameters:nil success:^(id responseObject) {
+        
+        HiddenHudOnly;
+        
+        [SharePopCopyView showWithData:responseObject[@"data"]];
+        
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+    }];
+    
+}
 
 @end

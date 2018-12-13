@@ -254,7 +254,7 @@ static NSInteger limitMaxNum = 20;
     //需要判断选项是否没有内容
     for (VoteChooseInputModel *model in self.chooseArr) {
         if ([NSString isEmpty:model.content]) {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"有未输入内容的投票选项" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"投票项不能为空" message:nil preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
             [alertVC addAction:confirm];
             [self presentViewController:alertVC animated:YES completion:nil];

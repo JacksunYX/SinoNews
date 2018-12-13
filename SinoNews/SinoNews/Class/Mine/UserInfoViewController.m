@@ -394,9 +394,9 @@
     [_attentionBtn setNormalTitle:@" 关注"];
     [_attentionBtn setSelectedTitle:@"已关注"];
     
-    [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:RGBA(18, 130, 238, 1)]];
-    
-    _attentionBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+    [_attentionBtn setNormalBackgroundImage:[UIImage imageWithColor:HexColor(#3688F7)]];
+    [_attentionBtn setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#3688F7)]];
+   /* _attentionBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
         
         if (UserGetBool(@"NightMode")) {
             [(UIButton *)item setSelectedBackgroundImage:[UIImage imageWithColor:HexColor(#1C1F2C)]];
@@ -406,6 +406,7 @@
             [(UIButton *)item setSelectedTitleColor:HexColor(#aeb6b8)];
         }
     });
+    */
     
     [_attentionBtn addTarget:self action:@selector(attentionAction:) forControlEvents:UIControlEventTouchUpInside];
     _attentionBtn.hidden = YES;

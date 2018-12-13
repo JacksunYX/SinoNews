@@ -458,7 +458,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
     if (self.user.hasSignIn) {
         [_signIn setNormalTitle:@"任务领积分"];
-        _signIn.backgroundColor = RGBA(178, 217, 249, 1);
+        _signIn.backgroundColor = HexColor(#b5d6ff);
         shakeImg.image = UIImageNamed(@"mine_gold_gray");
         [shakeImg.layer removeAllAnimations];
     }else{

@@ -96,12 +96,12 @@
         CGFloat currentY = y;
         
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(currentX, currentY, avgW, avgH)];
-        imageView.layer.cornerRadius = avgW/2;
-        imageView.backgroundColor = Arc4randomColor;
+        [imageView cornerWithRadius:avgW/2];
+//        imageView.backgroundColor = Arc4randomColor;
         imageView.tag = 10099 + i;
         [rightView addSubview:imageView];
         RemindPeople *model = _remindArr[i];
-        imageView.image = UIImageNamed(model.avatar);
+        [imageView sd_setImageWithURL:UrlWithStr(model.avatar)];
         
         NSInteger morethan = (i+1)%5;
         if (morethan == 0) {

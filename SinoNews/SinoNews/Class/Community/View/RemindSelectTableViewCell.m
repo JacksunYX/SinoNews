@@ -62,7 +62,7 @@ NSString * _Nullable const RemindSelectTableViewCellID = @"RemindSelectTableView
     .heightEqualToWidth()
     ;
     avatar.sd_cornerRadius = @19;
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     
     nickname.sd_layout
     .leftSpaceToView(avatar, 14)
@@ -87,8 +87,8 @@ NSString * _Nullable const RemindSelectTableViewCellID = @"RemindSelectTableView
 -(void)setModel:(RemindPeople *)model
 {
     _model = model;
-    avatar.image = UIImageNamed(model.avatar);
-    nickname.text = model.nickname;
+    [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
+    nickname.text = model.username;
     selectBtn.selected = model.isSelected;
 }
 

@@ -91,15 +91,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_publishBtn];
 }
 
--(void)publishAction:(UIButton *)sender
-{
-    if (self.postModel.sectionId == 0) {
-        LRToast(@"没有选择版块哟");
-        return;
-    }
-    [self requestPublishPost];
-}
-
 -(void)setUI
 {
     if (_leftTable) {
@@ -156,6 +147,16 @@
     [_rightTable registerClass:[SelectPublishChannelCell class] forCellReuseIdentifier:SelectPublishChannelCellID];
     
     [self selectFirstView:0];
+}
+
+//发表
+-(void)publishAction:(UIButton *)sender
+{
+    if (self.postModel.sectionId == 0) {
+        LRToast(@"没有选择版块哟");
+        return;
+    }
+    [self requestPublishPost];
 }
 
 #pragma mark --- UITableViewDataSource
@@ -350,6 +351,15 @@
             [item removeObjectForKey:@"videoData"];
         }
     }
+    //重新处理@数组
+    NSArray *remindArr = dic[@"remindPeople"];
+    NSMutableArray *remindPeople = @[].mutableCopy;
+    for (int j = 0; j < remindArr.count; j ++) {
+        NSDictionary *people = remindArr[j];
+        [remindPeople addObject:@([people[@"userId"] integerValue])];
+    }
+    dic[@"remindPeople"] = remindPeople;
+    
     parameters[@"postModel"] = [dic mj_JSONString];
     
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {

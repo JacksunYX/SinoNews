@@ -12,8 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RemindPeople : NSObject
+
+@property(nonatomic,assign)NSInteger isFollow;  //是否相互已关注(1:是,0:否)
+
+@property (nonatomic,strong) NSString *username;
 @property (nonatomic,strong) NSString *avatar;
-@property (nonatomic,strong) NSString *nickname;
 @property (nonatomic,assign) NSInteger userId;
 @property (nonatomic,assign) BOOL isSelected;  //是否被选中
 @end

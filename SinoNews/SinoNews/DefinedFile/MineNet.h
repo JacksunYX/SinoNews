@@ -18,6 +18,9 @@
 //我的关注列表(post)
 #define Attention_myUser    @"/api/myUser"
 
+//我的关注列表不分页(post)
+#define ListMyFocus         @"/api/listMyFocus"
+
 //我的粉丝列表(post)
 #define Fans_myFollow       @"/api/myFollow"
 

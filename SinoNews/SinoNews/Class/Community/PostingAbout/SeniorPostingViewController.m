@@ -185,6 +185,12 @@
     
     [self reloadDataWithDataArrUpperCase];
     
+    //检测@数组并刷新底部显示 
+    if (self.postModel.remindPeople.count>0) {
+        self.remindArr = self.postModel.remindPeople;
+        [self changeRemindBtnStatus];
+    }
+    
     //键盘监听
     @weakify(self);
     [self.keyboardUtil setAnimateWhenKeyboardAppearAutomaticAnimBlock:^(ZYKeyboardUtil *keyboardUtil) {
@@ -648,17 +654,24 @@
         GGLog(@"1级页面回调");
         @strongify(self);
         self.remindArr = selectArr.mutableCopy;
-        //修改角标状态
-        if (self.remindArr.count>0) {
-            [self.addPeopleBtn showBadgeWithStyle:WBadgeStyleNumber value:self.remindArr.count animationType:WBadgeAnimTypeNone];
-            self.addPeopleBtn.badgeBgColor = HexColor(#FF5858);
-        }else{
-            [self.addPeopleBtn clearBadge];
-        }
-        self.addPeopleBtn.selected = self.remindArr.count>0?YES:NO;
+        self.postModel.remindPeople = selectArr;
+        [self changeRemindBtnStatus];
     };
     
     [self.navigationController pushViewController:rotrVC animated:YES];
+}
+
+//修改@角标
+-(void)changeRemindBtnStatus
+{
+    //修改角标状态
+    if (self.remindArr.count>0) {
+        [self.addPeopleBtn showBadgeWithStyle:WBadgeStyleNumber value:self.remindArr.count animationType:WBadgeAnimTypeNone];
+        self.addPeopleBtn.badgeBgColor = HexColor(#FF5858);
+    }else{
+        [self.addPeopleBtn clearBadge];
+    }
+    self.addPeopleBtn.selected = self.remindArr.count>0?YES:NO;
 }
 
 //添加/修改小标题

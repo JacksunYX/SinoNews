@@ -36,6 +36,7 @@
     return @{
              @"dataSource":[SeniorPostingAddElementModel class],
              @"voteSelects":[VoteChooseInputModel class],
+             @"remindPeople":[RemindPeople class],
              };
 }
 

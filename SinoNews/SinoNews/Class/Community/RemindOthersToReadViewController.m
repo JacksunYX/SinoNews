@@ -28,6 +28,7 @@
 {
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
+        /*
         NSArray *nickname = @[
                               @"李白",
                               @"床前明月光",
@@ -40,9 +41,10 @@
             RemindPeople *model = [RemindPeople new];
             model.avatar = @"testAvatar";
             model.userId = i + 1055;
-            model.nickname = nickname[i];
+            model.username = nickname[i];
             [_dataSource addObject:model];
         }
+         */
     }
     return _dataSource;
 }
@@ -51,6 +53,7 @@
 {
     if (!_searchArr) {
         _searchArr = [NSMutableArray new];
+        /*
         NSArray *nickname = @[
                               @"疑是地上霜",
                               @"举头望明月",
@@ -66,9 +69,10 @@
             RemindPeople *model = [RemindPeople new];
             model.avatar = @"testAvatar";
             model.userId = i + 1057;
-            model.nickname = nickname[i];
+            model.username = nickname[i];
             [_searchArr addObject:model];
         }
+         */
     }
     return _searchArr;
 }
@@ -102,8 +106,13 @@
     self.navigationController.navigationBar.hidden = YES;
     self.view.backgroundColor = WhiteColor;
     [self setUI];
-    [self processSelectArr];
+    
     [self setConfirmBtnShowStatus];
+    if (self.type==1) {
+        [self requestWithKeyword];
+    }else{
+        [self requestAttentionList];
+    }
 }
 
 -(void)setUI
@@ -180,9 +189,9 @@
     
     [_tableView registerClass:[RemindSelectTableViewCell class] forCellReuseIdentifier:RemindSelectTableViewCellID];
     if (self.type) {
-        _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-            
-        }];
+//        _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+//
+//        }];
     }
 }
 
@@ -470,14 +479,39 @@
                 };
                 [self.navigationController pushViewController:rotrVC animated:YES];
             }else{
+                self.keyword = self.searchField.text;
                 //执行搜索请求
+                [self requestWithKeyword];
             }
         }
     }
     return YES;
 }
 
-//请求
+#pragma mark --请求
+//我的关注列表(不分页)
+-(void)requestAttentionList
+{
+    [HttpRequest postWithURLString:ListMyFocus parameters:@{} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        self.dataSource = [RemindPeople mj_objectArrayWithKeyValuesArray:response[@"data"]];
+        [self processSelectArr];
+//        [self.tableView reloadData];
+    } failure:nil RefreshAction:nil];
+}
 
+//搜索作者
+-(void)requestWithKeyword
+{
+    ShowHudOnly;
+    [HttpRequest postWithURLString:ListUserForSearch parameters:@{@"keyword":GetSaveString(self.keyword)} isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        HiddenHudOnly;
+        self.searchArr = [RemindPeople mj_objectArrayWithKeyValuesArray:response[@"data"]];
+//        [self.tableView reloadData];
+        [self processSelectArr];
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+    } RefreshAction:nil];
+    
+}
 
 @end

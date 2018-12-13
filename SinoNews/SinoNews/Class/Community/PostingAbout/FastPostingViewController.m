@@ -353,7 +353,7 @@
         GGLog(@"1级页面回调");
         @strongify(self);
         self.remindView.remindArr = selectArr.mutableCopy;
-        
+        self.postModel.remindPeople = selectArr;
     };
     
     [self.navigationController pushViewController:rotrVC animated:YES];

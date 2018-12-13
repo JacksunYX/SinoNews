@@ -89,7 +89,10 @@
         title = [title stringByAppendingString:@"帖子"];
     }else if (type==2){
         title = [title stringByAppendingString:@"评论"];
+    }else if (type==3){
+        title = [NSString stringWithFormat:@"%@发表了新帖并提醒我查看",model[@"username"]];
     }
+    title = [title stringByAppendingString:@",点击查看"];
     cell.textLabel.text = title;
     cell.detailTextLabel.text = GetSaveString(model[@"createTime"]);
     

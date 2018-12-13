@@ -112,7 +112,7 @@
 
 //是否开启发帖中@人功能
 #ifndef OpenRemindPeople
-//#define OpenRemindPeople
+#define OpenRemindPeople
 #endif
 
 //是否开启添加本地表情

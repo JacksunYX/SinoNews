@@ -441,10 +441,10 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
         _messageBtn.hidden = NO;
         
-        NSAttributedString *attentionString = [NSString leadString:@"关注 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.praisedCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
+        NSAttributedString *attentionString = [NSString leadString:@"关注 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.followCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
         [_attention setNormalAttributedTitle:attentionString];
         
-        NSAttributedString *praiseString = [NSString leadString:@"获赞 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.followCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
+        NSAttributedString *praiseString = [NSString leadString:@"获赞 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.praisedCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];
         [_praise setNormalAttributedTitle:praiseString];
         
         NSAttributedString *fansString = [NSString leadString:@"粉丝 " tailString:[NSString stringWithFormat:@"%lu",(unsigned long)self.user.fansCount] font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO];

@@ -573,6 +573,9 @@
         _level.hidden = self.user.level?NO:YES;
         _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
         _level.hidden = YES;
+        _level.sd_layout
+        .widthIs(0)
+        ;
     }
     [self setIdViewWithIDs];
     

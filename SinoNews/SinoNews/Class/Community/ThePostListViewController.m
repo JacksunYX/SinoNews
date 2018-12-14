@@ -79,6 +79,8 @@
         [self requestListPostForSearch];
     }];
     [self requestListPostForSearch];
+    
+//    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"" title:@"没有搜索到相关结果"];
 }
 
 //设置下拉菜单
@@ -175,6 +177,24 @@
     return 0.01;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SeniorPostDataModel *model= self.dataSource[indexPath.row];
+    
+    UIViewController *vc;
+    if (model.postType == 2) { //投票
+        TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+        tvpdVC.postModel.postId = model.postId;
+        vc = tvpdVC;
+    }else{
+        ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+        tpdVC.postModel.postId = model.postId;
+        vc = tpdVC;
+    }
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark --- 请求
 //关键字搜索版块帖子数量(版块名 ，数量)
 -(void)requestListBySectionForSearch
@@ -200,7 +220,7 @@
     if (_page==1) {
         ShowHudOnly;
     }
-    
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:ListPostForSearch parameters:parameters success:^(id responseObject) {
         HiddenHudOnly;
         NSArray *data = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
@@ -212,9 +232,11 @@
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         HiddenHudOnly;
         [self.tableView.mj_footer endRefreshing];
+        [self.tableView ly_endLoading];
     }];
 }
 

@@ -67,9 +67,10 @@
     [fatherView sd_addSubviews:@[
                                  icon,
                                  time,
+                                 attention,
                                  name,
                                  sex,
-                                 attention,
+                                 
                                  ]];
     icon.sd_layout
     .centerYEqualToView(fatherView)
@@ -86,12 +87,21 @@
     ;
     [time setSingleLineAutoResizeWithMaxWidth:100];
     
+    attention.sd_layout
+//    .leftSpaceToView(sex, 30)
+    .rightSpaceToView(time, 10)
+    .centerYEqualToView(fatherView)
+    .heightIs(20)
+    ;
+    [attention setSingleLineAutoResizeWithMaxWidth:100];
+    attention.text = @"关注了你";
+    
     name.sd_layout
     .leftSpaceToView(icon, 10)
     .centerYEqualToView(fatherView)
     .heightIs(20)
     ;
-    [name setSingleLineAutoResizeWithMaxWidth:150];
+    [name setSingleLineAutoResizeWithMaxWidth:100*ScaleW];
     
     sex.sd_layout
     .leftSpaceToView(name, 10)
@@ -99,14 +109,6 @@
     .widthIs(18)
     .heightEqualToWidth()
     ;
-    
-    attention.sd_layout
-    .leftSpaceToView(sex, 30)
-    .centerYEqualToView(fatherView)
-    .heightIs(20)
-    ;
-    [attention setSingleLineAutoResizeWithMaxWidth:150];
-    attention.text = @"关注了你";
 }
 
 -(void)setModel:(MyFansModel *)model

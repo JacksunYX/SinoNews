@@ -150,6 +150,7 @@
     [btn setTitleColor:self.btnTitleSelectColor forState:UIControlStateSelected];
     [btn setBackgroundImage:[self lx_imageWithColor:self.btnBackgroundNormalColor] forState:UIControlStateNormal];
     [btn setBackgroundImage:[self lx_imageWithColor:self.btnBackgroundSelectColor] forState:UIControlStateSelected];
+    [btn setBackgroundImage:[self lx_imageWithColor:[UIColor clearColor]] forState:UIControlStateHighlighted];
     btn.titleLabel.font = self.titleFont;
     [self addSubview:btn];
     return btn;

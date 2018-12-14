@@ -242,8 +242,20 @@
         if (dataArr.count>0) {
             if (refreshType) {
                 [self.dataSource addObjectsFromArray:dataArr];
-                [self.tableView.mj_footer endRefreshing];
+                if (dataArr.count < 10) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [self.tableView.mj_footer endRefreshing];
+                }
             }else{
+                //说明是空数组获取数据
+                if (self.dataSource.count<=0) {
+                    if (dataArr.count < 10) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }else{
+                        [self.tableView.mj_footer endRefreshing];
+                    }
+                }
                 self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
                 [self.tableView.mj_header endRefreshing];
             }
@@ -253,6 +265,10 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }else{
                 [self.tableView.mj_header endRefreshing];
+                //说明是空数组获取数据
+                if (self.dataSource.count<=0) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
             }
         }
         
@@ -286,8 +302,20 @@
         if (dataArr.count>0) {
             if (refreshType) {
                 [self.dataSource addObjectsFromArray:dataArr];
-                [self.tableView.mj_footer endRefreshing];
+                if (dataArr.count < 10) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [self.tableView.mj_footer endRefreshing];
+                }
             }else{
+                //说明是空数组获取数据
+                if (self.dataSource.count<=0) {
+                    if (dataArr.count < 10) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }else{
+                        [self.tableView.mj_footer endRefreshing];
+                    }
+                }
                 self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
                 [self.tableView.mj_header endRefreshing];
             }
@@ -297,6 +325,10 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }else{
                 [self.tableView.mj_header endRefreshing];
+                //说明是空数组获取数据
+                if (self.dataSource.count<=0) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
             }
         }
         

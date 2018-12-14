@@ -12,7 +12,7 @@
 
 
 //接口域名
-#define DefaultDomainName DebugDomain
+#define DefaultDomainName DebugDomain2
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087" //Tony

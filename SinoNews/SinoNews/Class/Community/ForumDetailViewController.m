@@ -32,9 +32,9 @@
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
 @property (nonatomic,assign) NSInteger sortOrder;
 @property (nonatomic,assign) NSInteger currentSectionId;
+//用来区分好文和精华
+@property (nonatomic,assign) NSInteger rate;
 
-//三级版块下标
-@property (nonatomic,assign) NSInteger thirdIndex;
 @end
 
 @implementation ForumDetailViewController
@@ -524,13 +524,18 @@
 #pragma mark --- MLMSegmentHeadDelegate
 -(void)didSelectedIndex:(NSInteger)index
 {
-    if (index>0) {
-        //此时还未加好文、热文的分类，所以-1就行了
-        self.thirdIndex = index - 1;
-    }
+
     [self clearAndReloadTableView];
     MainSectionModel *model = self.sectionsArr[index];
+    if (CompareString(model.name, @"好文")) {
+        _rate = 1;
+    }else if (CompareString(model.name, @"精华")){
+        _rate = 2;
+    }else{
+        _rate = 0;
+    }
     _currentSectionId = model.sectionId;
+    
     [self requestListPostForSection:0];
 }
 
@@ -546,11 +551,20 @@
         self.noticesArr = dic[@"notices"];
         self.topsArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:dic[@"tops"]];
         self.sectionsArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:dic[@"sections"]];
+        //拼接好文和精华的版块
+        MainSectionModel *sectionModel1 = [MainSectionModel new];
+        sectionModel1.name = @"精华";
+        sectionModel1.sectionId = self.sectionId;
+        [self.sectionsArr insertObject:sectionModel1 atIndex:0];
+        MainSectionModel *sectionModel2 = [MainSectionModel new];
+        sectionModel2.name = @"好文";
+        sectionModel2.sectionId = self.sectionId;
+        [self.sectionsArr insertObject:sectionModel2 atIndex:0];
         //自己拼接一个全部
-        MainSectionModel *sectionModel = [MainSectionModel new];
-        sectionModel.name = @"全部";
-        sectionModel.sectionId = self.sectionId;
-        [self.sectionsArr insertObject:sectionModel atIndex:0];
+        MainSectionModel *sectionModel3 = [MainSectionModel new];
+        sectionModel3.name = @"全部";
+        sectionModel3.sectionId = self.sectionId;
+        [self.sectionsArr insertObject:sectionModel3 atIndex:0];
         self.currentSectionId = self.sectionId;
         [self setUI];
         
@@ -566,6 +580,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"sectionId"] = @(_currentSectionId);
     parameters[@"sortOrder"] = @(_sortOrder);
+    parameters[@"rate"] = @(_rate);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
     
@@ -574,8 +589,20 @@
         if (dataArr.count>0) {
             if (refreshType) {
                 [self.dataSource addObjectsFromArray:dataArr];
-                [self.tableView.mj_footer endRefreshing];
+                if (dataArr.count < 10) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    [self.tableView.mj_footer endRefreshing];
+                }
             }else{
+                //说明是空数组获取数据
+                if (self.dataSource.count<=0) {
+                    if (dataArr.count < 10) {
+                        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }else{
+                        [self.tableView.mj_footer endRefreshing];
+                    }
+                }
                 self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
                 [self.tableView.mj_header endRefreshing];
             }
@@ -584,6 +611,10 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }else{
                 [self.tableView.mj_header endRefreshing];
+                //说明是空数组获取数据
+                if (self.dataSource.count<=0) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
             }
         }
         self.addPostBtn.hidden = NO;

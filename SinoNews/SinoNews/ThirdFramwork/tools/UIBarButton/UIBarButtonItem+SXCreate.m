@@ -40,6 +40,7 @@
         CGFloat height = 40 / button.bounds.size.width * button.bounds.size.height;
         button.bounds = CGRectMake(0, 0, 40, height);
     }
+    button.bounds = CGRectMake(0, 0, 40, 40);
     button.imageEdgeInsets = imageEdgeInsets;
     return [[UIBarButtonItem alloc] initWithCustomView:button];
     

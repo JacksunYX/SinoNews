@@ -330,7 +330,7 @@
         
         NSDateFormatter *maxDateFormater = [[NSDateFormatter alloc] init];
         [maxDateFormater setDateFormat:@"yyyy-MM-dd"];
-        NSDate *maxLimitDate = [maxDateFormater dateFromString:@"2018-01-01"];
+        NSDate *maxLimitDate = [maxDateFormater dateFromString:@"2050-01-01"];
         datepicker.maxLimitDate = maxLimitDate;
         
         datepicker.dateLabelColor = [UIColor clearColor];//年-月-日-时-分 颜色

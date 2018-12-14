@@ -355,7 +355,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [_userImg setSd_cornerRadius:@32];
     _userImg.image = UIImageNamed(@"userDefault_icon");
     
-    [_userImg whenTap:^{
+    [headBackImg whenTap:^{
         @strongify(self)
         [self userTouch];
     }];
@@ -450,7 +450,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
 //重新设置头部内容
 -(void)setHeadViewData:(BOOL)login
 {
-    _userName.text = @"登 录";
+    _userName.text = @"未登录";
     _integral.hidden = YES;
     _integral.text = @"";
     _level.hidden = YES;
@@ -659,7 +659,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }
 }
 
-//头像点击
+//判断是否需要登录
 -(void)userTouch
 {
     if ([YXHeader checkNormalBackLogin]) {
@@ -668,8 +668,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }
     
 }
-
-
 
 //给view添加指定圆角
 -(void)cutCornerradiusWithView:(UIView *)view

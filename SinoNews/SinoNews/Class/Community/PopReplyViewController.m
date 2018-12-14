@@ -238,6 +238,8 @@ static CGFloat animationTime = 0.25;
             .bottomEqualToView(self.view)
             ;
             [self.bottomView updateLayout];
+            //弹出键盘
+            [self.textView becomeFirstResponder];
         }];
     });
     

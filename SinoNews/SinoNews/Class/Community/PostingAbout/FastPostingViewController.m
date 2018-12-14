@@ -217,13 +217,13 @@
 //    _mainScrollView.backgroundColor = RedColor;
     
     _titleView = [YXTextView new];
-    _titleView.font = PFFontR(20);
+    _titleView.font = PFFontM(20);
     _titleView.textColor = BlackColor;
     _titleView.delegate = self;
     _titleView.backgroundColor = WhiteColor;
     
     _contentView = [YXTextView new];
-    _contentView.font = PFFontL(15);
+    _contentView.font = PFFontR(15);
     _contentView.textColor = BlackColor;
     _contentView.delegate = self;
     _contentView.backgroundColor = WhiteColor;
@@ -261,7 +261,7 @@
     [_titleView updateLayout];
     _titleView.placeholderText = @"快来起个厉害的标题吧！";
     _titleView.placeholderTextColor = HexColor(#BAC3C7);
-    _titleView.placeholderFont = PFFontR(20);
+    _titleView.placeholderFont = PFFontM(20);
     _titleView.layer.borderColor = HexColor(#E3E3E3).CGColor;
     _titleView.layer.borderWidth = 1;
     
@@ -274,7 +274,7 @@
     [_contentView updateLayout];
     _contentView.placeholderText = @"分享观点，谈谈自己的看法，这就是一个任你发挥的平台...";
     _contentView.placeholderTextColor = HexColor(#B9C3C7);
-    _contentView.placeholderFont = PFFontL(15);
+    _contentView.placeholderFont = PFFontR(15);
 //    _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
 //    _contentView.layer.borderWidth = 1;
     

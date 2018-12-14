@@ -10,4 +10,11 @@
 
 @interface NSArray (Extension)
 - (NSString *)formatArray:(NSArray *)array formatString:(NSString *)formatString;
+
+//kvc 获取所有key值
++ (NSArray *)getAllIvar:(id)object;
+
+//获得所有属性
++ (NSArray *)getAllProperty:(id)object;
+
 @end

@@ -181,6 +181,10 @@ static CGFloat anumationTime = 0.25;
             bottomView.frame = CGRectMake(0, CGRectGetHeight(backView.frame) - bottomViewHeight, ScreenW, bottomViewHeight);
         }];
     }];
+    
+    GCDAfterTime(0.1, ^{
+        [textView becomeFirstResponder];
+    });
 }
 
 

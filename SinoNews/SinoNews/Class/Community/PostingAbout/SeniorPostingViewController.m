@@ -93,14 +93,14 @@
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 240)];
         
         _titleView = [YXTextView new];
-        _titleView.font = PFFontR(20);
+        _titleView.font = PFFontM(20);
         _titleView.textColor = BlackColor;
         _titleView.delegate = self;
         _titleView.backgroundColor = WhiteColor;
         _titleView.inputAccessoryView = self.bottomView;
         
         _contentView = [YXTextView new];
-        _contentView.font = PFFontL(15);
+        _contentView.font = PFFontR(15);
         _contentView.textColor = BlackColor;
         _contentView.delegate = self;
         _contentView.backgroundColor = WhiteColor;
@@ -118,7 +118,7 @@
         ;
         _titleView.placeholderText = @"起个引人关注的标题哦～";
         _titleView.placeholderTextColor = HexColor(#BAC3C7);
-        _titleView.placeholderFont = PFFontR(20);
+        _titleView.placeholderFont = PFFontM(20);
         
         _contentView.sd_layout
         .topSpaceToView(_titleView, 0)
@@ -128,7 +128,7 @@
         ;
         _contentView.placeholderText = @"分享观点，谈谈自己的看法，这就是一个任你发挥的平台...";
         _contentView.placeholderTextColor = HexColor(#B9C3C7);
-        _contentView.placeholderFont = PFFontL(15);
+        _contentView.placeholderFont = PFFontR(15);
 
         _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
         _contentView.layer.borderWidth = 1;
@@ -300,9 +300,9 @@
         case 3:
         {
             if ([NSString isEmpty:self.postModel.postTitle]) {
-                LRToast(@"标题不能空缺哦");
+                LRToast(@"您的帖子还没有标题哦");
             }else if ([NSString isEmpty:self.postModel.postContent]){
-                LRToast(@"内容不能空缺哦");
+                LRToast(@"您的帖子还没有内容哦");
             }else{
                 //跳转到详情页测试
 //                ForumViewController *pVC = [ForumViewController new];
@@ -453,7 +453,7 @@
     _addPeopleBtn = [UIButton new];
     UIButton *showKeyboardBtn = [UIButton new];
     //布局
-    CGFloat avgSpaceX = 20;
+    CGFloat avgSpaceX = 25;
     [functionView sd_addSubviews:@[
                                    emojiBtn,
                                    addTitleBtn,
@@ -543,7 +543,10 @@
     
 #ifndef OpenAddLocalEmoji
     emojiBtn.sd_layout
+    .centerYEqualToView(functionView)
+    .leftSpaceToView(functionView, 0)
     .widthIs(0)
+    .heightIs(23)
     ;
     [emojiBtn setHidden:YES];
     [_emojiKeyboard removeFromSuperview];

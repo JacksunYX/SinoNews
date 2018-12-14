@@ -59,14 +59,14 @@ static NSInteger limitMaxNum = 20;
         
         _titleView = [YXTextView new];
         _titleView.backgroundColor = WhiteColor;
-        _titleView.font = PFFontR(20);
+        _titleView.font = PFFontM(20);
         _titleView.textColor = BlackColor;
         _titleView.delegate = self;
         _titleView.inputAccessoryView = self.bottomView;
         
         _contentView = [YXTextView new];
         _contentView.backgroundColor = WhiteColor;
-        _contentView.font = PFFontL(15);
+        _contentView.font = PFFontR(15);
         _contentView.textColor = BlackColor;
         _contentView.delegate = self;
         _contentView.inputAccessoryView = self.bottomView;
@@ -84,7 +84,7 @@ static NSInteger limitMaxNum = 20;
         
         _titleView.placeholderText = @"起个引人关注的标题哦～";
         _titleView.placeholderTextColor = HexColor(#BAC3C7);
-        _titleView.placeholderFont = PFFontR(20);
+        _titleView.placeholderFont = PFFontM(20);
         
         _contentView.sd_layout
         .topSpaceToView(_titleView, 0)
@@ -94,7 +94,7 @@ static NSInteger limitMaxNum = 20;
         ;
         _contentView.placeholderText = @"填写投票描述，详细的描述会让更多的名利场用户参与投票哦～";
         _contentView.placeholderTextColor = HexColor(#B9C3C7);
-        _contentView.placeholderFont = PFFontL(15);
+        _contentView.placeholderFont = PFFontR(15);
         
         _contentView.layer.borderColor = HexColor(#E3E3E3).CGColor;
         _contentView.layer.borderWidth = 1;

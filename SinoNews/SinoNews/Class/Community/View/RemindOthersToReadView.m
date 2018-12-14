@@ -59,6 +59,7 @@
     rightArrow.image = UIImageNamed(@"rightArrow_icon");
     
     if (_remindArr.count<=0) {
+        leftLabel.textColor = HexColor(#939393);
         UILabel *rightLabel = [UILabel new];
         rightLabel.font = PFFontL(12);
         rightLabel.textColor = HexColor(#939393);

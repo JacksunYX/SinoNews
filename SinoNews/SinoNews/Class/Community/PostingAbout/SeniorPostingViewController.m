@@ -318,6 +318,8 @@
                 
                 if (self.sectionId) {
                     self.postModel.sectionId = self.sectionId;
+                }else{
+                    self.postModel.sectionId = 0;
                 }
                 //跳转到单独的三级版块选择界面
                 SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];

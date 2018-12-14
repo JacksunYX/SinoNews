@@ -171,6 +171,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.translucent = YES;
     [self setUI];
 }
 
@@ -197,10 +198,41 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [self addHeadView];
 }
 
+//添加tableview
+-(void)addTableView
+{
+    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self.view addSubview:_tableView];
+    
+    self.tableView.sd_layout
+    .topSpaceToView(self.view, 0)
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomSpaceToView(self.view, 0)
+    ;
+    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+        if (UserGetBool(@"NightMode")) {
+            [(BaseTableView *)item setBackgroundColor:HexColor(#292d30)];
+            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
+        }else{
+            [(BaseTableView *)item setBackgroundColor:HexColor(#F2F6F7)];
+            [(BaseTableView *)item setSeparatorColor:CutLineColor];
+        }
+    });
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //注册
+    [self.tableView registerClass:[Mine2FirstTableViewCell class] forCellReuseIdentifier:Mine2FirstTableViewCellID];
+    [self.tableView registerClass:[Mine2SecondTableViewCell class] forCellReuseIdentifier:Mine2SecondTableViewCellID];
+    [self.tableView registerClass:[Mine3SecondTableViewCell class] forCellReuseIdentifier:Mine3SecondTableViewCellID];
+}
+
 //添加头部视图
 -(void)addHeadView
 {
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 217)];
+    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 217+StatusBarHeight)];
     [headView addBakcgroundColorTheme];
     UIImageView *headBackImg = [UIImageView new];
     headBackImg.userInteractionEnabled = YES;
@@ -224,7 +256,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     .topEqualToView(headView)
     .leftEqualToView(headView)
     .rightEqualToView(headView)
-    .heightIs(184)
+    .heightIs(184+StatusBarHeight)
     ;
     headBackImg.lee_theme.LeeConfigImage(@"mineBackImg");
     
@@ -313,7 +345,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
                                ]];
     
     _userImg.sd_layout
-    .topSpaceToView(headBackImg, 54)
+    .topSpaceToView(headBackImg, 44+StatusBarHeight)
     .leftSpaceToView(headBackImg, 20)
     .widthIs(63)
     .heightEqualToWidth()
@@ -328,7 +360,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
     _messageBtn.sd_layout
     .rightSpaceToView(headBackImg, 20)
-    .topSpaceToView(headBackImg, 26)
+    .topSpaceToView(headBackImg, 26+StatusBarHeight)
     .widthIs(24)
     .heightEqualToWidth()
     ;
@@ -635,36 +667,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
 }
 
-//添加tableview
--(void)addTableView
-{
-    self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    [self.view addSubview:_tableView];
-    
-    self.tableView.sd_layout
-    .topSpaceToView(self.view, StatusBarHeight)
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomSpaceToView(self.view, 0)
-    ;
-    self.tableView.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        if (UserGetBool(@"NightMode")) {
-            [(BaseTableView *)item setBackgroundColor:HexColor(#292d30)];
-            [(BaseTableView *)item setSeparatorColor:CutLineColorNight];
-        }else{
-            [(BaseTableView *)item setBackgroundColor:HexColor(#F2F6F7)];
-            [(BaseTableView *)item setSeparatorColor:CutLineColor];
-        }
-    });
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    //注册
-    [self.tableView registerClass:[Mine2FirstTableViewCell class] forCellReuseIdentifier:Mine2FirstTableViewCellID];
-    [self.tableView registerClass:[Mine2SecondTableViewCell class] forCellReuseIdentifier:Mine2SecondTableViewCellID];
-    [self.tableView registerClass:[Mine3SecondTableViewCell class] forCellReuseIdentifier:Mine3SecondTableViewCellID];
-}
+
 
 //给view添加指定圆角
 -(void)cutCornerradiusWithView:(UIView *)view

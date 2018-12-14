@@ -299,13 +299,13 @@
         //先做邮箱判断
         if ([self.username.text containsString:@"@"]) {
             if (![self.username.text isValidEmail]) {
-                LRToast(@"邮箱有误");
+                LRToast(@"请输入正确的邮箱");
                 return;
             }
             
         }else{
             if (![self.username.text isValidPhone]) {
-                LRToast(@"手机号有误");
+                LRToast(@"请输入正确的手机号");
                 return;
             }
         }

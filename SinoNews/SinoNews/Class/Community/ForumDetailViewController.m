@@ -167,6 +167,7 @@
             [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:esVC] animated:YES completion:nil];
         }
     }];
+    _addPostBtn.hidden = YES;
     
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
 }
@@ -585,10 +586,11 @@
                 [self.tableView.mj_header endRefreshing];
             }
         }
-        
+        self.addPostBtn.hidden = NO;
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
+        NSLog(@"error:%@",error);
         if (refreshType) {
             [self.tableView.mj_footer endRefreshing];
         }else{

@@ -149,7 +149,7 @@
     .heightIs(30)
     ;
     self.searchField.sd_cornerRadius = @4;
-    self.searchField.placeholder = @"搜索你想@的人";
+    self.searchField.placeholder = @"搜索你要@的人";
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 20)];
     UIImageView *searchIcon = [[UIImageView alloc]initWithImage:UIImageNamed(@"leftSearch_icon")];
     [leftView addSubview:searchIcon];

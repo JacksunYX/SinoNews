@@ -282,6 +282,8 @@ static NSInteger limitMaxNum = 20;
     
     if (self.sectionId) {
         self.voteModel.sectionId = self.sectionId;
+    }else{
+        self.voteModel.sectionId = 0;
     }
     //跳转到单独的三级版块选择界面
     SelectPublishChannelViewController *spcVC = [SelectPublishChannelViewController new];

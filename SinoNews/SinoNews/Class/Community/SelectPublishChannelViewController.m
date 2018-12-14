@@ -228,6 +228,12 @@
         [indexs addObject:@(secondIndex)];
         [indexs addObject:@(thirdIndex)];
     }
+    if (indexs.count<=0) {
+        NSLog(@"没有找到对应的版块");
+        [indexs addObject:@(firstIndex)];
+        [indexs addObject:@(secondIndex)];
+        [indexs addObject:@(thirdIndex)];
+    }
     
     return indexs;
 }
@@ -276,7 +282,7 @@
     }else if (tableView == _rightTable) {
         SelectPublishChannelCell *cell2 = (SelectPublishChannelCell *)[tableView dequeueReusableCellWithIdentifier:SelectPublishChannelCellID];
         MainSectionModel *model = self.dataSource[self.leftSelectedIndex];
-        MainSectionModel *model2 = model.subSections[indexPath.row];
+        MainSectionModel *model2 = model.subSections[self.centerSelectedIndex];
         MainSectionModel *model3 = model2.subSections[indexPath.row];
         [cell2 setTitle:model3.name];
         cell = cell2;

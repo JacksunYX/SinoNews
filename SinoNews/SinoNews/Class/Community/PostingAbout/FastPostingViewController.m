@@ -144,6 +144,8 @@
     self.postModel.dataSource = elementArr;
     if (self.sectionId) {
         self.postModel.sectionId = self.sectionId;
+    }else{
+        self.postModel.sectionId = 0;
     }
     
 //    GGLog(@"快速发帖内容展示：%@",self.postModel);

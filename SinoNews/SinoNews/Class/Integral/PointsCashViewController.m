@@ -169,6 +169,8 @@
 -(void)setupTopViews
 {
     userIcon = [UIImageView new];
+    userIcon.contentMode = 2;
+    userIcon.layer.masksToBounds = YES;
     userName = [UILabel new];
     userName.font = FontScale(15);
     [userName addTitleColorTheme];
@@ -598,7 +600,7 @@
 {
     [HttpRequest postWithURLString:ApplyWithdraw parameters:@{@"point":@(amount*120)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提现成功" message:@"提现将在最多7个工作日内处理完成（周六日不计算在内）" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提现已申请" message:@"提现将在最多7个工作日内处理完成（周六日不计算在内）" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popViewControllerAnimated:YES];
         }];

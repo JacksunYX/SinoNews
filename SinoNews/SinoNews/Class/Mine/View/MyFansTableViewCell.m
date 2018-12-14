@@ -42,6 +42,8 @@
 -(void)setUI
 {
     fansIcon = [UIImageView new];
+    fansIcon.contentMode = 2;
+    fansIcon.layer.masksToBounds = YES;
     fansName = [UILabel new];
     [fansName addTitleColorTheme];
     sex = [UIImageView new];

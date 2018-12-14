@@ -47,6 +47,8 @@
 -(void)setUI
 {
     avatar = [UIImageView new];
+    avatar.contentMode = 2;
+    avatar.layer.masksToBounds = YES;
     
     praise = [UIButton new];
     [praise setTitleColor:RGBA(50, 50, 50, 1) forState:UIControlStateNormal];

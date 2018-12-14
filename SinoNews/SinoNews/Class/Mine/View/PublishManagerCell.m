@@ -51,6 +51,8 @@
 -(void)setUI
 {
     avatar = [UIImageView new];
+    avatar.contentMode = 2;
+    avatar.layer.masksToBounds = YES;
     
     username    = [UILabel new];
     username.font = PFFontL(16);

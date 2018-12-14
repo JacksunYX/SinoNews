@@ -48,6 +48,8 @@
 {
     
     avatar = [UIImageView new];
+    avatar.contentMode = 2;
+    avatar.layer.masksToBounds = YES;
 //    avatar.backgroundColor = Arc4randomColor;
     
     username = [UILabel new];

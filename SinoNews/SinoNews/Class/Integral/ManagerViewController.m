@@ -248,6 +248,8 @@
 -(void)setupTopViews
 {
     userIcon = [UIImageView new];
+    userIcon.contentMode = 2;
+    userIcon.layer.masksToBounds = YES;
     userName = [UILabel new];
     userName.font = FontScale(15);
     [userName addTitleColorTheme];

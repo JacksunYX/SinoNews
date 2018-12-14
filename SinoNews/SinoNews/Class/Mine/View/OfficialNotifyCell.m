@@ -56,6 +56,8 @@
     triangleIcon = [UIImageView new];
     
     userIcon    = [UIImageView new];
+    userIcon.contentMode = 2;
+    userIcon.layer.masksToBounds = YES;
     
     content     = [UILabel new];
     content.font = PFFontL(15);

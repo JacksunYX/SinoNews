@@ -221,6 +221,7 @@
     if ([title isEqualToString:@"头像"]) {
         UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 42, 42)];
         icon.layer.cornerRadius = 21;
+        icon.contentMode = 2;
         icon.layer.masksToBounds = YES;
         NSString *avatarStr = GetSaveString(self.user.avatar);
         [icon sd_setImageWithURL:UrlWithStr(avatarStr)];

@@ -126,6 +126,9 @@ NSInteger static maxNum = 6;
                 break;
             }
             UIImageView *icon = [UIImageView new];
+            icon.contentMode = 2;
+            icon.layer.masksToBounds = YES;
+            
             [iconView addSubview:icon];
             icon.sd_layout
             .leftSpaceToView(iconView, (wid + marginX) * i)

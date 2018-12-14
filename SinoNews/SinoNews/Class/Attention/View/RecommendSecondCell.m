@@ -121,6 +121,8 @@
     
     img1 = [UIImageView new];
     img1.userInteractionEnabled = YES;
+    img1.contentMode = 2;
+    img1.layer.masksToBounds = YES;
     
     isAttention1 = [UIButton new];
     isAttention1.titleLabel.font = PFFontL(14);
@@ -205,6 +207,8 @@
     
     img2 = [UIImageView new];
     img2.userInteractionEnabled = YES;
+    img2.contentMode = 2;
+    img2.layer.masksToBounds = YES;
     
     isAttention2 = [UIButton new];
     isAttention2.titleLabel.font = PFFontL(14);
@@ -294,6 +298,8 @@
     
     img3 = [UIImageView new];
     img3.userInteractionEnabled = YES;
+    img3.contentMode = 2;
+    img3.layer.masksToBounds = YES;
     
     isAttention3 = [UIButton new];
     isAttention3.titleLabel.font = PFFontL(14);

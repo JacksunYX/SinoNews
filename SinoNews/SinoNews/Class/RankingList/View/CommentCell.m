@@ -51,6 +51,8 @@
 -(void)setupUI
 {
     avatar = [UIImageView new];
+    avatar.contentMode = 2;
+    avatar.layer.masksToBounds = YES;
     
     praise = [UIButton new];
  

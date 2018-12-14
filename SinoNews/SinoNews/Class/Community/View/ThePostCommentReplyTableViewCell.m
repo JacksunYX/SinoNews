@@ -54,6 +54,8 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
 -(void)setUI
 {
     avatar = [UIImageView new];
+    avatar.contentMode = 2;
+    avatar.layer.masksToBounds = YES;
     
     nickName = [UILabel new];
     nickName.textColor = HexColor(#161A24);

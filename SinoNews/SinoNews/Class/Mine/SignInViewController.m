@@ -195,7 +195,8 @@
         
         //中间的用户信息
         UIImageView *userIcon = [UIImageView new];
-        
+        userIcon.contentMode = 2;
+        userIcon.layer.masksToBounds = YES;
         UILabel *integral = [UILabel new];
         integral.font = PFFontM(13);
 //        integral.textColor = RGBA(50, 50, 50, 1);

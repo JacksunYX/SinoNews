@@ -43,6 +43,8 @@
 -(void)setUI
 {
     icon = [UIImageView new];
+    icon.contentMode = 2;
+    icon.layer.masksToBounds = YES;
     
     sex = [UIImageView new];
     

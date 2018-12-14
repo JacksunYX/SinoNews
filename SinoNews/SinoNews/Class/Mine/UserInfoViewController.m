@@ -269,6 +269,8 @@
     backView.backgroundColor = ClearColor;
     
     _userImg = [UIImageView new];
+    _userImg.contentMode = 2;
+    _userImg.layer.masksToBounds = YES;
     //    _userImg.backgroundColor = Arc4randomColor;
     
     _isApproved = [UIImageView new];

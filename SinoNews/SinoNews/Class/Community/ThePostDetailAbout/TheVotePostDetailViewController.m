@@ -399,6 +399,8 @@ CGFloat static attentionBtnH = 26;
         _titleLabel.numberOfLines = 0;
         
         _avatar = [UIImageView new];
+        _avatar.contentMode = 2;
+        _avatar.layer.masksToBounds = YES;
         
         _authorName = [UILabel new];
         _authorName.font = PFFontR(12);

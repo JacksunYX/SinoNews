@@ -305,6 +305,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     self.tableView.tableHeaderView = headView;
     
     _userImg = [UIImageView new];
+    _userImg.contentMode = 2;
+    _userImg.layer.masksToBounds = YES;
     
     UIView *backView = [UIView new];
     backView.userInteractionEnabled = YES;

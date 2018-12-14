@@ -44,6 +44,8 @@
 {
     img = [UIImageView new];
     img.userInteractionEnabled = YES;
+    img.contentMode = 2;
+    img.layer.masksToBounds = YES;
     
     isAttention = [UIButton new];
     isAttention.titleLabel.font = PFFontL(14);

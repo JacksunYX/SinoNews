@@ -42,7 +42,7 @@
     self.view.backgroundColor = BACKGROUND_COLOR;
     [self addTopView];
     [self setUpTableView];
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
+    
     //监听刷新
     @weakify(self);
     [kNotificationCenter addObserverForName:RefreshReadPost object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -67,13 +67,13 @@
     
     NSArray *titleArr = @[
                           @"发帖时间",
-                          @"评论最多",
-                          @"阅读最多",
-                          @"点赞最多",
+                          @"回复时间",
+//                          @"阅读最多",
+//                          @"点赞最多",
                           ];
-    CGFloat wid = ScreenW/4;
+    CGFloat wid = ScreenW/titleArr.count;
     CGFloat hei = _topView.height;
-    for (int i = 0; i <4; i ++) {
+    for (int i = 0; i <titleArr.count; i ++) {
         UIButton *btn = [UIButton new];
         btn.tag = 100+i;
         [btn setBtnFont:PFFontM(12)];
@@ -111,6 +111,7 @@
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
     }];
+    [self.tableView activateAllConstraints];
     [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
     
     @weakify(self);
@@ -137,6 +138,10 @@
             [self requestListPostForSection:1];
         }
     }];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
+    [self.tableView ly_startLoading];
+    
     [_tableView.mj_header beginRefreshing];
 }
 

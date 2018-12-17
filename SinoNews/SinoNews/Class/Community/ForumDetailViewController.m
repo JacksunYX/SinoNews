@@ -81,6 +81,9 @@
     
     [self addNavigationView];
     
+    //默认按回复时间排序
+    self.sortOrder = 1;
+    
     [self requestListTopPostForSection];
 }
 
@@ -231,8 +234,8 @@
     .heightIs(20)
     .centerYEqualToView(self.headView)
     ;
-    [sortBtn setNormalTitle:@"按发帖"];
-    [sortBtn setSelectedTitle:@"按评论"];
+    [sortBtn setNormalTitle:@"按回复"];
+    [sortBtn setSelectedTitle:@"按发帖"];
     [sortBtn setNormalTitleColor:HexColor(#626262)];
     [sortBtn setSelectedTitleColor:HexColor(#626262)];
     [sortBtn setBtnFont:PFFontL(14)];
@@ -294,9 +297,10 @@
     if (sender.selected==NO) {
         [MainSectionModel addANew:model];
         sender.selected = YES;
+        LRToast(@"关注成功");
     }else{
         [MainSectionModel remove:model];
-        
+        LRToast(@"取消关注");
         sender.selected = NO;
     }
 }
@@ -318,14 +322,14 @@
 -(void)sortClick:(UIButton *)sender
 {
     UIAlertController *popVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *sortByReplyTime = [UIAlertAction actionWithTitle:@"按发帖时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        sender.selected = NO;
+    UIAlertAction *sortByPostTime = [UIAlertAction actionWithTitle:@"按发帖时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        sender.selected = YES;
         self.sortOrder = 0;
         [self clearAndReloadTableView];
         [self requestListPostForSection:0];
     }];
-    UIAlertAction *sortByPostTime = [UIAlertAction actionWithTitle:@"按评论最多" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        sender.selected = YES;
+    UIAlertAction *sortByReplyTime = [UIAlertAction actionWithTitle:@"按回复时间" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        sender.selected = NO;
         self.sortOrder = 1;
         [self clearAndReloadTableView];
         [self requestListPostForSection:0];

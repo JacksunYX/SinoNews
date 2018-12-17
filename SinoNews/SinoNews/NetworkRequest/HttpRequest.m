@@ -77,7 +77,7 @@ const NSString * DomainString = nil;
     //    manager.operationQueue.maxConcurrentOperationCount = 5;
     
     //设置请求超时时长
-    manager.requestSerializer.timeoutInterval = 20;
+    manager.requestSerializer.timeoutInterval = 30;
     
     //设置请求头中请求数据类型
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:
@@ -114,7 +114,9 @@ const NSString * DomainString = nil;
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
-    
+    if (!parameters) {
+        parameters = @{};
+    }
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -171,6 +173,9 @@ const NSString * DomainString = nil;
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
+    if (!parameters) {
+        parameters = @{};
+    }
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     //判断显示loding
@@ -260,6 +265,9 @@ const NSString * DomainString = nil;
     AFHTTPSessionManager *manager = [self getQuestManager];
     if (!manager) {
         return;
+    }
+    if (!parameters) {
+        parameters = @{};
     }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
@@ -352,6 +360,9 @@ const NSString * DomainString = nil;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
     
+    if (!parameters) {
+        parameters = @{};
+    }
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     ShowHudOnly;
     
@@ -525,7 +536,9 @@ const NSString * DomainString = nil;
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
-    
+    if (!parameters) {
+        parameters = @{};
+    }
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {

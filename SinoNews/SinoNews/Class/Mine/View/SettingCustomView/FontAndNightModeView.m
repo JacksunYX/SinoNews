@@ -208,7 +208,8 @@ static CGFloat anumationTime = 0.3;
                 NSString *fontSize = [NSString stringWithFormat:@"%ld",fontSelect.currentIdx];
                 UserSet(fontSize, @"fontSize")
                 //发送修改了字体的通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeFontNotify object:nil];
+                [ContentManager setFontLevel:fontSelect.currentIdx];
             }
             
             //回调

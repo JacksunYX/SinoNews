@@ -217,7 +217,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             imageAdconfiguration.skipButtonType = SkipTypeTimeText;
             //后台返回时,是否显示广告
             imageAdconfiguration.showEnterForeground = NO;
-            imageAdconfiguration.duration = 4;
+            imageAdconfiguration.duration = 3;
             //显示开屏广告
             [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];
         }

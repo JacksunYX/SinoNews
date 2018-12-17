@@ -36,8 +36,14 @@
     [super viewDidLoad];
     self.navigationItem.title = @"商城";
     
-    [self requestBanner];
+    @weakify(self);
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
+        @strongify(self);
+        [self requestBanner];
+        [self requestMallcCategory];
+    }];
     
+    [self requestBanner];
     [self requestMallcCategory];
     
     //监听登录
@@ -48,13 +54,7 @@
 //    }];
     
 //    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" title:@"无商品"];
-    @weakify(self);
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
-        @strongify(self);
-        [self requestBanner];
-        
-        [self requestMallcCategory];
-    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

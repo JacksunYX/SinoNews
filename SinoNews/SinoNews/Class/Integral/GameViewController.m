@@ -49,14 +49,15 @@
     [super viewDidLoad];
     self.navigationItem.title = @"游戏";
     
-    [self requestBanner];
-    
     @weakify(self);
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
         @strongify(self);
         [self requestBanner];
         
     }];
+    
+    [self requestBanner];
+    
 }
 
 - (void)didReceiveMemoryWarning {

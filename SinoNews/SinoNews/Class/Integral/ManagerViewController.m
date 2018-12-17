@@ -185,16 +185,19 @@
         [self updateDataSource];
     }];
     
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
+        @strongify(self);
+        [self requestToGetUserInfo];
+    }];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"" title:@"暂无记录"];
+    
 //    if (self.user) {
 //        [self setTopViews];
 //    }else{
         [self requestToGetUserInfo];
 //    }
     
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
-        @strongify(self);
-        [self requestToGetUserInfo];
-    }];
 }
 
 //重置数据
@@ -671,6 +674,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"loadType"] = @(loadType);
     parameters[@"loadTime"] = [self getLoadTimeWithLoadType:loadType];
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:PointsBalanceSheet parameters:parameters success:^(id responseObject) {
         NSArray *data = [IntegralModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         if (loadType == 0) {
@@ -688,8 +692,10 @@
         }
         self.tableView.mj_footer.hidden = NO;
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
         self.tableView.mj_footer.hidden = YES;
     }];
 }
@@ -697,21 +703,23 @@
 //请求兑换列表
 -(void)requestMall_exchangeRecord
 {
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:Mall_exchangeRecord parameters:@{@"pageNo":@(self.pageNo2)} success:^(id responseObject) {
         NSArray *data = [ExchangeRecordModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         self.exchangeRecordArr = [self.tableView pullWithPage:self.pageNo2 data:data dataSource:self.exchangeRecordArr];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 
 //获取用户信息
 -(void)requestToGetUserInfo
 {
-    @weakify(self)
+    [self.view ly_startLoading];
     [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
-        @strongify(self)
         NSDictionary *data = responseObject[@"data"];
         //后台目前的逻辑是，如果没有登录，只给默认头像这一个字段,只能靠这个来判断
         if ([data allKeys].count>1) {
@@ -733,7 +741,10 @@
         [self setupTopViews];
         [self addTableView];
         [self setTopViews];
-    } failure:nil];
+        [self.view ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.view ly_endLoading];
+    }];
 }
 
 //根据loadType来获取loadTime

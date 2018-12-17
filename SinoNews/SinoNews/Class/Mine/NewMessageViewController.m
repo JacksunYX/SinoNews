@@ -23,7 +23,7 @@
     if (!_dataSource) {
         _dataSource = [NSMutableArray new];
         NSArray *leftTitle = @[
-                               @"回复我的",
+                               @"回复和@我的",
                                @"关注我的",
                                @"给我点赞",
                                ];

@@ -625,6 +625,14 @@
     }else
     //如果是问答，需要弹框提示填入悬赏积分
     if (self.editType==1) {
+        if ([NSString isEmpty:[wgrteFirstVC getTitle]]) {
+            LRToast(@"请输入标题");
+            return;
+        }
+        if ([NSString isEmpty:[wgrteFirstVC contentH5]]||[NSString isEmpty:[wgrteFirstVC contentNoH5]]) {
+            LRToast(@"内容必须要有文字哦");
+            return;
+        }
         [self popInputIntegralWithDraft:(BOOL)yesOrNo isPaid:NO];
     }
     /*
@@ -764,7 +772,7 @@
     //    parameters[@"title"] = self.wordViewController.textView.titleTextField.text;
     parameters[@"title"] = [wgrteFirstVC getTitle];
     if (self.editType == 2) {
-        parameters[@"title"] = self.articleTitle;
+        parameters[@"title"] = _titleInputField.text;
     }
     if (self.editType==1) {
         //问答频道后台可以直接通过newsType来判断
@@ -810,7 +818,7 @@
 -(void)requestPublishArticleWithPayPoints:(NSInteger)points
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"title"] = GetSaveString(self.articleTitle);
+    parameters[@"title"] = GetSaveString(_titleInputField.text);
     parameters[@"channelIds"] = GetSaveString(self.channelId);
     parameters[@"freeContent"] = GetSaveString(self.freeContent);
     parameters[@"paidContent"] = GetSaveString(self.paidContent);

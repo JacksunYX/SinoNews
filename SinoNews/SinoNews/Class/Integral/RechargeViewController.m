@@ -111,16 +111,18 @@
         [self updateDataSource];
     }];
     
+    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
+        @strongify(self);
+        [self requestToGetUserInfo];
+    }];
+    
 //    if (self.user) {
 //        [self setTopViews];
 //    }else{
         [self requestToGetUserInfo];
 //    }
     
-    self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noProduct" refreshBlock:^{
-        @strongify(self);
-        [self requestToGetUserInfo];
-    }];
+    
 }
 
 //更新

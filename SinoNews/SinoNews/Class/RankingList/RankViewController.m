@@ -14,7 +14,7 @@
 #import "LineCollectionViewCell.h"
 #import "LineLayout.h"
 #import "MoveCell.h"
-
+#import "MyCollectCasinoCell.h"
 
 
 @interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -25,9 +25,11 @@
 @property (nonatomic, strong) UICollectionView *lineCollectionView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *leftDataSource;
+@property (nonatomic, strong) NSMutableArray *rightDataSource;
 //替换成新的视图展示
-@property (nonatomic, strong) UITableView *tableV;
-@property (nonatomic, strong) UITableView *tableLeft;
+@property (nonatomic, strong) BaseTableView *tableLeft;
+@property (nonatomic, strong) BaseTableView *tableV;
+@property (nonatomic, strong) BaseTableView *tableRight;
 
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
@@ -52,10 +54,6 @@
 {
     if (!_adDatasource) {
         _adDatasource  = [NSMutableArray new];
-        //        for (int i = 0; i < 4; i ++) {
-        //            NSString *imgStr = [NSString stringWithFormat:@"ad_banner%d",i];
-        //            [_adDatasource addObject:imgStr];
-        //        }
     }
     return _adDatasource;
 }
@@ -79,7 +77,7 @@
         .heightIs(30)
         ;
         [_segmentView updateLayout];
-        _segmentView.btnTitleArray = [NSArray arrayWithObjects:@"综合排行",@"单项排行",nil];
+        _segmentView.btnTitleArray = [NSArray arrayWithObjects:@"综合排行",@"单项排行",@"娱乐场收藏",nil];
         @weakify(self);
         _segmentView.lxSegmentBtnSelectIndexBlock = ^(NSInteger index, UIButton *btn) {
             @strongify(self);
@@ -139,6 +137,14 @@
     return _leftDataSource;
 }
 
+-(NSMutableArray *)rightDataSource
+{
+    if (!_rightDataSource) {
+        _rightDataSource = [NSMutableArray new];
+    }
+    return _rightDataSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -157,11 +163,14 @@
     if (self.adDatasource.count<=0) {
         [self requestBottomBanner];
     }
-    if (self.dataSource.count<=0) {
+    if (self.dataSource.count<=0&&_segmentView.selectedIndex==1) {
         [self requestRanking];
     }
-    if (self.leftDataSource.count<=0) {
+    if (self.leftDataSource.count<=0&&_segmentView.selectedIndex==0) {
         [self.tableLeft.mj_header beginRefreshing];
+    }
+    if (self.rightDataSource.count<=0&&_segmentView.selectedIndex==2) {
+        [self.tableRight.mj_header beginRefreshing];
     }
 }
 
@@ -183,18 +192,29 @@
     
     [self createTable];
     
+    [self createTableRight];
 }
 
 //根据不同情况显隐试图
 -(void)reloadTableWithIndex:(NSInteger)index
 {
     if (index==1) {
-        [self.tableV setHidden:NO];
         [self.tableLeft setHidden:YES];
+        [self.tableV setHidden:NO];
+        [self.tableRight setHidden:YES];
         [self.tableV reloadData];
-    }else{
+    }else if (index==2) {
+        [self.tableLeft setHidden:YES];
         [self.tableV setHidden:YES];
+        [self.tableRight setHidden:NO];
+        [self.tableRight reloadData];
+        if (self.rightDataSource.count<=0) {
+            [self.tableRight.mj_header beginRefreshing];
+        }
+    }else{
         [self.tableLeft setHidden:NO];
+        [self.tableV setHidden:YES];
+        [self.tableRight setHidden:YES];
         [self.tableLeft reloadData];
     }
 }
@@ -276,7 +296,7 @@
 
 - (void)createTable
 {
-    self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableV = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self.tableV addBakcgroundColorTheme];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
@@ -300,7 +320,7 @@
 
 -(void)createTableLeft
 {
-    self.tableLeft = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableLeft = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self.tableLeft addBakcgroundColorTheme];
     self.tableLeft.delegate = self;
     self.tableLeft.dataSource = self;
@@ -322,6 +342,34 @@
         @strongify(self);
         [self requestCompanyRanking];
     }];
+}
+
+-(void)createTableRight
+{
+    self.tableRight = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.tableRight addBakcgroundColorTheme];
+    self.tableRight.delegate = self;
+    self.tableRight.dataSource = self;
+    self.tableRight.showsVerticalScrollIndicator = NO;
+    //取消cell边框
+    self.tableRight.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableRight.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self.view addSubview:self.tableRight];
+    self.tableRight.sd_layout
+    .topSpaceToView(self.segmentView, 10)
+    .leftSpaceToView(self.view, 10)
+    .rightSpaceToView(self.view, 10)
+    .bottomSpaceToView(self.adCollectionView, 0)
+    ;
+    //注册
+    [self.tableRight registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];
+    
+    @weakify(self);
+    self.tableRight.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self requestCompanyList];
+    }];
+    [self.tableRight setHidden:YES];
 }
 
 //添加下方广告视图
@@ -438,18 +486,27 @@
 #pragma mark ---- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
+    if (tableView == self.tableLeft) {
+        return self.leftDataSource.count;
+    }
     if (tableView == self.tableV) {
         return self.dataSource.count;
     }
-    return self.leftDataSource.count;
+    return self.rightDataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    
-    if (tableView == self.tableV) {
+    if (tableView == self.tableRight) {
+        MyCollectCasinoCell *cell2 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
+        CompanyDetailModel *model = self.rightDataSource[indexPath.row];
+        cell2.model = model;
+        cell2.webPushBlock = ^{
+            [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
+        };
+        cell = cell2;
+    }else if (tableView == self.tableV) {
         MoveCell *cell1 = [self.tableV dequeueReusableCellWithIdentifier:@"cell"];
         RankingModel *model = self.dataSource[indexPath.row];
         
@@ -476,10 +533,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView == self.tableLeft) {
+        return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:self.tableLeft.frame.size.width tableView:tableView];
+    }
     if (tableView == self.tableV) {
         return SCellHeight;
     }
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+    return 70;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -600,6 +660,23 @@
         [self.tableLeft.mj_header endRefreshing];
     }];
     
+}
+
+//收藏娱乐城列表
+-(void)requestCompanyList
+{
+    [self.tableRight ly_startLoading];
+    @weakify(self)
+    [HttpRequest getWithURLString:ListConcernedCompanyForUser parameters:nil success:^(id responseObject) {
+        @strongify(self)
+        self.rightDataSource = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [self.tableRight.mj_header endRefreshing];
+        
+        [self.tableRight reloadData];
+        [self.tableRight ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableRight endAllRefresh];
+    }];
 }
 
 @end

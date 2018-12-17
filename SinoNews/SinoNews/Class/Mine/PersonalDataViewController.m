@@ -300,7 +300,9 @@
                     self.user = user;
                     [UserModel coverUserData:user];
                     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:0];
-                } failure:nil RefreshAction:^{
+                } failure:^(NSError *error) {
+                    
+                } RefreshAction:^{
                     self.user = [UserModel getLocalUserModel];
                     if (!self.user) {
                         [self.navigationController popViewControllerAnimated:YES];

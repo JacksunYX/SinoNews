@@ -203,6 +203,9 @@
         [self.tableV setHidden:NO];
         [self.tableRight setHidden:YES];
         [self.tableV reloadData];
+        if (self.dataSource.count<=0) {
+            [self requestRanking];
+        }
     }else if (index==2) {
         [self.tableLeft setHidden:YES];
         [self.tableV setHidden:YES];

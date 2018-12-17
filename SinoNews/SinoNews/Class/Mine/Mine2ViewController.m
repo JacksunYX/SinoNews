@@ -391,9 +391,9 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
     [backView sd_addSubviews:@[
                                _userName,
-                               _idView,
                                _integral,
                                _level,
+                               _idView,
                                ]];
     
     _userName.sd_layout
@@ -402,12 +402,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     .heightIs(20)
     ;
     [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    
-    _idView.sd_layout
-    .heightIs(20)
-    .centerYEqualToView(_userName)
-    .leftSpaceToView(_userName, 10)
-    ;
     
     _integral.sd_layout
     .leftEqualToView(backView)
@@ -438,6 +432,12 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         wVC.showType = 2;
         [self.navigationController pushViewController:wVC animated:YES];
     }];
+    
+    _idView.sd_layout
+    .heightIs(20)
+    .centerYEqualToView(_integral)
+    .leftSpaceToView(_level, 10)
+    ;
     
     if (self.user.identifications.count>0){
         [backView setupAutoWidthWithRightView:_idView rightMargin:10];

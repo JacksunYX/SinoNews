@@ -146,7 +146,7 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
+//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
     
     if (self.postModel) {
         self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(publishAction) title:@"发表" font:PFFontL(15) titleColor:BlackColor highlightedColor:BlackColor titleEdgeInsets:UIEdgeInsetsZero];

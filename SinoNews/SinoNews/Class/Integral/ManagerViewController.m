@@ -190,8 +190,6 @@
         [self requestToGetUserInfo];
     }];
     
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"" title:@"暂无记录"];
-    
 //    if (self.user) {
 //        [self setTopViews];
 //    }else{
@@ -325,10 +323,6 @@
         self.selectIndex = index;
         [self.tableView reloadData];
         
-        if (index == 1) {
-            return;
-        }
-        
         [self.tableView.mj_header beginRefreshing];
     };
     
@@ -348,6 +342,9 @@
 
 -(void)addTableView
 {
+    if (_tableView) {
+        return;
+    }
     _tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
@@ -378,6 +375,8 @@
             [self requestPointsListWithLoadType:0];
         }else if (self.selectIndex == 1){   //游戏记录
             self.pageNo1 = 1;
+            
+            [self.tableView ly_endLoading];
             [self.tableView.mj_header endRefreshing];
         }else if (self.selectIndex == 2){   //兑换记录
             self.pageNo2 = 1;
@@ -407,6 +406,9 @@
         }
         
     }];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"" title:@"暂无记录"];
+    
     [_tableView.mj_header beginRefreshing];
 }
 

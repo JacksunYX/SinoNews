@@ -14,6 +14,8 @@
 #import "IntegralViewController.h"
 #import "MineViewController.h"
 #import "CommunityTabbarVC.h"
+#import "ForumViewController.h"
+#import "ReadThePostMainVC.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -43,7 +45,7 @@
     NSArray *tabTitles = @[
                            @"主页",
                            @"社区",
-                           @"关注",
+                           @"读帖",
                            @"排行榜",
 //                           @"积分",
                            @"我的",
@@ -51,8 +53,10 @@
     
     NSArray *vcs = @[
                      [HomePageViewController new],
-                     [UIViewController new],
-                     [AttentionViewController new],
+//                     [UIViewController new],
+                     [ForumViewController new],
+//                     [AttentionViewController new],
+                     [ReadThePostMainVC new],
                      [RankViewController new],
 //                     [IntegralViewController new],
                      [Mine2ViewController new],
@@ -68,7 +72,7 @@
                                 ];
     NSArray *tabImgSelected = @[
                                 @"homepage_selected",
-                                @"community_unselect",
+                                @"community_selected",
                                 @"attention_selected",
                                 @"rankinglist_selected",
                                 @"mine_selected",
@@ -127,25 +131,25 @@
         self.indexFlag = index;
     }
     
-    if (index==2) {
-        [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
-            if (login) {
-                
-            }else{
-                [self setSelectedIndex:0];
-            }
-        }];
-    }
+//    if (index==2) {
+//        [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+//            if (login) {
+//
+//            }else{
+//                [self setSelectedIndex:0];
+//            }
+//        }];
+//    }
     
 }
 
 //拦截点击事件
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
 
-    if (viewController ==self.viewControllers[1] ) {
-        [self presentViewController:[CommunityTabbarVC new] animated:NO completion:nil];
-        return NO;
-    }
+//    if (viewController ==self.viewControllers[1] ) {
+//        [self presentViewController:[CommunityTabbarVC new] animated:NO completion:nil];
+//        return NO;
+//    }
     return  YES;
 }
 

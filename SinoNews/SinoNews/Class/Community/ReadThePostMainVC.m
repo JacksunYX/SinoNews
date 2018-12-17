@@ -46,14 +46,14 @@
     
     [self addNavigationView];
     
-    [self requestListMainSection];
-    
     @weakify(self);
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
         @strongify(self);
         ShowHudOnly;
         [self requestListMainSection];
     }];
+    
+    [self requestListMainSection];
     
     //监听本地关注版块变化
     //0->非零
@@ -437,14 +437,13 @@
     [self.view ly_startLoading];
     [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
         HiddenHudOnly;
-        [self.view ly_endLoading];
         NSMutableArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         //拼接一个全部
         MainSectionModel *all = [MainSectionModel new];
         all.name = @"全部";
         [listArr insertObject:all atIndex:0];
         [self processSectionArr:listArr];
-        
+        [self.view ly_endLoading];
     } failure:^(NSError *error) {
         HiddenHudOnly;
         [self.view ly_endLoading];

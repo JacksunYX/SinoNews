@@ -8,6 +8,7 @@
 
 #import "MyAttentionViewController.h"
 #import "AttentionRecommendVC.h"
+#import "SearchViewController.h"
 
 #import "MyAttentionFirstCell.h"
 #import "MyAttentionSecondCell.h"
@@ -294,8 +295,11 @@
 
 -(void)pushToAttentionRecommend
 {
-    AttentionRecommendVC *arVC = [AttentionRecommendVC new];
-    [self.navigationController pushViewController:arVC animated:YES];
+//    AttentionRecommendVC *arVC = [AttentionRecommendVC new];
+//    [self.navigationController pushViewController:arVC animated:YES];
+    SearchViewController *sVC = [SearchViewController new];
+    sVC.selectIndex = 2;
+    [self.navigationController pushViewController:sVC animated:NO];
 }
 
 #pragma mark ---- 请求发送

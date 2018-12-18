@@ -627,7 +627,7 @@ CGFloat static attentionBtnH = 26;
                 if (!self.postModel.hasExpired) {
                     [self popCommentVCWithParentId:0];
                 }else{
-                    LRToast(@"帖子失效，无法评论");
+                    LRToast(@"发布时间超过3个月的帖子禁止回复");
                 }
             }
             
@@ -844,7 +844,7 @@ CGFloat static attentionBtnH = 26;
 -(void)clickCommentPopAlertWith:(PostReplyModel *)replyModel
 {
     if (self.postModel.hasExpired) {
-        LRToast(@"已经失效，无法评论");
+        LRToast(@"发布时间超过3个月的帖子禁止回复");
         return;
     }
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

@@ -383,8 +383,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     
     [self.messageBtn addSubview:self.redNotice];
     self.redNotice.sd_layout
-    .rightSpaceToView(self.messageBtn, 0)
-    .topSpaceToView(self.messageBtn, 0)
+    .rightSpaceToView(self.messageBtn, 13)
+    .topSpaceToView(self.messageBtn, 13)
     .widthIs(4)
     .heightEqualToWidth()
     ;

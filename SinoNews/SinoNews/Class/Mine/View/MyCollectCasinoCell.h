@@ -15,7 +15,9 @@
 @interface MyCollectCasinoCell : UITableViewCell
 
 @property (nonatomic,strong) CompanyDetailModel *model;
-
+//官网回调
 @property (nonatomic,copy) void(^webPushBlock)(void);
+//详情回调
+@property (nonatomic,copy) void(^detailBlock)(void);
 
 @end

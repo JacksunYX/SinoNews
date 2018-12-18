@@ -145,7 +145,7 @@
         [commentInput setSd_cornerRadius:@17];
         commentInput.text = @"有何高见，展开讲讲";
         if (self.postModel.hasExpired) {
-            commentInput.text = @"帖子失效，不可评论";
+            commentInput.text = @"发布时间超过3个月的帖子禁止回复";
         }
         @weakify(self);
         [commentInput whenTap:^{

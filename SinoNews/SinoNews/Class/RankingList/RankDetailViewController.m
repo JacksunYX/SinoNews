@@ -269,7 +269,7 @@
         .heightIs(30)
         ;
         [username setSingleLineAutoResizeWithMaxWidth:120];
-        username.text = @"名利场TOPS";
+        username.text = @"名利场";
         
 //        [_naviTitle setupAutoWidthWithRightView:username rightMargin:5];
         

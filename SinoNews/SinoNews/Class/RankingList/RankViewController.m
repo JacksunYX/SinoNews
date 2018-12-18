@@ -30,6 +30,8 @@
 @property (nonatomic, strong) BaseTableView *tableLeft;
 @property (nonatomic, strong) BaseTableView *tableV;
 @property (nonatomic, strong) BaseTableView *tableRight;
+//保存需要取消收藏的娱乐场的数组
+@property (nonatomic ,strong) NSMutableArray *deleteArray;
 
 //下方广告视图
 @property (nonatomic ,strong) UICollectionView *adCollectionView;
@@ -143,6 +145,14 @@
         _rightDataSource = [NSMutableArray new];
     }
     return _rightDataSource;
+}
+
+-(NSMutableArray *)deleteArray
+{
+    if (!_deleteArray) {
+        _deleteArray = [NSMutableArray new];
+    }
+    return _deleteArray;
 }
 
 - (void)viewDidLoad {
@@ -373,6 +383,8 @@
         [self requestCompanyList];
     }];
     [self.tableRight setHidden:YES];
+    
+    self.tableRight.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无收藏的娱乐场"];
 }
 
 //添加下方广告视图
@@ -505,8 +517,16 @@
         MyCollectCasinoCell *cell2 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
         CompanyDetailModel *model = self.rightDataSource[indexPath.row];
         cell2.model = model;
+        @weakify(self);
         cell2.webPushBlock = ^{
             [[UIApplication sharedApplication] openURL:UrlWithStr(model.website)];
+        };
+        cell2.detailBlock = ^{
+            @strongify(self);
+            RankDetailViewController *rdVC = [RankDetailViewController new];
+            RankingListModel *model = self.rightDataSource[indexPath.row];
+            rdVC.companyId = model.companyId;
+            [self.navigationController pushViewController:rdVC animated:YES];
         };
         cell = cell2;
     }else if (tableView == self.tableV) {
@@ -565,13 +585,45 @@
         rlVC.rankingId = model.rankingId;
         rlVC.navigationItem.title = model.rankingName;
         [self.navigationController pushViewController:rlVC animated:YES];
-    }else{
+    }else if (tableView == self.tableLeft) {
         RankDetailViewController *rdVC = [RankDetailViewController new];
         RankingListModel *model = self.leftDataSource[indexPath.row];
         rdVC.companyId = model.companyId;
         [self.navigationController pushViewController:rdVC animated:YES];
     }
     
+}
+
+// 定义编辑样式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.segmentView.selectedIndex == 2) {
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+}
+
+-(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.segmentView.selectedIndex == 2) {
+        //添加取消收藏按钮
+        UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            
+            [self.deleteArray addObject:[self.rightDataSource objectAtIndex:indexPath.row]];
+            [self requestCancelCompanysCollects];
+        }];
+        
+        cancelCollectAction.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+            UITableViewRowAction *btn = item;
+            if (UserGetBool(@"NightMode")) {
+                btn.backgroundColor = HexColor(#6A7C8D);
+            }else{
+                btn.backgroundColor = HexColor(#51AAFF);
+            }
+        });
+        
+        return @[cancelCollectAction];
+    }
+    return nil;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -680,6 +732,32 @@
     } failure:^(NSError *error) {
         [self.tableRight endAllRefresh];
     }];
+}
+
+//批量取消关注游戏公司
+-(void)requestCancelCompanysCollects
+{
+    NSMutableArray *array = [NSMutableArray new];
+    for (CompanyDetailModel *model in self.deleteArray) {
+        [array addObject:model.companyId];
+    }
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [HttpRequest postWithURLString:CancelCompanysCollects parameters:@{@"companyIds":jsonString} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+        //将数据源数组中包含有删除数组中的数据删除掉
+        [self.rightDataSource removeObjectsInArray:self.deleteArray];
+        //清空删除数组
+        [self.deleteArray removeAllObjects];
+        
+        [self.tableRight reloadData];
+        [self.tableRight ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableRight endAllRefresh];
+    } RefreshAction:nil];
+    
 }
 
 @end

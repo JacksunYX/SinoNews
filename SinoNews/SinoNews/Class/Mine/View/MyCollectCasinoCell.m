@@ -166,11 +166,18 @@
     }
     
     @weakify(self);
-    //点击详情
+    //点击官网
     [webUrl whenTap:^{
         @strongify(self);
         if (self.webPushBlock) {
             self.webPushBlock();
+        }
+    }];
+    //点击详情
+    [detail whenTap:^{
+        @strongify(self);
+        if (self.detailBlock) {
+            self.detailBlock();
         }
     }];
     

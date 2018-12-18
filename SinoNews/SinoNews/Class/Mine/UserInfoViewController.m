@@ -26,10 +26,12 @@
 @interface UserInfoViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 
 @property (nonatomic,strong) BaseTableView *tableView;
-@property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
-@property (nonatomic,strong) NSMutableArray *articlesArr;   //文章数组
+
 @property (nonatomic,strong) NSMutableArray *postsArr;  //帖子数组
-@property (nonatomic,strong) NSMutableArray *replysArr; //回复数组
+@property (nonatomic,strong) NSMutableArray *newsArr;   //新闻数组
+@property (nonatomic,strong) NSMutableArray *newsCommentsArr;   //新闻评论数组
+@property (nonatomic,strong) NSMutableArray *replysArr; //帖子回复数组
+
 //用户信息
 @property (nonatomic ,strong) UIImageView *userImg;
 @property (nonatomic ,strong) UIImageView *isApproved;//是否认证
@@ -49,30 +51,33 @@
 @property (nonatomic, strong) UIView *sectionView;
 @property (nonatomic, strong) MLMSegmentHead *segHead;
 
-@property (nonatomic ,assign) NSInteger currPage0;   //页码0
-@property (nonatomic ,assign) NSInteger currPage1;   //页码1
-//新增帖子、回复
-@property (nonatomic ,assign) NSInteger currPage2;   //页码2
-@property (nonatomic ,assign) NSInteger currPage3;   //页码3
+//帖子数据页码
+@property (nonatomic ,assign) NSInteger postPage;
+//新闻数据页码
+@property (nonatomic ,assign) NSInteger newsPage;
+//新闻评论数据页码
+@property (nonatomic ,assign) NSInteger newCommentPage;
+//帖子回复数据页码
+@property (nonatomic ,assign) NSInteger postReplyPage;
 
 @property (nonatomic, strong) CAGradientLayer *gradient;
 @end
 
 @implementation UserInfoViewController
--(NSMutableArray *)commentsArr
+-(NSMutableArray *)newsCommentsArr
 {
-    if (!_commentsArr) {
-        _commentsArr = [NSMutableArray new];
+    if (!_newsCommentsArr) {
+        _newsCommentsArr = [NSMutableArray new];
     }
-    return _commentsArr;
+    return _newsCommentsArr;
 }
 
--(NSMutableArray *)articlesArr
+-(NSMutableArray *)newsArr
 {
-    if (!_articlesArr) {
-        _articlesArr = [NSMutableArray new];
+    if (!_newsArr) {
+        _newsArr = [NSMutableArray new];
     }
-    return _articlesArr;
+    return _newsArr;
 }
 
 -(NSMutableArray *)postsArr
@@ -97,7 +102,7 @@
         self.sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 34)];
         [self.sectionView addBakcgroundColorTheme];
         
-        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"新闻",@"评论",@"帖子",@"回复"] headStyle:1 layoutStyle:1];
+        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"帖子",@"新闻",@"评论",@"回复"] headStyle:1 layoutStyle:1];
         //    _segHead.fontScale = .85;
         self.segHead.lineScale = 0.3;
         self.segHead.fontSize = 15;
@@ -198,16 +203,16 @@
             return ;
         }
         if (self.selectedIndex == 0) {
-            self.currPage0 = 1;
-            [self requestUserPushNews];
-        }else if(self.selectedIndex ==1) {
-            self.currPage1 = 1;
-            [self requestUserComments];
-        }else if (self.selectedIndex ==2){
-            self.currPage2 = 1;
+            self.postPage = 1;
             [self requestListPostForUser];
+        }else if(self.selectedIndex ==1) {
+            self.newsPage = 1;
+            [self requestUserPushNews];
+        }else if (self.selectedIndex ==2){
+            self.newCommentPage = 1;
+            [self requestUserComments];
         }else if (self.selectedIndex ==3){
-            self.currPage3 = 1;
+            self.postReplyPage = 1;
             [self requestListPostCommentsForUser];
         }
         
@@ -221,31 +226,31 @@
         }
         
         if (self.selectedIndex == 0) {
-            if (!self.articlesArr.count) {
-                self.currPage0 = 1;
-            }else{
-                self.currPage0 ++;
-            }
-            [self requestUserPushNews];
-        }else if(self.selectedIndex == 1){
-            if (!self.commentsArr.count) {
-                self.currPage1 = 1;
-            }else{
-                self.currPage1 ++;
-            }
-            [self requestUserComments];
-        }else if (self.selectedIndex ==2){
             if (!self.postsArr.count) {
-                self.currPage2 = 1;
+                self.postPage = 1;
             }else{
-                self.currPage2 ++;
+                self.postPage ++;
             }
             [self requestListPostForUser];
+        }else if(self.selectedIndex == 1){
+            if (!self.newsArr.count) {
+                self.newsPage = 1;
+            }else{
+                self.newsPage ++;
+            }
+            [self requestUserPushNews];
+        }else if (self.selectedIndex ==2){
+            if (!self.newsCommentsArr.count) {
+                self.newsPage = 1;
+            }else{
+                self.newsPage ++;
+            }
+            [self requestUserComments];
         }else if (self.selectedIndex ==3){
             if (!self.replysArr.count) {
-                self.currPage3 = 1;
+                self.postReplyPage = 1;
             }else{
-                self.currPage3 ++;
+                self.postReplyPage ++;
             }
             [self requestListPostCommentsForUser];
         }
@@ -721,13 +726,13 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_selectedIndex == 0) {
-        return self.articlesArr.count;
+        return self.postsArr.count;
     }
     if (_selectedIndex == 1) {
-        return self.commentsArr.count;
+        return self.newsArr.count;
     }
     if (_selectedIndex == 2) {
-        return self.postsArr.count;
+        return self.newsCommentsArr.count;
     }
     if (_selectedIndex == 3) {
         return self.replysArr.count;
@@ -738,9 +743,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (_selectedIndex == 1) {
+    if (_selectedIndex == 2) {
         UserInfoCommentCell *cell0 = (UserInfoCommentCell *)[tableView dequeueReusableCellWithIdentifier:UserInfoCommentCellID];
-        CompanyCommentModel *model = self.commentsArr[indexPath.row];
+        CompanyCommentModel *model = self.newsCommentsArr[indexPath.row];
         cell0.model = model;
         
         @weakify(self)
@@ -755,9 +760,9 @@
         };
         
         cell = (UITableViewCell *)cell0;
-    }else if (_selectedIndex == 0){
+    }else if (_selectedIndex == 1){
         
-        id model = self.articlesArr[indexPath.row];
+        id model = self.newsArr[indexPath.row];
         if ([model isKindOfClass:[HomePageModel class]]) {
             HomePageModel *model1 = (HomePageModel *)model;
             switch (model1.itemType) {
@@ -807,7 +812,7 @@
             cell3.model = model;
             cell = (UITableViewCell *)cell3;
         }
-    }else if (_selectedIndex == 2){
+    }else if (_selectedIndex == 0){
         ReadPostListTableViewCell *cell2 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         SeniorPostDataModel *model = self.postsArr[indexPath.row];
         cell2.model = model;
@@ -863,10 +868,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.selectedIndex == 0) {
-        id model = self.articlesArr[indexPath.row];
+    if (self.selectedIndex == 1) {
+        id model = self.newsArr[indexPath.row];
         [UniversalMethod pushToAssignVCWithNewmodel:model];
-    }else if (self.selectedIndex == 2) {
+    }else if (self.selectedIndex == 0) {
         SeniorPostDataModel *model = self.postsArr[indexPath.row];
         if (model.status == 0) {
             LRToast(@"正在审核中...");
@@ -897,11 +902,11 @@
     
     [self.tableView reloadData];
     
-    if (index == 0&&!self.articlesArr.count) {
+    if (index == 0&&!self.postsArr.count) {
         [self.tableView.mj_header beginRefreshing];
-    }else if (index == 1&&!self.commentsArr.count){
+    }else if (index == 1&&!self.newsArr.count){
         [self.tableView.mj_header beginRefreshing];
-    }else if (index == 2&&!self.postsArr.count){
+    }else if (index == 2&&!self.newsCommentsArr.count){
         [self.tableView.mj_header beginRefreshing];
     }else if (index == 3&&!self.replysArr.count){
         [self.tableView.mj_header beginRefreshing];
@@ -971,17 +976,17 @@
     }];
 }
 
-//获取用户评论
+//获取用户新闻评论
 -(void)requestUserComments
 {
     [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.currPage1);
+    parameters[@"page"] = @(self.newCommentPage);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:GetUserComments parameters:parameters success:^(id responseObject) {
         NSArray *arr = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
-        self.commentsArr = [self.tableView pullWithPage:self.currPage1 data:arr dataSource:self.commentsArr];
+        self.newsCommentsArr = [self.tableView pullWithPage:self.newCommentPage data:arr dataSource:self.newsCommentsArr];
         
 //        if (self.currPage0 == 1) {
 //            [self.tableView.mj_header endRefreshing];
@@ -1013,13 +1018,13 @@
 {
     [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.currPage0);
+    parameters[@"page"] = @(self.newsPage);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:GetUserNews parameters:parameters success:^(id responseObject) {
 //        NSArray *arr = [HomePageModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         NSMutableArray *arr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         
-        self.articlesArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.articlesArr];
+        self.newsArr = [self.tableView pullWithPage:self.newsPage data:arr dataSource:self.newsArr];
 //        if (self.currPage1 == 1) {
 //            [self.tableView.mj_header endRefreshing];
 //            if (arr.count) {
@@ -1050,12 +1055,12 @@
 {
     [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.currPage2);
+    parameters[@"page"] = @(self.postPage);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:ListPostForUser parameters:parameters success:^(id responseObject) {
         NSMutableArray *arr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
-        self.postsArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.articlesArr];
+        self.postsArr = [self.tableView pullWithPage:self.postPage data:arr dataSource:self.postsArr];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
@@ -1069,11 +1074,11 @@
 {
     [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"page"] = @(self.currPage3);
+    parameters[@"page"] = @(self.postReplyPage);
     parameters[@"userId"] = @(self.userId);
     [HttpRequest getWithURLString:ListPostCommentsForUser parameters:parameters success:^(id responseObject) {
         NSArray *dataArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
-        self.replysArr = [self.tableView pullWithPage:self.currPage3 data:dataArr dataSource:self.replysArr];
+        self.replysArr = [self.tableView pullWithPage:self.postReplyPage data:dataArr dataSource:self.replysArr];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {

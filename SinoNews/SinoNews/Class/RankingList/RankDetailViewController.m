@@ -811,6 +811,8 @@
 -(void)setSection3RowWithData:(NSDictionary *)model onView:(UITableViewCell *)cell
 {
     UIImageView *img = [UIImageView new];
+    img.contentMode = 2;
+    img.layer.masksToBounds = YES;
     [cell.contentView addSubview:img];
     img.sd_layout
     .leftSpaceToView(cell.contentView, 10)

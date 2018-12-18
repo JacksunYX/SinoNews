@@ -97,7 +97,7 @@
         self.sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 34)];
         [self.sectionView addBakcgroundColorTheme];
         
-        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"文章",@"评论",@"帖子",@"回复"] headStyle:1 layoutStyle:1];
+        self.segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34) titles:@[@"新闻",@"评论",@"帖子",@"回复"] headStyle:1 layoutStyle:1];
         //    _segHead.fontScale = .85;
         self.segHead.lineScale = 0.3;
         self.segHead.fontSize = 15;
@@ -296,7 +296,7 @@
     _level.textAlignment = NSTextAlignmentCenter;
     _level.textColor = WhiteColor;
     _level.backgroundColor = HexColor(#1282EE);
-    _level.hidden = YES;
+//    _level.hidden = YES;
     
     _attentionBtn = [UIButton new];
     
@@ -339,15 +339,16 @@
     .heightEqualToWidth()
     ;
     
-    @weakify(closeBtn);
-    closeBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
-        @strongify(closeBtn)
-        if (UserGetBool(@"NightMode")) {
-            [closeBtn setNormalImage:UIImageNamed(@"return_left_night")];
-        }else{
-            [closeBtn setNormalImage:UIImageNamed(@"return_left")];
-        }
-    });
+//    @weakify(closeBtn);
+//    closeBtn.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
+//        @strongify(closeBtn)
+//        if (UserGetBool(@"NightMode")) {
+//            [closeBtn setNormalImage:UIImageNamed(@"return_left_night")];
+//        }else{
+//            [closeBtn setNormalImage:UIImageNamed(@"return_left")];
+//        }
+//    });
+    [closeBtn setNormalImage:UIImageNamed(@"return_left_night")];
     [[closeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         @strongify(self);
         [self.navigationController popViewControllerAnimated:YES];
@@ -384,8 +385,9 @@
     //    _isApproved.image = UIImageNamed(@"userInfo_isApproved");
     
     _attentionBtn.sd_layout
+    .topEqualToView(_userImg)
     .rightSpaceToView(headView, 11)
-    .centerYEqualToView(_userImg)
+//    .centerYEqualToView(_userImg)
     .widthIs(70)
     .heightIs(30)
     ;
@@ -571,11 +573,11 @@
         pra = [NSString stringWithFormat:@"%lu",self.user.postCount];
         _idView.hidden = NO;
         _level.hidden = self.user.level?NO:YES;
-        _level.text = [NSString stringWithFormat:@"Lv.%lu",self.user.level];
-        _level.hidden = YES;
-        _level.sd_layout
-        .widthIs(0)
-        ;
+        _level.text = [NSString stringWithFormat:@"Lv.%ld",self.user.level];
+//        _level.hidden = YES;
+//        _level.sd_layout
+//        .widthIs(0)
+//        ;
     }
     [self setIdViewWithIDs];
     
@@ -627,7 +629,7 @@
             label.sd_layout
             //            .topEqualToView(_idView)
             .centerYEqualToView(_idView)
-            .leftSpaceToView(approveView, 6)
+            .leftSpaceToView(approveView, 0)
             .heightIs(hei)
             ;
             [label setSingleLineAutoResizeWithMaxWidth:50];

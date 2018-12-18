@@ -366,7 +366,6 @@
     self.tableRight.showsVerticalScrollIndicator = NO;
     //取消cell边框
     self.tableRight.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.tableRight.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.tableRight];
     self.tableRight.sd_layout
     .topSpaceToView(self.segmentView, 10)
@@ -515,6 +514,7 @@
     UITableViewCell *cell;
     if (tableView == self.tableRight) {
         MyCollectCasinoCell *cell2 = (MyCollectCasinoCell *)[tableView dequeueReusableCellWithIdentifier:MyCollectCasinoCellID];
+        cell2.selectionStyle = UITableViewCellSelectionStyleNone;
         CompanyDetailModel *model = self.rightDataSource[indexPath.row];
         cell2.model = model;
         @weakify(self);

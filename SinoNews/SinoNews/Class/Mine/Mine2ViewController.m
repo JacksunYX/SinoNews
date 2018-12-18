@@ -173,6 +173,14 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     self.navigationController.navigationBar.hidden = YES;
 //    self.navigationController.navigationBar.translucent = YES;
     [self setUI];
+    
+    //监听用户登出
+    @weakify(self);
+    [[kNotificationCenter rac_addObserverForName:UserLoginOutNotify object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self);
+        self.user = [UserModel getLocalUserModel];
+        [self setHeadViewData:NO];
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -188,7 +196,6 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }else{
         shakerAnimation2(shakeImg, 2, -15);
     }
-    
 }
 
 -(void)setUI
@@ -361,9 +368,9 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     }];
     
     _messageBtn.sd_layout
-    .rightSpaceToView(headBackImg, 20)
-    .topSpaceToView(headBackImg, 26+StatusBarHeight)
-    .widthIs(24)
+    .rightSpaceToView(headBackImg, 7)
+    .topSpaceToView(headBackImg, 13+StatusBarHeight)
+    .widthIs(50)
     .heightEqualToWidth()
     ;
     [_messageBtn setNormalImage:UIImageNamed(@"myMessage_icon")];
@@ -462,7 +469,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [_attention setNormalTitle:@"关注"];
     [_praise setNormalTitle:@"获赞"];
     [_fans setNormalTitle:@"粉丝"];
-    
+    self.userImg.image = nil;
     if (login) {
         
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar) placeholderImage:UIImageNamed(@"userDefault_icon")];
@@ -887,7 +894,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
             if (self.user) {
                 [UserModel clearLocalData];
             }
-            [self.userImg sd_setImageWithURL:UrlWithStr(GetSaveString(data[@"avatar"]))];
+            
             self.user = [UserModel getLocalUserModel];
             [self setHeadViewData:NO];
         }

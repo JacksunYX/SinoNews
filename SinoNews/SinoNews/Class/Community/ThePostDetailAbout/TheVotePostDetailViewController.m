@@ -27,6 +27,7 @@
 @property (nonatomic,strong) UILabel *highQuality;   //精品
 @property (nonatomic,strong) UIImageView *avatar;
 @property (nonatomic,strong) UILabel *authorName;
+@property (nonatomic,strong) UILabel *level;
 @property (nonatomic ,strong) UIView *idView;   //认证标签视图
 @property (nonatomic,strong) UILabel *creatTime;
 @property (nonatomic,strong) YXLabel *contentLabel;
@@ -406,6 +407,12 @@ CGFloat static attentionBtnH = 26;
         _authorName.font = PFFontR(12);
         _authorName.textColor = HexColor(#889199);
         
+        _level = [UILabel new];
+        _level.font = PFFontM(12);
+        _level.textAlignment = NSTextAlignmentCenter;
+        _level.textColor = WhiteColor;
+        _level.backgroundColor = HexColor(#1282EE);
+        
         _idView = [UIView new];
         _idView.backgroundColor = ClearColor;
         
@@ -436,6 +443,7 @@ CGFloat static attentionBtnH = 26;
                                          _titleLabel,
                                          _avatar,
                                          _authorName,
+                                         _level,
                                          _idView,
                                          _creatTime,
                                          _attentionBtn,
@@ -472,10 +480,18 @@ CGFloat static attentionBtnH = 26;
             [UserModel toUserInforVcOrMine:self.postModel.userId];
         }];
         
+        _level.sd_layout
+        .leftSpaceToView(_authorName, 10)
+        .centerYEqualToView(_authorName)
+        .widthIs(40)
+        .heightIs(18)
+        ;
+        [_level setSd_cornerRadius:@9];
+        
         _idView.sd_layout
         .heightIs(20)
-        .centerYEqualToView(_authorName)
-        .leftSpaceToView(_authorName, 10)
+        .centerYEqualToView(_level)
+        .leftSpaceToView(_level, 10)
         .widthIs(0)
         ;
         [self setIdViewWithIDs];
@@ -527,6 +543,8 @@ CGFloat static attentionBtnH = 26;
     [_avatar updateLayout];
     [_avatar sd_setImageWithURL:UrlWithStr(GetSaveString(self.postModel.avatar))];
     _authorName.text = GetSaveString(self.postModel.author);
+    _level.hidden = self.postModel.level?NO:YES;
+    _level.text = [NSString stringWithFormat:@"Lv.%ld",self.postModel.level];
     _creatTime.text = GetSaveString(self.postModel.createTime);
     
     _attentionBtn.selected = self.postModel.isAttention;

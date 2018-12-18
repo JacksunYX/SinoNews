@@ -310,7 +310,7 @@
             }
         }
         //再检测密码
-        if ([self.password.text checkPassWord]) {
+        if ([self.password.text isValidPassword]) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];
             parameters[@"account"] = self.username.text;
             parameters[@"password"] = self.password.text;

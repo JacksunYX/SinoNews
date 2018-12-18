@@ -31,7 +31,7 @@
     if (self.type == 0) {
         self.navigationItem.title = @"TA的关注";
     }else if(self.type == 1) {
-        self.navigationItem.title = @"他的粉丝";
+        self.navigationItem.title = @"TA的粉丝";
     }else if(self.type == 2) {
         self.navigationItem.title = @"搜索作者";
     }

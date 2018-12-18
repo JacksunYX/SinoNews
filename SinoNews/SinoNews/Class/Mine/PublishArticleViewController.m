@@ -394,7 +394,7 @@
             wgrteFirstVC.hiddenTitle = YES;
         }
         wgrteFirstVC.disableEdit = YES;
-        wgrteFirstVC.content = @"免费内容部分";
+        
     }
     
     [self addChildViewController:wgrteFirstVC];
@@ -414,6 +414,10 @@
         [self addEditBtnOnFatherView:wgrteFirstVC.view];
         
         [self addSecondEditorView:webH];
+        GCDAfterTime(0.3, ^{
+            self->wgrteFirstVC.content = @"免费内容部分";
+            self->wgrteSecondVC.content = @"付费内容部分";
+        });
     }else{
         wgrteFirstVC.view.sd_layout
         .leftEqualToView(self.view)
@@ -441,7 +445,7 @@
     wgrteSecondVC.hiddenTitle = YES;
     
     wgrteSecondVC.disableEdit = YES;
-    wgrteSecondVC.content = @"付费内容部分";
+    
     [self addChildViewController:wgrteSecondVC];
     
     [self.view addSubview:wgrteSecondVC.view];
@@ -452,8 +456,9 @@
     .heightIs(height)
     .bottomSpaceToView(self.view, BOTTOM_MARGIN)
     ;
+    
     wgrteSecondVC.view.tag = 101;
-    //添加一个编辑按钮
+    //添加一个编辑遮罩
     [self addEditBtnOnFatherView:wgrteSecondVC.view];
     
     UIView *sepLine = [UIView new];
@@ -469,9 +474,24 @@
     [UIView drawDashLine:sepLine lineLength:5 lineSpacing:5 lineColor:HexColor(#E3E3E3)];
 }
 
-//添加编辑按钮
+//添加编辑遮罩
 -(void)addEditBtnOnFatherView:(UIView *)fatherView
 {
+    UIView *backView = [UIView new];
+    backView.backgroundColor = ClearColor;
+    [fatherView addSubview:backView];
+    backView.sd_layout
+    .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
+    ;
+    @weakify(self);
+    [backView whenTap:^{
+        @strongify(self);
+        UIButton *editBtn = [UIButton new];
+        editBtn.tag = fatherView.tag - 100;
+        [self editClick:editBtn];
+    }];
+    
+    /*
     UIButton *editBtn = [UIButton new];
     [fatherView addSubview:editBtn];
     editBtn.sd_layout
@@ -486,6 +506,7 @@
     editBtn.backgroundColor = HexColor(#1282EE);
     editBtn.tag = fatherView.tag - 100;
     [editBtn addTarget:self action:@selector(editClick:) forControlEvents:UIControlEventTouchUpInside];
+     */
 }
 
 //编辑按钮点击事件

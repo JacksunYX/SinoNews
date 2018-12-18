@@ -139,6 +139,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
                                        avatar,
                                        nickName,
                                        level,
+                                       idView,
                                        title,
                                        oliver,
                                        highQuality,
@@ -195,7 +196,8 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightIs(20)
     .centerYEqualToView(level)
     .leftSpaceToView(level, 10)
-    .widthIs(0)
+    .rightSpaceToView(fatherView, 10)
+//    .widthIs(0)
     ;
     
     title.sd_layout
@@ -301,9 +303,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
 -(void)setIdViewWithIDs
 {
     //先清除
-    for (UIView *subview in idView.subviews) {
-        [subview removeFromSuperview];
-    }
+    [idView removeAllSubviews];
     if (self.model.identifications.count>0) {
         CGFloat wid = 30;
         CGFloat hei = 30;
@@ -329,12 +329,10 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
             [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
             
             lastView = approveView;
-            if (i == self.model.identifications.count - 1) {
-                [idView setupAutoWidthWithRightView:lastView rightMargin:0];
-            }
+//            if (i == self.model.identifications.count - 1) {
+//                [idView setupAutoWidthWithRightView:lastView rightMargin:0];
+//            }
         }
-    }else{
-        
     }
 }
 
@@ -456,7 +454,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
         nickName.text = GetSaveString(model.author);
     }
     level.hidden = model.level?NO:YES;
-    level.text = [NSString stringWithFormat:@"Lv.%lu",model.level];
+    level.text = [NSString stringWithFormat:@"Lv.%ld",model.level];
     [self setIdViewWithIDs];
     publishTime.text = GetSaveString(model.createTime);
     //去掉首位空格和换行

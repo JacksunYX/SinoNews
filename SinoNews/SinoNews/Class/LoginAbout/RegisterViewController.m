@@ -317,7 +317,7 @@
     }else if (kStringIsEmpty(nickname.text)){
         LRToast(@"请输入昵称(最多10个字符)");
     }else if (kStringIsEmpty(password.text)){
-        LRToast(@"请输入密码(6-16位数字和字母)");
+        LRToast(@"请输入密码(6-16位数字、字母或下划线)");
     }else if (kStringIsEmpty(seccode.text)){
         LRToast(@"请输入验证码");
     }else{
@@ -341,7 +341,7 @@
             return;
         }
         //再检测密码
-        if ([password.text checkPassWord]) {
+        if ([password.text isValidPassword]) {
             if ([username.text containsString:@"@"]&&promoteCode.text.length>0) {
                 LRToast(@"手机号注册才能使用注册码");
                 return;
@@ -354,7 +354,7 @@
 #endif
             
         }else{
-            LRToast(@"密码为6-16位数字、字母和下划线组成");
+            LRToast(@"密码为6-16位数字、字母或下划线组成");
         }
         
     }

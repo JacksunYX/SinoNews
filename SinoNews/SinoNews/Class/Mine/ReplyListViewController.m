@@ -18,9 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"回复我的";
+    self.navigationItem.title = @"回复和@我的";
     
     [self addTableView];
+    
+    self.tableView.ly_emptyView = [MyEmptyView emptyViewWithImageStr:@"noMessage" titleStr:@"" detailStr:@"暂无消息"];
 }
 
 //添加tableview
@@ -136,11 +138,14 @@
 #pragma mark --请求
 -(void)requestUserListReply
 {
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:UserListReply parameters:@{@"page":@(self.page)} success:^(id responseObject) {
         self.dataSource = [self.tableView pullWithPage:self.page data:responseObject[@"data"][@"data"] dataSource:self.dataSource];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 

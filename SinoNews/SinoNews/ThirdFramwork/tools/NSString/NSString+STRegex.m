@@ -30,10 +30,10 @@
     return [predicate evaluateWithObject:self];
 }
 
-//字母数字下划线，6－20位
+//字母数字下划线，6－16位
 - (BOOL)isValidPassword
 {
-    NSString *regex = @"^[\\w\\d_]{6,20}$";
+    NSString *regex = @"^[\\w\\d_]{6,16}$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     return [predicate evaluateWithObject:self];
 }

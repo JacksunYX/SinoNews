@@ -45,6 +45,8 @@
     
     [self setUpTableView];
     
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noPublish" title:notice];
+    
     [self processViewData];
 }
 
@@ -77,7 +79,9 @@
         }];
         [_tableView.mj_header beginRefreshing];
     }else if (_type == 1) {
+        [self.tableView ly_startLoading];
         [self setDraftData];
+        [self.tableView ly_endLoading];
     }
 }
 
@@ -205,12 +209,15 @@
 #pragma mark --请求
 -(void)requestListPostForUser
 {
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:ListPostForUser parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
         NSArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         self.dataSource = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.dataSource];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
     
 }

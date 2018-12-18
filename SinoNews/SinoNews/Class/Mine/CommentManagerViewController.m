@@ -180,6 +180,7 @@
 //获取用户新闻相关评论
 -(void)requestUserComments
 {
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:GetCurrentUserComments parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
         NSArray *data = [CompanyCommentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
@@ -210,12 +211,15 @@
 //获取用户帖子相关评论
 -(void)requestListPostCommentsForUser
 {
+    [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:ListPostCommentsForUser parameters:@{@"page":@(self.currPage)} success:^(id responseObject) {
         NSArray *dataArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         self.commentsArr = [self.tableView pullWithPage:self.currPage data:dataArr dataSource:self.commentsArr];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 

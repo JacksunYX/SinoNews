@@ -14,6 +14,8 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
 {
     UIImageView *avatar;
     UILabel *nickName;
+    UILabel *level;
+    UIView *idView;
     UILabel *title;
     UILabel *oliver;        //好文
     UILabel *highQuality;   //精品
@@ -78,6 +80,13 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     nickName = [UILabel new];
     nickName.textColor = HexColor(#161A24);
     nickName.font = PFFontR(15);
+    level = [UILabel new];
+    level.font = PFFontM(12);
+    level.textAlignment = NSTextAlignmentCenter;
+    level.textColor = WhiteColor;
+    level.backgroundColor = HexColor(#1282EE);
+    idView = [UIView new];
+    idView.backgroundColor = ClearColor;
     title = [UILabel new];
     title.textColor = HexColor(#1A1A1A);
     title.font = PFFontL(15);
@@ -129,6 +138,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     [self.contentView sd_addSubviews:@[
                                        avatar,
                                        nickName,
+                                       level,
                                        title,
                                        oliver,
                                        highQuality,
@@ -171,6 +181,22 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightIs(16)
     ;
     [nickName setSingleLineAutoResizeWithMaxWidth:200];
+    
+    level.sd_layout
+    .leftSpaceToView(nickName, 10)
+    .centerYEqualToView(nickName)
+    .widthIs(40)
+    .heightIs(18)
+    ;
+    [level setSd_cornerRadius:@9];
+//    level.hidden = YES;
+    
+    idView.sd_layout
+    .heightIs(20)
+    .centerYEqualToView(level)
+    .leftSpaceToView(level, 10)
+    .widthIs(0)
+    ;
     
     title.sd_layout
     .leftSpaceToView(avatar, 6)
@@ -269,6 +295,47 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightRatioToView(childCommentUser, 1)
     ;
 
+}
+
+//设置标签视图
+-(void)setIdViewWithIDs
+{
+    //先清除
+    for (UIView *subview in idView.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (self.model.identifications.count>0) {
+        CGFloat wid = 30;
+        CGFloat hei = 30;
+        CGFloat spaceX = 0;
+        
+        UIView *lastView = idView;
+        for (int i = 0; i < self.model.identifications.count; i ++) {
+            NSDictionary *model = self.model.identifications[i];
+            UIImageView *approveView = [UIImageView new];
+            [idView addSubview:approveView];
+            
+            if (i != 0) {
+                spaceX = 10;
+            }
+            approveView.contentMode = 1;
+            approveView.sd_layout
+            .centerYEqualToView(idView)
+            .leftSpaceToView(lastView, spaceX)
+            .widthIs(wid)
+            .heightIs(hei)
+            ;
+            //            [approveView setSd_cornerRadius:@(wid/2)];
+            [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            
+            lastView = approveView;
+            if (i == self.model.identifications.count - 1) {
+                [idView setupAutoWidthWithRightView:lastView rightMargin:0];
+            }
+        }
+    }else{
+        
+    }
 }
 
 -(void)setData:(NSDictionary *)model
@@ -388,10 +455,12 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     }else{
         nickName.text = GetSaveString(model.author);
     }
-    
+    level.hidden = model.level?NO:YES;
+    level.text = [NSString stringWithFormat:@"Lv.%lu",model.level];
+    [self setIdViewWithIDs];
     publishTime.text = GetSaveString(model.createTime);
-    comments.text = [NSString stringWithFormat:@"%ld评论",model.commentCount];
-    
+    //去掉首位空格和换行
+    comments.text = [[NSString stringWithFormat:@"%ld评论",model.commentCount] removeSpaceAndNewLine];
 }
 
 @end

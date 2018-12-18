@@ -55,7 +55,7 @@
     
     [self requestListMainSection];
     
-    //监听本地关注版块变化
+    //监听本地关注版块版块变化
     //0->非零
     /*
     [kNotificationCenter addObserverForName:SectionsIncreaseNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -75,14 +75,14 @@
     }];
 }
 
-//根据全局保存的本地关注数组长度来重新设置segment界面显示
+//根据全局保存的本地关注版块数组长度来重新设置segment界面显示
 -(void)resetSectionSeg:(BOOL)increase
 {
     if (increase) {
         MainSectionModel *sectionModel = [MainSectionModel new];
-        sectionModel.name = @"关注";
+        sectionModel.name = @"关注版块";
         [self.sectionsList insertObject:sectionModel atIndex:0];
-        [self.titlesList insertObject:@"关注" atIndex:0];
+        [self.titlesList insertObject:@"关注版块" atIndex:0];
     }else{
         [self.sectionsList removeObjectAtIndex:0];
         [self.titlesList removeObjectAtIndex:0];
@@ -90,30 +90,30 @@
     [self reloadChildVCWithTitles:self.titlesList];
 }
 
-//根据本地关注版块数量变化重置segment显示
+//根据本地关注版块版块数量变化重置segment显示
 -(void)resetWithLocalAttentionSectionChange
 {
     NSMutableArray *localSections = [MainSectionModel getLocalAttentionSections];
-    //如果本地关注已无数据
+    //如果本地关注版块已无数据
     if (localSections.count<=0) {
         if (self.sectionsList.count>0) {
-            //之前的数组还有“关注”这一项，直接移除重置
+            //之前的数组还有“关注版块”这一项，直接移除重置
             for (MainSectionModel *model in self.sectionsList) {
-                if ([model.name isEqualToString:@"关注"]) {
-                    //移除第一个，因为关注必定是第一个
+                if ([model.name isEqualToString:@"关注版块"]) {
+                    //移除第一个，因为关注版块必定是第一个
                     [self.sectionsList removeObjectAtIndex:0];
                     [self.titlesList removeObjectAtIndex:0];
                     break;
                 }
             }
         }
-    }else{  //如果本地关注有数据
+    }else{  //如果本地关注版块有数据
         if (self.sectionsList.count>0) {
-            //之前的数组还有“关注”这一项，重置
+            //之前的数组还有“关注版块”这一项，重置
             int i = 0;
             for (MainSectionModel *model in self.sectionsList) {
                 //替换sectionIds
-                if ([model.name isEqualToString:@"关注"]) {
+                if ([model.name isEqualToString:@"关注版块"]) {
                     NSMutableString *sectionIds = @"".mutableCopy;
                     for (MainSectionModel *model2 in localSections) {
                         [sectionIds appendFormat:@"%ld,",model2.sectionId];
@@ -125,11 +125,11 @@
                 }
                 i ++;
             }
-            //说明之前数组并没有‘关注’
+            //说明之前数组并没有‘关注版块’
             if (i == self.sectionsList.count) {
                 [self addLocalAttentionSection:localSections];
             }
-        }else{  //之前的数组没有“关注”这一项，添加
+        }else{  //之前的数组没有“关注版块”这一项，添加
             [self addLocalAttentionSection:localSections];
         }
         
@@ -138,11 +138,11 @@
     [self reloadChildVCWithTitles:self.titlesList];
 }
 
-//将关注版块数据添加进当前seg数组
+//将关注版块版块数据添加进当前seg数组
 -(void)addLocalAttentionSection:(NSMutableArray *)localSections
 {
     MainSectionModel *model = [MainSectionModel new];
-    model.name = @"关注";
+    model.name = @"关注版块";
     NSMutableString *sectionIds = @"".mutableCopy;
     for (MainSectionModel *model2 in localSections) {
         [sectionIds appendFormat:@"%ld,",model2.sectionId];
@@ -151,7 +151,7 @@
     [sectionIds deleteCharactersInRange:NSMakeRange(sectionIds.length-1, 1)];
     model.sectionIds = sectionIds;
     [self.sectionsList insertObject:model atIndex:0];
-    [self.titlesList insertObject:@"关注" atIndex:0];
+    [self.titlesList insertObject:@"关注版块" atIndex:0];
 }
 
 //修改导航栏显示
@@ -284,7 +284,7 @@
         model.channelId = [NSString stringWithFormat:@"%ld",sectionModel.sectionId];
         model.channelIds = sectionModel.sectionIds;
         model.channelName = sectionModel.name;
-        if (CompareString(model.channelName, @"关注")) {
+        if ([model.channelName containsString:@"关注"]) {
             model.status = 2;
         }
         [titles addObject:model];
@@ -442,6 +442,12 @@
         MainSectionModel *all = [MainSectionModel new];
         all.name = @"全部";
         [listArr insertObject:all atIndex:0];
+        //拼接一个关注作者
+        MainSectionModel *author = [MainSectionModel new];
+        author.name = @"关注作者";
+        author.sectionId = -1;
+        [listArr insertObject:author atIndex:0];
+        
         [self processSectionArr:listArr];
         [self.view ly_endLoading];
     } failure:^(NSError *error) {

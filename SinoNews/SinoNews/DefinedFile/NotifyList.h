@@ -50,4 +50,7 @@
 //刷新读帖界面
 #define RefreshReadPost @"RefreshReadPost"
 
+//用户关注列表发生变化
+#define AttentionPeopleChanged @"AttentionPeopleChanged"
+
 #endif /* NotifyList_h */

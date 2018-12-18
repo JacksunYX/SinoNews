@@ -162,7 +162,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"管理";
+    self.navigationItem.title = @"积分管理";
     
 //    [self setupTopViews];
 //    [self addTableView];

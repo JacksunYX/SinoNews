@@ -431,7 +431,6 @@
     return newString;
 }
 
-
 //将阿拉伯数字转换为中文数字
 +(NSString *)getChineseWithNum:(NSInteger)arabicNum
 {
@@ -488,6 +487,12 @@
 
 //去除首尾空格
 -(NSString *)removeSpace
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+//去除首位空格和换行
+-(NSString *)removeSpaceAndNewLine
 {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }

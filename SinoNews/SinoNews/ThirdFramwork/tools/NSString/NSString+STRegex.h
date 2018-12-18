@@ -90,6 +90,9 @@
 //去除首尾空格
 -(NSString *)removeSpace;
 
+//去除首位空格和换行
+-(NSString *)removeSpaceAndNewLine;
+
 //base64格式转image
 -(UIImage *)toImage;
 

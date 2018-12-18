@@ -434,10 +434,10 @@
 //    .heightIs(20)
     .topEqualToView(backView)
     .leftEqualToView(backView)
+    .rightEqualToView(backView)
     .heightIs(20)
     ;
-    [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
-    
+//    [_userName setSingleLineAutoResizeWithMaxWidth:ScreenW/3];
     
     
     _integral.sd_layout
@@ -958,6 +958,8 @@
         if (self.refreshBlock) {
             self.refreshBlock();
         }
+        //发出关注人数变化的通知
+        [kNotificationCenter postNotificationName:AttentionPeopleChanged object:nil];
     } failure:nil RefreshAction:^{
         @strongify(self)
         [self.navigationController popToRootViewControllerAnimated:YES];

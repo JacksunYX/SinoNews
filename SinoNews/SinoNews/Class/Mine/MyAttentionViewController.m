@@ -333,6 +333,8 @@
         }
 //        [UserModel coverUserData:user];
         [self.tableView reloadData];
+        //发出关注人数变化的通知
+        [kNotificationCenter postNotificationName:AttentionPeopleChanged object:nil];
     } failure:nil RefreshAction:^{
 //        [self requestAttentionList];
         [self.navigationController popToRootViewControllerAnimated:YES];

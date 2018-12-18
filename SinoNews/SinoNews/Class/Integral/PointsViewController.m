@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self reloadChildVCWithTitles:@[
-                                    @"充值积分",
+                                    @"积分充值",
                                     @"积分提现",
                                     ]];
 }

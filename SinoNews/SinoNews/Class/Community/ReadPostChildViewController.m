@@ -50,6 +50,12 @@
         [self.tableView.mj_header beginRefreshing];
     }];
     
+    //监听关注作者变化
+    [kNotificationCenter addObserverForName:AttentionPeopleChanged object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        @strongify(self);
+        UIButton *selectedBtn = self.topBtnArr.firstObject;
+        [self btnClick:selectedBtn];
+    }];
 }
 
 -(void)addTopView
@@ -120,7 +126,7 @@
         if (self.tableView.mj_footer.isRefreshing) {
             [self.tableView.mj_header endRefreshing];
         }
-        if ([self.model.name isEqualToString:@"关注"]) {
+        if (CompareString(@"关注版块", self.model.name)) {
             [self requestListUserAttenPost:0];
         }else{
             [self requestListPostForSection:0];
@@ -132,7 +138,7 @@
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];
         }
-        if ([self.model.name isEqualToString:@"关注"]) {
+        if (CompareString(@"关注版块", self.model.name)) {
             [self requestListUserAttenPost:1];
         }else{
             [self requestListPostForSection:1];

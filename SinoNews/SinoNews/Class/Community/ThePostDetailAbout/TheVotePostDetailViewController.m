@@ -1198,6 +1198,8 @@ CGFloat static attentionBtnH = 26;
         self.postModel.isAttention = status;
         
         [self setTitle];
+        //发出关注人数变化的通知
+        [kNotificationCenter postNotificationName:AttentionPeopleChanged object:nil];
     } failure:nil RefreshAction:^{
         [self requestPost_browsePost];
     }];

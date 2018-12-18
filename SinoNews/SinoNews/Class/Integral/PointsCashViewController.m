@@ -376,7 +376,7 @@
     ;
     
     [moneyInput setSd_cornerRadius:@16];
-    NSString *placeholder = @"请输入需要体现的金额";
+    NSString *placeholder = @"请输入提现金额";
     NSMutableAttributedString *placeholderAtt = [[NSMutableAttributedString alloc]initWithString:placeholder];
     NSDictionary *attDic = @{
                              NSFontAttributeName : FontScale(15),
@@ -533,7 +533,7 @@
         //        NSDictionary *dic = self.rechargeType[payType];
         //        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
         //        LRToast(str);
-        [self requestexPointExchargeMoney:[moneyInput.text doubleValue]];
+        [self requestexPointExchargeMoney:money];
     }else{
         LRToast(@"请输入需要提现的金额");
     }
@@ -596,9 +596,9 @@
 }
 
 //积分兑换
--(void)requestexPointExchargeMoney:(double)amount
+-(void)requestexPointExchargeMoney:(NSUInteger)amount
 {
-    [HttpRequest postWithURLString:ApplyWithdraw parameters:@{@"point":@(amount*120)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:ApplyWithdraw parameters:@{@"point":@(amount)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提现已申请" message:@"提现将在最多7个工作日内处理完成（周六日不计算在内）" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

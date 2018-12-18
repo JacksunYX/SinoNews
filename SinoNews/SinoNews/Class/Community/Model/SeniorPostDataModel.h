@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isAttention;//是否关注
 @property (nonatomic,assign) BOOL isCollection;//是否收藏
 @property (nonatomic,assign) BOOL hasPraised;//是否点赞
+@property (nonatomic,assign) NSInteger level;//等级
 @property (nonatomic,assign) NSInteger praiseCount;//点赞数
 //评价:(0无，1好文，2好文+精)
 @property (nonatomic,assign) NSInteger rate;

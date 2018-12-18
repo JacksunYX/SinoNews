@@ -1124,6 +1124,8 @@ CGFloat static attentionBtnH = 26;
         //覆盖之前保存的信息
         //        [UserModel coverUserData:user];
         [self setTitle];
+        //发出关注人数变化的通知
+        [kNotificationCenter postNotificationName:AttentionPeopleChanged object:nil];
     } failure:nil RefreshAction:^{
         [self requestPost_browsePost];
     }];

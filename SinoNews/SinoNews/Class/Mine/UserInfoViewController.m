@@ -151,8 +151,11 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.translucent = YES;
     [self addTableView];
     [self addHeadView];
+    
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"" title:@"暂无数据"];
     
     [self requestGetUserInfomation];
     [self requestIsAttention];
@@ -169,7 +172,7 @@
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr_safe;
+        self.tableView.top_attr = self.view.top_attr;
         self.tableView.left_attr = self.view.left_attr_safe;
         self.tableView.right_attr = self.view.right_attr_safe;
         self.tableView.bottom_attr = self.view.bottom_attr_safe;
@@ -255,7 +258,7 @@
 
 -(void)addHeadView
 {
-    UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210)];
+    UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 210 + StatusBarHeight)];
 //    headView.backgroundColor = RGBA(196, 222, 247, 1);
     headView.userInteractionEnabled = YES;
 //    headView.image = UIImageNamed(@"mine_topBackImg");
@@ -334,7 +337,7 @@
     @weakify(self)
     closeBtn.sd_layout
     .leftSpaceToView(headView, 0)
-    .topSpaceToView(headView, 10)
+    .topSpaceToView(headView, 10 + StatusBarHeight)
     .widthIs(40)
     .heightEqualToWidth()
     ;
@@ -366,7 +369,7 @@
     }];
     
     _userImg.sd_layout
-    .topSpaceToView(headView, 54)
+    .topSpaceToView(headView, 54+StatusBarHeight)
     .leftSpaceToView(headView, 21)
     .widthIs(63)
     .heightEqualToWidth()
@@ -971,6 +974,7 @@
 //获取用户评论
 -(void)requestUserComments
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"page"] = @(self.currPage1);
     parameters[@"userId"] = @(self.userId);
@@ -997,14 +1001,17 @@
 //        }
         
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 
 //获取用户发表文章
 -(void)requestUserPushNews
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"page"] = @(self.currPage0);
     parameters[@"userId"] = @(self.userId);
@@ -1031,14 +1038,17 @@
 //        }
         
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 
 //获取用户帖子列表
 -(void)requestListPostForUser
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"page"] = @(self.currPage2);
     parameters[@"userId"] = @(self.userId);
@@ -1047,14 +1057,17 @@
         
         self.postsArr = [self.tableView pullWithPage:self.currPage0 data:arr dataSource:self.articlesArr];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 
 //获取用户帖子相关评论
 -(void)requestListPostCommentsForUser
 {
+    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"page"] = @(self.currPage3);
     parameters[@"userId"] = @(self.userId);
@@ -1062,8 +1075,10 @@
         NSArray *dataArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         self.replysArr = [self.tableView pullWithPage:self.currPage3 data:dataArr dataSource:self.replysArr];
         [self.tableView reloadData];
+        [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
     }];
 }
 

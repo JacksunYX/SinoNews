@@ -607,8 +607,9 @@
     if (self.segmentView.selectedIndex == 2) {
         //添加取消收藏按钮
         UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            
-            [self.deleteArray addObject:[self.rightDataSource objectAtIndex:indexPath.row]];
+            CompanyDetailModel *model = self.rightDataSource[indexPath.row];
+            [self.deleteArray addObject:model];
+//            [self requestConcernCompany:model];
             [self requestCancelCompanysCollects];
         }];
         
@@ -756,8 +757,21 @@
         [self.tableRight ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableRight endAllRefresh];
+        [self.tableRight ly_endLoading];
     } RefreshAction:nil];
     
+}
+
+//收藏、取消收藏公司(娱乐城)
+-(void)requestConcernCompany:(CompanyDetailModel *)model
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"companyId"] = GetSaveString(model.companyId);
+    [HttpRequest postWithURLString:ConcernCompany parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        [self.rightDataSource removeObject:model];
+        [self.tableRight reloadData];
+        [self.tableRight ly_endLoading];
+    } failure:nil RefreshAction:nil];
 }
 
 @end

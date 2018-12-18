@@ -284,12 +284,12 @@
             textField.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
                 if (UserGetBool(@"NightMode")) {
                     textField.backgroundColor = HexColor(#292D30);
-                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/作者/娱乐场" attributes:@{
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/娱乐场/作者" attributes:@{
                                                                                                                        NSForegroundColorAttributeName:HexColor(#4B4B4B),                                                    NSFontAttributeName:Font(13),
                                                                                                                        }];
                 }else{
                     textField.backgroundColor = HexColor(#f2f2f2);
-                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/作者/娱乐场" attributes:@{
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/娱乐场/作者" attributes:@{
                                                                                                                        NSForegroundColorAttributeName:HexColor(#959b9f),                                                    NSFontAttributeName:Font(13),
                                                                                                                        }];
                 }

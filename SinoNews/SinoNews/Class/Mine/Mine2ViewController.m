@@ -393,7 +393,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     backView.sd_layout
     .leftSpaceToView(_userImg, 15)
     .centerYEqualToView(_userImg)
-    .heightIs(40)
+    .heightIs(45)
     ;
     
     [backView sd_addSubviews:@[
@@ -413,7 +413,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     _integral.sd_layout
     .leftEqualToView(backView)
     .bottomEqualToView(backView)
-    .widthIs(100)
+    .widthIs(100*ScaleW)
     .heightIs(20)
     ;
     [_integral setSd_cornerRadius:@10];
@@ -554,7 +554,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
             label.sd_layout
             //            .topEqualToView(_idView)
             .centerYEqualToView(_idView)
-            .leftSpaceToView(approveView, 6)
+            .leftSpaceToView(approveView, 0)
             .heightIs(hei)
             ;
             [label setSingleLineAutoResizeWithMaxWidth:50];

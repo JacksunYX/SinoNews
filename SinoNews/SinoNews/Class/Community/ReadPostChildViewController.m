@@ -16,6 +16,7 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,assign) NSInteger sortOrder;
+@property (nonatomic,assign) NSInteger rate;
 
 @property (nonatomic,assign) NSInteger page;
 @end
@@ -72,8 +73,9 @@
     [_topView updateLayout];
     
     NSArray *titleArr = @[
-                          @"发帖时间",
                           @"回复时间",
+                          @"发帖时间",
+                          @"最新好文",
 //                          @"阅读最多",
 //                          @"点赞最多",
                           ];
@@ -155,8 +157,18 @@
 -(void)btnClick:(UIButton *)sender
 {
     NSInteger index = sender.tag - 100;
-    _sortOrder = index;
+    
     _page = 1;
+    _rate = 0;
+    if (index == 0) {
+        _sortOrder = 1;
+    }else if (index == 1) {
+        _sortOrder = 0;
+    }else if (index == 2) {
+        _sortOrder = 0;
+        _rate = 1;
+    }
+    
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     [self.tableView.mj_header beginRefreshing];
@@ -248,6 +260,7 @@
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
     parameters[@"page"] = @(_page);
+    parameters[@"rate"] = @(_rate);
     [HttpRequest getWithURLString:ListUserAttenPost parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (dataArr.count>0) {
@@ -307,6 +320,7 @@
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
     parameters[@"page"] = @(_page);
+    parameters[@"rate"] = @(_rate);
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
         
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];

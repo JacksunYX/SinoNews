@@ -284,7 +284,7 @@
         model.channelId = [NSString stringWithFormat:@"%ld",sectionModel.sectionId];
         model.channelIds = sectionModel.sectionIds;
         model.channelName = sectionModel.name;
-        if ([model.channelName containsString:@"关注"]) {
+        if ([model.channelName containsString:@"关注版块"]) {
             model.status = 2;
         }
         [titles addObject:model];
@@ -438,15 +438,15 @@
     [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
         HiddenHudOnly;
         NSMutableArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        //拼接一个全部
-        MainSectionModel *all = [MainSectionModel new];
-        all.name = @"全部";
-        [listArr insertObject:all atIndex:0];
         //拼接一个关注作者
         MainSectionModel *author = [MainSectionModel new];
         author.name = @"关注作者";
         author.sectionId = -1;
         [listArr insertObject:author atIndex:0];
+        //拼接一个全部
+        MainSectionModel *all = [MainSectionModel new];
+        all.name = @"全部";
+        [listArr insertObject:all atIndex:0];
         
         [self processSectionArr:listArr];
         [self.view ly_endLoading];

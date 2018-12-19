@@ -96,4 +96,8 @@
 //base64格式转image
 -(UIImage *)toImage;
 
+//获取文字的长度(中文2字符、英文1字符)
+- (int)convertToInt;
+- (NSInteger)getToInt;
+
 @end

@@ -134,10 +134,10 @@
     }];
  
     registBtn.sd_layout
-    .rightSpaceToView(backImg, 15)
+    .rightSpaceToView(backImg, 10)
     .centerYEqualToView(closeBtn)
-    .widthIs(32)
-    .heightIs(16)
+    .widthIs(60)
+    .heightIs(25)
     ;
     [registBtn setTitle:@"注册" forState:UIControlStateNormal];
     [[registBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

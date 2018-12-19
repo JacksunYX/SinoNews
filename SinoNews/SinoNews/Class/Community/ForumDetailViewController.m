@@ -175,6 +175,7 @@
     self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
 }
 
+//分类
 -(void)addSegment
 {
     if (_segHead) {
@@ -188,7 +189,7 @@
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, ScreenW - 80, 44) titles:segTitles headStyle:1 layoutStyle:2];
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.2;
-    _segHead.fontSize = 16;
+    _segHead.fontSize = 14;
     _segHead.lineHeight = 2;
     _segHead.maxTitles = 5;
     _segHead.lineColor = HexColor(#1282EE);
@@ -198,7 +199,7 @@
         [(MLMSegmentHead *)item setDeSelectColor:value];
     });
     _segHead.bottomLineHeight = 0;
-    _segHead.singleW_Add = 40;
+    _segHead.singleW_Add = 25;
     _segHead.delegate = self;
     
     @weakify(self);

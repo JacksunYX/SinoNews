@@ -177,7 +177,7 @@
         [self requestListMessagesWithLoadType:0];
         
     }];
-    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [YXBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];

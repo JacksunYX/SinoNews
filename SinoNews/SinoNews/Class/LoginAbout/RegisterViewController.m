@@ -16,6 +16,8 @@
 //网站主部署的二次验证的接口 (api_2)
 #define api_2 @"/api/verifyCaptcha"
 
+#define MAX_STARWORDS_LENGTH 10
+
 @interface RegisterViewController ()<UITextFieldDelegate,GT3CaptchaManagerDelegate>
 {
     TXLimitedTextField *username;   //账号
@@ -66,6 +68,8 @@
     self.view.backgroundColor = WhiteColor;
     self.navigationController.navigationBar.hidden = YES;
     [self setUI];
+    
+    [kNotificationCenter addObserver:self selector:@selector(textFieldEditChanged:) name:UITextFieldTextDidChangeNotification object:nickname];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -264,6 +268,34 @@
     RAC(registerBtn,enabled) = [RACSignal combineLatest:@[username.rac_textSignal,nickname.rac_textSignal,password.rac_textSignal,seccode.rac_textSignal] reduce:^id(NSString *username,NSString *nickname,NSString *password,NSString *seccode){
         return @(username.length>=6&&nickname.length>=2&&password.length>=6&&seccode.length>=4);
     }];
+}
+
+//昵称监听
+-(void)textFieldEditChanged:(NSNotification *)obj{
+    UITextField *textField = (UITextField *)obj.object;
+    
+    //获取高亮部分
+    UITextRange *selectedRange = [textField markedTextRange];
+    UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+    
+    // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+    if (!position) {
+        
+        if (textField.text != nil) {
+            //需要是输入超过多少字节之后就输不上
+            NSInteger charsCount = [textField.text getToInt];
+            if (charsCount > MAX_STARWORDS_LENGTH) {
+                NSMutableString *tempStr;
+                NSUInteger count = textField.text.length;
+                //循环从把超出长度的字符串截取至需要的长度
+                do {
+                    count = count - 1;
+                    tempStr = [textField.text substringToIndex:count].copy;
+                } while ([tempStr getToInt] > MAX_STARWORDS_LENGTH);
+                textField.text = tempStr.copy;
+            }
+        }
+    }
 }
 
 //收回键盘

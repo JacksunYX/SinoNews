@@ -156,7 +156,9 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.navigationBar.translucent = YES;
+//    self.navigationController.navigationBar.translucent = YES;
+    //还要加上这句，不然iOS10以下的界面顶部会留出20像素的空白
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self addTableView];
     [self addHeadView];
     
@@ -176,12 +178,15 @@
 {
     self.tableView = [[BaseTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
-    [self.tableView activateConstraints:^{
-        self.tableView.top_attr = self.view.top_attr;
-        self.tableView.left_attr = self.view.left_attr_safe;
-        self.tableView.right_attr = self.view.right_attr_safe;
-        self.tableView.bottom_attr = self.view.bottom_attr_safe;
-    }];
+//    [self.tableView activateConstraints:^{
+//        self.tableView.top_attr = self.view.top_attr;
+//        self.tableView.left_attr = self.view.left_attr_safe;
+//        self.tableView.right_attr = self.view.right_attr_safe;
+//        self.tableView.bottom_attr = self.view.bottom_attr;
+//    }];
+    self.tableView.sd_layout
+    .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
+    ;
     [self.tableView addBakcgroundColorTheme];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;

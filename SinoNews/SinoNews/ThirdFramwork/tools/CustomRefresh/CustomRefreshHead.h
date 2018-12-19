@@ -12,5 +12,6 @@
 #import "YXNormalHeader.h"
 #import "YXGifHeader.h"
 #import "YXAutoNormalFooter.h"
+#import "YXBackNormalFooter.h"
 
 #endif /* CustomRefreshHead_h */

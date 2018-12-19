@@ -504,4 +504,28 @@
     return [UIImage imageWithData:imageData];
 }
 
+//得到中英文混合字符串长度 方法1
+- (int)convertToInt
+{
+    int strlength = 0;
+    char* p = (char*)[self cStringUsingEncoding:NSUnicodeStringEncoding];
+    for (int i=0 ; i<[self lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++) {
+        if (*p) {
+            p++;
+            strlength++;
+        }
+        else {
+            p++;
+        }
+    }
+    return strlength;
+}
+//得到中英文混合字符串长度 方法2
+- (NSInteger)getToInt
+{
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* da = [self dataUsingEncoding:enc];
+    return [da length];
+}
+
 @end

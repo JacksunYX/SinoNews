@@ -171,6 +171,8 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
+    //还要加上这句，不然iOS10以下的界面顶部会留出20像素的空白
+    self.automaticallyAdjustsScrollViewInsets = NO;
 //    self.navigationController.navigationBar.translucent = YES;
     [self setUI];
     

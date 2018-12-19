@@ -188,6 +188,7 @@
 		4C49F06D20D0E7A8009DC42B /* MyAttentionSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06C20D0E7A8009DC42B /* MyAttentionSecondCell.m */; };
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
+		4C4BE49621C9D2F5007EF737 /* YXBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */; };
 		4C4C95A4218FF29200627B07 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C9589218FF29200627B07 /* TZImageCropManager.m */; };
 		4C4C95A5218FF29200627B07 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C958B218FF29200627B07 /* TZAssetCell.m */; };
 		4C4C95A6218FF29200627B07 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C958C218FF29200627B07 /* TZVideoPlayerController.m */; };
@@ -1254,6 +1255,8 @@
 		4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAttentionThirdCell.m; sourceTree = "<group>"; };
 		4C49F07120D0F94B009DC42B /* MyCollectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCollectViewController.h; sourceTree = "<group>"; };
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
+		4C4BE49421C9D2F5007EF737 /* YXBackNormalFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXBackNormalFooter.h; sourceTree = "<group>"; };
+		4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXBackNormalFooter.m; sourceTree = "<group>"; };
 		4C4C9587218FF29200627B07 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
 		4C4C9588218FF29200627B07 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
 		4C4C9589218FF29200627B07 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
@@ -4322,6 +4325,8 @@
 				4C83E64D20BFFB3100C99AAB /* YXGifHeader.m */,
 				4C83E64F20BFFB9C00C99AAB /* YXAutoNormalFooter.h */,
 				4C83E65020BFFB9C00C99AAB /* YXAutoNormalFooter.m */,
+				4C4BE49421C9D2F5007EF737 /* YXBackNormalFooter.h */,
+				4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */,
 			);
 			path = CustomRefresh;
 			sourceTree = "<group>";
@@ -5804,6 +5809,7 @@
 				4C4C95A4218FF29200627B07 /* TZImageCropManager.m in Sources */,
 				4C23B3B920F5924800ACE380 /* LMStyleSettingsController.m in Sources */,
 				4C6E9168213F5F07001535CA /* YYWebImageOperation.m in Sources */,
+				4C4BE49621C9D2F5007EF737 /* YXBackNormalFooter.m in Sources */,
 				4C72347B20FD8C6D00D5C5D4 /* PYSearchViewController.m in Sources */,
 				4CC289932105AFA300BC4D92 /* UIDevice+Version.m in Sources */,
 				4C992FF7217717680092DDCF /* HXDatePhotoViewTransition.m in Sources */,

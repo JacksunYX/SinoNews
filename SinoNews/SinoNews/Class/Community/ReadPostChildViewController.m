@@ -263,6 +263,7 @@
     parameters[@"rate"] = @(_rate);
     [HttpRequest getWithURLString:ListUserAttenPost parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
         if (dataArr.count>0) {
             if (refreshType) {
                 [self.dataSource addObjectsFromArray:dataArr];

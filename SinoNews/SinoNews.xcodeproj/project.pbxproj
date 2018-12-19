@@ -189,6 +189,8 @@
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
 		4C4BE49621C9D2F5007EF737 /* YXBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */; };
+		4C4BE49A21CA407F007EF737 /* libYCJsonToModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BE49821CA407F007EF737 /* libYCJsonToModel.a */; };
+		4C4BE49D21CA4506007EF737 /* CreateModelHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BE49C21CA4506007EF737 /* CreateModelHelper.m */; };
 		4C4C95A4218FF29200627B07 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C9589218FF29200627B07 /* TZImageCropManager.m */; };
 		4C4C95A5218FF29200627B07 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C958B218FF29200627B07 /* TZAssetCell.m */; };
 		4C4C95A6218FF29200627B07 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C958C218FF29200627B07 /* TZVideoPlayerController.m */; };
@@ -1257,6 +1259,10 @@
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		4C4BE49421C9D2F5007EF737 /* YXBackNormalFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXBackNormalFooter.h; sourceTree = "<group>"; };
 		4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXBackNormalFooter.m; sourceTree = "<group>"; };
+		4C4BE49821CA407F007EF737 /* libYCJsonToModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYCJsonToModel.a; sourceTree = "<group>"; };
+		4C4BE49921CA407F007EF737 /* YCJsonToModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCJsonToModelProvider.h; sourceTree = "<group>"; };
+		4C4BE49B21CA4506007EF737 /* CreateModelHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateModelHelper.h; sourceTree = "<group>"; };
+		4C4BE49C21CA4506007EF737 /* CreateModelHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateModelHelper.m; sourceTree = "<group>"; };
 		4C4C9587218FF29200627B07 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
 		4C4C9588218FF29200627B07 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
 		4C4C9589218FF29200627B07 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
@@ -2403,6 +2409,7 @@
 				4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */,
 				4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */,
 				4C1B149D2152583B004ADD9E /* libz.tbd in Frameworks */,
+				4C4BE49A21CA407F007EF737 /* libYCJsonToModel.a in Frameworks */,
 				4C1B149B21525830004ADD9E /* libresolv.tbd in Frameworks */,
 				4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */,
 				4C1B1495215257BE004ADD9E /* CoreFoundation.framework in Frameworks */,
@@ -3159,6 +3166,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C4BE49721CA407F007EF737 /* YCJsonToModel */,
 				4C1227E021B5261700E19AD4 /* XHLaunchAd */,
 				4CEEDAF521AE97C20098702F /* GeeTest */,
 				4CF1A8E3219E56EC0031B1A9 /* CountDown */,
@@ -3349,6 +3357,17 @@
 				4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */,
 			);
 			path = UIView;
+			sourceTree = "<group>";
+		};
+		4C4BE49721CA407F007EF737 /* YCJsonToModel */ = {
+			isa = PBXGroup;
+			children = (
+				4C4BE49821CA407F007EF737 /* libYCJsonToModel.a */,
+				4C4BE49921CA407F007EF737 /* YCJsonToModelProvider.h */,
+				4C4BE49B21CA4506007EF737 /* CreateModelHelper.h */,
+				4C4BE49C21CA4506007EF737 /* CreateModelHelper.m */,
+			);
+			path = YCJsonToModel;
 			sourceTree = "<group>";
 		};
 		4C4C9586218FF29200627B07 /* TZImagePickerController */ = {
@@ -5928,6 +5947,7 @@
 				4CF1A7EF219C267A0031B1A9 /* ThePostCommentTableViewCell.m in Sources */,
 				4C6E91A7213F5F07001535CA /* YYThreadSafeArray.m in Sources */,
 				4C6E9166213F5F07001535CA /* CALayer+YYWebImage.m in Sources */,
+				4C4BE49D21CA4506007EF737 /* CreateModelHelper.m in Sources */,
 				4C4EC3032112E3E800591F12 /* ZXYShineClickLayer.m in Sources */,
 				4C646C6E20F346630053067A /* OfficialNotifyCell.m in Sources */,
 				4C6E91AC213F647C001535CA /* NewsDetailsHeaderView.m in Sources */,
@@ -6393,7 +6413,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/YCJsonToModel",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a9344b22-29a9-4722-9964-da03a73c6b22";
@@ -6437,7 +6460,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/YCJsonToModel",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4dcb1b86-8ed0-46ac-b66a-bd13fef477fd";

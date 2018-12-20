@@ -71,6 +71,7 @@
     .heightIs(40)
     ;
     [_topView updateLayout];
+    [_topView addBorderTo:BorderTypeBottom borderSize:CGSizeMake(ScreenW, 0.3) borderColor:CutLineColor];
     
     NSArray *titleArr = @[
                           @"回复时间",
@@ -260,8 +261,10 @@
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
+    parameters[@"lastCommentTime"] = @([[self getLastCommentTime:refreshType] integerValue]);
     parameters[@"page"] = @(_page);
     parameters[@"rate"] = @(_rate);
+    parameters[@"postIds"] = [self getPostIds];
     [HttpRequest getWithURLString:ListUserAttenPost parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         
@@ -321,8 +324,10 @@
     parameters[@"sortOrder"] = @(_sortOrder);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
+    parameters[@"lastCommentTime"] = @([[self getLastCommentTime:refreshType] integerValue]);
     parameters[@"page"] = @(_page);
     parameters[@"rate"] = @(_rate);
+    parameters[@"postIds"] = [self getPostIds];
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
         
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
@@ -385,6 +390,36 @@
         }
     }
     return loadTime;
+}
+
+//获取lastCommentTime
+-(NSString *)getLastCommentTime:(NSInteger)refreshType
+{
+    NSString *lastCommentTime = @"";
+    if (self.dataSource.count>0) {
+        if (refreshType) {
+            SeniorPostDataModel *model = [self.dataSource lastObject];
+            lastCommentTime = model.lastCommentTime;
+        }else{
+            SeniorPostDataModel *model = [self.dataSource firstObject];
+            lastCommentTime = model.lastCommentTime;
+        }
+    }
+    return lastCommentTime;
+}
+
+//获取当前界面所有已存在帖子的id总集postIds
+-(NSString *)getPostIds
+{
+    NSMutableString *postIds = @"".mutableCopy;
+    if (self.dataSource.count>0) {
+        for (SeniorPostDataModel *model in self.dataSource) {
+            [postIds appendString:[NSString stringWithFormat:@"%ld,",(long)model.postId]];
+        }
+        [postIds deleteCharactersInRange:NSMakeRange(postIds.length-1, 1)];
+    }
+    //    NSLog(@"postIds:%@",postIds);
+    return postIds.copy;
 }
 
 @end

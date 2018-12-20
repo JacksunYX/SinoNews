@@ -588,7 +588,8 @@
     parameters[@"rate"] = @(_rate);
     parameters[@"loadType"] = @(refreshType);
     parameters[@"loadTime"] = @([[self getLoadTime:refreshType] integerValue]);
-    
+    parameters[@"lastCommentTime"] = @([[self getLastCommentTime:refreshType] integerValue]);
+    parameters[@"postIds"] = [self getPostIds];
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (dataArr.count>0) {
@@ -661,5 +662,36 @@
     return loadTime;
 }
 
+//获取lastCommentTime
+-(NSString *)getLastCommentTime:(NSInteger)refreshType
+{
+    NSString *lastCommentTime = @"";
+    if (self.dataSource.count>0) {
+        if (refreshType) {
+            SeniorPostDataModel *model = [self.dataSource lastObject];
+            lastCommentTime = model.lastCommentTime;
+        }else{
+            SeniorPostDataModel *model = [self.dataSource firstObject];
+            lastCommentTime = model.lastCommentTime;
+        }
+    }
+    return lastCommentTime;
+}
+
+//获取当前界面所有已存在帖子的id总集postIds
+-(NSString *)getPostIds
+{
+    NSMutableString *postIds = @"".mutableCopy;
+    if (self.dataSource.count>0) {
+        [postIds appendString:@"["];
+        for (SeniorPostDataModel *model in self.dataSource) {
+            [postIds appendString:[NSString stringWithFormat:@"%ld,",model.postId]];
+        }
+        [postIds deleteCharactersInRange:NSMakeRange(postIds.length-1, 1)];
+        [postIds appendString:@"]"];
+    }
+//    NSLog(@"postIds:%@",postIds);
+    return postIds.copy;
+}
 
 @end

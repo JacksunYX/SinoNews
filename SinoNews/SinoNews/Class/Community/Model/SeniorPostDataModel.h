@@ -64,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 //投票选项数组
 @property (nonatomic,strong) NSMutableArray <VoteChooseInputModel *> *voteSelects;
 
+//记录回复时间的时间戳
+@property (nonatomic,strong) NSString *lastCommentTime;
+
 //详情对接属性
 @property (nonatomic,assign) NSInteger commentCount;
 @property (nonatomic,strong) NSString *createStamp;

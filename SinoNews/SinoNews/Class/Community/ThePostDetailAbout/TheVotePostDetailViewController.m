@@ -43,6 +43,8 @@
 @property (nonatomic,strong) UIView *voteDataView;
 //投票截止日期
 @property (nonatomic,strong) UILabel *asOftheDateLabel;
+//提示单选或是多选
+@property (strong, nonatomic) UILabel *chooseNoticeTop;
 //时间记录
 @property (strong, nonatomic) CountDown *countDown;
 //参与人数
@@ -750,14 +752,14 @@ CGFloat static attentionBtnH = 26;
         ;
         
         UIImageView *icon = [UIImageView new];
-        UILabel *noticeTop = [UILabel new];
+        _chooseNoticeTop = [UILabel new];
         _participantNum = [UILabel new];
         _asOftheDateLabel = [UILabel new];
         _asOftheDateLabel.isAttributedContent = YES;
         
         [backView sd_addSubviews:@[
                                    icon,
-                                   noticeTop,
+                                   _chooseNoticeTop,
                                    _asOftheDateLabel,
                                    _participantNum,
                                    
@@ -771,19 +773,14 @@ CGFloat static attentionBtnH = 26;
         ;
         icon.image = UIImageNamed(@"voteDetail_icon");
         
-        noticeTop.sd_layout
+        _chooseNoticeTop.sd_layout
         .centerYEqualToView(icon)
         .leftSpaceToView(icon, 20)
         .rightSpaceToView(backView, 20)
         .heightIs(16)
         ;
-        noticeTop.font = PFFontR(16);
-        noticeTop.textColor = HexColor(#161A24);
-        NSString *noticeTopString = @"单选投票";
-        if (self.postModel.choosableNum>1) {
-            noticeTopString = [NSString stringWithFormat:@"多选投票(最多可选%ld项)",self.postModel.choosableNum];
-        }
-        noticeTop.text = noticeTopString;
+        _chooseNoticeTop.font = PFFontR(16);
+        _chooseNoticeTop.textColor = HexColor(#161A24);
         
         _asOftheDateLabel.sd_layout
         .rightSpaceToView(backView, 10)
@@ -804,6 +801,12 @@ CGFloat static attentionBtnH = 26;
         _participantNum.textColor = HexColor(#161A24);
         
     }
+    NSString *noticeTopString = @"单选投票";
+    if (self.postModel.choosableNum>1) {
+        noticeTopString = [NSString stringWithFormat:@"多选投票(最多可选%ld项)",self.postModel.choosableNum];
+    }
+    _chooseNoticeTop.text = noticeTopString;
+    
     _participantNum.text = [NSString stringWithFormat:@"共有%ld人参与投票",self.postModel.votePeople];
 }
 
@@ -1188,6 +1191,11 @@ CGFloat static attentionBtnH = 26;
                 model.isSelected = NO;
                 model.hiddenSelectIcon = YES;
             }
+            //如果作者不让看结果
+            if (!self.postModel.visibleAfterVote) {
+                model.hiddenVoteResult = YES;
+            }
+            
         }
         [self setNavigationBtns];
         [self setNaviTitle];

@@ -92,7 +92,7 @@ static CGFloat animationTime = 0.25;
     _textView = [YXTextView new];
     _textView.font = PFFontL(16);
     _textView.delegate = self;
-    _textView.placeholderText = @"写点什么吧(最少5个字符)";
+    _textView.placeholderText = @"写点什么吧(最少5个字)";
     [_textView addBakcgroundColorTheme];
     if (UserGetBool(@"NightMode")) {
         _textView.textColor = HexColor(#cfd3d6);
@@ -524,7 +524,7 @@ static CGFloat animationTime = 0.25;
 - (void)textViewDidChange:(YYTextView *)textView
 {
     self.sendBtn.enabled = NO;
-    if ([textView.text getToInt]>4) {
+    if ([textView.text getToInt]>9) {
         self.sendBtn.enabled = YES;
         [self.sendBtn setNormalTitleColor:HexColor(#1282EE)];
     }else{

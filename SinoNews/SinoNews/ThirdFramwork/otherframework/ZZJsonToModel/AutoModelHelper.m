@@ -28,7 +28,7 @@
     NSURL *path = [NSURL URLWithString:@"/Users/Michael/Desktop/"];
     __block BOOL isSuccess = NO;
     double times = [ZZJsonToModel modelWithSpendTime:^{ // 计算代码耗时
-        isSuccess = [ZZJsonToModel zz_createMJModelWithJson:jsonDic fileName:name extensionName:@"class" fileURL:path error:^(NSError *error) {
+        isSuccess = [ZZJsonToModel zz_createMJModelWithJson:jsonDic fileName:name extensionName:@"Model" fileURL:path error:^(NSError *error) {
             NSLog(@"自动生成模型出错：%@",error);
         }];
     }];

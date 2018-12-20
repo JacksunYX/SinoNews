@@ -524,7 +524,8 @@ static CGFloat animationTime = 0.25;
 - (void)textViewDidChange:(YYTextView *)textView
 {
     self.sendBtn.enabled = NO;
-    if ([textView.text getToInt]>9) {
+    NSLog(@"长度:%d",[textView.text convertToInt]);
+    if (textView.text.length>4) {
         self.sendBtn.enabled = YES;
         [self.sendBtn setNormalTitleColor:HexColor(#1282EE)];
     }else{

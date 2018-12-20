@@ -683,12 +683,10 @@
 {
     NSMutableString *postIds = @"".mutableCopy;
     if (self.dataSource.count>0) {
-        [postIds appendString:@"["];
         for (SeniorPostDataModel *model in self.dataSource) {
-            [postIds appendString:[NSString stringWithFormat:@"%ld,",model.postId]];
+            [postIds appendString:[NSString stringWithFormat:@"%ld,",(long)model.postId]];
         }
         [postIds deleteCharactersInRange:NSMakeRange(postIds.length-1, 1)];
-        [postIds appendString:@"]"];
     }
 //    NSLog(@"postIds:%@",postIds);
     return postIds.copy;

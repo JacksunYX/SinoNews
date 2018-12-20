@@ -10,13 +10,20 @@
 #ifndef DefinedHeader_h
 #define DefinedHeader_h
 
-
+//#define OpenTestModel
+#ifdef OpenTestModel
+#define DefaultDomainName DebugDomain4
+#else
 //接口域名
 #define DefaultDomainName DebugDomain
+#endif
+
+
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
 #define DebugDomain1 @"http://192.168.2.142:8087" //Tony
 #define DebugDomain2 @"http://192.168.2.144:8083" //Edison
+#define DebugDomain4 @"http://api.519m.cn/api/"
 //正式
 #define DebugDomain3 @"https://qsl.bravetroops.biz"
 

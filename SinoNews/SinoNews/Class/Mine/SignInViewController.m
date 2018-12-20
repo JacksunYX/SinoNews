@@ -113,6 +113,8 @@
     if (UserGetBool(@"NightMode")) {
         self.topModalView.backgroundColor = HexColorAlpha(#000000, 0.1);
     }
+    
+    [self requestBorrowDetails];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -589,7 +591,7 @@
     }else if ([taskModel.taskIcon containsString:@"comment-post"]){
         taskIcon.image = UIImageNamed(@"signIn_replyPost");
     }else if ([taskModel.taskIcon containsString:@"praise-post-comment"]){
-        taskIcon.image = UIImageNamed(@"signIn_praisePostOrComment");
+        taskIcon.image = UIImageNamed(@"signIn_publNewPraised");
     }
     
     taskTitle.sd_layout
@@ -695,6 +697,17 @@
     } failure:nil];
 }
 
+//账单详情
+-(void)requestBorrowDetails
+{
+#ifdef OpenTestModel
+    [HttpRequest postWithURLString:@"borrow/details" parameters:@{@"borrow_id":@(10000001)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+        [AutoModelHelper generateModelWithJsonData:response[@"data"] modelName:@"BillDetailModel"];
+        
+    } failure:nil RefreshAction:nil];
+#endif
+}
 
 
 @end

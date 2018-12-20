@@ -159,6 +159,9 @@
 -(UIView *)getLineView{
     UIView *line = [[UIView alloc] init];
     line.backgroundColor = [UIColor lightGrayColor];
+    if (_bordColor) {
+        line.backgroundColor = _bordColor;
+    }
     [self addSubview:line];
     return line;
 }

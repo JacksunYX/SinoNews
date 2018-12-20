@@ -11,7 +11,11 @@
 #define NetQuestList_h
 
 //版本号
+#ifdef OpenTestModel
+#define VersionNum  @""
+#else
 #define VersionNum  @"/v1.0.1"
+#endif
 
 #import "HomePageNet.h"
 #import "AttentionNet.h"

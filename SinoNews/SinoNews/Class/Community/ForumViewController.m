@@ -552,6 +552,7 @@
         HiddenHudOnly;
         [self.view ly_endLoading];
         NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        
         NSMutableArray *myAttentionArr = [MainSectionModel getLocalAttentionSections];
         if (listArr.count > 0) {
             MainSectionModel *model = [MainSectionModel new];

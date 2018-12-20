@@ -105,6 +105,7 @@
 -(void)setUpTableView
 {
     self.page = 1;
+    self.sortOrder = 1;
     _tableView = [[BaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.backgroundColor = WhiteColor;
     _tableView.delegate = self;

@@ -93,6 +93,10 @@ const NSString * DomainString = nil;
     NSString *token = GetSaveString(UserGet(@"token"));
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+#ifdef OpenTestModel
+    token = @"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6Ly9hcGkuNTE5bS5jbi9hcGkvcmVmcmVzaCIsImlhdCI6MTU0NTEzNDY0MywiZXhwIjoxNTQ1MzA1ODM3LCJuYmYiOjE1NDUyNjk4MzcsImp0aSI6Ijl0b2pLQVBBbzNpWlFnUTUifQ.07qvIbj_YZLxH4xneEK2UM8pO0cvt9Mr8j6uWVvEVvM";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"authorization"];
+#endif
     [manager.requestSerializer setValue:[[UIDevice currentDevice] uuid] forHTTPHeaderField:@"Device-No"];
     [manager.requestSerializer setValue:[UIDevice appVersion] forHTTPHeaderField:@"App-Version"];
     [manager.requestSerializer setValue:CurrentSystemVersion forHTTPHeaderField:@"Os-Version"];
@@ -196,7 +200,9 @@ const NSString * DomainString = nil;
         
         //取出返回数据
         if (success&&resultdic) {
-            
+#ifdef OpenTestModel
+            success(resultdic);
+#else
             //成功返回服务器数据
             if ([resultdic[@"success"] integerValue] == 1) {
                 success(resultdic);
@@ -233,6 +239,7 @@ const NSString * DomainString = nil;
                     }
                 });
             }
+#endif
             
         }else{
             LRToast(@"返回数据为空！");

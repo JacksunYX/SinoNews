@@ -79,6 +79,6 @@
 
 #import "XHLaunchAd.h"
 
-#import "CreateModelHelper.h"
+#import "AutoModelHelper.h"
 
 #endif /* OtherFrameworksHead_h */

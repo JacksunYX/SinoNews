@@ -14,6 +14,9 @@
 		4C03F5362101DE5900574136 /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C03F5352101DE5900574136 /* ArticleModel.m */; };
 		4C09D9C721BDF7FA00E6CBE5 /* ToReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09D9C621BDF7FA00E6CBE5 /* ToReportViewController.m */; };
 		4C09D9CA21BDFB8300E6CBE5 /* ToReportTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C09D9C921BDFB8300E6CBE5 /* ToReportTableViewCell.m */; };
+		4C0DD31821CB1ADD004F4BF1 /* ZZJsonToModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DD31421CB1ADC004F4BF1 /* ZZJsonToModel.m */; };
+		4C0DD31921CB1ADD004F4BF1 /* NSString+ZZFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DD31721CB1ADC004F4BF1 /* NSString+ZZFormat.m */; };
+		4C0DD31C21CB1B25004F4BF1 /* AutoModelHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DD31B21CB1B25004F4BF1 /* AutoModelHelper.m */; };
 		4C1227D221AFDC0A00E19AD4 /* CharacterLocationSeeker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */; };
 		4C1227D321AFDC0A00E19AD4 /* CharacterLocationSeeker_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227D121AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.m */; };
 		4C1227DC21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1227DB21B0C99500E19AD4 /* UILabel+GetLastCharacterFrame.m */; };
@@ -189,8 +192,6 @@
 		4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F06F20D0E7B7009DC42B /* MyAttentionThirdCell.m */; };
 		4C49F07320D0F94B009DC42B /* MyCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C49F07220D0F94B009DC42B /* MyCollectViewController.m */; };
 		4C4BE49621C9D2F5007EF737 /* YXBackNormalFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */; };
-		4C4BE49A21CA407F007EF737 /* libYCJsonToModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BE49821CA407F007EF737 /* libYCJsonToModel.a */; };
-		4C4BE49D21CA4506007EF737 /* CreateModelHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4BE49C21CA4506007EF737 /* CreateModelHelper.m */; };
 		4C4C95A4218FF29200627B07 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C9589218FF29200627B07 /* TZImageCropManager.m */; };
 		4C4C95A5218FF29200627B07 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C958B218FF29200627B07 /* TZAssetCell.m */; };
 		4C4C95A6218FF29200627B07 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C958C218FF29200627B07 /* TZVideoPlayerController.m */; };
@@ -904,6 +905,12 @@
 		4C09D9C621BDF7FA00E6CBE5 /* ToReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToReportViewController.m; sourceTree = "<group>"; };
 		4C09D9C821BDFB8300E6CBE5 /* ToReportTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToReportTableViewCell.h; sourceTree = "<group>"; };
 		4C09D9C921BDFB8300E6CBE5 /* ToReportTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToReportTableViewCell.m; sourceTree = "<group>"; };
+		4C0DD31421CB1ADC004F4BF1 /* ZZJsonToModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZZJsonToModel.m; sourceTree = "<group>"; };
+		4C0DD31521CB1ADC004F4BF1 /* NSString+ZZFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ZZFormat.h"; sourceTree = "<group>"; };
+		4C0DD31621CB1ADC004F4BF1 /* ZZJsonToModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZZJsonToModel.h; sourceTree = "<group>"; };
+		4C0DD31721CB1ADC004F4BF1 /* NSString+ZZFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ZZFormat.m"; sourceTree = "<group>"; };
+		4C0DD31A21CB1B25004F4BF1 /* AutoModelHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoModelHelper.h; sourceTree = "<group>"; };
+		4C0DD31B21CB1B25004F4BF1 /* AutoModelHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoModelHelper.m; sourceTree = "<group>"; };
 		4C1227CE21AFDC0900E19AD4 /* CharacterLocationSeeker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterLocationSeeker.m; sourceTree = "<group>"; };
 		4C1227CF21AFDC0900E19AD4 /* CharacterLocationSeeker_TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker_TextView.h; sourceTree = "<group>"; };
 		4C1227D021AFDC0900E19AD4 /* CharacterLocationSeeker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterLocationSeeker.h; sourceTree = "<group>"; };
@@ -1259,10 +1266,6 @@
 		4C49F07220D0F94B009DC42B /* MyCollectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCollectViewController.m; sourceTree = "<group>"; };
 		4C4BE49421C9D2F5007EF737 /* YXBackNormalFooter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXBackNormalFooter.h; sourceTree = "<group>"; };
 		4C4BE49521C9D2F5007EF737 /* YXBackNormalFooter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXBackNormalFooter.m; sourceTree = "<group>"; };
-		4C4BE49821CA407F007EF737 /* libYCJsonToModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libYCJsonToModel.a; sourceTree = "<group>"; };
-		4C4BE49921CA407F007EF737 /* YCJsonToModelProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCJsonToModelProvider.h; sourceTree = "<group>"; };
-		4C4BE49B21CA4506007EF737 /* CreateModelHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateModelHelper.h; sourceTree = "<group>"; };
-		4C4BE49C21CA4506007EF737 /* CreateModelHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateModelHelper.m; sourceTree = "<group>"; };
 		4C4C9587218FF29200627B07 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
 		4C4C9588218FF29200627B07 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
 		4C4C9589218FF29200627B07 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
@@ -2409,7 +2412,6 @@
 				4CF1A7E9219C0D190031B1A9 /* MediaPlayer.framework in Frameworks */,
 				4CF1A7E7219C0BF30031B1A9 /* AVFoundation.framework in Frameworks */,
 				4C1B149D2152583B004ADD9E /* libz.tbd in Frameworks */,
-				4C4BE49A21CA407F007EF737 /* libYCJsonToModel.a in Frameworks */,
 				4C1B149B21525830004ADD9E /* libresolv.tbd in Frameworks */,
 				4C1B1497215257C5004ADD9E /* CoreTelephony.framework in Frameworks */,
 				4C1B1495215257BE004ADD9E /* CoreFoundation.framework in Frameworks */,
@@ -2445,6 +2447,19 @@
 				4C03F52F2101BE9F00574136 /* UINavigationController+FDFullscreenPopGesture.m */,
 			);
 			path = FDFullscreenPopGesture;
+			sourceTree = "<group>";
+		};
+		4C0DD31321CB1ADC004F4BF1 /* ZZJsonToModel */ = {
+			isa = PBXGroup;
+			children = (
+				4C0DD31621CB1ADC004F4BF1 /* ZZJsonToModel.h */,
+				4C0DD31421CB1ADC004F4BF1 /* ZZJsonToModel.m */,
+				4C0DD31521CB1ADC004F4BF1 /* NSString+ZZFormat.h */,
+				4C0DD31721CB1ADC004F4BF1 /* NSString+ZZFormat.m */,
+				4C0DD31A21CB1B25004F4BF1 /* AutoModelHelper.h */,
+				4C0DD31B21CB1B25004F4BF1 /* AutoModelHelper.m */,
+			);
+			path = ZZJsonToModel;
 			sourceTree = "<group>";
 		};
 		4C1227CD21AFDC0900E19AD4 /* CharacterLocationSeeker */ = {
@@ -3166,7 +3181,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
-				4C4BE49721CA407F007EF737 /* YCJsonToModel */,
+				4C0DD31321CB1ADC004F4BF1 /* ZZJsonToModel */,
 				4C1227E021B5261700E19AD4 /* XHLaunchAd */,
 				4CEEDAF521AE97C20098702F /* GeeTest */,
 				4CF1A8E3219E56EC0031B1A9 /* CountDown */,
@@ -3357,17 +3372,6 @@
 				4C72346220FC6E8900D5C5D4 /* MyEmptyView.m */,
 			);
 			path = UIView;
-			sourceTree = "<group>";
-		};
-		4C4BE49721CA407F007EF737 /* YCJsonToModel */ = {
-			isa = PBXGroup;
-			children = (
-				4C4BE49821CA407F007EF737 /* libYCJsonToModel.a */,
-				4C4BE49921CA407F007EF737 /* YCJsonToModelProvider.h */,
-				4C4BE49B21CA4506007EF737 /* CreateModelHelper.h */,
-				4C4BE49C21CA4506007EF737 /* CreateModelHelper.m */,
-			);
-			path = YCJsonToModel;
 			sourceTree = "<group>";
 		};
 		4C4C9586218FF29200627B07 /* TZImagePickerController */ = {
@@ -5890,6 +5894,7 @@
 				4C87360620BEABB700B6A8B5 /* SearchHeadReusableView.m in Sources */,
 				4C6E919B213F5F07001535CA /* YYCGUtilities.m in Sources */,
 				4C44E3852122B33200C5D10A /* HomePageBannerModel.m in Sources */,
+				4C0DD31C21CB1B25004F4BF1 /* AutoModelHelper.m in Sources */,
 				4C6E919E213F5F07001535CA /* YYAsyncLayer.m in Sources */,
 				4CA141F720F4522A00536E77 /* PublishViewController.m in Sources */,
 				4C6E915A213F5F07001535CA /* YYKVStorage.m in Sources */,
@@ -5947,7 +5952,6 @@
 				4CF1A7EF219C267A0031B1A9 /* ThePostCommentTableViewCell.m in Sources */,
 				4C6E91A7213F5F07001535CA /* YYThreadSafeArray.m in Sources */,
 				4C6E9166213F5F07001535CA /* CALayer+YYWebImage.m in Sources */,
-				4C4BE49D21CA4506007EF737 /* CreateModelHelper.m in Sources */,
 				4C4EC3032112E3E800591F12 /* ZXYShineClickLayer.m in Sources */,
 				4C646C6E20F346630053067A /* OfficialNotifyCell.m in Sources */,
 				4C6E91AC213F647C001535CA /* NewsDetailsHeaderView.m in Sources */,
@@ -6025,6 +6029,7 @@
 				4C72347F20FD8C6D00D5C5D4 /* NSBundle+PYSearchExtension.m in Sources */,
 				4C1A29EA20EF425500D8A188 /* ReciveMessageModel.m in Sources */,
 				4CD692F9217F11A700A76312 /* EditSelectViewController.m in Sources */,
+				4C0DD31921CB1ADD004F4BF1 /* NSString+ZZFormat.m in Sources */,
 				4C6332D320E0985C00D80056 /* AddressModel.m in Sources */,
 				4C8D5C39219AC26C008C13A9 /* UITabBarItem+WZLBadge.m in Sources */,
 				4CA23273212E9F6C006709E6 /* UpdatePopView.m in Sources */,
@@ -6101,6 +6106,7 @@
 				4C7234E820FDEB1D00D5C5D4 /* AAItemStyle.m in Sources */,
 				4C3F902D20BD1CD6003EC4FC /* MLMSegmentHead.m in Sources */,
 				4C7B5DE52187E81D00B76E47 /* CommunitySearchVC.m in Sources */,
+				4C0DD31821CB1ADD004F4BF1 /* ZZJsonToModel.m in Sources */,
 				4CD692F3217F10D000A76312 /* ForumViewController.m in Sources */,
 				4C02F903218ADC6C00CB0169 /* ForumDetailViewController.m in Sources */,
 				4C1F0AE820ECF21500C3A2E7 /* UserInfoModel.m in Sources */,
@@ -6491,6 +6497,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/YCJsonToModel",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iOS.SinoNewsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6510,6 +6520,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/YCJsonToModel",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = iOS.SinoNewsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

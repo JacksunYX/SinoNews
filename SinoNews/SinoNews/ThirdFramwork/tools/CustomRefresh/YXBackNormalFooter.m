@@ -20,7 +20,7 @@
     [self setTitle:@"上拉刷新" forState:MJRefreshStateWillRefresh];
     [self setTitle:@"已显示全部内容" forState:MJRefreshStateNoMoreData];
     //一些其他属性设置
-    self.automaticallyHidden = YES;
+//    self.automaticallyHidden = YES;
     // 设置字体
     //    self.stateLabel.font = [UIFont systemFontOfSize:12];
     self.stateLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];

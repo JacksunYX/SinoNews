@@ -278,6 +278,7 @@
         [sender startWithTime:60 title:@"重新获取" countDownTitle:@"s" mainColor:WhiteColor countColor:WhiteColor];
     } failure:^(NSError *error) {
         HiddenHudOnly;
+        LRToast(@"请求超时");
     }];
     
 }

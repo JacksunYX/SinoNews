@@ -1191,11 +1191,14 @@ CGFloat static attentionBtnH = 26;
                 model.isSelected = NO;
                 model.hiddenSelectIcon = YES;
             }
-            //如果作者不让看结果
+            //如果结果不可见不让看结果
             if (!self.postModel.visibleAfterVote) {
                 model.hiddenVoteResult = YES;
             }
-            
+            //如果是作者本人，那么可见
+            if (self.postModel.postAuthor) {
+                model.hiddenVoteResult = NO;
+            }
         }
         [self setNavigationBtns];
         [self setNaviTitle];

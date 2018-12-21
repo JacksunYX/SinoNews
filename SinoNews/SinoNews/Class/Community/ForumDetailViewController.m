@@ -142,7 +142,7 @@
         }
         [self requestListPostForSection:0];
     }];
-    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [YXBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];
@@ -540,7 +540,7 @@
         _rate = 0;
     }
     _currentSectionId = model.sectionId;
-    
+    ShowHudOnly;
     [self requestListPostForSection:0];
 }
 
@@ -581,7 +581,7 @@
 //获取版块帖子列表(0刷新，1加载)
 -(void)requestListPostForSection:(NSInteger)refreshType
 {
-    [self.tableView ly_startLoading];
+//    [self.tableView ly_startLoading];
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"sectionId"] = @(_currentSectionId);
     parameters[@"sortOrder"] = @(_sortOrder);
@@ -591,6 +591,7 @@
     parameters[@"lastCommentTime"] = @([[self getLastCommentTime:refreshType] integerValue]);
     parameters[@"postIds"] = [self getPostIds];
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
+        HiddenHudOnly;
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (dataArr.count>0) {
             if (refreshType) {
@@ -625,15 +626,18 @@
         }
         self.addPostBtn.hidden = NO;
         [self.tableView reloadData];
-        [self.tableView ly_endLoading];
+//        [self.tableView ly_endLoading];
+        [self showOrHiddenBlankView];
     } failure:^(NSError *error) {
+        HiddenHudOnly;
         NSLog(@"error:%@",error);
         if (refreshType) {
             [self.tableView.mj_footer endRefreshing];
         }else{
             [self.tableView.mj_header endRefreshing];
         }
-        [self.tableView ly_endLoading];
+//        [self.tableView ly_endLoading];
+        [self showOrHiddenBlankView];
     }];
 }
 
@@ -690,6 +694,16 @@
     }
 //    NSLog(@"postIds:%@",postIds);
     return postIds.copy;
+}
+
+//控制当前界面空白提示的显隐
+-(void)showOrHiddenBlankView
+{
+    if (self.dataSource.count) {
+        [self.tableView ly_hideEmptyView];
+    }else{
+        [self.tableView ly_showEmptyView];
+    }
 }
 
 @end

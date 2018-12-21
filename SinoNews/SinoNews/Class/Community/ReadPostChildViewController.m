@@ -137,7 +137,7 @@
         }
     }];
     
-    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    _tableView.mj_footer = [YXBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];

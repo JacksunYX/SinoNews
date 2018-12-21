@@ -468,10 +468,10 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     shakeImg.hidden = NO;
     _idView.hidden = YES;
     _messageBtn.hidden = YES;
-    [_attention setNormalTitle:@"关注"];
-    [_praise setNormalTitle:@"获赞"];
-    [_fans setNormalTitle:@"粉丝"];
-    self.userImg.image = nil;
+    [_attention setNormalAttributedTitle:[NSString leadString:@"关注" tailString:@"" font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO]];
+    [_praise setNormalAttributedTitle:[NSString leadString:@"获赞" tailString:@"" font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO]];
+    [_fans setNormalAttributedTitle:[NSString leadString:@"粉丝" tailString:@"" font:PFFontR(16) color:HexColor(#1A1A1A) lineBreak:NO]];
+    self.userImg.image = UIImageNamed(@"userDefault_icon");
     if (login) {
         
         [_userImg sd_setImageWithURL:UrlWithStr(self.user.avatar) placeholderImage:UIImageNamed(@"userDefault_icon")];

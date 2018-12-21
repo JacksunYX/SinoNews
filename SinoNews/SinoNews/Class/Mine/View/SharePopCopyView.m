@@ -24,6 +24,7 @@ static CGFloat anumationTime = 0.3;
     centerView.alpha = 0;
     centerView.userInteractionEnabled = YES;
     
+    YXTextView *bottomNotice = [YXTextView new];
     UIButton *copyBtn = [UIButton new];
     UIButton *copyBtn2 = [UIButton new];
     
@@ -39,24 +40,37 @@ static CGFloat anumationTime = 0.3;
     [backView addSubview:centerView];
     centerView.sd_layout
     .widthIs(352)
-    .heightIs(342)
+    .heightIs(355)
     .centerYEqualToView(backView)
     .centerXEqualToView(backView)
     ;
     centerView.image = UIImageNamed(@"share_popToCopyBackImg");
     
     [centerView sd_addSubviews:@[
+                                 bottomNotice,
                                  copyBtn2,
                                  copyBtn,
                                  shareLaebl,
                                  noticeView,
                                  ]];
+    bottomNotice.sd_layout
+    .centerXEqualToView(centerView)
+    .bottomSpaceToView(centerView, 9)
+    .widthIs(228)
+    .heightIs(39)
+    ;
+    bottomNotice.sd_cornerRadius = @10;
+    bottomNotice.backgroundColor = HexColor(#DBECFF);
+    bottomNotice.font = PFFontL(11);
+    bottomNotice.textColor = HexColor(#2790F6);
+    bottomNotice.text = @"本活动无次数人数限制，每个被邀请人连续签到三天后您就可以获得1000积分";
+    bottomNotice.textContainerInset = UIEdgeInsetsMake(7, 7, 6, 7);
     
     copyBtn2.sd_layout
-    .bottomSpaceToView(centerView, 10)
+    .bottomSpaceToView(bottomNotice, 10)
     .centerXEqualToView(centerView)
     .widthIs(156)
-    .heightIs(36)
+    .heightIs(35)
     ;
     [copyBtn2 setSd_cornerRadius:@18];
     copyBtn2.backgroundColor = HexColor(#2790F6);
@@ -65,10 +79,10 @@ static CGFloat anumationTime = 0.3;
     [copyBtn2 setBtnFont:PFFontR(15)];
     
     copyBtn.sd_layout
-    .bottomSpaceToView(copyBtn2, 4)
+    .bottomSpaceToView(copyBtn2, 5)
     .centerXEqualToView(centerView)
     .widthIs(156)
-    .heightIs(36)
+    .heightIs(35)
     ;
     [copyBtn setSd_cornerRadius:@18];
     copyBtn.backgroundColor = HexColor(#2790F6);

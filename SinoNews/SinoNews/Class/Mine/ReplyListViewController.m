@@ -22,7 +22,7 @@
     
     [self addTableView];
     
-    self.tableView.ly_emptyView = [MyEmptyView emptyViewWithImageStr:@"noMessage" titleStr:@"" detailStr:@"暂无消息"];
+    self.tableView.ly_emptyView = [MyEmptyView emptyViewWithImageStr:@"noNotify_gray" titleStr:@"" detailStr:@"暂无消息"];
 }
 
 //添加tableview
@@ -50,7 +50,7 @@
         self.page = 1;
         [self requestUserListReply];
     }];
-    self.tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [YXBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
         if (self.tableView.mj_header.isRefreshing) {
             [self.tableView.mj_footer endRefreshing];

@@ -124,7 +124,7 @@
         MessageFansViewController *fvc = [MessageFansViewController new];
         [self.navigationController pushViewController:fvc animated:YES];
     }else if (indexPath.row == 2){
-        self.tipsModel.hasNotice = NO;
+        self.tipsModel.hasPraise = NO;
         MessagePraiseViewController *pvc = [MessagePraiseViewController new];
         [self.navigationController pushViewController:pvc animated:YES];
     }

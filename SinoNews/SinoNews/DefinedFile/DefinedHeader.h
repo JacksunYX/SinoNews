@@ -24,6 +24,8 @@
 #define DebugDomain1 @"http://192.168.2.142:8087" //Tony
 #define DebugDomain2 @"http://192.168.2.144:8083" //Edison
 #define DebugDomain4 @"http://api.519m.cn/api/"
+
+#define DebugDomain5 @"http://server.bravetroops.biz"
 //正式
 #define DebugDomain3 @"https://qsl.bravetroops.biz"
 

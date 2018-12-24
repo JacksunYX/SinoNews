@@ -49,7 +49,7 @@
     @weakify(self);
     self.view.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNet" title:@"" refreshBlock:^{
         @strongify(self);
-        ShowHudOnly;
+        
         [self requestListMainSection];
     }];
     
@@ -369,8 +369,8 @@
     }
     _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - TAB_HEIGHT) vcOrViews:[self getvcArrWith:titles]];
     _segScroll.countLimit = 0;
-    _segScroll.addTiming = SegmentAddScale;
-    _segScroll.addScale = 0.2;
+//    _segScroll.addTiming = SegmentAddScale;
+//    _segScroll.addScale = 0.2;
     
     @weakify(self);
     [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
@@ -434,7 +434,8 @@
 //请求主版块数据
 -(void)requestListMainSection
 {
-    [self.view ly_startLoading];
+    [self.view ly_hideEmptyView];
+    ShowHudOnly;
     [HttpRequest getWithURLString:ListMainSection parameters:nil success:^(id responseObject) {
         HiddenHudOnly;
         NSMutableArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
@@ -449,10 +450,9 @@
         [listArr insertObject:all atIndex:0];
         
         [self processSectionArr:listArr];
-        [self.view ly_endLoading];
     } failure:^(NSError *error) {
         HiddenHudOnly;
-        [self.view ly_endLoading];
+        [self.view ly_showEmptyView];
     }];
 }
 

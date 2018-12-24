@@ -44,6 +44,10 @@
     [self addTopView];
     [self setUpTableView];
     
+    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
+    
+    [_tableView.mj_header beginRefreshing];
+    
     //监听刷新
     @weakify(self);
     [kNotificationCenter addObserverForName:RefreshReadPost object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
@@ -148,11 +152,6 @@
             [self requestListPostForSection:1];
         }
     }];
-    
-    self.tableView.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noNews" title:@"暂无数据"];
-    [self.tableView ly_startLoading];
-    
-    [_tableView.mj_header beginRefreshing];
 }
 
 //按钮点击事件

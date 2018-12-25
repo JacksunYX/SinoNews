@@ -118,6 +118,7 @@ const NSString * DomainString = nil;
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
+    baseURLString = [baseURLString getUTF8String];
     if (!parameters) {
         parameters = @{};
     }
@@ -176,7 +177,7 @@ const NSString * DomainString = nil;
     }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
-    
+    baseURLString = [baseURLString getUTF8String];
     if (!parameters) {
         parameters = @{};
     }
@@ -278,7 +279,7 @@ const NSString * DomainString = nil;
     }
     //之前直接用初始化方法来拼接请求地址 现在直接拼接
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
-    
+    baseURLString = [baseURLString getUTF8String];
     //判断显示loding
     if (isshowhud == YES) {
         
@@ -366,7 +367,7 @@ const NSString * DomainString = nil;
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
-    
+    baseURLString = [baseURLString getUTF8String];
     if (!parameters) {
         parameters = @{};
     }
@@ -543,6 +544,7 @@ const NSString * DomainString = nil;
         return;
     }
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
+    baseURLString = [baseURLString getUTF8String];
     if (!parameters) {
         parameters = @{};
     }

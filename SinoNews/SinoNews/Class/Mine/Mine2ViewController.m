@@ -789,6 +789,14 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         cell0.clickBlock = ^(NSInteger index) {
             GGLog(@"点击了index:%ld",index);
             @strongify(self);
+            if (index==0) {
+                //是否登录
+                if (![YXHeader checkNormalBackLogin]) {
+                    return;
+                }
+                ManagerViewController *mvc = [ManagerViewController new];
+                [self.navigationController pushViewController:mvc animated:YES];
+            }
             if (index==2) {
                 //是否登录
                 if (![YXHeader checkNormalBackLogin]) {

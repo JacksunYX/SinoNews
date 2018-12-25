@@ -44,6 +44,9 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
 -(void)setUI
 {
     imageV = [FLAnimatedImageView new];
+    imageV.contentMode = 1;
+    imageV.backgroundColor = kWhite(0.1);
+    
     descripion = [YXLabel new];
     descripion.numberOfLines = 0;
     
@@ -88,12 +91,17 @@ NSString * const PreviewImageTableViewCellID = @"PreviewImageTableViewCellID";
     if (model.imageData) {
         imageV.image = model.imageData.toImage;
     }else{
-        [imageV sd_setImageWithURL:UrlWithStr(model.imageUrl)];
+        [imageV sd_setImageWithURL:UrlWithStr(model.imageUrl) placeholderImage:nil options:SDWebImageRefreshCached progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+            
+        } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            self->imageV.backgroundColor = WhiteColor;
+        }];
     }
     
     CGFloat imageW = (ScreenW - 20);
+    CGFloat imageH = imageW * model.imageH/model.imageW;
     imageV.sd_layout
-    .heightIs(imageW * model.imageH/model.imageW)
+    .heightIs(imageH)
     ;
     [imageV updateLayout];
     CGFloat playW = 0;

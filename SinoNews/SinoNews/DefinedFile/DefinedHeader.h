@@ -21,7 +21,7 @@
 
 //测试环境
 #define DebugDomain @"http://api.52softs.cn"
-#define DebugDomain1 @"http://192.168.2.142:8087" //Tony
+
 #define DebugDomain2 @"http://192.168.2.144:8083" //Edison
 #define DebugDomain4 @"http://api.519m.cn/api/"
 

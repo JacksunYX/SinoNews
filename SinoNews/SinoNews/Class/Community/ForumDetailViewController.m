@@ -545,6 +545,29 @@
 }
 
 
+//对下拉刷新的数据做处理
+-(void)processRefreshData:(NSArray *)dataArr
+{
+    //必须2个数组都有数据
+    if (dataArr.count>0) {
+        NSMutableArray *copyArr = [NSMutableArray arrayWithArray:self.dataSource];
+        for (int i = 0; i < dataArr.count; i ++) {
+            SeniorPostDataModel *model1 = dataArr[i];
+            for (int j = 0; j < copyArr.count; j ++) {
+                SeniorPostDataModel *model2 = copyArr[j];
+                //id相同
+                if (model1.postId == model2.postId) {
+                    //找出当前数据源数组中该对象并移除
+                    NSInteger index = [self.dataSource indexOfObject:model2];
+                    [self.dataSource removeObjectAtIndex:index];
+                }
+            }
+        }
+        //最后把数组拼接到当前数据源数组的最上面
+        self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+    }
+}
+
 #pragma mark --- 请求
 //获取版块公告
 -(void)requestListTopPostForSection
@@ -610,7 +633,7 @@
                         [self.tableView.mj_footer endRefreshing];
                     }
                 }
-                self.dataSource = [[dataArr arrayByAddingObjectsFromArray:self.dataSource] mutableCopy];
+                [self processRefreshData:dataArr];
                 [self.tableView.mj_header endRefreshing];
             }
         }else{

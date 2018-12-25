@@ -304,17 +304,22 @@
             }else if ([NSString isEmpty:self.postModel.postContent]){
                 LRToast(@"您的帖子还没有内容哦");
             }else{
-                //跳转到详情页测试
-//                ForumViewController *pVC = [ForumViewController new];
-//                pVC.postModel = self.postModel;
-//                @weakify(self);
-//                pVC.refreshCallBack = ^{
-//                    @strongify(self);
-//                    if (self.refreshCallBack) {
-//                        self.refreshCallBack();
-//                    }
-//                };
-//                [self.navigationController pushViewController:pVC animated:YES];
+                for (SeniorPostingAddElementModel *element in self.dataSource) {
+                    //视频
+                    if (element.videoData) {
+                        if (element.videoStatus == VideoUploadFailure||element.videoStatus == VideoUploading) {
+                            LRToast(@"有未上传完的视频");
+                            return;
+                        }
+                    }
+                    //图片
+                    if (element.imageData){
+                        if (element.imageStatus == ImageUploadFailure||element.imageStatus == ImageUploading) {
+                            LRToast(@"有未上传完的图片");
+                            return;
+                        }
+                    }
+                }
                 
                 if (self.sectionId) {
                     self.postModel.sectionId = self.sectionId;
@@ -950,17 +955,22 @@
         model.addType = 2;
         model.imageData = image.base64String;
         model.imageStatus = ImageUploading;
+        model.imageW = image.size.width;
+        model.imageH = image.size.height;
+        [self.dataSource addObject:model];
+        //上传
         [RequestGather uploadSingleImage:image Success:^(id response) {
             model.imageUrl = response[@"data"];
-            model.imageStatus = ImageUploadSuccess;
+            if (kStringIsEmpty(model.imageUrl)) {
+                model.imageStatus = ImageUploadFailure;
+            }else{
+                model.imageStatus = ImageUploadSuccess;
+            }
             [self refreshRowWithModel:model];
         } failure:^(NSError *error) {
             model.imageStatus = ImageUploadFailure;
             [self refreshRowWithModel:model];
         }];
-        model.imageW = image.size.width;
-        model.imageH = image.size.height;
-        [self.dataSource addObject:model];
     }
     self.composeBtn.enabled = self.dataSource.count;
     [self.tableView reloadData];
@@ -983,22 +993,28 @@
         model.videoData = videoData;
         GGLog(@"上传视频");
         model.videoStatus = VideoUploading;
-        [RequestGather uploadVideo:videoData Success:^(id response) {
-            //上传成功(这里取数组中保存的视图，是为了防止某些资源(比如视频)正在上传时，用户又添加了另外一个资源，此时如果不这么获取，原来的视图已经被移除，无法再修改其状态了)
-            model.videoUrl = response[@"data"];
-            model.videoStatus = VideoUploadSuccess;
-            [self refreshRowWithModel:model];
-        } failure:^(NSError *error) {
-            //上传失败
-            model.videoStatus = VideoUploadFailure;
-            [self refreshRowWithModel:model];
-        }];
         model.imageData = coverImage.base64String;
         
         model.imageW = coverImage.size.width;
         model.imageH = coverImage.size.height;
         model.videoLocalUrl = outputPath;
         [self.dataSource addObject:model];
+        
+        [RequestGather uploadVideo:videoData Success:^(id response) {
+            //上传成功(这里取数组中保存的视图，是为了防止某些资源(比如视频)正在上传时，用户又添加了另外一个资源，此时如果不这么获取，原来的视图已经被移除，无法再修改其状态了)
+            model.videoUrl = response[@"data"];
+            if (kStringIsEmpty(model.videoUrl)) {
+                model.videoStatus = VideoUploadFailure;
+            }else{
+                model.videoStatus = VideoUploadSuccess;
+            }
+            [self refreshRowWithModel:model];
+        } failure:^(NSError *error) {
+            //上传失败
+            model.videoStatus = VideoUploadFailure;
+            [self refreshRowWithModel:model];
+        }];
+        
         self.composeBtn.enabled = self.dataSource.count;
         [self.tableView reloadData];
         [self scrollToBottom];

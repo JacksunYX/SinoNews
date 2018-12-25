@@ -430,6 +430,8 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     }
     if (type >= 3){
         [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(model.images[2]))];
+    }else{
+        rightImg.image = nil;
     }
     [avatar sd_setImageWithURL:UrlWithStr(model.avatar)];
     

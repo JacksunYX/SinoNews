@@ -159,7 +159,7 @@
     .widthIs(42)
     .heightEqualToWidth()
     ;
-    [_addPostBtn setNormalImage:UIImageNamed(@"posting_icon")];
+    [_addPostBtn setNormalImage:UIImageNamed(@"tabbar_forumPost")];
     [_addPostBtn whenTap:^{
         @strongify(self);
         if ([YXHeader checkLogin]) {

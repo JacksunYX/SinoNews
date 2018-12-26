@@ -63,7 +63,7 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     logo.sd_layout
     .leftSpaceToView(fatherView, 10)
     .topSpaceToView(fatherView, 5)
-    .widthIs(30)
+    .widthIs(35)
     .heightEqualToWidth()
     ;
     

@@ -98,12 +98,12 @@ NSString * _Nullable const SelectPublishChannelCellID = @"SelectPublishChannelCe
     [self.contentView addSubview:title];
     title.sd_layout
     .centerXEqualToView(self.contentView)
-    .topSpaceToView(self.contentView, 15)
+    .topSpaceToView(self.contentView, 10)
     .heightIs(20)
     ;
-    [title setSingleLineAutoResizeWithMaxWidth:ScreenW * 0.3 - 20];
+    [title setSingleLineAutoResizeWithMaxWidth:ScreenW/3.0 - 10];
     
-    [self setupAutoHeightWithBottomView:title bottomMargin:15];
+    [self setupAutoHeightWithBottomView:title bottomMargin:10];
 }
 
 -(void)setTitle:(NSString *)titleString

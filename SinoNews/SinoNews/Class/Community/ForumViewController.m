@@ -23,6 +23,7 @@
 @property (nonatomic,assign) NSInteger leftSelectedIndex;
 @property (nonatomic,strong) UIButton *addImg;
 
+@property (nonatomic,strong) UIButton *addPostBtn;
 
 @end
 
@@ -268,6 +269,26 @@
     ;
     [_rightTable updateLayout];
     [_rightTable registerClass:[ForumRightTableViewCell class] forCellReuseIdentifier:ForumRightTableViewCellID];
+    
+    _addPostBtn = [UIButton new];
+    [self.view addSubview:_addPostBtn];
+    _addPostBtn.sd_layout
+    .rightSpaceToView(self.view, 30)
+    .bottomSpaceToView(self.view, 30)
+    .widthIs(42)
+    .heightEqualToWidth()
+    ;
+    [_addPostBtn setNormalImage:UIImageNamed(@"posting_icon")];
+    [_addPostBtn whenTap:^{
+        @strongify(self);
+        if ([YXHeader checkLogin]) {
+            EditSelectViewController *esVC = [EditSelectViewController new];
+            
+            [self presentViewController:[[RTRootNavigationController alloc]initWithRootViewController:esVC] animated:YES completion:nil];
+        }
+    }];
+//    _addPostBtn.hidden = YES;
+    
     [self setBottomView];
 }
 

@@ -8,7 +8,6 @@
 
 #import "ForumDetailViewController.h"
 #import "CommunitySearchVC.h"
-#import "EditSelectViewController.h"
 
 #import "ForumDetailTableViewCell.h"
 #import "ReadPostListTableViewCell.h"
@@ -160,7 +159,7 @@
     .widthIs(42)
     .heightEqualToWidth()
     ;
-    [_addPostBtn setNormalImage:UIImageNamed(@"tabbar_forumPost")];
+    [_addPostBtn setNormalImage:UIImageNamed(@"posting_icon")];
     [_addPostBtn whenTap:^{
         @strongify(self);
         if ([YXHeader checkLogin]) {

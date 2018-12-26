@@ -8,6 +8,7 @@
 //版块详情列表页
 
 #import "BaseViewController.h"
+#import "EditSelectViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

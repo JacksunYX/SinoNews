@@ -115,12 +115,17 @@
     //创建富文本并将上面的段落样式加入
 //    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:processText];
 //    [attrString addAttributes:dic range:NSMakeRange(0, attrString.length)];
-    //将处理过h5标签的富文本赋值给当前label
-    self.attributedText = [self p_htmlChangeString:self.text];
-    self.font = lastFont;//不加这句字体会还原
     
-    //去掉h5标签后再计算出大小
-    NSString *processText = [self deleteH5LabelWithH5:self.text.copy];
+    //将处理过h5标签的富文本赋值给当前label
+    NSString *processText = self.text;
+    if ([self.text containsString:@"<"]&&[self.text containsString:@">"]) {
+        self.attributedText = [self p_htmlChangeString:self.text];
+        self.font = lastFont;//不加这句字体会还原
+        //去掉h5标签后再计算出大小
+        processText = [self deleteH5LabelWithH5:self.text.copy];
+        NSLog(@"处理前:%@\n处理后:%@",self.text,processText);
+    }
+    
     CGSize size = [processText boundingRectWithSize:CGSizeMake(width,MAXFLOAT) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
     //计算的大小可能刚刚够排版的高度，最好取整后加1，宁愿大一点点，不能小了导致无法显示完全
     return ceil(size.height) + 1;

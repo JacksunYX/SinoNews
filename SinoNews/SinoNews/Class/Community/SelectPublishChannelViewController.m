@@ -442,7 +442,7 @@
     dic[@"remindPeople"] = remindPeople;
     
     parameters[@"postModel"] = [dic mj_JSONString];
-    
+    NSLog(@"parameters:%@",parameters);
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"发帖成功");
         //记得要从本地草稿箱移除

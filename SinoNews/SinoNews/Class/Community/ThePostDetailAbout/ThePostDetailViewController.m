@@ -1112,6 +1112,7 @@ CGFloat static attentionBtnH = 26;
                 element.imageData = cover.base64String;
             }
         }
+//        [self addTestContent];
         [self setNavigationBtns];
         [self setTitle];
         [self setNaviTitle];
@@ -1121,6 +1122,12 @@ CGFloat static attentionBtnH = 26;
     } failure:^(NSError *error) {
         
     }];
+}
+
+//测试下换行是否奏效
+-(void)addTestContent
+{
+    self.postModel.postContent = @"必发测试\n\n胜博发测试\n\n亚博娱乐测试3\n\n测试4\n\n测试5\n\n";
 }
 
 //关注/取消关注

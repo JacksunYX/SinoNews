@@ -8,6 +8,8 @@
 
 #import "RankViewController.h"
 #import "RankListViewController.h"
+#import "SearchViewController.h"
+
 #import "ADModel.h"
 
 #import "HeadBannerView.h"
@@ -30,6 +32,8 @@
 @property (nonatomic, strong) BaseTableView *tableLeft;
 @property (nonatomic, strong) BaseTableView *tableV;
 @property (nonatomic, strong) BaseTableView *tableRight;
+@property (nonatomic, strong) UIView *rightTableHead;
+
 //保存需要取消收藏的娱乐场的数组
 @property (nonatomic ,strong) NSMutableArray *deleteArray;
 
@@ -155,9 +159,29 @@
     return _deleteArray;
 }
 
+-(UIView *)rightTableHead
+{
+    if (!_rightTableHead) {
+        _rightTableHead = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW - 20, 0)];
+        _rightTableHead.backgroundColor = WhiteColor;
+        UILabel *notice = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, ScreenW - 20 - 20, 0)];
+        notice.numberOfLines = 0;
+        [_rightTableHead addSubview:notice];
+        notice.font = PFFontL(14);
+        notice.textColor = HexColor(#ABB2C3);
+        notice.textAlignment = NSTextAlignmentCenter;
+        notice.text = @"以下为推荐收藏娱乐场，可点击右上角搜索您想关注的娱乐场";
+        [notice sizeToFit];
+        notice.frame = CGRectMake((ScreenW - 20)/2 - notice.frame.size.width/2, 10, notice.frame.size.width, notice.frame.size.height);
+    
+        _rightTableHead.frame = CGRectMake(0, 0, ScreenW - 20, 20 + notice.frame.size.height);
+    }
+    return _rightTableHead;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addNavigationView];
     [self setNaviTitle];
     
     [self addViews];
@@ -187,6 +211,19 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+//修改导航栏显示
+-(void)addNavigationView
+{
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(@"attention_search")];
+}
+
+-(void)searchAction
+{
+    SearchViewController *sVC = [SearchViewController new];
+    sVC.selectIndex = 1;
+    [self.navigationController pushViewController:sVC animated:NO];
 }
 
 //添加视图
@@ -384,6 +421,19 @@
     [self.tableRight setHidden:YES];
     
     self.tableRight.ly_emptyView = [MyEmptyView noDataEmptyWithImage:@"noCollect" title:@"暂无收藏的娱乐场"];
+}
+
+-(void)setRightTableViewHeadView
+{
+    if (self.rightDataSource.count>0) {
+        CompanyDetailModel *model = self.rightDataSource.firstObject;
+        if (model.isRecommend) {
+            self.tableRight.tableHeaderView = self.rightTableHead;
+        }else{
+            self.tableRight.tableHeaderView = nil;
+        }
+//        [self.tableRight reloadData];
+    }
 }
 
 //添加下方广告视图
@@ -726,8 +776,8 @@
     [HttpRequest getWithURLString:ListConcernedCompanyForUser parameters:nil success:^(id responseObject) {
         @strongify(self)
         self.rightDataSource = [CompanyDetailModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        [self setRightTableViewHeadView];
         [self.tableRight.mj_header endRefreshing];
-        
         [self.tableRight reloadData];
         [self.tableRight ly_endLoading];
     } failure:^(NSError *error) {

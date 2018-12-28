@@ -30,4 +30,6 @@
 @property (nonatomic,strong) NSString *siteThumbnail;       //网站缩略图
 @property (nonatomic,strong) SyntheticalRankingModel *syntheticalRanking;  //综合排名
 @property (nonatomic,strong) NSString *website;             //官网
+//是否是推荐
+@property (nonatomic,assign) BOOL isRecommend;
 @end

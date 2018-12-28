@@ -17,7 +17,7 @@
 @interface FastPostingViewController ()<EmotionKeyBoardDelegate,YYTextViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) UIScrollView *mainScrollView;
-@property (nonatomic,strong) YXTextView *titleView;
+@property (nonatomic,strong) FSTextView *titleView;
 @property (nonatomic,strong) YXTextView *contentView;
 @property (nonatomic,strong) SelectImagesView *addImageView;
 @property (nonatomic,strong) RemindOthersToReadView *remindView;
@@ -216,10 +216,10 @@
     _mainScrollView.alwaysBounceVertical = YES;
 //    _mainScrollView.backgroundColor = RedColor;
     
-    _titleView = [YXTextView new];
+    _titleView = [FSTextView textView];
     _titleView.font = PFFontM(20);
     _titleView.textColor = BlackColor;
-    _titleView.delegate = self;
+//    _titleView.delegate = self;
     _titleView.backgroundColor = WhiteColor;
     
     _contentView = [YXTextView new];
@@ -259,11 +259,20 @@
     .heightIs(0)
     ;
     [_titleView updateLayout];
-    _titleView.placeholderText = @"快来起个厉害的标题吧！";
-    _titleView.placeholderTextColor = HexColor(#BAC3C7);
+//    _titleView.placeholderText = @"快来起个厉害的标题吧！";
+//    _titleView.placeholderTextColor = HexColor(#BAC3C7);
+    _titleView.placeholder = @"起个引人关注的标题哦～";
+    _titleView.placeholderColor = HexColor(#BAC3C7);
+    _titleView.maxLength = 25;
     _titleView.placeholderFont = PFFontM(20);
     _titleView.layer.borderColor = HexColor(#E3E3E3).CGColor;
     _titleView.layer.borderWidth = 1;
+    @weakify(self);
+    [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
+        @strongify(self);
+        self.postModel.postTitle = textView.formatText;
+        [textView scrollToTop];
+    }];
     
     _contentView.sd_layout
     .topSpaceToView(_titleView, 1)
@@ -311,7 +320,6 @@
     ;
     _remindView.remindArr = [NSMutableArray new];
     
-    @weakify(self);
     [_remindView whenTap:^{
         @strongify(self);
         [self setRemindPeoples];
@@ -524,22 +532,22 @@
 {
     NSString *emotionString = [[WTUtils getEmoticonData] allKeysForObject:name][0];
     YXTextView *textView;
-    if (self.titleView.isFirstResponder) {
-        textView = self.titleView;
-    }else{
+//    if (self.titleView.isFirstResponder) {
+//        textView = self.titleView;
+//    }else{
         textView = self.contentView;
-    }
+//    }
     [textView replaceRange:textView.selectedTextRange withText:emotionString];
 }
 
 - (void)clickDelete
 {
     YXTextView *textView;
-    if (self.titleView.isFirstResponder) {
-        textView = self.titleView;
-    }else{
+//    if (self.titleView.isFirstResponder) {
+//        textView = self.titleView;
+//    }else{
         textView = self.contentView;
-    }
+//    }
     [textView deleteBackward];
 }
 
@@ -552,21 +560,22 @@
 -(BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     //禁止标题输入换行
-    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
-        return NO;
-    }
+//    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
+//        return NO;
+//    }
     return YES;
 }
 
 -(void)textViewDidChange:(YYTextView *)textView
 {
-    if (textView == _titleView) {
-        if (textView.text.length>25) {
-            LRToast(@"标题长度不可超过25个字符哦");
-            textView.text = [textView.text substringToIndex:25];
-        }
-        self.postModel.postTitle = [textView.text removeSpace];
-    }else if (textView == _contentView){
+//    if (textView == _titleView) {
+//        if (textView.text.length>25) {
+//            LRToast(@"标题长度不可超过25个字符哦");
+//            textView.text = [textView.text substringToIndex:25];
+//        }
+//        self.postModel.postTitle = [textView.text removeSpace];
+//    }else
+        if (textView == _contentView){
         self.postModel.postContent = [textView.text removeSpace];
     }
 }
@@ -574,11 +583,13 @@
 -(void)textViewDidBeginEditing:(YYTextView *)textView
 {
     GGLog(@"已经开始编辑");
+#ifdef OpenAddLocalEmoji
     if (textView == self.titleView) {
         _emojiKeyboard.hidden = YES;
     }else{
         _emojiKeyboard.hidden = NO;
     }
+#endif
     self.showKeyboard.selected = YES;
 }
 

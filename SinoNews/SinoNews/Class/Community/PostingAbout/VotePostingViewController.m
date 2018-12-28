@@ -27,7 +27,7 @@
 @property (nonatomic,assign) BOOL isVisible;    //是否可见
 
 @property (nonatomic,strong) UIView *headView;
-@property (nonatomic,strong) YXTextView *titleView;
+@property (nonatomic,strong) FSTextView *titleView;
 @property (nonatomic,strong) YXTextView *contentView;
 @property (nonatomic,strong) UIButton *footView;
 
@@ -57,11 +57,11 @@ static NSInteger limitMaxNum = 20;
     if (!_headView) {
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 183)];
         
-        _titleView = [YXTextView new];
+        _titleView = [FSTextView textView];
         _titleView.backgroundColor = WhiteColor;
         _titleView.font = PFFontM(20);
         _titleView.textColor = BlackColor;
-        _titleView.delegate = self;
+//        _titleView.delegate = self;
         _titleView.inputAccessoryView = self.bottomView;
         
         _contentView = [YXTextView new];
@@ -82,9 +82,18 @@ static NSInteger limitMaxNum = 20;
         .heightIs(69)
         ;
         
-        _titleView.placeholderText = @"起个引人关注的标题哦～";
-        _titleView.placeholderTextColor = HexColor(#BAC3C7);
+//        _titleView.placeholderText = @"起个引人关注的标题哦～";
+//        _titleView.placeholderTextColor = HexColor(#BAC3C7);
         _titleView.placeholderFont = PFFontM(20);
+        _titleView.placeholder = @"起个引人关注的标题哦～";
+        _titleView.placeholderColor = HexColor(#BAC3C7);
+        _titleView.maxLength = 25;
+        @weakify(self);
+        [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
+            @strongify(self);
+            self.voteModel.postTitle = textView.formatText;
+            [textView scrollToTop];
+        }];
         
         _contentView.sd_layout
         .topSpaceToView(_titleView, 0)
@@ -378,21 +387,22 @@ static NSInteger limitMaxNum = 20;
 -(BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     //禁止标题输入换行
-    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
-        return NO;
-    }
+//    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
+//        return NO;
+//    }
     return YES;
 }
 
 -(void)textViewDidChange:(YYTextView *)textView
 {
-    if (textView == _titleView) {
-        if (textView.text.length>25) {
-            LRToast(@"标题长度不可超过25个字符哦");
-            textView.text = [textView.text substringToIndex:25];
-        }
-        self.voteModel.postTitle = [textView.text removeSpace];
-    }else if (textView == _contentView){
+//    if (textView == _titleView) {
+//        if (textView.text.length>25) {
+//            LRToast(@"标题长度不可超过25个字符哦");
+//            textView.text = [textView.text substringToIndex:25];
+//        }
+//        self.voteModel.postTitle = [textView.text removeSpace];
+//    }else
+        if (textView == _contentView){
         self.voteModel.postContent = [textView.text removeSpace];
     }
 }
@@ -400,11 +410,13 @@ static NSInteger limitMaxNum = 20;
 -(void)textViewDidBeginEditing:(YYTextView *)textView
 {
     GGLog(@"已经开始编辑");
+#ifdef OpenAddLocalEmoji
     if (textView != _contentView) {
         _emojiKeyboard.hidden = YES;
     }else{
         _emojiKeyboard.hidden = NO;
     }
+#endif
 }
 
 -(void)textViewDidEndEditing:(YYTextView *)textView

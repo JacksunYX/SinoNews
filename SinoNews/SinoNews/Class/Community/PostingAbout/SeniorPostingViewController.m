@@ -32,7 +32,7 @@
 @property (nonatomic,strong) UIButton *composeBtn;
 
 @property (nonatomic,strong) UIView *headView;
-@property (nonatomic,strong) YXTextView *titleView;
+@property (nonatomic,strong) FSTextView *titleView;
 @property (nonatomic,strong) YXTextView *contentView;
 @property (nonatomic,strong) UIButton *publishBtn;
 //title、content输入输入时键盘的辅助视图
@@ -92,10 +92,10 @@
     if (!_headView) {
         _headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 240)];
         
-        _titleView = [YXTextView new];
+        _titleView = [FSTextView textView];
         _titleView.font = PFFontM(20);
         _titleView.textColor = BlackColor;
-        _titleView.delegate = self;
+//        _titleView.delegate = self;
         _titleView.backgroundColor = WhiteColor;
         _titleView.inputAccessoryView = self.bottomView;
         
@@ -116,9 +116,18 @@
         .rightEqualToView(_headView)
         .heightIs(74)
         ;
-        _titleView.placeholderText = @"起个引人关注的标题哦～";
-        _titleView.placeholderTextColor = HexColor(#BAC3C7);
+//        _titleView.placeholderText = @"起个引人关注的标题哦～";
+//        _titleView.placeholderTextColor = HexColor(#BAC3C7);
         _titleView.placeholderFont = PFFontM(20);
+        _titleView.placeholder = @"起个引人关注的标题哦～";
+        _titleView.placeholderColor = HexColor(#BAC3C7);
+        _titleView.maxLength = 25;
+        @weakify(self);
+        [_titleView addTextDidChangeHandler:^(FSTextView *textView) {
+            @strongify(self);
+            self.postModel.postTitle = textView.formatText;
+            [textView scrollToTop];
+        }];
         
         _contentView.sd_layout
         .topSpaceToView(_titleView, 0)
@@ -880,22 +889,22 @@
 {
     NSString *emotionString = [[WTUtils getEmoticonData] allKeysForObject:name][0];
     YXTextView *textView;
-    if (self.titleView.isFirstResponder) {
-        textView = self.titleView;
-    }else{
+//    if (self.titleView.isFirstResponder) {
+//        textView = self.titleView;
+//    }else{
         textView = self.contentView;
-    }
+//    }
     [textView replaceRange:textView.selectedTextRange withText:emotionString];
 }
 
 - (void)clickDelete
 {
     YXTextView *textView;
-    if (self.titleView.isFirstResponder) {
-        textView = self.titleView;
-    }else{
+//    if (self.titleView.isFirstResponder) {
+//        textView = self.titleView;
+//    }else{
         textView = self.contentView;
-    }
+//    }
     [textView deleteBackward];
 }
 
@@ -908,21 +917,24 @@
 -(BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     //禁止标题输入换行
-    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
-        return NO;
-    }
+//    if (textView == _titleView&&[text isEqualToString:@"\n"]) {
+//        return NO;
+//    }
     return YES;
 }
 
 -(void)textViewDidChange:(YYTextView *)textView
 {
-    if (textView == _titleView) {
-        if (textView.text.length>25) {
-            LRToast(@"标题长度不可超过25个字符哦");
-            textView.text = [textView.text substringToIndex:25];
-        }
-        self.postModel.postTitle = [textView.text removeSpace];
-    }else if (textView == _contentView){
+//    if (textView == titleView) {
+//        NSInteger textLength = textView.text.length;
+//        if (textLength>25) {
+//            LRToast(@"标题长度不可超过25个字符哦");
+//            NSLog(@"标题长度:%ld",textLength);
+//            textView.text = [textView.text substringToIndex:25];
+//        }
+//        self.postModel.postTitle = [textView.text removeSpace];
+//    }else
+        if (textView == _contentView){
         self.postModel.postContent = [textView.text removeSpace];
     }
 }
@@ -930,11 +942,14 @@
 -(void)textViewDidBeginEditing:(YYTextView *)textView
 {
     GGLog(@"已经开始编辑");
+#ifdef OpenAddLocalEmoji
     if (textView == self.titleView) {
         _emojiKeyboard.hidden = YES;
     }else{
         _emojiKeyboard.hidden = NO;
     }
+#endif
+    
     self.showKeyboard.selected = YES;
 }
 

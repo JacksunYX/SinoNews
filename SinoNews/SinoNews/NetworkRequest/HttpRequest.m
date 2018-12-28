@@ -16,9 +16,9 @@ const NSString * DomainString = nil;
 //获取通用的请求manager
 + (nullable AFHTTPSessionManager *)getQuestManager
 {
-//#if DEBUG
-//    DomainString = DefaultDomainName;
-//#else
+#if DEBUG
+    DomainString = DefaultDomainName;
+#else
 
     if (kStringIsEmpty(DomainString)) {
         NSUInteger count = BrowsNewsSingleton.singleton.domainsArr.count;
@@ -53,7 +53,7 @@ const NSString * DomainString = nil;
         });
         return nil;
     }
-//#endif
+#endif
     
 //    GGLog(@"DomainString:%@",DomainString);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -122,14 +122,14 @@ const NSString * DomainString = nil;
     if (!parameters) {
         parameters = @{};
     }
-    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         
         //直接把返回的参数进行解析然后返回
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        GGLog(@"resultdic-----%@",resultdic);
+        NSLog(@"resultdic-----%@",resultdic);
         
         if (success&&resultdic) {
             if ([resultdic[@"success"] integerValue] == 1) {
@@ -181,7 +181,7 @@ const NSString * DomainString = nil;
     if (!parameters) {
         parameters = @{};
     }
-    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     //判断显示loding
     if (isshowhud == YES) {
@@ -195,7 +195,7 @@ const NSString * DomainString = nil;
         //把网络请求返回数据转换成json数据
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        GGLog(@"resultdic-----%@",resultdic);
+        NSLog(@"resultdic-----%@",resultdic);
         //隐藏loding
         HiddenHudOnly;
         

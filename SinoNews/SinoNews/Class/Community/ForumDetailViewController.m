@@ -294,6 +294,7 @@
     model.name = self.navigationItem.title;
     model.sectionId = self.sectionId;
     model.icon = self.icon;
+    model.postCount = self.postCount;
     if (sender.selected==NO) {
         [MainSectionModel addANew:model];
         sender.selected = YES;

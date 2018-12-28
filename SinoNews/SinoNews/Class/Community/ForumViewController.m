@@ -135,10 +135,12 @@
     //监听关注版块数量变化回调
     [kNotificationCenter addObserverForName:SectionsChangeNotify object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         @strongify(self);
-        MainSectionModel *model = self.dataSource[0];
-        model.subSections = [MainSectionModel getLocalAttentionSections];
-        [self.rightTable reloadData];
-        [self setBottomView];
+        if (self.dataSource.count>0) {
+            MainSectionModel *model = self.dataSource[0];
+            model.subSections = [MainSectionModel getLocalAttentionSections];
+            [self.rightTable reloadData];
+            [self setBottomView];
+        }
     }];
     
     [self requestSectionTree];
@@ -515,6 +517,7 @@
             fdVC.navigationItem.title = GetSaveString(model2.name);
             fdVC.sectionId = model2.sectionId;
             fdVC.icon = model2.icon;
+            fdVC.postCount = model2.postCount;
             [self.navigationController pushViewController:fdVC animated:YES];
         }
     }
@@ -576,17 +579,46 @@
         
         NSMutableArray *myAttentionArr = [MainSectionModel getLocalAttentionSections];
         if (listArr.count > 0) {
-            MainSectionModel *model = [MainSectionModel new];
-            model.name = @"我的关注";
-            model.subSections = myAttentionArr;
+            
             [self.dataSource removeAllObjects];
-            [self.dataSource addObject:model];
+            
             if (myAttentionArr.count<=0&&self.postModel) {
                 [self.dataSource removeAllObjects];
             }
             [self.dataSource addObjectsFromArray:listArr];
-            [self setUI];
         }
+        
+        MainSectionModel *model = [MainSectionModel new];
+        model.name = @"我的关注";
+        model.subSections = myAttentionArr;
+        //需要同步二级版块篇数
+        if (myAttentionArr.count > 0) {
+            //标记是否需要重新保存
+            BOOL canSave = NO;
+            for (MainSectionModel *model in myAttentionArr) {
+                for (int i = 0; i < listArr.count; i ++) {
+                    MainSectionModel *model1 = listArr[i];
+                    //如果有2级版块才比对
+                    if (model1.subSections.count>0) {
+                        for (MainSectionModel *model2 in model1.subSections) {
+                            if (model2.sectionId == model.sectionId) {
+                                NSLog(@"本地保存关注版块篇数更新");
+                                model.postCount = model2.postCount;
+                                canSave = YES;
+                            }
+                        }
+                    }
+                }
+            }
+//            //重新保存最新的
+//            if (canSave) {
+//                [MainSectionModel addMutilNews:myAttentionArr];
+//                NSLog(@"更新篇数完毕");
+//            }
+        }
+        [self.dataSource insertObject:model atIndex:0];
+        
+        [self setUI];
         
     } failure:^(NSError *error) {
         HiddenHudOnly;

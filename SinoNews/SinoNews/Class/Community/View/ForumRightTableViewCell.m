@@ -62,8 +62,8 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
                                  ]];
     logo.sd_layout
     .leftSpaceToView(fatherView, 10)
-    .topSpaceToView(fatherView, 5)
-    .widthIs(35)
+    .topSpaceToView(fatherView, 10)
+    .widthIs(38)
     .heightEqualToWidth()
     ;
     
@@ -81,7 +81,7 @@ NSString *const ForumRightTableViewCellID = @"ForumRightTableViewCellID";
     ;
     [postNum setSingleLineAutoResizeWithMaxWidth:100];
     
-    [self setupAutoHeightWithBottomView:logo bottomMargin:5];
+    [self setupAutoHeightWithBottomView:logo bottomMargin:10];
 }
 
 -(void)setData:(NSDictionary *)model

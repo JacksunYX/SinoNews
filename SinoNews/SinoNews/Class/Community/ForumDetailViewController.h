@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ForumDetailViewController : BaseViewController
 @property (nonatomic,assign) NSInteger sectionId;
+@property (nonatomic,assign) NSInteger postCount;
 @property (nonatomic,strong) NSString *icon;
 @end
 

@@ -15,6 +15,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     UIImageView *avatar;
     UILabel *nickName;
     UILabel *Landlord;  //楼主标签
+    UIView *idView;
     YXLabel *content;
     
     UIButton *praise;   //点赞
@@ -70,6 +71,9 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     Landlord.font = PFFontL(10);
     Landlord.textAlignment = NSTextAlignmentCenter;
     
+    idView = [UIView new];
+    idView.backgroundColor = ClearColor;
+    
     //父级评论
     fatherCommentBackView = [UIView new];
     fatherComment = [UILabel new];
@@ -99,6 +103,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
                                  nickName,
                                  praise,
                                  Landlord,
+                                 idView,
                                  fatherCommentBackView,
                                  
                                  content,
@@ -145,6 +150,13 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     Landlord.layer.borderColor = HexColor(#1282EE).CGColor;
     Landlord.layer.borderWidth = 1.0f;
     Landlord.text = @"楼主";
+    
+    idView.sd_layout
+    .heightIs(20)
+    .centerYEqualToView(nickName)
+    .leftSpaceToView(Landlord, 10)
+    .rightSpaceToView(fatherView, 10)
+    ;
     
     fatherCommentBackView.sd_layout
     .leftEqualToView(nickName)
@@ -210,6 +222,43 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     [self setupAutoHeightWithBottomView:publishTime bottomMargin:15];
 }
 
+//设置标签视图
+-(void)setIdViewWithIDs
+{
+    //先清除
+    [idView removeAllSubviews];
+    if (self.model.identifications.count>0) {
+        CGFloat wid = 30;
+        CGFloat hei = 30;
+        CGFloat spaceX = 0;
+        
+        UIView *lastView = idView;
+        for (int i = 0; i < self.model.identifications.count; i ++) {
+            NSDictionary *model = self.model.identifications[i];
+            UIImageView *approveView = [UIImageView new];
+            [idView addSubview:approveView];
+            
+            if (i != 0) {
+                spaceX = 10;
+            }
+            approveView.contentMode = 1;
+            approveView.sd_layout
+            .centerYEqualToView(idView)
+            .leftSpaceToView(lastView, spaceX)
+            .widthIs(wid)
+            .heightIs(hei)
+            ;
+            //            [approveView setSd_cornerRadius:@(wid/2)];
+            [approveView sd_setImageWithURL:UrlWithStr(model[@"avatar"])];
+            
+            lastView = approveView;
+            //            if (i == self.model.identifications.count - 1) {
+            //                [idView setupAutoWidthWithRightView:lastView rightMargin:0];
+            //            }
+        }
+    }
+}
+
 -(void)setModel:(PostReplyModel *)model
 {
     _model = model;
@@ -242,6 +291,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     }];
     
     nickName.text = GetSaveString(model.username);
+    [self setIdViewWithIDs];
     
     praise.selected = model.praise;
     NSString *count = @"";

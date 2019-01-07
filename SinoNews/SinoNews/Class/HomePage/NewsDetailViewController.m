@@ -1844,6 +1844,9 @@ CGFloat static attentionBtnH = 26;
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论已发送");
         self.newsModel.commentCount ++;
+        if (self.commentBlock) {
+            self.commentBlock(self.newsModel.commentCount);
+        }
         //        self.parentId = 0;
         [self refreshComments];
         //        [self requestNewData];

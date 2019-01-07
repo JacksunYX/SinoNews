@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TheVotePostDetailViewController : BaseViewController
 @property (nonatomic,strong) SeniorPostDataModel *postModel;
+//刷新评论数的回调
+@property (nonatomic,copy) void(^commentBlock)(NSInteger commentCount);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -116,8 +116,20 @@ CGFloat static attentionBtnH = 26;
 {
     [super viewDidLoad];
     self.navigationItem.title = @"帖子加载中...";
+    self.fd_interactivePopDisabled = YES;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
+    
     [self setBaseUI];
     [self requestPost_browsePost];
+}
+
+-(void)back
+{
+    if (self.postModel&&self.commentBlock) {
+        NSInteger count = MAX(self.postModel.commentCount, self.commentsArr.count);
+        self.commentBlock(count);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewDidLayoutSubviews
@@ -1248,6 +1260,9 @@ CGFloat static attentionBtnH = 26;
     [HttpRequest postWithURLString:PostComment parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         self.lastReplyDic = nil;
         self.postModel.commentCount ++;
+        if (self.commentBlock) {
+            self.commentBlock(self.postModel.commentCount);
+        }
         [self requestListPostComments:1];
     } failure:^(NSError *error) {
         

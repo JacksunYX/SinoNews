@@ -190,14 +190,13 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     .heightIs(18)
     ;
     [level setSd_cornerRadius:@9];
-//    level.hidden = YES;
+    level.hidden = YES;
     
     idView.sd_layout
     .heightIs(20)
     .centerYEqualToView(level)
-    .leftSpaceToView(level, 10)
+    .leftSpaceToView(nickName, 10)
     .rightSpaceToView(fatherView, 10)
-//    .widthIs(0)
     ;
     
     title.sd_layout
@@ -455,8 +454,8 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     }else{
         nickName.text = GetSaveString(model.author);
     }
-    level.hidden = model.level?NO:YES;
-    level.text = [NSString stringWithFormat:@"Lv.%ld",model.level];
+//    level.hidden = model.level?NO:YES;
+//    level.text = [NSString stringWithFormat:@"Lv.%ld",model.level];
     [self setIdViewWithIDs];
     publishTime.text = GetSaveString(model.createTime);
     //去掉首位空格和换行

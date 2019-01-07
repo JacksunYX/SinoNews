@@ -683,6 +683,9 @@ CGFloat static titleViewHeight = 150;
                 @strongify(self);
                 //发布成功
                 self.newsModel.commentCount ++;
+                if (self.commentBlock) {
+                self.commentBlock(self.newsModel.commentCount);
+                }
                 self.currPage = 1;
                 [self requestNews_listAnswer];
             };

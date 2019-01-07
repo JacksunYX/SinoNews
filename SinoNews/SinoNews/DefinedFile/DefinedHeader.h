@@ -15,7 +15,7 @@
 #define DefaultDomainName DebugDomain4
 #else
 //接口域名
-#define DefaultDomainName DebugDomain
+#define DefaultDomainName DebugDomain2
 #endif
 
 

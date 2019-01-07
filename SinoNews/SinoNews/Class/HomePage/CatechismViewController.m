@@ -83,6 +83,8 @@ CGFloat static titleViewHeight = 150;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fd_interactivePopDisabled = YES;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
     
     [self addTableView];
     
@@ -92,6 +94,15 @@ CGFloat static titleViewHeight = 150;
     
     [self requestNewData];
     
+}
+
+-(void)back
+{
+    if (self.newsModel&&self.commentBlock) {
+        NSInteger count = MAX(self.newsModel.commentCount, self.answersArr.count);
+        self.commentBlock(count);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLayoutSubviews{
@@ -657,7 +668,9 @@ CGFloat static titleViewHeight = 150;
         
         [answerInput whenTap:^{
             @strongify(self)
+            @weakify(self);
             BOOL isLogin = [YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                @strongify(self);
                 if (login) {
                     [self requestNewData];
                 }
@@ -667,6 +680,9 @@ CGFloat static titleViewHeight = 150;
             }
             Q_APublishViewController *qapVc = [Q_APublishViewController new];
             qapVc.submitBlock = ^{
+                @strongify(self);
+                //发布成功
+                self.newsModel.commentCount ++;
                 self.currPage = 1;
                 [self requestNews_listAnswer];
             };

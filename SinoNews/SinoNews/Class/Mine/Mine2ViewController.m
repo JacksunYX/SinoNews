@@ -112,7 +112,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         //分区2
         section2[@"title"] = @"积分功能";
         NSArray *subTitle2 = @[
-                               @"积分充值",
+                               @"积分充提",
                                @"积分游戏",
                                @"积分商城",
                                @"积分管理",

@@ -214,7 +214,7 @@
 
 -(void)searchAction
 {
-    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"名利场快速通道" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"搜索帖子" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         CommunitySearchVC *csVC = [CommunitySearchVC new];
         csVC.keyword = searchText;
         searchViewController.searchResultController = csVC;
@@ -362,7 +362,7 @@
         [(MLMSegmentHead *)item setDeSelectColor:value];
     });
     _segHead.bottomLineHeight = 0;
-    _segHead.singleW_Add = 40;
+    _segHead.singleW_Add = 30;
     _segHead.delegate = self;
     if (_segScroll) {
         [_segScroll removeFromSuperview];

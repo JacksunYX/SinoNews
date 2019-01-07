@@ -17,4 +17,7 @@
 
 @property (nonatomic,assign) BOOL isVote;   //是否是投票
 
+//刷新评论数的回调
+@property (nonatomic,copy) void(^commentBlock)(NSInteger commentCount);
+
 @end

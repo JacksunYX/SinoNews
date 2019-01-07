@@ -323,6 +323,9 @@
         self.selectIndex = index;
         [self.tableView reloadData];
         
+        //当选择为游戏记录时需要隐藏
+        self.tableView.mj_footer.hidden = index == 1?YES:NO;
+        
         [self.tableView.mj_header beginRefreshing];
     };
     

@@ -179,7 +179,7 @@
 
 -(void)searchAction
 {
-    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"名利场快速通道" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    PYSearchViewController *sVC = [PYSearchViewController searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"搜索帖子" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         CommunitySearchVC *csVC = [CommunitySearchVC new];
         csVC.keyword = searchText;
         searchViewController.searchResultController = csVC;

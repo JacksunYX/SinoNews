@@ -125,6 +125,8 @@ CGFloat static attentionBtnH = 26;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.fd_interactivePopDisabled = YES;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
     
     [self addTableView];
     
@@ -133,6 +135,15 @@ CGFloat static attentionBtnH = 26;
     [self hiddenTopLine];
     
     [self requestNewData];
+}
+
+-(void)back
+{
+    if (self.newsModel&&self.commentBlock) {
+        NSInteger count = MAX(self.newsModel.commentCount, self.commentsArr.count);
+        self.commentBlock(count);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLayoutSubviews{
@@ -1832,6 +1843,7 @@ CGFloat static attentionBtnH = 26;
     
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论已发送");
+        self.newsModel.commentCount ++;
         //        self.parentId = 0;
         [self refreshComments];
         //        [self requestNewData];

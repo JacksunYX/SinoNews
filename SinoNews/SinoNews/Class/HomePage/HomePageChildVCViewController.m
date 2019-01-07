@@ -378,7 +378,60 @@
 {
     id model = self.dataSource[indexPath.row];
     //跳转
-    [UniversalMethod pushToAssignVCWithNewmodel:model];
+//    [UniversalMethod pushToAssignVCWithNewmodel:model];
+    UIViewController *pushVC;
+    NSInteger itemId = 0;
+    @weakify(self);
+    if ([model isKindOfClass:[HomePageModel class]]) {
+        HomePageModel *model1 = model;
+        itemId = model1.itemId;
+        if (model1.itemType>=400&&model1.itemType<500) { //投票
+            //            VoteViewController *vVC = [VoteViewController new];
+            //            vVC.newsId = model1.itemId;
+            //            pushVC = vVC;
+            NewsDetailViewController *ndVC = [NewsDetailViewController new];
+            ndVC.newsId = model1.itemId;
+            ndVC.isVote = YES;
+            pushVC = ndVC;
+            
+            ndVC.commentBlock = ^(NSInteger commentCount) {
+                @strongify(self);
+                model1.commentCount = commentCount;
+                [self.tableView reloadData];
+            };
+        }else
+            if (model1.itemType>=500&&model1.itemType<600) { //问答
+                CatechismViewController *cVC = [CatechismViewController new];
+                cVC.news_id = model1.itemId;
+                pushVC = cVC;
+                cVC.commentBlock = ^(NSInteger commentCount) {
+                    @strongify(self);
+                    model1.commentCount = commentCount;
+                    [self.tableView reloadData];
+                };
+            }else{
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = model1.itemId;
+                pushVC = ndVC;
+                ndVC.commentBlock = ^(NSInteger commentCount) {
+                    @strongify(self);
+                    model1.commentCount = commentCount;
+                    [self.tableView reloadData];
+                };
+            }
+        
+    }else if ([model isKindOfClass:[TopicModel class]]){
+        TopicModel *model2 = model;
+        TopicViewController *tVC = [TopicViewController new];
+        //只有专题是用的topicId
+        tVC.topicId = [model2.topicId integerValue];
+        itemId = [model2.topicId integerValue];
+        pushVC = tVC;
+    }else if ([model isKindOfClass:[ADModel class]]){
+        
+    }
+    
+    [self.navigationController pushViewController:pushVC animated:YES];
     
     //是否需要标记看过
     if ([model isKindOfClass:[HomePageModel class]]) {

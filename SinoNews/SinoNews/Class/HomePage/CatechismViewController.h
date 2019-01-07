@@ -13,4 +13,7 @@
 
 @property (nonatomic,assign) NSInteger news_id;
 
+//刷新评论数的回调
+@property (nonatomic,copy) void(^commentBlock)(NSInteger commentCount);
+
 @end

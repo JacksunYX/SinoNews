@@ -79,7 +79,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     
     nickName = [UILabel new];
     nickName.textColor = HexColor(#161A24);
-    nickName.font = PFFontL(15);
+    nickName.font = PFFontL(14);
     level = [UILabel new];
     level.font = PFFontM(12);
     level.textAlignment = NSTextAlignmentCenter;

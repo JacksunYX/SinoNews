@@ -115,7 +115,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .heightEqualToWidth()
     ;
     avatar.sd_cornerRadius = @14;
-    avatar.backgroundColor = Arc4randomColor;
+//    avatar.backgroundColor = Arc4randomColor;
     
     nickName.sd_layout
     .centerYEqualToView(avatar)

@@ -19,7 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self netNitify];
+    [self netNotify];
     
     [UINavigationConfig shared].sx_disableFixSpace = NO;//默认为NO  可以修改
     [UINavigationConfig shared].sx_defaultFixSpace = 5;//默认为0 可以修改
@@ -91,7 +91,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 //网络监听
--(void)netNitify
+-(void)netNotify
 {
     [HttpRequest yx_hasNetwork:^(bool hasNet){
         

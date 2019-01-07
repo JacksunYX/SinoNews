@@ -117,7 +117,7 @@
 
 //是否开启添加本地表情
 #ifndef OpenAddLocalEmoji
-//#define OpenAddLocalEmoji
+#define OpenAddLocalEmoji
 #endif
 
 #import "RTRootNavigationController.h"

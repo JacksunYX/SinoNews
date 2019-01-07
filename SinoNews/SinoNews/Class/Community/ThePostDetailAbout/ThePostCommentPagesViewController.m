@@ -14,6 +14,8 @@
 @property (nonatomic,strong) NSMutableArray *commentsArr;
 
 @property (nonatomic,assign) NSInteger sort;
+//是否只看楼主
+@property (nonatomic,assign) NSInteger isOnlyPost;
 //评论分页按钮
 @property (nonatomic,strong) UIButton *commentPagingBtn;
 //保存评论时选取的图片等数据
@@ -59,7 +61,15 @@
     [_commentSortBtn setNormalImage:UIImageNamed(@"commentSort_up")];
     [_commentSortBtn setSelectedImage:UIImageNamed(@"commentSort_down")];
     [_commentSortBtn addTarget:self action:@selector(changeCommentSort) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_commentSortBtn];
+    //只看楼主按钮
+    UIButton *onlyPoster = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 35, 19)];
+    [onlyPoster setNormalImage:UIImageNamed(@"onlyPoster_unSelect")];
+    [onlyPoster setSelectedImage:UIImageNamed(@"onlyPoster_selected")];
+    [onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc]initWithCustomView:_commentSortBtn];
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc]initWithCustomView:onlyPoster];
+    self.navigationItem.rightBarButtonItems = @[item1,item2];
 }
 
 - (void)setUI
@@ -241,6 +251,18 @@
     }
 }
 
+//只看楼主
+-(void)checkPostCommet:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        _isOnlyPost = YES;
+    }else{
+        _isOnlyPost = NO;
+    }
+    [self requestListPostComments:self.currPage];
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -305,6 +327,7 @@
     parameters[@"postId"] = @(self.postModel.postId);
     parameters[@"currPage"] = @(page);
     parameters[@"sort"] = @(self.sort);
+    parameters[@"author"] = @(self.isOnlyPost);
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
         self.commentsArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];

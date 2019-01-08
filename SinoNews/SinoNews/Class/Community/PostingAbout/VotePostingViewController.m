@@ -63,6 +63,7 @@ static NSInteger limitMaxNum = 20;
         _titleView.textColor = BlackColor;
 //        _titleView.delegate = self;
         _titleView.inputAccessoryView = self.bottomView;
+        _titleView.delegate = self;
         
         _contentView = [YXTextView new];
         _contentView.backgroundColor = WhiteColor;
@@ -384,6 +385,19 @@ static NSInteger limitMaxNum = 20;
 }
 
 #pragma mark --- YYTextViewDelegate ---
+#pragma mark --- YYTextViewDelegate ---
+-(BOOL)textViewShouldBeginEditing:(YYTextView *)textView
+{
+#ifdef OpenAddLocalEmoji
+    if (textView == self.contentView) {
+        _emojiKeyboard.hidden = NO;
+    }else{
+        _emojiKeyboard.hidden = YES;
+    }
+#endif
+    return YES;
+}
+
 -(BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     //禁止标题输入换行
@@ -409,20 +423,17 @@ static NSInteger limitMaxNum = 20;
 
 -(void)textViewDidBeginEditing:(YYTextView *)textView
 {
-    GGLog(@"已经开始编辑");
-#ifdef OpenAddLocalEmoji
-    if (textView != _contentView) {
-        _emojiKeyboard.hidden = YES;
-    }else{
-        _emojiKeyboard.hidden = NO;
-    }
-#endif
+    self.showKeyboard.selected = YES;
 }
 
 -(void)textViewDidEndEditing:(YYTextView *)textView
 {
     GGLog(@"已经结束编辑");
+    self.showKeyboard.selected = NO;
     self.emojiKeyboard.selected = NO;
+    if (textView == self.contentView) {
+        _emojiKeyboard.hidden = YES;
+    }
     textView.inputView = nil;
 }
 

@@ -22,7 +22,7 @@
 #import "SeniorPostingAddImageCell.h"
 #import "SeniorPostingAddVideoCell.h"
 
-@interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,EmotionKeyBoardDelegate,YYTextViewDelegate,TZImagePickerControllerDelegate>
+@interface SeniorPostingViewController ()<UITableViewDataSource,UITableViewDelegate,EmotionKeyBoardDelegate,YYTextViewDelegate,TZImagePickerControllerDelegate,UITextViewDelegate>
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray <SeniorPostingAddElementModel *>*dataSource;
@@ -98,6 +98,7 @@
 //        _titleView.delegate = self;
         _titleView.backgroundColor = WhiteColor;
         _titleView.inputAccessoryView = self.bottomView;
+        _titleView.delegate = self;
         
         _contentView = [YXTextView new];
         _contentView.font = PFFontR(15);
@@ -911,6 +912,13 @@
 #pragma mark --- YYTextViewDelegate ---
 -(BOOL)textViewShouldBeginEditing:(YYTextView *)textView
 {
+#ifdef OpenAddLocalEmoji
+    if (textView == self.contentView) {
+        _emojiKeyboard.hidden = NO;
+    }else{
+        _emojiKeyboard.hidden = YES;
+    }
+#endif
     return YES;
 }
 
@@ -941,15 +949,6 @@
 
 -(void)textViewDidBeginEditing:(YYTextView *)textView
 {
-    GGLog(@"已经开始编辑");
-#ifdef OpenAddLocalEmoji
-    if (textView == self.titleView) {
-        _emojiKeyboard.hidden = YES;
-    }else{
-        _emojiKeyboard.hidden = NO;
-    }
-#endif
-    
     self.showKeyboard.selected = YES;
 }
 
@@ -958,7 +957,9 @@
     GGLog(@"已经结束编辑");
     self.showKeyboard.selected = NO;
     self.emojiKeyboard.selected = NO;
-    _emojiKeyboard.hidden = NO;
+    if (textView == self.contentView) {
+        _emojiKeyboard.hidden = YES;
+    }
     textView.inputView = nil;
 }
 

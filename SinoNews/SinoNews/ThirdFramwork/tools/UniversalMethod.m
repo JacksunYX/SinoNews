@@ -163,30 +163,36 @@
     //~~遍历后台的未关注频道
     for (int i = 0; i< arr2.count; i ++) {
         XLChannelModel *model = arr2[i];
-        //每次循环，重置标记
+        //默认是新增
         model.isNew = YES;
-        manager.change2 = YES;
         //1.与本地数组比对
-        for (XLChannelModel *model2 in arr1) {
-            //2.如果id相同,说明这个频道本地有缓存
+        for (int j = 0; j < arr1.count; j ++) {
+            XLChannelModel *model2 = arr1[j];
+            //2.1如果id相同,说明这个频道本地有缓存
             if (CompareString(model.channelId, model2.channelId)) {
                 
-                //3.如果名称也未变化，撤销new的记号
+                //3.1如果名称也未变化，撤销new的记号
                 if (CompareString(model.channelName, model2.channelName)) {
                     model.isNew = NO;
-                    manager.change2 = NO;    //只有当id和名称都无变化才算
+                }else{
+                    //3.2名称变化了
+                    manager.change2 = YES;
                 }
                 
                 break;
+            }else
+                //2.2如果一直到最后都未找到id相同的，说明此频道是新增的
+                if (j == arr1.count - 1){
+                manager.change2 = YES;
             }
-            
         }
+        
         //替换成后台最新的
         [finalArr addObject:model];
         
     }
-    //~~还有一种情况，未关注数组只是在个数上减少了
-    if (manager.change2 == NO&&arr2.count!=finalArr.count) {
+    //~~有一种特殊情况，未关注数组只是单纯在个数上减少了
+    if (finalArr.count<arr1.count) {
         GGLog(@"未关注频道个数减少了");
         manager.change2 = YES;   //暂时也划定为变化了，提醒用户
     }

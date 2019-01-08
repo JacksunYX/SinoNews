@@ -155,7 +155,7 @@ NSString * const ThePostCommentReplyTableViewCellID = @"ThePostCommentReplyTable
     .heightIs(20)
     .centerYEqualToView(nickName)
     .leftSpaceToView(Landlord, 10)
-    .rightSpaceToView(fatherView, 10)
+    .rightSpaceToView(praise, 10)
     ;
     
     fatherCommentBackView.sd_layout

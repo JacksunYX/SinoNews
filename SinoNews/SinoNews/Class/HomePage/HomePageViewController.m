@@ -88,7 +88,7 @@
     }else{
         self.titleList = [NSMutableArray arrayWithArray:columnArr[0]];
         self.leaveTitleList = columnArr[1];
-        [self reloadChildVCWithTitles:self.titleList];
+//        [self reloadChildVCWithTitles:self.titleList];
         //比对是否有更新的频道
         [self requestChnanel:YES];
     }
@@ -430,12 +430,12 @@
                         self.leaveTitleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelUnconcerned]];
                     }
                     //这里暂时不做新数据提醒
-                    [self reloadChildVCWithTitles:self.titleList];
+                    
                 }else{
                     if (changed1) {
                         self.titleList = [attentionArr mutableCopy];
-                        [self reloadChildVCWithTitles:self.titleList];
                     }
+                    
                     if (changed2) {
                         self.leaveTitleList = [unAttentionArr mutableCopy];
                         //此处需要提醒用户有频道更新
@@ -447,8 +447,11 @@
                 }
                 //存储数据到本地
                 [self saveColumnArr];
+                
+                [self reloadChildVCWithTitles:self.titleList];
             }];
         }else{
+            //不比对
             if (!kArrayIsEmpty(channelConcerned)) {
                 self.titleList = [NSMutableArray arrayWithArray:[XLChannelModel mj_objectArrayWithKeyValuesArray:channelConcerned]];
             }

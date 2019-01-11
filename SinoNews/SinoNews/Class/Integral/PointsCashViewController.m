@@ -528,12 +528,17 @@
 //充值
 -(void)goToPay:(UIButton *)btn
 {
+    [self.view endEditing:YES];
     NSInteger money = [moneyInput.text integerValue];
     if (!kStringIsEmpty(moneyInput.text)&&money>0) {
         //        NSDictionary *dic = self.rechargeType[payType];
         //        NSString *str = [NSString stringWithFormat:@"充值金额为：%@,充值方式：%@",moneyInput.text,dic[@"payTitle"]];
         //        LRToast(str);
-        [self requestexPointExchargeMoney:money];
+        if (money>=100) {
+            [self requestexPointExchargeMoney:money];
+        }else{
+            LRToast(@"最低提现金额为100元");
+        }
     }else{
         LRToast(@"请输入需要提现的金额");
     }

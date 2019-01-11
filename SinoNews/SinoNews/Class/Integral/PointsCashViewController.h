@@ -5,7 +5,7 @@
 //  Created by Michael on 2018/12/11.
 //  Copyright © 2018 Sino. All rights reserved.
 //
-//积分兑现
+//积分提现
 
 #import "BaseViewController.h"
 

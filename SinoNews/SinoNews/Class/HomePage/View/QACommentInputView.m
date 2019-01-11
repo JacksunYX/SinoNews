@@ -61,7 +61,7 @@ static CGFloat anumationTime = 0.25;
         textView.textColor = HexColor(#cfd3d6);
     }
 //    textView.limitLength = 10;
-    textView.placeholder = @"写点什么吧(最少10个字符)";
+    textView.placeholder = @"写点什么吧(最少5个字)";
     
     UIButton *cancelBtn = [UIButton new];
     UIButton *sendBtn = [UIButton new];
@@ -117,7 +117,7 @@ static CGFloat anumationTime = 0.25;
     textView.textViewDidChangeBlock = ^(UITextView *textView) {
 //        GGLog(@"text:%@",textView.text);
         sendBtn.enabled = NO;
-        if (textView.text.length>9) {
+        if (textView.text.length>4) {
             sendBtn.enabled = YES;
             [sendBtn setNormalTitleColor:HexColor(#1282EE)];
         }else{

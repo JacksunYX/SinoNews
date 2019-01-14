@@ -62,7 +62,7 @@
     [_commentSortBtn setSelectedImage:UIImageNamed(@"commentSort_down")];
     [_commentSortBtn addTarget:self action:@selector(changeCommentSort) forControlEvents:UIControlEventTouchUpInside];
     //只看楼主按钮
-    UIButton *onlyPoster = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 35, 19)];
+    UIButton *onlyPoster = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 19)];
     [onlyPoster setNormalImage:UIImageNamed(@"onlyPoster_unSelect")];
     [onlyPoster setSelectedImage:UIImageNamed(@"onlyPoster_selected")];
     [onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];

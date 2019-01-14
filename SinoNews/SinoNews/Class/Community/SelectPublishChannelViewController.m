@@ -444,7 +444,7 @@
     parameters[@"postModel"] = [dic mj_JSONString];
     NSLog(@"parameters:%@",parameters);
     [HttpRequest postWithURLString:PublishPost parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
-        LRToast(@"发帖成功");
+        LRToast(@"发布成功,等待审核通过后即可显示");
         //记得要从本地草稿箱移除
         [SeniorPostDataModel remove:self.postModel];
         if (self.refreshCallBack) {

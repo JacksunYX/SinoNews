@@ -66,11 +66,14 @@
     }
     ShowHudOnly;
     [HttpRequest getWithURLString:PublishNewsDraft parameters:parameters success:^(id responseObject) {
+        LRToast(@"发布成功,等待审核通过后即可显示");
         HiddenHudOnly;
         if (self.refreshBlock) {
             self.refreshBlock();
         }
-        [self.navigationController popViewControllerAnimated:YES];
+        GCDAfterTime(1, ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     } failure:^(NSError *error) {
         HiddenHudOnly;
     }];

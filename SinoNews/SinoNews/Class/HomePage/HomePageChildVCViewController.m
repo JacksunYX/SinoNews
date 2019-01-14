@@ -187,11 +187,10 @@
         }
         [self.tableView ly_startLoading];
         //有newsid，说明是首页的子页面
-
         if ([self.news_id integerValue]) {
             [self requestNews_list:0];
             //只有最新频道存在轮播图
-            if ([self.news_id integerValue] == 1||CompareString(self.channel_name, @"最新")) {
+            if ([self.news_id integerValue] == 1||CompareString(self.channel_name, @"推荐")) {
 //                [self requestBanner];
                 [self requestNewBanner];
             }

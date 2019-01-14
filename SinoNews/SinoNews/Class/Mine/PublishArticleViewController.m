@@ -867,8 +867,8 @@
     NSArray *arr2 = columnArr[1];
     NSMutableArray *totalArr = [[arr1 arrayByAddingObjectsFromArray:arr2] mutableCopy];
     for (XLChannelModel *channel in [arr1 arrayByAddingObjectsFromArray:arr2]) {
-        //过滤掉最新和问答频道
-        if (CompareString(channel.channelId, @"82")||CompareString(channel.channelName, @"最新")||CompareString(channel.channelName, @"问答")) {
+        //过滤掉推荐和问答频道
+        if (CompareString(channel.channelId, @"82")||CompareString(channel.channelName, @"推荐")||CompareString(channel.channelName, @"问答")) {
             [totalArr removeObject:channel];
         }
     }

@@ -93,7 +93,7 @@
         time.textColor = WhiteColor;
     }
     
-    time.sd_layout
+    time.sd_resetLayout
     .centerXEqualToView(fartherView)
     .topSpaceToView(fartherView, topX)
 //    .widthIs(75)
@@ -105,7 +105,7 @@
 //    GGLog(@"wid:%.2lf",time.width);
     
     [fartherView insertSubview:timeBackView belowSubview:time];
-    timeBackView.sd_layout
+    timeBackView.sd_resetLayout
     .centerXEqualToView(time)
     .centerYEqualToView(time)
     .heightRatioToView(time, 1).widthRatioToView(time, 1.2)
@@ -115,7 +115,7 @@
     
     [fartherView insertSubview:contentBackView belowSubview:content];
     if (self.model.type) {  //本人
-        userIcon.sd_layout
+        userIcon.sd_resetLayout
         .topSpaceToView(time, 10)
         .rightSpaceToView(fartherView, 10)
         .widthIs(40)
@@ -127,7 +127,7 @@
         contentBackView.backgroundColor = RGBA(99, 175, 253, 1);
         triangleIcon.image = UIImageNamed(@"notify_blueTriangle");
         
-        triangleIcon.sd_layout
+        triangleIcon.sd_resetLayout
         .centerYEqualToView(userIcon)
         .rightSpaceToView(userIcon, 10)
         .widthIs(7)
@@ -135,7 +135,7 @@
         ;
         [triangleIcon updateLayout];
         
-        content.sd_layout
+        content.sd_resetLayout
         .topSpaceToView(userIcon, -30)
         .rightSpaceToView(triangleIcon, 10)
         .autoHeightRatio(0)
@@ -144,7 +144,7 @@
         content.text = GetSaveString(self.model.content);
         [content updateLayout];
         
-        contentBackView.sd_layout
+        contentBackView.sd_resetLayout
         .topEqualToView(userIcon)
         .rightSpaceToView(triangleIcon, 0)
         .leftSpaceToView(content, -content.width - 15)
@@ -152,7 +152,7 @@
         ;
         
     }else{  //官方
-        userIcon.sd_layout
+        userIcon.sd_resetLayout
         .topSpaceToView(time, 10)
         .leftSpaceToView(fartherView, 10)
         .widthIs(40)
@@ -164,7 +164,7 @@
         contentBackView.backgroundColor = WhiteColor;
         triangleIcon.image = UIImageNamed(@"notify_whiteTriangle");
         
-        triangleIcon.sd_layout
+        triangleIcon.sd_resetLayout
         .centerYEqualToView(userIcon)
         .leftSpaceToView(userIcon, 10)
         .widthIs(7)
@@ -172,7 +172,7 @@
         ;
         [triangleIcon updateLayout];
         
-        content.sd_layout
+        content.sd_resetLayout
         .topSpaceToView(userIcon, -30)
         .leftSpaceToView(triangleIcon, 10)
         .autoHeightRatio(0)
@@ -181,7 +181,7 @@
         content.text = GetSaveString(self.model.content);
         [content updateLayout];
         
-        contentBackView.sd_layout
+        contentBackView.sd_resetLayout
         .topEqualToView(userIcon)
         .leftSpaceToView(triangleIcon, 0)
         .rightSpaceToView(content, -content.width - 15)
@@ -193,7 +193,6 @@
     [contentBackView setSd_cornerRadius:@8];
     [contentBackView updateLayout];
     
-//    userIcon.image = UIImageNamed(GetSaveString(self.model.avatar));
     [userIcon sd_setImageWithURL:UrlWithStr(GetSaveString(self.model.avatar))];
 }
 

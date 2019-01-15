@@ -132,9 +132,17 @@
     .bottomEqualToView(self.view)
     .heightIs(49)
     ;
+    [_collectBtn setBtnFont:PFFontR(16)];
     _collectBtn.backgroundColor = HexColor(#1282ee);
     [_collectBtn setNormalTitle:@"收藏"];
-    [_collectBtn setBtnFont:PFFontR(16)];
+    [_collectBtn setNormalImage:UIImageNamed(@"topicAddCollect")];
+    [_collectBtn updateLayout];
+    _collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    [_collectBtn addTarget:self action:@selector(collectAction:) forControlEvents:UIControlEventTouchUpInside];
+    if (YES) {
+        [_collectBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 -(void)addHeadView
@@ -196,6 +204,21 @@
     }
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+-(void)collectAction:(UIButton *)sender
+{
+    _collectBtn.selected = !_collectBtn.selected;
+    if (_collectBtn.selected) {
+        _collectBtn.backgroundColor = HexColor(#C0CEDB);
+        [_collectBtn setNormalTitle:@"已收藏"];
+        [_collectBtn setNormalImage:nil];
+    }else{
+        _collectBtn.backgroundColor = HexColor(#1282ee);
+        [_collectBtn setNormalTitle:@"收藏"];
+        [_collectBtn setNormalImage:UIImageNamed(@"topicAddCollect")];
+        _collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    }
 }
 
 #pragma mark ----- UITableViewDataSource

@@ -1108,6 +1108,7 @@ CGFloat static attentionBtnH = 26;
 
 #pragma mark --请求
 //获取帖子详情
+
 -(void)requestPost_browsePost
 {
     [self showOrHideLoadView:YES page:0];

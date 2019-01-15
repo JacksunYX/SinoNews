@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) void(^refreshCallBack)(void);
 
 @property (nonatomic,assign) NSInteger sectionId;
-
+//是否是付费发帖
+@property (nonatomic,assign) BOOL isToll;
 @end
 
 NS_ASSUME_NONNULL_END

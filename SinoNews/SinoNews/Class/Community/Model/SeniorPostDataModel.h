@@ -39,6 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger rate;
 //是否已无效
 @property (nonatomic,assign) BOOL hasExpired;
+//是否是付费
+@property (nonatomic,assign) BOOL isToll;
+//是否已付费
+@property (nonatomic,assign) BOOL hasPaid;
 
 //投票帖子专用属性
 //是否是投票

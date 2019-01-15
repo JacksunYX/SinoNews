@@ -37,13 +37,13 @@
     .widthIs(50)
     .heightIs(50)
     ;
-//    _closeBtn.sd_cornerRadius = @25;
+    //    _closeBtn.sd_cornerRadius = @25;
     [_closeBtn setNormalTitleColor:BlackColor];
     [_closeBtn setNormalImage:UIImageNamed(@"selectEditType_close")];
     [_closeBtn setBtnFont:PFFontL(18)];
     
-//    _closeBtn.layer.borderColor = UIColor.grayColor.CGColor;
-//    _closeBtn.layer.borderWidth = 1;
+    //    _closeBtn.layer.borderColor = UIColor.grayColor.CGColor;
+    //    _closeBtn.layer.borderWidth = 1;
     
     [self addSelectView];
 }
@@ -56,52 +56,64 @@
 -(void)addSelectView
 {
     UIButton *btn1 = [UIButton new];
-//    btn1.backgroundColor = GreenColor;
     [btn1 setNormalTitleColor:HexColor(#3A4152)];
     [btn1 setBtnFont:PFFontL(15)];
     
     UIButton *btn2 = [UIButton new];
-//    btn2.backgroundColor = GreenColor;
     [btn2 setNormalTitleColor:HexColor(#3A4152)];
     [btn2 setBtnFont:PFFontL(15)];
     
     UIButton *btn3 = [UIButton new];
-//    btn3.backgroundColor = GreenColor;
     [btn3 setNormalTitleColor:HexColor(#3A4152)];
     [btn3 setBtnFont:PFFontL(15)];
     
+    UIButton *btn4 = [UIButton new];
+    [btn4 setNormalTitleColor:HexColor(#3A4152)];
+    [btn4 setBtnFont:PFFontL(15)];
+    
     [self.view sd_addSubviews:@[
-                                btn2,
                                 btn1,
+                                btn2,
                                 btn3,
+                                btn4,
                                 ]];
-    CGFloat intervalX = 40;
-    btn2.sd_layout
-    .bottomSpaceToView(_closeBtn, 50)
-    .centerXEqualToView(self.view)
-    .widthIs(73)
-    .heightIs(100)
-    ;
-    btn2.imageEdgeInsets = UIEdgeInsetsMake(-30, 5, 0, 0);
-    btn2.titleEdgeInsets = UIEdgeInsetsMake(70, -60, 0, 0);
+    CGFloat spaceX = (ScreenW - 73*4)/5;
     
     btn1.sd_layout
-    .rightSpaceToView(btn2, intervalX)
-    .centerYEqualToView(btn2)
+    .bottomSpaceToView(_closeBtn, 50)
+    .leftSpaceToView(self.view, spaceX)
     .widthIs(73)
     .heightIs(100)
     ;
     btn1.imageEdgeInsets = UIEdgeInsetsMake(-30, 5, 0, 0);
     btn1.titleEdgeInsets = UIEdgeInsetsMake(70, -60, 0, 0);
     
+    btn2.sd_layout
+    .centerYEqualToView(btn1)
+    .leftSpaceToView(btn1, spaceX)
+    .widthIs(73)
+    .heightIs(100)
+    ;
+    btn2.imageEdgeInsets = UIEdgeInsetsMake(-30, 5, 0, 0);
+    btn2.titleEdgeInsets = UIEdgeInsetsMake(70, -60, 0, 0);
+    
     btn3.sd_layout
-    .leftSpaceToView(btn2, intervalX)
-    .centerYEqualToView(btn2)
+    .leftSpaceToView(btn2, spaceX)
+    .centerYEqualToView(btn1)
     .widthIs(73)
     .heightIs(100)
     ;
     btn3.imageEdgeInsets = UIEdgeInsetsMake(-30, 5, 0, 0);
     btn3.titleEdgeInsets = UIEdgeInsetsMake(70, -60, 0, 0);
+    
+    btn4.sd_layout
+    .leftSpaceToView(btn3, spaceX)
+    .centerYEqualToView(btn1)
+    .widthIs(73)
+    .heightIs(100)
+    ;
+    btn4.imageEdgeInsets = UIEdgeInsetsMake(-30, 5, 0, 0);
+    btn4.titleEdgeInsets = UIEdgeInsetsMake(70, -60, 0, 0);
     
     [btn1 setNormalTitle:@"快速发帖"];
     [btn1 setNormalImage:UIImageNamed(@"FastPosting_icon")];
@@ -109,13 +121,17 @@
     [btn2 setNormalImage:UIImageNamed(@"SeniorPosts_icon")];
     [btn3 setNormalTitle:@"发起投票"];
     [btn3 setNormalImage:UIImageNamed(@"Avote_icon")];
+    [btn4 setNormalTitle:@"付费发帖"];
+    [btn4 setNormalImage:UIImageNamed(@"chargePost_icon")];
     
     btn1.tag = 10058+0;
     btn2.tag = 10058+1;
     btn3.tag = 10058+2;
+    btn4.tag = 10058+3;
     [btn1 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     [btn2 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     [btn3 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    [btn4 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //点击事件
@@ -145,6 +161,14 @@
             VotePostingViewController *vpVC = [VotePostingViewController new];
             vpVC.sectionId = self.sectionId;
             presentVC = vpVC;
+        }
+            break;
+        case 3:
+        {
+            SeniorPostingViewController *spVC = [SeniorPostingViewController new];
+            spVC.sectionId = self.sectionId;
+            spVC.isToll = YES;
+            presentVC = spVC;
         }
             break;
             

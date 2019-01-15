@@ -74,6 +74,7 @@
     if (!_postModel) {
         _postModel = [SeniorPostDataModel new];
         _postModel.postType = 3;
+        _postModel.isToll = _isToll;
     }
     return _postModel;
 }

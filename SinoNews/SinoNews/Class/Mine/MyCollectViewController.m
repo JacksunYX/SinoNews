@@ -15,6 +15,7 @@
 #import "MyCollectArticleCell.h"
 #import "HomePageFirstKindCell.h"
 #import "ReadPostListTableViewCell.h"
+#import "HomePageFourthCell.h"
 
 @interface MyCollectViewController ()<UITableViewDataSource,UITableViewDelegate,MLMSegmentHeadDelegate>
 {
@@ -24,13 +25,17 @@
 
 @property (nonatomic,strong) BaseTableView *tableView;
 
-@property (nonatomic,assign) NSInteger currPage0;    //页码
-@property (nonatomic,assign) NSInteger currPage1;    //页码1
+@property (nonatomic,assign) NSInteger articlePage;
+@property (nonatomic,assign) NSInteger postPage;    //页码1
+@property (nonatomic,assign) NSInteger topicPage;    //页码2
 
 //文章数据源数组
 @property (nonatomic,strong) NSMutableArray *articleArray;
 //帖子数据源数组
 @property (nonatomic,strong) NSMutableArray *postArray;
+//专题数据源数组
+@property (nonatomic,strong) NSMutableArray *topicArray;
+
 //存储选择要删除数据数组
 @property (nonatomic,strong) NSMutableArray *deleteArray;
 
@@ -61,6 +66,14 @@
         _postArray = [NSMutableArray array];
     }
     return _postArray;
+}
+
+- (NSMutableArray *)topicArray
+{
+    if (!_topicArray) {
+        _topicArray = [NSMutableArray array];
+    }
+    return _topicArray;
 }
 
 - (NSMutableArray *)deleteArray
@@ -96,7 +109,7 @@
 
 -(void)setTitleView
 {
-    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"帖子",@"新闻"] headStyle:0 layoutStyle:0];
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, 200, 44) titles:@[@"帖子",@"新闻",@"专题"] headStyle:0 layoutStyle:0];
     //    _segHead.fontScale = .85;
     //    _segHead.lineScale = 0.6;
     _segHead.fontSize = 16;
@@ -104,7 +117,7 @@
     //    _segHead.lineColor = HexColor(#1282EE);
     _segHead.selectColor = RGBA(50, 50, 50, 1);
     _segHead.deSelectColor = RGBA(152, 152, 152, 1);
-    _segHead.maxTitles = 2;
+    _segHead.maxTitles = 3;
     _segHead.bottomLineHeight = 0;
     _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
     _segHead.delegate = self;
@@ -148,6 +161,7 @@
     [self.tableView registerClass:[MyCollectArticleCell class] forCellReuseIdentifier:MyCollectArticleCellID];
     [self.tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [self.tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
+    [self.tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
     @weakify(self);
     _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
@@ -156,13 +170,15 @@
             [self.tableView.mj_header endRefreshing];
             return ;
         }
-        
-        if (self->selectedIndex==1) {
-            self.currPage0 = 1;
-            [self requestNewsList];
-        }else{
-            self.currPage1 = 1;
+        if (self->selectedIndex==0) {
+            self.postPage = 1;
             [self requestPostList];
+        }else if (self->selectedIndex==1) {
+            self.articlePage = 1;
+            [self requestNewsList];
+        }else if (self->selectedIndex==2) {
+            self.topicPage = 1;
+            [self requestTopicList];
         }
     }];
     
@@ -173,20 +189,27 @@
             return ;
         }
         
-        if (self->selectedIndex==1) {
-            if (!self.articleArray.count) {
-                self.currPage0 = 1;
-            }else{
-                self.currPage0++;
-            }
-            [self requestNewsList];
-        }else{
+        if (self->selectedIndex==0) {
             if (!self.postArray.count) {
-                self.currPage1 = 1;
+                self.postPage = 1;
             }else{
-                self.currPage1++;
+                self.postPage++;
             }
             [self requestPostList];
+        }else if (self->selectedIndex==1) {
+            if (!self.articleArray.count) {
+                self.articlePage = 1;
+            }else{
+                self.articlePage++;
+            }
+            [self requestNewsList];
+        }else if (self->selectedIndex==2) {
+            if (!self.topicArray.count) {
+                self.topicPage = 1;
+            }else{
+                self.topicPage++;
+            }
+            [self requestTopicList];
         }
     }];
     
@@ -294,8 +317,10 @@
     NSMutableArray *arr;
     if (selectedIndex == 1) {
         arr = self.articleArray;
-    }else{
+    }else if (selectedIndex == 0) {
         arr = self.postArray;
+    }else if (selectedIndex == 2) {
+        arr = self.topicArray;
     }
     if (arr.count) {
         btn.selected = !btn.selected;
@@ -317,8 +342,10 @@
     //批量删除
     if (selectedIndex == 1) {
         [self requestCancelNewsCollects];
-    }else {
+    }else if (selectedIndex == 0) {
         [self requestCancelPostCollects];
+    }else if (selectedIndex == 2) {
+        [self requestCancelTopicCollects];
     }
     
 }
@@ -333,6 +360,20 @@
     }
     //先判断是全选还是反选
     if (btn.selected) { //全选
+        NSMutableArray *arr;
+        if (selectedIndex == 1) {
+            arr = self.articleArray;
+        }else if (selectedIndex == 0) {
+            arr = self.postArray;
+        }else if (selectedIndex == 2) {
+            arr = self.topicArray;
+        }
+        [self.deleteArray addObjectsFromArray:arr];
+        for (int i = 0; i< arr.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+        }
+        /*
         //新闻
         if (selectedIndex == 1) {
             [self.deleteArray addObjectsFromArray:self.articleArray];
@@ -340,15 +381,22 @@
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
                 [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
             }
-        }else {
+        }else if (selectedIndex == 0) {
             //帖子
             [self.deleteArray addObjectsFromArray:self.postArray];
             for (int i = 0; i< self.postArray.count; i++) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
                 [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
             }
+        }else if (selectedIndex == 2) {
+            //专题
+            [self.deleteArray addObjectsFromArray:self.topicArray];
+            for (int i = 0; i< self.topicArray.count; i++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+                [_tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+            }
         }
-        
+        */
     }else{
         [self.tableView reloadData];
     }
@@ -362,8 +410,10 @@
     NSMutableArray *arr;
     if (selectedIndex == 1) {
         arr = self.articleArray;
-    }else {
+    }else if (selectedIndex == 0) {
         arr = self.postArray;
+    }else if (selectedIndex == 2) {
+        arr = self.topicArray;
     }
     //将数据源数组中包含有删除数组中的数据删除掉
     [arr removeObjectsInArray:self.deleteArray];
@@ -381,10 +431,12 @@
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (selectedIndex == 1){
-        return self.articleArray.count;
-    }else if (selectedIndex == 0) {
+    if (selectedIndex == 0) {
         return self.postArray.count;
+    }else if (selectedIndex == 1){
+        return self.articleArray.count;
+    }else if (selectedIndex == 2){
+        return self.topicArray.count;
     }
     return 0;
 }
@@ -403,6 +455,10 @@
         cell1.model = self.postArray[indexPath.row];
         cell = cell1;
         
+    }else if (selectedIndex == 2){
+        HomePageFourthCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+        cell2.model = self.topicArray[indexPath.row];
+        cell = cell2;
     }
     [cell addBakcgroundColorTheme];
     return cell;
@@ -429,8 +485,10 @@
         NSArray *arr;
         if (selectedIndex == 1) {
             arr = self.articleArray;
-        }else {
+        }else if (selectedIndex == 0){
             arr = self.postArray;
+        }else if (selectedIndex == 2){
+            arr = self.topicArray;
         }
         [self.deleteArray addObject:[arr objectAtIndex:indexPath.row]];
         if (self.deleteArray.count<arr.count) {
@@ -451,7 +509,7 @@
                 cVC.news_id = model.itemId;
                 [self.navigationController pushViewController:cVC animated:YES];
             }
-        }else {
+        }else if (selectedIndex == 0){
             SeniorPostDataModel *model = self.postArray[indexPath.row];
             UIViewController *vc;
             if (model.postType == 2) { //投票
@@ -465,6 +523,12 @@
             }
             
             [self.navigationController pushViewController:vc animated:YES];
+        }else if (selectedIndex == 2){
+            TopicModel *model = self.topicArray[indexPath.row];
+            TopicViewController *tVC = [TopicViewController new];
+            //只有专题是用的topicId
+            tVC.topicId = [model.topicId integerValue];
+            [self.navigationController pushViewController:tVC animated:YES];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -480,8 +544,10 @@
         NSArray *arr;
         if (selectedIndex == 1) {
             arr = self.articleArray;
-        }else {
+        }else if (selectedIndex == 0) {
             arr = self.postArray;
+        }else if (selectedIndex == 2) {
+            arr = self.topicArray;
         }
         [self.deleteArray removeObject:[arr objectAtIndex:indexPath.row]];
         if (self.deleteArray.count<arr.count) {
@@ -569,10 +635,10 @@
 -(void)requestNewsList
 {
     [self.tableView ly_startLoading];
-    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.currPage0)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:MyFavor parameters:@{@"currPage":@(self.articlePage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSMutableArray *dataArr = [HomePageModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
-        self.articleArray = [self.tableView pullWithPage:self.currPage0 data:dataArr dataSource:self.articleArray];
+        self.articleArray = [self.tableView pullWithPage:self.articlePage data:dataArr dataSource:self.articleArray];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
@@ -588,10 +654,28 @@
 -(void)requestPostList
 {
     [self.tableView ly_startLoading];
-    [HttpRequest postWithURLString:Post_myFavor parameters:@{@"currPage":@(self.currPage1)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:Post_myFavor parameters:@{@"currPage":@(self.postPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
         
-        self.postArray = [self.tableView pullWithPage:self.currPage1 data:dataArr dataSource:self.postArray];
+        self.postArray = [self.tableView pullWithPage:self.postPage data:dataArr dataSource:self.postArray];
+        [self.tableView reloadData];
+        [self.tableView ly_endLoading];
+    } failure:^(NSError *error) {
+        [self.tableView endAllRefresh];
+        [self.tableView ly_endLoading];
+    } RefreshAction:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+//收藏的专题列表
+-(void)requestTopicList
+{
+    [self.tableView ly_startLoading];
+    [HttpRequest postWithURLString:Post_myFavor parameters:@{@"currPage":@(self.topicPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
+        NSMutableArray *dataArr = [TopicModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
+        
+        self.topicArray = [self.tableView pullWithPage:self.topicPage data:dataArr dataSource:self.topicArray];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
@@ -638,6 +722,22 @@
     }];
 }
 
-
+//批量取消关注专题
+-(void)requestCancelTopicCollects
+{
+    NSMutableString *str = [@"" mutableCopy];
+    for (TopicModel *model in self.deleteArray) {
+        [str appendString:model.topicId];
+    }
+    [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
+    @weakify(self)
+    [HttpRequest postWithURLString:Post_batchCancelFavor parameters:@{@"postIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        @strongify(self)
+        [self resetStatus];
+    } failure:nil RefreshAction:^{
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
 
 @end

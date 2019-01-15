@@ -21,6 +21,7 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 @property (nonatomic,strong) TopicModel *model;
 @property (nonatomic,strong) UIView *headView;
+@property (nonatomic,strong) UIButton *collectBtn;
 @end
 
 @implementation TopicViewController
@@ -37,11 +38,11 @@
     [super viewDidLoad];
     [self hiddenTopLine];
     [self addTableView];
-    self.navigationController.navigationBar.translucent = YES;
+    [self addBottomView]; self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = GetSaveString(self.model.itemTitle);
     //使用这句话设置导航栏颜色
-//    [self.navigationController.navigationBar setBarTintColor:RedColor];
+    //    [self.navigationController.navigationBar setBarTintColor:RedColor];
     
     [self showOrHideLoadView:YES page:2];
     
@@ -56,17 +57,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-//    self.tableView.delegate = self;
-//    [self scrollViewDidScroll:self.tableView];
+    //    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    //    self.tableView.delegate = self;
+    //    [self scrollViewDidScroll:self.tableView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-//    self.tableView.delegate = nil;
-//    [self.navigationController.navigationBar lt_reset];
+    //    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    //    self.tableView.delegate = nil;
+    //    [self.navigationController.navigationBar lt_reset];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,7 +77,7 @@
 
 -(void)addTableView
 {
-    _tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH) style:UITableViewStyleGrouped];
+    _tableView = [[BaseTableView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, ScreenH - BOTTOM_MARGIN - 50) style:UITableViewStyleGrouped];
     [self.view addSubview:_tableView];
     self.tableView.sd_layout
     .topSpaceToView(self.view, 0)
@@ -91,24 +92,49 @@
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     
-//    @weakify(self)
-//    _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
-//        @strongify(self)
-////        if (self.tableView.mj_footer.isRefreshing) {
-////            [self.tableView.mj_header endRefreshing];
-////        }
-//        [self requestShowTopicDetail];
-//    }];
+    //    @weakify(self)
+    //    _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
+    //        @strongify(self)
+    ////        if (self.tableView.mj_footer.isRefreshing) {
+    ////            [self.tableView.mj_header endRefreshing];
+    ////        }
+    //        [self requestShowTopicDetail];
+    //    }];
     
-//    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
-//        @strongify(self)
-//        if (self.tableView.mj_header.isRefreshing) {
-//            [self.tableView.mj_footer endRefreshing];
-//        }
-//
-//    }];
+    //    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    //        @strongify(self)
+    //        if (self.tableView.mj_header.isRefreshing) {
+    //            [self.tableView.mj_footer endRefreshing];
+    //        }
+    //
+    //    }];
     
-//    [_tableView.mj_header beginRefreshing];
+    //    [_tableView.mj_header beginRefreshing];
+}
+
+-(void)addBottomView
+{
+//    UIView *bottomView = [UIView new];
+//    [self.view addSubview:bottomView];
+//    bottomView.sd_layout
+//    .leftEqualToView(self.view)
+//    .rightEqualToView(self.view)
+//    .bottomEqualToView(self.view)
+//    .heightIs(49 + BOTTOM_MARGIN)
+//    ;
+//    bottomView.backgroundColor = HexColor(#1282ee);
+    
+    _collectBtn = [UIButton new];
+    [self.view addSubview:_collectBtn];
+    _collectBtn.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomEqualToView(self.view)
+    .heightIs(49)
+    ;
+    _collectBtn.backgroundColor = HexColor(#1282ee);
+    [_collectBtn setNormalTitle:@"收藏"];
+    [_collectBtn setBtnFont:PFFontR(16)];
 }
 
 -(void)addHeadView
@@ -118,7 +144,7 @@
         [self.headView addBakcgroundColorTheme];
         
         UIImageView *titltImg = [UIImageView new];
-//        titltImg.backgroundColor = Arc4randomColor;
+        //        titltImg.backgroundColor = Arc4randomColor;
         
         UILabel *title = [UILabel new];
         title.font = FontScale(20);
@@ -128,13 +154,13 @@
         UILabel *subTitle = [UILabel new];
         subTitle.font = PFFontL(15);
         subTitle.textColor = HexColor(#868e97);
-//        subTitle.lee_theme.LeeCustomConfig(@"contentColor", ^(id item, id value) {
-//            if (UserGetBool(@"NightMode")) {
-//                [(UILabel *)item setTextColor:value];
-//            }else{
-//                [(UILabel *)item setTextColor:HexColor(#868e97)];
-//            }
-//        });
+        //        subTitle.lee_theme.LeeCustomConfig(@"contentColor", ^(id item, id value) {
+        //            if (UserGetBool(@"NightMode")) {
+        //                [(UILabel *)item setTextColor:value];
+        //            }else{
+        //                [(UILabel *)item setTextColor:HexColor(#868e97)];
+        //            }
+        //        });
         
         [self.headView sd_addSubviews:@[
                                         titltImg,
@@ -185,10 +211,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    HomePageFirstKindCell *cell = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-//
-//    HomePageModel *model = self.dataSource[indexPath.row];
-//    cell.model = model;
+    //    HomePageFirstKindCell *cell = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+    //
+    //    HomePageModel *model = self.dataSource[indexPath.row];
+    //    cell.model = model;
     UITableViewCell *cell;
     id model = self.dataSource[indexPath.row];
     if ([model isKindOfClass:[HomePageModel class]]) {
@@ -257,16 +283,16 @@
     [HttpRequest getWithURLString:ShowTopicDetails parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
         self.model = [TopicModel mj_objectWithKeyValues:responseObject[@"data"]];
         //因为专题里的新闻后台返回的数据itemType也是200开头的,但是实际上它们在这里只是普通新闻，所以这里全部手动变为普通新闻的itemType
-//        for (HomePageModel *model in self.model.topicNewsList) {
-//            if (model.itemType == 200) {
-//                model.itemType = 100;
-//            }else if (model.itemType == 201) {
-//                model.itemType = 101;
-//            }else if (model.itemType == 202) {
-//                model.itemType = 102;
-//            }
-//            model.tipName = @"";
-//        }
+        //        for (HomePageModel *model in self.model.topicNewsList) {
+        //            if (model.itemType == 200) {
+        //                model.itemType = 100;
+        //            }else if (model.itemType == 201) {
+        //                model.itemType = 101;
+        //            }else if (model.itemType == 202) {
+        //                model.itemType = 102;
+        //            }
+        //            model.tipName = @"";
+        //        }
         self.dataSource = [self.model.topicNewsList mutableCopy];
         [self addHeadView];
         [self showOrHideLoadView:NO page:2];

@@ -11,7 +11,7 @@
 #import "ForumLeftTableViewCell.h"
 #import "SelectPublishChannelCell.h"
 
-@interface SelectPublishChannelViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SelectPublishChannelViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic,strong) BaseTableView *leftTable;
 @property (nonatomic,strong) BaseTableView *centerTable;
@@ -164,7 +164,70 @@
         LRToast(@"没有选择版块哟");
         return;
     }
-    [self requestPublishPost];
+    if (self.postModel.isToll) {
+        [self popInputIntegral];
+    }else{
+        [self requestPublishPost:0];
+    }
+}
+
+//弹框输入付费积分
+-(void)popInputIntegral
+{
+    NSString *title = @"请输入付费积分";;
+    NSString *message = @"付费积分不能为0";
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"0";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.delegate = self;
+    }];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = [alertController.textFields objectAtIndex:0];
+        NSInteger rewardPoint = [textField.text integerValue];
+        if (rewardPoint>0) {
+            [self requestPublishPost:rewardPoint];
+        }else{
+            LRToast(@"付费积分不能为0哦");
+        }
+        
+    }]];
+    [self presentViewController:alertController animated:YES completion:NULL];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    //这里的if是为了获取删除操作,如果没有if会造成当达到字数限制后删除键也不能使用的后果.
+    if (range.length == 1 && string.length == 0) {
+        return YES;
+    }
+    //限制最大输入长度
+    else if (textField.text.length >= 5) {
+        textField.text = [textField.text substringToIndex:5];
+        return NO;
+    }
+    
+    return [self validateNumber:string];
+}
+
+//检测是否是纯数字
+- (BOOL)validateNumber:(NSString*)number {
+    BOOL res = YES;
+    NSCharacterSet* tmpSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    int i = 0;
+    while (i < number.length) {
+        NSString * string = [number substringWithRange:NSMakeRange(i, 1)];
+        NSRange range = [string rangeOfCharacterFromSet:tmpSet];
+        if (range.length == 0) {
+            res = NO;
+            break;
+        }
+        i++;
+    }
+    return res;
 }
 
 //查找对应版块id所在的分级
@@ -416,8 +479,8 @@
     }];
 }
 
-//发表帖子
--(void)requestPublishPost
+//发表帖子(积分)
+-(void)requestPublishPost:(NSInteger)integer
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     

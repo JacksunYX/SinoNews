@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isToll;
 //是否已付费
 @property (nonatomic,assign) BOOL hasPaid;
+//付费所需积分
+@property (nonatomic,assign) NSInteger points;
 
 //投票帖子专用属性
 //是否是投票

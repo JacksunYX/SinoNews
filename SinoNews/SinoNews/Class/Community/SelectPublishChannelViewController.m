@@ -174,7 +174,7 @@
 //弹框输入付费积分
 -(void)popInputIntegral
 {
-    NSString *title = @"请输入付费积分";;
+    NSString *title = @"请输入付费积分";
     NSString *message = @"付费积分不能为0";
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -483,7 +483,7 @@
 -(void)requestPublishPost:(NSInteger)integer
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    
+    self.postModel.points = integer;
     NSMutableDictionary *dic = [self.postModel mj_JSONObject];
     NSMutableArray *dataSource = dic[@"dataSource"];
     for (int i = 0; i < dataSource.count; i ++) {

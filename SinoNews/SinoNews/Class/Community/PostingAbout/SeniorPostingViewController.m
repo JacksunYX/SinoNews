@@ -138,6 +138,9 @@
         .bottomEqualToView(_headView)
         ;
         _contentView.placeholderText = @"分享观点，谈谈自己的看法，这就是一个任你发挥的平台...";
+        if (self.postModel.isToll) {
+            _contentView.placeholderText = @"快来发表自己的看法哦，对了，除了标题和描述文字外的都是付费内容部分哦～";
+        }
         _contentView.placeholderTextColor = HexColor(#B9C3C7);
         _contentView.placeholderFont = PFFontR(15);
 
@@ -315,6 +318,13 @@
             }else if ([NSString isEmpty:self.postModel.postContent]){
                 LRToast(@"您的帖子还没有内容哦");
             }else{
+                if (self.postModel.isToll&&self.dataSource.count<=0) {
+                    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"请点击下方功能按钮来添加付费内容" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:nil];
+                    [alertVC addAction:cancel];
+                    [self presentViewController:alertVC animated:YES completion:nil];
+                    return;
+                }
                 for (SeniorPostingAddElementModel *element in self.dataSource) {
                     //视频
                     if (element.videoData) {

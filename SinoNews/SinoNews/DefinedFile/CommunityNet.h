@@ -61,6 +61,8 @@
 #define PublishPost @"/api/post/publishPost"
 //投票(get)
 #define Post_doVote @"/api/post/doVote"
+//购买帖子(post)
+#define PostPurchasePost    @"/api/post/purchasePost"
 
 //举报帖子关键字列表(get)
 #define ReportListKeyword @"/api/post/listKeyword"

@@ -12,6 +12,9 @@
 
 #import "SharePopCopyView.h"
 
+//未付费标记
+#define NoPayedPost (self.postModel.isToll==YES&&self.postModel.hasPaid==NO)
+
 @interface ThePostDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *commentsArr;   //评论数组
@@ -202,16 +205,16 @@ CGFloat static attentionBtnH = 26;
     @weakify(self);
     _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        if (self.tableView.mj_footer.isRefreshing) {
+        if (self.tableView.mj_footer.isRefreshing||NoPayedPost) {
             [self.tableView.mj_header endRefreshing];
             return ;
         }
         self.currPage = 1;
         [self requestListPostComments:self.currPage];
     }];
-    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    _tableView.mj_footer = [YXBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
-        if (self.tableView.mj_header.isRefreshing) {
+        if (self.tableView.mj_header.isRefreshing||NoPayedPost) {
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
@@ -222,7 +225,6 @@ CGFloat static attentionBtnH = 26;
         }
         [self requestListPostComments:self.currPage];
     }];
-    [_tableView.mj_header beginRefreshing];
     
     _directoryBtn = [UIButton new];
     [self.view addSubview:_directoryBtn];
@@ -701,6 +703,7 @@ CGFloat static attentionBtnH = 26;
 //            commentInput.text = @"帖子失效,不可评论";
 //        }
     }
+    self.bottomView.hidden = NO;
     self.collectBtn.selected = self.postModel.isCollection;
     self.praiseBtn.selected = self.postModel.hasPraised;
     self.bottomView.hidden = NO;
@@ -911,6 +914,19 @@ CGFloat static attentionBtnH = 26;
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
+//购买弹框提示
+-(void)popBuyNotice
+{
+    UIAlertController *payPopVc = [UIAlertController alertControllerWithTitle:@"确认购买这篇付费帖子?" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self requestPayForPost];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [payPopVc addAction:confirm];
+    [payPopVc addAction:cancel];
+    [self presentViewController:payPopVc animated:YES completion:nil];
+}
+
 #pragma mark --- UITableViewDataSource ---
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -922,7 +938,7 @@ CGFloat static attentionBtnH = 26;
     if (section == 0) {
         return self.postModel.dataSource.count;
     }
-    if (section == 2) {
+    if (section == 2&&!NoPayedPost) {
         return self.commentsArr.count;
     }
     return 0;
@@ -944,6 +960,20 @@ CGFloat static attentionBtnH = 26;
             cell2.model = model;
             cell = cell2;
         }
+        if (NoPayedPost) {
+            [cell.contentView removeAllSubviews];
+            UILabel *notice = [UILabel new];
+            notice.textColor = WhiteColor;
+            notice.font = PFFontM(18);
+            notice.backgroundColor = LightGrayColor;
+            notice.textAlignment = NSTextAlignmentCenter;
+            [cell.contentView addSubview:notice];
+            notice.sd_layout
+            .spaceToSuperView(UIEdgeInsetsMake(5, 10, 5, 10))
+            ;
+            notice.text = @"购买后方可浏览";
+        }
+        
     }else if (indexPath.section == 2){
         ThePostCommentReplyTableViewCell *cell2 = (ThePostCommentReplyTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ThePostCommentReplyTableViewCellID];
         PostReplyModel *replyModel = self.commentsArr[indexPath.row];
@@ -988,9 +1018,57 @@ CGFloat static attentionBtnH = 26;
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView;
+    
     if (section == 0&&self.postModel.createTime) {
         footView = [UIView new];
         [footView addBakcgroundColorTheme];
+        if (NoPayedPost) {
+            //添加文本和提示
+            UIImageView *lockImg = [UIImageView new];
+            
+            UILabel *moreNotice = [UILabel new];
+            moreNotice.textColor = HexColor(#1282EE);
+            moreNotice.font = PFFontL(16);
+            moreNotice.textAlignment = NSTextAlignmentCenter;
+            
+            [footView sd_addSubviews:@[
+                                       moreNotice,
+                                       lockImg,
+                                       ]];
+            moreNotice.sd_layout
+            .topSpaceToView(footView, 12)
+            .leftSpaceToView(footView, 10)
+            .rightSpaceToView(footView, 10)
+            .heightIs(14)
+            ;
+            moreNotice.text = [NSString stringWithFormat:@"余下内容为付费内容，价格为%ld积分",self.postModel.points];
+            
+            lockImg.sd_layout
+            .centerXEqualToView(footView)
+            .topSpaceToView(moreNotice, 20)
+            .widthIs(54)
+            .heightEqualToWidth()
+            ;
+            [lockImg setSd_cornerRadius:@27];
+            lockImg.image = UIImageNamed(@"news_unlock");
+            
+            //添加点击事件
+            @weakify(self);
+            [lockImg whenTap:^{
+                @strongify(self)
+                
+                if ([YXHeader checkNormalBackLoginHandle:^(BOOL login) {
+                    if (login) {
+                        [self requestPost_browsePost];
+                    }
+                }]) {
+                    [self popBuyNotice];
+                }
+                
+            }];
+            return footView;
+        }
+        
         UIButton *praiseBtn = [UIButton new];
         [praiseBtn addButtonTextColorTheme];
         UILabel *notice = [UILabel new];
@@ -1062,7 +1140,7 @@ CGFloat static attentionBtnH = 26;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == 2&&!NoPayedPost) {
         return 48;
     }
     return 0.01;
@@ -1071,7 +1149,7 @@ CGFloat static attentionBtnH = 26;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (section == 2) {
+    if (section == 2&&!NoPayedPost) {
         [self setSecion2];
         headView = self.section2View;
     }
@@ -1081,6 +1159,9 @@ CGFloat static attentionBtnH = 26;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
+        if (NoPayedPost) {
+            return;
+        }
         SeniorPostingAddElementModel *model = self.postModel.dataSource[indexPath.row];
         if (model.addType == 3) {
             //使用AV播放视频(iOS9.0以后适用,支持画中画)
@@ -1108,13 +1189,12 @@ CGFloat static attentionBtnH = 26;
 
 #pragma mark --请求
 //获取帖子详情
-
 -(void)requestPost_browsePost
 {
     [self showOrHideLoadView:YES page:0];
     [HttpRequest getWithURLString:Post_browsePost parameters:@{@"postId":@(self.postModel.postId)} success:^(id responseObject) {
         self.postModel = [SeniorPostDataModel mj_objectWithKeyValues:responseObject[@"data"]];
-//        self.postModel.postTitle = @"测试换行标签测试换行标签测试换行标签测试换行标签测试换行标签测试换行标";
+
         //保存浏览历史
         [PostHistoryModel saveHistory:self.postModel];
         for (int i = 0; i < self.postModel.dataSource.count; i ++) {
@@ -1125,22 +1205,23 @@ CGFloat static attentionBtnH = 26;
                 element.imageData = cover.base64String;
             }
         }
-//        [self addTestContent];
         [self setNavigationBtns];
         [self setTitle];
         [self setNaviTitle];
+        if (NoPayedPost) {
+            self.bottomView.hidden = YES;
+            self.tableView.sd_resetLayout
+            .spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
+            ;
+            [self.tableView reloadData];
+            return ;
+        }
         [self setBottomView];
         [self reloadDataWithDataArrUpperCase];
-        
+        [self.tableView.mj_header beginRefreshing];
     } failure:^(NSError *error) {
         
     }];
-}
-
-//测试下换行是否奏效
--(void)addTestContent
-{
-    self.postModel.postContent = @"必发测试\n\n胜博发测试\n\n亚博娱乐测试3\n\n测试4\n\n测试5\n\n";
 }
 
 //关注/取消关注
@@ -1284,6 +1365,19 @@ CGFloat static attentionBtnH = 26;
         HiddenHudOnly;
     }];
     
+}
+
+//购买帖子
+-(void)requestPayForPost
+{
+    [HttpRequest postWithURLString:PostPurchasePost parameters:@{@"postId":@(self.postModel.postId)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        LRToast(@"支付成功");
+        UserModel *user = [UserModel getLocalUserModel];
+        user.integral = [response[@"data"][@"remainPoints"] longValue];
+        [UserModel coverUserData:user];
+        //直接重新拉一遍详情
+        [self requestPost_browsePost];
+    } failure:nil RefreshAction:nil];
 }
 
 @end

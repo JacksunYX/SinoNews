@@ -174,6 +174,7 @@
     score.text = [NSString stringWithFormat:@"%.1f分",model.currentScore];
     title.text = GetSaveString(model.companyName);
     subTitle.text = GetSaveString(model.promos);
+    guarantee.hidden = !model.isVouch;
     
     switch (self.model.status) {
         case -1:

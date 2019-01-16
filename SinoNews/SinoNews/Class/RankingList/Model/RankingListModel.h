@@ -21,4 +21,7 @@
 @property (nonatomic,strong) NSString *promos;
 @property (nonatomic,strong) NSString *rankingName;
 @property (nonatomic,assign) NSInteger status;
+//新增，是否有担保金
+@property (nonatomic,assign) BOOL isVouch;
+
 @end

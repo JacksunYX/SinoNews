@@ -186,7 +186,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     level.sd_layout
     .leftSpaceToView(nickName, 10)
     .centerYEqualToView(nickName)
-    .widthIs(40)
+    .widthIs(0)
     .heightIs(18)
     ;
     [level setSd_cornerRadius:@9];

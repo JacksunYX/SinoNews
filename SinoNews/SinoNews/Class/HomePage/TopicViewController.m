@@ -336,6 +336,11 @@
     [HttpRequest getWithURLString:TopicFavor parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
         NSInteger type = [responseObject[@"data"] integerValue];
         self.model.hasFavor = type;
+        if (type) {
+            LRToast(@"专题已收藏");
+        }else{
+            LRToast(@"专题已取消收藏")
+        }
         [self setCollectBtnStatus:self.model.hasFavor];
     } failure:nil];
 }

@@ -14,6 +14,7 @@
     FLAnimatedImageView *userIcon;
     //中
     UILabel *num;   //排名
+    UIImageView *guarantee; //担保标签
     UILabel *title; //标题
     UILabel *score; //分数
     UILabel *subTitle;
@@ -54,6 +55,8 @@
     num.font = PFFontR(15);
     [num addTitleColorTheme];
     
+    guarantee = [UIImageView new];
+    
     title = [UILabel new];
     title.font = PFFontR(15);
     [title addTitleColorTheme];
@@ -85,6 +88,7 @@
                                        status,
                                        title,
                                        subTitle,
+                                       guarantee,
                                        line,
                                        ]];
     UIView *fatherView = self.contentView;
@@ -142,6 +146,15 @@
     .topSpaceToView(title, 10)
     .heightIs(16)
     ;
+    
+    guarantee.sd_layout
+    .centerXEqualToView(num)
+    .centerYEqualToView(subTitle)
+    .widthIs(22)
+    .heightIs(12)
+    ;
+    guarantee.image = UIImageNamed(@"rankGuarantee");
+    guarantee.hidden = YES;
     
     line.sd_layout
     .bottomEqualToView(fatherView)

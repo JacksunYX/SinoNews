@@ -125,7 +125,7 @@ const NSString * DomainString = nil;
     NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     
     [manager GET:baseURLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        
+        HiddenHudOnly;
         //直接把返回的参数进行解析然后返回
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
@@ -153,6 +153,7 @@ const NSString * DomainString = nil;
         }
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        HiddenHudOnly;
         if (failure) {
             failure(error);
         }

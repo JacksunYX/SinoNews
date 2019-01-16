@@ -37,8 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hiddenTopLine];
-    [self addTableView];
-    [self addBottomView]; self.navigationController.navigationBar.translucent = YES;
+    [self addTableView]; self.navigationController.navigationBar.translucent = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = GetSaveString(self.model.itemTitle);
     //使用这句话设置导航栏颜色
@@ -112,39 +111,6 @@
     //    [_tableView.mj_header beginRefreshing];
 }
 
--(void)addBottomView
-{
-//    UIView *bottomView = [UIView new];
-//    [self.view addSubview:bottomView];
-//    bottomView.sd_layout
-//    .leftEqualToView(self.view)
-//    .rightEqualToView(self.view)
-//    .bottomEqualToView(self.view)
-//    .heightIs(49 + BOTTOM_MARGIN)
-//    ;
-//    bottomView.backgroundColor = HexColor(#1282ee);
-    
-    _collectBtn = [UIButton new];
-    [self.view addSubview:_collectBtn];
-    _collectBtn.sd_layout
-    .leftEqualToView(self.view)
-    .rightEqualToView(self.view)
-    .bottomEqualToView(self.view)
-    .heightIs(49)
-    ;
-    [_collectBtn setBtnFont:PFFontR(16)];
-    _collectBtn.backgroundColor = HexColor(#1282ee);
-    [_collectBtn setNormalTitle:@"收藏"];
-    [_collectBtn setNormalImage:UIImageNamed(@"topicAddCollect")];
-    [_collectBtn updateLayout];
-    _collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
-    
-    [_collectBtn addTarget:self action:@selector(collectAction:) forControlEvents:UIControlEventTouchUpInside];
-    if (YES) {
-        [_collectBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-    }
-}
-
 -(void)addHeadView
 {
     if (!self.headView) {
@@ -206,18 +172,54 @@
     self.tableView.tableHeaderView = self.headView;
 }
 
--(void)collectAction:(UIButton *)sender
+-(void)addBottomView
 {
-    _collectBtn.selected = !_collectBtn.selected;
-    if (_collectBtn.selected) {
-        _collectBtn.backgroundColor = HexColor(#C0CEDB);
-        [_collectBtn setNormalTitle:@"已收藏"];
-        [_collectBtn setNormalImage:nil];
+    //    UIView *bottomView = [UIView new];
+    //    [self.view addSubview:bottomView];
+    //    bottomView.sd_layout
+    //    .leftEqualToView(self.view)
+    //    .rightEqualToView(self.view)
+    //    .bottomEqualToView(self.view)
+    //    .heightIs(49 + BOTTOM_MARGIN)
+    //    ;
+    //    bottomView.backgroundColor = HexColor(#1282ee);
+    
+    _collectBtn = [UIButton new];
+    [self.view addSubview:_collectBtn];
+    _collectBtn.sd_layout
+    .leftEqualToView(self.view)
+    .rightEqualToView(self.view)
+    .bottomEqualToView(self.view)
+    .heightIs(49)
+    ;
+    [_collectBtn setBtnFont:PFFontR(16)];
+    _collectBtn.backgroundColor = HexColor(#1282ee);
+    [_collectBtn setNormalTitle:@"收藏"];
+    [_collectBtn setNormalImage:UIImageNamed(@"topicAddCollect")];
+    [_collectBtn updateLayout];
+    _collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    [self setCollectBtnStatus:self.model.hasFavor];
+    
+    @weakify(self);
+    [_collectBtn whenTap:^{
+        @strongify(self);
+        [self requestTopicFavor];
+    }];
+}
+
+//设置收藏按钮状态
+-(void)setCollectBtnStatus:(BOOL)select
+{
+    self.collectBtn.selected = select;
+    if (self.collectBtn.selected) {
+        self.collectBtn.backgroundColor = HexColor(#C0CEDB);
+        [self.collectBtn setNormalTitle:@"已收藏"];
+        [self.collectBtn setNormalImage:nil];
     }else{
-        _collectBtn.backgroundColor = HexColor(#1282ee);
-        [_collectBtn setNormalTitle:@"收藏"];
-        [_collectBtn setNormalImage:UIImageNamed(@"topicAddCollect")];
-        _collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+        self.collectBtn.backgroundColor = HexColor(#1282ee);
+        [self.collectBtn setNormalTitle:@"收藏"];
+        [self.collectBtn setNormalImage:UIImageNamed(@"topicAddCollect")];
+        self.collectBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     }
 }
 
@@ -318,6 +320,7 @@
         //        }
         self.dataSource = [self.model.topicNewsList mutableCopy];
         [self addHeadView];
+        [self addBottomView];
         [self showOrHideLoadView:NO page:2];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
@@ -326,6 +329,16 @@
     }];
 }
 
+//收藏专题
+-(void)requestTopicFavor
+{
+    ShowHudOnly;
+    [HttpRequest getWithURLString:TopicFavor parameters:@{@"topicId":@(self.topicId)} success:^(id responseObject) {
+        NSInteger type = [responseObject[@"data"] integerValue];
+        self.model.hasFavor = type;
+        [self setCollectBtnStatus:self.model.hasFavor];
+    } failure:nil];
+}
 
 
 

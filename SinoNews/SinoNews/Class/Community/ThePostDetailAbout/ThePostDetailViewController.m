@@ -1377,7 +1377,9 @@ CGFloat static attentionBtnH = 26;
         [UserModel coverUserData:user];
         //直接重新拉一遍详情
         [self requestPost_browsePost];
-    } failure:nil RefreshAction:nil];
+    } failure:nil RefreshAction:^{
+        [self requestPost_browsePost];
+    }];
 }
 
 @end

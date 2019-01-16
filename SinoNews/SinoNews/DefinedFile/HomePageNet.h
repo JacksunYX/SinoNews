@@ -65,6 +65,8 @@
 #define ShowTopicDetails        @"/api/topic/showTopicDetails"
 //专题收藏(get)
 #define TopicFavor              @"/api/topic/favor"
+//我的专题收藏列表(get)
+#define TopicListUserTopic      @"/api/topic/listUserTopic"
 
 
 #pragma mark ---- 问答相关接口

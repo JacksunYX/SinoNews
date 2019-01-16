@@ -672,17 +672,17 @@
 -(void)requestTopicList
 {
     [self.tableView ly_startLoading];
-    [HttpRequest postWithURLString:Post_myFavor parameters:@{@"currPage":@(self.topicPage)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
-        NSMutableArray *dataArr = [TopicModel mj_objectArrayWithKeyValuesArray:response[@"data"][@"data"]];
-        
+    [HttpRequest getWithURLString:TopicListUserTopic parameters:@{@"currPage":@(self.topicPage)} success:^(id responseObject) {
+        NSMutableArray *dataArr = [TopicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        for (TopicModel *model in dataArr) {
+            model.tipName = @"专题";
+        }
         self.topicArray = [self.tableView pullWithPage:self.topicPage data:dataArr dataSource:self.topicArray];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
     } failure:^(NSError *error) {
         [self.tableView endAllRefresh];
         [self.tableView ly_endLoading];
-    } RefreshAction:^{
-        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 

@@ -129,7 +129,7 @@
         title.textColor = BrowsNewsTitleColor;
     }
     
-    NSString *titletext = GetSaveString(model.topicName);;
+    NSString *titletext = GetSaveString(model.itemTitle);
     
     NSString *tipName = GetSaveString(model.tipName);
     if ([NSString isEmpty:tipName]) {
@@ -162,7 +162,9 @@
             //专题
             
         }else{
-            str1 = AppendingString(GetSaveString(model.username), @"  ");
+            if (!model.topicId) {
+              str1 = AppendingString(GetSaveString(model.username), @"  ");
+            }
         }
         NSString *str2 = [UniversalMethod processNumShow:model.viewCount insertString:@"阅"];
         NSString *str3 = [UniversalMethod processNumShow:model.commentCount insertString:@"评"];

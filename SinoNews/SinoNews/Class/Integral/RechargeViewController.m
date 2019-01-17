@@ -388,7 +388,7 @@
     ;
     
     [moneyInput setSd_cornerRadius:@16];
-    NSString *placeholder = @"请输入充值金额";
+    NSString *placeholder = @"请输入充值金额(最少10元)";
     NSMutableAttributedString *placeholderAtt = [[NSMutableAttributedString alloc]initWithString:placeholder];
     NSDictionary *attDic = @{
                           NSFontAttributeName : FontScale(15),
@@ -612,6 +612,10 @@
 //积分充值
 -(void)requestMall_rechargeWithAmount:(double)amount
 {
+    if (amount<10) {
+        LRToast(@"充值金额不得少于10元");
+        return;
+    }
     [HttpRequest postWithURLString:Mall_recharge parameters:@{@"amount":@(amount)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         NSString *rechargeUrl = response[@"data"][@"rechargeUrl"];
         GGLog(@"充值地址：%@",rechargeUrl);

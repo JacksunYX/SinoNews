@@ -1372,9 +1372,6 @@ CGFloat static attentionBtnH = 26;
 {
     [HttpRequest postWithURLString:PostPurchasePost parameters:@{@"postId":@(self.postModel.postId)} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         LRToast(@"支付成功");
-        UserModel *user = [UserModel getLocalUserModel];
-        user.integral = [response[@"data"][@"remainPoints"] longValue];
-        [UserModel coverUserData:user];
         //直接重新拉一遍详情
         [self requestPost_browsePost];
     } failure:nil RefreshAction:^{

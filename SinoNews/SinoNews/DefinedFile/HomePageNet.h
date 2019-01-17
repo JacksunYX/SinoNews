@@ -67,6 +67,8 @@
 #define TopicFavor              @"/api/topic/favor"
 //我的专题收藏列表(get)
 #define TopicListUserTopic      @"/api/topic/listUserTopic"
+//批量取消收藏专题(post)
+#define TopicUnfavors           @"/api/topic/unfavors"
 
 
 #pragma mark ---- 问答相关接口

@@ -1601,7 +1601,7 @@ CGFloat static attentionBtnH = 26;
             @weakify(self);
             [lockImg whenTap:^{
                 @strongify(self)
-
+                
                 if ([YXHeader checkNormalBackLoginHandle:^(BOOL login) {
                     if (login) {
                         [self requestNewData];

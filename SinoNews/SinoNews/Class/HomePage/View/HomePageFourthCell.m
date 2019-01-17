@@ -27,15 +27,30 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    if (!self.editing) return;
+    //替换编辑模式下cell左边的图片
+    if (self.isEditing) {
+        self.contentView.backgroundColor = [UIColor clearColor];
+        //这里自定义了cell 就改变自定义控件的颜色
+        //        self.textLabel.backgroundColor = [UIColor clearColor];
+        UIControl *control = [self.subviews lastObject];
+        UIImageView * imgView = [[control subviews] objectAtIndex:0];
+        if (self.isSelected) {
+            imgView.image = [UIImage imageNamed:@"collect_selected"];
+        }else{
+            imgView.image = [UIImage imageNamed:@"collect_unSelected"];
+        }
+    }
     
-    // Configure the view for the selected state
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIView *selectView = [UIView new];
+        selectView.backgroundColor = ClearColor;
+        self.selectedBackgroundView = selectView;
         [self setupUI];
     }
     return self;

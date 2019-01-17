@@ -424,6 +424,7 @@
     self.selectAllBtn.selected = NO;
     
     [self.tableView reloadData];
+    [self.tableView ly_endLoading];
     //恢复初始状态
     [self showOrHiddenTheSelections:NO];
 }
@@ -674,9 +675,9 @@
     [self.tableView ly_startLoading];
     [HttpRequest getWithURLString:TopicListUserTopic parameters:@{@"currPage":@(self.topicPage)} success:^(id responseObject) {
         NSMutableArray *dataArr = [TopicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-        for (TopicModel *model in dataArr) {
-            model.tipName = @"专题";
-        }
+//        for (TopicModel *model in dataArr) {
+//            model.tipName = @"专题";
+//        }
         self.topicArray = [self.tableView pullWithPage:self.topicPage data:dataArr dataSource:self.topicArray];
         [self.tableView reloadData];
         [self.tableView ly_endLoading];
@@ -731,7 +732,7 @@
     }
     [str deleteCharactersInRange:NSMakeRange(str.length - 1, 1)];
     @weakify(self)
-    [HttpRequest postWithURLString:Post_batchCancelFavor parameters:@{@"postIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+    [HttpRequest postWithURLString:TopicUnfavors parameters:@{@"topicIds":str} isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         @strongify(self)
         [self resetStatus];
     } failure:nil RefreshAction:^{

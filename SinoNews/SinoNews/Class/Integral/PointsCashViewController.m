@@ -376,7 +376,7 @@
     ;
     
     [moneyInput setSd_cornerRadius:@16];
-    NSString *placeholder = @"请输入提现金额";
+    NSString *placeholder = @"请输入提现金额(最少100元)";
     NSMutableAttributedString *placeholderAtt = [[NSMutableAttributedString alloc]initWithString:placeholder];
     NSDictionary *attDic = @{
                              NSFontAttributeName : FontScale(15),

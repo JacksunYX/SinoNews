@@ -33,9 +33,9 @@
     }
     _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 44) titles:titles headStyle:1 layoutStyle:0];
     //    _segHead.fontScale = .85;
-    _segHead.lineScale = 0.6;
+    _segHead.lineScale = 0.3;
     _segHead.fontSize = 16;
-    _segHead.lineHeight = 3;
+    _segHead.lineHeight = 2;
     _segHead.lineColor = HexColor(#1282EE);
     _segHead.selectColor = HexColor(#1282EE);
     //    _segHead.deSelectColor = HexColor(#7B7B7B);

@@ -163,6 +163,9 @@
     promoteCode = [TXLimitedTextField new];
     promoteCode.clearButtonMode = UITextFieldViewModeWhileEditing;
     promoteCode.delegate = self;
+    promoteCode.limitedType = TXLimitedTextFieldTypeCustom;
+    promoteCode.limitedRegExs = @[kTXLimitedTextFieldNumberOnlyRegex];
+    promoteCode.limitedNumber = 6;
     
     registerBtn = [UIButton new];
     [registerBtn setTitleColor:WhiteColor forState:UIControlStateNormal];

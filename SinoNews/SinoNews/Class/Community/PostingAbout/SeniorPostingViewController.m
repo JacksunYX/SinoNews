@@ -567,7 +567,6 @@
     _addPeopleBtn.hidden = YES;
 #endif
     
-#ifndef OpenAddLocalEmoji
     emojiBtn.sd_layout
     .centerYEqualToView(functionView)
     .leftSpaceToView(functionView, 0)
@@ -575,8 +574,7 @@
     .heightIs(23)
     ;
     [emojiBtn setHidden:YES];
-    [_emojiKeyboard removeFromSuperview];
-#endif
+//    [_emojiKeyboard removeFromSuperview];
 }
 
 //隐藏键盘

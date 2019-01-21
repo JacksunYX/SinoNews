@@ -121,7 +121,7 @@
     [btn2 setNormalImage:UIImageNamed(@"SeniorPosts_icon")];
     [btn3 setNormalTitle:@"发起投票"];
     [btn3 setNormalImage:UIImageNamed(@"Avote_icon")];
-    [btn4 setNormalTitle:@"发付费帖"];
+    [btn4 setNormalTitle:@"发收费帖"];
     [btn4 setNormalImage:UIImageNamed(@"chargePost_icon")];
     
     btn1.tag = 10058+0;

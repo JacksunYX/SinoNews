@@ -49,6 +49,8 @@
 @property (nonatomic,strong) UIButton *directoryBtn;
 //评论分页按钮
 @property (nonatomic,strong) UIButton *commentPagingBtn;
+//是否只看楼主
+@property (nonatomic,assign) NSInteger isOnlyPost;
 
 @property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
@@ -767,8 +769,15 @@ CGFloat static attentionBtnH = 26;
         UILabel *sepLine = [UILabel new];
         UIView *rightView = [UIView new];
         
+        //只看楼主按钮
+        UIButton *onlyPoster = [UIButton new];
+        [onlyPoster setNormalImage:UIImageNamed(@"onlyPoster_unSelect")];
+        [onlyPoster setSelectedImage:UIImageNamed(@"onlyPoster_selected")];
+        [onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
+        
         [_section2View sd_addSubviews:@[
                                         _allComment,
+                                        onlyPoster,
                                         rightView,
                                         
                                         ]];
@@ -779,6 +788,13 @@ CGFloat static attentionBtnH = 26;
         ;
         [_allComment setSingleLineAutoResizeWithMaxWidth:200];
         _allComment.font = PFFontR(14);
+        
+        onlyPoster.sd_layout
+        .leftSpaceToView(_allComment, 10)
+        .centerYEqualToView(_section2View)
+        .widthIs(50)
+        .heightIs(19)
+        ;
         
         rightView.sd_layout
         .rightSpaceToView(_section2View, 10)
@@ -796,10 +812,10 @@ CGFloat static attentionBtnH = 26;
         _ascendingLabel.sd_layout
         .centerYEqualToView(rightView)
         .leftSpaceToView(rightView, 0)
-        .widthIs(22)
+        .widthIs(25)
         .heightIs(18)
         ;
-        _ascendingLabel.font = PFFontL(11);
+        _ascendingLabel.font = PFFontL(12);
         _ascendingLabel.textColor = HexColor(#1282EE);
         _ascendingLabel.text = @"正序";
         _ascendingLabel.tag = 10086;
@@ -817,10 +833,10 @@ CGFloat static attentionBtnH = 26;
         _descendingLabel.sd_layout
         .centerYEqualToView(rightView)
         .leftSpaceToView(sepLine, 0)
-        .widthIs(22)
+        .widthIs(25)
         .heightIs(18)
         ;
-        _descendingLabel.font = PFFontL(11);
+        _descendingLabel.font = PFFontL(12);
         _descendingLabel.textColor = HexColor(#ABB2C3);
         _descendingLabel.text = @"倒序";
         
@@ -853,6 +869,19 @@ CGFloat static attentionBtnH = 26;
     }
     ShowHudOnly;
     [self requestListPostComments:1];
+}
+
+//只看楼主
+-(void)checkPostCommet:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        _isOnlyPost = YES;
+    }else{
+        _isOnlyPost = NO;
+    }
+    self.currPage = 1;
+    [self requestListPostComments:self.currPage];
 }
 
 //点击评论回复弹框
@@ -1315,6 +1344,7 @@ CGFloat static attentionBtnH = 26;
     parameters[@"postId"] = @(self.postModel.postId);
     parameters[@"currPage"] = @(page);
     parameters[@"sort"] = @(self.sort);
+    parameters[@"author"] = @(self.isOnlyPost);
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
         HiddenHudOnly;
@@ -1322,7 +1352,9 @@ CGFloat static attentionBtnH = 26;
         self.commentsArr = [self.tableView pullWithPage:page data:commentArr dataSource:self.commentsArr];
         self.currPage = page;
         [self setUpPageBtn];
-        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationFade];
+        //直接刷新分区会出现高度错误的bug
+//        [self.tableView reloadSection:2 withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         HiddenHudOnly;
         [self.tableView endAllRefresh];

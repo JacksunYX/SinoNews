@@ -239,11 +239,16 @@
     _commentSortBtn.selected = !_commentSortBtn.selected;
     if (_commentSortBtn.selected) {
         _sort = 1;
+        [HUD showLoading:@"回复时间降序"];
     }else{
         _sort = 0;
+        [HUD showLoading:@"回复时间升序"];
     }
     //如果有数据，直接本地排序，无数据再请求后台
     if (self.commentsArr>0) {
+        GCDAfterTime(0.5, ^{
+            [HUD hide];
+        });
         self.commentsArr = (NSMutableArray *)[[self.commentsArr reverseObjectEnumerator] allObjects];
         [self.tableView reloadData];
     }else{
@@ -330,10 +335,12 @@
     parameters[@"author"] = @(self.isOnlyPost);
     
     [HttpRequest getWithURLString:ListPostComments parameters:parameters success:^(id responseObject) {
+        [HUD hide];
         self.commentsArr = [PostReplyModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"data"]];
         [self setUpPageBtn];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
+        [HUD hide];
         [self.tableView endAllRefresh];
     }];
 }

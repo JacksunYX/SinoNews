@@ -34,6 +34,7 @@
 @property (nonatomic,strong) UIView *headView;
 @property (nonatomic,strong) FSTextView *titleView;
 @property (nonatomic,strong) YXTextView *contentView;
+@property (nonatomic,strong) UIView *footView;
 @property (nonatomic,strong) UIButton *publishBtn;
 //title、content输入输入时键盘的辅助视图
 @property (nonatomic,strong) UIView *bottomView;
@@ -148,6 +149,77 @@
         _contentView.layer.borderWidth = 1;
     }
     return _headView;
+}
+
+-(UIView *)footView
+{
+    if (!_footView) {
+        _footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 90)];
+        _footView.backgroundColor = WhiteColor;
+        CGFloat avgW = 50;
+        CGFloat avgH = 51;
+        CGFloat avgSpaceX = 20;
+        UIView *centerBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, avgW * 4 + avgSpaceX * 3, avgH)];
+        [_footView addSubview:centerBackView];
+        centerBackView.center = _footView.center;
+        //添加功能按钮
+        UIButton *addTitleBtn = [UIButton new];
+        UIButton *addContentBtn = [UIButton new];
+        UIButton *addImageBtn = [UIButton new];
+        UIButton *addVideoBtn = [UIButton new];
+        
+        //布局
+        [centerBackView sd_addSubviews:@[
+                                       addTitleBtn,
+                                       addContentBtn,
+                                       addImageBtn,
+                                       addVideoBtn,
+                                       
+                                       ]];
+        addTitleBtn.sd_layout
+        .centerYEqualToView(centerBackView)
+        .leftEqualToView(centerBackView)
+        .widthIs(50)
+        .heightIs(51)
+        ;
+        [addTitleBtn setNormalImage:UIImageNamed(@"footView_1")];
+        
+        addContentBtn.sd_layout
+        .centerYEqualToView(centerBackView)
+        .leftSpaceToView(addTitleBtn, avgSpaceX)
+        .widthIs(50)
+        .heightIs(51)
+        ;
+        [addContentBtn setNormalImage:UIImageNamed(@"footView_2")];
+        
+        addImageBtn.sd_layout
+        .centerYEqualToView(centerBackView)
+        .leftSpaceToView(addContentBtn, avgSpaceX)
+        .widthIs(50)
+        .heightIs(51)
+        ;
+        [addImageBtn setNormalImage:UIImageNamed(@"footView_3")];
+        
+        addVideoBtn.sd_layout
+        .centerYEqualToView(centerBackView)
+        .leftSpaceToView(addImageBtn, avgSpaceX)
+        .widthIs(50)
+        .heightIs(51)
+        ;
+        [addVideoBtn setNormalImage:UIImageNamed(@"footView_4")];
+        
+        addTitleBtn.tag = 1;
+        addContentBtn.tag = 2;
+        addImageBtn.tag = 3;
+        addVideoBtn.tag = 4;
+        
+        [addTitleBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [addContentBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [addImageBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [addVideoBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _footView;
 }
 
 -(UIView *)bottomView
@@ -430,6 +502,7 @@
     [_tableView registerClass:[SeniorPostingAddVideoCell class] forCellReuseIdentifier:SeniorPostingAddVideoCellID];
     
     _tableView.tableHeaderView = self.headView;
+    _tableView.tableFooterView = self.footView;
     
     [self setFuctionView];
     

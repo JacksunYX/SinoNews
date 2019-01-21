@@ -232,9 +232,7 @@
         
         NSMutableDictionary *dic = [NSMutableDictionary new];
         
-        if (model.subSections.count>8) {
-            dic[@"unFold"] = @(model.haveUnFold);
-        }
+        dic[@"unFold"] = @(model.haveUnFold);
         
         [footerView setData:dic];
         @weakify(self);
@@ -262,10 +260,8 @@
 {
     MainSectionModel *model = self.dataSource[section];
     
-    if (model.subSections.count>8) {
-        if (model.haveUnFold == NO) {
-            return CGSizeMake(ScreenW, 44);
-        }
+    if (model.haveUnFold == NO) {
+        return CGSizeMake(ScreenW, 44);
     }
     return CGSizeMake(ScreenW, 10);
 }
@@ -297,12 +293,18 @@
 //请求全部版块数据
 -(void)requestListAllSection
 {
+    ShowHudOnly;
     [HttpRequest getWithURLString:ListAllSections parameters:nil success:^(id responseObject) {
         
         NSArray *listArr = [MainSectionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         if (listArr.count > 0) {
             [self.dataSource removeAllObjects];
             [self.dataSource addObjectsFromArray:listArr];
+            for (MainSectionModel *model in self.dataSource) {
+                if (model.subSections.count<=8) {
+                    model.haveUnFold = YES;
+                }
+            }
             [self compareLocalSectionsWithServer];
             [self setUI];
         }

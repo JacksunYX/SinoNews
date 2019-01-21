@@ -838,8 +838,8 @@ CGFloat static attentionBtnH = 26;
         
         //只看楼主按钮
         UIButton *onlyPoster = [UIButton new];
-        [onlyPoster setNormalImage:UIImageNamed(@"onlyPoster_unSelect")];
-        [onlyPoster setSelectedImage:UIImageNamed(@"onlyPoster_selected")];
+        [onlyPoster setNormalImage:UIImageNamed(@"onlyPost_unSelect")];
+        [onlyPoster setSelectedImage:UIImageNamed(@"onlyPost_selected")];
         [onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
         
         [_section1View sd_addSubviews:@[
@@ -858,7 +858,7 @@ CGFloat static attentionBtnH = 26;
         onlyPoster.sd_layout
         .leftSpaceToView(_allComment, 10)
         .centerYEqualToView(_section1View)
-        .widthIs(50)
+        .widthIs(35)
         .heightIs(19)
         ;
         
@@ -878,7 +878,7 @@ CGFloat static attentionBtnH = 26;
         _ascendingLabel.sd_layout
         .centerYEqualToView(rightView)
         .leftSpaceToView(rightView, 0)
-        .widthIs(22)
+        .widthIs(25)
         .heightIs(18)
         ;
         _ascendingLabel.font = PFFontL(12);
@@ -899,7 +899,7 @@ CGFloat static attentionBtnH = 26;
         _descendingLabel.sd_layout
         .centerYEqualToView(rightView)
         .leftSpaceToView(sepLine, 0)
-        .widthIs(22)
+        .widthIs(25)
         .heightIs(18)
         ;
         _descendingLabel.font = PFFontL(12);

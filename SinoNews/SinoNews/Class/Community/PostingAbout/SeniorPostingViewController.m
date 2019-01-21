@@ -502,7 +502,7 @@
     [_tableView registerClass:[SeniorPostingAddVideoCell class] forCellReuseIdentifier:SeniorPostingAddVideoCellID];
     
     _tableView.tableHeaderView = self.headView;
-    _tableView.tableFooterView = self.footView;
+//    _tableView.tableFooterView = self.footView;
     
     [self setFuctionView];
     
@@ -577,7 +577,7 @@
     .widthIs(15)
     .heightIs(19)
     ;
-    [addTitleBtn setNormalImage:UIImageNamed(@"addTitle_post")];
+    [addTitleBtn setNormalImage:UIImageNamed(@"addTitle_post1")];
     
     addContentBtn.sd_layout
     .centerYEqualToView(functionView)
@@ -585,7 +585,7 @@
     .widthIs(22)
     .heightEqualToWidth()
     ;
-    [addContentBtn setNormalImage:UIImageNamed(@"addContent_post")];
+    [addContentBtn setNormalImage:UIImageNamed(@"addContent_post1")];
     
     addImageBtn.sd_layout
     .centerYEqualToView(functionView)
@@ -593,7 +593,7 @@
     .widthIs(22)
     .heightEqualToWidth()
     ;
-    [addImageBtn setNormalImage:UIImageNamed(@"addImage_icon")];
+    [addImageBtn setNormalImage:UIImageNamed(@"addImage_icon1")];
     
     addVideoBtn.sd_layout
     .centerYEqualToView(functionView)
@@ -601,7 +601,7 @@
     .widthIs(25)
     .heightIs(19)
     ;
-    [addVideoBtn setNormalImage:UIImageNamed(@"addVedio_post")];
+    [addVideoBtn setNormalImage:UIImageNamed(@"addVedio_post1")];
     
     _addPeopleBtn.sd_layout
     .centerYEqualToView(functionView)

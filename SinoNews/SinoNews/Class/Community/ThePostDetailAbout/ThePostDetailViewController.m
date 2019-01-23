@@ -43,6 +43,7 @@
 
 @property (nonatomic,strong) UIView *section2View;
 @property (nonatomic,strong) UILabel *allComment;
+@property (nonatomic,strong) UIButton *onlyPoster;
 @property (nonatomic,strong) UILabel *ascendingLabel;
 @property (nonatomic,strong) UILabel *descendingLabel;
 //目录按钮
@@ -768,16 +769,15 @@ CGFloat static attentionBtnH = 26;
         _descendingLabel = [UILabel new];
         UILabel *sepLine = [UILabel new];
         UIView *rightView = [UIView new];
-        
         //只看楼主按钮
-        UIButton *onlyPoster = [UIButton new];
-        [onlyPoster setNormalImage:UIImageNamed(@"onlyPost_unSelect")];
-        [onlyPoster setSelectedImage:UIImageNamed(@"onlyPost_selected")];
-        [onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
+        _onlyPoster = [UIButton new];
+        [_onlyPoster setNormalImage:UIImageNamed(@"onlyPost_unSelect")];
+        [_onlyPoster setSelectedImage:UIImageNamed(@"onlyPost_selected")];
+        [_onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
         
         [_section2View sd_addSubviews:@[
                                         _allComment,
-                                        onlyPoster,
+                                        _onlyPoster,
                                         rightView,
                                         
                                         ]];
@@ -789,7 +789,7 @@ CGFloat static attentionBtnH = 26;
         [_allComment setSingleLineAutoResizeWithMaxWidth:200];
         _allComment.font = PFFontR(14);
         
-        onlyPoster.sd_layout
+        _onlyPoster.sd_layout
         .leftSpaceToView(_allComment, 10)
         .centerYEqualToView(_section2View)
         .widthIs(35)
@@ -842,14 +842,13 @@ CGFloat static attentionBtnH = 26;
         
         [rightView setupAutoWidthWithRightView:_descendingLabel rightMargin:0];
         
-        
         @weakify(self);
         [rightView whenTap:^{
             @strongify(self);
             [self sortAction];
         }];
     }
-    
+    _onlyPoster.hidden = self.postModel.commentCount>0?NO:YES;
     _allComment.text = [NSString stringWithFormat:@"全部评论（%ld）",self.postModel.commentCount];
 }
 

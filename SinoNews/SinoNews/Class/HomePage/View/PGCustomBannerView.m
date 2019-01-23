@@ -39,7 +39,7 @@
     self.indexLabel.frame = CGRectMake(10, superViewBounds.size.height - titleHeight, superViewBounds.size.width - 20, titleHeight);
     self.indexLabelBackView.frame = CGRectMake(0, superViewBounds.size.height - titleHeight, superViewBounds.size.width, titleHeight);
     self.topicLabel.frame = CGRectMake(10, CGRectGetMinY(self.indexLabel.frame) - 5 - 20, 35, 20);
-    self.topicLabel.text = @"专题";
+    self.topicLabel.text = @"长篇";
     [self.topicLabel cornerWithRadius:3];
 }
 

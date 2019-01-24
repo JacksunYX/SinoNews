@@ -202,13 +202,13 @@
 
     }];
     
-    _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
+    _tableView.mj_footer = [YXBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self)
         if (self.tableView.mj_header.isRefreshing||!self.dataSource.count) {
             [self.tableView.mj_footer endRefreshing];
             return ;
         }
-
+        
         self.page++;
 
         if ([self.news_id integerValue]) {
@@ -323,6 +323,7 @@
             case 200:   //无图
             {
                 HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                cell1.isTopic = YES;
                 cell1.model = model1;
                 cell = (UITableViewCell *)cell1;
             }
@@ -331,6 +332,7 @@
             case 201:   //1图
             {
                 HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell1.isTopic = YES;
                 cell1.model = model1;
                 cell = (UITableViewCell *)cell1;
             }
@@ -339,6 +341,7 @@
             case 203:   //3图
             {
                 HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                cell1.isTopic = YES;
                 cell1.model = model1;
                 cell = (UITableViewCell *)cell1;
             }
@@ -430,8 +433,6 @@
         
     }
     
-    [self.navigationController pushViewController:pushVC animated:YES];
-    
     //是否需要标记看过
     if ([model isKindOfClass:[HomePageModel class]]) {
         HomePageModel *model1 = model;
@@ -450,8 +451,9 @@
     }else if ([model isKindOfClass:[ADModel class]]){
         ADModel *model1 = model;
         [UniversalMethod jumpWithADModel:model1];
+        return;
     }
-    
+    [self.navigationController pushViewController:pushVC animated:YES];
 }
 
 #pragma mark ---- 请求方法

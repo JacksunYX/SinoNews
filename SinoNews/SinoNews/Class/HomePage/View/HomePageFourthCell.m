@@ -136,7 +136,7 @@
     _model = model;
     
     [title addTitleColorTheme];
-    
+    bottomLabel.hidden = self.isTopic;
     bottomLabel.textColor = HexColor(#889199);
     
     //判断是否已经浏览过了
@@ -177,7 +177,7 @@
             //专题
             
         }else{
-            if (!model.topicId) {
+            if (!model.topicId||!self.isTopic) {
               str1 = AppendingString(GetSaveString(model.username), @"  ");
             }
         }

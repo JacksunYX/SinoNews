@@ -24,10 +24,10 @@
 
 #define DebugDomain2 @"http://192.168.2.144:8083" //Edison
 #define DebugDomain4 @"http://api.519m.cn/api/"
+//正式测试
+#define DebugDomain5 @"http://mlc.bravetroops.biz"
 
-#define DebugDomain5 @"http://server.bravetroops.biz"
-//正式
-#define DebugDomain3 @"https://qsl.bravetroops.biz"
+
 
 
 

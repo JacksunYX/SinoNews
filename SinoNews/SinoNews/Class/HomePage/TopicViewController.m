@@ -115,6 +115,7 @@
 {
     if (!self.headView) {
         self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 270)];
+        [self.headView addBorderTo:BorderTypeBottom borderColor:CutLineColor];
         [self.headView addBakcgroundColorTheme];
         
         UIImageView *titltImg = [UIImageView new];
@@ -277,6 +278,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     HomePageModel * model = self.dataSource[indexPath.row];
     
     NewsDetailViewController *ndVC = [NewsDetailViewController new];

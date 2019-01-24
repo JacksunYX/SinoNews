@@ -52,6 +52,7 @@
 //分区1
 @property (nonatomic,strong) UIView *section1View;
 @property (nonatomic,strong) UILabel *allComment;
+@property (nonatomic,strong) UIButton *onlyPoster;
 @property (nonatomic,strong) UILabel *ascendingLabel;
 @property (nonatomic,strong) UILabel *descendingLabel;
 
@@ -837,14 +838,14 @@ CGFloat static attentionBtnH = 26;
         UIView *rightView = [UIView new];
         
         //只看楼主按钮
-        UIButton *onlyPoster = [UIButton new];
-        [onlyPoster setNormalImage:UIImageNamed(@"onlyPost_unSelect")];
-        [onlyPoster setSelectedImage:UIImageNamed(@"onlyPost_selected")];
-        [onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
+        _onlyPoster = [UIButton new];
+        [_onlyPoster setNormalImage:UIImageNamed(@"onlyPost_unSelect")];
+        [_onlyPoster setSelectedImage:UIImageNamed(@"onlyPost_selected")];
+        [_onlyPoster addTarget:self action:@selector(checkPostCommet:) forControlEvents:UIControlEventTouchUpInside];
         
         [_section1View sd_addSubviews:@[
                                         _allComment,
-                                       onlyPoster, rightView,
+                                       _onlyPoster, rightView,
                                         
                                         ]];
         _allComment.sd_layout
@@ -855,7 +856,7 @@ CGFloat static attentionBtnH = 26;
         [_allComment setSingleLineAutoResizeWithMaxWidth:200];
         _allComment.font = PFFontR(14);
         
-        onlyPoster.sd_layout
+        _onlyPoster.sd_layout
         .leftSpaceToView(_allComment, 10)
         .centerYEqualToView(_section1View)
         .widthIs(35)
@@ -915,6 +916,7 @@ CGFloat static attentionBtnH = 26;
             [self sortAction];
         }];
     }
+    _onlyPoster.hidden = self.postModel.commentCount>0?NO:YES;
     _allComment.text = [NSString stringWithFormat:@"全部评论（%ld）",self.postModel.commentCount];
 }
 

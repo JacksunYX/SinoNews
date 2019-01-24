@@ -18,5 +18,7 @@
 
 //默认是正常拼接、1是只拼接阅读和发布时间
 @property (nonatomic,assign) NSInteger bottomShowType;
+//是否是专题（小说）
+@property (nonatomic,assign) NSInteger isTopic;
 
 @end

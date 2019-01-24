@@ -174,7 +174,7 @@
 -(void)setModel:(HomePageModel *)model
 {
     _model = model;
-    
+    bottomLabel.hidden = self.isTopic;
     bottomLabel.textColor = HexColor(#889199);
     
     [title addTitleColorTheme];

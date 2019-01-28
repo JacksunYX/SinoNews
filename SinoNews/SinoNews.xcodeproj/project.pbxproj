@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C00EF9721FE9672003336E0 /* UIImage+HYBImageCliped.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00EF8E21FE9672003336E0 /* UIImage+HYBImageCliped.m */; };
+		4C00EF9821FE9672003336E0 /* UIButton+HYBImageCliped.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00EF8F21FE9672003336E0 /* UIButton+HYBImageCliped.m */; };
+		4C00EF9921FE9672003336E0 /* UIView+HYBImageCliped.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00EF9021FE9672003336E0 /* UIView+HYBImageCliped.m */; };
+		4C00EF9A21FE9672003336E0 /* UIImageView+HYBImageCliped.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00EF9121FE9672003336E0 /* UIImageView+HYBImageCliped.m */; };
+		4C00EF9B21FE9672003336E0 /* HYBImageClipedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00EF9321FE9672003336E0 /* HYBImageClipedManager.m */; };
 		4C02F900218A9CE200CB0169 /* ReadPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */; };
 		4C02F903218ADC6C00CB0169 /* ForumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F902218ADC6C00CB0169 /* ForumDetailViewController.m */; };
 		4C02F906218AE4A800CB0169 /* ForumDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C02F905218AE4A800CB0169 /* ForumDetailTableViewCell.m */; };
@@ -891,6 +896,17 @@
 /* Begin PBXFileReference section */
 		1263473AE591A42902DC72C9 /* Pods-SinoNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNews/Pods-SinoNews.release.xcconfig"; sourceTree = "<group>"; };
 		4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNewsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C00EF8C21FE9672003336E0 /* UIImage+HYBmageCliped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HYBmageCliped.h"; sourceTree = "<group>"; };
+		4C00EF8D21FE9672003336E0 /* HYBImageClipedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBImageClipedManager.h; sourceTree = "<group>"; };
+		4C00EF8E21FE9672003336E0 /* UIImage+HYBImageCliped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HYBImageCliped.m"; sourceTree = "<group>"; };
+		4C00EF8F21FE9672003336E0 /* UIButton+HYBImageCliped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HYBImageCliped.m"; sourceTree = "<group>"; };
+		4C00EF9021FE9672003336E0 /* UIView+HYBImageCliped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HYBImageCliped.m"; sourceTree = "<group>"; };
+		4C00EF9121FE9672003336E0 /* UIImageView+HYBImageCliped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HYBImageCliped.m"; sourceTree = "<group>"; };
+		4C00EF9221FE9672003336E0 /* HYBImageCliped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBImageCliped.h; sourceTree = "<group>"; };
+		4C00EF9321FE9672003336E0 /* HYBImageClipedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBImageClipedManager.m; sourceTree = "<group>"; };
+		4C00EF9421FE9672003336E0 /* UIView+HYBImageCliped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HYBImageCliped.h"; sourceTree = "<group>"; };
+		4C00EF9521FE9672003336E0 /* UIButton+HYBImageCliped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HYBImageCliped.h"; sourceTree = "<group>"; };
+		4C00EF9621FE9672003336E0 /* UIImageView+HYBImageCliped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HYBImageCliped.h"; sourceTree = "<group>"; };
 		4C02F8FE218A9CE200CB0169 /* ReadPostListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadPostListTableViewCell.h; sourceTree = "<group>"; };
 		4C02F8FF218A9CE200CB0169 /* ReadPostListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadPostListTableViewCell.m; sourceTree = "<group>"; };
 		4C02F901218ADC6C00CB0169 /* ForumDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumDetailViewController.h; sourceTree = "<group>"; };
@@ -2440,6 +2456,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C00EF8B21FE9672003336E0 /* HYBImageCliped */ = {
+			isa = PBXGroup;
+			children = (
+				4C00EF9221FE9672003336E0 /* HYBImageCliped.h */,
+				4C00EF8D21FE9672003336E0 /* HYBImageClipedManager.h */,
+				4C00EF9321FE9672003336E0 /* HYBImageClipedManager.m */,
+				4C00EF9421FE9672003336E0 /* UIView+HYBImageCliped.h */,
+				4C00EF9021FE9672003336E0 /* UIView+HYBImageCliped.m */,
+				4C00EF8C21FE9672003336E0 /* UIImage+HYBmageCliped.h */,
+				4C00EF8E21FE9672003336E0 /* UIImage+HYBImageCliped.m */,
+				4C00EF9521FE9672003336E0 /* UIButton+HYBImageCliped.h */,
+				4C00EF8F21FE9672003336E0 /* UIButton+HYBImageCliped.m */,
+				4C00EF9621FE9672003336E0 /* UIImageView+HYBImageCliped.h */,
+				4C00EF9121FE9672003336E0 /* UIImageView+HYBImageCliped.m */,
+			);
+			path = HYBImageCliped;
+			sourceTree = "<group>";
+		};
 		4C03F52D2101BE9F00574136 /* FDFullscreenPopGesture */ = {
 			isa = PBXGroup;
 			children = (
@@ -3181,6 +3215,7 @@
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
 				4C23B47620F5ED2700ACE380 /* Test.swift */,
 				4C23B50C20F5F82C00ACE380 /* test2.swift */,
+				4C00EF8B21FE9672003336E0 /* HYBImageCliped */,
 				4C0DD31321CB1ADC004F4BF1 /* ZZJsonToModel */,
 				4C1227E021B5261700E19AD4 /* XHLaunchAd */,
 				4CEEDAF521AE97C20098702F /* GeeTest */,
@@ -5660,6 +5695,7 @@
 				4C87360320BEAB4F00B6A8B5 /* SearchCollectionViewCell.m in Sources */,
 				4C6E9167213F5F07001535CA /* YYAnimatedImageView.m in Sources */,
 				4C40C75621957182006408DE /* VoteChooseInputModel.m in Sources */,
+				4C00EF9921FE9672003336E0 /* UIView+HYBImageCliped.m in Sources */,
 				4C1227FE21B5261700E19AD4 /* XHLaunchAdImageView+XHLaunchAdCache.m in Sources */,
 				4C7234E720FDEB1D00D5C5D4 /* AASpline.m in Sources */,
 				4C6E9198213F5F07001535CA /* NSNotificationCenter+YYAdd.m in Sources */,
@@ -5872,6 +5908,7 @@
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,
 				4C138EB7218155EE00FA2667 /* ChangeAttentionCell.m in Sources */,
 				4C8D5C46219AD40C008C13A9 /* PreviewImageTableViewCell.m in Sources */,
+				4C00EF9A21FE9672003336E0 /* UIImageView+HYBImageCliped.m in Sources */,
 				4CA1420320F48A6900536E77 /* PublishArticleViewController.m in Sources */,
 				4C992F7D2177175D0092DDCF /* KWEditorBar.m in Sources */,
 				4C8D5C3A219AC26C008C13A9 /* UIView+WZLBadge.m in Sources */,
@@ -6015,6 +6052,7 @@
 				4C23B5CA20F6E30C00ACE380 /* GetCurrentFont.m in Sources */,
 				4C1DE9EF213D2E0600350313 /* Util.m in Sources */,
 				4C73383A21465B0B0001B33F /* YJProgressHUD.m in Sources */,
+				4C00EF9721FE9672003336E0 /* UIImage+HYBImageCliped.m in Sources */,
 				4C534F2A20E1D5F500754695 /* UserInfoCommentCell.m in Sources */,
 				4CA23270212E99A8006709E6 /* VersionCheckHelper.m in Sources */,
 				4C44E37F212261B600C5D10A /* NewPublishManagerVC.m in Sources */,
@@ -6051,6 +6089,7 @@
 				4C992FF9217717680092DDCF /* HXAlbumModel.m in Sources */,
 				4C6E9176213F5F07001535CA /* YYTextRunDelegate.m in Sources */,
 				4C5B5B0B21804DC000B52329 /* ForumRightTableViewCell.m in Sources */,
+				4C00EF9821FE9672003336E0 /* UIButton+HYBImageCliped.m in Sources */,
 				4C7B5DF721882D8300B76E47 /* TFDropDownMenuView.m in Sources */,
 				4C1DE9FB213D339600350313 /* WebViewJavascriptBridge.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
@@ -6100,6 +6139,7 @@
 				4C992FEF217717680092DDCF /* HXCustomCameraController.m in Sources */,
 				4CC289962105BD5F00BC4D92 /* VoteViewController.m in Sources */,
 				4C4C95AF218FF29200627B07 /* TZPhotoPreviewCell.m in Sources */,
+				4C00EF9B21FE9672003336E0 /* HYBImageClipedManager.m in Sources */,
 				4C6E9170213F5F07001535CA /* YYTextLayout.m in Sources */,
 				4C13E96C20C67263009115C1 /* CZHAddressPickerView.m in Sources */,
 				4C4EC3082112E3E800591F12 /* ZXYShineLayer.m in Sources */,

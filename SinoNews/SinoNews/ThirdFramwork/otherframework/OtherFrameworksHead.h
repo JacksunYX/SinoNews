@@ -81,4 +81,6 @@
 
 #import "AutoModelHelper.h"
 
+#import "HYBImageCliped.h"
+
 #endif /* OtherFrameworksHead_h */

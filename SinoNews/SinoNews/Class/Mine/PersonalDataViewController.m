@@ -330,9 +330,16 @@
         NSDate *minLimitDate = [minDateFormater dateFromString:@"1900-01-01"];
         datepicker.minLimitDate = minLimitDate;
         
+        //获取当前时间，日期
+        NSDate *currentDate = [NSDate date];
         NSDateFormatter *maxDateFormater = [[NSDateFormatter alloc] init];
+        //设置格式
         [maxDateFormater setDateFormat:@"yyyy-MM-dd"];
-        NSDate *maxLimitDate = [maxDateFormater dateFromString:@"2050-01-01"];
+        //转化为字符串
+        NSString *dateString = [maxDateFormater stringFromDate:currentDate];
+        //转化为date
+        NSDate *maxLimitDate = [maxDateFormater dateFromString:dateString];
+        
         datepicker.maxLimitDate = maxLimitDate;
         
         datepicker.dateLabelColor = [UIColor clearColor];//年-月-日-时-分 颜色

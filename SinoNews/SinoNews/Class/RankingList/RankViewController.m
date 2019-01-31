@@ -646,7 +646,12 @@
 
 // 定义编辑样式
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.segmentView.selectedIndex == 2) {
+    CompanyDetailModel *model = self.rightDataSource.firstObject;
+    BOOL canEdit = YES;
+    if (model.isRecommend) {
+        canEdit = NO;
+    }
+    if (self.segmentView.selectedIndex == 2&&canEdit == YES) {
         return UITableViewCellEditingStyleDelete;
     }
     return UITableViewCellEditingStyleNone;
@@ -654,7 +659,12 @@
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.segmentView.selectedIndex == 2) {
+    CompanyDetailModel *model = self.rightDataSource.firstObject;
+    BOOL canEdit = YES;
+    if (model.isRecommend) {
+        canEdit = NO;
+    }
+    if (self.segmentView.selectedIndex == 2&&canEdit == YES) {
         //添加取消收藏按钮
         UITableViewRowAction *cancelCollectAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             CompanyDetailModel *model = self.rightDataSource[indexPath.row];

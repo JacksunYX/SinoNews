@@ -820,7 +820,10 @@
         if (yesOrNo) {
             LRToast(@"草稿已保存");
         }else{
-            LRToast(@"发布成功,等待审核通过后即可显示");
+            if ([response[@"data"] isKindOfClass:[NSString class]]) {
+                NSString *notice = response[@"data"];
+                LRToast(notice);
+            }
         }
         GCDAfterTime(1, ^{
             //退回到文章管理界面
@@ -847,7 +850,10 @@
     
     [HttpRequest postWithURLString:CreatePaid parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         //退回到文章管理界面
-        LRToast(@"发布成功,等待审核通过后即可显示");
+        if ([response[@"data"] isKindOfClass:[NSString class]]) {
+            NSString *notice = response[@"data"];
+            LRToast(notice);
+        }
         GCDAfterTime(1, ^{
             for (id vc in self.navigationController.viewControllers) {
                 if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {

@@ -66,7 +66,10 @@
     }
     ShowHudOnly;
     [HttpRequest getWithURLString:PublishNewsDraft parameters:parameters success:^(id responseObject) {
-        LRToast(@"发布成功,等待审核通过后即可显示");
+        if ([responseObject[@"data"] isKindOfClass:[NSString class]]) {
+            NSString *notice = responseObject[@"data"];
+            LRToast(notice);
+        }
         HiddenHudOnly;
         if (self.refreshBlock) {
             self.refreshBlock();

@@ -184,6 +184,7 @@
                         
                         photoModel.imageUrl = GetSaveString(response[@"data"]);
                         if (kStringIsEmpty(photoModel.imageUrl)) {
+                            NSLog(@"图片地址为空!!!");
                             imageV.status = UploadFailure;
                             photoModel.status = UploadFailure;
                         }else{
@@ -270,7 +271,6 @@
     imagePicker.sortAscendingByModificationDate = NO;
     imagePicker.allowPickingVideo = NO;
     [[HttpRequest currentViewController] presentViewController:imagePicker animated:YES completion:nil];
-    
 }
 
 //选择视频

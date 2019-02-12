@@ -438,14 +438,14 @@
         HomePageModel *model1 = model;
         if (!model1.hasBrows) {
             model1.hasBrows = YES;
-            [BrowsNewsSingleton.singleton addBrowHistory:model1.itemId];
+            [BrowsNewsSingleton.singleton addNewsBrowHistory:model1.itemId];
             [self.tableView reloadData];
         }
     }if ([model isKindOfClass:[TopicModel class]]){
         TopicModel *model1 = model;
         if (!model1.hasBrows) {
             model1.hasBrows = YES;
-            [BrowsNewsSingleton.singleton addBrowHistory:[model1.topicId integerValue]];
+            [BrowsNewsSingleton.singleton addNewsBrowHistory:[model1.topicId integerValue]];
             [self.tableView reloadData];
         }
     }else if ([model isKindOfClass:[ADModel class]]){
@@ -477,7 +477,7 @@
         
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         //比对是否有阅读过的数据
-        dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
+        dataArr = [BrowsNewsSingleton.singleton compareNewsBrowsHistoryWithBackgroundData:dataArr];
         self.tableView.mj_footer.hidden = NO;
         if (upOrDown == 0) {
             //数组都有数据时，需要把本地数据中的置顶先删掉，因为后台默认每次返回都带置顶
@@ -556,7 +556,7 @@
     [HttpRequest postWithURLString:MyUserNews parameters:@{@"currPage":@(self.page)} isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:response[@"data"]];
         //比对是否有阅读过的数据
-        dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
+        dataArr = [BrowsNewsSingleton.singleton compareNewsBrowsHistoryWithBackgroundData:dataArr];
         
 //        if (self.page == 1) {
 //            self.dataSource = [dataArr mutableCopy];
@@ -615,7 +615,7 @@
     [HttpRequest getWithURLString:ListForFollow parameters:parameters success:^(id responseObject) {
         NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         //比对是否有阅读过的数据
-        dataArr = [BrowsNewsSingleton.singleton compareBrowsHistoryWithBackgroundData:dataArr];
+        dataArr = [BrowsNewsSingleton.singleton compareNewsBrowsHistoryWithBackgroundData:dataArr];
         
 //        if (self.page == 1) {
 //            self.dataSource = [dataArr mutableCopy];

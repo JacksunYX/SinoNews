@@ -84,6 +84,21 @@
     self.sortOrder = 1;
     
     [self requestListTopPostForSection];
+    
+    //监听清空浏览历史
+    @weakify(self);
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:ClearBrowsHistory object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        @strongify(self);
+        if (self.dataSource.count) {
+            //遍历取消浏览标记
+            for (SeniorPostDataModel *model in self.dataSource) {
+                model.hasBrows = NO;
+            }
+            GCDAsynMain(^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
 }
 
 //修改导航栏显示
@@ -510,6 +525,9 @@
             model = self.topsArr[indexPath.row];
         }else if (indexPath.section == 2){
             model = self.dataSource[indexPath.row];
+            model.hasBrows = YES;
+            [BrowsNewsSingleton.singleton addPostsBrowHistory:model.postId];
+            [self.tableView reloadData];
         }
         UIViewController *vc;
         if (model.postType == 2) { //投票
@@ -616,6 +634,8 @@
     [HttpRequest getWithURLString:ListPostForSection parameters:parameters success:^(id responseObject) {
         HiddenHudOnly;
         NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        //比对是否有已读数据
+        dataArr = [BrowsNewsSingleton.singleton comparePostsBrowsHistoryWithBackgroundData:dataArr];
         if (dataArr.count>0) {
             if (refreshType) {
                 [self.dataSource addObjectsFromArray:dataArr];

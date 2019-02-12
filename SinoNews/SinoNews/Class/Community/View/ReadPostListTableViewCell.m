@@ -390,6 +390,13 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
 -(void)setModel:(SeniorPostDataModel *)model
 {
     _model = model;
+    
+    title.textColor = HexColor(#1A1A1A);
+    //判断是否已经浏览过了
+    if (model.hasBrows) {
+        title.textColor = BrowsNewsTitleColor;
+    }
+    
     NSInteger type = 0;
     if (model.images.count>0) {
         type = 3;

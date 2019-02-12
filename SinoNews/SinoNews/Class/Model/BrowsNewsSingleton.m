@@ -15,12 +15,19 @@
     // Default settings.
     //读取本地保存数据
     NSArray * newsIdArr = [NSArray bg_arrayWithName:@"newsIdArr"];
+    NSArray * postsIdArr = [NSArray bg_arrayWithName:@"postsIdArr"];
     NSArray *domainsArr = [NSArray bg_arrayWithName:@"domainsArr"];
     if (kArrayIsEmpty(newsIdArr)) {
         self.idsArr = [NSMutableArray new];
     }else{
         self.idsArr = [newsIdArr mutableCopy];
     }
+    if (kArrayIsEmpty(postsIdArr)) {
+        self.postIdsArr = [NSMutableArray new];
+    }else{
+        self.postIdsArr = [postsIdArr mutableCopy];
+    }
+    
     if (kArrayIsEmpty(domainsArr)) {
         //为空的话就要创建一个并保存在本地
         [self saveDomainsArr];
@@ -35,7 +42,8 @@
         });
     }
     
-    GGLog(@"idsArr:%ld",self.idsArr.count);
+    NSLog(@"newsIdArr:%ld",self.idsArr.count);
+    NSLog(@"postsIdArr:%ld",self.postIdsArr.count);
     return self;
 }
 
@@ -85,7 +93,7 @@
 }
 
 //比对获取到的新闻模型中是否有已经阅读过的了
--(NSMutableArray *)compareBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData
+-(NSMutableArray *)compareNewsBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData
 {
     //遍历
     for (id model in backgroundData) {
@@ -97,18 +105,39 @@
             model1.hasBrows = [self.idsArr containsObject:@([model1.topicId integerValue])];
         }
     }
-    GGLog(@"idsArr:%ld",self.idsArr.count);
+    NSLog(@"newsIdArr:%ld",self.idsArr.count);
     return backgroundData;
 }
 
-//添加一个历史
--(void)addBrowHistory:(NSInteger)itemId
+//比对获取到的帖子模型中是否有已经阅读过的了
+-(NSMutableArray *)comparePostsBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData
+{
+    //遍历
+    for (SeniorPostDataModel *model in backgroundData) {
+        model.hasBrows = [self.postIdsArr containsObject:@(model.postId)];
+    }
+    NSLog(@"postsIdsArr:%ld",self.postIdsArr.count);
+    return backgroundData;
+}
+
+//添加一个新闻浏览历史
+-(void)addNewsBrowHistory:(NSInteger)itemId
 {
     if ([self.idsArr containsObject:@(itemId)]) {
         return;
     }
     [self.idsArr addObject:@(itemId)];
-    GGLog(@"idsArr:%ld",self.idsArr.count);
+    NSLog(@"idsArr:%ld",self.idsArr.count);
+}
+
+//添加一个帖子浏览历史
+-(void)addPostsBrowHistory:(NSInteger)postId
+{
+    if ([self.postIdsArr containsObject:@(postId)]) {
+        return;
+    }
+    [self.postIdsArr addObject:@(postId)];
+    NSLog(@"postIdsArr:%ld",self.postIdsArr.count);
 }
 
 //保存本地历史
@@ -116,6 +145,8 @@
 {
     GGLog(@"idsArr:%ld",self.idsArr.count);
     [self.idsArr bg_saveArrayWithName:@"newsIdArr"];
+    [self.postIdsArr bg_saveArrayWithName:@"postsIdArr"];
+    NSLog(@"本地浏览历史已保存");
 }
 
 //清除浏览过的文章id
@@ -123,8 +154,10 @@
 {
     GCDAsynGlobal(^{
         [NSArray bg_clearArrayWithName:@"newsIdArr"];
+        [NSArray bg_clearArrayWithName:@"postsIdArr"];
         [self.idsArr removeAllObjects];
-        GGLog(@"idsArr:%ld",self.idsArr.count);
+        [self.postIdsArr removeAllObjects];
+        NSLog(@"本地浏览历史已清空");
         //发送通知
         [[NSNotificationCenter defaultCenter] postNotificationName:ClearBrowsHistory object:nil userInfo:nil];
     });

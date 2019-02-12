@@ -92,6 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 //只用于保存为本地草稿时的时间戳
 @property (nonatomic,strong) NSString *saveTime;
+
+//新增，是否已经阅读
+@property (nonatomic,assign) BOOL hasBrows;
+
 //方法
 //获取本地草稿列表
 +(NSMutableArray *)getLocalDrafts;

@@ -13,15 +13,23 @@
 
 @property (nonatomic,strong) NSMutableArray *idsArr;    //保存阅读过的文章id
 
+@property (nonatomic,strong) NSMutableArray *postIdsArr;    //保存阅读过的帖子id
+
 @property (nonatomic,strong) NSMutableArray *domainsArr;
 
 @property (nonatomic,strong) YYTextSimpleEmoticonParser *parser;
 
 //比对获取到的新闻模型中是否有已经阅读过的了
--(NSMutableArray *)compareBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData;
+-(NSMutableArray *)compareNewsBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData;
 
-//添加一个历史
--(void)addBrowHistory:(NSInteger)itemId;
+//比对获取到的帖子模型中是否有已经阅读过的了
+-(NSMutableArray *)comparePostsBrowsHistoryWithBackgroundData:(NSMutableArray *)backgroundData;
+
+//添加一个新闻浏览历史
+-(void)addNewsBrowHistory:(NSInteger)itemId;
+
+//添加一个帖子浏览历史
+-(void)addPostsBrowHistory:(NSInteger)postId;
 
 //保存本地历史
 -(void)saveBrowHistory;

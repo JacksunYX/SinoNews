@@ -580,6 +580,8 @@
 		4C8D5C40219AC986008C13A9 /* SeniorPostDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C3F219AC986008C13A9 /* SeniorPostDataModel.m */; };
 		4C8D5C43219AD3FD008C13A9 /* PreviewTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C42219AD3FD008C13A9 /* PreviewTextTableViewCell.m */; };
 		4C8D5C46219AD40C008C13A9 /* PreviewImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D5C45219AD40C008C13A9 /* PreviewImageTableViewCell.m */; };
+		4C90B53822238554004E5A91 /* MessageSystemNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C90B53722238554004E5A91 /* MessageSystemNoticeViewController.m */; };
+		4C90B53B22238879004E5A91 /* MessageSystemNoticeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C90B53A22238879004E5A91 /* MessageSystemNoticeTableViewCell.m */; };
 		4C93496B20CF604600BD8F07 /* BrowsingHistoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */; };
 		4C93497020CF6DF800BD8F07 /* BrowsingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93496F20CF6DF800BD8F07 /* BrowsingHistoryCell.m */; };
 		4C93497320CF777900BD8F07 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C93497220CF777900BD8F07 /* MessageViewController.m */; };
@@ -1952,6 +1954,10 @@
 		4C8D5C42219AD3FD008C13A9 /* PreviewTextTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewTextTableViewCell.m; sourceTree = "<group>"; };
 		4C8D5C44219AD40C008C13A9 /* PreviewImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewImageTableViewCell.h; sourceTree = "<group>"; };
 		4C8D5C45219AD40C008C13A9 /* PreviewImageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewImageTableViewCell.m; sourceTree = "<group>"; };
+		4C90B53622238554004E5A91 /* MessageSystemNoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageSystemNoticeViewController.h; sourceTree = "<group>"; };
+		4C90B53722238554004E5A91 /* MessageSystemNoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageSystemNoticeViewController.m; sourceTree = "<group>"; };
+		4C90B53922238879004E5A91 /* MessageSystemNoticeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageSystemNoticeTableViewCell.h; sourceTree = "<group>"; };
+		4C90B53A22238879004E5A91 /* MessageSystemNoticeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageSystemNoticeTableViewCell.m; sourceTree = "<group>"; };
 		4C93496920CF604600BD8F07 /* BrowsingHistoryVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowsingHistoryVC.h; sourceTree = "<group>"; };
 		4C93496A20CF604600BD8F07 /* BrowsingHistoryVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowsingHistoryVC.m; sourceTree = "<group>"; };
 		4C93496C20CF677600BD8F07 /* BaseViewHead.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewHead.h; sourceTree = "<group>"; };
@@ -3030,6 +3036,8 @@
 				4C93497820CF94F500BD8F07 /* MessagePraiseViewController.m */,
 				4C93497A20CF951800BD8F07 /* MessageFansViewController.h */,
 				4C93497B20CF951800BD8F07 /* MessageFansViewController.m */,
+				4C90B53622238554004E5A91 /* MessageSystemNoticeViewController.h */,
+				4C90B53722238554004E5A91 /* MessageSystemNoticeViewController.m */,
 				4C93497D20CF953400BD8F07 /* MessageNotifyViewController.h */,
 				4C93497E20CF953400BD8F07 /* MessageNotifyViewController.m */,
 				4C646C6620F33E700053067A /* NewNotifyViewController.h */,
@@ -4529,6 +4537,8 @@
 				4C423B482186A802000731E4 /* Mine3SecondTableViewCell.m */,
 				4CB46B9421894BEE00EF6A79 /* PostDraftTableViewCell.h */,
 				4CB46B9521894BEE00EF6A79 /* PostDraftTableViewCell.m */,
+				4C90B53922238879004E5A91 /* MessageSystemNoticeTableViewCell.h */,
+				4C90B53A22238879004E5A91 /* MessageSystemNoticeTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6091,6 +6101,7 @@
 				4C5B5B0B21804DC000B52329 /* ForumRightTableViewCell.m in Sources */,
 				4C00EF9821FE9672003336E0 /* UIButton+HYBImageCliped.m in Sources */,
 				4C7B5DF721882D8300B76E47 /* TFDropDownMenuView.m in Sources */,
+				4C90B53B22238879004E5A91 /* MessageSystemNoticeTableViewCell.m in Sources */,
 				4C1DE9FB213D339600350313 /* WebViewJavascriptBridge.m in Sources */,
 				4C54949C20CE2E8F00CB448E /* RecommendSecondCell.m in Sources */,
 				4CD157C921991B0700178FBF /* SeniorPostingAddVideoCell.m in Sources */,
@@ -6224,6 +6235,7 @@
 				4C6E918F213F5F07001535CA /* NSBundle+YYAdd.m in Sources */,
 				4C44E3882122BE8D00C5D10A /* NewPublishModel.m in Sources */,
 				4C1227DF21B4DE9200E19AD4 /* ReplyListViewController.m in Sources */,
+				4C90B53822238554004E5A91 /* MessageSystemNoticeViewController.m in Sources */,
 				4C56137E20CA748600C7FA5A /* AttentionRecommendVC.m in Sources */,
 				4C99494121A3A0F2007EAD19 /* PostListSearchModel.m in Sources */,
 				4C992FE6217717680092DDCF /* HXCustomButton.m in Sources */,

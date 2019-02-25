@@ -349,7 +349,7 @@ static CGFloat leftMargin = 110;
             if (self.refreshCard) {
                 self.refreshCard();
             }
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         });
         
     } failure:nil RefreshAction:nil];

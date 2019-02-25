@@ -256,6 +256,14 @@
         }
     }else if (CompareString(title, @"修改密码")){
         cell.detailTextLabel.text = @"设置";
+    }else if (CompareString(title, @"绑定支付宝")){
+        if (self.user.hasBindAlipay) {
+            cell.detailTextLabel.text = @"已绑定";
+        }
+    }else if (CompareString(title, @"绑定银行卡")){
+        if (self.user.hasBindBankCard) {
+            cell.detailTextLabel.text = @"已绑定";
+        }
     }
     [cell addBakcgroundColorTheme];
     return cell;

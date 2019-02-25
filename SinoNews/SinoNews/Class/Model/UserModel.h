@@ -57,6 +57,11 @@
 @property (nonatomic,assign) BOOL hasSignIn;    //今日是否签到
 @property (nonatomic,assign) NSUInteger level;  //等级
 
+//是否绑定支付宝
+@property (nonatomic,assign) BOOL hasBindAlipay;
+//是否绑定银行卡
+@property (nonatomic,assign) BOOL hasBindBankCard;
+
 /**
  清除本地保存的用户信息
  */

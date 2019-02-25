@@ -11,6 +11,7 @@
 #import "ReplyListViewController.h"
 #import "MessageFansViewController.h"
 #import "MessagePraiseViewController.h"
+#import "MessageSystemNoticeViewController.h"
 
 @interface NewMessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) BaseTableView *tableView;
@@ -26,11 +27,13 @@
                                @"回复和@我的",
                                @"关注我的",
                                @"给我点赞",
+                               @"系统消息",
                                ];
         NSArray *leftIcon = @[
                               @"message_reply",
                               @"message_attention",
                               @"message_praise",
+                              @"message_systemNotice",
                               ];
         
         for (int i = 0; i < leftTitle.count; i ++) {
@@ -127,6 +130,9 @@
         self.tipsModel.hasPraise = NO;
         MessagePraiseViewController *pvc = [MessagePraiseViewController new];
         [self.navigationController pushViewController:pvc animated:YES];
+    }else if (indexPath.row == 3){
+        MessageSystemNoticeViewController *nVC = [MessageSystemNoticeViewController new];
+        [self.navigationController pushViewController:nVC animated:YES];
     }
     [self.tableView reloadData];
 }

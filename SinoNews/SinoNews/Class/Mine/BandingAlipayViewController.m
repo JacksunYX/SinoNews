@@ -167,7 +167,7 @@
             HiddenHudOnly;
             LRToast(@"绑定成功");
             GCDAfterTime(0.5, ^{
-                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             });
             
         } failure:^(NSError *error) {

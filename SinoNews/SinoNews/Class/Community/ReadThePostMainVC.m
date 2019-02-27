@@ -362,7 +362,7 @@
         [(MLMSegmentHead *)item setDeSelectColor:value];
     });
     _segHead.bottomLineHeight = 0;
-    _segHead.singleW_Add = 30;
+    _segHead.singleW_Add = 20;
     _segHead.delegate = self;
     if (_segScroll) {
         [_segScroll removeFromSuperview];

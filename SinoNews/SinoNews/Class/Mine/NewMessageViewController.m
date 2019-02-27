@@ -27,13 +27,13 @@
                                @"回复和@我的",
                                @"关注我的",
                                @"给我点赞",
-                               @"系统消息",
+//                               @"系统消息",
                                ];
         NSArray *leftIcon = @[
                               @"message_reply",
                               @"message_attention",
                               @"message_praise",
-                              @"message_systemNotice",
+//                              @"message_systemNotice",
                               ];
         
         for (int i = 0; i < leftTitle.count; i ++) {

@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"系统消息";
+    self.navigationItem.title = @"系统提醒";
     [self addTableView];
 }
 
@@ -105,6 +105,12 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+#pragma mark -- 请求
+-(void)requestSystemMessage
+{
+    
 }
 
 @end

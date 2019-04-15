@@ -118,8 +118,6 @@
 		4C23B3DB20F5935800ACE380 /* LMStyleFontSizeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3D520F5935700ACE380 /* LMStyleFontSizeCell.m */; };
 		4C23B3E020F5938000ACE380 /* LMParagraphConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3DC20F5937E00ACE380 /* LMParagraphConfig.m */; };
 		4C23B3E120F5938000ACE380 /* LMTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B3DE20F5937F00ACE380 /* LMTextStyle.m */; };
-		4C23B47720F5ED2700ACE380 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B47620F5ED2700ACE380 /* Test.swift */; };
-		4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B50C20F5F82C00ACE380 /* test2.swift */; };
 		4C23B5C520F6387100ACE380 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C020F6387100ACE380 /* YBRectConst.m */; };
 		4C23B5C620F6387100ACE380 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */; };
 		4C23B5C720F6387100ACE380 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23B5C320F6387100ACE380 /* YBPopupMenu.m */; };
@@ -1120,9 +1118,6 @@
 		4C23B3DD20F5937F00ACE380 /* LMTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextStyle.h; sourceTree = "<group>"; };
 		4C23B3DE20F5937F00ACE380 /* LMTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextStyle.m; sourceTree = "<group>"; };
 		4C23B3DF20F5937F00ACE380 /* LMParagraphConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMParagraphConfig.h; sourceTree = "<group>"; };
-		4C23B47520F5ED2600ACE380 /* SinoNews-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SinoNews-Bridging-Header.h"; sourceTree = "<group>"; };
-		4C23B47620F5ED2700ACE380 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
-		4C23B50C20F5F82C00ACE380 /* test2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test2.swift; sourceTree = "<group>"; };
 		4C23B5BF20F6387100ACE380 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
 		4C23B5C020F6387100ACE380 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
 		4C23B5C120F6387100ACE380 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
@@ -3221,8 +3216,6 @@
 			isa = PBXGroup;
 			children = (
 				4C13E97020C67360009115C1 /* OtherFrameworksHead.h */,
-				4C23B47620F5ED2700ACE380 /* Test.swift */,
-				4C23B50C20F5F82C00ACE380 /* test2.swift */,
 				4C00EF8B21FE9672003336E0 /* HYBImageCliped */,
 				4C0DD31321CB1ADC004F4BF1 /* ZZJsonToModel */,
 				4C1227E021B5261700E19AD4 /* XHLaunchAd */,
@@ -3268,7 +3261,6 @@
 				4C8735E920BE8CC700B6A8B5 /* XLChannelControl */,
 				4C3F904020BD40D7003EC4FC /* NewPagedFlowView */,
 				4C3F902020BD1CD6003EC4FC /* MLMSegmentPageView */,
-				4C23B47520F5ED2600ACE380 /* SinoNews-Bridging-Header.h */,
 			);
 			path = otherframework;
 			sourceTree = "<group>";
@@ -5774,7 +5766,6 @@
 				4C3F903020BD1CD6003EC4FC /* UIView+EasyFrame.m in Sources */,
 				4C6E915B213F5F07001535CA /* YYMemoryCache.m in Sources */,
 				4CD692F6217F116800A76312 /* ReadThePostMainVC.m in Sources */,
-				4C23B50D20F5F82C00ACE380 /* test2.swift in Sources */,
 				4CAD57682194225000BD77E0 /* WTEmoticonPageView.m in Sources */,
 				4C6E91C4213F65D7001535CA /* LEEAlert.m in Sources */,
 				4C6E91A1213F5F07001535CA /* YYTransaction.m in Sources */,
@@ -5960,7 +5951,6 @@
 				4CF35CB0218BE48A0064B1BA /* SeniorPostingViewController.m in Sources */,
 				4C6E9182213F5F07001535CA /* UIDevice+YYAdd.m in Sources */,
 				4C3F901E20BD0190003EC4FC /* MainTabbarVC.m in Sources */,
-				4C23B47720F5ED2700ACE380 /* Test.swift in Sources */,
 				4CA7324121ABFB8A0011C808 /* PostReplyModel.m in Sources */,
 				4C95FFDA20DDEEC80040E348 /* LQXSwitch.m in Sources */,
 				4C6E917B213F5F07001535CA /* UIPasteboard+YYText.m in Sources */,
@@ -6540,7 +6530,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3E31EC7E2B3BA1E8939B8FC /* Pods-SinoNewsTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsTests/Info.plist;
@@ -6564,7 +6553,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C00DCA27A29C1D234268191D /* Pods-SinoNewsTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsTests/Info.plist;
@@ -6588,7 +6576,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77EB69E77DBE7E97F1DCB40A /* Pods-SinoNewsUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6607,7 +6594,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SinoNewsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

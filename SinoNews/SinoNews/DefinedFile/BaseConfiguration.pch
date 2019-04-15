@@ -55,7 +55,7 @@
 #import "NotifyList.h"
 
 //引入系统为我们创建的swift文件，这里是没办法看到的，必须手动打出来，不会报错
-#import "SinoNews-Swift.h"
+//#import "SinoNews-Swift.h"
 
 //新增论坛相关
 #import "CommunityHeader.h"

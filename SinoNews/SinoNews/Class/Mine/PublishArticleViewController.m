@@ -96,7 +96,9 @@
     
     [self showTopLine];
     
+#ifndef OpenSideslip
     self.fd_interactivePopDisabled = YES;
+#endif
     
     NSString *title = @"发布文章";
     if (self.isPayArticle) {

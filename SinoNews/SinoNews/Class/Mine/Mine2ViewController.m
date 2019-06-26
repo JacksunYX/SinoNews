@@ -892,7 +892,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
     [HttpRequest getWithURLString:GetCurrentUserInformation parameters:@{} success:^(id responseObject) {
         NSDictionary *data = responseObject[@"data"];
         //后台目前的逻辑是，如果没有登录，只给默认头像这一个字段,只能靠这个来判断
-        if ([data allKeys].count>1) {
+        if ([data allKeys].count>3) {
             UserModel *model = [UserModel mj_objectWithKeyValues:data];
             //覆盖之前保存的信息
             [UserModel coverUserData:model];

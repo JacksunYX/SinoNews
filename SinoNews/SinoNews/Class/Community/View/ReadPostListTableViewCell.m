@@ -466,7 +466,7 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
     [self setIdViewWithIDs];
     publishTime.text = GetSaveString(model.createTime);
     //去掉首位空格和换行
-    comments.text = [[NSString stringWithFormat:@"%ld评论",model.commentCount] removeSpaceAndNewLine];
+    comments.text = [[NSString stringWithFormat:@"%ld 评论  %ld 阅读",model.commentCount,model.viewCount] removeSpaceAndNewLine];
 }
 
 @end

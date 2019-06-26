@@ -125,7 +125,9 @@ CGFloat static attentionBtnH = 26;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+#ifndef OpenSideslip
     self.fd_interactivePopDisabled = YES;
+#endif
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) image:[UIImage imageNamed:@"return_left"]];
     
     [self addTableView];

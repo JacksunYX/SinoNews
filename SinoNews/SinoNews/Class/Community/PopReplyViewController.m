@@ -52,7 +52,9 @@ static CGFloat animationTime = 0.25;
     [super viewDidLoad];
     //隐藏导航栏以及禁止手势返回
     self.navigationController.navigationBar.hidden = YES;
+#ifndef OpenSideslip
     self.fd_interactivePopDisabled = YES;
+#endif
     [self setUI];
 }
 

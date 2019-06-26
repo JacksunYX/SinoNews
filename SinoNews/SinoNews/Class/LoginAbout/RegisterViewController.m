@@ -115,7 +115,7 @@
     .heightIs(44)
     ;
     [title setSingleLineAutoResizeWithMaxWidth:100];
-    title.text = @"注册";
+    title.text = @"注册新用户";
     
     popBtn.sd_layout
     .leftSpaceToView(backImg, 15)
@@ -186,7 +186,7 @@
     .heightIs(56)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入手机号或邮箱";
+    username.placeholder = @"请输入邮箱";
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     nickname.sd_layout
@@ -244,7 +244,7 @@
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
     .topSpaceToView(seccodeBackView, 0)
-    .heightIs(56)
+    .heightIs(0)
     ;
     [promoteCode updateLayout];
     promoteCode.placeholder = @"请输入推广码(选填)";
@@ -311,18 +311,18 @@
 {
     //检测帐号
     //先做邮箱判断
-    if ([username.text containsString:@"@"]) {
+//    if ([username.text containsString:@"@"]) {
         if (![username.text isValidEmail]) {
             LRToast(@"邮箱有误");
             return;
         }
         
-    }else{
-        if (![username.text isValidPhone]) {
-            LRToast(@"手机号有误");
-            return;
-        }
-    }
+//    }else{
+//        if (![username.text isValidPhone]) {
+//            LRToast(@"手机号有误");
+//            return;
+//        }
+//    }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"account"] = username.text;
@@ -348,7 +348,7 @@
 -(void)registerAction
 {
     if (kStringIsEmpty(username.text)) {
-        LRToast(@"请输入手机号/邮箱");
+        LRToast(@"请输入邮箱");
     }else if (kStringIsEmpty(nickname.text)){
         LRToast(@"请输入昵称(最多10个字符)");
     }else if (kStringIsEmpty(password.text)){
@@ -357,19 +357,19 @@
         LRToast(@"请输入验证码");
     }else{
         //检测帐号
-        //先做邮箱判断
-        if ([username.text containsString:@"@"]) {
+        //先做邮箱判断(现在只对邮箱做处理)
+//        if ([username.text containsString:@"@"]) {
             if (![username.text isValidEmail]) {
                 LRToast(@"邮箱有误");
                 return;
             }
             
-        }else{
-            if (![username.text isValidPhone]) {
-                LRToast(@"手机号有误");
-                return;
-            }
-        }
+//        }else{
+//            if (![username.text isValidPhone]) {
+//                LRToast(@"手机号有误");
+//                return;
+//            }
+//        }
         //此处再检测一下昵称
         if ([NSString isEmpty:nickname.text]||nickname.text.length>10) {
             LRToast(@"昵称为不能超过10位字符的任意字母下划线汉字的组合");

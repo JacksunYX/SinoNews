@@ -120,6 +120,11 @@
 #define OpenAddLocalEmoji
 #endif
 
+//是否开启所有页面的侧滑返回功能
+#ifndef OpenSideslip
+#define OpenSideslip
+#endif
+
 #import "RTRootNavigationController.h"
 //主题修改
 #import <LEETheme.h>

@@ -170,7 +170,7 @@
     .heightIs(56)
     ;
     [self.username updateLayout];
-    self.username.placeholder = @"请输入手机号或邮箱";
+    self.username.placeholder = @"请输入邮箱";
     [self.username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     passwordBackView.sd_layout
@@ -291,24 +291,24 @@
 -(void)confirmAction
 {
     if (kStringIsEmpty(self.username.text)) {
-        LRToast(@"请输入手机号或邮箱");
+        LRToast(@"请输入邮箱");
     }else if (kStringIsEmpty(self.password.text)){
         LRToast(@"请输入密码");
     }else{
         //先检测帐号
         //先做邮箱判断
-        if ([self.username.text containsString:@"@"]) {
+//        if ([self.username.text containsString:@"@"]) {
             if (![self.username.text isValidEmail]) {
                 LRToast(@"请输入正确的邮箱");
                 return;
             }
             
-        }else{
-            if (![self.username.text isValidPhone]) {
-                LRToast(@"请输入正确的手机号");
-                return;
-            }
-        }
+//        }else{
+//            if (![self.username.text isValidPhone]) {
+//                LRToast(@"请输入正确的手机号");
+//                return;
+//            }
+//        }
         //再检测密码
         if ([self.password.text isValidPassword]) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];

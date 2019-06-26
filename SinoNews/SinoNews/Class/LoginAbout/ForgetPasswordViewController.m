@@ -142,7 +142,7 @@
     .heightIs(56)
     ;
     [username updateLayout];
-    username.placeholder = @"请输入手机号或邮箱";
+    username.placeholder = @"请输入邮箱";
     [username addBorderTo:BorderTypeBottom borderColor:RGBA(227, 227, 227, 1)];
     
     password.sd_layout
@@ -218,18 +218,18 @@
 {
     //检测帐号
     //先做邮箱判断
-    if ([username.text containsString:@"@"]) {
+//    if ([username.text containsString:@"@"]) {
         if (![username.text isValidEmail]) {
             LRToast(@"邮箱有误");
             return;
         }
         
-    }else{
-        if (![username.text isValidPhone]) {
-            LRToast(@"手机号有误");
-            return;
-        }
-    }
+//    }else{
+//        if (![username.text isValidPhone]) {
+//            LRToast(@"手机号有误");
+//            return;
+//        }
+//    }
     
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"account"] = username.text;
@@ -250,7 +250,7 @@
 -(void)completeAction
 {
     if (kStringIsEmpty(username.text)) {
-        LRToast(@"请输入手机号/邮箱");
+        LRToast(@"请输入邮箱");
     }else if (kStringIsEmpty(password.text)){
         LRToast(@"请输入密码(6-16位数字和字母)");
     }else if (kStringIsEmpty(seccode.text)){
@@ -258,18 +258,18 @@
     }else{
         //先检测帐号
         //先做邮箱判断
-        if ([username.text containsString:@"@"]) {
+//        if ([username.text containsString:@"@"]) {
             if (![username.text isValidEmail]) {
                 LRToast(@"邮箱有误");
                 return;
             }
             
-        }else{
-            if (![username.text isValidPhone]) {
-                LRToast(@"手机号有误");
-                return;
-            }
-        }
+//        }else{
+//            if (![username.text isValidPhone]) {
+//                LRToast(@"手机号有误");
+//                return;
+//            }
+//        }
         //再检测密码
         if ([password.text checkPassWord]) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];

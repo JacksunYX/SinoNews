@@ -1027,7 +1027,6 @@
 		4C1B1496215257C5004ADD9E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		4C1B149A21525830004ADD9E /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		4C1B149C2152583B004ADD9E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		4C1B149E215258B3004ADD9E /* SinoNews.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SinoNews.entitlements; sourceTree = "<group>"; };
 		4C1B5ADA2106D84600A47563 /* PopNoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopNoticeView.h; sourceTree = "<group>"; };
 		4C1B5ADB2106D84600A47563 /* PopNoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopNoticeView.m; sourceTree = "<group>"; };
 		4C1B5ADD2107268E00A47563 /* UIBarButtonItem+SXCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SXCreate.h"; sourceTree = "<group>"; };
@@ -2831,7 +2830,6 @@
 			isa = PBXGroup;
 			children = (
 				4C53D1C6215DF2C400AFC352 /* STCDefination.h */,
-				4C1B149E215258B3004ADD9E /* SinoNews.entitlements */,
 				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
 				4C5BFD03211AF44000EF82DA /* SoundSource */,
 				4C23B5CB20F6FD6600ACE380 /* ThemeJson */,
@@ -5269,7 +5267,7 @@
 						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -6435,12 +6433,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = SinoNews/SinoNews.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEPLOYMENT_POSTPROCESSING = NO;
-				DEVELOPMENT_TEAM = N2Q42K578K;
+				DEVELOPMENT_TEAM = 95VLMCLGVQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6465,10 +6463,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/YCJsonToModel",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.syx.mlc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a9344b22-29a9-4722-9964-da03a73c6b22";
-				PROVISIONING_PROFILE_SPECIFIER = "开发描述文件";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -6487,12 +6485,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = SinoNews/SinoNews.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = N2Q42K578K;
+				DEVELOPMENT_TEAM = 95VLMCLGVQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6512,10 +6510,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SinoNews/ThirdFramwork/otherframework/YCJsonToModel",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zlhl.qishilu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.syx.mlc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4dcb1b86-8ed0-46ac-b66a-bd13fef477fd";
-				PROVISIONING_PROFILE_SPECIFIER = "Ad Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SinoNews/ThirdFramwork/otherframework/SinoNews-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

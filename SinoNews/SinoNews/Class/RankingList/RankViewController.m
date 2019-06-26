@@ -19,7 +19,9 @@
 #import "MyCollectCasinoCell.h"
 
 
-@interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
+@interface RankViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate,MLMSegmentHeadDelegate,PYSearchViewControllerDelegate>
+@property (nonatomic, strong) MLMSegmentHead *segHead;
+@property (nonatomic, strong) MLMSegmentScroll *segScroll;
 //上方的滚动视图
 @property (nonatomic, strong) HeadBannerView *headView;
 @property (nonatomic,strong) NSMutableArray *adArr; //轮播广告数组
@@ -77,7 +79,7 @@
         _segmentView.bordColor = HexColor(#1282EE);
         
         _segmentView.sd_layout
-        .topSpaceToView(self.headView, 10)
+        .topSpaceToView(self.view, 10)
         .centerXEqualToView(self.view)
         .widthIs(330)
         .heightIs(30)
@@ -181,8 +183,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addNavigationView];
-    [self setNaviTitle];
+//    [self addNavigationView];
+//    [self setNaviTitle];
     
     [self addViews];
     
@@ -191,12 +193,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (self.adArr.count<=0) {
-        [self requestTopBanner];
-    }
-    if (self.adDatasource.count<=0) {
-        [self requestBottomBanner];
-    }
+//    if (self.adArr.count<=0) {
+//        [self requestTopBanner];
+//    }
+//    if (self.adDatasource.count<=0) {
+//        [self requestBottomBanner];
+//    }
     if (self.dataSource.count<=0&&_segmentView.selectedIndex==1) {
         [self requestRanking];
     }
@@ -211,6 +213,52 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+
+//设置下方分页联动
+-(void)reloadChildVCWithTitles:(NSArray *)titles
+{
+    if (_segHead) {
+        [_segHead removeFromSuperview];
+    }
+    _segHead = [[MLMSegmentHead alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 44) titles:titles headStyle:1 layoutStyle:0];
+    //    _segHead.fontScale = .85;
+    _segHead.lineScale = 0.2;
+    _segHead.fontSize = 16;
+    _segHead.lineHeight = 2;
+    _segHead.lineColor = HexColor(#1282EE);
+    _segHead.selectColor = HexColor(#1282EE);
+    _segHead.deSelectColor = HexColor(#1a1a1a);
+    _segHead.maxTitles = 2;
+    _segHead.bottomLineHeight = 0;
+    _segHead.bottomLineColor = RGBA(227, 227, 227, 1);
+    
+    if (_segScroll) {
+        [_segScroll removeFromSuperview];
+    }
+    _segScroll = [[MLMSegmentScroll alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NAVI_HEIGHT - BOTTOM_MARGIN) vcOrViews:[self vcArr:titles.count]];
+    _segScroll.countLimit = 0;
+    
+    WEAK(weakself, self);
+    [MLMSegmentManager associateHead:_segHead withScroll:_segScroll completion:^{
+        weakself.navigationItem.titleView = weakself.segHead;
+        [weakself.view addSubview:weakself.segScroll];
+    }];
+    [_segHead.titlesScroll addBakcgroundColorTheme];
+    _segHead.lee_theme.LeeCustomConfig(@"titleColor", ^(id item, id value) {
+        [(MLMSegmentHead *)item setSelectColor:value];
+    });
+}
+
+- (NSArray *)vcArr:(NSInteger)count {
+    NSMutableArray *arr = [NSMutableArray array];
+    BaseViewController *vc1 = [BaseViewController new];
+    BaseViewController *vc2 = [BaseViewController new];
+    [arr addObjectsFromArray:@[
+                               vc1,
+                               vc2,
+                               ]];
+    return arr;
 }
 
 //修改导航栏显示
@@ -229,8 +277,8 @@
 //添加视图
 -(void)addViews
 {
-    [self addTopLoopView];
-    [self addBottomADView];
+//    [self addTopLoopView];
+//    [self addBottomADView];
     //    [self addCenterRankView];
     self.segmentView.titleFont = PFFontM(14);
 //    self.segmentView.selectedIndex = 1;
@@ -360,7 +408,7 @@
     .topSpaceToView(self.segmentView, 10)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
-    .bottomSpaceToView(self.adCollectionView, 0)
+    .bottomSpaceToView(self.view, 0)
     ;
     
     [self.tableV registerClass:[MoveCell class] forCellReuseIdentifier:@"cell"];
@@ -382,7 +430,7 @@
     .topSpaceToView(self.segmentView, 10)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
-    .bottomSpaceToView(self.adCollectionView, 0)
+    .bottomSpaceToView(self.view, 0)
     ;
     
     [self.tableLeft registerClass:[RankListTableViewCell2 class] forCellReuseIdentifier:RankListTableViewCell2ID];
@@ -408,7 +456,7 @@
     .topSpaceToView(self.segmentView, 10)
     .leftSpaceToView(self.view, 10)
     .rightSpaceToView(self.view, 10)
-    .bottomSpaceToView(self.adCollectionView, 0)
+    .bottomSpaceToView(self.view, 0)
     ;
     //注册
     [self.tableRight registerClass:[MyCollectCasinoCell class] forCellReuseIdentifier:MyCollectCasinoCellID];

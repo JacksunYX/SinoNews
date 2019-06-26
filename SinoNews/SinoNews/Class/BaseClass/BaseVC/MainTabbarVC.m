@@ -11,6 +11,7 @@
 #import "HomePageViewController.h"
 #import "AttentionViewController.h"
 #import "RankViewController.h"
+#import "NewRankViewController.h"
 #import "IntegralViewController.h"
 #import "MineViewController.h"
 #import "CommunityTabbarVC.h"
@@ -57,7 +58,7 @@
                      [ForumViewController new],
 //                     [AttentionViewController new],
                      [ReadThePostMainVC new],
-                     [RankViewController new],
+                     [NewRankViewController new],
 //                     [IntegralViewController new],
                      [Mine2ViewController new],
                      

@@ -35,6 +35,11 @@
 //排行规则
 #define News_rankRule   @"/api/news/rankRule"
 
-
+//热门新闻
+#define HotContent_hotNews    @"/api/hotNews"
+//热门帖子
+#define HotContent_hotPost    @"/api/hotPost"
+//热门点赞
+#define HotContent_hotPraise    @"/api/hotPraise"
 
 #endif /* RankingListNet_h */

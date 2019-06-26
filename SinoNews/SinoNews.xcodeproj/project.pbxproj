@@ -875,6 +875,9 @@
 		F1A0EB0B0D1454698D15DCF6 /* libPods-SinoNewsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4228366BB3A4B1E9F4A18224 /* libPods-SinoNewsTests.a */; };
 		F5D526FA5B4E6F1247E48DEC /* libPods-SinoNewsUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69314950BB7E3C85B4BA6CF /* libPods-SinoNewsUITests.a */; };
 		F7B94C6022C3655900FD900E /* NewRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C5F22C3655900FD900E /* NewRankViewController.m */; };
+		F7B94C6322C36D8B00FD900E /* HotContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6222C36D8B00FD900E /* HotContentViewController.m */; };
+		F7B94C6622C370B400FD900E /* HotContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */; };
+		F7B94C6922C3724200FD900E /* HotContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6822C3724200FD900E /* HotContentModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2420,6 +2423,12 @@
 		F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F7B94C5E22C3655900FD900E /* NewRankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRankViewController.h; sourceTree = "<group>"; };
 		F7B94C5F22C3655900FD900E /* NewRankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRankViewController.m; sourceTree = "<group>"; };
+		F7B94C6122C36D8B00FD900E /* HotContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentViewController.h; sourceTree = "<group>"; };
+		F7B94C6222C36D8B00FD900E /* HotContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentViewController.m; sourceTree = "<group>"; };
+		F7B94C6422C370B400FD900E /* HotContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentTableViewCell.h; sourceTree = "<group>"; };
+		F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentTableViewCell.m; sourceTree = "<group>"; };
+		F7B94C6722C3724200FD900E /* HotContentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentModel.h; sourceTree = "<group>"; };
+		F7B94C6822C3724200FD900E /* HotContentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2972,6 +2981,8 @@
 			children = (
 				F7B94C5E22C3655900FD900E /* NewRankViewController.h */,
 				F7B94C5F22C3655900FD900E /* NewRankViewController.m */,
+				F7B94C6122C36D8B00FD900E /* HotContentViewController.h */,
+				F7B94C6222C36D8B00FD900E /* HotContentViewController.m */,
 				4C3F8FF120BCEF27003EC4FC /* RankViewController.h */,
 				4C3F8FF220BCEF27003EC4FC /* RankViewController.m */,
 				4CE121CD20C00A6400A44782 /* RankListViewController.h */,
@@ -3391,6 +3402,8 @@
 				4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */,
 				4C3D112020D8FD1A00480E03 /* CompanyCommentModel.h */,
 				4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */,
+				F7B94C6722C3724200FD900E /* HotContentModel.h */,
+				F7B94C6822C3724200FD900E /* HotContentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4358,6 +4371,8 @@
 		4C83E64020BFE30200C99AAB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F7B94C6422C370B400FD900E /* HotContentTableViewCell.h */,
+				F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */,
 				4C1FF1D7211C4FB600DA05F4 /* MoveCell.h */,
 				4C1FF1D8211C4FB700DA05F4 /* MoveCell.m */,
 				4C83E64420BFE37800C99AAB /* LineCollectionViewCell.h */,
@@ -5830,6 +5845,7 @@
 				4C7EF37921212A0B0002166A /* ZSSBarButtonItem.m in Sources */,
 				4C7234DF20FDEB1D00D5C5D4 /* AAOptions3d.m in Sources */,
 				4C53D1C1215CC78200AFC352 /* BankCardTableViewCell.m in Sources */,
+				F7B94C6322C36D8B00FD900E /* HotContentViewController.m in Sources */,
 				4C7234F520FEEB8800D5C5D4 /* CatechismSecondeViewController.m in Sources */,
 				4CEA61752117FB3800AAB8B0 /* PubLishChannelSelectVC.m in Sources */,
 				4C1227FD21B5261700E19AD4 /* XHLaunchAdDownloader.m in Sources */,
@@ -5908,6 +5924,7 @@
 				4C1FF1D9211C4FB700DA05F4 /* MoveCell.m in Sources */,
 				4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */,
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
+				F7B94C6922C3724200FD900E /* HotContentModel.m in Sources */,
 				4CDC73F1219147B20079EB3E /* RemindPeople.m in Sources */,
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,
@@ -6194,6 +6211,7 @@
 				4C4E4959211159600078864D /* HomeSearchTView.m in Sources */,
 				4C6E9174213F5F07001535CA /* YYTextDebugOption.m in Sources */,
 				4C1227FB21B5261700E19AD4 /* XHLaunchAd.m in Sources */,
+				F7B94C6622C370B400FD900E /* HotContentTableViewCell.m in Sources */,
 				4C6E917F213F5F07001535CA /* UITextField+YYAdd.m in Sources */,
 				4CBEF668217DEED000C6F8DA /* PaidEditViewController.m in Sources */,
 				4C49F07020D0E7B7009DC42B /* MyAttentionThirdCell.m in Sources */,

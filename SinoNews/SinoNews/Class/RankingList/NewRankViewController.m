@@ -8,6 +8,7 @@
 
 #import "NewRankViewController.h"
 #import "SearchViewController.h"
+#import "HotContentViewController.h"
 #import "RankViewController.h"
 
 #import "HeadBannerView.h"
@@ -99,7 +100,7 @@
 
 - (NSArray *)vcArr:(NSInteger)count {
     NSMutableArray *arr = [NSMutableArray array];
-    BaseViewController *vc1 = [BaseViewController new];
+    HotContentViewController *vc1 = [HotContentViewController new];
     RankViewController *vc2 = [RankViewController new];
     [arr addObjectsFromArray:@[
                                vc1,

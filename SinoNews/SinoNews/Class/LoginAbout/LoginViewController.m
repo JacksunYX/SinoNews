@@ -297,18 +297,18 @@
     }else{
         //先检测帐号
         //先做邮箱判断
-//        if ([self.username.text containsString:@"@"]) {
+        if ([self.username.text containsString:@"@"]) {
             if (![self.username.text isValidEmail]) {
                 LRToast(@"请输入正确的邮箱");
                 return;
             }
             
-//        }else{
-//            if (![self.username.text isValidPhone]) {
-//                LRToast(@"请输入正确的手机号");
-//                return;
-//            }
-//        }
+        }else{
+            if (![self.username.text isValidPhone]) {
+                LRToast(@"请输入正确的手机号");
+                return;
+            }
+        }
         //再检测密码
         if ([self.password.text isValidPassword]) {
             NSMutableDictionary *parameters = [NSMutableDictionary new];

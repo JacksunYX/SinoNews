@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "HotContentModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * _Nullable const HotContentTableViewCellID;
 
 @interface HotContentTableViewCell : UITableViewCell
-@property(nonatomic,strong) HotContentModel *model;
+
+@property (nonatomic,strong) NSDictionary *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

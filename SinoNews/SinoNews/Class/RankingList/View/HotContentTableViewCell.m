@@ -47,7 +47,7 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     titleLabel = [UILabel new];
     pushTime = [UILabel new];
     operationLabel = [UILabel new];
-    
+
 //    numLabel.backgroundColor = RedColor;
 //    titleLabel.backgroundColor = RedColor;
     
@@ -55,8 +55,8 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     [fatherView sd_addSubviews:@[
                                  numLabel,
                                  titleLabel,
-                                 pushTime,
                                  operationLabel,
+                                 pushTime,
                                  ]];
     numLabel.sd_layout
     .topSpaceToView(fatherView, 10)
@@ -66,7 +66,7 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     ;
     numLabel.font = PFFontM(16);
     numLabel.textColor = HexColor(#161A24);
-    numLabel.text = @"1";
+//    numLabel.text = @"1";
     
     titleLabel.sd_layout
     .topSpaceToView(fatherView, 7)
@@ -74,9 +74,10 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     .rightSpaceToView(fatherView, 10)
     .autoHeightRatio(0)
     ;
+//    [titleLabel setMaxNumberOfLinesToShow:3];
     titleLabel.font = PFFontL(15);
     titleLabel.textColor = HexColor(#161A24);
-    titleLabel. text = @"尤为值得关注的是，高新技术投资是亮点。京东 金融副总裁、首席经济学家，尤为值得关注的是，高新技术投资是亮点。京东 金融副总裁、首席经济学家";
+//    titleLabel. text = @"手教你如何叠加双十二的20倍和龙支付的N倍积分";
     
     operationLabel.sd_layout
     .topSpaceToView(titleLabel, 10)
@@ -86,7 +87,7 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     [operationLabel setSingleLineAutoResizeWithMaxWidth:100];
     operationLabel.font = PFFontL(11);
     operationLabel.textColor = HexColor(#ABB2C3);
-    operationLabel. text = @"30 阅读";
+//    operationLabel. text = @"30 阅读";
     
     pushTime.sd_layout
     .centerYEqualToView(operationLabel)
@@ -96,14 +97,27 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     [pushTime setSingleLineAutoResizeWithMaxWidth:100];
     pushTime.font = PFFontL(11);
     pushTime.textColor = HexColor(#898989);
-    pushTime. text = @"1小时前";
+//    pushTime. text = @"1小时前";
     
     [self setupAutoHeightWithBottomView:pushTime bottomMargin:12];
 }
 
--(void)setModel:(HotContentModel *)model
+-(void)setModel:(NSDictionary *)model
 {
     _model = model;
+    NSInteger num = [model[@"num"] integerValue];
+    numLabel.text = [NSString stringWithFormat:@"%ld",num];
+   titleLabel.text = model[@"title"] ;
+    
+    pushTime.text = model[@"pushTime"];
+    NSInteger type = [model[@"type"] integerValue];
+    NSString *str = @"阅读";
+    if (type == 1) {
+        str = @"点赞";
+    }
+    
+    operationLabel.text = [NSString stringWithFormat:@"%ld %@",[model[@"viewCount"] integerValue] ,str ];
+    
 }
 
 

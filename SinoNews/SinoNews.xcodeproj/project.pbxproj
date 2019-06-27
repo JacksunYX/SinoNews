@@ -877,7 +877,6 @@
 		F7B94C6022C3655900FD900E /* NewRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C5F22C3655900FD900E /* NewRankViewController.m */; };
 		F7B94C6322C36D8B00FD900E /* HotContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6222C36D8B00FD900E /* HotContentViewController.m */; };
 		F7B94C6622C370B400FD900E /* HotContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */; };
-		F7B94C6922C3724200FD900E /* HotContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6822C3724200FD900E /* HotContentModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2427,8 +2426,6 @@
 		F7B94C6222C36D8B00FD900E /* HotContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentViewController.m; sourceTree = "<group>"; };
 		F7B94C6422C370B400FD900E /* HotContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentTableViewCell.h; sourceTree = "<group>"; };
 		F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentTableViewCell.m; sourceTree = "<group>"; };
-		F7B94C6722C3724200FD900E /* HotContentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentModel.h; sourceTree = "<group>"; };
-		F7B94C6822C3724200FD900E /* HotContentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3402,8 +3399,6 @@
 				4C3D111A20D8D58100480E03 /* CompanyDetailModel.m */,
 				4C3D112020D8FD1A00480E03 /* CompanyCommentModel.h */,
 				4C3D112120D8FD1A00480E03 /* CompanyCommentModel.m */,
-				F7B94C6722C3724200FD900E /* HotContentModel.h */,
-				F7B94C6822C3724200FD900E /* HotContentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5924,7 +5919,6 @@
 				4C1FF1D9211C4FB700DA05F4 /* MoveCell.m in Sources */,
 				4CF35CAD218BE4540064B1BA /* FastPostingViewController.m in Sources */,
 				4C1B5ADC2106D84600A47563 /* PopNoticeView.m in Sources */,
-				F7B94C6922C3724200FD900E /* HotContentModel.m in Sources */,
 				4CDC73F1219147B20079EB3E /* RemindPeople.m in Sources */,
 				4C7EF38321212A0B0002166A /* CYRTextView.m in Sources */,
 				4C992FF0217717680092DDCF /* UIImage+HXExtension.m in Sources */,

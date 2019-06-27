@@ -86,18 +86,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    if (self.leftDataSource.count<=0&&_segmentView.selectedIndex==0) {
-        [self.tableLeft.mj_header beginRefreshing];
-    }
-    
-    if (self.centerDataSource.count<=0&&_segmentView.selectedIndex==1) {
-        
-    }
-    
-    if (self.rightDataSource.count<=0&&_segmentView.selectedIndex==2) {
-        [self.tableRight.mj_header beginRefreshing];
-    }
 }
 
 //添加视图
@@ -110,6 +98,8 @@
     [self createCenterTable];
 
     [self createTableRight];
+    
+    [self reloadTableWithIndex:0];
 }
 
 -(void)createTableLeft
@@ -135,7 +125,7 @@
     @weakify(self);
     self.tableLeft.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self requestHotNews];
+        [self requestHotPost];
     }];
 }
 
@@ -162,7 +152,7 @@
     @weakify(self);
     self.tableCenter.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self requestHotPost];
+        [self requestHotNews];
     }];
 }
 
@@ -202,7 +192,7 @@
         [self.tableRight setHidden:YES];
         [self.tableCenter reloadData];
         if (self.centerDataSource.count<=0) {
-            
+            [self.tableCenter.mj_header beginRefreshing];
         }
     }else if (index==2) {
         [self.tableLeft setHidden:YES];
@@ -217,49 +207,145 @@
         [self.tableCenter setHidden:YES];
         [self.tableRight setHidden:YES];
         [self.tableLeft reloadData];
+        if (self.leftDataSource.count<=0) {
+            [self.tableLeft.mj_header beginRefreshing];
+        }
     }
 }
 
 #pragma mark ---- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (tableView == self.tableLeft) {
-//        return self.leftDataSource.count;
-//    }
-//    if (tableView == self.tableCenter) {
-//        return self.centerDataSource.count;
-//    }
-//    return self.rightDataSource.count;
-    return 5;
+    if (tableView == self.tableLeft) {
+        return self.leftDataSource.count;
+    }
+    if (tableView == self.tableCenter) {
+        return self.centerDataSource.count;
+    }
+    return self.rightDataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSMutableDictionary *dataModel = NSMutableDictionary.new;
+    dataModel[@"type"] = @(0);
+    if (tableView == _tableLeft) {
+        SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
+        dataModel[@"title"] = model.postTitle;
+        dataModel[@"pushTime"] = model.createTime;
+        dataModel[@"viewCount"] = @(model.viewCount);
+        dataModel[@"num"] = @(indexPath.row+1);
+    }else if (tableView == _tableCenter){
+        id model = self.centerDataSource[indexPath.row];
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            HomePageModel *model1 = model;
+            dataModel[@"title"] = model1.itemTitle;
+            dataModel[@"pushTime"] = model1.createTime;
+            dataModel[@"viewCount"] = @(model1.viewCount);
+            dataModel[@"num"] = @(indexPath.row+1);
+        }
+    }else{
+        SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
+        dataModel[@"type"] = @(1);
+        dataModel[@"title"] = model.postTitle;
+        dataModel[@"pushTime"] = model.createTime;
+        dataModel[@"viewCount"] = @(model.praiseCount);
+        dataModel[@"num"] = @(indexPath.row+1);
+    }
     HotContentTableViewCell *cell = (HotContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:HotContentTableViewCellID];
-    
+    cell.model = dataModel;
     [cell addBakcgroundColorTheme];
     
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW tableView:tableView];
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:ScreenW-20 tableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (tableView == _tableLeft) {
+        SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
+        UIViewController *vc;
+        if (model.postType == 2) { //投票
+            TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+            tvpdVC.postModel.postId = model.postId;
+            vc = tvpdVC;
+        }else{
+            ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+            tpdVC.postModel.postId = model.postId;
+            vc = tpdVC;
+        }
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }else if (tableView == _tableCenter){
+        id model = self.centerDataSource[indexPath.row];
+        UIViewController *pushVC;
+        NSInteger itemId = 0;
+        if ([model isKindOfClass:[HomePageModel class]]) {
+            HomePageModel *model1 = model;
+            itemId = model1.itemId;
+            if (model1.itemType>=400&&model1.itemType<500) { //投票
+                NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                ndVC.newsId = model1.itemId;
+                ndVC.isVote = YES;
+                pushVC = ndVC;
+            }else
+                if (model1.itemType>=500&&model1.itemType<600) { //问答
+                    CatechismViewController *cVC = [CatechismViewController new];
+                    cVC.news_id = model1.itemId;
+                    pushVC = cVC;
+                }else{
+                    NewsDetailViewController *ndVC = [NewsDetailViewController new];
+                    ndVC.newsId = model1.itemId;
+                    pushVC = ndVC;
+                }
+            
+        }else if ([model isKindOfClass:[TopicModel class]]){
+            TopicModel *model2 = model;
+            TopicViewController *tVC = [TopicViewController new];
+            //只有专题是用的topicId
+            tVC.topicId = [model2.topicId integerValue];
+            itemId = [model2.topicId integerValue];
+            pushVC = tVC;
+        }
+         [self.navigationController pushViewController:pushVC animated:YES];
+    }else{
+        SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
+        UIViewController *vc;
+        if (model.postType == 2) { //投票
+            TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+            tvpdVC.postModel.postId = model.postId;
+            vc = tvpdVC;
+        }else{
+            ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+            tpdVC.postModel.postId = model.postId;
+            vc = tpdVC;
+        }
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark ----- 请求发送
-//请求热门新闻
--(void)requestHotNews
+//请求热门帖子
+-(void)requestHotPost
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    [HttpRequest getWithURLString:HotContent_hotNews parameters:parameters success:^(id responseObject) {
-        NSArray *data = [HotContentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+    [HttpRequest getWithURLString:HotContent_hotPost parameters:parameters success:^(id responseObject) {
+        NSArray *data = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         [self.tableLeft.mj_header endRefreshing];
         self.leftDataSource = [data mutableCopy];
         
@@ -269,15 +355,15 @@
     }];
 }
 
-//请求热门帖子
--(void)requestHotPost
+//请求热门新闻
+-(void)requestHotNews
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
-    [HttpRequest getWithURLString:HotContent_hotPost parameters:parameters success:^(id responseObject) {
-        NSArray *data = [HotContentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+    [HttpRequest getWithURLString:HotContent_hotNews parameters:parameters success:^(id responseObject) {
+        NSMutableArray *dataArr = [UniversalMethod getProcessNewsData:responseObject[@"data"]];
         [self.tableCenter.mj_header endRefreshing];
-        self.centerDataSource = [data mutableCopy];
+        self.centerDataSource = [dataArr mutableCopy];
         
         [self.tableCenter reloadData];
     } failure:^(NSError *error) {
@@ -291,7 +377,7 @@
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     
     [HttpRequest getWithURLString:HotContent_hotPraise parameters:parameters success:^(id responseObject) {
-        NSArray *data = [HotContentModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        NSArray *data = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
         [self.tableRight.mj_header endRefreshing];
         self.rightDataSource = [data mutableCopy];
         

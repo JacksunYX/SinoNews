@@ -38,7 +38,7 @@
     [self addNavigationView];
     [self reloadChildVCWithTitles:@[
                                     @"热门内容",
-                                    @"娱乐场排行",
+//                                    @"娱乐场排行",
                                     ]];
 }
 
@@ -73,9 +73,9 @@
     //    _segHead.fontScale = .85;
     _segHead.lineScale = 0.3;
     _segHead.fontSize = 16;
-    _segHead.lineHeight = 2;
+    _segHead.lineHeight = 0;
     _segHead.lineColor = ThemeColor;
-    _segHead.selectColor = ThemeColor;
+    _segHead.selectColor = BlackColor;
     _segHead.deSelectColor = HexColor(#1a1a1a);
     _segHead.maxTitles = 2;
     _segHead.bottomLineHeight = 0;
@@ -101,10 +101,10 @@
 - (NSArray *)vcArr:(NSInteger)count {
     NSMutableArray *arr = [NSMutableArray array];
     HotContentViewController *vc1 = [HotContentViewController new];
-    RankViewController *vc2 = [RankViewController new];
+//    RankViewController *vc2 = [RankViewController new];
     [arr addObjectsFromArray:@[
                                vc1,
-                               vc2,
+//                               vc2,
                                ]];
     return arr;
 }

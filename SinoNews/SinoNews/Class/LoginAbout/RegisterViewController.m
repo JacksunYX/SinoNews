@@ -229,7 +229,8 @@
     .heightIs(30)
     .widthIs(70)
     ;
-    [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    
+    [getCodeBtn setTitle:@"获取邮箱验证码" forState:UIControlStateNormal];
     [getCodeBtn addTarget:self action:@selector(getSeccode:) forControlEvents:UIControlEventTouchUpInside];
     
     seccode.sd_layout

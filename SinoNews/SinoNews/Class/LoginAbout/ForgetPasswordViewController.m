@@ -183,7 +183,7 @@
     .bottomEqualToView(seccodeBackView)
     .rightSpaceToView(getCodeBtn, 0)
     ;
-    seccode.placeholder = @"请输入验证码";
+    seccode.placeholder = @"请输入邮箱验证码";
     
     completeBtn.sd_layout
     .leftSpaceToView(backImg, 30)

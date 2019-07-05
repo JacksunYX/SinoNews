@@ -230,7 +230,7 @@
     .widthIs(70)
     ;
     
-    [getCodeBtn setTitle:@"获取邮箱验证码" forState:UIControlStateNormal];
+    [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [getCodeBtn addTarget:self action:@selector(getSeccode:) forControlEvents:UIControlEventTouchUpInside];
     
     seccode.sd_layout
@@ -239,7 +239,7 @@
     .bottomEqualToView(seccodeBackView)
     .rightSpaceToView(getCodeBtn, 0)
     ;
-    seccode.placeholder = @"请输入验证码";
+    seccode.placeholder = @"请输入邮箱验证码";
     
     promoteCode.sd_layout
     .leftSpaceToView(backImg, 30)

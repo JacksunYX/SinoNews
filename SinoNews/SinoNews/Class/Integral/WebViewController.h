@@ -20,6 +20,7 @@
  3.签到规则
  4.隐私协议
  5.关于
+ 6.广告合作
  */
 @property (nonatomic,assign) NSInteger showType;
 

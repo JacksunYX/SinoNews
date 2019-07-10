@@ -54,6 +54,7 @@
 //    3.签到规则
 //    4.隐私协议
 //    5.关于
+//    6.广告合作
     switch (self.showType) {
         case 1:
         {
@@ -82,6 +83,12 @@
         case 5:
         {
             self.navigationItem.title = @"关于";
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, News_aboutUs)];
+        }
+            break;
+        case 6:
+        {
+            self.navigationItem.title = @"广告合作";
             self.baseUrl = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, News_aboutUs)];
         }
             break;

@@ -16,7 +16,7 @@ const NSString * DomainString = nil;
 //获取通用的请求manager
 + (nullable AFHTTPSessionManager *)getQuestManager
 {
-#if !DEBUG
+#if DEBUG
     DomainString = DefaultDomainName;
 #else
 

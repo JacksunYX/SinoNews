@@ -135,15 +135,18 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         //分区3
         NSArray *title = @[
                            @"分享",
+                           @"广告",
                            @"设置",
                            ];
         
         NSArray *img = @[
                          @"mine_share",
+                         @"mine_share",
                          @"mine_setting",
                          ];
         NSArray *rightTitle = @[
                                 @"邀请朋友注册双方各得1000分",
+                                @"广告投放和商业合作联系方式",
                                 @"",
                                 ];
         for (int i = 0 ; i < title.count; i ++) {
@@ -860,29 +863,25 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 3) {
-        switch (indexPath.row) {
-            case 0:
-            {
-                [self getShareData];
-            }
-                break;
-            case 1:
-            {
-                if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
-                    NewSettingViewController *stVC = [NewSettingViewController new];
-                    [self.navigationController pushViewController:stVC animated:YES];
-                }else{
-                    SettingViewController *sVC = [SettingViewController new];
-                    [self.navigationController pushViewController:sVC animated:YES];
-                }
-            }
-                break;
-                
-            default:
-                break;
+    NSArray *section3 = self.mainDatasource[3];
+    NSDictionary *dic = section3[indexPath.row];
+    NSString *title = dic[@"title"];
+    if (CompareString(title, @"分享")) {
+         [self getShareData];
+    }else if (CompareString(title, @"广告")) {
+        WebViewController *wVC = [WebViewController new];
+        wVC.showType = 1;
+        [self.navigationController pushViewController:wVC animated:YES];
+    }else if (CompareString(title, @"设置")) {
+        if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {
+            NewSettingViewController *stVC = [NewSettingViewController new];
+            [self.navigationController pushViewController:stVC animated:YES];
+        }else{
+            SettingViewController *sVC = [SettingViewController new];
+            [self.navigationController pushViewController:sVC animated:YES];
         }
     }
+
 }
 
 #pragma mark --- 请求

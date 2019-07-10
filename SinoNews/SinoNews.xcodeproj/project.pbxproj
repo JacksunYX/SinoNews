@@ -2420,6 +2420,7 @@
 		E3E31EC7E2B3BA1E8939B8FC /* Pods-SinoNewsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsTests/Pods-SinoNewsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E95A22999BE9F172C21BD99F /* libPods-SinoNews.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SinoNews.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F18AF6A4688D00079DE16EA5 /* Pods-SinoNewsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinoNewsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinoNewsUITests/Pods-SinoNewsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F727E54122D5793B0014939A /* SinoNews.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SinoNews.entitlements; sourceTree = "<group>"; };
 		F7B94C5E22C3655900FD900E /* NewRankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRankViewController.h; sourceTree = "<group>"; };
 		F7B94C5F22C3655900FD900E /* NewRankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewRankViewController.m; sourceTree = "<group>"; };
 		F7B94C6122C36D8B00FD900E /* HotContentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentViewController.h; sourceTree = "<group>"; };
@@ -2838,6 +2839,7 @@
 		4C3F8F9E20BCD893003EC4FC /* SinoNews */ = {
 			isa = PBXGroup;
 			children = (
+				F727E54122D5793B0014939A /* SinoNews.entitlements */,
 				4C53D1C6215DF2C400AFC352 /* STCDefination.h */,
 				4C3F8FA820BCD894003EC4FC /* Assets.xcassets */,
 				4C5BFD03211AF44000EF82DA /* SoundSource */,
@@ -6451,7 +6453,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = SinoNews/SinoNews.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -6503,7 +6505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = SinoNews/SinoNews.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;

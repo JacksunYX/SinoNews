@@ -245,7 +245,7 @@
     .leftSpaceToView(backImg, 30)
     .rightSpaceToView(backImg, 30)
     .topSpaceToView(seccodeBackView, 0)
-    .heightIs(0)
+    .heightIs(56)
     ;
     [promoteCode updateLayout];
     promoteCode.placeholder = @"请输入推广码(选填)";

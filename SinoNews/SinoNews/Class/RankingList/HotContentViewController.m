@@ -9,6 +9,13 @@
 #import "HotContentViewController.h"
 #import "HotContentTableViewCell.h"
 
+#import "HomePageFirstKindCell.h"
+#import "HomePageSecondKindCell.h"
+#import "HomePageThirdKindCell.h"
+#import "HomePageFourthCell.h"
+
+#import "ReadPostListTableViewCell.h"
+
 @interface HotContentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic,strong) LXSegmentBtnView *segmentView;
@@ -94,9 +101,9 @@
     self.segmentView.titleFont = PFFontM(14);
     
     [self createTableLeft];
-
+    
     [self createCenterTable];
-
+    
     [self createTableRight];
     
     [self reloadTableWithIndex:0];
@@ -122,6 +129,8 @@
     
     [self.tableLeft registerClass:[HotContentTableViewCell class] forCellReuseIdentifier:HotContentTableViewCellID];
     
+    [_tableLeft registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
+    
     @weakify(self);
     self.tableLeft.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
         @strongify(self);
@@ -146,7 +155,11 @@
     .rightSpaceToView(self.view, 10)
     .bottomSpaceToView(self.view, 0)
     ;
-    
+    //注册
+    [_tableCenter registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
+    [_tableCenter registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
+    [_tableCenter registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
+    [_tableCenter registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
     [self.tableCenter registerClass:[HotContentTableViewCell class] forCellReuseIdentifier:HotContentTableViewCellID];
     
     @weakify(self);
@@ -175,6 +188,8 @@
     ;
     //注册
     [self.tableRight registerClass:[HotContentTableViewCell class] forCellReuseIdentifier:HotContentTableViewCellID];
+    
+    [_tableRight registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
     
     @weakify(self);
     self.tableRight.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
@@ -227,33 +242,80 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableDictionary *dataModel = NSMutableDictionary.new;
-    dataModel[@"type"] = @(0);
+    //    NSMutableDictionary *dataModel = NSMutableDictionary.new;
+    //    dataModel[@"type"] = @(0);
+    UITableViewCell *cell;
     if (tableView == _tableLeft) {
+        //        SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
+        //        dataModel[@"title"] = model.postTitle;
+        //        dataModel[@"pushTime"] = model.createTime;
+        //        dataModel[@"viewCount"] = @(model.viewCount);
+        //        dataModel[@"num"] = @(indexPath.row+1);
+        ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
-        dataModel[@"title"] = model.postTitle;
-        dataModel[@"pushTime"] = model.createTime;
-        dataModel[@"viewCount"] = @(model.viewCount);
-        dataModel[@"num"] = @(indexPath.row+1);
+        cell.model = model;
+        
     }else if (tableView == _tableCenter){
+        //        id model = self.centerDataSource[indexPath.row];
+        //        if ([model isKindOfClass:[HomePageModel class]]) {
+        //            HomePageModel *model1 = model;
+        //            dataModel[@"title"] = model1.itemTitle;
+        //            dataModel[@"pushTime"] = model1.createTime;
+        //            dataModel[@"viewCount"] = @(model1.viewCount);
+        //            dataModel[@"num"] = @(indexPath.row+1);
+        //        }
         id model = self.centerDataSource[indexPath.row];
         if ([model isKindOfClass:[HomePageModel class]]) {
-            HomePageModel *model1 = model;
-            dataModel[@"title"] = model1.itemTitle;
-            dataModel[@"pushTime"] = model1.createTime;
-            dataModel[@"viewCount"] = @(model1.viewCount);
-            dataModel[@"num"] = @(indexPath.row+1);
+            HomePageModel *model1 = (HomePageModel *)model;
+            switch (model1.itemType) {
+                case 400:
+                case 500:
+                case 100:   //无图
+                {
+                    HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                    
+                case 401:
+                case 501:
+                case 101:   //1图
+                {
+                    HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                case 403:
+                case 503:
+                case 103:   //3图
+                {
+                    HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                    cell1.model = model1;
+                    cell = (UITableViewCell *)cell1;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
         }
+        return cell;
     }else{
+        //        SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
+        //        dataModel[@"type"] = @(1);
+        //        dataModel[@"title"] = model.postTitle;
+        //        dataModel[@"pushTime"] = model.createTime;
+        //        dataModel[@"viewCount"] = @(model.praiseCount);
+        //        dataModel[@"num"] = @(indexPath.row+1);
+        
+        ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
         SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
-        dataModel[@"type"] = @(1);
-        dataModel[@"title"] = model.postTitle;
-        dataModel[@"pushTime"] = model.createTime;
-        dataModel[@"viewCount"] = @(model.praiseCount);
-        dataModel[@"num"] = @(indexPath.row+1);
+        cell.model = model;
     }
-    HotContentTableViewCell *cell = (HotContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:HotContentTableViewCellID];
-    cell.model = dataModel;
+    //    HotContentTableViewCell *cell = (HotContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:HotContentTableViewCellID];
+    //    cell.model = dataModel;
     [cell addBakcgroundColorTheme];
     
     return cell;
@@ -276,21 +338,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _tableLeft) {
-        SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
-        UIViewController *vc;
-        if (model.postType == 2) { //投票
-            TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
-            tvpdVC.postModel.postId = model.postId;
-            vc = tvpdVC;
-        }else{
-            ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
-            tpdVC.postModel.postId = model.postId;
-            vc = tpdVC;
-        }
-        [self.navigationController pushViewController:vc animated:YES];
-        
-    }else if (tableView == _tableCenter){
+    if (tableView == _tableCenter){
         id model = self.centerDataSource[indexPath.row];
         UIViewController *pushVC;
         NSInteger itemId = 0;
@@ -321,9 +369,14 @@
             itemId = [model2.topicId integerValue];
             pushVC = tVC;
         }
-         [self.navigationController pushViewController:pushVC animated:YES];
+        [self.navigationController pushViewController:pushVC animated:YES];
     }else{
-        SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
+        SeniorPostDataModel *model;
+        if (tableView == _tableLeft) {
+            model = self.leftDataSource[indexPath.row];
+        }else{
+            model = self.rightDataSource[indexPath.row];
+        }
         UIViewController *vc;
         if (model.postType == 2) { //投票
             TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];

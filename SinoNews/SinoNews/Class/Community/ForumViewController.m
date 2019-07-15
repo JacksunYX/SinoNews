@@ -10,6 +10,7 @@
 #import "ChangeAttentionViewController.h"
 #import "CommunitySearchVC.h"
 #import "ForumDetailViewController.h"
+#import "SearchViewController.h"
 
 #import "ForumLeftTableViewCell.h"
 #import "ForumRightTableViewCell.h"
@@ -154,7 +155,7 @@
     if (self.postModel) {
         self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(publishAction) title:@"发表" font:PFFontL(15) titleColor:BlackColor highlightedColor:BlackColor titleEdgeInsets:UIEdgeInsetsZero];
     }else{
-        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(@"attention_search")];
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(newSearchAction) image:UIImageNamed(@"attention_search")];
     }
     
 }
@@ -227,6 +228,14 @@
     //不加不这句话，搜索关键字的table上面会空出一大块
     sVC.navigationController.navigationBar.translucent = NO;
     [self presentViewController:nav animated:NO completion:nil];
+}
+
+//新的搜索跳转界面
+-(void)newSearchAction
+{
+    SearchViewController *sVC = [SearchViewController new];
+    sVC.selectIndex = 1;
+    [self.navigationController pushViewController:sVC animated:NO];
 }
 
 -(void)setUI

@@ -458,6 +458,7 @@
         
     }else if (selectedIndex == 2){
         HomePageFourthCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+        cell2.isTopic = YES;
         cell2.model = self.topicArray[indexPath.row];
         cell = cell2;
     }

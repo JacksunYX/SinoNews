@@ -8,6 +8,7 @@
 
 #import "ForumDetailViewController.h"
 #import "CommunitySearchVC.h"
+#import "SearchViewController.h"
 
 #import "ForumDetailTableViewCell.h"
 #import "ReadPostListTableViewCell.h"
@@ -104,7 +105,7 @@
 //修改导航栏显示
 -(void)addNavigationView
 {
-    UIBarButtonItem *searchBtn = [UIBarButtonItem itemWithTarget:self action:@selector(searchAction) image:UIImageNamed(@"forum_search")];
+    UIBarButtonItem *searchBtn = [UIBarButtonItem itemWithTarget:self action:@selector(newSearchAction) image:UIImageNamed(@"forum_search")];
     
     _attentionBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 26)];
     [_attentionBtn setNormalImage:UIImageNamed(@"forum_notAttention")];
@@ -300,6 +301,14 @@
     //不加不这句话，搜索关键字的table上面会空出一大块
     sVC.navigationController.navigationBar.translucent = NO;
     [self presentViewController:nav animated:NO completion:nil];
+}
+
+//新的搜索跳转界面
+-(void)newSearchAction
+{
+    SearchViewController *sVC = [SearchViewController new];
+    sVC.selectIndex = 1;
+    [self.navigationController pushViewController:sVC animated:NO];
 }
 
 //关注点击

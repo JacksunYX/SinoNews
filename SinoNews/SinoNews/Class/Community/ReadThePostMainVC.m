@@ -10,6 +10,8 @@
 #import "ReadPostChildViewController.h"
 #import "CommunitySearchVC.h"
 
+#import "SearchViewController.h"
+
 #import "PostListSearchModel.h"
 
 #import "XLChannelControl.h"        //频道管理页面
@@ -178,7 +180,7 @@
     .heightEqualToWidth()
     ;
     [search setNormalImage:UIImageNamed(@"forum_search")];
-    [search addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+    [search addTarget:self action:@selector(newSearchAction) forControlEvents:UIControlEventTouchUpInside];
     
     addChannel.sd_layout
     .centerYEqualToView(_customTitleView)
@@ -256,6 +258,14 @@
     //不加不这句话，搜索关键字的table上面会空出一大块
     sVC.navigationController.navigationBar.translucent = NO;
     [self presentViewController:nav animated:NO completion:nil];
+}
+
+//新的搜索跳转界面
+-(void)newSearchAction
+{
+    SearchViewController *sVC = [SearchViewController new];
+    sVC.selectIndex = 1;
+    [self.navigationController pushViewController:sVC animated:NO];
 }
 
 //处理版块数据

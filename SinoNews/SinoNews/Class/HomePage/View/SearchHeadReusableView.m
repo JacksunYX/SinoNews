@@ -66,7 +66,7 @@
     
     _segmentView = [[STSegmentView alloc]initWithFrame:CGRectMake(self.width/2 - 150, 0, 300, 50)];
     [_segmentView.selectedBgView addBakcgroundColorTheme];
-    _segmentView.titleArray = @[@"新闻",@"娱乐城",@"作者"];
+    _segmentView.titleArray = @[@"新闻",@"帖子",@"作者"];
     _segmentView.sliderColor = HexColor(#1282EE);
     _segmentView.titleSpacing = 50;
     _segmentView.sliderHeight = 2;

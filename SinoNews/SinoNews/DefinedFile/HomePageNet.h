@@ -56,6 +56,8 @@
 #define News_getNewsKeys        @"/api/news/getNewsKeys"
 //搜索文章(get)
 #define News_listForSearching   @"/api/news/listForSearching"
+//搜索帖子列表(get)
+#define Posts_listForSearching   @"/api/post/listPostForSearch"
 //搜索自动补全(get)
 #define News_autoComplete       @"/api/news/autoComplete"
 //搜索作者(post)

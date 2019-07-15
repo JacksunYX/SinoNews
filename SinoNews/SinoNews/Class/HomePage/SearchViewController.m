@@ -18,6 +18,7 @@
 #import "HomePageSecondKindCell.h"
 #import "HomePageThirdKindCell.h"
 #import "HomePageFourthCell.h"
+#import "ReadPostListTableViewCell.h"
 
 #import "CasinoCollectViewController.h"
 
@@ -34,6 +35,8 @@
 @property (nonatomic,strong) BaseTableView *tableView;
 @property (nonatomic,strong) NSMutableArray *newsArr;    //资讯数组
 @property (nonatomic,assign) NSInteger newPage;     //页码
+@property (nonatomic,strong) NSMutableArray *postsArr;    //帖子数组
+@property (nonatomic,assign) NSInteger postPage;     //帖子页码
 //搜索的娱乐城数组
 @property (nonatomic,strong) NSMutableArray *casinoArray;
 //推荐关键词视图
@@ -105,6 +108,7 @@
         [_tableView registerClass:[HomePageSecondKindCell class] forCellReuseIdentifier:HomePageSecondKindCellID];
         [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
         [_tableView registerClass:[HomePageFourthCell class] forCellReuseIdentifier:HomePageFourthCellID];
+        [_tableView registerClass:[ReadPostListTableViewCell class] forCellReuseIdentifier:ReadPostListTableViewCellID];
         
         _tableView.hidden = YES;
         
@@ -284,12 +288,12 @@
             textField.lee_theme.LeeCustomConfig(@"backgroundColor", ^(id item, id value) {
                 if (UserGetBool(@"NightMode")) {
                     textField.backgroundColor = HexColor(#292D30);
-                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/娱乐场/作者" attributes:@{
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/帖子/作者" attributes:@{
                                                                                                                        NSForegroundColorAttributeName:HexColor(#4B4B4B),                                                    NSFontAttributeName:Font(13),
                                                                                                                        }];
                 }else{
                     textField.backgroundColor = HexColor(#f2f2f2);
-                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/娱乐场/作者" attributes:@{
+                    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@" 输入要搜索的新闻/帖子/作者" attributes:@{
                                                                                                                        NSForegroundColorAttributeName:HexColor(#959b9f),                                                    NSFontAttributeName:Font(13),
                                                                                                                        }];
                 }
@@ -347,14 +351,14 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
-//1.只显示资讯列表 2.只显示搜索的相关关键词 3.只显示推荐关键词
+//1.只显示新闻或帖子列表 2.只显示搜索的相关关键词 3.只显示推荐关键词
 -(void)showWithStatus:(NSInteger)status
 {
     switch (status) {
         case 1:
         {
             self.tableView.hidden = NO;
-            if (self.selectIndex!=0) {
+            if (self.selectIndex==2) {
                 self.tableView.hidden = YES;
             }
             self.collectionView.hidden = YES;
@@ -537,14 +541,24 @@
 
 -(void)loadHeadNews
 {
-    _newPage = 1;
-    [self requestSearchNewsListWithText:self.searchBar.text];
+    if (self.selectIndex == 0) {
+        _newPage = 1;
+        [self requestSearchNewsListWithText:self.searchBar.text];
+    }else if (self.selectIndex == 1){
+        _postPage = 1;
+         [self requestSearchPostsListWithText:self.searchBar.text];
+    }
 }
 
 -(void)loadFootNews
 {
-    _newPage ++;
-    [self requestSearchNewsListWithText:self.searchBar.text];
+    if (self.selectIndex == 0) {
+        _newPage ++;
+        [self requestSearchNewsListWithText:self.searchBar.text];
+    }else if (self.selectIndex == 1){
+        _postPage ++;
+        [self requestSearchPostsListWithText:self.searchBar.text];
+    }
 }
 
 -(void)tap:(UITapGestureRecognizer *)gesture
@@ -568,10 +582,14 @@
 {
     [self.searchBar resignFirstResponder];
     if (self.selectIndex == 1){
-        CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
-        ccVC.type = 1;
-        ccVC.keyword = self.searchBar.text;
-        [self.navigationController pushViewController:ccVC animated:NO];
+//        CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
+//        ccVC.type = 1;
+//        ccVC.keyword = self.searchBar.text;
+//        [self.navigationController pushViewController:ccVC animated:NO];
+//         [self requestSearchPostsListWithText:self.searchBar.text];
+        [self loadHeadNews];
+        //搜索关键词
+        [self showWithStatus:1];
     }else if (self.selectIndex == 0){
         //发送请求
         [self loadHeadNews];
@@ -601,7 +619,10 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.tableView) {
-        return self.newsArr.count;
+        if (self.selectIndex == 0) {
+            return self.newsArr.count;
+        }
+        return self.postsArr.count;
     }
     if (tableView == self.keyTableView) {
         return self.keyArr.count;
@@ -613,51 +634,58 @@
 {
     UITableViewCell *cell;
     if (tableView == self.tableView) {
-        id model = self.newsArr[indexPath.row];
-        if ([model isKindOfClass:[HomePageModel class]]) {
-            HomePageModel *model1 = (HomePageModel *)model;
-            switch (model1.itemType) {
-                case 400:
-                case 500:
-                case 100:   //无图
-                {
-                    HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
-                    cell1.model = model1;
-                    cell = (UITableViewCell *)cell1;
+        if (self.selectIndex == 0) {
+            id model = self.newsArr[indexPath.row];
+            if ([model isKindOfClass:[HomePageModel class]]) {
+                HomePageModel *model1 = (HomePageModel *)model;
+                switch (model1.itemType) {
+                    case 400:
+                    case 500:
+                    case 100:   //无图
+                    {
+                        HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
+                        cell1.model = model1;
+                        cell = (UITableViewCell *)cell1;
+                    }
+                        break;
+                        
+                    case 401:
+                    case 501:
+                    case 101:   //1图
+                    {
+                        HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                        cell1.model = model1;
+                        cell = (UITableViewCell *)cell1;
+                    }
+                        break;
+                    case 403:
+                    case 503:
+                    case 103:   //3图
+                    {
+                        HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
+                        cell1.model = model1;
+                        cell = (UITableViewCell *)cell1;
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
-                    break;
-                    
-                case 401:
-                case 501:
-                case 101:   //1图
-                {
-                    HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-                    cell1.model = model1;
-                    cell = (UITableViewCell *)cell1;
-                }
-                    break;
-                case 403:
-                case 503:
-                case 103:   //3图
-                {
-                    HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
-                    cell1.model = model1;
-                    cell = (UITableViewCell *)cell1;
-                }
-                    break;
-                    
-                default:
-                    break;
+                
+            }else if ([model isKindOfClass:[TopicModel class]]){
+                HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
+                cell2.model = model;
+                cell = (UITableViewCell *)cell2;
+            }else if ([model isKindOfClass:[ADModel class]]){
+                HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
+                cell3.model = model;
+                cell = (UITableViewCell *)cell3;
             }
-            
-        }else if ([model isKindOfClass:[TopicModel class]]){
-            HomePageFirstKindCell *cell2 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-            cell2.model = model;
-            cell = (UITableViewCell *)cell2;
-        }else if ([model isKindOfClass:[ADModel class]]){
-            HomePageThirdKindCell *cell3 = [tableView dequeueReusableCellWithIdentifier:HomePageThirdKindCellID];
-            cell3.model = model;
-            cell = (UITableViewCell *)cell3;
+        }else if (self.selectIndex == 1){
+            ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+            SeniorPostDataModel *model = self.postsArr[indexPath.row];
+            cell.model = model;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
     }else if (tableView == self.keyTableView){
         cell = [tableView dequeueReusableCellWithIdentifier:@"KeyCellID"];
@@ -690,16 +718,21 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (self.newsArr.count<=0&&tableView == self.tableView&&self.selectIndex == 0) {
+    BOOL isShowTableView = (tableView == self.tableView);
+    BOOL noSearchDataHead = (self.selectIndex == 0&&self.newsArr.count<=0)||(self.selectIndex == 1&&self.postsArr.count<=0);
+    if (isShowTableView&&noSearchDataHead) {
         return 40;
     }
+    
     return 0.01;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headView;
-    if (self.newsArr.count<=0&&tableView == self.tableView&&self.selectIndex == 0) {
+    BOOL isShowTableView = (tableView == self.tableView);
+    BOOL noSearchDataHead = (self.selectIndex == 0&&self.newsArr.count<=0)||(self.selectIndex == 1&&self.postsArr.count<=0);
+    if (isShowTableView&&noSearchDataHead) {
         headView = [[UIView alloc]initWithFrame:CGRectMake(0,0, ScreenW, 40)];
         [headView addBakcgroundColorTheme];
         UILabel *noticeLabel = [UILabel new];
@@ -727,10 +760,12 @@
             //在当前界面搜索
             [self loadHeadNews];
         }else if (self.selectIndex == 1){
-            CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
-            ccVC.type = 1;
-            ccVC.keyword = self.searchBar.text;
-            [self.navigationController pushViewController:ccVC animated:NO];
+//            CasinoCollectViewController *ccVC = [CasinoCollectViewController new];
+//            ccVC.type = 1;
+//            ccVC.keyword = self.searchBar.text;
+//            [self.navigationController pushViewController:ccVC animated:NO];
+//            [self requestSearchPostsListWithText:self.searchBar.text];
+            [self loadHeadNews];
         }else if (self.selectIndex == 2){
             MyAttentionViewController *maVC = [MyAttentionViewController new];
             maVC.keyword = self.searchBar.text;
@@ -774,6 +809,31 @@
         self.newsArr = [self.tableView pullWithPage:self.newPage data:dataArr dataSource:self.newsArr];
 
         if (self.newsArr.count<=0) {
+            self.noticeString = [NSString stringWithFormat:@"没有找到 %@ 相关内容",text];
+        }else{
+            self.noticeString = @"";
+        }
+        [self reloadViews];
+    } failure:^(NSError *error) {
+        HiddenHudOnly;
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
+//搜索帖子列表
+-(void)requestSearchPostsListWithText:(NSString *)text
+{
+    ShowHudOnly;
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"keyword"] = text;
+    parameters[@"sortOrder"] = @(0);
+    parameters[@"page"] = @(self.postPage);
+    [HttpRequest getWithURLString:Posts_listForSearching parameters:parameters success:^(id responseObject) {
+        NSMutableArray *dataArr = [SeniorPostDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+        HiddenHudOnly;
+        self.postsArr = [self.tableView pullWithPage:self.postPage data:dataArr dataSource:self.postsArr];
+        
+        if (self.postsArr.count<=0) {
             self.noticeString = [NSString stringWithFormat:@"没有找到 %@ 相关内容",text];
         }else{
             self.noticeString = @"";

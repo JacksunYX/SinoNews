@@ -242,80 +242,41 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    NSMutableDictionary *dataModel = NSMutableDictionary.new;
-    //    dataModel[@"type"] = @(0);
-    UITableViewCell *cell;
-    if (tableView == _tableLeft) {
-        //        SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
-        //        dataModel[@"title"] = model.postTitle;
-        //        dataModel[@"pushTime"] = model.createTime;
-        //        dataModel[@"viewCount"] = @(model.viewCount);
-        //        dataModel[@"num"] = @(indexPath.row+1);
-        ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
-        SeniorPostDataModel *model = self.leftDataSource[indexPath.row];
-        cell.model = model;
-        
-    }else if (tableView == _tableCenter){
-        //        id model = self.centerDataSource[indexPath.row];
-        //        if ([model isKindOfClass:[HomePageModel class]]) {
-        //            HomePageModel *model1 = model;
-        //            dataModel[@"title"] = model1.itemTitle;
-        //            dataModel[@"pushTime"] = model1.createTime;
-        //            dataModel[@"viewCount"] = @(model1.viewCount);
-        //            dataModel[@"num"] = @(indexPath.row+1);
-        //        }
+    NSMutableDictionary *dataModel = NSMutableDictionary.new;
+    dataModel[@"type"] = @(0);
+    if (tableView == _tableCenter){
         id model = self.centerDataSource[indexPath.row];
         if ([model isKindOfClass:[HomePageModel class]]) {
-            HomePageModel *model1 = (HomePageModel *)model;
-            switch (model1.itemType) {
-                case 400:
-                case 500:
-                case 100:   //无图
-                {
-                    HomePageFourthCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFourthCellID];
-                    cell1.model = model1;
-                    cell = (UITableViewCell *)cell1;
-                }
-                    break;
-                    
-                case 401:
-                case 501:
-                case 101:   //1图
-                {
-                    HomePageFirstKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageFirstKindCellID];
-                    cell1.model = model1;
-                    cell = (UITableViewCell *)cell1;
-                }
-                    break;
-                case 403:
-                case 503:
-                case 103:   //3图
-                {
-                    HomePageSecondKindCell *cell1 = [tableView dequeueReusableCellWithIdentifier:HomePageSecondKindCellID];
-                    cell1.model = model1;
-                    cell = (UITableViewCell *)cell1;
-                }
-                    break;
-                    
-                default:
-                    break;
+            HomePageModel *model1 = model;
+            dataModel[@"num"] = @(indexPath.row+1);
+            dataModel[@"title"] = model1.itemTitle;
+            dataModel[@"username"] = model1.username;
+            dataModel[@"viewCount"] = @(model1.viewCount);
+            dataModel[@"praiseCount"] = @(model1.commentCount);
+            if (model1.images.count>0) {
+                dataModel[@"image"] = model1.images.firstObject;
             }
         }
-        return cell;
     }else{
-        //        SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
-        //        dataModel[@"type"] = @(1);
-        //        dataModel[@"title"] = model.postTitle;
-        //        dataModel[@"pushTime"] = model.createTime;
-        //        dataModel[@"viewCount"] = @(model.praiseCount);
-        //        dataModel[@"num"] = @(indexPath.row+1);
-        
-        ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
-        SeniorPostDataModel *model = self.rightDataSource[indexPath.row];
-        cell.model = model;
+        SeniorPostDataModel *model;
+        if (tableView == _tableLeft) {
+            model = self.leftDataSource[indexPath.row];
+        }else{
+            model = self.rightDataSource[indexPath.row];
+            dataModel[@"type"] = @(1);
+        }
+        dataModel[@"num"] = @(indexPath.row+1);
+        dataModel[@"title"] = model.postTitle;
+        dataModel[@"username"] = model.username;
+        dataModel[@"viewCount"] = @(model.viewCount);
+        dataModel[@"praiseCount"] = @(model.praiseCount);
+        if (model.images.count>0) {
+            dataModel[@"image"] = model.images.firstObject;
+        }
     }
-    //    HotContentTableViewCell *cell = (HotContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:HotContentTableViewCellID];
-    //    cell.model = dataModel;
+
+    HotContentTableViewCell *cell = (HotContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:HotContentTableViewCellID];
+    cell.model = dataModel;
     [cell addBakcgroundColorTheme];
     
     return cell;

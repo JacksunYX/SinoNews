@@ -12,9 +12,10 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
 
 @interface HotContentTableViewCell ()
 {
+    UIImageView *rightImg;
     UILabel *numLabel;
     UILabel *titleLabel;
-    UILabel *pushTime;
+    UILabel *usernameLabel;
     UILabel *operationLabel;
 }
 @end
@@ -43,21 +44,32 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
 
 -(void)setupUI
 {
+    rightImg = [UIImageView new];
+    rightImg.contentMode = 2;
     numLabel = [UILabel new];
     titleLabel = [UILabel new];
-    pushTime = [UILabel new];
+    usernameLabel = [UILabel new];
     operationLabel = [UILabel new];
-
-//    numLabel.backgroundColor = RedColor;
-//    titleLabel.backgroundColor = RedColor;
     
     UIView *fatherView = self.contentView;
     [fatherView sd_addSubviews:@[
+                                 rightImg,
                                  numLabel,
                                  titleLabel,
                                  operationLabel,
-                                 pushTime,
+                                 usernameLabel,
                                  ]];
+    //布局
+    rightImg.sd_layout
+    .rightSpaceToView(self.contentView, 10)
+    .topSpaceToView(self.contentView, 15)
+    .widthIs(kScaelW(118))
+    .heightIs(kScaelW(118)*82/118)
+    //    .widthIs(kScaelW(105))
+    //    .heightEqualToWidth()
+    ;
+    [rightImg setSd_cornerRadius:@4];
+    
     numLabel.sd_layout
     .topSpaceToView(fatherView, 10)
     .leftSpaceToView(fatherView, 10)
@@ -66,40 +78,35 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     ;
     numLabel.font = PFFontM(16);
     numLabel.textColor = HexColor(#161A24);
-//    numLabel.text = @"1";
     
     titleLabel.sd_layout
-    .topSpaceToView(fatherView, 7)
+    .topSpaceToView(fatherView, 10)
     .leftSpaceToView(numLabel, 5)
-    .rightSpaceToView(fatherView, 10)
+    .rightSpaceToView(rightImg, 10)
     .autoHeightRatio(0)
     ;
-//    [titleLabel setMaxNumberOfLinesToShow:3];
     titleLabel.font = PFFontL(15);
     titleLabel.textColor = HexColor(#161A24);
-//    titleLabel. text = @"手教你如何叠加双十二的20倍和龙支付的N倍积分";
     
     operationLabel.sd_layout
-    .topSpaceToView(titleLabel, 10)
-    .rightSpaceToView(fatherView, 10)
+    .bottomEqualToView(rightImg)
+    .rightSpaceToView(rightImg, 10)
     .heightIs(10)
     ;
     [operationLabel setSingleLineAutoResizeWithMaxWidth:100];
     operationLabel.font = PFFontL(11);
     operationLabel.textColor = HexColor(#ABB2C3);
-//    operationLabel. text = @"30 阅读";
     
-    pushTime.sd_layout
+    usernameLabel.sd_layout
     .centerYEqualToView(operationLabel)
     .leftEqualToView(titleLabel)
     .heightIs(10)
     ;
-    [pushTime setSingleLineAutoResizeWithMaxWidth:100];
-    pushTime.font = PFFontL(11);
-    pushTime.textColor = HexColor(#898989);
-//    pushTime. text = @"1小时前";
+    [usernameLabel setSingleLineAutoResizeWithMaxWidth:100];
+    usernameLabel.font = PFFontL(11);
+    usernameLabel.textColor = HexColor(#898989);
     
-    [self setupAutoHeightWithBottomView:pushTime bottomMargin:12];
+    [self setupAutoHeightWithBottomView:rightImg bottomMargin:10];
 }
 
 -(void)setModel:(NSDictionary *)model
@@ -109,15 +116,24 @@ NSString *const HotContentTableViewCellID = @"HotContentTableViewCellID";
     numLabel.text = [NSString stringWithFormat:@"%ld",num];
    titleLabel.text = model[@"title"] ;
     
-    pushTime.text = model[@"pushTime"];
+    usernameLabel.text = model[@"username"];
     NSInteger type = [model[@"type"] integerValue];
-    NSString *str = @"阅读";
+    NSInteger viewCount = [model[@"viewCount"] integerValue];
+    NSInteger praiseCount = [model[@"praiseCount"] integerValue];
+    NSString *str = @"";
+    NSString *spellStr;
     if (type == 1) {
         str = @"点赞";
+        spellStr = [NSString stringWithFormat:@"%ld %@",praiseCount ,str];
+    }else{
+        str = @"阅读";
+        spellStr = [NSString stringWithFormat:@"%ld %@",viewCount ,str];
     }
     
-    operationLabel.text = [NSString stringWithFormat:@"%ld %@",[model[@"viewCount"] integerValue] ,str ];
+    operationLabel.text = spellStr;
     
+    NSString *imgUrl = model[@"image"];
+    [rightImg sd_setImageWithURL:UrlWithStr(GetSaveString(imgUrl)) placeholderImage:nil];
 }
 
 

@@ -16,7 +16,7 @@
 }
 
 - (void)cornerWithRadius:(CGFloat)cornerRadius direction:(CornerDirectionType) cornerType{
-    UIBezierPath *maskPath = nil;
+    UIBezierPath *maskPath ;
     
     switch (cornerType) {
         case CornerDirectionTypeAllCorners:

@@ -454,7 +454,14 @@ NSString * _Nullable const ReadPostListTableViewCellID = @"ReadPostListTableView
         oliver.hidden = YES;
         highQuality.hidden = YES;
     }
-    title.text = titleStr;
+    if ([titleStr containsString:@"<font"]) {
+        title.attributedText = [NSString analysisHtmlString:titleStr];
+        //⚠️字体需要在这里重新设置才行，不然会变小
+        title.font = NewsTitleFont;
+    }else{
+        title.text = titleStr;
+    }
+    [title updateLayout];
     
     if (model.username) {
         nickName.text = GetSaveString(model.username);

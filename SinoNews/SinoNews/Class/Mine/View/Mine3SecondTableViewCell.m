@@ -51,7 +51,6 @@ NSString *const Mine3SecondTableViewCellID = @"Mine3SecondTableViewCellID";
     UIImageView *rightIcon = [UIImageView new];
     
     subTitle = [UILabel new];
-    subTitle.textColor = HexColor(#F98B50);
     subTitle.font = PFFontL(12);
     
     UIView *line = [UIView new];
@@ -105,6 +104,7 @@ NSString *const Mine3SecondTableViewCellID = @"Mine3SecondTableViewCellID";
 
 -(void)setData:(NSDictionary *)data
 {
+    subTitle.textColor = HexColor(#F98B50);
     title.text = GetSaveString(data[@"title"]);
     subTitle.text = GetSaveString(data[@"rightTitle"]);
     NSString *imgStr = GetSaveString(data[@"img"]);
@@ -112,6 +112,11 @@ NSString *const Mine3SecondTableViewCellID = @"Mine3SecondTableViewCellID";
         imgStr = AppendingString(imgStr, @"_night");
     }
     icon.image = UIImageNamed(imgStr);
+}
+
+-(void)setSubTitleTextColor:(UIColor *)color
+{
+    subTitle.textColor = color;
 }
 
 @end

@@ -682,10 +682,11 @@
                 cell = (UITableViewCell *)cell3;
             }
         }else if (self.selectIndex == 1){
-            ReadPostListTableViewCell *cell = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
+            ReadPostListTableViewCell *cell1 = (ReadPostListTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReadPostListTableViewCellID];
             SeniorPostDataModel *model = self.postsArr[indexPath.row];
-            cell.model = model;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell1.model = model;
+            cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell = cell1;
         }
     }else if (tableView == self.keyTableView){
         cell = [tableView dequeueReusableCellWithIdentifier:@"KeyCellID"];
@@ -774,8 +775,23 @@
         }
         [self reloadViews];
     }else if (tableView == self.tableView){
-        id model = self.newsArr[indexPath.row];
-        [UniversalMethod pushToAssignVCWithNewmodel:model];
+        if (self.selectIndex == 1) {
+            SeniorPostDataModel *model = self.postsArr[indexPath.row];
+            UIViewController *vc;
+            if (model.postType == 2) { //投票
+                TheVotePostDetailViewController *tvpdVC = [TheVotePostDetailViewController new];
+                tvpdVC.postModel.postId = model.postId;
+                vc = tvpdVC;
+            }else{
+                ThePostDetailViewController *tpdVC = [ThePostDetailViewController new];
+                tpdVC.postModel.postId = model.postId;
+                vc = tpdVC;
+            }
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            id model = self.newsArr[indexPath.row];
+            [UniversalMethod pushToAssignVCWithNewmodel:model];
+        }
     }
 }
 

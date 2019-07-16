@@ -141,7 +141,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         
         NSArray *img = @[
                          @"mine_share",
-                         @"mine_share",
+                         @"mine_advertising",
                          @"mine_setting",
                          ];
         NSArray *rightTitle = @[
@@ -833,8 +833,11 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
         
         NSMutableArray *section3 = self.mainDatasource[indexPath.section];
         NSDictionary *model = section3[indexPath.row];
-        
         [cell3 setData:model];
+        NSString *title = model[@"title"];
+        if (CompareString(title, @"广告")) {
+            [cell3 setSubTitleTextColor:HexColor(#7A8894)];
+        }
         
         cell = cell3;
     }

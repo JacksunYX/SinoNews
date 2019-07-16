@@ -484,6 +484,19 @@
     [payBtn setTitle:@"立即充值" forState:UIControlStateNormal];
     [self setpayBtnTitleWithString:@""];
     [payBtn addTarget:self action:@selector(goToPay:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *noticeLabel = [UILabel new];
+    [self.scrollView addSubview:noticeLabel];
+    noticeLabel.sd_layout
+    .topSpaceToView(payBtn, 12)
+    .centerXEqualToView(self.scrollView)
+    .widthRatioToView(payBtn, 1)
+    .autoHeightRatio(0)
+    ;
+    noticeLabel.text = @"如无法充值或大额充值请联系 \n Telegram账号：MLCking \n (单笔充值需≥1000元)";
+    noticeLabel.textColor = HexColor(#9EC7EF);
+    noticeLabel.font = PFFontR(16);
+    noticeLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 -(void)payAction:(UIButton *)btn

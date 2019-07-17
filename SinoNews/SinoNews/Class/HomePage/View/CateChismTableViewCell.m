@@ -13,6 +13,7 @@
     UILabel *username;
     UILabel *level;   //等级
     UIButton *praise;   //点赞
+    UIButton *flower;   //送花
     UILabel *content;   //内容
     UIImageView *imgL;
     UIImageView *imgC;
@@ -66,6 +67,9 @@
     [praise setNormalTitleColor:HexColor(#1282EE)];
     praise.titleLabel.font = PFFontL(12);
     
+    flower = [UIButton new];
+    flower.contentMode = 1;
+    
     content = [UILabel new];
 //    content.textColor = HexColor(#323232);
     [content addTitleColorTheme];
@@ -87,6 +91,7 @@
                                        level,
                                        content,
                                        praise,
+                                       flower,
                                        
                                        imgL,
                                        imgC,
@@ -128,6 +133,15 @@
     praise.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
     [praise setNormalImage:UIImageNamed(@"company_unPraise")];
     [praise setSelectedImage:UIImageNamed(@"company_praised")];
+    
+    flower.sd_layout
+    .rightSpaceToView(praise, 5)
+    .centerYEqualToView(avatar)
+    .widthIs(18)
+    .heightIs(20)
+    ;
+    [flower setNormalImage:UIImageNamed(@"news_flower_normal")];
+    [flower setSelectedImage:UIImageNamed(@"news_flower_selected")];
     
     content.sd_layout
     .leftEqualToView(avatar)
@@ -171,7 +185,42 @@
             self.praiseBlock();
         }
     }];
-    
+    flower.hidden = NO;
+    flower.selected = NO;
+    switch (model.hasFlower) {
+        case 1: //有鲜花
+        {
+            flower.selected = YES;
+            flower.sd_resetLayout
+            .leftSpaceToView(level, 5)
+            .centerYEqualToView(avatar)
+            .widthIs(18)
+            .heightIs(20)
+            ;
+        }
+            break;
+        case 2: //隐藏
+        {
+            flower.hidden = YES;
+        }
+            break;
+        default:    //默认没有鲜花
+        {
+            flower.sd_resetLayout
+            .rightSpaceToView(praise, 5)
+            .centerYEqualToView(avatar)
+            .widthIs(18)
+            .heightIs(20)
+            ;
+            [flower whenTap:^{
+                @strongify(self)
+                if (self.flowerBlock) {
+                    self.flowerBlock();
+                }
+            }];
+        }
+            break;
+    }
     
     [avatar whenTap:^{
        @strongify(self)

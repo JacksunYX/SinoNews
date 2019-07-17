@@ -53,6 +53,7 @@
 
 //新增，封装头部
 @property (nonatomic , strong) NewsDetailsHeaderView *headerView;
+@property (nonatomic , strong) UserModel *user;
 @end
 
 @implementation CatechismViewController
@@ -79,6 +80,14 @@ CGFloat static titleViewHeight = 150;
         [_topAttBtn addTarget:self action:@selector(requestIsAttention) forControlEvents:UIControlEventTouchUpInside];
     }
     return _topAttBtn;
+}
+
+-(UserModel *)user
+{
+    if (!_user) {
+        _user = [UserModel getLocalUserModel];
+    }
+    return _user;
 }
 
 - (void)viewDidLoad {
@@ -1028,6 +1037,42 @@ CGFloat static titleViewHeight = 150;
     [browser show];
 }
 
+//处理送花后的显示逻辑
+-(void)sendFlowerRefresh:(AnswerModel *)model
+{
+    if (model.hasFlower) {
+        NSLog(@"已经送过花啦");
+    }else{
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"只能给一个最佳答案送花哟~" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            model.hasFlower = 1;
+            self.newsModel.bestAnswer = model.answerId;
+            
+            [self getTheBsetAnswer];
+            
+            [self.tableView reloadData];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertVC addAction:cancel];
+        [alertVC addAction:confirm];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
+}
+
+//遍历回答数组得到最佳答案
+-(void)getTheBsetAnswer
+{
+    for (int i = 0; i < self.answersArr.count; i ++) {
+        AnswerModel *answer = self.answersArr[i];
+        if (answer.answerId==self.newsModel.bestAnswer) {
+            answer.hasFlower = 1;
+        }else{
+            answer.hasFlower = 2;
+        }
+    }
+}
+
 #pragma mark ----- UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -1053,6 +1098,11 @@ CGFloat static titleViewHeight = 150;
         }else{
             [self requestPraiseWithPraiseType:4 praiseId:model.answerId commentNum:indexPath.row];
         }
+    };
+    //鲜花
+    cell.flowerBlock = ^{
+        @strongify(self)
+        [self sendFlowerRefresh:model];
     };
     //头像
     cell.avatarBlock = ^{
@@ -1252,6 +1302,23 @@ CGFloat static titleViewHeight = 150;
     [HttpRequest postWithURLString:News_listAnswer parameters:parameters isShowToastd:YES isShowHud:NO isShowBlankPages:NO success:^(id response) {
         NSArray *data = [AnswerModel mj_objectArrayWithKeyValuesArray:response[@"data"]];
         self.answersArr = [self.tableView pullWithPage:self.currPage data:data dataSource:self.answersArr];
+        //作者本人
+        if (self.user.userId&&self.user.userId == self.newsModel.userId) {
+            //说明有最佳回答
+            if (self.newsModel.bestAnswer>0) {
+                [self getTheBsetAnswer];
+            }
+        }else{  //非作者，只显示是否有最佳回答
+            //说明有最佳回答
+            if (self.newsModel.bestAnswer>0) {
+                [self getTheBsetAnswer];
+            }else{  //没有最佳答案，全部隐藏
+                for (int i = 0; i < self.answersArr.count; i ++) {
+                    AnswerModel *answer = self.answersArr[i];
+                    answer.hasFlower = 2;
+                }
+            }
+        }
         
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -1332,6 +1399,19 @@ CGFloat static titleViewHeight = 150;
     }];
 }
 
-
+//送花
+-(void)requestSendFlower:(AnswerModel *)model
+{
+    if ([YXHeader checkLogin] == NO) {
+        return;
+    }
+    NSMutableDictionary *parameters = [NSMutableDictionary new];
+    parameters[@"id"] = @(model.answerId);
+    [HttpRequest postWithURLString:@"" parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
+        
+    } failure:nil RefreshAction:^{
+        [self requestNewData];
+    }];
+}
 
 @end

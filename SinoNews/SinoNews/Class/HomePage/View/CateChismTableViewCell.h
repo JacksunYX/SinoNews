@@ -20,4 +20,6 @@
 
 @property (nonatomic,copy) void(^praiseBlock)(void);
 
+@property (nonatomic,copy) void(^flowerBlock)(void);
+
 @end

@@ -23,5 +23,6 @@
 @property (nonatomic,assign) BOOL hasPraise;        //是否点赞
 @property (nonatomic,assign) NSInteger favorCount;  //点赞数
 @property (nonatomic,assign) NSInteger hasFollow;
+@property (nonatomic,assign) NSInteger hasFlower;   //是否有花
 
 @end

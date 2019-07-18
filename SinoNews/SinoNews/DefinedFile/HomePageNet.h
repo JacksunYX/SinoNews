@@ -86,6 +86,8 @@
 #define ShowAnswerReply         @"/api/showAnswerReply"
 //添加回答的评论或回复(post)
 #define AnswerComment           @"/api/answerComment"
+//设置最佳回答(post)
+#define SetBestAnswer           @"/api/news/setBestAnswer"
 
 #pragma mark ---- 投票相关接口
 //专用于获取ios端完整文章内容的接口，现在只用来获取投票

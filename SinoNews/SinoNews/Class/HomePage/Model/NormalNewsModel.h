@@ -53,6 +53,6 @@
 @property (nonatomic,strong) NSArray *identifications;
 
 //新增，最佳回答的id
-@property (nonatomic,assign) NSInteger bestAnswer;
+@property (nonatomic,assign) NSInteger bestAnswerId;
 
 @end

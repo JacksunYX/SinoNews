@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *postTitle;
 //帖子图片
 @property (nonatomic,strong) NSString *image;
-@property (nonatomic,strong) NSMutableArray <NSString *>*postImages;
+@property (nonatomic,strong) NSMutableArray <NSString *>*commentImage;
 //认证数组
 @property (nonatomic,strong) NSMutableArray *identifications;
 

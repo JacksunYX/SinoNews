@@ -33,6 +33,16 @@
                  Success:(void (^)(id response))success
                  failure:(void (^)(NSError *error))failure;
 
+/**
+ 上传多张图片
+
+ @param images 上传的图片数组
+ @param success 成功回调
+ @param failure 失败回调
+ */
++(void)uploadImages:(NSArray <UIImage *>*)images
+            Success:(void (^)(id response))success
+            failure:(void (^)(NSError *error))failure;
 
 /**
  上传视频至服务器

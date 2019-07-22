@@ -33,4 +33,6 @@
 @property (nonatomic, strong) NSArray *newsImages;
 @property (nonatomic, assign) NSInteger newsType;    //新闻类型：0普通 1收费
 
+//专门作为评论时的图片数组
+@property (nonatomic, strong) NSArray *image;
 @end

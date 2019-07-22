@@ -56,7 +56,7 @@
 @property (nonatomic,strong) LeftPopDirectoryViewController *menu;
 
 @property (nonatomic,strong) UserModel *user;
-//保存评论时选取的图片等数据
+//保存w之前未发表的评论数据（文本、表情、图片等）
 @property (nonatomic,strong) NSDictionary *lastReplyDic;
 
 @property (nonatomic,strong) CharacterLocationSeeker *locationSeeker;
@@ -295,14 +295,14 @@ CGFloat static attentionBtnH = 26;
 -(void)popCommentVCWithParentId:(NSInteger)parentId
 {
     PopReplyViewController *prVC = [PopReplyViewController new];
-    //    prVC.inputData = self.lastReplyDic.mutableCopy;
+    prVC.inputData = self.lastReplyDic.mutableCopy;
     @weakify(self);
     prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
         GGLog(@"发布回调:%@",inputData);
         @strongify(self);
         self.lastReplyDic = inputData;
         //这里发布后把该数据清空就行了
-        [self requestPostCommentWithParentId:parentId comment:inputData[@"text"]];
+        [self requestPostCommentWithParentId:parentId comment:inputData];
     };
     prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
         GGLog(@"取消回调:%@",cancelData);
@@ -1363,11 +1363,21 @@ CGFloat static attentionBtnH = 26;
 }
 
 //发送评论、回复
--(void)requestPostCommentWithParentId:(NSInteger)parentId comment:(NSString *)comment
+-(void)requestPostCommentWithParentId:(NSInteger)parentId comment:(NSDictionary *)commentData
 {
     NSMutableDictionary *parameters = @{}.mutableCopy;
     parameters[@"postId"] = @(self.postModel.postId);
-    parameters[@"comment"] = comment;
+    parameters[@"comment"] = GetSaveString(commentData[@"comment"]);
+    NSArray *imagesArr = commentData[@"imagesUrl"];
+    NSMutableString *imgStr = @"".mutableCopy;
+    for (int i = 0; i < imagesArr.count; i ++) {
+        NSString *imgUrl = imagesArr[i];
+        [imgStr appendString:imgUrl];
+        if (i != imagesArr.count - 1) {
+            [imgStr appendString:@","];
+        }
+    }
+    parameters[@"image"] = imgStr;
     if (parentId!=0) {
         parameters[@"parentId"] = @(parentId);
     }

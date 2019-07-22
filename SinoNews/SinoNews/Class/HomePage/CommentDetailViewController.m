@@ -8,6 +8,7 @@
 
 #import "CommentDetailViewController.h"
 #import "CommentCell.h"
+#import "NewNewsCommentCell.h"
 
 @interface CommentDetailViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
@@ -22,6 +23,9 @@
 @property (nonatomic,strong) UIButton *collectBtn;
 
 @property (nonatomic,strong) ZYKeyboardUtil *keyboardUtil;
+
+//保存w之前未发表的评论数据（文本、表情、图片等）
+@property (nonatomic,strong) NSDictionary *lastReplyDic;
 @end
 
 @implementation CommentDetailViewController
@@ -183,6 +187,7 @@
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
+    [_tableView registerClass:[NewNewsCommentCell class] forCellReuseIdentifier:NewNewsCommentCellID];
     
     @weakify(self);
     _tableView.mj_header = [YXGifHeader headerWithRefreshingBlock:^{
@@ -228,13 +233,30 @@
     if (!isLogin) {
         return NO;
     }
-    [QACommentInputView showAndSendHandle:^(NSString *inputText) {
-        if (![NSString isEmpty:inputText]) {
-            [self requestCommentWithComment:inputText];
-        }else{
-            LRToast(@"请输入有效的内容");
-        }
-    }];
+//    [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+//        if (![NSString isEmpty:inputText]) {
+//            [self requestCommentWithComment:inputText];
+//        }else{
+//            LRToast(@"请输入有效的内容");
+//        }
+//    }];
+    PopReplyViewController *prVC = [PopReplyViewController new];
+    prVC.inputData = self.lastReplyDic.mutableCopy;
+    @weakify(self);
+    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
+        GGLog(@"发布回调:%@",inputData);
+        @strongify(self);
+        self.lastReplyDic = inputData;
+        //这里发布后把该数据清空就行了
+        [self requestCommentWithComment:inputData];
+    };
+    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
+        GGLog(@"取消回调:%@",cancelData);
+        @strongify(self);
+        self.lastReplyDic = cancelData;
+    };
+    
+    [prVC showFromVC2:self];
     
     return NO;
 }
@@ -258,7 +280,7 @@
 {
     UITableViewCell *cell;
     if (indexPath.section == 0){
-        CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
+        NewNewsCommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:NewNewsCommentCellID];
         cell2.tag = indexPath.row;
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         cell2.model = model;
@@ -293,15 +315,15 @@
 //            [self.commentInput becomeFirstResponder];
 //        };
         //点击回复
-        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
-            GGLog(@"点击了第%ld条回复",index);
-        };
+//        cell2.clickReplay = ^(NSInteger row,NSInteger index) {
+//            GGLog(@"点击了第%ld条回复",index);
+//        };
         //查看全部评论
-        cell2.checkAllReplay = ^(NSInteger row) {
-            GGLog(@"点击了查看全部回复");
-        };
+//        cell2.checkAllReplay = ^(NSInteger row) {
+//            GGLog(@"点击了查看全部回复");
+//        };
         
-        cell = (CommentCell *)cell2;
+        cell = (NewNewsCommentCell *)cell2;
     }
     [cell addBakcgroundColorTheme];
     return cell;
@@ -385,7 +407,7 @@
 }
 
 //回复评论
--(void)requestCommentWithComment:(NSString *)comment
+-(void)requestCommentWithComment:(NSDictionary *)commentData
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     NSString *requestUrl;
@@ -401,12 +423,23 @@
         requestUrl = Comments;
     }
     
-    parameters[@"comment"] = comment;
+    parameters[@"comment"] = commentData[@"comment"];
+    NSArray *imagesArr = commentData[@"imagesUrl"];
+    NSMutableString *imgStr = @"".mutableCopy;
+    for (int i = 0; i < imagesArr.count; i ++) {
+        NSString *imgUrl = imagesArr[i];
+        [imgStr appendString:imgUrl];
+        if (i != imagesArr.count - 1) {
+            [imgStr appendString:@","];
+        }
+    }
+    parameters[@"image"] = imgStr;
     parameters[@"parentId"] = @([self.model.commentId integerValue]);
     
     [HttpRequest postWithTokenURLString:requestUrl parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论已发送");
         [self refreshComments];
+        self.lastReplyDic = nil;
     } failure:nil RefreshAction:^{
         
     }];

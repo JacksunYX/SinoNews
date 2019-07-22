@@ -374,9 +374,7 @@ const NSString * DomainString = nil;
     }
     GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
     ShowHudOnly;
-    
-    //先对质量压缩
-    NSData *imgData = [uploadimage compressWithMaxLength:100 * 1024];
+
 //    UIImage *img = [UIImage imageWithData:imgData];
     
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
@@ -388,6 +386,8 @@ const NSString * DomainString = nil;
         NSString *str = [formatter stringFromDate:[NSDate date]];
         NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
         
+        //先对质量压缩
+        NSData *imgData = [uploadimage compressWithMaxLength:100 * 1024];
         //上传的参数(上传图片，以文件流的格式)
         [formData appendPartWithFileData:imgData
                                     name:@"file" //这里name是后台取数据对应的字段，所以不能乱写
@@ -452,31 +452,22 @@ const NSString * DomainString = nil;
 #pragma mark -- 上传多张图片 -- 如果要上传多张图片只需要for循环遍历数组图片上传 上传图片时把图片转换成字符串传递
 + (void)uploadFileImages:(NSString *)URLString
               parameters:(id)parameters
-             uploadImage:(NSMutableArray *)uploadimages
-                 success:(void (^)())success
-                 failure:(void (^)(NSError *error))failure {
+             uploadImage:(NSArray *)uploadimages
+                 success:(void (^)(id response))success
+                 failure:(void (^)(NSError *error))failure
+{
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //接收类型不一致请替换一致text/html或别的
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:
-                                                         @"application/json",
-                                                         @"text/html",
-                                                         @"image/jpeg",
-                                                         @"image/png",
-                                                         @"application/octet-stream",
-                                                         @"text/json",
-                                                         nil];
-    
-    NSString *baseURLString=[NSString stringWithFormat:@"%@%@",DomainString,URLString];
-    
-    [parameters setValue:@"1" forKey:@"client_id"];
-    
-    [parameters setValue:[HttpRequest  getapi_tokenwithurlstring:URLString] forKey:@"api_token"];
-    
-    NSLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    AFHTTPSessionManager *manager = [self getQuestManager];
+    if (!manager) {
+        return;
+    }
+    NSString *baseURLString = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, URLString)];
+    baseURLString = [baseURLString getUTF8String];
+    if (!parameters) {
+        parameters = @{};
+    }
+    GGLog(@"baseURLString----%@----parameters-----%@",baseURLString,parameters);
+    ShowHudOnly;
     
     NSURLSessionDataTask *task = [manager POST:baseURLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> _Nonnull formData) {
         
@@ -484,24 +475,19 @@ const NSString * DomainString = nil;
         for (int i = 0; i < uploadimages.count; i ++) {
             
             UIImage *uploadimage = uploadimages[i];
-            
-            NSData *imageData =UIImageJPEGRepresentation(uploadimage,1);
+            //先对质量压缩
+            NSData *imgData = [uploadimage compressWithMaxLength:100 * 1024];
             
             NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-            formatter.dateFormat =@"yyyyMMddHHmmss";
+            formatter.dateFormat = @"yyyyMMddHHmmss";
             NSString *str = [formatter stringFromDate:[NSDate date]];
-            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
-            
-            NSLog(@"fileName---------%@",fileName);
-            
-            NSString *picname=[NSString stringWithFormat:@"dt_pic%d",i];
-            
+            NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
             
             //上传的参数(上传图片，以文件流的格式)
-            [formData appendPartWithFileData:imageData
-                                        name:picname
+            [formData appendPartWithFileData:imgData
+                                        name:@"file" //这里name是后台取数据对应的字段，所以不能乱写
                                     fileName:fileName
-                                    mimeType:@"image/jpeg"];
+                                    mimeType:@"image/jpg/png/jpeg"];
             
         }
         
@@ -512,16 +498,34 @@ const NSString * DomainString = nil;
         //上传成功
         NSDictionary *resultdic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         
-        NSLog(@"responseObject-------%@",resultdic);
+        GGLog(@"responseObject-------%@",resultdic);
+        HiddenHudOnly;
         
-        if (success) {
-            success(resultdic);
+        //取出返回数据
+        if (success&&resultdic) {
+            if ([resultdic[@"success"] integerValue] == 1) {
+                success(resultdic);
+            }else{
+                LRToast(AppendingString(ErrorString, resultdic[@"alertMsg"]));
+                GCDAfterTime(afterTime, ^{
+                    //未登陆
+                    if ([resultdic[@"statusCode"] integerValue] == 110001) {
+                        //清空登录状态,然后跳转到登录界面
+                        [UserModel clearLocalData];
+                    }
+                });
+            }
+        }else{
+            LRToast(@"返回数据为空！");
         }
         
     } failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
         //上传失败
-        NSLog(@"error-------%@",error);
+        GGLog(@"error-------%@",error);
+        //隐藏loding
+        HiddenHudOnly;
         
+        //        LRToast(@"图片上传失败");
         if (failure) {
             failure(error);
         }

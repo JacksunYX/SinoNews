@@ -22,8 +22,10 @@
 //顶部选择的图片
 @property (nonatomic,strong) UIView *headImages;
 @property (nonatomic,strong) UIImageView *imageArrow;   //白色箭头
-
+//图片数组
 @property (nonatomic,strong) NSMutableArray *selectImages;
+//图片Url数组
+@property (nonatomic,strong) NSMutableArray *selectImagesUrl;
 
 //emoji键盘
 @property (nonatomic,strong) WTEmoticonInputView *emoticonInputView;
@@ -37,6 +39,14 @@ static CGFloat animationTime = 0.25;
         _selectImages = [NSMutableArray new];
     }
     return _selectImages;
+}
+
+-(NSMutableArray *)selectImagesUrl
+{
+    if (!_selectImagesUrl) {
+        _selectImagesUrl = NSMutableArray.new;
+    }
+    return _selectImagesUrl;
 }
 
 -(WTEmoticonInputView *)emoticonInputView
@@ -56,6 +66,8 @@ static CGFloat animationTime = 0.25;
     self.fd_interactivePopDisabled = YES;
 #endif
     [self setUI];
+    
+    self.textView.text = _inputData[@"comment"];
 }
 
 -(void)setInputData:(NSMutableDictionary *)inputData
@@ -63,6 +75,7 @@ static CGFloat animationTime = 0.25;
     _inputData = inputData;
     if (inputData) {
         [self.selectImages addObjectsFromArray:inputData[@"images"]];
+        [self.selectImagesUrl addObjectsFromArray:inputData[@"imagesUrl"]];
     }
 }
 
@@ -253,7 +266,7 @@ static CGFloat animationTime = 0.25;
     [kNotificationCenter addObserver:self selector:@selector(keyboardWillHideChangeFrameNotification:) name:UIKeyboardWillHideNotification object:nil];
     
     //暂时隐藏添加图片功能
-    _addImage.hidden = YES;
+//    _addImage.hidden = YES;
     
 #ifndef OpenAddLocalEmoji
     [_emojiKeyboard removeFromSuperview];
@@ -363,6 +376,7 @@ static CGFloat animationTime = 0.25;
     NSInteger index = sender.tag - 10089;
     //移除指定下标的图片，并重新生成界面
     [self.selectImages removeObjectAtIndex:index];
+    [self.selectImagesUrl removeObjectAtIndex:index];
     [self setShowSelectImagesView];
 }
 
@@ -419,8 +433,10 @@ static CGFloat animationTime = 0.25;
     }
     if (self.finishBlock) {
         NSMutableDictionary *data = [NSMutableDictionary new];
+        data[@"comment"] = self.textView.text;
         data[@"images"] = self.selectImages;
-        data[@"text"] = self.textView.text;
+        data[@"imagesUrl"] = self.selectImagesUrl;
+
         self.finishBlock(data);
     }
     
@@ -441,8 +457,9 @@ static CGFloat animationTime = 0.25;
 {
     if (self.cancelBlock) {
         NSMutableDictionary *data = [NSMutableDictionary new];
+        data[@"comment"] = self.textView.text;
         data[@"images"] = self.selectImages;
-        data[@"text"] = self.textView.text;
+        data[@"imagesUrl"] = self.selectImagesUrl;
         self.cancelBlock(data);
     }
     [UIView animateWithDuration:animationTime animations:^{
@@ -496,8 +513,10 @@ static CGFloat animationTime = 0.25;
 #pragma mark --- TZImagePickerControllerDelegate ---
 //选择图片后会进入该代理方法，
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto{
-    [self.selectImages addObjectsFromArray:photos];
-    [self setShowSelectImagesView];
+    for (int i = 0; i < photos.count; i ++) {
+        //上传
+        [self uploadImage:photos[i]];
+    }
 }
 
 #pragma mark --- EmotionKeyBoardDelegate ---
@@ -532,6 +551,22 @@ static CGFloat animationTime = 0.25;
         [self.sendBtn setNormalTitleColor:HexColor(#1282EE)];
     }else{
         [self.sendBtn setNormalTitleColor:HexColor(#989898)];
+    }
+}
+
+//上传图片
+-( void)uploadImage:(UIImage *)image
+{
+    if (image) {
+        [RequestGather uploadSingleImage:image Success:^(id response) {
+            NSString *imgUrl = response[@"data"];
+            //为防止图片传输结果错乱，收到结果后再统一添加到对应的数组
+            [self.selectImages addObject:image];
+            [self.selectImagesUrl addObject:imgUrl];
+            [self setShowSelectImagesView];
+        } failure:nil];
+    }else{
+        LRToast(@"图片有误~");
     }
 }
 

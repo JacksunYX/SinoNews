@@ -13,6 +13,7 @@
 #import "HomePageFirstKindCell.h"
 #import "NormalNewsModel.h"
 #import "CommentCell.h"
+#import "NewNewsCommentCell.h"
 #import "HomePageFourthCell.h"
 #import "HomePageThirdKindCell.h"
 
@@ -75,6 +76,9 @@
 
 //新增，封装头部
 @property (nonatomic , strong) NewsDetailsHeaderView *headerView;
+
+//保存w之前未发表的评论数据（文本、表情、图片等）
+@property (nonatomic,strong) NSDictionary *lastReplyDic;
 @end
 
 @implementation NewsDetailViewController
@@ -713,6 +717,7 @@ CGFloat static attentionBtnH = 26;
     [_tableView registerClass:[HomePageFirstKindCell class] forCellReuseIdentifier:HomePageFirstKindCellID];
     [_tableView registerClass:[HomePageThirdKindCell class] forCellReuseIdentifier:HomePageThirdKindCellID];
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
+    [_tableView registerClass:[NewNewsCommentCell class] forCellReuseIdentifier:NewNewsCommentCellID];
     
     _headerView = [[NewsDetailsHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
 
@@ -1107,13 +1112,30 @@ CGFloat static attentionBtnH = 26;
     if (!isLogin) {
         return NO;
     }
-    [QACommentInputView showAndSendHandle:^(NSString *inputText) {
-        if (![NSString isEmpty:inputText]) {
-            [self requestCommentWithComment:inputText];
-        }else{
-            LRToast(@"请输入有效的内容");
-        }
-    }];
+//    [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+//        if (![NSString isEmpty:inputText]) {
+//            [self requestCommentWithComment:inputText];
+//        }else{
+//            LRToast(@"请输入有效的内容");
+//        }
+//    }];
+    PopReplyViewController *prVC = [PopReplyViewController new];
+    prVC.inputData = self.lastReplyDic.mutableCopy;
+    @weakify(self);
+    prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
+        GGLog(@"发布回调:%@",inputData);
+        @strongify(self);
+        self.lastReplyDic = inputData;
+        //这里发布后把该数据清空就行了
+        [self requestCommentWithComment:inputData];
+    };
+    prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
+        GGLog(@"取消回调:%@",cancelData);
+        @strongify(self);
+        self.lastReplyDic = cancelData;
+    };
+    
+    [prVC showFromVC2:self];
     
     return NO;
 }
@@ -1371,7 +1393,7 @@ CGFloat static attentionBtnH = 26;
         }
         
     }else if (indexPath.section == 2){
-        CommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:CommentCellID];
+        NewNewsCommentCell *cell2 = [tableView dequeueReusableCellWithIdentifier:NewNewsCommentCellID];
         cell2.tag = indexPath.row;
         CompanyCommentModel *model = self.commentsArr[indexPath.row];
         cell2.model = model;
@@ -1405,7 +1427,7 @@ CGFloat static attentionBtnH = 26;
         //            GGLog(@"点击了查看全部回复");
         //        };
         
-        cell = (CommentCell *)cell2;
+        cell = (NewNewsCommentCell *)cell2;
     }
     [cell addBakcgroundColorTheme];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -1836,12 +1858,22 @@ CGFloat static attentionBtnH = 26;
 }
 
 //回复评论
--(void)requestCommentWithComment:(NSString *)comment
+-(void)requestCommentWithComment:(NSDictionary *)commentData
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"newsId"] = @(self.newsId);
-    parameters[@"comment"] = comment;
+    parameters[@"comment"] = commentData[@"comment"];
     parameters[@"parentId"] = @(self.parentId);
+    NSArray *imagesArr = commentData[@"imagesUrl"];
+    NSMutableString *imgStr = @"".mutableCopy;
+    for (int i = 0; i < imagesArr.count; i ++) {
+        NSString *imgUrl = imagesArr[i];
+        [imgStr appendString:imgUrl];
+        if (i != imagesArr.count - 1) {
+            [imgStr appendString:@","];
+        }
+    }
+    parameters[@"image"] = imgStr;
     
     [HttpRequest postWithTokenURLString:Comments parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论已发送");
@@ -1851,6 +1883,7 @@ CGFloat static attentionBtnH = 26;
         }
         //        self.parentId = 0;
         [self refreshComments];
+        self.lastReplyDic = nil;
         //        [self requestNewData];
         //        CompanyCommentModel *commentModel = [CompanyCommentModel new];
         //        commentModel.avatar = UserGet(@"avatar");
@@ -1977,7 +2010,6 @@ CGFloat static attentionBtnH = 26;
     }];
 }
 
-
 //分享方法
 -(void)shareToPlatform:(MGShareToPlateform)type
 {
@@ -2017,7 +2049,6 @@ CGFloat static attentionBtnH = 26;
     }];
 #endif
 }
-
 
 //支付一篇付费文章
 -(void)requestPayForNews

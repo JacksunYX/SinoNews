@@ -125,8 +125,8 @@ extern const NSString * DomainString;
 #pragma mark -- 上传多张图片
 + (void)uploadFileImages:(NSString *)URLString
               parameters:(id)parameters
-             uploadImage:(NSMutableArray *)uploadimages
-                 success:(void (^)())success
+             uploadImage:(NSArray *)uploadimages
+                 success:(void (^)(id response))success
                  failure:(void (^)(NSError *error))failure;
 
 

@@ -48,6 +48,22 @@
     } RefreshAction:nil];
 }
 
+//上传多张图片
++(void)uploadImages:(NSArray <UIImage *>*)images
+            Success:(void (^)(id response))success
+            failure:(void (^)(NSError *error))failure
+{
+    [HttpRequest uploadFileImages:FileUpload parameters:@{} uploadImage:images success:^(id response) {
+        if (success) {
+            success(response);
+        }
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
 //上传视频
 +(void)uploadVideo:(NSData *)videoData
            Success:(void (^)(id response))success

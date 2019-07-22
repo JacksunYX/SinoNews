@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hiddenTopLine];
-//    [self addNavigationView];
+    [self addNavigationView];
     [self reloadChildVCWithTitles:@[
                                     @"热门内容",
 //                                    @"娱乐场排行",
@@ -59,7 +59,7 @@
 -(void)searchAction
 {
     SearchViewController *sVC = [SearchViewController new];
-    sVC.selectIndex = 1;
+    sVC.selectIndex = 0;
     [self.navigationController pushViewController:sVC animated:NO];
 }
 

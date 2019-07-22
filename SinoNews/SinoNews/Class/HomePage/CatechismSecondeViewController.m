@@ -14,6 +14,7 @@
 #import "FontAndNightModeView.h"
 
 #import "CommentCell.h"
+#import "NewNewsCommentCell.h"
 
 @interface CatechismSecondeViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate>
 {
@@ -44,6 +45,9 @@
 @property (nonatomic,strong) UIButton *praiseBtn;
 
 @property (nonatomic,strong) UIView *naviTitle;
+
+//保存w之前未发表的评论数据（文本、表情、图片等）
+@property (nonatomic,strong) NSDictionary *lastReplyDic;
 
 @end
 
@@ -108,6 +112,7 @@ CGFloat static titleViewHeight = 150;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     //注册
     [_tableView registerClass:[CommentCell class] forCellReuseIdentifier:CommentCellID];
+    [_tableView registerClass:[NewNewsCommentCell class] forCellReuseIdentifier:NewNewsCommentCellID];
     
     @weakify(self);
     _tableView.mj_footer = [YXAutoNormalFooter footerWithRefreshingBlock:^{
@@ -535,13 +540,30 @@ CGFloat static titleViewHeight = 150;
             if (!isLogin) {
                 return ;
             }
-            [QACommentInputView showAndSendHandle:^(NSString *inputText) {
-                if (![NSString isEmpty:inputText]) {
-                    [self requestAnswerCommentWithComment:inputText];
-                }else{
-                    LRToast(@"请输入有效的内容");
-                }
-            }];
+//            [QACommentInputView showAndSendHandle:^(NSString *inputText) {
+//                if (![NSString isEmpty:inputText]) {
+//                    [self requestAnswerCommentWithComment:inputText];
+//                }else{
+//                    LRToast(@"请输入有效的内容");
+//                }
+//            }];
+            PopReplyViewController *prVC = [PopReplyViewController new];
+            prVC.inputData = self.lastReplyDic.mutableCopy;
+            @weakify(self);
+            prVC.finishBlock = ^(NSDictionary * _Nonnull inputData) {
+                GGLog(@"发布回调:%@",inputData);
+                @strongify(self);
+                self.lastReplyDic = inputData;
+                //这里发布后把该数据清空就行了
+                [self requestAnswerCommentWithComment:inputData];
+            };
+            prVC.cancelBlock = ^(NSDictionary * _Nonnull cancelData) {
+                GGLog(@"取消回调:%@",cancelData);
+                @strongify(self);
+                self.lastReplyDic = cancelData;
+            };
+            
+            [prVC showFromVC2:self];
         }];
     }
     
@@ -769,7 +791,7 @@ CGFloat static titleViewHeight = 150;
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:CommentCellID];
+    NewNewsCommentCell *cell = (NewNewsCommentCell *)[tableView dequeueReusableCellWithIdentifier:NewNewsCommentCellID];
     CompanyCommentModel *model = self.commentArr[indexPath.row];
     cell.model = model;
     @weakify(self)
@@ -995,17 +1017,28 @@ CGFloat static titleViewHeight = 150;
 }
 
 //添加回答评论
--(void)requestAnswerCommentWithComment:(NSString *)comment
+-(void)requestAnswerCommentWithComment:(NSDictionary *)commentData
 {
     NSMutableDictionary *parameters = [NSMutableDictionary new];
-    parameters[@"comment"] = comment;
+    parameters[@"comment"] = commentData[@"comment"];
     parameters[@"answerId"] = @(self.answer_id);
     parameters[@"parentId"] = @(0);
+    NSArray *imagesArr = commentData[@"imagesUrl"];
+    NSMutableString *imgStr = @"".mutableCopy;
+    for (int i = 0; i < imagesArr.count; i ++) {
+        NSString *imgUrl = imagesArr[i];
+        [imgStr appendString:imgUrl];
+        if (i != imagesArr.count - 1) {
+            [imgStr appendString:@","];
+        }
+    }
+    parameters[@"image"] = imgStr;
     [HttpRequest postWithTokenURLString:AnswerComment parameters:parameters isShowToastd:NO isShowHud:YES isShowBlankPages:NO success:^(id res) {
         LRToast(@"评论已发送");
         CompanyCommentModel *addComment = [CompanyCommentModel mj_objectWithKeyValues:res[@"data"]];
         [self.commentArr insertObject:addComment atIndex:0];
         [self.tableView reloadData];
+        self.lastReplyDic = nil;
     } failure:nil RefreshAction:^{
         [self requestNews_browseAnswer];
     }];

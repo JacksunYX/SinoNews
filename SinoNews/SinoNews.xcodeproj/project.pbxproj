@@ -877,6 +877,7 @@
 		F7B94C6022C3655900FD900E /* NewRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C5F22C3655900FD900E /* NewRankViewController.m */; };
 		F7B94C6322C36D8B00FD900E /* HotContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6222C36D8B00FD900E /* HotContentViewController.m */; };
 		F7B94C6622C370B400FD900E /* HotContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */; };
+		F7EF408322E5BE0C00BE12D6 /* NewNewsCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7EF408222E5BE0C00BE12D6 /* NewNewsCommentCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2427,6 +2428,8 @@
 		F7B94C6222C36D8B00FD900E /* HotContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentViewController.m; sourceTree = "<group>"; };
 		F7B94C6422C370B400FD900E /* HotContentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotContentTableViewCell.h; sourceTree = "<group>"; };
 		F7B94C6522C370B400FD900E /* HotContentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotContentTableViewCell.m; sourceTree = "<group>"; };
+		F7EF408122E5BE0C00BE12D6 /* NewNewsCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewNewsCommentCell.h; sourceTree = "<group>"; };
+		F7EF408222E5BE0C00BE12D6 /* NewNewsCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewNewsCommentCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3342,6 +3345,8 @@
 				4CA2326F212E99A8006709E6 /* VersionCheckHelper.m */,
 				4CA23271212E9F6C006709E6 /* UpdatePopView.h */,
 				4CA23272212E9F6C006709E6 /* UpdatePopView.m */,
+				F7EF408122E5BE0C00BE12D6 /* NewNewsCommentCell.h */,
+				F7EF408222E5BE0C00BE12D6 /* NewNewsCommentCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5698,6 +5703,7 @@
 				4C6E918B213F5F07001535CA /* UIControl+YYAdd.m in Sources */,
 				4C3F8FED20BCEF09003EC4FC /* HomePageViewController.m in Sources */,
 				4C87360020BE9F4600B6A8B5 /* SearchViewController.m in Sources */,
+				F7EF408322E5BE0C00BE12D6 /* NewNewsCommentCell.m in Sources */,
 				4C17412D20C4C80400AA6D57 /* RechargeViewController.m in Sources */,
 				4C992FFB217717680092DDCF /* HXCustomPreviewView.m in Sources */,
 				4C7234E420FDEB1D00D5C5D4 /* AAAnimation.m in Sources */,

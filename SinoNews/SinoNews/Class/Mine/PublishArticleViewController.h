@@ -9,7 +9,16 @@
 
 #import <UIKit/UIKit.h>
 @class NewPublishModel;
-@interface PublishArticleViewController : BaseViewController
+
+@protocol PublishArticleViewProtocol <NSObject>
+
+@required
+//已经发布等待审核的回调
+-(void)havePublishedWait;
+
+@end
+
+@interface PublishArticleViewController : BaseViewController<PublishArticleViewProtocol>
 //0文章免费部分、1问答、2文章付费部分
 @property (nonatomic,assign) NSInteger editType;
 
@@ -17,6 +26,8 @@
 @property (nonatomic,copy) NSString *channelId;     //文章发布的频道
 
 @property (nonatomic, strong) NewPublishModel *draftModel;
+
+@property (nonatomic,weak) id <PublishArticleViewProtocol> delegate;
 
 //新增
 @property (nonatomic,assign) BOOL isPayArticle;     //是否是付费文章

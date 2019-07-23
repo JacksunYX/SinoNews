@@ -823,19 +823,22 @@
             LRToast(@"草稿已保存");
         }else{
             if ([response[@"data"] isKindOfClass:[NSString class]]) {
-                NSString *notice = response[@"data"];
-                LRToast(notice);
+//                NSString *notice = response[@"data"];
+//                LRToast(notice);
             }
         }
-        GCDAfterTime(1, ^{
+//        GCDAfterTime(1, ^{
             //退回到文章管理界面
             for (id vc in self.navigationController.viewControllers) {
                 //            GGLog(@"类名:%@",NSStringFromClass([vc class]));
                 if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
                     [self.navigationController popToViewController:vc animated:YES];
+                    if ([self.delegate respondsToSelector:@selector(havePublishedWait)]) {
+                        [self.delegate havePublishedWait];
+                    }
                 }
             }
-        });
+//        });
         
     } failure:nil RefreshAction:nil];
 }
@@ -853,16 +856,19 @@
     [HttpRequest postWithURLString:CreatePaid parameters:parameters isShowToastd:YES isShowHud:YES isShowBlankPages:NO success:^(id response) {
         //退回到文章管理界面
         if ([response[@"data"] isKindOfClass:[NSString class]]) {
-            NSString *notice = response[@"data"];
-            LRToast(notice);
+//            NSString *notice = response[@"data"];
+//            LRToast(notice);
         }
-        GCDAfterTime(1, ^{
+//        GCDAfterTime(1, ^{
             for (id vc in self.navigationController.viewControllers) {
                 if ([NSStringFromClass([vc class]) isEqualToString:@"PublishPageViewController"]) {
                     [self.navigationController popToViewController:vc animated:YES];
+                    if ([self.delegate respondsToSelector:@selector(havePublishedWait)]) {
+                        [self.delegate havePublishedWait];
+                    }
                 }
             }
-        });
+//        });
         
     } failure:nil RefreshAction:nil];
 }

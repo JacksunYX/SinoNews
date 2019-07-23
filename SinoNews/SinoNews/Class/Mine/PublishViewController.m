@@ -11,7 +11,7 @@
 #import "PubLishChannelSelectVC.h"
 #import "ZSSCustomButtonsViewController.h"
 
-@interface PublishViewController ()
+@interface PublishViewController ()<PublishArticleViewProtocol>
 
 @end
 
@@ -57,6 +57,7 @@
         @strongify(self)
         PublishArticleViewController *paVC = [PublishArticleViewController new];
         paVC.editType = 1;
+        paVC.delegate = self;
         [self.navigationController pushViewController:paVC animated:YES];
     }];
     
@@ -99,12 +100,14 @@
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"普通新闻" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         PublishArticleViewController *paVC = [PublishArticleViewController new];
+        paVC.delegate = self;
         [self.navigationController pushViewController:paVC animated:YES];
     }];
     
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"付费新闻" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         PublishArticleViewController *paVC = [PublishArticleViewController new];
         paVC.isPayArticle = YES;
+        paVC.delegate = self;
         [self.navigationController pushViewController:paVC animated:YES];
     }];
     
@@ -114,7 +117,11 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
-
+#pragma PublishArticleViewProtocol
+-(void)havePublishedWait
+{
+    LRToast(@"发布成功,等待审核通过后即可显示");
+}
 
 
 @end

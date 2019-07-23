@@ -873,7 +873,7 @@ void shakerAnimation2 (UIView *view ,NSTimeInterval duration,float height){
          [self getShareData];
     }else if (CompareString(title, @"广告")) {
         WebViewController *wVC = [WebViewController new];
-        wVC.showType = 1;
+        wVC.showType = 6;
         [self.navigationController pushViewController:wVC animated:YES];
     }else if (CompareString(title, @"设置")) {
         if ([UserGet(@"isLogin") isEqualToString:@"YES"]) {

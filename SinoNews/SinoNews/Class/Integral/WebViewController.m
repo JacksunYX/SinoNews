@@ -89,7 +89,7 @@
         case 6:
         {
             self.navigationItem.title = @"广告合作";
-            self.baseUrl = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, News_aboutUs)];
+            self.baseUrl = [NSString stringWithFormat:@"%@%@",DomainString,AppendingString(VersionNum, User_cooperation)];
         }
             break;
         default:

@@ -98,6 +98,8 @@
 #define News_pointsRule     @"/api/news/pointsRule"
 //等级规则
 #define News_levelRule      @"/api/news/levelRule"
+//广告合作
+#define User_cooperation      @"/api/user/cooperation"
 
 //查看未读私信数量(get)
 #define GetCountOfUnreadMessage @"/api/message/getCountOfUnreadMessage"

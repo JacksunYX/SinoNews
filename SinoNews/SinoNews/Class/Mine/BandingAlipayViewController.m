@@ -149,7 +149,9 @@
         [self.confirmBtn removeFromSuperview];
     }
     UserModel *user = [UserModel getLocalUserModel];
-    self.account.text = [NSString stringWithFormat:@"%ld",user.mobile];
+    if (user.mobile) {
+        self.account.text = [NSString stringWithFormat:@"%ld",user.mobile];
+    }
 }
 
 -(void)confirmAction:(UIButton *)sender
@@ -181,9 +183,9 @@
     if (![NSString isEmpty:self.aliModel.fullName]) {
         return NO;
     }
-    if (textField==self.account) {
-        return NO;
-    }
+//    if (textField==self.account) {
+//        return NO;
+//    }
     return YES;
 }
 

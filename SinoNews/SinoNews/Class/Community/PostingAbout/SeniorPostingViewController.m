@@ -40,7 +40,8 @@
 @property (nonatomic,strong) UIView *bottomView;
 @property (nonatomic,strong) UIButton *showKeyboard;
 @property (nonatomic,strong) UIButton *emojiKeyboard;
-@property (nonatomic,strong) UIButton *addPeopleBtn;  //@按钮
+@property (nonatomic,strong) UIButton *addPeopleBtnTop;  //@按钮
+@property (nonatomic,strong) UIButton *addPeopleBtnBottom;  //@按钮
 //emoji键盘
 @property (nonatomic,strong) WTEmoticonInputView *emoticonInputView;
 
@@ -229,9 +230,20 @@
         _bottomView.backgroundColor = WhiteColor;
         
         _emojiKeyboard = [UIButton new];
+        UIButton *addTitleBtn = [UIButton new];
+        UIButton *addContentBtn = [UIButton new];
+        UIButton *addImageBtn = [UIButton new];
+        UIButton *addVideoBtn = [UIButton new];
+        _addPeopleBtnTop = [UIButton new];
         _showKeyboard = [UIButton new];
+        CGFloat avgSpaceX = 25;
         [_bottomView sd_addSubviews:@[
                                       _emojiKeyboard,
+                                      addTitleBtn,
+                                      addContentBtn,
+                                      addImageBtn,
+                                      addVideoBtn,
+                                      _addPeopleBtnTop,
                                       _showKeyboard,
                                       ]];
         
@@ -245,6 +257,47 @@
         [_emojiKeyboard setSelectedImage:UIImageNamed(@"systemKeyboard_icon")];
         [_emojiKeyboard addTarget:self action:@selector(changeKeyboardType) forControlEvents:UIControlEventTouchUpInside];
         
+        addTitleBtn.sd_layout
+        .centerYEqualToView(_bottomView)
+        .leftSpaceToView(_emojiKeyboard, avgSpaceX)
+        .widthIs(15)
+        .heightIs(19)
+        ;
+        [addTitleBtn setNormalImage:UIImageNamed(@"addTitle_post1")];
+        
+        addContentBtn.sd_layout
+        .centerYEqualToView(_bottomView)
+        .leftSpaceToView(addTitleBtn, avgSpaceX)
+        .widthIs(22)
+        .heightEqualToWidth()
+        ;
+        [addContentBtn setNormalImage:UIImageNamed(@"addContent_post1")];
+        
+        addImageBtn.sd_layout
+        .centerYEqualToView(_bottomView)
+        .leftSpaceToView(addContentBtn, avgSpaceX)
+        .widthIs(22)
+        .heightEqualToWidth()
+        ;
+        [addImageBtn setNormalImage:UIImageNamed(@"addImage_icon1")];
+        
+        addVideoBtn.sd_layout
+        .centerYEqualToView(_bottomView)
+        .leftSpaceToView(addImageBtn, avgSpaceX)
+        .widthIs(25)
+        .heightIs(19)
+        ;
+        [addVideoBtn setNormalImage:UIImageNamed(@"addVedio_post1")];
+        
+        _addPeopleBtnTop.sd_layout
+        .centerYEqualToView(_bottomView)
+        .leftSpaceToView(addVideoBtn, avgSpaceX)
+        .widthIs(22)
+        .heightEqualToWidth()
+        ;
+        [_addPeopleBtnTop setNormalImage:UIImageNamed(@"attentionPeople_normal")];
+        [_addPeopleBtnTop setSelectedImage:UIImageNamed(@"attentionPeople_light")];
+        
         _showKeyboard.sd_layout
         .rightSpaceToView(_bottomView, 15)
         .centerYEqualToView(_bottomView)
@@ -253,6 +306,18 @@
         ;
         [_showKeyboard setNormalImage:UIImageNamed(@"hiddenKeyboard_icon")];
         [_showKeyboard addTarget:self action:@selector(showOrHideKeyboard:) forControlEvents:UIControlEventTouchUpInside];
+        
+        addTitleBtn.tag = 1;
+        addContentBtn.tag = 2;
+        addImageBtn.tag = 3;
+        addVideoBtn.tag = 4;
+        _addPeopleBtnTop.tag = 5;
+        
+        [addTitleBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [addContentBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [addImageBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [addVideoBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+        [_addPeopleBtnTop addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _bottomView;
@@ -549,7 +614,7 @@
     UIButton *addContentBtn = [UIButton new];
     UIButton *addImageBtn = [UIButton new];
     UIButton *addVideoBtn = [UIButton new];
-    _addPeopleBtn = [UIButton new];
+    _addPeopleBtnBottom = [UIButton new];
     UIButton *showKeyboardBtn = [UIButton new];
     //布局
     CGFloat avgSpaceX = 25;
@@ -559,7 +624,7 @@
                                    addContentBtn,
                                    addImageBtn,
                                    addVideoBtn,
-                                   _addPeopleBtn,
+                                   _addPeopleBtnBottom,
                                    showKeyboardBtn,
                                    
                                    ]];
@@ -603,14 +668,14 @@
     ;
     [addVideoBtn setNormalImage:UIImageNamed(@"addVedio_post1")];
     
-    _addPeopleBtn.sd_layout
+    _addPeopleBtnBottom.sd_layout
     .centerYEqualToView(functionView)
     .leftSpaceToView(addVideoBtn, avgSpaceX)
     .widthIs(22)
     .heightEqualToWidth()
     ;
-    [_addPeopleBtn setNormalImage:UIImageNamed(@"attentionPeople_normal")];
-    [_addPeopleBtn setSelectedImage:UIImageNamed(@"attentionPeople_light")];
+    [_addPeopleBtnBottom setNormalImage:UIImageNamed(@"attentionPeople_normal")];
+    [_addPeopleBtnBottom setSelectedImage:UIImageNamed(@"attentionPeople_light")];
     
     showKeyboardBtn.sd_layout
     .centerYEqualToView(functionView)
@@ -625,7 +690,7 @@
     addContentBtn.tag = 2;
     addImageBtn.tag = 3;
     addVideoBtn.tag = 4;
-    _addPeopleBtn.tag = 5;
+    _addPeopleBtnBottom.tag = 5;
     showKeyboardBtn.tag = 6;
     
     [emojiBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
@@ -633,20 +698,20 @@
     [addContentBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [addImageBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [addVideoBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
-    [_addPeopleBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
+    [_addPeopleBtnBottom addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     [showKeyboardBtn addTarget:self action:@selector(functionActions:) forControlEvents:UIControlEventTouchUpInside];
     
 #ifndef OpenRemindPeople
     _addPeopleBtn.hidden = YES;
 #endif
     
-    emojiBtn.sd_layout
-    .centerYEqualToView(functionView)
-    .leftSpaceToView(functionView, 0)
-    .widthIs(0)
-    .heightIs(23)
-    ;
-    [emojiBtn setHidden:YES];
+//    emojiBtn.sd_layout
+//    .centerYEqualToView(functionView)
+//    .leftSpaceToView(functionView, 0)
+//    .widthIs(0)
+//    .heightIs(23)
+//    ;
+//    [emojiBtn setHidden:YES];
 //    [_emojiKeyboard removeFromSuperview];
 }
 
@@ -775,12 +840,16 @@
 {
     //修改角标状态
     if (self.remindArr.count>0) {
-        [self.addPeopleBtn showBadgeWithStyle:WBadgeStyleNumber value:self.remindArr.count animationType:WBadgeAnimTypeNone];
-        self.addPeopleBtn.badgeBgColor = HexColor(#FF5858);
+        [self.addPeopleBtnTop showBadgeWithStyle:WBadgeStyleNumber value:self.remindArr.count animationType:WBadgeAnimTypeNone];
+        self.addPeopleBtnTop.badgeBgColor = HexColor(#FF5858);
+        [self.addPeopleBtnBottom showBadgeWithStyle:WBadgeStyleNumber value:self.remindArr.count animationType:WBadgeAnimTypeNone];
+        self.addPeopleBtnBottom.badgeBgColor = HexColor(#FF5858);
     }else{
-        [self.addPeopleBtn clearBadge];
+        [self.addPeopleBtnTop clearBadge];
+        [self.addPeopleBtnBottom clearBadge];
     }
-    self.addPeopleBtn.selected = self.remindArr.count>0?YES:NO;
+    self.addPeopleBtnTop.selected = self.remindArr.count>0?YES:NO;
+    self.addPeopleBtnBottom.selected = self.remindArr.count>0?YES:NO;
 }
 
 //添加/修改小标题
